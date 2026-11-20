@@ -1,0 +1,71 @@
+{
+  "note": "Nothing on this page has been implemented. Reply in chat with a suggestion ID and option letter (for example, 'S-01: B') to choose a path. Each option lists its trade-offs.",
+  "suggestions": [
+    {
+      "id": "S-01",
+      "topic": "Price display method",
+      "question": "How should prices appear, if at all?",
+      "options": [
+        {"id": "A", "label": "No prices on the site", "pros": "Fully compliant with the price rule (S-02 s.2(b)); no stale data risk.", "cons": "Less decision help for buyers."},
+        {"id": "B", "label": "Prices via Amazon-served link widgets", "pros": "Prices come from Amazon, the permitted source under S-02 s.2(b).", "cons": "Needs a dynamic embed and review of the current terms."},
+        {"id": "C", "label": "Prices via PA API", "pros": "Live data for comparison tables.", "cons": "Needs API credentials and a policy check of the PA API terms first."}
+      ],
+      "recommendation": "Option A until a method is verified (advisory only)."
+    },
+    {
+      "id": "S-02",
+      "topic": "Hosting for click counter and analytics",
+      "question": "Where should the outbound-click counter and analytics endpoint run?",
+      "options": [
+        {"id": "A", "label": "Keep static GitHub Pages; use no click counter", "pros": "Simplest and free (S-07).", "cons": "No click or conversion measurement; FLG-05 and FLG-06 stay open."},
+        {"id": "B", "label": "Hosted analytics service plus a self-hosted endpoint on a server you control", "pros": "Meets the 'self-hosted analytics endpoint' request.", "cons": "Needs a server and a cookie and privacy disclosure (S-02 s.3(e))."},
+        {"id": "C", "label": "Static site plus privacy-friendly analytics script, no custom endpoint", "pros": "Quick to start.", "cons": "Not self-hosted; still needs a privacy disclosure."}
+      ],
+      "recommendation": "Decide the five events (FLG-05) first, then choose B or C (advisory only)."
+    },
+    {
+      "id": "S-03",
+      "topic": "Product imagery",
+      "question": "What imagery should appear?",
+      "options": [
+        {"id": "A", "label": "Text and CSS only (current)", "pros": "No rights questions.", "cons": "Less visual appeal."},
+        {"id": "B", "label": "Original photography you own or license", "pros": "Distinctive and compliant.", "cons": "Cost and time."},
+        {"id": "C", "label": "Amazon-hosted product images", "pros": "Familiar to buyers.", "cons": "Requires review of Program Content rules (S-02 s.6(a)) before use."}
+      ],
+      "recommendation": "Option A now; move to B when budget allows (advisory only)."
+    },
+    {
+      "id": "S-04",
+      "topic": "Byline and brand",
+      "question": "Who is named as the author, and what is the brand?",
+      "options": [
+        {"id": "A", "label": "Unnamed editorial team (current)", "pros": "Nothing invented.", "cons": "Less trust signal."},
+        {"id": "B", "label": "Named real author with verifiable bio", "pros": "Stronger publication feel.", "cons": "Requires the person's consent and accurate details."},
+        {"id": "C", "label": "Brand name chosen by you", "pros": "Own identity.", "cons": "Requires a name check before use."}
+      ],
+      "recommendation": "Option A until a real person or brand is confirmed (advisory only)."
+    },
+    {
+      "id": "S-05",
+      "topic": "Publishing cadence",
+      "question": "How often should new guides be published?",
+      "options": [
+        {"id": "A", "label": "Weekly", "pros": "Fast learning loop.", "cons": "Higher workload."},
+        {"id": "B", "label": "Every two weeks", "pros": "Balanced.", "cons": "Slower learning."},
+        {"id": "C", "label": "Monthly", "pros": "Low workload.", "cons": "Little data per cycle."}
+      ],
+      "recommendation": "Every two weeks, with a review after the first measured cycle (advisory only)."
+    },
+    {
+      "id": "S-06",
+      "topic": "Link strategy",
+      "question": "Which links should the site use?",
+      "options": [
+        {"id": "A", "label": "Keep the five supplied short links", "pros": "Already in use; no change needed.", "cons": "Compliance unresolved (FLG-02)."},
+        {"id": "B", "label": "Switch to tested Special Links after the Associates test passes", "pros": "Matches the request and the Special Link rules (S-02 s.2).", "cons": "Needs the test (FLG-04) and intended ASINs (FLG-01)."},
+        {"id": "C", "label": "Keep the short links and add a Special Link next to each", "pros": "Lets you compare the two tracking reports.", "cons": "Duplicate links."}
+      ],
+      "recommendation": "Option B after the Special Link test and the ASIN confirmation (advisory only)."
+    }
+  ]
+}

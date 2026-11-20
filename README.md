@@ -1,31 +1,38 @@
-# Counterwise
+# Counterwise (working name)
 
-A publication-style kitchen buying guide site, with question-led editorial content, prominent Amazon Associates disclosure, an evidence register, open decision questions, and explicit review gates.
+A publication-style kitchen buying guide site for five Amazon listings (three air fryers and ovens, two meat thermometers), with an evidence register, an Associates disclosure above the fold on every page, open decision questions, and a Flagged for Review page.
 
-## What’s on the site
+- **Live site (expected URL, confirm after deploy):** https://sassnarep3-star.github.io/WinB/ (published from `docs/` by `.github/workflows/pages.yml`)
+- **Data (source of truth):** `data/` — `products.json` (register), `sources.json` (S-01…S-10), `flags.json` (FLG-01…FLG-19), `questions.json`, `suggestions.json`, `campaign_ledger.csv` (empty by design).
+- **Build:** `python3 scripts/build.py` regenerates `docs/` and validates it. Exit code 1 means a rule failed; do not publish. CI runs the same check and fails if committed `docs/` differs from the build.
+- **Analytics client:** `scripts/assets/counterwise.js` (copied to `docs/assets/`). Review mode: no endpoint is configured, so it logs to the console and sends nothing.
+- **Archive:** `archive/counterwise-root-site/` holds the superseded root-level site from earlier sessions (kept, not served). See FLG-18.
+- **Coordination:** `COORDINATION.md` — the shared task board, claims, verification log, irregularities, and integration log.
 
-- **Front page** (`index.html`) — publication-style landing page: buyer’s notebook guides, category navigation (air fryers, kitchen appliances), reader capture, disclosure strip above the fold and in the footer.
-- **Guides** (`guides/`) — four question-shaped buying guides: basket vs oven air fryer, capacity checklist, cleanup and counter space, multi-function appliances. Each carries an author byline and editorial note.
-- **Category dashboards** (`guides/category/`) — air fryers and kitchen appliances category pages organizing the guides by topic.
-- **Evidence & review** (`review/index.html`) — executive summary, product evidence register (intended ASIN / official listing URL / confirmation date / observed redirect target, intent and destination kept as separate fields), questions-answers-missing-evidence table, suggestions for review (not automatic changes), empty campaign ledger, measurement status, disclosure & policy gates, sources, and a flagged-for-review list.
-- **SEO artifacts** — `sitemap.xml` and `feed.xml` (RSS).
-- **Analytics** — `assets/counterwise.js`, a privacy-preserving, self-hosted first-party event client implementing the five defined events (`page_view`, `outbound_click`, `guide_engaged`, `disclosure_view`, `affiliate_conversion_reported`). The last is entered only from a dated authorized Associates report, never inferred. Endpoint URL is configurable; in review mode (no endpoint) events log to console only.
+## What the build enforces
 
-## Preview locally
+1. The Associates statement, verbatim from Operating Agreement s.5, sits above the fold and in the footer on every page.
+2. Every Amazon-hosted link carries `rel="sponsored noopener"`.
+3. Every blank value is marked unverified and linked to a flag. Nothing is inferred.
+4. Internal links resolve. The only script allowed is `assets/counterwise.js`. The client must not write cookies or browser storage, and no analytics endpoint may be configured in a page.
 
-Open `index.html` directly, or run a static server from the repository root, for example `python3 -m http.server 8000`.
+## Not built or not verified (see Flagged for Review)
 
-## Publish with GitHub Pages
+- Analytics endpoint and hosting (FLG-06). Five events to be confirmed (FLG-05).
+- Special Link test in an Associates account (FLG-04). Scaling is blocked until it passes.
+- Commission rates and prices (FLG-07, FLG-08).
+- Intended ASINs and tracking-ID validity (FLG-01, FLG-03). Redirect compliance (FLG-02).
+- Search Console verification (FLG-13).
 
-The workflow in `.github/workflows/pages.yml` publishes the repository root when pushed to `main`. Enable GitHub Pages in repository settings using GitHub Actions. The checked-in canonical and sitemap URLs assume `https://sassnarep3-star.github.io/WinB/`; confirm that value against the actual Pages configuration before launch.
-
-## Evidence and safety boundary
-
-The five submitted Amazon short links and tracking ID `shopnow047c-20` are recorded in `review/index.html`. The short links have not been resolved or validated; blank product fields are intentionally blank and flagged unverified. Product identities, specifications, prices, reviews, commissions, demand, and sales are not claimed. No live analytics or conversion integration is configured. See the review page for official policy references, missing-information discovery steps, and flagged items.
-
-## Official sources referenced (verified live)
+## Official sources (accessed 2026-11-20)
 
 - Amazon Associates Program Operating Agreement: https://affiliate-program.amazon.com/help/operating/agreement (updated Oct 15, 2025)
 - Amazon Associates Program Policies: https://affiliate-program.amazon.com/help/operating/policies (updated Apr 14, 2026)
-- FTC Endorsement Guides: What People Are Asking: https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking
 - FTC Disclosures 101 for Social Media Influencers: https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers (Nov 2019)
+- 16 CFR 255.0 (Endorsement Guides): https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.0
+- Google, qualify outbound links (rel="sponsored"): https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
+- GitHub Docs, publishing sources for GitHub Pages: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+
+## Publishing
+
+Pushes to `main` run `.github/workflows/pages.yml`. It rebuilds and validates `docs/`, then deploys it. To change content, edit `data/` or `scripts/`, run `python3 scripts/build.py`, and commit `docs/` with the change.

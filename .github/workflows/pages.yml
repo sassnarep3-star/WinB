@@ -15,16 +15,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate site files
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Rebuild and validate the site (fails on any broken rule or link)
+        run: python3 scripts/build.py
+      - name: Committed docs/ must match the build
         run: |
-          test -f index.html
-          test -f styles.css
-          test -f sitemap.xml
-          test -f feed.xml
-          for file in guides/basket-or-oven.html guides/capacity-checklist.html guides/cleanup-counter.html guides/multifunction.html review/index.html; do test -f "$file"; done
+          if [ -n "$(git status --porcelain -- docs)" ]; then
+            echo "docs/ differs from the build output. Run python3 scripts/build.py and commit."
+            git status --porcelain -- docs
+            exit 1
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: docs
   deploy:
     environment:
       name: github-pages
