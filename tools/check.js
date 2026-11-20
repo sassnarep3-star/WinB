@@ -38,6 +38,10 @@ const htmlFiles = [];
 })(ROOT);
 
 const relRoot = (f) => '/' + path.relative(ROOT, f).split(path.sep).join('/');
+
+/* The deployed site lives at a project path (/WinB). Strip it before resolving to a file on disk. */
+const BASE_PATH = (process.env.CK_BASE_PATH !== undefined ? process.env.CK_BASE_PATH : '/WinB').replace(/\/$/, '');
+const stripBase = (p) => (BASE_PATH && p.startsWith(BASE_PATH + '/') ? p.slice(BASE_PATH.length) : p);
 const exists = (relPath) => {
   const clean = relPath.split('#')[0].split('?')[0];
   if (!clean) return true;
@@ -67,7 +71,7 @@ for (const file of htmlFiles) {
     let p = href;
     if (p.startsWith(BASE)) p = p.slice(BASE.length) || '/';
     if (!p.startsWith('/')) continue; /* relative anchors within page */
-    if (!exists(p)) fail.push(`${rel}: broken reference -> ${href}`);
+    if (!exists(stripBase(p))) fail.push(`${rel}: broken reference -> ${href}`);
   }
 
   /* 2 & 3. rel correctness */
@@ -124,6 +128,10 @@ for (const file of htmlFiles) {
   }
   if (!html.includes('class="disclosure"')) fail.push(`${rel}: missing the under-masthead disclosure strip`);
   if (!html.includes('class="footer-disclosure"')) fail.push(`${rel}: missing the footer disclosure`);
+
+  /* 4b. unresolved build tokens must never reach a reader */
+  const token = html.match(/\{\{[A-Z_]+\}\}/);
+  if (token) fail.push(`${rel}: unresolved build token ${token[0]}`);
 
   /* 5. metadata */
   if (!isGo) {

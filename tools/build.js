@@ -62,7 +62,8 @@ const esc = (s) =>
  * they also make the output deployment-agnostic: the same build works at a project path or a domain.
  * Absolute URLs are still used where a search engine needs one (canonical, og:url, sitemap, feed).
  */
-const rel = (href) => (href.startsWith('/') ? href : '/' + href);
+const BASE_PATH = (process.env.CK_BASE_PATH !== undefined ? process.env.CK_BASE_PATH : '/WinB').replace(/\/$/, '');
+const rel = (href) => BASE_PATH + (href.startsWith('/') ? href : '/' + href);
 
 /** Link to a source row on the verification page, with the external URL as the target. */
 function src(id, opts = {}) {
@@ -261,8 +262,8 @@ function productCard(p, { rank } = {}) {
     <div class="productcard__foot">
       ${buyButton(p)}
       <div class="productcard__meta">
-        <span class="price-note">Price shown on Amazon. ${badge('No price in this HTML', 'info')}</span>
-        <a class="quietlink" href="${rel(`/verification/links.html`)}#${esc(p.id)}">Link &amp; source record</a>
+        <span class="price-note">Live price and availability are on Amazon — this page cannot keep them current.</span>
+        <a class="quietlink" href="${rel(`/verification/links.html`)}#${esc(p.id)}">Where this claim comes from</a>
       </div>
     </div>
   </article>`;
@@ -1076,6 +1077,7 @@ for (const g of GUIDES) {
       s.publisher
     )}</span>`,
     esc(s.tier),
+    esc(s.evidence || '—'),
     esc(s.dated),
     s.verified ? badge('Retrieved ' + s.retrieved, 'ok') : badge(s.status || 'not verified', 'warn'),
     s.supports.length ? `<ul class="mini">${s.supports.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : '<span class="muted">nothing quoted</span>',
@@ -1086,7 +1088,11 @@ for (const g of GUIDES) {
     <h1>Source register</h1>
     <p class="lede">A source appears here only if it was actually fetched during the build. Every row records the publisher, the date on the document, the retrieval date, and what the document is cited for. Sources that could not be reached are listed too, and marked.</p>
   </div>
-  ${table({ cols: ['ID', 'Source', 'Tier', 'Document date', 'Status', 'What it supports'], rows })}
+  <div class="callout">
+    <h3>Evidence tier — what "verified" is allowed to mean here</h3>
+    <p>The sources below were not all checked to the same depth, and the register says so rather than implying a single standard. <strong>A — full text:</strong> the document was retrieved and the relevant section read end to end. <strong>B — section:</strong> the specific section cited was retrieved and quoted, but the whole document was not. <strong>C — secondary:</strong> a third party, used for orientation only and never to support a claim.</p>
+  </div>
+  ${table({ cols: ['ID', 'Source', 'Tier', 'Evidence', 'Document date', 'Status', 'What it supports'], rows })}
   <section class="section">
     <div class="callout">
       <h3>Quoted text</h3>
@@ -1478,6 +1484,7 @@ for (const g of GUIDES) {
     </ul>
 
     <h2>How the site is built</h2>
+    <p class="fineprint">Generated surface: {{PAGECOUNT}} pages plus {{LINKPAGECOUNT}} link-interstitial pages, produced from JSON data files on 2026-11-20 and verified by the build gate before publication. The numbers are written by the build, not typed by hand.</p>
     <p>The pages are generated from JSON data files by a small Node build script. That is not engineering vanity: it is what makes the compliance rules enforceable. The build fails if a product link is not marked sponsored, if a claim cites a source that is not registered, or if a page loses its disclosure. See the <a href="${rel(
       '/compliance/index.html'
     )}">compliance gate</a>.</p>
@@ -1905,21 +1912,35 @@ function write(relPath, content) {
   fs.writeFileSync(full, content);
 }
 
+/**
+ * Numbers that describe the build are substituted here, after every page object exists.
+ * An earlier version interpolated the page count inside a page body while the build was still
+ * running, which printed 18 where the true total was 27. Injected counts must be deferred.
+ */
+const TOKENS = {
+  '{{PAGECOUNT}}': String(PAGES.length),
+  '{{LINKPAGECOUNT}}': String(PRODUCTS.products.length),
+};
+const resolveTokens = (html) =>
+  Object.entries(TOKENS).reduce((acc, [k, v]) => acc.split(k).join(v), html);
+
 PAGES.forEach((p) => {
-  const extra = p.extra || {};
-  const html = page({
-    title: p.title,
-    description: p.description,
-    canonicalPath: p.routePath,
-    body: p.body,
-    jsonLd: p.jsonLd,
-    noindex: p.noindex,
-  });
+  const html = resolveTokens(
+    page({
+      title: p.title,
+      description: p.description,
+      canonicalPath: p.routePath,
+      body: p.body,
+      jsonLd: p.jsonLd,
+      noindex: p.noindex,
+    })
+  );
   write(p.routePath, html);
-  if (p.routePath === '/index.html') write('/index.html', html);
 });
 
 PRODUCTS.products.forEach((p) => write(`/go/${p.slug}.html`, goPage(p)));
+
+
 
 /* ---------------------------------------------------------------- sitemap, robots, feed */
 
@@ -1943,19 +1964,14 @@ write(
   '/robots.txt',
   `User-agent: *
 Allow: /$
-Allow: /index.html
-Allow: /products/
-Allow: /guides/
-Allow: /decisions/
-Allow: /verification/
-Allow: /flagged/
-Allow: /compliance/
-Allow: /about/
-Allow: /platform/
-Disallow: /go/
+
+# This repository is served at a project path (/WinB), so a bare "Disallow: /go/" would name a
+# directory at the domain root that this site does not own. Both forms are listed deliberately.
+Disallow: /WinB/go/
 
 Sitemap: ${BASE}/sitemap.xml
 `
+
 );
 
 const feedItems = GUIDES.map(

@@ -35,7 +35,8 @@
           "ref": "Section 1",
           "text": "The links must properly use the special “tagged” link formats we provide and comply with this Agreement (“Special Links”)."
         }
-      ]
+      ],
+      "evidence": "B — sections 1, 5 and 6 read and quoted"
     },
     {
       "id": "S02",
@@ -70,7 +71,8 @@
           "ref": "IP License Agent Terms (a)",
           "text": "No Agent may access, use, or interact with Program Content unless, at all times, it identifies itself"
         }
-      ]
+      ],
+      "evidence": "B — five sections read: Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License, Agent Terms"
     },
     {
       "id": "S03",
@@ -84,7 +86,8 @@
       "supports": [],
       "quotes": [],
       "status": "blocked",
-      "note": "Seller Central requires a signed-in seller account. The ASIN is therefore defined here only as it is used by Amazon in retrieved documents, and the glossary link is offered for the owner's own manual review. No definition text is quoted."
+      "note": "Seller Central requires a signed-in seller account. The ASIN is therefore defined here only as it is used by Amazon in retrieved documents, and the glossary link is offered for the owner's own manual review. No definition text is quoted.",
+      "evidence": "not retrieved"
     },
     {
       "id": "S04",
@@ -106,7 +109,8 @@
           "ref": "Section 1",
           "text": "(x) 24 hours elapse from that click"
         }
-      ]
+      ],
+      "evidence": "B — section 1 read and quoted"
     },
     {
       "id": "S05",
@@ -134,7 +138,8 @@
           "ref": "What Else to Know",
           "text": "You can’t talk about your experience with a product you haven’t tried."
         }
-      ]
+      ],
+      "evidence": "A — full page read"
     },
     {
       "id": "S06",
@@ -148,7 +153,8 @@
       "supports": [],
       "quotes": [],
       "status": "referenced-only",
-      "note": "Linked from S05 as further reading. Not retrieved in this build, so nothing is quoted from it and no claim depends on it."
+      "note": "Linked from S05 as further reading. Not retrieved in this build, so nothing is quoted from it and no claim depends on it.",
+      "evidence": "not retrieved"
     },
     {
       "id": "S07",
@@ -168,7 +174,8 @@
           "ref": "intro",
           "text": "Google supports the sitemap formats defined by the sitemaps protocol"
         }
-      ]
+      ],
+      "evidence": "B — intro and format comparison read"
     },
     {
       "id": "S08",
@@ -182,7 +189,8 @@
       "supports": [],
       "quotes": [],
       "status": "blocked",
-      "note": "The protocol document itself was not retrieved from this sandbox. The sitemap built here follows the element names Google documents in S07 (urlset, url, loc, lastmod). The protocol link is offered for manual review."
+      "note": "The protocol document itself was not retrieved from this sandbox. The sitemap built here follows the element names Google documents in S07 (urlset, url, loc, lastmod). The protocol link is offered for manual review.",
+      "evidence": "not retrieved"
     },
     {
       "id": "S09",
@@ -198,7 +206,8 @@
       ],
       "quotes": [],
       "status": "secondary-not-authoritative",
-      "note": "This is a third-party blog, not an Amazon document. It is recorded because it was read, and it is deliberately not used to support any claim about the supplied links. The behaviour of the five supplied links is recorded from direct observation instead (see link-audit.json)."
+      "note": "This is a third-party blog, not an Amazon document. It is recorded because it was read, and it is deliberately not used to support any claim about the supplied links. The behaviour of the five supplied links is recorded from direct observation instead (see link-audit.json).",
+      "evidence": "C — third-party blog, orientation only"
     },
     {
       "id": "S10",
@@ -212,7 +221,8 @@
       "supports": [],
       "quotes": [],
       "status": "referenced-only",
-      "note": "Entry point for SiteStripe and link-generation help. Not retrieved; linked for the owner."
+      "note": "Entry point for SiteStripe and link-generation help. Not retrieved; linked for the owner.",
+      "evidence": "not retrieved"
     },
     {
       "id": "S11",
@@ -226,7 +236,8 @@
       "supports": [],
       "quotes": [],
       "status": "referenced-only",
-      "note": "The site ships an internal, privacy-preserving event counter and does not load a third-party analytics script, so no GA4 claim is made. The link is provided for the owner's decision on Q-05."
+      "note": "The site ships an internal, privacy-preserving event counter and does not load a third-party analytics script, so no GA4 claim is made. The link is provided for the owner's decision on Q-05.",
+      "evidence": "not retrieved"
     }
   ]
 }
