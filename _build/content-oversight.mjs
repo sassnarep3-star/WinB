@@ -4,6 +4,7 @@
 
 import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, MOMENTS, TOPIC_QUEUE, PATHS } from './data.mjs';
 import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink } from './core.mjs';
+import { DECISION_QUEUE, BLOCKING_QUESTIONS, OWNER_ACTIONS } from './decision-queue.mjs';
 
 // ------------------------------------------------------------- decision room
 export function decisionsPage() {
@@ -506,7 +507,7 @@ ${pageHead({
     path: '/flagged/',
     title: 'Flagged for Review — unverified items and irregularities | Counterwise',
     description:
-      'Nine flagged items with evidence and official sources: untagged short links, unconfirmed intended ASINs, no hands-on testing, withheld prices, and unmeasured traffic.',
+      'Every item that could not be confirmed, each with its evidence, its official source where one exists, and the action that would close it — including two irregularities found and fixed in this cycle.',
     body,
   });
 }
@@ -518,7 +519,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'How we choose' }],
   kicker: 'Standards',
   title: 'How this site works',
-  lede: 'Four rules, applied to every page. If a page breaks one of them, that is a bug — tell us and it gets fixed or the page comes down.',
+  lede: 'Five rules, applied to every page. An earlier version broke one of them by calling published specifications unpublished; that is recorded on the Flagged page and fixed. If a page breaks a rule, it is a bug.',
 })}
 <section class="section">
   <div class="wrap-narrow prose">
@@ -535,8 +536,13 @@ ${pageHead({
     <p>Each product page also offers a plainly-labelled untagged listing link, marked “no commission”, so a reader who does not want to use an affiliate link can still check the product. It is marked the same way for search engines.</p>
 
     <h2>Rule four: what cannot be sourced is blank, and labelled</h2>
-    <p>Wattage is blank. Counter footprint is blank. Probe length is blank. In each case the listing did not state it in the data this desk could read, and guessing a plausible range is the exact failure mode this project was set up to avoid. A blank with “not stated” beside it is a fact; a plausible number would be a fabrication.</p>
-    <p>Every blank is also collected on the <a href="/flagged/">Flagged for Review</a> page with the action that would resolve it.</p>
+    <p>Counter footprint is blank for all three air fryers. External dimensions for the two thermometers are blank. Probe length is blank. In each case the listing did not state it in the data this desk could read, and guessing a plausible range is the exact failure mode this project was set up to avoid. A blank with “not stated” beside it is a fact; a plausible number would be a fabrication.</p>
+    <p>The reverse rule applies too, and an earlier version of this page broke it. Wattage, temperature range, model numbers and warranty terms <em>were</em> published on the listings, and the site was reporting them as “not stated”. That was fixed on 2026-11-20: those values are now printed, transcribed from the listing, with the phrase they came from. See <a href="/flagged/#FLG-014">FLG-014</a>. A specification only counts as missing when the listing is actually silent.</p>
+    <p>Where a single listing states two different values for the same thing, both are printed and the disagreement is flagged rather than quietly resolved — see <a href="/flagged/#FLG-013">FLG-013</a>.</p>
+    <p>Every genuine blank is collected on the <a href="/flagged/">Flagged for Review</a> page with the action that would resolve it.</p>
+
+    <h2>Rule five: report what buyers actually complain about</h2>
+    <p>Amazon publishes, above the reviews, a count of how many reviewers mentioned a given feature and how those mentions split positive and negative. It is the most decision-relevant thing on a product page and most buying guides ignore it. Each product page here reproduces those counts, attributed to Amazon, sorted worst-first, with a source line. They are not this desk’s sample and they are not a rating.</p>
 
     <hr>
     <h2>The disclosure, and why it is where it is</h2>
@@ -567,7 +573,7 @@ ${pageHead({
     path: '/methods/',
     title: 'How we choose — standards and limits | Counterwise',
     description:
-      'The four rules behind every page: no hands-on claim without the product, no prices or ratings, tagged sponsored links, and blanks instead of guesses.',
+      'The five rules behind every page: no hands-on claim without the product, no prices or ratings, tagged sponsored links, blanks instead of guesses, and Amazon’s own review-theme counts reported honestly.',
     body,
   });
 }
@@ -682,13 +688,14 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Executive summary' }],
   kicker: 'For the owner',
   title: 'Executive summary',
-  lede: 'What was built, what it can and cannot claim, what it needs from you, and the four decisions that carry the most weight.',
-  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 5 guides · 11 official sources</p>`,
+  lede: 'What was built, what it can and cannot claim, what it needs from you, and the decisions that carry the most weight.',
+  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 5 guides · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
 })}
 <section class="section">
   <div class="wrap-narrow prose">
     <h2>In one paragraph</h2>
-    <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure above the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. The site reads as a buyer’s publication rather than an audit, with the registers kept in a separate Data Room and the outstanding items on a Flagged for Review page.</p>
+    <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure above the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. This cycle moved the site from a specification summary to a buying decision: the front page now opens with five buyer situations rather than a methodology statement, the comparison table carries stated wattage, temperature range and the weakest review theme per product, and each product page reports what repeat buyers complain about using the counts Amazon itself publishes.</p>
+    <p>Two things were also fixed that mattered more than any addition. The site had been reporting published specifications as “not stated” — wattage, temperature range and model numbers were all on the listings (FLG-014). And three listings contradict themselves on their own figures; both values are now printed rather than one being quietly chosen (FLG-013).</p>
 
     <h2>What the five supplied links turned out to be</h2>
     ${table({
@@ -708,6 +715,8 @@ ${pageHead({
       <li>The required disclosure appears above the masthead on every page, and again in the footer.</li>
       <li>No price, rating or sales figure is reproduced anywhere — checked by the build, not by eye.</li>
       <li>The USDA safe-temperature table is quoted from the agency’s own chart, with rest times.</li>
+      <li>Every stated wattage, temperature range, model number and warranty term is transcribed from the listing, with the phrase it came from recorded in <code>_build/listing-evidence.mjs</code>.</li>
+      <li>Review-theme counts are Amazon’s own published figures, attributed and dated, sorted worst-first.</li>
       <li>The sitemap and RSS feed are generated by the build, so a new guide cannot ship without being listed in both.</li>
     </ul>
 
@@ -717,6 +726,7 @@ ${pageHead({
       <li><b>No traffic, clicks, orders or revenue.</b> No analytics endpoint is deployed, so nothing has been measured. The campaign ledger is empty by design.</li>
       <li><b>No confirmation that the supplied short links credit your account.</b> The resolved URLs carry no tag; the site uses tagged canonical links instead.</li>
       <li><b>No ranking or price comparison.</b> Five products in two categories is a shop, not a market.</li>
+      <li><b>No claim that an unpublished number was published, or the reverse.</b> Where a listing is silent, the cell is blank. Where it contradicts itself, both figures appear.</li>
     </ul>
 
     <h2>The four decisions that matter most</h2>
@@ -741,6 +751,7 @@ ${pageHead({
 
     <h2>What you can review, in order</h2>
     <ol>
+      <li><a href="/suggestions/">Suggestions and the decision queue</a> — ${DECISION_QUEUE.length} proposals with cost, reversibility and failure mode, the ${BLOCKING_QUESTIONS.length} questions that block them, and the five actions only you can take (about fifty minutes total). Start here.</li>
       <li><a href="/decisions/">Decision Room</a> — three paths to choose between, a seasonal topic queue with measurement gates, ${SUGGESTIONS.length} suggestions ordered by priority, ${QUESTIONS.length} questions split into known and unknown, a missing-information discovery plan, and the options rejected with sources.</li>
       <li><a href="/flagged/">Flagged for Review</a> — ${FLAGS.length} items that could not be confirmed, each with evidence and the shortest route to closing it.</li>
       <li><a href="/data-room/">Data Room</a> — the product-intent record, the source register, the automation pipeline, the organic playbook, the five events, and the empty ledger with its schema.</li>
@@ -759,6 +770,164 @@ ${pageHead({
     title: 'Executive summary — Counterwise',
     description:
       'What was built, what the five supplied links resolved to, what the site can and cannot claim, and the four decisions that matter most.',
+    body,
+  });
+}
+
+// ------------------------------------------------------- suggestions review
+// A dedicated surface for reviewing proposals before any is implemented.
+// Three parts, in the order a decision actually gets made:
+//   1. the decisions themselves, with cost, reversibility and failure mode
+//   2. the questions that block them, split into known / missing / how to find
+//   3. the five things only the owner can do, so a stalled queue is visible
+export function suggestionsPage() {
+  const NEWLINE = '\n';
+  const openItems = DECISION_QUEUE.filter((d) => !d.implemented);
+  const doneItems = DECISION_QUEUE.filter((d) => d.implemented);
+
+  const card = (d) => `
+<article class="dec" id="${esc(d.id)}">
+  <div class="dh">
+    <span class="pri">${esc(d.id)}</span>
+    <h3>${esc(d.title)}</h3>
+    ${badge(d.lane, 'plain')}
+    ${d.ownerOnly ? badge('Owner only', 'amber') : badge('Any editor', 'green')}
+    ${d.implemented ? badge('Built in this cycle', 'green') : ''}
+  </div>
+  <div class="rec"><b>Recommendation</b>${esc(d.recommendation)}</div>
+  <dl>
+    <dt>What changes</dt><dd>${esc(d.whatChanges)}</dd>
+    <dt>Why it matters</dt><dd>${esc(d.why)}</dd>
+    <dt>Cost</dt><dd>${esc(d.cost)}</dd>
+    <dt>Reversible</dt><dd>${esc(d.reversible)}</dd>
+    <dt>If it goes wrong</dt><dd>${esc(d.risk)}</dd>
+    <dt>Choose it if</dt><dd>${esc(d.chooseIf)}</dd>
+    <dt>Do not choose it if</dt><dd>${esc(d.notIf)}</dd>
+    <dt>Blocked by</dt><dd>${d.dependsOn.length ? d.dependsOn.map((q) => `<a href="#${esc(q)}">${esc(q)}</a>`).join(' · ') : 'Nothing'}</dd>
+    <dt>How much it costs to be wrong</dt><dd>${d.riskLow ? '<span class="badge green">Low — the change is a revert</span>' : '<span class="badge amber">Not free — money spent, a claim published, or an obligation accepted</span>'}</dd>
+  </dl>
+</article>`;
+
+  const boardRow = (d) => `<tr>
+    <td class="mono tiny">${esc(d.id)}</td>
+    <td><b>${esc(d.title)}</b><br><span class="tiny muted">${esc(d.lane)}</span></td>
+    <td class="tiny">${esc(d.cost)}</td>
+    <td class="tiny">${d.reversible}</td>
+    <td>${d.reversible === 'Yes' || d.reversible.startsWith('Yes') ? '<span class="badge green">Yes</span>' : d.reversible.startsWith('n/a') ? '<span class="badge plain">Information only</span>' : '<span class="badge amber">Hard to undo</span>'}</td>
+    <td class="tiny">${d.dependsOn.length ? d.dependsOn.map((q) => `<a href="#${esc(q)}">${esc(q)}</a>`).join(' ') : '—'}</td>
+    <td>${d.implemented ? '<span class="badge green">Built</span>' : '<span class="badge plain">Awaiting decision</span>'}</td>
+    <td class="tiny"><a href="#${esc(d.id)}">Read the case →</a></td>
+  </tr>`;
+
+  const qCard = (q) => `
+<article class="dec" id="${esc(q.id)}">
+  <div class="dh">
+    <span class="pri">${esc(q.id)}</span>
+    <h3>${esc(q.question)}</h3>
+  </div>
+  <dl>
+    <dt>Unblocks</dt><dd>${esc(q.unblocks)}</dd>
+    <dt>What is known</dt><dd>${esc(q.known)}</dd>
+    <dt>What is missing</dt><dd class="q-missing">${esc(q.missing)}</dd>
+    <dt>How to find out</dt><dd>${esc(q.howToFind)}</dd>
+    <dt>Who can answer</dt><dd>${esc(q.whoCanAnswer)}</dd>
+    <dt>If yes</dt><dd>${esc(q.ifYes)}</dd>
+    <dt>If no</dt><dd>${esc(q.ifNo)}</dd>
+  </dl>
+</article>`;
+
+  const body = `
+${pageHead({
+  trail: [{ href: '/', label: 'Home' }, { label: 'Suggestions' }],
+  kicker: 'Review queue',
+  title: 'Suggestions, and what has to be true before each one',
+  lede: 'Ten proposals, the nine questions blocking them, and the five things only the account owner can do. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it.',
+  meta: `<div class="btn-row">
+    ${badge(openItems.length + ' awaiting a decision', 'amber')}
+    ${badge(doneItems.length + ' built in this cycle', 'green')}
+    ${badge(BLOCKING_QUESTIONS.length + ' blocking questions', 'plain')}
+  </div>`,
+})}
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part one</p>
+        <h2>The decision board</h2>
+        <p>One row per proposal. "Reversible" means a change can be undone without loss; "hard to undo" means it spends money, publishes a claim, or closes a door. Decide the reversible ones quickly and the other ones deliberately.</p>
+      </div>
+    </div>
+    ${table({
+      caption: '<b>Ten proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.',
+      head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Risk', 'Blocked by', 'Status', ''],
+      rows: [...openItems, ...doneItems].map(boardRow),
+    })}
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part two</p>
+        <h2>Nine questions that must be answered first</h2>
+        <p>Each is split into what is known — with where it is known from — what is missing, and the cheapest way to find the missing part. If a question cannot be answered from an official source, it says so instead of guessing.</p>
+      </div>
+    </div>
+    ${BLOCKING_QUESTIONS.map(qCard).join(NEWLINE)}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part three</p>
+        <h2>Five things only you can do</h2>
+        <p>Everything else on this page can be done by an editor with the repository. These five cannot, and the queue does not move far without them. Total time: about fifty minutes.</p>
+      </div>
+    </div>
+    ${table({
+      caption: '<b>The owner checklist.</b> Each item names the decision it unblocks and how long it takes.',
+      head: ['Unblocks', 'Action', 'Time'],
+      rows: OWNER_ACTIONS.map(
+        (a) => `<tr><td class="mono tiny"><a href="#${esc(a.id)}">${esc(a.id)}</a></td><td>${esc(a.action)}</td><td class="tiny">${esc(a.time)}</td></tr>`
+      ),
+    })}
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part four</p>
+        <h2>Read the case for each proposal</h2>
+        <p>The board above is a summary. This is the argument — what changes, what it costs, how it fails, and the condition under which you should not do it.</p>
+      </div>
+    </div>
+    ${openItems.map(card).join(NEWLINE)}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-narrow prose">
+    <h2>How to use this page</h2>
+    <p>Pick a row from Part one. If it is marked "Owner only", it needs the account. If it is blocked, follow the question ID in Part two before deciding. If the answer to a question turns out to be "no", the proposal usually stays a proposal — that is a valid outcome and is recorded in its "Do not choose it if" line.</p>
+    <p>Nothing here is a commitment. The site does not implement a proposal because it is on this page; it implements one when somebody reads it, decides, and changes the build. What is already built is labelled "Built", and the previous queue is preserved in the <a href="/decisions/">Decision Room</a> so the reasoning behind an older choice is still readable.</p>
+    <div class="callout">
+      <h4>What this page deliberately does not do</h4>
+      <p>It does not score the proposals. A score would imply that "conversion" and "trust" can be traded on one axis, and they cannot. It also does not predict revenue: no campaign has run, so any number would be invented.</p>
+    </div>
+  </div>
+</section>`;
+
+  return page({
+    path: '/suggestions/',
+    title: 'Suggestions and the decision queue | Counterwise',
+    description:
+      'Ten proposals for improving this site, each with cost, reversibility and failure mode, plus the nine blocking questions and the five actions only the owner can take.',
     body,
   });
 }

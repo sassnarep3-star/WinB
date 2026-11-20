@@ -12,7 +12,7 @@ import {
 } from './content-shop.mjs';
 import {
   decisionsPage, dataRoom, flaggedPage, methodsPage,
-  aboutPage, privacyPage, execPage,
+  aboutPage, privacyPage, execPage, suggestionsPage,
 } from './content-oversight.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -57,6 +57,9 @@ for (const g of GUIDES) {
 
 write('decisions/index.html', decisionsPage());
 routes.push({ loc: '/decisions/', pri: '0.6', freq: 'weekly' });
+
+write('suggestions/index.html', suggestionsPage());
+routes.push({ loc: '/suggestions/', pri: '0.6', freq: 'weekly' });
 
 write('data-room/index.html', dataRoom());
 routes.push({ loc: '/data-room/', pri: '0.6', freq: 'weekly' });
