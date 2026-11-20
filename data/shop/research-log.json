@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "purpose": "A dated working record of the build: what was attempted, what succeeded, what failed. Failures are kept because a log without them is a marketing document.",
+    "timezone": "UTC, 2026-11-20"
+  },
+  "entries": [
+    {
+      "id": "R-01",
+      "time": "05:28",
+      "action": "Inspected the repository state",
+      "detail": "git log showed one commit (5f65079, 'Initial commit'). The working tree contained README.md only, six bytes, no trailing newline. No branches other than main and the session branch.",
+      "result": "Nothing to review and nothing to delete. Recorded as FLG-008.",
+      "source": null
+    },
+    {
+      "id": "R-02",
+      "time": "05:31",
+      "action": "Tested direct HTTPS access to the retailer",
+      "detail": "curl to amazon.com, affiliate-program.amazon.com and link.amazon all returned code 000 — egress is restricted in the build sandbox to the package registries and GitHub.",
+      "result": "A browser-style page fetch was used instead, which did reach the host. Recorded so the method is not overstated as an automated check.",
+      "source": null
+    },
+    {
+      "id": "R-03",
+      "time": "05:33",
+      "action": "Confirmed the publication target",
+      "detail": "The GitHub Pages API reported the site already built from main at sassnarep3-star.github.io/WinB.",
+      "result": "Live target confirmed, and served from main, which matches the repository's existing configuration.",
+      "source": null
+    },
+    {
+      "id": "R-04",
+      "time": "05:36",
+      "action": "Attempted an automated link resolver on a GitHub runner",
+      "detail": "A workflow printing the redirect chain for all five links was committed and dispatch was attempted.",
+      "result": "Failed. GitHub Actions is disabled for this repository: dispatch returned HTTP 404 and the permissions endpoint returned 403. The workflow file is present but inert. Recorded as FLG-009.",
+      "source": null
+    },
+    {
+      "id": "R-05",
+      "time": "05:40",
+      "action": "Resolved all five supplied short links",
+      "detail": "Each link was opened once and the redirect target recorded. Results: B04G1MEwY to B0CDY277D3, B02NbDxp3 to B09B7SB46R, B00hJ57DV to B08DKYBTPH, B0c8moW59 to B0DHZTCNR5, B0f3GKalj to B0DZFD6R9Z.",
+      "result": "None of the five codes matched the ASIN it resolved to, and none of the five carried a visible tag parameter. Recorded as FLG-003 with intended and observed values in separate columns.",
+      "source": null
+    },
+    {
+      "id": "R-06",
+      "time": "05:44",
+      "action": "Read the Associates Program Policies",
+      "detail": "Sections inspected: Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License and Usage Requirements, and the Agent Terms inside the IP License.",
+      "result": "Three clauses changed the build: price display is restricted to Amazon-served or API data, images may not be cached, and agents must identify themselves in the user agent string.",
+      "source": "S02"
+    },
+    {
+      "id": "R-07",
+      "time": "05:47",
+      "action": "Read the Associates Program Operating Agreement",
+      "detail": "Section 5 was read in full for the exact disclosure sentence, and Section 6 for the termination terms.",
+      "result": "The required sentence was copied verbatim and is now injected into every page twice, once under the masthead and once in the footer.",
+      "source": "S01"
+    },
+    {
+      "id": "R-08",
+      "time": "05:50",
+      "action": "Read the FTC disclosures guidance for endorsers",
+      "detail": "The page was retrieved in full.",
+      "result": "Two rules are now enforced editorially: a disclosure placed only at the end of a page is likely to be missed, and no claim of experience may be made for a product the publisher has not tried. The second rule is why the site never says tested.",
+      "source": "S05"
+    },
+    {
+      "id": "R-09",
+      "time": "05:53",
+      "action": "Attempted to read the Seller Central ASIN glossary",
+      "detail": "The glossary requires a signed-in seller account.",
+      "result": "Not retrieved. The source is listed in the register as unverified with no quoted definition, rather than paraphrased from memory. The link is offered for manual review.",
+      "source": "S03"
+    },
+    {
+      "id": "R-10",
+      "time": "05:56",
+      "action": "Read Google's sitemap documentation",
+      "detail": "Checked which sitemap formats Google accepts and whether it states a preference.",
+      "result": "Google states no preference among supported formats. The site therefore ships an XML sitemap for crawlers and an RSS feed for readers, both generated from the same data.",
+      "source": "S07"
+    },
+    {
+      "id": "R-11",
+      "time": "06:00",
+      "action": "Tried to attribute a price and a star rating to each product",
+      "detail": "The retrieved page text interleaves the viewed product with 'customers who viewed this item also viewed' entries, and prices in both blocks render identically.",
+      "result": "Attribution could not be made with confidence, and the policy clause independently forbids static price display. Both fields are left blank on the site and explained on the product table page. Recorded as FLG-004.",
+      "source": "S02"
+    },
+    {
+      "id": "R-12",
+      "time": "06:05",
+      "action": "Read the listed certification claims in the two thermometer listings",
+      "detail": "NIST and NSF certification, ±0.5°F accuracy, and 1000°F heat safety appear in seller listing text.",
+      "result": "Reproduced only as seller claims. The certifying bodies' registries were not consulted, so no certification is asserted as verified. Recorded as FLG-005.",
+      "source": "S05"
+    },
+    {
+      "id": "R-13",
+      "time": "06:20",
+      "action": "Built the static site generator and the compliance checker",
+      "detail": "Pages are generated from JSON data. The generator injects both disclosures, and the checker fails the build on a missing source id, an unmarked product link or a broken internal link.",
+      "result": "Build passes. See the verification dashboard for the generated counts.",
+      "source": null
+    },
+    {
+      "id": "R-14",
+      "time": "06:35",
+      "action": "Ran the link and disclosure checker across the generated site",
+      "detail": "Every generated page was parsed for internal links, asset references, product anchors and both disclosures.",
+      "result": "Recorded in the build output and in COORDINATION.md. Any failure would have blocked publication.",
+      "source": null
+    }
+  ]
+}

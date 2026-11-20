@@ -1,4 +1,8 @@
 User-agent: *
-Allow: /
+Allow: /$
+
+# The site is served at a project path (/WinB). A bare "Disallow: /go/" would point at the
+# domain root, which this site does not own, so the project path is spelled out.
+Disallow: /WinB/go/
 
 Sitemap: https://sassnarep3-star.github.io/WinB/sitemap.xml

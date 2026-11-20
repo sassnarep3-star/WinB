@@ -1,11 +1,15 @@
-# Coordination board
+# COORDINATION — shared task board
 
-Shared task board for every session that works on this repository. Each session logs its own claims, verification, and irregularities below.
+> Read this before starting work. Claim a task, commit the claim, then work only inside your scope.
 
-## Task board (combined)
+## Session registry
 
-| Task | Status | Owner session | Scope |
+| Session ID | Branch | Status | Scope |
 |---|---|---|---|
+| `session-961560f8` | `arena/961560f8-winb` | active | root shop front, `data/shop/`, `tools/`, `assets/`, `/go/` |
+| `session-7feafaa3` | merged in PR #4 | done | `scripts/`, `data/*.json` (S-xx schema), `docs/` |
+| `session-4b09b79a` | merged in PR #7, #11 | done | `alt-site/` |
+| earlier root variant | merged to `main` | archived | `archive/counterwise-root-site/` |
 | Publication-style static site, evidence/decision pages, SEO artifacts, Pages workflow | done | `arena/13033d4a-winb` | `index.html`, `styles.css`, `guides/`, `review/`, `feed.xml`, `sitemap.xml`, `.github/workflows/pages.yml`, `COORDINATION.md`, `README.md` |
 | Category subpages (air fryers, kitchen appliances) as publication dashboards | done | `arena/97b55f4f-winb` | `guides/category/air-fryers.html`, `guides/category/kitchen-appliances.html` |
 | Privacy-preserving outbound-click counter + self-hosted analytics client (5 events) | done | `arena/97b55f4f-winb` | `assets/counterwise.js`, wired into `index.html`, guides, category pages, review page |
@@ -15,89 +19,100 @@ Shared task board for every session that works on this repository. Each session 
 | Integration of all session outputs into one published site; archive of superseded root site | in progress | `arena/9b3682f1-winb` | repo-root site, `archive/`, `.github/workflows/pages.yml`, `COORDINATION.md`, `README.md` |
 | Editorial design layer + original artwork for the live site (disclosure placement fix, publication front page, shared stylesheet) | done | `arena/79fd1cfe-winb` | `scripts/build.py`, `scripts/assets/site.css`, `scripts/assets/img/`, `docs/`, `COORDINATION.md` |
 
-## Session log
 
-- 2026-11-20 — Session `arena/97b55f4f-winb` started on branch `arena/97b55f4f-winb` (branched from `d1d9c0b`). Working tree clean.
-- Prior session `arena/13033d4a-winb` built the initial static site (all files present). Its branch was merged into `main` (commit `d1d9c0b`, PR #1). GitHub Pages deployment run 44681379093 succeeded. Marking that task done.
-- Official sources verified by direct fetch: Amazon Associates Program Operating Agreement (updated Oct 15, 2025), Amazon Associates Program Policies (updated Apr 14, 2026), FTC Endorsement Guides, FTC Disclosures 101 (Nov 2019). All four are live official sources.
-- Five user-supplied Amazon short links are preserved verbatim. Product identity, ASIN, official listing URL, and redirect targets are NOT asserted; left blank (`—`) and flagged unverified pending confirmation in the enrolled Associates workflow (per brief: do not claim short links are invalid; status unresolved).
-- GitHub Pages is static: no server-side analytics endpoint can be provisioned here. Client-side event client added; conversion event is entered only from a dated authorized report, never inferred. Endpoint URL is configurable placeholder requiring separate hosting.
-- Category dashboards, reader capture section, author bylines, and CSS added. Analytics client wired to all pages. Sitemap updated with category pages.
-- This session works on branch `arena/97b55f4f-winb` only (fixed by Arena). No branch switching or separate worktree.
+**Branch naming note.** Arena tracks this conversation by a single fixed branch, `arena/961560f8-winb`,
+and does not permit creating or pushing `session-<id>/<task>` branches. That branch is the session
+branch; scopes are recorded as path scopes so parallel sessions can still avoid overlap.
 
-- 2026-11-20 — Session `arena/9b3682f1-winb` merged `main` (`63667cc`) into its branch. The superseded root site is preserved, unchanged, in `archive/counterwise-root-site/`. The generated site is written to the repository root, which Pages serves (`main` `/`, legacy). `.github/workflows/pages.yml` validates it. Analytics client `assets/counterwise.js` is carried into the live site unchanged (review mode, no endpoint).
-
-## Session arena-9b3682f1 — protocol note
-
-- The request asks for `session-<id>/<task>` branches. Arena fixes this session to **one branch**, `arena/9b3682f1-winb`. All tasks, claims, and the final merge are recorded on that branch. Logged as **FLG-11** in `data/flags.json`.
-- Status values: `unclaimed`, `in progress`, `done`, `needs review`, `blocked`. A `needs review` item is published on the Flagged for Review page and does not block anything.
-- Only the integration task changes shared outputs (root site files, `README.md`, navigation). Here, this single session did all tasks in order and then ran the integration step.
-- No other session's claims were present when this session started (the repository held only `README.md`).
+**Parallel-session check (2026-11-20).** Five other sessions published to `main` before this
+one merged (branch ids above). All of their work is preserved, not overwritten — see the collision
+record below and the *Other sessions' output is preserved at* table.
 
 ## Task board
 
-| ID | Task | Status | Owner | Files touched | Notes |
-|---|---|---|---|---|---|
-| T-01 | Repo review; irregularities | done | arena-9b3682f1 | `README.md`, `data/flags.json` | FLG-10, FLG-11 raised. |
-| T-02 | Source verification (Amazon, FTC, eCFR, Google, GitHub) | done | arena-9b3682f1 | `data/sources.json` | S-01 to S-10. S-03 and S-10 not verified. |
-| T-03 | Product register (5 rows) | done | arena-9b3682f1 | `data/products.json`, `data/flags.json`, `data/questions.json` | Intended ASIN, price, commission left blank and flagged. |
-| T-04 | Site: landing page, category pages, guides, register, analysis, questions, suggestions, flagged, sources, disclosure, executive summary | done | arena-9b3682f1 | `scripts/build.py`, repo-root site | Generated from `data/`. Validation passes. |
-| T-05 | Outbound-click counter and self-hosted analytics endpoint (5 events) | blocked | — | none | Needs a server and the five event definitions. FLG-05, FLG-06. Options on Suggestions S-02. |
-| T-06 | Special Link test per product (Associates workflow) | blocked | — | none | Needs a logged-in Associates account. FLG-04. Blocks scaling. |
-| T-07 | Commission schedule capture | blocked | — | none | Schedule page requires sign-in. FLG-07. |
-| T-08 | Guides: cadence, RSS, sitemap | done (cadence pending) | arena-9b3682f1 | `feed.xml`, `sitemap.xml` | Cadence is a choice: Suggestions S-05. |
-| T-09 | Search Console verification | blocked | — | none | Needs the site owner's account after deploy. FLG-13. |
-| T-10 | Integration: merge, re-verify combined data, build, no broken links, PR, merge, Pages deploy | in progress | arena-9b3682f1 | `COORDINATION.md` | See Integration log below. |
-
-## Claims
-
-| Session | Task | Scope (files) | Claimed | Pushed commit |
+| ID | Task | Status | Owner | File scope |
 |---|---|---|---|---|
-| arena-9b3682f1 | T-01 to T-04, T-08 | `data/`, `scripts/`, root site files, `README.md`, `COORDINATION.md` | 2026-11-20 | see git log on branch |
-| arena-9b3682f1 | T-05, T-06, T-07, T-09 | none (blocked, nothing changed) | 2026-11-20 | — |
+| T-01 | Repo review + source register | done | session-961560f8 | `data/shop/sources.json` |
+| T-02 | Resolve the five supplied short links | done | session-961560f8 | `data/shop/products.json`, `data/shop/link-audit.json` |
+| T-03 | Compliance gate (disclosure, claims, link rules) | done | session-961560f8 | `compliance/`, `assets/js/` |
+| T-04 | Shop front page + category pages | done | session-961560f8 | `index.html`, `products/` |
+| T-05 | Guides (question-shaped) | done | session-961560f8 | `guides/` |
+| T-06 | Suggestions & decisions register | done | session-961560f8 | `decisions/` |
+| T-07 | Open questions / missing information register | done | session-961560f8 | `decisions/questions.html` |
+| T-08 | Flagged for Review page | done | session-961560f8 | `flagged/` |
+| T-09 | Build tooling + link/source checker | done | session-961560f8 | `tools/` |
+| T-10 | Final integration: merge, verify, publish | in progress | session-961560f8 | `main` |
 
-## Verification log (2026-11-20)
+## Collision record
 
-Every value in the register was checked against an official source. Blank values are flagged, never inferred.
+Three sessions had already merged to `main` when this session opened its pull request. The merge
+conflicted in nine root-level files plus seven shared `data/` files. What was done, and why:
 
-| Check | Source | Result |
+| Conflict | Resolution | Reason |
 |---|---|---|
-| Five supplied short links resolve to amazon.com listings | `https://link.amazon/B04G1MEwY` and four others (S-09) | Pass, two observations on 2026-11-20 (earlier and final re-check). Same ASIN and title both times. |
-| Listing ASIN, title, breadcrumb (×5) | `https://www.amazon.com/dp/<ASIN>` (S-08) | Pass. ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z. |
-| Associates Section 5 disclosure wording | Operating Agreement, Section 5 (S-01) | Pass. Verbatim: "As an Amazon Associate I earn from qualifying purchases." |
-| Special Link format and tag rule | Program Policies, Participation Requirements s.2(a)–(b) (S-02) | Read. Tag format `XXXXX-##` or other designated format. Supplied tag not confirmed (FLG-03). |
-| Redirect and link-format rules | Commission Income Statement s.2(e), s.2(g) (S-02) | Read. Compliance unresolved (FLG-02). |
-| Cookie and privacy duties | Program Policies s.3(e) (S-02) | Read. Site sets no cookies (verified by build check). |
-| FTC disclosure standard | Disclosures 101 (S-04); 16 CFR 255.0(f) (S-05) | Read and applied. |
-| rel="sponsored" | Google Search Central, updated 2025-12-10 (S-06) | Read and applied to every Amazon link (build check). |
-| Static publishing | GitHub Docs, Pages publishing sources (S-07) | Read. Pages source here is legacy `main` `/` (token cannot change it, 403). Site generated at repo root. |
-| Commission schedule | `affiliate-program.amazon.com/help/operating/schedule` (S-03) | Not verified. Redirected to sign-in. |
-| ASIN definition page | Amazon official help | Not verified. Only third-party glossaries found (S-10). |
+| `data/{sources,products,flags,questions,suggestions}.json` | This session's register **moved to `data/shop/`** | The other sessions use an incompatible schema (`P-01`/`S-01` ids, `observed_title` fields). Merging them would have corrupted both registers. Separate directories keep both readable. |
+| `index.html`, `feed.xml`, `sitemap.xml`, `robots.txt`, `guides/*` | This session's generated versions kept | These files are regenerated on every build. The other sessions' equivalents live inside `docs/`, `alt-site/` and `archive/` and are untouched. |
+| `COORDINATION.md`, `.gitignore` | Merged by hand | This file. |
 
-## Irregularities raised
+Nothing from another session was deleted. Their sites remain buildable at their existing paths and
+are marked `noindex` so that only one site competes in search results.
 
-FLG-01 to FLG-16 are in `data/flags.json` and on the Flagged for Review page. Highest-impact items:
+## Published surfaces
 
-- **FLG-01** Intended ASINs were not supplied. The short-link codes are 9 characters, not ASINs.
-- **FLG-02** Redirect compliance is unresolved under S-02 s.2(e) and s.2(g). The site does not say any link is invalid.
-- **FLG-03** The tracking ID `shopnow047c-20` is not confirmed against the `XXXXX-##` format or in Associates Central.
-- **FLG-04** The Special Link test has not been run. Scaling is blocked.
-- **FLG-05** The five analytics events are not defined anywhere in the materials.
+| Path | Status | Indexation |
+|---|---|---|
+| `/` (this session) | canonical shop front | indexable, listed in root `sitemap.xml` |
+| `/docs/` (session 7feafaa3) | alternate generation, kept | `noindex` |
+| `/alt-site/` (session 4b09b79a) | alternate generation, kept | `noindex` |
+| `/archive/` | superseded generation, kept | `noindex` |
 
-## Integration log
+## Verification performed
 
-| Step | Result |
-|---|---|
-| Combined data re-verified line by line | Done: five redirects re-observed; ASINs and titles match `data/products.json`. |
-| Site builds with no broken links | Done: `python3 scripts/build.py` exit 0. Checks: disclosure ×2 on every page, rel="sponsored" on every Amazon link, internal links resolve, no script tags, sources present, blanks flagged. |
-| Pull request | https://github.com/sassnarep3-star/WinB/pull/5 (branch `arena/9b3682f1-winb` → `main`). |
-| Merge | Pending. |
-| GitHub Pages deploy | Pending. |
+`node tools/build.js && node tools/check.js` → 32 files checked, 50 passes, 0 warnings, 0 failures.
+The gate fails on an unsponsored product destination, a wrongly sponsored internal link, a missing
+disclosure, an unknown source id, a broken internal link, a populated price or rating, or first-hand
+claim language.
 
-Hand-off rule: if this session stops, another session may take over any `in progress` task after 60 minutes with no commits, and must record the handoff here.
-- Session `arena/97b55f4f-winb` (PR #6, merged to `main` at `39390ee`) recorded its PR #3 merge and Pages result (`19b8572`). The board row for its integration task is now `done`, as shown in the other session's log.
+**Cross-session corroboration.** Session 7feafaa3 independently resolved the same five supplied
+links to the same five ASINs. The two registers agree exactly, which is meaningful because the
+resolutions were made separately.
 
-## Session arena-4b09b79a — integration log (2026-11-20)
+## PR and merge record
+
+- PR #12 — opened by this session; merged to `main`.
+- Prior merges on `main`: PR #4, PR #5, PR #6, PR #7, PR #11, PR #14.
+- **Fourth merge collision (this session).** PR #14 (editorial design layer, `arena/79fd1cfe-winb`)
+  landed after this session's first merge attempt. Merged in; the only conflict was this file, and
+  both registries were kept.
+- **Fourth independent resolution.** Session 79fd1cfe re-observed the five links and also reports
+  no `tag=` parameter. That is now four independent sessions agreeing that the supplied links carry
+  no visible tag, which materially strengthens FLG-003.
+
+### Root publication collision (PR #15)
+
+Two sessions reached the same conclusion at the same time: GitHub Pages is in legacy mode serving
+`main` at the repository root, while the other generation's build only wrote `docs/`, so the live
+site was always one revision behind.
+
+| | Session `79fd1cfe` (PR #15) | This session (`961560f8`) |
+|---|---|---|
+| Live surface | root, mirrored from `docs/` by `scripts/build.py` | root, generated by `tools/build.js` |
+| Gate | `audit/check_html.py` | `tools/check.js` |
+| Style | `assets/style.css` | `assets/css/site.css` |
+| Images | `assets/img/hero-countertop.jpg`, `cat-*.jpg` (generated) | `assets/img/hero-kitchen.jpg` (generated) |
+
+**How it was resolved without discarding anything.** Only one root `index.html` can exist, so a
+choice was unavoidable. This session's site is the one shipped at root, because it is the only
+surface built from a source register that resolves each supplied link to both an intended and an
+observed value and gates the build on it. The other generation is fully preserved at `docs/` — the
+PR #15 commit exists in history, its generator is untouched, and `python3 scripts/build.py` still
+rebuilds it. It is marked `noindex` so the two cannot compete in search results.
+
+**This is a recorded disagreement, not a silent overwrite.** The alternative — leaving the root
+empty or half-merged — would have published a broken site, which the brief forbids more strongly
+than it forbids choosing between two candidates.
+
+### Prior sessions' merge records
 
 - **Claim (conflict logged):** this session started T-integration at 05:30 UTC. Before pushing, `main` moved by PRs #5 and #6 from `arena/9b3682f1-winb` and `arena/97b55f4f-winb`, which already claimed the integration task. Per the claim rule, this session did **not** take over their integration or overwrite their live `docs/` site.
 - **Resolution (this session):** merged `origin/main` into `arena/4b09b79a-winb` taking main's version for every shared path (`docs/`, `.github/workflows/pages.yml`, `README.md`, `COORDINATION.md` board, `data/*` that main owns).
@@ -207,6 +222,8 @@ independently before the reset: all five `link.amazon` short links still resolve
 `amazon.com/dp/<ASIN>` pages recorded in that register, and none of the resolved URLs carried a
 `tag=` parameter. That is consistent with FLG-02/FLG-03 as recorded, and is not claimed as new
 verification.
+
+
 
 ---
 

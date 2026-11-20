@@ -1,2 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"><channel><title>Counterwise guides (working name)</title><link>https://sassnarep3-star.github.io/WinB/</link><description>Question-shaped buying guides for air fryers and kitchen appliances.</description><language>en-us</language><lastBuildDate>Fri, 20 Nov 2026 09:00:00 +0000</lastBuildDate><item><title>Basket or oven-style air fryer: what should you compare?</title><link>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven-style-air-fryer.html</link><guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/basket-or-oven-style-air-fryer.html</guid><pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate><description>Working title. The two formats differ in shape, not in promise. Start with how you cook, then read what each listing says.</description></item><item><title>A no-hype checklist for comparing air fryer capacity</title><link>https://sassnarep3-star.github.io/WinB/guides/air-fryer-capacity-checklist.html</link><guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/air-fryer-capacity-checklist.html</guid><pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate><description>Capacity is easy to misread. This checklist keeps you on the figures the listings state.</description></item><item><title>How to assess cleanup and counter-space trade-offs</title><link>https://sassnarep3-star.github.io/WinB/guides/cleanup-and-counter-space.html</link><guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/cleanup-and-counter-space.html</guid><pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate><description>Cleanup and counter space decide whether a kitchen appliance gets used. Both are easy to check before you buy.</description></item><item><title>Questions to ask before buying a multi-function kitchen appliance</title><link>https://sassnarep3-star.github.io/WinB/guides/questions-before-multi-function-appliance.html</link><guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/questions-before-multi-function-appliance.html</guid><pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate><description>Multi-function appliances promise many jobs. Ask which jobs you will do every week, and what each one costs in space and cleaning.</description></item><item><title>Do you need a meat thermometer if you own an air fryer?</title><link>https://sassnarep3-star.github.io/WinB/guides/do-you-need-a-thermometer.html</link><guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/do-you-need-a-thermometer.html</guid><pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate><description>Air fryers brown the outside before the inside is done. A thermometer is the only way to know which happened.</description></item></channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Crisp Kitchen — new guides</title>
+    <link>https://sassnarep3-star.github.io/WinB/guides/index.html</link>
+    <atom:link href="https://sassnarep3-star.github.io/WinB/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Air fryers and the tools that make them work — tested against what the listing actually says.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Nov 2026 09:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Basket or oven-style air fryer: what should you compare?</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven-air-fryer.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/basket-or-oven-air-fryer.html</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+      <category>Shape</category>
+      <description>The single biggest fork in the category, and the one the shelf labels hide. Four questions that separate the two shapes before you look at watts.</description>
+    </item>
+    <item>
+      <title>A no-hype checklist for comparing air fryer capacity</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/air-fryer-capacity-checklist.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/air-fryer-capacity-checklist.html</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+      <category>Capacity</category>
+      <description>Quarts, litres, baskets, and the difference between &quot;6 quart&quot; meaning one drawer or two. A checklist you can run against any listing in two minutes.</description>
+    </item>
+    <item>
+      <title>How to assess cleanup and counter-space trade-offs</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/cleanup-and-counter-space.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/cleanup-and-counter-space.html</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+      <category>Ownership</category>
+      <description>The two costs that arrive after the purchase. What to measure on your own counter, and what each shape demands of a sink.</description>
+    </item>
+    <item>
+      <title>Questions to ask before buying a multi-function kitchen appliance</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/multifunction-appliance-questions.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/multifunction-appliance-questions.html</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+      <category>Buying</category>
+      <description>Every extra function is a promise about a mode you will use twice. Five questions that separate a useful multi-function appliance from a crowded control panel.</description>
+    </item>
+  </channel>
+</rss>
