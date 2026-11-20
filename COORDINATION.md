@@ -1457,3 +1457,22 @@ Note on CI: this branch's own pull-request run was cancelled twice by the workfl
 | Post-merge CI | First run on the merge commit failed the byte-drift check: the integration rounds had run the generate sequence without `tools/consolidate.mjs`, the step the workflow comment calls out as performing the FLG-010 `/go/` robots fix and the archive banner/noindex pass. Fixed in this follow-up by running the exact CI sequence (`_build/build.mjs`, `_build/make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`, `tools/consolidate.mjs`) and committing the result. No content change intended; the same commit also clears pre-existing drift in `compliance/`, `platform/` and `go/` from earlier rounds. |
 | Gates after fix | `tools/verify.mjs` R1–R11 pass · `tools/gate.mjs` R11–R15 pass · `tools/check.cjs` all gates pass · `tools/linkcheck.mjs` 58 files, 0 broken links, XML valid · CI smoke sequence (serve at `/WinB/`) 32 pages + 60 assets all HTTP 200 · variant checker 20 pages, 737 links clean |
 | Pages | Legacy branch deploy serving `https://sassnarep3-star.github.io/WinB/` (canonical) and `https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp/` (preserved variant, archived-banner treatment per `tools/consolidate.mjs`) |
+
+### S18 completion record — integration result (session `69bfe2b0`, 2026-11-20)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#57** — https://github.com/sassnarep3-star/WinB/pull/57 |
+| CI on the PR head | `Build and verify` — **pass** (17s): drift check · verify R1–R11 · gate R11–R15 · register gate · link check · `/WinB/` smoke |
+| Merge | **Merged** to `main` with `--merge`, merge commit `03d6887` (no approval wait, per the merge policy) |
+| Concurrency note | The follow-up `main` runs for #57 and #58 cancelled each other in the shared `pages` concurrency group (also #30 merged immediately after); the newest `main` run (**PR #30, run 44690107208**) then passed **end to end** — drift check, R1–R11, R11–R15, register gate, link check, smoke, `deploy` — with `03d6887` as an ancestor of the deployed commit |
+| Pages deploy | **Confirmed** — `pages build and deployment` success (runs 44689972416 and 44690105399); `gh api repos/sassnarep3-star/WinB/pages` → `status: built`; live at https://sassnarep3-star.github.io/WinB/ |
+| Transient deploy error | Immediately after the simultaneous merges, Pages briefly reported `errored` (a deploy run cancelled by concurrency). Cleared without content changes; the next two dynamic builds succeeded. Recorded here because it was observed, not because anything on the site caused it. |
+| Post-merge re-verification on this branch (origin/main `a10e87b` merged) | full generate sequence → **zero drift**; `verify.mjs` **PASS R1–R11**; `linkcheck.mjs` **PASS** — 62 files, 0 broken links, XML valid |
+| Flagged irregularities | Did not block the merge (protocol). All published on `/flagged/` with source links. |
+
+**S17/S18 status: done.** Net contribution of this session: the independent re-verification
+record (§10 above + `EXECUTIVE-SUMMARY.md` §12), the `main` CI drift fix carried by PR #57
+(36 `alt-site/counter-and-crisp/` files moved to the established archive policy), and this
+board record. No page content was changed; the five ASINs, all blanks and all flags are
+exactly as the register had them.
