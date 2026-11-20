@@ -1076,3 +1076,20 @@ Standing requirement: every table row needs a source link to an official site. T
 
 **Merge record.** Filled in after the PR merges (see below).
 
+
+## 9. Contribution record (session `arena/6fc7de34`, branch `arena/6fc7de34-winb`)
+
+**Role:** parallel build session, then integrator of its own branch. **PR:** #31 → `main`.
+
+| Check | Result |
+| --- | --- |
+| Start state | Branch base `5f65079` (repo = one-line `README.md`). This session created its own board copy on its branch in good faith before `main` advanced. |
+| Mid-session `main` advance | `main` gained the S01–S10 work (PRs #24/#27 etc.). Merged `origin/main` into this branch: **12 add/add conflicts resolved in favour of the canonical root build** (`index.html`, `404.html`, `README.md`, `assets/css/site.css`, `assets/js/site.js`, `sitemap.xml`, `feed.xml`, `robots.txt`, `data/products.json`, `data/sources.json`, `.gitignore`, `.nojekyll`). No file of another session's discarded. |
+| This session's site | Preserved whole and self-contained under `alt-site/counter-and-crisp/` (20 pages + own CSS/JS/img/data). Carries `noindex,follow` and a disallowing `robots.txt`, matching the `tools/noindex.cjs` archive convention (64 files confirmed already marked). |
+| Independent link-resolution cross-check (server-side fetch, 2026-11-20, before reading §3) | All five supplied short links resolved to the same five `/dp/` targets recorded in §3 and §8 — **corroboration by an independent fetch path**, not a compliance finding. Record kept in `alt-site/counter-and-crisp/data/observations.json`; intended identifiers and observed targets stored in strictly separate fields. |
+| Independent source verification | 12 official sources fetched 2026-11-20 (FTC Endorsement Guides FAQ + eCFR 16 CFR 255 + Disclosures 101; USDA FSIS temperature chart; Amazon Associates Program Policies + Operating Agreement + help statement on the required disclosure; Amazon developer glossary ASIN definition (10 letters/numbers); CPSC Recalls; sitemaps.org; RSS 2.0; GitHub Pages docs). Listed with URLs on the variant register page. |
+| Tools added at repo root (additive, not run by CI) | `tools/build_site.py`, `tools/check_links.py`, `tools/content_data.py`, `tools/content_pages.py`, `tools/content_desk.py`, `tools/content_guides.py`, `tools/theme.py`. |
+| Gates on the combined tree before PR | `node tools/verify.mjs` R1–R10 **pass** · `node tools/check.cjs` **all gates pass** (5 Amazon `/dp/` evidence links in the variant register gained `rel="sponsored nofollow noopener"` to satisfy the publication gate) · `node tools/linkcheck.mjs` 50 files, **0 broken links**, XML valid · `python3 tools/check_links.py` variant: 20 pages, 737 internal links + anchors clean · CI generate sequence re-run on every merge round; shared HTML regenerated from `_build` per the S16 precedent where needed to satisfy the CI dirty-check. |
+| Flag mapping | Variant FLG-001..008 map onto the board's FLG set. Variant FLG-003 = board FLG-003: the supplied short links are **not claimed invalid**; compliance unresolved pending the one-link Associates test. Variant FLG-005 notes the five-event taxonomy was not enumerated in the owner's brief. |
+| Brand note (see FLG-012) | The preserved variant carries a third brand label ("Counter & Crisp"), inherited from this session's independent build. It is noindexed and archived; if the owner prefers one brand, delete `alt-site/counter-and-crisp/` or relabel — a one-line decision, logged here rather than acted on. |
+| Requests to file owners | None. Only this board and `README.md` were touched among `done`-scope files, **appended only**, per this board's logging rule. |
