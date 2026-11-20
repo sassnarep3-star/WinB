@@ -91,6 +91,19 @@
       <h4>How to choose</h4>
       <p>Answer three questions in order: (1) Is the tagging question closed (SUG-02)? If not, stop and close it — no path earns anything until then. (2) Does the owner want a named byline (Q-05)? If yes, Path B. (3) Is the analytics endpoint deployed (SUG-03)? If not, Path C is the next task regardless of the path chosen. Record the choice here with a date; the next session reads it before writing anything.</p>
     </div>
+    <div class="table-wrap mt-3" id="decision-record">
+      <table>
+        <caption><b>Decision record — the owner writes the choice here, before any change is implemented.</b> Kept deliberately blank: an empty box that waits is more honest than a filled one that presumes.</caption>
+        <thead><tr><th scope="col">Decision</th><th scope="col">Chosen option</th><th scope="col">Date decided</th><th scope="col">Recorded by</th></tr></thead>
+        <tbody>
+          <tr><td>Path (A, B or C above)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+          <tr><td>Byline: named person or the desk? (Q-05)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+          <tr><td>Seasonal queue: which title, if any, runs next? (queue above)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+          <tr><td>Review unit: buy, request, or neither? (SUG-01, Q-03)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tiny faint mt-1">When a decision is made, edit this table in <code>_build/data.mjs</code>-driven output, record it in <code>COORDINATION.md</code> §2, and only then start the work. Suggestions and paths remain proposals until this record says otherwise.</p>
   </div>
 </section>
 
@@ -1015,6 +1028,111 @@
           <tr><td>Ask brands for review units + licensed images (SUG-01, Q-14)</td><td>Two brand contact emails; publish the reply either way</td><td>One week of waiting</td><td>Hands-on content, photography</td></tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="gaps">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part two and a half</p>
+        <h2>Information gaps — what we have, what we don’t, what to do about it</h2>
+        <p>The plain inventory behind the questions above. A row marked <b>No</b> is information this project does not possess; no decision that depends on a missing row gets made until the row’s discovery step has run. This is the rule the reader-facing pages follow too: blanks stay blanks.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>10 information gaps.</b> 9 missing outright, 1 held partly. Each row names the cheapest discovery step.</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Information item</th><th scope="col">Have it?</th>
+          <th scope="col">What we know</th><th scope="col">How to discover it</th><th scope="col">Blocks</th>
+        </tr></thead>
+        <tbody><tr>
+          <td class="mono tiny">GAP-01</td>
+          <td><b>Whether the supplied short links credit the shopnow047c-20 account</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">All five resolved listings carry tracking parameters but no tag= (FLG-001). Compliance status of link.amazon itself is unresolved either way (FLG-003).</td>
+          <td class="tiny">One check in Associates Central: mint one link while signed in, resolve it, compare parameters. Under an hour (Q-01).</td>
+          <td class="tiny">Revenue attribution; the tagging question in SUG-02.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-02</td>
+          <td><b>The intended ASIN for each product</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">The owner never stated which listing each short link was meant to point at. The observed ASINs are recorded in a separate field and never merged (FLG-002).</td>
+          <td class="tiny">Owner confirms each row in the Data Room product-intent record, or confirms the observed ASIN is the intended one.</td>
+          <td class="tiny">Closing FLG-001/FLG-002 cleanly.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-03</td>
+          <td><b>Any traffic, click or conversion figure</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">No analytics endpoint is deployed; the collector ships with the site but nothing receives it (FLG-007). The ledger is empty by design.</td>
+          <td class="tiny">Deploy the collector (SUG-03), confirm one event arrives, then run 30 days before ranking anything.</td>
+          <td class="tiny">Topic selection, cadence gates, every measurement claim.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-04</td>
+          <td><b>Current commission rates for these two categories</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">Amazon publishes commission rates in Associates Central; they vary by category and change over time. No rate is printed on this site because none has been read from an authorised report.</td>
+          <td class="tiny">Owner reads the commission income statement in Associates Central and records the rate and read date in the ledger provenance column.</td>
+          <td class="tiny">Revenue modelling. Deliberately absent until a dated first-party source exists.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-05</td>
+          <td><b>Hands-on experience with any of the five products</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">No unit has been handled, so FTC guidance bars experience claims (FLG-004). Every page states the specification-judgement position.</td>
+          <td class="tiny">Buy the cheapest unit and document the purchase, or ask the brands for a review unit (Q-03, SUG-01).</td>
+          <td class="tiny">Review-style content; the single biggest differentiation available.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-06</td>
+          <td><b>Footprints, wattages and other unstated specifications</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">The five listing titles do not state external dimensions or wattage in the data this desk could read. Those cells are blank, not estimated.</td>
+          <td class="tiny">Read the manufacturer manuals or spec sheets; record values with a per-model source before any table cell is filled.</td>
+          <td class="tiny">The blank comparison cells. They stay blank until then.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-07</td>
+          <td><b>Whether the NIST/NSF certification claim (P04) is documented</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">The claim appears in the listing title only. No certificate has been located (FLG-006).</td>
+          <td class="tiny">Request the certificate from the brand, or keep the claim attributed. Attribution is the safe default and is what the site does.</td>
+          <td class="tiny">Upgrading the claim from attributed to verified.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-08</td>
+          <td><b>Search Console data (queries, impressions)</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">Verification needs a token only the owner can place (FLG-008). Until then, topic gates run on site-side events alone.</td>
+          <td class="tiny">Owner verifies the github.io property, submits sitemap.xml, and grants the desk read access or screenshots.</td>
+          <td class="tiny">Measured query choice for the topic queue.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-09</td>
+          <td><b>The owner’s existing audience (list, social, community)</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">Nothing in the supplied material describes any channel the owner can already reach (Q-02).</td>
+          <td class="tiny">Owner inventory of reachable channels; if none, plan for long-tail search plus one distribution channel.</td>
+          <td class="tiny">The first-traction plan.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-10</td>
+          <td><b>A named author and a contact route</b></td>
+          <td><span class="badge amber">Partly</span></td>
+          <td class="tiny">Pages sign as “The Counterwise desk” with a stated non-testing policy, but no human byline or public email exists (Q-05, Q-07).</td>
+          <td class="tiny">Owner decision: publish a named byline and one public contact address, or formalise the issue tracker as the route.</td>
+          <td class="tiny">Authorship trust signals; the reader-question suggestion (SUG-07).</td>
+        </tr></tbody>
+      </table>
+    </div>
+    <div class="callout mt-3">
+      <h4>Why this register exists at all</h4>
+      <p>Most wrong turns on a project like this are information errors wearing a decision’s clothes: a topic chosen with no query data, a price table pasted from a stale page, a revenue forecast built on commission rates nobody has read from an authorised report. Naming the gap in one table — with the discovery step attached — keeps the decision and the information separate, so the owner can choose the best path with the record open in front of them.</p>
     </div>
   </div>
 </section>
