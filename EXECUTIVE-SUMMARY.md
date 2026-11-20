@@ -24,16 +24,16 @@
 | Executive summary | **This document** + `/executive-summary/` | `EXECUTIVE-SUMMARY.md` |
 | Read like a shop, not an audit | **Done** — products first, registers in footer + one navigation group | `/index.html` |
 | Polished publication feel (authorship, brand, imagery, seasons, clusters) | **Done** — bylines, Counterwise brand, generated illustrations, seasonal notebook, 2 clusters | `/`, `/methods/`, `/about/` |
-| Polished marketing feel + trendy, timely topics + organic traffic | **Done (S15)** — November editorial picks, 30-second chooser, 3 printable worksheets, FAQ matrix; all timely framing is labelled hypothesis, never a demand claim | `/`, `/tools/`, `/guides/` |
-| Suggestions section to choose a path before implementing | **Done** — 3 paths, decision queue with cost/reversibility/failure mode, blocking questions, owner actions | `/suggestions/`, `/decisions/` |
+| Polished marketing feel + trendy, timely topics + organic traffic | **Done** — November editorial picks, 30-second chooser, 3 printable worksheets, FAQ matrix; all timely framing is labelled hypothesis, never a demand claim | `/`, `/tools/`, `/guides/` |
+| Suggestions section to choose a path before implementing | **Done** — 3 paths, a 10-row decision board, and all 14 proposals carrying named options A/B/C, a recommended option and a decision gate; nothing is implemented until an option is recorded | `/suggestions/`, `/decisions/` |
 | Design suggestions feeding the build prompt, + catchy trend topic engine | **Done** — 15 design suggestions, 10 gated working titles, design brief | `/direction/` |
-| Questions / information / answers + discovery plan | **Done** — 14 questions (known / missing / how to find), discovery plan, FAQ matrix | `/decisions/#questions`, `/` (FAQ) |
+| Questions / information / answers + discovery plan | **Done** — 15 questions (known / missing / how to find), 9 blocking questions, discovery plan, owner-action checklist, FAQ matrix | `/decisions/#questions`, `/suggestions/`, `/` (FAQ) |
 | Findable (one site to index) | **Done** — sitemap, RSS, robots, canonicals, OG, JSON-LD, noindex on superseded trees | `/sitemap.xml`, `/feed.xml`, `/robots.txt` |
 | Trustworthy machinery (automate + gate) | **Done** — R1–R15 gate fails the build; human gates for facts, prose, topics, ledger | `/data-room/#automation` |
 | Disclosure above the fold on every page | **Done** — strip under masthead + footer repeat, enforced by R1/R13 | every page |
 | Every outbound product link marked sponsored | **Done** — `rel="sponsored nofollow noopener"` + tag, enforced by R2/R10 | every page |
 | Product-intent confirmation record (separate fields) | **Done** — intended ASIN and observed redirect never merged | `/data-room/#products` |
-| Question-shaped guides + measurement before more writing | **Done** — 8 guides published (5 original + 3 S15); next title gated on 30 days of data | `/guides/`, `/decisions/#queue` |
+| Question-shaped guides + measurement before more writing | **Done** — 11 guides published (5 evergreen + 3 winter seasonal + 3 S15); every future title gated on 30 days of data | `/guides/`, `/decisions/#queue` |
 | Click/conversion measurement (5 events) | **Code shipped, not deployed** — no endpoint, no traffic claimed | `/data-room/#events`, FLG-007 |
 | Empty campaign ledger with provenance rule | **Done** — 0 rows, schema + column rules published | `/data-room/#ledger` |
 | AI platform (research, trends, pricing, reviews, competition, commissions, SEO content, optimization) | **Not built — honestly scoped.** Automation today is generation + gating. Pricing/reviews/commission data would require Creators/PA API access and are deliberately absent (FLG-005). See §4 and Q-12. | `/data-room/#automation`, `/decisions/` Q-12 |

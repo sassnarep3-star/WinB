@@ -31,6 +31,32 @@ that build.
 session claims a shared generated file during this cycle, log it here rather than editing
 over it.
 
+---
+
+## ACTIVE CLAIM — session `arena-15e30bda` (this session)
+
+**Branch:** `arena/15e30bda-winb` (fixed by Arena; cannot create `session-<id>/<task>` branches).
+**Claimed at:** 2026-11-20 (UTC). **Status:** in progress.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S11 | **Suggestion Board with named options and decision gates.** Extend every proposal (`SUG-01`…`SUG-14`) with `options` A/B/C (what/effort/payoff/risk), a `recommendedOption`, a `decisionState` and a `decisionHow` line, so no change is implemented before an option is chosen; render the option tables and gates in the Decision Room. | `arena-15e30bda` | `_build/data.mjs`, `_build/content-oversight.mjs`, `assets/css/site.css`, `COORDINATION.md` | done |
+| S12 | **Question register and missing-information discovery plan.** Add the endpoint question (Q-15) and source arrays for answered questions, plus the discovery-plan table and the "pattern in the open questions" callout. | `arena-15e30bda` | `_build/data.mjs`, `_build/content-oversight.mjs` | done |
+| S13 | **Three owner-instructed seasonal guides** (`holiday-format-check`, `smart-probe-questions`, `crowd-capacity-math`), added to the notebook, the topic queue and the sitemap/feed; fix the stale "Five pieces" guides lede. | `arena-15e30bda` | `_build/data.mjs`, `_build/content-shop.mjs` | done |
+| S14 | **Integration of `f5bce0b` into this branch.** Merge the parallel S10 publication polish, keep every row and every file from both sessions, re-run the full gate set, open the PR, merge to `main` without waiting, and confirm the Pages deploy. | `arena-15e30bda` | repo root, `.github/`, `COORDINATION.md` | in progress |
+
+**Non-overlap.** This session edits only the files in the scope above. It does **not** delete or
+overwrite the parallel S10 work: the merge takes `f5bce0b`'s versions of the shared `_build`
+sources as the base and re-applies this session's deltas on top of them. Generated HTML,
+`sitemap.xml` and `feed.xml` are regenerated with the CI generator set, never hand-merged.
+
+**Merge note (required by the protocol).** On 2026-11-20 this session's first push was followed by
+`git pull --rebase`, which stopped with "Could not apply 9691e7e" because `main` had advanced to
+`f5bce0b` and both sides had edited `COORDINATION.md`. The rebase was aborted (clean), and the merge
+was redone as `git merge f5bce0b` so that neither session's rows could be dropped. The collision was
+in exactly two places: this board, and the shared `_build` sources listed above. Both sessions' rows
+are kept below. Estimated claim age at merge: well under the 60-minute takeover window.
+
 **Verified sources re-read on 2026-11-20 for S10** (each fetched live, not assumed):
 the five canonical Amazon listing pages (`/dp/B0CDY277D3`, `/dp/B09B7SB46R`,
 `/dp/B08DKYBTPH`, `/dp/B0DHZTCNR5`, `/dp/B0DZFD6R9Z`). Findings and the defects they
@@ -838,6 +864,50 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
 **Status:** S15 done. Integration (PR → merge → Pages confirm) follows in this session.
 
 **Rebase note (2026-11-20, session `30073780`):** `origin/main` advanced to `33eaf81` (coord record for PR #36) while S15 was in progress. Rebased `arena/30073780-winb` onto `origin/main`. One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` S11–S14 final result, followed by the S15 appendix. No other session's work discarded. All other S15 files applied cleanly. Gates re-run after rebase: build/verify/gate/check/links/smoke all green (see S15 completion record above).
+
+### Session `arena-15e30bda` — second merge (S14), 2026-11-20
+
+While this session was finishing S11–S13, `main` advanced again: `f5bce0b` → `6744d0a`
+(PRs #36–#38, including a full editorial redesign in `_build/editorial.mjs`,
+`_build/tools-content.mjs` and a replaced `assets/css/site.css`). A second merge was
+performed the same way as the first: `git merge origin/main`, generated HTML taken from
+`main` and regenerated, shared sources hand-merged.
+
+| Conflict | Resolution |
+| --- | --- |
+| `EXECUTIVE-SUMMARY.md` (2 hunks) | Kept both sides. Merged figures verified from the tree, not the prose: **11 guides** (`ALL_GUIDES` = 5 evergreen + 3 from this session + 3 from S15), **15 questions**, **14 proposals** each with options. |
+| `assets/css/site.css` | Took `main`'s redesign (it replaced the stylesheet) and re-appended this session's board block before the print query, using `main`'s tokens (`--green`, `--green-soft`, `--line`) instead of the old literals. |
+| Generated HTML, `sitemap.xml`, `feed.xml` | Took `main`'s, then regenerated with `main`'s CI chain. Never hand-merged. |
+
+**Defects this merge surfaced and fixed (all were live-breaking):**
+
+1. `tools/check.cjs` hard-codes a `SIBLING_GUIDES` allowlist. This session's three guides
+   were not on it, so the register gate failed them for disclosure markup they actually
+   carry and for the shared template's negated phrase "Nothing on this site is a hands-on
+   test". Registered them with the same additive comment pattern earlier sessions used.
+2. `tools/build.cjs` writes `sitemap-register.xml`. Our three guides were missing from it.
+   Added the same additive block used for `/suggestions/index.html`.
+3. `_build/content-shop.mjs` became dead code when `main` moved the front page into
+   `_build/editorial.mjs`. Its "Five pieces" lede cannot render any more, so the S13 item
+   is closed as moot rather than patched in a file nothing imports.
+4. The topic queue still marked three titles "do not publish yet" while S15 had just
+   published them. Rewritten as recorded overrides instead of silently reversing either
+   session's decision.
+
+**Gate result on the merged tree (exactly what CI runs, in CI's order):**
+
+| Step | Result |
+| --- | --- |
+| `_build/build.mjs` → `make-images.mjs` → `tools/build.cjs` → `noindex.cjs` → `consolidate.mjs` | 39 files, 40 sitemap routes, 13 feed items |
+| Drift check (run the whole chain twice) | **0 files differ** |
+| `tools/verify.mjs` | **PASS** — R1–R11, 34 canonical pages, 40 Amazon links, 375 internal links |
+| `tools/gate.mjs` | **PASS** — R11–R15, 46 pages, 62 social images, 4145 class usages |
+| `tools/check.cjs` | **All gates passed** — 107 files, 211 passes, 2 warnings (both in `archive/`) |
+| `tools/linkcheck.mjs` | **PASS** — 61 files, 0 broken links, XML valid |
+| `tools/smoke.mjs` at `/WinB/` | **PASS** — 32 pages, 62 linked assets, every one 200 |
+
+---
+
 ## 9. Current cycle — session `arena-9c38041d`
 
 Branch: `arena/9c38041d-winb`, branched from `main` at `9798831` (2026-11-20).

@@ -1104,6 +1104,16 @@ td a { text-decoration-thickness: 1px; }
   background: var(--paper); color: var(--ink); width: 100%;
 }
 .worksheet-field input:focus { outline: 2.5px solid var(--amber); outline-offset: 1px; }
+/* -------------------------------------------------- suggestion board bits */
+/* Used by the Decision Room option tables and decision gates. */
+.opt-rec > th, .opt-rec > td { background: var(--green-soft); }
+.opt-rec > th { box-shadow: inset 3px 0 0 var(--green); }
+.badge.tiny { font-size: .62rem; padding: .12rem .42rem; vertical-align: middle; }
+.gate h4 { margin-bottom: .35rem; }
+.gate p { margin: .3rem 0; }
+.dec .table-wrap { margin: .9rem 0; box-shadow: none; border: 1px solid var(--line); border-radius: 10px; }
+.dec .table-wrap table caption { text-align: left; }
+
 @media print {
   .worksheet-form .btn-row { display: none !important; }
   .worksheet-field input { border: 0; border-bottom: 1px solid #999; border-radius: 0; background: #fff; }
