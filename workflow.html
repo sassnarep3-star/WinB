@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publishing workflow &amp; compliance gate | Counter &amp; Crisp</title>
+<meta name="description" content="How each page is drafted, sourced, disclosure-checked, link-gated, published, and measured — automated where possible, gated where not.">
+<link rel="canonical" href="https://sassnarep3-star.github.io/WinB/workflow.html">
+<meta property="og:site_name" content="Counter & Crisp">
+<meta property="og:title" content="Publishing workflow &amp; compliance gate | Counter &amp; Crisp">
+<meta property="og:description" content="How each page is drafted, sourced, disclosure-checked, link-gated, published, and measured — automated where possible, gated where not.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sassnarep3-star.github.io/WinB/workflow.html">
+<meta property="og:image" content="https://sassnarep3-star.github.io/WinB/assets/img/hero.jpg">
+<meta name="cc-collect-endpoint" content="">
+<link rel="alternate" type="application/rss+xml" title="Counter & Crisp feed" href="https://sassnarep3-star.github.io/WinB/feed.xml">
+<link rel="stylesheet" href="https://sassnarep3-star.github.io/WinB/assets/css/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Publishing workflow & compliance gate | Counter & Crisp","description":"How each page is drafted, sourced, disclosure-checked, link-gated, published, and measured — automated where possible, gated where not.","url":"https://sassnarep3-star.github.io/WinB/workflow.html","isPartOf":{"@type":"WebSite","name":"Counter & Crisp","url":"https://sassnarep3-star.github.io/WinB/"},"dateModified":"2026-11-20"}</script>
+</head>
+<body data-page-type="page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="https://sassnarep3-star.github.io/WinB/index.html">Counter <span class="amp">&amp;</span> Crisp</a>
+      <span class="tagline">Air fryers &amp; kitchen thermometers, compared plainly</span>
+    </div>
+    <nav class="nav" aria-label="Site"><a href="https://sassnarep3-star.github.io/WinB/index.html">Home</a>
+      <a href="https://sassnarep3-star.github.io/WinB/products.html">The lineup</a>
+      <a href="https://sassnarep3-star.github.io/WinB/air-fryers.html">Air fryers</a>
+      <a href="https://sassnarep3-star.github.io/WinB/thermometers.html">Thermometers</a>
+      <a href="https://sassnarep3-star.github.io/WinB/compare.html">Compare</a>
+      <a href="https://sassnarep3-star.github.io/WinB/guides.html">Guides</a>
+      <a href="https://sassnarep3-star.github.io/WinB/about.html">About</a></nav>
+  </div>
+</header>
+<div class="disclosure-strip" role="note" aria-label="Affiliate disclosure">
+  <div class="wrap">
+    <span><strong>Disclosure:</strong> Counter &amp; Crisp is reader-supported. If you buy through links on this site we may earn a commission, at no extra cost to you. Every product link is marked <span class="badge-sponsor">sponsored</span>. As an Amazon Associate I earn from qualifying purchases.</span>
+  </div>
+</div>
+<main id="main">
+
+<section class="standalone">
+  <div class="wrap">
+    <p class="kicker">The desk · Workflow</p>
+    <h1>Publishing workflow &amp; compliance gate.</h1>
+    <p class="lede">Automate what can be automated; put a gate in front of what cannot. This is the
+    pipeline every page passes through — including the checks the brief calls S01, S07, and S24
+    (disclosure placement and endorsement context, reviewed against the Associates Operating
+    Agreement and FTC guidance).</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>The pipeline</h2>
+    <div class="table-scroll">
+      <table class="data">
+        <thead><tr><th>Step</th><th>Stage</th><th>What happens</th><th>Automated or gated</th></tr></thead>
+        <tbody><tr><td><strong>1</strong></td><td>Draft</td><td>Question-shaped draft written against the cluster plan; claims collected with candidate sources.</td><td>Manual (editor)</td></tr><tr><td><strong>2</strong></td><td>Source check</td><td>Every factual claim matched to an official source URL; unmatched claims deleted, not softened.</td><td>Automatable: link checker (tools/check_links.py) verifies every cited URL is present; judgment stays manual</td></tr><tr><td><strong>3</strong></td><td>Disclosure &amp; endorsement check</td><td>Disclosure strip present above the fold; product links marked sponsored; no unverifiable claims; endorsement context reviewed against the Operating Agreement and FTC guidance.</td><td>Gated — human review (S01 · S07 · S24)</td></tr><tr><td><strong>4</strong></td><td>Link validation gate</td><td>One link per product tested in the enrolled Associates workflow: destination and tracking report confirmed. Ambiguous links are not scaled (FLG-003).</td><td>Gated — human, Associates Central</td></tr><tr><td><strong>5</strong></td><td>Publish</td><td>Page added; sitemap.xml and feed.xml regenerate automatically from the build script; canonical URL set.</td><td>Automated (tools/build_site.py)</td></tr><tr><td><strong>6</strong></td><td>Measure</td><td>Five defined events counted (privacy-preserving); campaign ledger rows added only from authorized first-party reports, with provenance.</td><td>Automated counter; gated ledger entry</td></tr><tr><td><strong>7</strong></td><td>Iterate</td><td>Next topic chosen from measured queries (Search Console), not instinct. Optimization changes go through the suggestion queue first.</td><td>Measure before automating optimization</td></tr></tbody>
+      </table>
+    </div>
+
+    <h2 id="compliance">The compliance gate</h2>
+    <div class="table-scroll">
+      <table class="data">
+        <caption>Status as of 2026-11-20. Sources are linked in the <a href="https://sassnarep3-star.github.io/WinB/register.html#sources">source register</a>.</caption>
+        <thead><tr><th>Check</th><th>Authority</th><th>How enforced</th><th>Status</th></tr></thead>
+        <tbody><tr><td>Required statement verbatim under masthead + footer on every page</td><td>Associates Operating Agreement / help (SRC-05, SRC-06)</td><td>Automated — build template</td><td>Pass</td></tr><tr><td>Every product link marked sponsored (visible badge + rel="sponsored")</td><td>FTC Endorsement Guides (SRC-01, SRC-02, SRC-12)</td><td>Automated — build template</td><td>Pass</td></tr><tr><td>No unverified values published (blank-and-flag policy)</td><td>Project verification rules</td><td>Automated — check_links.py + register review</td><td>Pass</td></tr><tr><td>Seller claims labelled as claims wherever quoted</td><td>FTC honesty principle (SRC-01)</td><td>Manual review</td><td>Pass</td></tr><tr><td>One-link destination + tracking test per product before scaling links</td><td>Associates Program Policies (SRC-04)</td><td>Manual — Associates Central</td><td>Blocked by FLG-003 — not yet run</td></tr><tr><td>Endorsement context / disclosure placement reviewed against OA + FTC guidance</td><td>SRC-01, SRC-02, SRC-05</td><td>Manual — reviewer checklist</td><td>Scheduled each publish (S01 · S07 · S24)</td></tr><tr><td>API policy checks (pricing/spec data only from authorized sources)</td><td>Associates Program Policies (SRC-04)</td><td>Gated — PA-API enrollment pending (SUG-010)</td><td>Pending</td></tr></tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <h3>The one-link test (before any link scales)</h3>
+      <p>Per the brief and Amazon's own guidance: for each product, use the enrolled Associates
+      workflow to test one link, confirm it lands on the intended destination, and confirm the
+      click appears in the tracking report. Results go in the
+      <a href="https://sassnarep3-star.github.io/WinB/register.html#intent">intent record</a>. Until then, the submitted short links
+      remain exactly as supplied, marked sponsored, with their compliance status recorded as
+      <strong>unresolved</strong> — we do not claim they are invalid (FLG-003).</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-disclosure">
+      <strong>Disclosure (repeated):</strong> <strong>Disclosure:</strong> Counter &amp; Crisp is reader-supported. If you buy through links on this site we may earn a commission, at no extra cost to you. Every product link is marked <span class="badge-sponsor">sponsored</span>. As an Amazon Associate I earn from qualifying purchases.
+    </div>
+    <div class="footer-cols">
+      <div>
+        <h4>Counter &amp; Crisp</h4>
+        <p>A small, source-first buying desk for countertop cooking gear: air fryers and the
+        thermometers that make them useful. We publish the questions to ask, the checklist to run,
+        and exactly what we could and could not verify.</p>
+        <p><a href="https://sassnarep3-star.github.io/WinB/feed.xml">RSS feed</a> · <a href="https://sassnarep3-star.github.io/WinB/sitemap.xml">Sitemap</a> · <a href="https://sassnarep3-star.github.io/WinB/robots.txt">Robots</a></p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul><li><a href="https://sassnarep3-star.github.io/WinB/products.html">The lineup — all five picks</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/air-fryers.html">Air fryers category</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/thermometers.html">Thermometers category</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/compare.html">Side-by-side comparison</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/guides.html">Buying guides</a></li></ul>
+      </div>
+      <div>
+        <h4>The desk</h4>
+        <ul><li><a href="https://sassnarep3-star.github.io/WinB/executive-summary.html">Executive summary</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/register.html">Source &amp; product register</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/workflow.html">Publishing workflow &amp; compliance gate</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/measurement.html">Measurement &amp; campaign ledger</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/flagged.html">Flagged for review</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/suggestions.html">Suggestion review queue</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/questions.html">Open questions &amp; answers</a></li></ul>
+      </div>
+      <div>
+        <h4>Standards</h4>
+        <ul>
+          <li><a href="https://sassnarep3-star.github.io/WinB/about.html#policy">Editorial &amp; verification policy</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/workflow.html#compliance">Compliance gate</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/measurement.html#privacy">Privacy note</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/register.html#intent">Link intent record</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 Counter &amp; Crisp · Built 2026-11-20 · Canonical site: <a href="https://sassnarep3-star.github.io/WinB/">https://sassnarep3-star.github.io/WinB/</a></span>
+      <span>Prices and ratings are intentionally not shown — see <a href="https://sassnarep3-star.github.io/WinB/flagged.html">Flagged for Review</a>.</span>
+    </div>
+  </div>
+</footer>
+<script src="https://sassnarep3-star.github.io/WinB/assets/js/site.js" defer></script>
+</body>
+</html>

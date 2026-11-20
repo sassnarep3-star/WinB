@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measurement &amp; campaign ledger | Counter &amp; Crisp</title>
+<meta name="description" content="The five defined events, the privacy-preserving click counter, the self-hosted endpoint contract, and an empty but well-defined campaign ledger.">
+<link rel="canonical" href="https://sassnarep3-star.github.io/WinB/measurement.html">
+<meta property="og:site_name" content="Counter & Crisp">
+<meta property="og:title" content="Measurement &amp; campaign ledger | Counter &amp; Crisp">
+<meta property="og:description" content="The five defined events, the privacy-preserving click counter, the self-hosted endpoint contract, and an empty but well-defined campaign ledger.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sassnarep3-star.github.io/WinB/measurement.html">
+<meta property="og:image" content="https://sassnarep3-star.github.io/WinB/assets/img/hero.jpg">
+<meta name="cc-collect-endpoint" content="">
+<link rel="alternate" type="application/rss+xml" title="Counter & Crisp feed" href="https://sassnarep3-star.github.io/WinB/feed.xml">
+<link rel="stylesheet" href="https://sassnarep3-star.github.io/WinB/assets/css/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Measurement & campaign ledger | Counter & Crisp","description":"The five defined events, the privacy-preserving click counter, the self-hosted endpoint contract, and an empty but well-defined campaign ledger.","url":"https://sassnarep3-star.github.io/WinB/measurement.html","isPartOf":{"@type":"WebSite","name":"Counter & Crisp","url":"https://sassnarep3-star.github.io/WinB/"},"dateModified":"2026-11-20"}</script>
+</head>
+<body data-page-type="page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="https://sassnarep3-star.github.io/WinB/index.html">Counter <span class="amp">&amp;</span> Crisp</a>
+      <span class="tagline">Air fryers &amp; kitchen thermometers, compared plainly</span>
+    </div>
+    <nav class="nav" aria-label="Site"><a href="https://sassnarep3-star.github.io/WinB/index.html">Home</a>
+      <a href="https://sassnarep3-star.github.io/WinB/products.html">The lineup</a>
+      <a href="https://sassnarep3-star.github.io/WinB/air-fryers.html">Air fryers</a>
+      <a href="https://sassnarep3-star.github.io/WinB/thermometers.html">Thermometers</a>
+      <a href="https://sassnarep3-star.github.io/WinB/compare.html">Compare</a>
+      <a href="https://sassnarep3-star.github.io/WinB/guides.html">Guides</a>
+      <a href="https://sassnarep3-star.github.io/WinB/about.html">About</a></nav>
+  </div>
+</header>
+<div class="disclosure-strip" role="note" aria-label="Affiliate disclosure">
+  <div class="wrap">
+    <span><strong>Disclosure:</strong> Counter &amp; Crisp is reader-supported. If you buy through links on this site we may earn a commission, at no extra cost to you. Every product link is marked <span class="badge-sponsor">sponsored</span>. As an Amazon Associate I earn from qualifying purchases.</span>
+  </div>
+</div>
+<main id="main">
+
+<section class="standalone">
+  <div class="wrap">
+    <p class="kicker">The desk · Measurement</p>
+    <h1>Measurement before optimization.</h1>
+    <p class="lede">The counter runs on day one so the campaign ledger has somewhere honest to come
+    from. It is privacy-preserving by design, and the ledger stays empty until authorized
+    first-party reports fill it — a measured zero beats a manufactured number.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>The five defined events</h2>
+    <p>The brief refers to "the five defined events" without enumerating them in this session's
+    copy, so the working taxonomy below is defined here and flagged for confirmation (FLG-005).
+    Payload fields: <code>e</code> event, <code>p</code> page path (no query strings), <code>a</code>
+    observed ASIN where relevant, <code>t</code> timestamp.</p>
+    <div class="table-scroll">
+      <table class="data">
+        <thead><tr><th>Event</th><th>Trigger</th><th>Fields</th><th>Notes</th></tr></thead>
+        <tbody><tr><td><code>session</code></td><td>First event of a browsing session (sessionStorage flag)</td><td><code>e, p, t</code></td><td>Fires once per browser session; no cookie, no id.</td></tr><tr><td><code>page_view</code></td><td>Any page load</td><td><code>e, p, t</code></td><td>Path only — no query strings, no referrer.</td></tr><tr><td><code>product_impression</code></td><td>A product card or row first enters the viewport (IntersectionObserver)</td><td><code>e, p, a, t</code></td><td>a = observed ASIN of the product shown.</td></tr><tr><td><code>outbound_click</code></td><td>A sponsored product link is clicked</td><td><code>e, p, a, t</code></td><td>Fires before navigation; counts clicks, not outcomes.</td></tr><tr><td><code>guide_view</code></td><td>A guide page loads</td><td><code>e, p, t</code></td><td>Lets the campaign ledger compare guide pull vs product pull.</td></tr></tbody>
+      </table>
+    </div>
+
+    <h2 id="privacy">Privacy note</h2>
+    <div class="callout">
+      <ul>
+        <li><strong>No cookies.</strong> Nothing is written to the visitor's cookie jar; session
+        continuity uses sessionStorage and clears when the tab closes.</li>
+        <li><strong>No personal data, no IP capture, no fingerprints.</strong> The payload carries
+        an event name, a page path, a product id, and a timestamp. Nothing else.</li>
+        <li><strong>Local-only mode is live.</strong> Until an endpoint is deployed, tallies stay in
+        the visitor's own browser (localStorage) and can be exported or deleted by them at any time.
+        Nothing is transmitted anywhere.</li>
+        <li><strong>When the endpoint goes live</strong> (FLG-006), it receives only the payload
+        above via <code>navigator.sendBeacon</code>, and its operator must not log IP addresses or
+        user agents. That constraint is part of the contract below.</li>
+      </ul>
+    </div>
+
+    <h2>Self-hosted collect endpoint — contract</h2>
+    <p>GitHub Pages serves static files only, so the endpoint must live elsewhere (a small worker,
+    function, or VPS). The contract is fixed and tiny; deploy it and set
+    <code>&lt;meta name="cc-collect-endpoint"&gt;</code> in the page head to activate delivery.</p>
+    <pre><code>POST  &lt;endpoint&gt;
+Content-Type: application/json
+
+{"events":[
+  {"e":"outbound_click","p":"/products.html","a":"B0CDY277D3","t":1763606400000}
+]}
+
+→ 204 No Content
+Rules: no IP logging · no user-agent logging · no cookie · aggregate only</code></pre>
+
+    <div class="tally-box">
+      <h3>Your local tally (this browser)</h3>
+      <p>This is what the counter has counted for <em>your</em> visit so far — it never left your
+      browser.</p>
+      <pre id="tally-output"><code>{}</code></pre>
+      <div class="button-row">
+        <a class="btn btn-small" href="#" id="tally-download">Download my tally (JSON)</a>
+        <a class="btn btn-ghost btn-small" href="#" id="tally-reset">Reset my tally</a>
+      </div>
+    </div>
+
+    <h2>Campaign ledger — empty and well-defined</h2>
+    <p>Rows are added <strong>only</strong> when obtained from authorized first-party reports
+    (Amazon Associates reports; the self-hosted counter once live). Each row keeps a dated
+    provenance trail. No conversion score, no revenue forecast, no estimates — ever.</p>
+    <div class="table-scroll">
+      <table class="data">
+        <caption>Campaign ledger — 0 rows. First row is expected after the one-link test (FLG-003)
+        and endpoint deployment (FLG-006).</caption>
+        <thead><tr><th>Date (UTC)</th><th>Source</th><th>Channel</th><th>Eligible sessions</th><th>Clicks</th><th>Reported orders</th><th>Provenance (authorized first-party report)</th></tr></thead>
+        <tbody>
+          <tr><td colspan="7" class="blank">No rows yet — awaiting authorized first-party reports.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Cadence &amp; iteration policy</h2>
+    <ul class="checklist">
+      <li><strong>Publishing cadence:</strong> two question-shaped guides per month plus seasonal
+      edits; every guide joins sitemap.xml and feed.xml automatically at build time.</li>
+      <li><strong>Measure before writing more:</strong> after 2–4 weeks of Search Console data
+      (SUG-006), the next topics come from measured queries — the current five titles are declared
+      hypotheses.</li>
+      <li><strong>Measure before automating optimization:</strong> no auto-rewrites, no auto-pricing
+      updates, no auto-ranking changes. Optimization proposals enter the
+      <a href="https://sassnarep3-star.github.io/WinB/suggestions.html">suggestion queue</a> like everything else.</li>
+      <li><strong>Reader capture (SG-30):</strong> RSS is live (<a href="https://sassnarep3-star.github.io/WinB/feed.xml">feed.xml</a>);
+      email capture is a proposal (SUG-011), not a dark pattern in waiting.</li>
+    </ul>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-disclosure">
+      <strong>Disclosure (repeated):</strong> <strong>Disclosure:</strong> Counter &amp; Crisp is reader-supported. If you buy through links on this site we may earn a commission, at no extra cost to you. Every product link is marked <span class="badge-sponsor">sponsored</span>. As an Amazon Associate I earn from qualifying purchases.
+    </div>
+    <div class="footer-cols">
+      <div>
+        <h4>Counter &amp; Crisp</h4>
+        <p>A small, source-first buying desk for countertop cooking gear: air fryers and the
+        thermometers that make them useful. We publish the questions to ask, the checklist to run,
+        and exactly what we could and could not verify.</p>
+        <p><a href="https://sassnarep3-star.github.io/WinB/feed.xml">RSS feed</a> · <a href="https://sassnarep3-star.github.io/WinB/sitemap.xml">Sitemap</a> · <a href="https://sassnarep3-star.github.io/WinB/robots.txt">Robots</a></p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul><li><a href="https://sassnarep3-star.github.io/WinB/products.html">The lineup — all five picks</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/air-fryers.html">Air fryers category</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/thermometers.html">Thermometers category</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/compare.html">Side-by-side comparison</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/guides.html">Buying guides</a></li></ul>
+      </div>
+      <div>
+        <h4>The desk</h4>
+        <ul><li><a href="https://sassnarep3-star.github.io/WinB/executive-summary.html">Executive summary</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/register.html">Source &amp; product register</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/workflow.html">Publishing workflow &amp; compliance gate</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/measurement.html">Measurement &amp; campaign ledger</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/flagged.html">Flagged for review</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/suggestions.html">Suggestion review queue</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/questions.html">Open questions &amp; answers</a></li></ul>
+      </div>
+      <div>
+        <h4>Standards</h4>
+        <ul>
+          <li><a href="https://sassnarep3-star.github.io/WinB/about.html#policy">Editorial &amp; verification policy</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/workflow.html#compliance">Compliance gate</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/measurement.html#privacy">Privacy note</a></li>
+          <li><a href="https://sassnarep3-star.github.io/WinB/register.html#intent">Link intent record</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 Counter &amp; Crisp · Built 2026-11-20 · Canonical site: <a href="https://sassnarep3-star.github.io/WinB/">https://sassnarep3-star.github.io/WinB/</a></span>
+      <span>Prices and ratings are intentionally not shown — see <a href="https://sassnarep3-star.github.io/WinB/flagged.html">Flagged for Review</a>.</span>
+    </div>
+  </div>
+</footer>
+<script src="https://sassnarep3-star.github.io/WinB/assets/js/site.js" defer></script>
+</body>
+</html>
