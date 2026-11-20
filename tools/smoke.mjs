@@ -19,7 +19,7 @@ const seeds = [
   `${BASE}/`, `${BASE}/air-fryers/`, `${BASE}/thermometers/`, `${BASE}/reviews/`,
   `${BASE}/compare/`, `${BASE}/guides/`, `${BASE}/decisions/`, `${BASE}/data-room/`,
   `${BASE}/flagged/`, `${BASE}/methods/`, `${BASE}/about/`, `${BASE}/privacy/`,
-  `${BASE}/executive-summary/`, `${BASE}/review/`,
+  `${BASE}/executive-summary/`, `${BASE}/review/`, `${BASE}/suggestions/`,
   `${BASE}/reviews/chefman-6qt-dual-basket.html`,
   `${BASE}/reviews/chefman-8qt-turbofry.html`,
   `${BASE}/reviews/emeril-26qt-french-door.html`,
@@ -28,6 +28,11 @@ const seeds = [
   `${BASE}/guides/basket-or-oven.html`, `${BASE}/guides/capacity-checklist.html`,
   `${BASE}/guides/cleanup-counter.html`, `${BASE}/guides/multifunction.html`,
   `${BASE}/guides/temperature-safety.html`,
+  /* S15 (session 30073780): new guides + worksheets */
+  `${BASE}/guides/holiday-roast-thermometer.html`, `${BASE}/guides/game-day-wings.html`,
+  `${BASE}/guides/air-fryer-leftovers.html`,
+  `${BASE}/tools/`, `${BASE}/tools/capacity-worksheet.html`,
+  `${BASE}/tools/cleanup-worksheet.html`, `${BASE}/tools/thermometer-calibration.html`,
 ];
 
 for (const s of seeds) {

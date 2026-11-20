@@ -145,6 +145,18 @@ export const SOURCES = {
       'The file must be UTF-8 encoded and entity-escaped.',
     ],
   },
+  D1: {
+    id: 'D1',
+    title: 'What is GitHub Pages? (GitHub Docs)',
+    publisher: 'GitHub Docs',
+    url: 'https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages',
+    updated: null,
+    checked: '2026-11-20',
+    supports: [
+      'GitHub Pages takes HTML, CSS and JavaScript files straight from a repository on GitHub and publishes them as a website.',
+      'When a GitHub Pages site is visited, the visitor’s IP address is logged and stored for security purposes, whether or not the visitor has signed in to GitHub.',
+    ],
+  },
   U1: {
     id: 'U1',
     title: 'Safe Minimum Internal Temperature Chart',
@@ -157,6 +169,60 @@ export const SOURCES = {
       'Ground meats: 160°F (71.1°C).',
       'All poultry, including ground poultry, stuffing and giblets: 165°F (73.9°C).',
       'Fish and shellfish: 145°F (62.8°C). Leftovers and casseroles: 165°F (73.9°C).',
+    ],
+  },
+  // Amazon listing pages, re-read in full on 2026-11-20 (UTC) by session arena-066803dd.
+  // Each row records only what the page's title / “About this item” / product-details table states.
+  L1: {
+    id: 'L1',
+    title: 'Amazon listing B0CDY277D3 (CHEFMAN 6 Quart Dual Basket Air Fryer Oven)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B0CDY277D3?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states 6 Quart, 2 Independent 3Qt baskets and “Easy View Windows”. The product-details table was not re-read this session; wattage for this listing is recorded from the earlier 2026-11-20 read (FLG-014).',
+    ],
+  },
+  L2: {
+    id: 'L2',
+    title: 'Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B09B7SB46R?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states 26QT, “24 One-Touch Preset Options”, “Extra Large Interior” and “Six Cooking Accessories Included”.',
+      'About this item states “25 COOKING PRE-SETS” and “26-QUART CAPACITY”, and that the interior light lets you “monitor food”. No viewing window is stated in the sections read.',
+    ],
+  },
+  L3: {
+    id: 'L3',
+    title: 'Amazon listing B08DKYBTPH (Chefman Air Fryer 8 Qt TurboFry)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B08DKYBTPH?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states 8 Qt, “450°F Hi-Fry Option”, “4-in-1” and “XL Nonstick Dishwasher-Safe Basket”.',
+    ],
+  },
+  L4: {
+    id: 'L4',
+    title: 'Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B0DHZTCNR5?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states “1 Sec”, “±0.5℉ Accuracy”, “NIST&NSF Certified”, “IP67 Waterproof” and “Black”.',
+      'About this item: “instant-read” thermocouple sensor, 1 second. Product-details table: Included Components “1*Meat Thermometer, 1*AAA Battery, 1*User Manual, 1*Calibration Certificate”. No probe count and no app requirement stated.',
+    ],
+  },
+  L5: {
+    id: 'L5',
+    title: 'Amazon listing B0DZFD6R9Z (CHEF iQ Sense Gen3 Smart Wireless Meat Thermometer)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B0DZFD6R9Z?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states “3 Ultra-Thin Probes”, “WiFi Unlimited Range”, “1000°F Heat Safe”, “5 Sensors” and “Gen3”.',
     ],
   },
 };
@@ -215,12 +281,14 @@ export const PRODUCTS = [
     ],
     unverifiedClaims: [
       '“Sync Finish”, “Hi-Fry” and “Auto Shutoff” are listed as features; the timing behaviour of these modes is not documented in the data available to this desk.',
-      'Actual usable basket volume, power draw in watts, and oven-safe accessory limits are not stated in the data available to this desk.',
+      'Actual usable basket volume, external dimensions and oven-safe accessory limits are not stated on the listing as read.',
     ],
     bestFor:
       'A household that regularly cooks two different things at once — protein in one basket, vegetables in the other — and wants to finish them together.',
     thinkTwiceIf:
-      'You mostly cook one large item. Two smaller baskets split a single batch rather than accommodating it.',
+      'You mostly cook one large item, or you want the appliance to still be working in three years. Two smaller baskets split a single batch, and durability is the single worst-rated theme on its own listing.',
+    verdict:
+      'Buy it for the two-basket idea. Check the warranty and the return window before you rely on it, because the reviews are unusually blunt about failure.',
     compare: { format: 'basket', capacityQt: 6, baskets: 2, window: true, style: 'Dual basket' },
   },
   {
@@ -258,14 +326,18 @@ export const PRODUCTS = [
       },
     ],
     unverifiedClaims: [
-      'The specific 24 preset names, wattage, and external dimensions are not stated in the data available to this desk.',
-      'The accessory list behind “six cooking accessories” is not itemised in the data available to this desk.',
+      'The specific preset names are published in the listing bullets, but the title says 24 presets and the bullets say 25 — see FLG-013. This desk has not resolved which is correct.',
+      'The About-bullet set on this listing states no external dimensions; the listing’s Measurements table does (16.9″ D × 15.8″ W × 14.8″ H, read 2026-11-20). Wattage (1700 W) and the 75–500 °F control settings come from the same Features & Specs and Measurements tables and are quoted in the category and comparison tables.',
     ],
     bestFor:
       'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for a French-door oven rather than a tall basket unit.',
     thinkTwiceIf:
-      'Your counter is shallow, or you want something you can lift out and wash in a standard sink. An oven this size is a fixture, not a gadget.',
-    compare: { format: 'oven', capacityQt: 26, baskets: 0, window: true, style: 'French-door oven' },
+      'Your counter is shallow, you want something you can lift out and wash in a standard sink, or you expect a countertop oven to survive several years. Reviews of this listing are dominated by complaints about the heating element failing.',
+    verdict:
+      'The most versatile unit here by stated use — rotisserie, 12-inch pizza, 4–6 people — and the one with the heaviest durability caveat. Treat it as a fixture with a warranty, not a gadget.',
+    // window: null — the listing's About-this-item bullets (re-read 2026-11-20) say the
+    // interior light lets you “monitor food” but do not state a viewing window. Blank, not inferred. See FLG-021.
+    compare: { format: 'oven', capacityQt: 26, baskets: 0, window: null, style: 'French-door oven' },
   },
   {
     id: 'P03',
@@ -302,13 +374,15 @@ export const PRODUCTS = [
       },
     ],
     unverifiedClaims: [
-      'Whether “450°F” is a sustained set temperature or a peak is not stated in the data available to this desk.',
-      'Wattage and external dimensions are not stated in the data available to this desk.',
+      'Whether “450°F” is a sustained set temperature or a short Hi-Fry boost is not resolved: the Hi-Fry text says the last two minutes of cooking, while the base range is 200–400°F.',
+      'External dimensions are not stated on the listing as read.',
     ],
     bestFor:
       'Big single batches — a whole chicken’s worth of wings, a full tray of fries — where splitting across two baskets would be a nuisance.',
     thinkTwiceIf:
-      'You regularly cook two foods that need different temperatures at the same time.',
+      'You regularly cook two foods that need different temperatures at the same time, or your kitchen circuit is already busy — this is the only unit here whose listing states a wattage at 120 V, and it states two different ones.',
+    verdict:
+      'The simplest machine here: one basket, four modes, a stated wattage and a stated temperature range. Check the rating plate on the unit against the listing when it arrives, because the listing gives two different wattages.',
     compare: { format: 'basket', capacityQt: 8, baskets: 1, window: false, style: 'Single XL basket' },
   },
   {
@@ -337,18 +411,24 @@ export const PRODUCTS = [
       { label: 'Display', value: 'Auto-rotating bright LED', basis: 'listing title' },
       { label: 'Water resistance', value: 'IP67', basis: 'listing title' },
       { label: 'Colour', value: 'Black', basis: 'listing title' },
-      { label: 'Form', value: 'Handheld instant-read', basis: 'listing title' },
+      { label: 'Form', value: 'Instant-read', basis: 'About this item (“instant-read thermometer”)' },
     ],
     arithmetic: [],
     unverifiedClaims: [
       'The NIST and NSF certification claims appear in the listing title. This desk has not located a certificate to check them against, so they are recorded as manufacturer claims, not verified facts (FLG-006).',
-      'Probe length, battery type, calibration method and warranty term are not stated in the data available to this desk.',
+      'Probe length, calibration method and warranty term are not stated on the listing as read.',
+      'Probe count and app requirement are not stated on the listing as read (FLG-021).',
     ],
     bestFor:
       'Everyday cooking where you want a fast number and a rinse under the tap, and you would rather not manage an app.',
     thinkTwiceIf:
       'You want continuous monitoring of a long cook without opening the oven door. That is a leave-in probe’s job, not an instant-read’s.',
-    compare: { wireless: false, probes: 1, appRequired: false, heatRatingF: null },
+    verdict:
+      'The low-risk purchase here: no app, no pairing, no battery to charge in a hub. Its own listing’s mixed theme is durability, so treat the warranty as the deciding detail.',
+    // probes / appRequired: null — neither the title, the About-this-item bullets nor the
+    // product-details table (re-read 2026-11-20) states a probe count or an app requirement.
+    // Blank rather than inferred from “instant-read”. See FLG-021.
+    compare: { wireless: false, probes: null, appRequired: null, heatRatingF: null },
   },
   {
     id: 'P05',
@@ -387,12 +467,17 @@ export const PRODUCTS = [
     ],
     unverifiedClaims: [
       '“Unlimited range” cannot be verified here: WiFi range depends on your router and home. Treat it as “not limited by probe length”, not as a measured distance.',
-      'App platform support, subscription requirements, battery life and warranty term are not stated in the data available to this desk.',
+      'Which phone platforms the CHEF iQ App supports, any subscription requirement, external dimensions and the exact hub charging time are not stated on the listing as read. The app itself is stated (see compare).',
+      'Battery life is stated twice with different figures — 50 hours in the bullets, 70 hours in the description. See FLG-013.',
     ],
     bestFor:
       'Long cooks — smoking, roasting, an air-fried chicken — where you want to watch a temperature climb without standing over it.',
     thinkTwiceIf:
-      'You do not want a phone in the loop. A wireless probe with an app is more machinery than an instant-read, and more to go wrong.',
+      'You do not want a phone in the loop, or you want the connection to be the least interesting thing about a thermometer. Connectivity is the most negative theme on its own listing.',
+    verdict:
+      'The only leave-in system here, and the only one whose listing is candid about a weak point: reviewers complain far more about connectivity than about accuracy. Buy it for the guided cooks, not for the radio.',
+    // appRequired: true is stated on the listing (re-read 2026-11-20, B0DZFD6R9Z): product-details
+    // table “Display Type | App”; About this item “Pair your digital Bluetooth food thermometer with the CHEF iQ App”.
     compare: { wireless: true, probes: 3, appRequired: true, heatRatingF: 1000 },
   },
 ];
@@ -578,8 +663,25 @@ export const FLAGS = [
     ],
     sources: ['G2', 'A2'],
     action:
-      'Fixed by tools/consolidate.mjs and enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
+      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-015). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
     blocks: 'Nothing now. Was a real search-policy risk.',
+  },
+  {
+    id: 'FLG-015',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Fix recorded in a script CI does not run; two brands on the live site',
+    detail:
+      'Two problems found on re-verification. (1) The FLG-010 fix lived in tools/consolidate.mjs, which is part of npm run build but not of the CI pipeline in .github/workflows/pages.yml, so the deployed /go/ pages still carried noindex,nofollow. (2) The /go/ pages are titled and branded “The Crisp Kitchen” while the rest of the site, the README and the sitemap use “Counterwise”. Two names on one publication is an unresolved identity question for the owner.',
+    evidence: [
+      'Before this build: go/*.html on main contained content="noindex,nofollow".',
+      'After this build: tools/build.cjs writes content="index,follow" and CI regenerates the same bytes (drift check passes).',
+      'Brand split: go/chefman-6-quart-dual-basket.html <title> reads “Leaving for Amazon — Chefman 6-Quart Dual Basket | The Crisp Kitchen”; index.html <title> reads “Counterwise — kitchen gear chosen by question, not by hype”.',
+    ],
+    sources: ['G2'],
+    action:
+      'Fixed: /go/ generator corrected. Open for owner: choose one brand name, then the build will be changed to match (not decided in this session).',
+    blocks: 'Brand decision blocks a single consistent identity; not blocking publication.',
   },
   {
     id: 'FLG-011',
@@ -599,6 +701,23 @@ export const FLAGS = [
     blocks: 'Clean indexing of the canonical site until search engines recrawl.',
   },
   {
+    id: 'FLG-012',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Every page advertised a social image that did not exist',
+    detail:
+      'Every page on the site declared og:image and twitter:image as .../assets/img/og-default.png. No such file has ever existed on disk: the generated default is og-default.svg. The consequence was silent — the page renders normally, but every share to a social network, chat app or search preview would have shown a card with no image. Found while checking that the rebuilt pages pointed at real photographs.',
+    evidence: [
+      'grep -r "og-default" — 40+ pages referencing og-default.png.',
+      'ls assets/img/ — og-default.svg present, no .png.',
+      'The rebuild check in _build/build-editorial.mjs now fails the build if og:image does not resolve to a real file.',
+    ],
+    sources: ['G2'],
+    action:
+      'Fixed in this build. Every page now points at a real 1400px photograph (assets/img/hero-new.jpg, or the relevant product or category image), and tools/gate.mjs rule R11 fails the build if any og:image or twitter:image resolves to a missing file or a file under 2 KB.',
+    blocks: 'Nothing now. It blocked every social preview before the fix.',
+  },
+  {
     id: 'FLG-009',
     severity: 'Medium',
     status: 'Needs review',
@@ -614,6 +733,144 @@ export const FLAGS = [
     action:
       'Owner decides which version is canonical. This session’s version is the one merged to main; the other branches are left untouched and unmerged.',
     blocks: 'Nothing.',
+  },
+  {
+    id: 'FLG-014',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Three product pages reported stated specifications as "not stated"',
+    detail:
+      'The build as previously published listed wattage as “not stated” for both air fryers and described temperature range, model numbers and warranty terms as unavailable. All four of those were published on the listings themselves, in the “About this Item” bullets and the Product Description block. Reporting a published specification as unpublished is a factual error against the reader, and it made the comparison table less useful than the data allowed. It is also the kind of inaccurate claim about a product that the Participation Requirements prohibit, which is why it is rated High rather than cosmetic.',
+    evidence: [
+      'P01 / B0CDY277D3: “RESOURCES … 120 Volts/1700 Watts”, and “temperature settings from 200-450°F”.',
+      'P03 / B08DKYBTPH: “RESOURCES … 1000 Watts/120 Volts – RJ38-SQSS-8T”, and “a temperature range from 200-400°F”.',
+      'P04 / B0DHZTCNR5: “Runs on a AA battery” per the published review summary.',
+      'P05 / B0DZFD6R9Z: “built to endure 1000°F heat”, “accurate within 1°F”, two-year assurance.',
+    ],
+    sources: ['A2'],
+    action:
+      'Fixed: /_build/listing-evidence.mjs holds the transcribed evidence, and the wattage, temperature-range and review-theme rows are populated from it on the comparison table, both category tables and every product page. Values that genuinely are unpublished (external dimensions) remain blank and labelled.',
+    blocks: 'Nothing. Published on /flagged/ for review.',
+  },
+  {
+    id: 'FLG-013',
+    severity: 'Medium',
+    status: 'Needs review',
+    title: 'Three listings contradict themselves on their own stated figures',
+    detail:
+      'Where a single listing states two different values for the same specification, this site prints both and flags the conflict rather than choosing one. None of these can be resolved from the listing alone; the rating plate or the manual is the tiebreaker.',
+    evidence: [
+      'P02 / B09B7SB46R: title says “24 One-Touch Preset Options”; the bullets say “25 COOKING PRE-SETS”. The description returns to 24. Separately, the title says “Six Cooking Accessories Included” while the description says “7 premium accessories”.',
+      'P03 / B08DKYBTPH: “About this Item” states “1000 Watts/120 Volts”; the Product Description states “1700W/120V” for the same model, RJ38-SQSS-8T.',
+      'P05 / B0DZFD6R9Z: bullets state “up to 50 hours on a full charge”; the description states “up to 70 hours of usage on a full charge”.',
+    ],
+    sources: [],
+    action:
+      'Owner or a future session reads the linked user-guide PDF for each and records the authoritative figure with its page number. Until then the site shows both values and says they disagree.',
+    blocks: 'Nothing. Each affected page states the conflict inline.',
+  },
+  {
+    id: 'FLG-016',
+    severity: 'Medium',
+    status: 'Open',
+    title: 'On a second check, two of the five supplied short links did not reproduce their recorded redirect, and one returned an error',
+    detail:
+      'On 2026-11-20 (UTC) the five supplied link.amazon short links were fetched again through a second retrieval path. Two of them (B04G1MEwY and B0c8moW59) reached the amazon.com home page instead of the product page recorded in the link resolution record. One (B02NbDxp3) returned HTTP 500 from the retrieval tool. Two (B00hJ57DV and B0f3GKalj) reached the ASINs recorded in the register. The cause is not known. It could be the retrieval client, a session or region effect, or a change in Amazon’s routing. This is an observation about how the links behaved on one check. It is not a finding that any link is invalid. The sandbox cannot reach amazon.com directly, so this check depended on a single tool.',
+    evidence: [
+      'link.amazon/B04G1MEwY → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0CDY277D3)',
+      'link.amazon/B0c8moW59 → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0DHZTCNR5)',
+      'link.amazon/B02NbDxp3 → HTTP 500 from the retrieval tool (the earlier record says https://www.amazon.com/dp/B09B7SB46R)',
+      'link.amazon/B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-5756d38428f77669&channelId=704&plpRedirect=mhFallback&th=1 (ASIN matches)',
+      'link.amazon/B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=…&btn_ref=srctok-5ed90c5aacfa7a7e&channelId=500&plpRedirect=mhFallback&th=1 (ASIN matches)',
+      'No redirect observed on this check contains a tag= parameter.',
+      'Third retrieval, session arena-066803dd (2026-11-20, UTC): B04G1MEwY and B0c8moW59 again resolved to https://www.amazon.com/ (homepage); B02NbDxp3 resolved to https://www.amazon.com/dp/B09B7SB46R on this retrieval (no error). B00hJ57DV and B0f3GKalj resolved to their recorded ASINs. The two homepage results repeat across independent retrievals; the B02NbDxp3 result differs between retrievals. Cause unknown.',
+    ],
+    sources: ['A2'],
+    action:
+      'Owner: open each of the five short links in a normal, signed-out browser and in the Associates link builder. Record where each lands, and whether each link is an enrolled Special Link (see FLG-001 and FLG-003). Until then the site publishes only the tagged /dp/ links built from the ASINs, and the short links are not used as money links.',
+    blocks: 'Nothing on the site. Attribution for the short links stays unknown.',
+  },
+  {
+    id: 'FLG-017',
+    severity: 'Medium',
+    status: 'Open',
+    title: 'The live site root served two different builds to two requests on the same day',
+    detail:
+      'On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises.',
+    evidence: [
+      'Repository check (2026-11-20): “1 probes” and “aFrench” do not appear in the generated HTML of this branch.',
+      'GitHub Pages API (2026-11-20): latest build status “built”, source main, path /.',
+      'Two retrievals of the same page, different content. Recorded in COORDINATION.md under S16.',
+    ],
+    sources: ['D1'],
+    action:
+      'After the next deployment, fetch the site root with and without a query string and compare the title line. If an older build persists, re-run the Pages build or raise it with GitHub Support. Record the result in COORDINATION.md.',
+    blocks: 'Nothing on the content. It affects what a first-time visitor sees.',
+  },
+  {
+    id: 'FLG-018',
+    severity: 'Medium',
+    status: 'Fixed in this build',
+    title: 'The privacy page did not say that the hosting provider logs visitor IP addresses',
+    detail:
+      'The privacy page states that the site’s own recorder stores no IP address, which matches the event code. It did not disclose that the site is hosted on GitHub Pages. GitHub’s documentation says a visitor’s IP address is logged and stored for security purposes whenever a Pages site is visited, whether or not the visitor has signed in. This build adds one sentence to the privacy page that says so.',
+    evidence: [
+      'GitHub Docs, “What is GitHub Pages?”, Data collection section.',
+      'Fixed in _build/content-oversight.mjs (privacyPage), generated to privacy/index.html.',
+    ],
+    sources: ['D1'],
+    action:
+      'Fixed in this build. If a formal privacy notice is needed, the owner should have it reviewed; this is not legal advice.',
+    blocks: 'Nothing now.',
+  },
+  {
+    id: 'FLG-019',
+    severity: 'Low',
+    status: 'Open',
+    title: 'Two flag registers disagree, and one entry in the older register is out of date',
+    detail:
+      'data/shop/flags.json (FLG-001 to FLG-010) and the Flagged for Review page, which is built from FLAGS in _build/data.mjs, use the same IDs for different items. For example, FLG-003 reads “None of the five supplied short links carried a visible Associates tag” in the first and “Compliance status of link.amazon short links is unresolved” in the second. The older register also says that GitHub Actions is disabled on this repository. GitHub reports successful workflow runs on main, so that statement is out of date. The site publishes only the second register. Nothing has been merged to reconcile them.',
+    evidence: [
+      'data/shop/flags.json, FLG-009: “GitHub Actions is disabled on this repository, so the link resolver workflow cannot run”.',
+      'GitHub Actions on this repository (2026-11-20): “Build, verify and deploy to GitHub Pages” completed with success on main.',
+      '_build/data.mjs FLAGS, FLG-003: “Compliance status of link.amazon short links is unresolved”.',
+    ],
+    sources: [],
+    action:
+      'Owner or integration session: treat the Flagged for Review register as canonical and mark data/shop/flags.json as superseded. Do not renumber published IDs without a note that maps the old ID to the new one.',
+    blocks: 'Nothing.',
+  },
+  {
+    id: 'FLG-020',
+    severity: 'Low',
+    status: 'Fixed in this build',
+    title: 'Flag ID FLG-012 was used twice in the FLAGS list',
+    detail:
+      'Two entries in _build/data.mjs carried the ID FLG-012. Pull request #37 renumbered the second to FLG-015 and merged to main. FLG-012 now appears once. Anchors such as /flagged/#FLG-012 resolve to the single remaining entry.',
+    evidence: [
+      '_build/data.mjs: two objects with id \'FLG-012\' (title: “Every page advertised a social image that did not exist” and title: “Fix recorded in a script CI does not run; two brands on the live site”).',
+      'PR #37 (merged into main at a83236f): “Renumber FLG-012 duplicate to FLG-015; record PR #32”.',
+    ],
+    sources: [],
+    action:
+      'Resolved by PR #37 (merged). No further action.',
+    blocks: 'Nothing.',
+  },
+  {
+    id: 'FLG-021',
+    severity: 'Medium',
+    status: 'Fixed in this build',
+    title: 'Three specification values were shown that the listing text re-read on 2026-11-20 does not state',
+    detail:
+      'Re-reading the listings line by line found three values that had been presented as stated but cannot be matched to listing text in this session. (1) P02 Emeril: “Viewing window — Stated”. The About-this-item bullets say the interior light lets you “monitor food”; they do not state a viewing window. (2) P04 ThermoMaven: “Probes — 1”. Neither the title, the bullets nor the product-details table states a probe count; the figure came from the word “instant-read”. (3) P04 ThermoMaven: “Needs an app — No”. No app requirement is stated either way. The value has been blanked to “not stated” and the site no longer infers it. Also noted: the product-details table lists “1*AAA Battery” for P04, while the review-theme summary cited under FLG-014 says “AA battery”. The two are not reconciled and both are recorded.',
+    evidence: [
+      'P02 / B09B7SB46R About this item: “Elegant French doors open with a single pull – interior light allows you to monitor food.” No viewing-window wording found in the bullets read.',
+      'P04 / B0DHZTCNR5 product-details table: “Included Components: 1*Meat Thermometer, 1*AAA Battery, 1*User Manual, 1*Calibration Certificate”. About this item: “instant-read thermometer … accurate temperature readings in just 1 second”.',
+      'Not checked this session: the full Product Description block for P02 and P04 (the chunks read did not reach it). If the owner or a later session finds a stated figure there, the blank can be filled with its quote and page reference.',
+    ],
+    sources: ['L2', 'L4'],
+    action:
+      'Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.',
   },
 ];
 
@@ -708,6 +965,7 @@ export const QUESTIONS = [
     howToFind: 'Answered from Participation Requirements §2(b).',
     owner: '—',
     blocks: 'Nothing. Decided and implemented.',
+    sources: ['A2'],
   },
   {
     id: 'Q-09',
@@ -720,6 +978,7 @@ export const QUESTIONS = [
     howToFind: 'Answered from the Operating Agreement.',
     owner: '—',
     blocks: 'Nothing. Implemented.',
+    sources: ['A1'],
   },
   {
     id: 'Q-10',
@@ -731,35 +990,71 @@ export const QUESTIONS = [
     howToFind: 'Answered from Google Search Central.',
     owner: '—',
     blocks: 'Nothing. Implemented.',
+    sources: ['G1'],
   },
   {
     id: 'Q-11',
     status: 'Open',
-    question: 'Which seasons should the publishing calendar run on?',
-    why: 'This build ships three seasonal clusters (holiday hosting, gifting, weeknight crisping) as a working demonstration of the format. Writing more of them without an approved calendar is how a publication turns into a content farm.',
-    known: 'The format works: a cluster is one lead guide, two or three picks, and a themed slot on the front page. The first three are live.',
-    unknown: 'Whether the owner wants seasons to drive the calendar at all, and which seasons match the actual audience (game-day? summer grilling? back-to-school?).',
-    howToFind: 'One decision in the Decision Room (SUG-09): pick the full calendar, holiday-and-gifting only, or drop seasons entirely. Nothing else is written until then.',
+    question: 'Which seasonal moments should the notebook cover first?',
+    why: 'Seasonal framing helps a reader find the guide that matches the meal in front of them, but picking the wrong season first wastes the cadence.',
+    known: 'Four cooking moments are drafted as editorial hypotheses (weeknight two-food dinners, big-batch sharing, holiday roasts and leftovers, summer grilling). None is a claim about search volume or popularity.',
+    unknown: 'Which moment the owner’s audience actually cooks, and in which hemisphere the site is read.',
+    howToFind: 'Owner picks one moment for the next guide, or waits for 30 days of page_view data (SUG-03) and lets measured queries choose. Do not publish all four at once.',
     owner: 'Site owner',
-    blocks: 'SUG-09, SUG-13',
+    blocks: 'Seasonal publishing order',
   },
   {
     id: 'Q-12',
     status: 'Open',
-    question: 'Should the archived competing site trees be deleted once recrawl is confirmed?',
-    why: 'Fifty-six superseded pages from earlier sessions are kept, marked noindex and banner-labelled (FLG-011). Keeping them is safe but permanent; deleting them tidies the repository at the cost of losing the in-place record.',
-    known: 'The pages are noindex, nothing in the live navigation links to them, and they remain readable in git history either way.',
-    unknown: 'Whether search engines have recrawled and dropped them, and whether the owner wants the working trees preserved as-is.',
-    howToFind: 'Check Search Console coverage after verification (Q-06/SUG-10), then delete or keep in one commit. No urgency either way.',
+    question: 'What may the AI pipeline do, and what must a human approve?',
+    why: 'The brief asks for an AI-powered platform that automates research, content and optimisation. Automation without a gate is how a site publishes an unverified price or a hands-on claim it cannot support.',
+    known: 'The build already automates sitemap, feed, link checks and the R1–R10 compliance gate. No AI step writes product facts; every spec comes from the listing record.',
+    unknown: 'Whether the owner wants AI drafting of guide prose, and under what review rule.',
+    howToFind: 'Owner approves the automation table in the Data Room: automated steps stay automated, editorial and compliance steps stay human-gated. Any AI draft is treated as a suggestion until a human checks it against a source.',
     owner: 'Site owner',
-    blocks: 'FLG-011 closure. Not publication.',
+    blocks: 'AI scope',
+  },
+  {
+    id: 'Q-13',
+    status: 'Open',
+    question: 'Stay on github.io or move to a custom domain?',
+    why: 'A project path is a fine host but a weak brand home, and Search Console domain properties are awkward on a subpath.',
+    known: 'Current origin is https://sassnarep3-star.github.io/WinB/ (Pages legacy build, main branch, path /).',
+    unknown: 'Domain budget, DNS control, and whether brand matters enough to pay for it.',
+    howToFind: 'Owner decision. If yes, add a CNAME file, set up a domain property in Search Console, and keep the github.io URLs as redirects.',
+    owner: 'Site owner',
+    blocks: 'Brand, Search Console',
+  },
+  {
+    id: 'Q-14',
+    status: 'Open',
+    question: 'Which product images may be shown?',
+    why: 'Readers expect photography, but Amazon’s IP License forbids storing or caching Product Advertising Content images. A static site is a cache.',
+    known: 'The site uses generated editorial illustrations and states so. No Amazon product photography is stored.',
+    unknown: 'Whether any brand will license its own photography for this site.',
+    howToFind: 'Ask the two brands for licensed images. Until then, keep generated illustrations and label them. Do not scrape listing images.',
+    owner: 'Site owner',
+    blocks: 'Imagery',
+  },
+  {
+    id: 'Q-15',
+    status: 'Blocked',
+    question: 'Are the five defined events actually reaching an endpoint?',
+    why: 'The click counter and event recorder run in the reader’s browser and store nothing server-side. An unmeasured event is indistinguishable from a broken one.',
+    known: 'The five events (page_view, outbound_click, comparison_open, guide_read, capture_intent) are defined and fire locally. The campaign ledger is empty by design and has a schema (Data Room).',
+    unknown: 'Whether any event has ever arrived anywhere. No endpoint is deployed (FLG-007).',
+    howToFind: 'Deploy the collector (SUG-03), send one deliberate test event of each type, and confirm five rows arrive before trusting any number. Then let the first 30 days run as a baseline.',
+    owner: 'Site owner',
+    blocks: 'The campaign ledger; every future measurement claim',
   },
 ];
 
 // ---------------------------------------------------------------------------
 // Suggestions: the reviewable decision list.
-// Each has a recommendation, an effort, a payoff and a risk. Nothing is
-// marked "implemented" unless it is in this build.
+// Each has a recommendation, an effort, a payoff and a risk. Each is now also a
+// proposal with named options: nothing is implemented until an option is chosen
+// and the choice is recorded. Nothing is marked "implemented" unless it is in
+// this build. Rendered on the Suggestion Board (/suggestions/).
 // ---------------------------------------------------------------------------
 export const SUGGESTIONS = [
   {
@@ -767,17 +1062,20 @@ export const SUGGESTIONS = [
     priority: 1,
     title: 'Buy and document one review unit',
     recommendation: 'Start with the cheapest of the five. Buy it, photograph the unboxing, publish the receipt.',
-    why: 'Every page currently describes listing data and fit. One disclosed bought-and-tested unit converts the whole site from specification summary to review, which is the only durable defence against both Google’s thin-affiliation problem and reader distrust.',
+    why: 'Every page currently says “we have not handled this”. One disclosed bought-and-tested unit converts the whole site from specification summary to review, which is the only durable defence against both Google’s thin-affiliation problem and reader distrust.',
     effort: 'Cost of one unit, 2–3 days',
     payoff: 'Highest of anything on this page',
     risk: 'A single unit does not generalise. Do not let it become “we tested everything”.',
-    status: 'Proposed — awaiting owner choice',
+    status: 'Not started',
     options: [
-      { id: 'A', label: 'Buy the cheapest unit now', tradeoff: 'Spend is small and the content lift is immediate, but one unit only speaks for itself.' },
-      { id: 'B', label: 'Request a review unit from the two brands', tradeoff: 'No spend, but a disclosure obligation attaches, and a project with no traffic history may be refused.' },
-      { id: 'C', label: 'Keep the specification-and-fit framing', tradeoff: 'Zero cost and legally clean, but the site never differentiates from listing summaries.' },
+      { letter: 'A', title: 'Buy the cheapest unit outright and document it', what: 'Purchase one unit with the site’s own money, photograph the unboxing, publish the receipt, and write the first hands-on page under the existing attribution rules.', effort: 'One unit’s cost, 2–3 days', payoff: 'Converts one product page from specification summary to a disclosed bought-and-tested review', risk: 'Cost; the scope must stay one unit' },
+      { letter: 'B', title: 'Request review units from the two brands first', what: 'Ask Chefman and ThermoMaven/CHEF iQ for a review unit before spending anything.', effort: 'Emails, then weeks of waiting', payoff: 'No purchase cost if granted', risk: 'A project with no traffic history will probably be refused; a supplied unit must be disclosed and can read as obligation' },
+      { letter: 'C', title: 'Stay specification-only', what: 'Keep the current framing permanently and say so on every page.', effort: 'None', payoff: 'None added', risk: 'The site stays legally barred from experience claims (FLG-004) and loses its only strong differentiator' },
     ],
-    decide: 'A budget decision plus a disclosure preference. Path A needs only the owner’s go-ahead; Path B needs the owner to send the request from a real address (see Q-07).',
+    recommendedOption: 'A',
+    recommendedWhy: 'It is the only option entirely inside this project’s control, and a disclosed bought-and-tested unit is a test regardless of who paid.',
+    decisionState: 'Awaiting owner decision',
+    decisionHow: 'Choose A, B or C and record it (chat reply or repository issue, e.g. “SUG-01: A”). Until a choice is recorded, nothing here is implemented.',
   },
   {
     id: 'SUG-02',
@@ -790,10 +1088,14 @@ export const SUGGESTIONS = [
     risk: 'None.',
     status: 'Needs owner access',
     options: [
-      { id: 'A', label: 'Mint one tagged link in Associates Central and compare', tradeoff: 'Five minutes in the dashboard settles FLG-001 and Q-01 in one direction or the other.' },
-      { id: 'B', label: 'Test one short link per product through the site and read the tracking report', tradeoff: 'Slower — needs real clicks and a reporting period — but tests the exact links the owner supplied.' },
+      { letter: 'A', title: 'Mint and compare, inside Associates Central', what: 'Generate one short link while signed in to shopnow047c-20, resolve it, and compare its parameters with the five supplied links.', effort: 'Under an hour', payoff: 'Closes FLG-001 and Q-01 with a direct check', risk: 'None' },
+      { letter: 'B', title: 'Ask Amazon support whether link.amazon applies the account tag', what: 'Open a support ticket and ask for a written answer on short-link attribution.', effort: 'A ticket, then days', payoff: 'A written answer on record', risk: 'Slow; first-line support often replies with scripts' },
+      { letter: 'C', title: 'Leave the question open and rely on tagged canonical links', what: 'Keep publishing only with tag=shopnow047c-20 links and stop investigating the short links.', effort: 'None', payoff: 'None', risk: 'Attribution uncertainty remains; FLG-001 stays open' },
     ],
-    decide: 'Dashboard access. This is the single highest-value action on the page and nothing here can perform it without the owner’s login.',
+    recommendedOption: 'A',
+    recommendedWhy: 'The cheapest possible check with the largest possible downside; B is the fallback if the dashboard comparison is ambiguous.',
+    decisionState: 'Awaiting owner decision (needs account access)',
+    decisionHow: 'Choose A, B or C and record it (e.g. “SUG-02: A”). Option A needs five minutes of Associates Central access.',
   },
   {
     id: 'SUG-03',
@@ -803,14 +1105,17 @@ export const SUGGESTIONS = [
     why: 'Without measurement the next topic is chosen by instinct — the exact failure mode this project set out to avoid. Thirty days of page_view plus outbound_click is enough to rank the existing guides honestly.',
     effort: 'Half a day, then nothing',
     payoff: 'Turns topic choice into a data question',
-    risk: 'Small samples mislead. Do not compute a conversion rate from a dozen clicks.',
+    risk: 'Small samples mislead. Do not compute a conversion rate from 12 clicks.',
     status: 'Source shipped, not deployed',
     options: [
-      { id: 'A', label: 'Deploy the supplied self-hosted worker', tradeoff: 'First-party, privacy-preserving, no third-party cookies; needs a Cloudflare account or equivalent.' },
-      { id: 'B', label: 'Point ENDPOINT at any existing first-party logger the owner runs', tradeoff: 'Fastest if such a service exists; schema must accept the five event names unchanged.' },
-      { id: 'C', label: 'Ship with the counter off', tradeoff: 'Nothing is measured and the campaign ledger stays empty; acceptable only if the owner prefers no telemetry at all.' },
+      { letter: 'A', title: 'Deploy the supplied Cloudflare Worker collector', what: 'Deploy /analytics/collector-worker.js, set ENDPOINT in assets/js/site.js, and confirm one event of each of the five types arrives.', effort: 'Half a day, then nothing', payoff: 'First-party events under this project’s control; the campaign ledger can be filled from authorised reports alongside it', risk: 'Small samples mislead; the first 30 days are a baseline, not a scoreboard' },
+      { letter: 'B', title: 'Use a hosted privacy-first analytics service', what: 'Add a compliant third-party snippet instead of self-hosting.', effort: 'An account and one snippet', payoff: 'Instant dashboards', risk: 'Adds a third-party processor; the disclosure and cookie policy must change (A2 §3(e))' },
+      { letter: 'C', title: 'Stay unmeasured', what: 'Ship nothing until traffic exists.', effort: 'None', payoff: 'None', risk: 'Every future topic is chosen by instinct — the exact failure mode this project set out to avoid' },
     ],
-    decide: 'Whether the owner has a Cloudflare (or similar) account to host the worker, or an existing endpoint to reuse. Everything else is already built.',
+    recommendedOption: 'A',
+    recommendedWhy: 'It records the five defined events without identifying anyone and without a third-party processor.',
+    decisionState: 'Awaiting owner decision (needs hosting account access)',
+    decisionHow: 'Choose A, B or C and record it (e.g. “SUG-03: A”). Option A needs a Cloudflare account; the worker source is already in the repository.',
   },
   {
     id: 'SUG-04',
@@ -823,10 +1128,14 @@ export const SUGGESTIONS = [
     risk: 'The tone must stay practical. A framework with no numbers of its own is still thin.',
     status: 'Draft published, needs a measurement worksheet',
     options: [
-      { id: 'A', label: 'Add a printable measurement worksheet to the existing capacity guide', tradeoff: 'Turns a good draft into a genuinely linkable tool; needs one evening of work and a PDF.' },
-      { id: 'B', label: 'Leave the guide as prose', tradeoff: 'Already published and useful; the worksheet is the part that earns outside links.' },
+      { letter: 'A', title: 'Add a printable measurement worksheet to the published guide', what: 'Extend the capacity guide with a one-page worksheet: basket, shelf and counter measurements the reader takes at home.', effort: '1–2 days', payoff: 'Turns the guide into a tool readers can act on', risk: 'The tone must stay practical' },
+      { letter: 'B', title: 'Publish the worksheet as a separate download', what: 'Same worksheet, offered as a PDF behind the (currently non-transmitting) capture form.', effort: 'Same, plus asset work', payoff: 'A concrete reason to hand over an address once capture works', risk: 'A PDF orphan that search engines read poorly; blocked on Q-04' },
+      { letter: 'C', title: 'Leave the guide as it is', what: 'No change.', effort: 'None', payoff: 'None', risk: 'The guide stays a framework with no numbers of its own' },
     ],
-    decide: 'Whether the owner wants downloadable tools on the site at all. Everything needed is already in the published guide’s method.',
+    recommendedOption: 'A',
+    recommendedWhy: 'Inline on the page it helps every reader and every crawler; a download helps only the ones who convert first.',
+    decisionState: 'Awaiting owner decision',
+    decisionHow: 'Choose A, B or C and record it (e.g. “SUG-04: A”).',
   },
   {
     id: 'SUG-05',
@@ -838,8 +1147,15 @@ export const SUGGESTIONS = [
     payoff: 'Immediate',
     risk: 'None, as long as the no-price rule is not quietly broken later.',
     status: 'Implemented',
-    options: [],
-    decide: 'Nothing. Already built and enforced by rule R3 in the gate.',
+    options: [
+      { letter: 'A', title: 'Compare without price and explain the blanks', what: 'A table of stable, knowable fields, with the reason the price column is empty printed underneath. — CHOSEN', effort: 'Done in this build', payoff: 'Immediate; the explanation builds more trust than a stale number', risk: 'None while the no-price rule holds' },
+      { letter: 'B', title: 'Show live prices through Creators API / PA API', what: 'Apply for API access and render prices server-side under the licence.', effort: 'API application plus server rendering', payoff: 'True price comparison', risk: 'Licence conditions, staleness rules, and a static site would need a rendering pipeline' },
+      { letter: 'C', title: 'Price-free table with no explanation', what: 'Same table, without naming why price is missing.', effort: 'Lower', payoff: 'Weak', risk: 'Readers assume an error, not a rule' },
+    ],
+    recommendedOption: 'A',
+    recommendedWhy: 'Permitted today with no licence dependency; the deliberate blank is itself the trust signal.',
+    decisionState: 'Decided · implemented in this build',
+    decisionHow: 'Decision recorded 2026-11-20. Option B remains open as a future upgrade if API access is obtained (FLG-005).',
   },
   {
     id: 'SUG-06',
@@ -850,13 +1166,16 @@ export const SUGGESTIONS = [
     effort: 'Ongoing',
     payoff: 'Compounding',
     risk: 'Miss two cycles and the site looks abandoned. Two weeks is achievable; daily is not.',
-    status: 'Proposed — awaiting owner choice',
+    status: 'Proposed',
     options: [
-      { id: 'A', label: 'Fortnightly, seasonal clusters first', tradeoff: 'Matches the seasonal calendar this build ships; steady enough to look alive, slow enough to stay original.' },
-      { id: 'B', label: 'Monthly', tradeoff: 'Safest for quality, slowest to build a body of work.' },
-      { id: 'C', label: 'Weekly', tradeoff: 'Faster footprint, but every cycle must be genuinely original or it reads as scaled content.' },
+      { letter: 'A', title: 'One substantial guide every two weeks', what: 'A fixed fortnightly cadence, announced in the feed and added to the sitemap by the build.', effort: 'Ongoing, predictable', payoff: 'Compounding; reads as a publication', risk: 'Miss two cycles and the site looks abandoned' },
+      { letter: 'B', title: 'Weekly short post plus a fortnightly guide', what: 'Short items between the big pieces.', effort: 'Higher', payoff: 'More freshness signals', risk: 'Short posts read thin and invite the scaled-content pattern' },
+      { letter: 'C', title: 'Publish in bursts whenever material is ready', what: 'No fixed rhythm.', effort: 'Irregular', payoff: 'None', risk: 'A burst of near-identical pages is the pattern Google names as scaled content abuse' },
     ],
-    decide: 'How much writing time the owner actually has per month. The build cannot make that trade-off.',
+    recommendedOption: 'A',
+    recommendedWhy: 'Two weeks is achievable and sustainable; the build already handles the sitemap and feed, so cadence costs only writing.',
+    decisionState: 'Awaiting owner decision',
+    decisionHow: 'Choose A, B or C and record it (e.g. “SUG-06: A”). Topic choice should follow measured queries once SUG-03 is live (Q-11).',
   },
   {
     id: 'SUG-07',
@@ -869,10 +1188,14 @@ export const SUGGESTIONS = [
     risk: 'Requires a real contact route (Q-07) and a reply discipline.',
     status: 'Blocked on Q-07',
     options: [
-      { id: 'A', label: 'Publish a contact address, then start the weekly answer', tradeoff: 'Unblocks the loop; the address becomes public.' },
-      { id: 'B', label: 'Formalise the repository issue tracker as the contact route', tradeoff: 'No new address needed, but fewer readers will use it.' },
+      { letter: 'A', title: 'One reader question answered in public each week', what: 'Turn the best question each week into a short post, credited to the asker with their consent.', effort: 'Low, plus reply discipline', payoff: 'Free, uncompetable keyword research and visible proof a human is here', risk: 'Blocked until Q-07 gives the site a contact route' },
+      { letter: 'B', title: 'A monthly question roundup', what: 'Answer several questions in one monthly post.', effort: 'Lower', payoff: 'Slower', risk: 'Less timely; individual queries get no dedicated page' },
+      { letter: 'C', title: 'Keep reader questions private', what: 'No public answers.', effort: 'None', payoff: 'None', risk: 'The cheapest content source available goes unused' },
     ],
-    decide: 'Whether the owner wants a public email address (Q-07).',
+    recommendedOption: 'A',
+    recommendedWhy: 'Reader questions are keyword research nobody else can copy — but only a real contact route (Q-07) can supply them.',
+    decisionState: 'Awaiting owner decision (blocked on Q-07)',
+    decisionHow: 'Choose A, B or C and record it (e.g. “SUG-07: A”), and settle Q-07 first.',
   },
   {
     id: 'SUG-08',
@@ -884,141 +1207,284 @@ export const SUGGESTIONS = [
     payoff: 'Protects the whole site',
     risk: 'Feels slow. It is slow.',
     status: 'Standing recommendation',
-    options: [],
-    decide: 'Nothing until the campaign ledger has real rows to argue with.',
+    options: [
+      { letter: 'A', title: 'Stay in two categories until one converts', what: 'No new categories; deepen air fryers and thermometers until the ledger shows real orders. — ADOPTED', effort: 'Restraint', payoff: 'Protects the topical coherence the site has', risk: 'Feels slow' },
+      { letter: 'B', title: 'Add one adjacent category now', what: 'Expand into a neighbouring niche while keeping the register format.', effort: 'New register work and new guides', payoff: 'A wider net', risk: 'Halves the depth available to the existing categories' },
+      { letter: 'C', title: 'Expand broadly', what: 'Add several categories at once.', effort: 'High', payoff: 'Uncertain', risk: 'A scattered directory is the pattern Google’s site-reputation policy weighs against' },
+    ],
+    recommendedOption: 'A',
+    recommendedWhy: 'Topical coherence is the cheapest authority a new site can accumulate. Revisit when the campaign ledger records orders, not before.',
+    decisionState: 'Decided · stands as policy',
+    decisionHow: 'Adopted 2026-11-20 as a standing constraint. Reopen only with ledger evidence (see the Data Room).',
   },
   {
     id: 'SUG-09',
     priority: 2,
-    title: 'Approve a seasonal cluster calendar for the next four quarters',
-    recommendation: 'The first three clusters (holiday hosting, gifting, weeknight crisping) ship in this build as a working demonstration. Approve the calendar — or cut it back — before the next quarter is written.',
-    why: 'Seasonal clusters give the publication a reason to exist on a date, not just at a query. But a calendar the owner has not approved becomes work nobody wants. This suggestion exists to get the decision made before more pages are written.',
-    effort: 'One review of the calendar below',
-    payoff: 'Turns the publishing cadence (SUG-06) into a plan',
-    risk: 'Seasons that do not match the owner’s audience are wasted cycles. Game-day content in March is noise.',
-    status: 'Partial — first three clusters built per the brief; the calendar awaits owner approval',
+    title: 'Run the seasonal notebook as hypotheses, not as a content burst',
+    recommendation: 'Frame the four cooking moments on the front page as editorial hypotheses. Publish at most one seasonal guide per fortnight, only after 30 days of measurement (SUG-03).',
+    why: 'Seasonal framing matches the meal a reader is cooking tonight, which is the cheapest way to feel current without chasing popularity claims. Publishing four seasonal guides at once would be the scaled-content pattern Google names as abuse.',
+    effort: 'One guide per fortnight',
+    payoff: 'Timely without being thin',
+    risk: 'Seasonal copy goes stale. Date every seasonal guide and retire it when the season passes.',
+    status: 'Framing implemented; first seasonal guides published 2026-11-20 (owner-instructed)',
     options: [
-      { id: 'A', label: 'Full calendar: holiday → gifting → game-day → spring reset → summer grilling', tradeoff: 'Always something in season; five clusters a year of writing.' },
-      { id: 'B', label: 'Holiday and gifting only, evergreen otherwise', tradeoff: 'Concentrates effort where intent is highest; quieter mid-year.' },
-      { id: 'C', label: 'Drop seasons, publish evergreen question guides only', tradeoff: 'Simplest; loses the “why now” reason to revisit.' },
+      { letter: 'A', title: 'One moment at a time, in measured order', what: 'Publish a seasonal guide only as its moment comes up, and let measured queries (SUG-13) choose the order afterwards.', effort: 'One guide per fortnight', payoff: 'Seasonal relevance without a content burst', risk: 'Seasonal copy goes stale; date and retire each guide' },
+      { letter: 'B', title: 'Publish the whole notebook at once', what: 'Fill every seasonal slot in one build.', effort: 'One burst', payoff: 'Full coverage immediately', risk: 'Near-identical seasonal pages published together are the scaled-content pattern this proposal exists to avoid' },
+      { letter: 'C', title: 'Defer all seasonal content until 30 days of measurement', what: 'Keep the notebook as framing only.', effort: 'None', payoff: 'None', risk: 'Seasonal queries peak before the data arrives' },
     ],
-    decide: 'Which seasons match the owner’s actual audience. Q-11 collects the answer.',
+    recommendedOption: 'A',
+    recommendedWhy: 'Recorded override (2026-11-20): the owner’s brief for this cycle explicitly instructed seasonal marketing content, so the winter hosting, smart-probe and crowd-math guides were published ahead of the measurement gate, one cluster at a time rather than as a burst. The gate still governs every topic after them.',
+    decisionState: 'Partly decided · override recorded 2026-11-20',
+    decisionHow: 'Choose A, B or C for everything after the 2026-11-20 batch (e.g. “SUG-09: A”). The override covers only the three guides named above.',
   },
   {
     id: 'SUG-10',
-    priority: 2,
-    title: 'Set up Search Console, and decide on a domain',
-    recommendation: 'Verify the site in Search Console now (URL-prefix property works on github.io), and treat the custom-domain question as a separate decision.',
-    why: 'Search Console is the only source of real query data, and it is the measurement that chooses the next topic. It works today on the project URL; the domain question is brand, not measurement.',
-    effort: 'Search Console: an hour. Domain: a purchase and DNS.',
-    payoff: 'Real query data within weeks of verification',
-    risk: 'A github.io URL makes a later domain migration an extra step, not a blocker.',
-    status: 'Needs owner access',
+    priority: 3,
+    title: 'Tighten the two clusters with cross-links',
+    recommendation: 'Link every air-fryer guide to the air-fryer hub and every thermometer guide to the thermometer hub, and link the two hubs to each other and to the comparison table.',
+    why: 'Clusters tell search engines what the site is about and tell readers where to go next. The build now does this on every product and guide page; the remaining work is to keep it true as guides are added.',
+    effort: 'Done in this build; ongoing discipline',
+    payoff: 'Compounding internal authority',
+    risk: 'Over-linking reads as SEO. Link where a reader would actually click.',
+    status: 'Implemented',
     options: [
-      { id: 'A', label: 'Verify the github.io URL now, buy a domain later', tradeoff: 'Measurement starts immediately; a later move needs one redirect step.' },
-      { id: 'B', label: 'Buy the domain first, then verify once', tradeoff: 'Cleaner long-term, but query data is delayed until the domain resolves.' },
-      { id: 'C', label: 'Defer both', tradeoff: 'Topic choice stays instinct-based, which is the failure mode this project exists to avoid.' },
+      { letter: 'A', title: 'Cross-links on every guide and product page', what: 'Each page names its cluster and its neighbours, and both hubs link to the comparison table. — CHOSEN', effort: 'Done in this build', payoff: 'Compounding internal authority', risk: 'Over-linking if it stops being reader-first' },
+      { letter: 'B', title: 'Hub-only structure', what: 'Categories link down, pages do not link across.', effort: 'Lower', payoff: 'Weaker', risk: 'Readers dead-end; crawlers see thin relationships' },
+      { letter: 'C', title: 'No explicit structure', what: 'Leave links to chance.', effort: 'None', payoff: 'None', risk: 'The site reads as scattered pages, not as two topics' },
     ],
-    decide: 'Owner’s Search Console access and appetite for a domain purchase (Q-06).',
+    recommendedOption: 'A',
+    recommendedWhy: 'Already implemented in this build; the option is recorded so the structure is a decision, not an accident.',
+    decisionState: 'Decided · implemented in this build',
+    decisionHow: 'Decision recorded 2026-11-20. Keep it true as new guides are added.',
   },
   {
     id: 'SUG-11',
     priority: 3,
-    title: 'Decide the byline: a named author or the desk',
-    recommendation: 'A named author with a two-line biography, or a formal editorial desk with a published policy. Pick one and make the pages consistent with it.',
-    why: 'Google’s site-reputation policy weighs stated or implied authorship explicitly, and readers trust a person or an institution — not an anonymous page. The current “Counterwise desk” byline works only while the editorial policy is visible and honoured.',
-    effort: 'A decision, then a small copy pass',
+    title: 'Publish a named byline and a dated byline block',
+    recommendation: 'Add the author, the date and the reading time to every guide and product page, and a two-line biography on the About page. Owner to supply the name (Q-05).',
+    why: 'Google’s site-reputation policy weighs stated authorship, and an unauthored affiliate page is its own example of content likely to attract action. A byline costs nothing and changes the policy posture.',
+    effort: 'One owner decision, then template work (done)',
     payoff: 'Trust and policy posture',
-    risk: 'A named author takes public editorial responsibility. That is the point, and it is a real commitment.',
-    status: 'Proposed — awaiting owner choice',
+    risk: 'A byline without accountability is decoration. The biography must state the non-testing position plainly.',
+    status: 'Template implemented; name pending Q-05',
     options: [
-      { id: 'A', label: 'Named author with a real bio', tradeoff: 'Strongest trust signal; the owner’s name becomes public.' },
-      { id: 'B', label: 'Keep the desk byline, strengthen the editorial policy page', tradeoff: 'Institutional and private; slightly weaker on the authorship factor.' },
+      { letter: 'A', title: 'Named byline with a two-line biography', what: 'The owner supplies a name; every page carries it with the non-testing position stated plainly. — RECOMMENDED', effort: 'One owner decision', payoff: 'Trust and policy posture', risk: 'The name must be accountable — a pseudonym with no person behind it is decoration' },
+      { letter: 'B', title: 'Keep the desk byline', what: 'Publish as “The Counterwise desk” with the stated non-testing policy.', effort: 'None', payoff: 'None added', risk: 'Google’s site-reputation policy weighs stated authorship; an unauthored affiliate page is its own example of content likely to attract action' },
+      { letter: 'C', title: 'No byline at all', what: 'Remove authorship from the pages.', effort: 'Template change', payoff: 'None', risk: 'Worse than B on every axis' },
     ],
-    decide: 'Whether the owner wants to publish their identity (Q-05).',
+    recommendedOption: 'A',
+    recommendedWhy: 'A named author with a two-line biography is cheap and materially improves both trust and policy posture.',
+    decisionState: 'Awaiting owner decision (blocked on Q-05)',
+    decisionHow: 'Choose A, B or C (e.g. “SUG-11: A”) and, for A, supply the name.',
   },
   {
     id: 'SUG-12',
-    priority: 3,
-    title: 'Choose where captured addresses will go',
-    recommendation: 'The capture form already counts intent and transmits nothing. Wire it to a real provider — or remove it — before the next guide ships.',
-    why: 'A form that silently discards input is worse than no form. The moment a reader types an address and it vanishes, trust is spent.',
-    effort: 'Half a day once a provider is chosen',
-    payoff: 'An audience the site owns',
-    risk: 'A mailing list is a compliance surface: consent language and storage terms must be real.',
-    status: 'Blocked on Q-04',
+    priority: 4,
+    title: 'Keep generated illustrations until licensed photography exists',
+    recommendation: 'Do not scrape or cache Amazon listing images. Ask the two brands for licensed photography (Q-14); until then, keep the generated illustrations and label them as editorial art.',
+    why: 'The IP License forbids storing or caching Product Advertising Content images. A static site is a cache, so listing photography cannot be used here even if it looks better.',
+    effort: 'One email per brand',
+    payoff: 'Better imagery without a licence breach',
+    risk: 'Generated art can look generic. Caption it honestly rather than passing it off as a photograph.',
+    status: 'Standing rule',
     options: [
-      { id: 'A', label: 'Privacy-first hosted provider', tradeoff: 'Fast to wire; the provider holds the addresses and its terms apply.' },
-      { id: 'B', label: 'Self-hosted list alongside the analytics worker', tradeoff: 'Full control, more maintenance, and consent handling is yours to get right.' },
-      { id: 'C', label: 'Remove the form until there is traffic worth capturing', tradeoff: 'Honest, and the capture_intent counter still measures interest without a form.' },
+      { letter: 'A', title: 'Generated editorial illustrations, labelled, plus brand image requests', what: 'Keep the current art, label it as editorial illustration, and ask the two brands for licensed photography (Q-14). — ADOPTED', effort: 'One email per brand', payoff: 'Compliant imagery with an upgrade path', risk: 'Generated art can look generic; caption it honestly' },
+      { letter: 'B', title: 'Use Amazon listing photography', what: 'Scrape or cache listing images.', effort: 'Low', payoff: 'Familiar product shots', risk: 'The IP License forbids storing or caching Product Advertising Content; a static site is a cache. Not an option under the agreement' },
+      { letter: 'C', title: 'No imagery', what: 'Text and diagrams only.', effort: 'None', payoff: 'None', risk: 'A shop without pictures does not read as a shop' },
     ],
-    decide: 'Provider and consent language (Q-04). Nothing transmits until the owner picks a path.',
+    recommendedOption: 'A',
+    recommendedWhy: 'The only compliant option that still gives a reader something to look at, with a clear upgrade path.',
+    decisionState: 'Decided · stands as policy',
+    decisionHow: 'Adopted 2026-11-20. Reopen only when a brand licence arrives (Q-14).',
   },
   {
     id: 'SUG-13',
-    priority: 4,
-    title: 'Queue the game-day cluster for late January',
-    recommendation: 'A game-day batch-cooking guide plus a picks recap, published when the season actually starts — or not at all, if the owner cuts seasons (SUG-09 Path C).',
-    why: 'It is the next seasonal slot after the holidays, and the batch-cooking arithmetic already exists in the capacity guide. But it should not be written until the calendar decision is made.',
-    effort: '1–2 days, if approved',
-    payoff: 'Seasonal relevance in a low-competition window',
-    risk: 'Writing it before SUG-09 is decided risks building a cluster nobody wants.',
-    status: 'Proposed — not implemented (queued behind SUG-09)',
+    priority: 2,
+    title: 'Submit the sitemap and RSS feed, then read Search Console queries',
+    recommendation: 'Submit sitemap.xml in Search Console, subscribe to the feed, and after 30 days choose the next topic from measured queries instead of instinct.',
+    why: 'The build already generates both files from the same data as the pages, so a new guide cannot ship without being listed. Submission is the step that turns files into indexing.',
+    effort: 'Under an hour, then waiting',
+    payoff: 'The next topic is a data question',
+    risk: 'Search Console needs a verification token only the owner can supply (FLG-008).',
+    status: 'Files shipped; submission pending owner',
     options: [
-      { id: 'A', label: 'Publish in late January, tied to the winter clusters', tradeoff: 'On-season and cheap to produce from existing material.' },
-      { id: 'B', label: 'Skip 2027, revisit next year', tradeoff: 'No risk; no seasonal presence in Q1.' },
+      { letter: 'A', title: 'Submit the sitemap, then read queries for 30 days', what: 'Verify the site in Search Console, submit sitemap.xml and feed.xml, and choose every next topic from measured queries after a 30-day baseline. — RECOMMENDED', effort: 'Under an hour, then waiting', payoff: 'The next topic becomes a data question', risk: 'Needs the owner’s verification token' },
+      { letter: 'B', title: 'Submit and publish without reading the data', what: 'Get indexed, keep writing on instinct.', effort: 'Under an hour', payoff: 'Indexing only', risk: 'Keeps topic choice a guess; the brief explicitly wants measured topics' },
+      { letter: 'C', title: 'Skip Search Console', what: 'Wait for organic discovery.', effort: 'None', payoff: 'None', risk: 'No query data at all, ever; indexing happens without visibility' },
     ],
-    decide: 'The outcome of SUG-09. This item exists so the decision is made on purpose rather than by default.',
+    recommendedOption: 'A',
+    recommendedWhy: 'It is the step that turns shipped files into indexing — and indexing into evidence.',
+    decisionState: 'Awaiting owner decision (needs Search Console token)',
+    decisionHow: 'Choose A, B or C (e.g. “SUG-13: A”). Option A needs the owner’s verification token (FLG-008, Q-06/Q-13).',
+  },
+  {
+    id: 'SUG-14',
+    priority: 4,
+    title: 'Gate every AI step behind the compliance check',
+    recommendation: 'Automate research, drafting and scheduling, but never automate the compliance gate. The R1–R10 check runs on every build and fails the publish on any breach.',
+    why: 'Automation is what makes this site scalable; the gate is what makes it trustworthy. Removing the gate to move faster would publish the exact failures the gate exists to catch.',
+    effort: 'Standing rule',
+    payoff: 'Scalable without being reckless',
+    risk: 'A gate that is skipped once is a gate that no longer exists. CI enforces it.',
+    status: 'Standing rule',
+    options: [
+      { letter: 'A', title: 'Automate research and drafting; human-gate compliance', what: 'Machine handles research, drafting and scheduling; the R1–R10 compliance gate and source checks stay in the publish path and fail the build on any breach. — ADOPTED', effort: 'Standing rule, enforced by CI', payoff: 'Scalable without being reckless', risk: 'A gate skipped once is a gate that no longer exists' },
+      { letter: 'B', title: 'Fully automate, including compliance', what: 'Let the pipeline self-approve.', effort: 'Lower', payoff: 'Speed', risk: 'This is how a site publishes an unverified price or a hands-on claim it cannot support (Q-12)' },
+      { letter: 'C', title: 'Manual everything', what: 'No automation at all.', effort: 'High, ongoing', payoff: 'Control', risk: 'Does not scale; the brief asks for an automated platform' },
+    ],
+    recommendedOption: 'A',
+    recommendedWhy: 'Automation is what makes this site scalable; the gate is what makes it trustworthy. Q-12 records the same split.',
+    decisionState: 'Decided · stands as policy',
+    decisionHow: 'Adopted 2026-11-20. Any AI-drafted copy is a suggestion until a human checks it against a source (Q-12).',
   },
 ];
 
 // ---------------------------------------------------------------------------
-// Seasons and topic clusters. The front page renders the current cluster;
-// guides attach to a cluster with `cluster: <id>`. Evergreen guides have
-// `cluster: null` and stay out of the seasonal band.
+// Seasonal notebook: editorial hypotheses, not popularity claims.
+// Each moment reframes existing guides and products by the meal being cooked.
+// No search-volume, popularity or sales claim is made anywhere.
 // ---------------------------------------------------------------------------
-export const CLUSTERS = [
+export const MOMENTS = [
   {
-    id: 'holiday-hosting',
-    season: 'In season · Holiday hosting',
-    title: 'Cooking for a crowd this holiday',
-    blurb:
-      'When the table is full, capacity stops being a number on a box and becomes a question of batches, timing and leftovers. Start here.',
-    image: 'scene-holiday.jpg',
-    guides: ['holiday-hosting', 'temperature-safety'],
-    products: ['P02', 'P03', 'P05'],
+    id: 'weeknight-two-food',
+    season: 'All year',
+    title: 'Weeknight, two foods at once',
+    question: 'Protein in one basket, vegetables in the other — what should you compare?',
+    body: 'The dual-basket question. Two foods, two temperatures, one finish time. Start with the format guide, then check whether your single layer fits in 3 qt.',
+    guides: ['basket-or-oven', 'capacity-checklist'],
+    products: ['P01'],
+    note: 'Hypothesis: the most common weeknight shape. Not a popularity claim.',
   },
   {
-    id: 'gifting',
-    season: 'In season · Gifting',
-    title: 'Gifts for people who actually cook',
-    blurb:
-      'The most-used tool in a kitchen is usually the smallest one. Two thermometers, two kinds of cook, and a guide to matching them.',
-    image: 'scene-gifting.jpg',
-    guides: ['gift-guide-thermometers'],
+    id: 'big-batch-sharing',
+    season: 'All year',
+    title: 'Big batch for sharing',
+    question: 'One tray of fries or wings, not two small ones — one basket or two?',
+    body: 'The single-basket question. When splitting a batch across two baskets is a nuisance, capacity in one cavity matters more than a second basket.',
+    guides: ['capacity-checklist', 'cleanup-counter', 'crowd-capacity-math'],
+    products: ['P03'],
+    note: 'Hypothesis: game-day and family-batch shape. Not a popularity claim.',
+  },
+  {
+    id: 'holiday-roast',
+    season: 'Winter',
+    title: 'Holiday roasts and leftovers',
+    question: 'A whole bird, a rest, and a safe leftover — which thermometer job is this?',
+    body: 'The long-cook question. A leave-in probe watches the climb and the rest; an instant-read checks the number. The USDA minimums and the rest time decide which tool earns its drawer.',
+    guides: ['temperature-safety', 'multifunction', 'smart-probe-questions', 'holiday-format-check'],
+    products: ['P02', 'P05'],
+    note: 'Hypothesis: winter roast shape. Not a popularity claim.',
+  },
+  {
+    id: 'summer-grilling',
+    season: 'Summer',
+    title: 'Summer grilling and smoking',
+    question: 'Steaks, chicken and a long smoke — checking or watching?',
+    body: 'The outdoor question. Instant-read for a fast number at the grill, leave-in for a smoke you do not want to stand over. Both jobs, two tools.',
+    guides: ['temperature-safety', 'smart-probe-questions'],
     products: ['P04', 'P05'],
+    note: 'Hypothesis: summer outdoor shape. Not a popularity claim.',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Topic queue: working titles only. Nothing here is published until the
+// measurement gate (SUG-03) has run and the owner has chosen one title.
+// ---------------------------------------------------------------------------
+export const TOPIC_QUEUE = [
+  {
+    title: 'Game-day wings: one big basket or two small ones?',
+    cluster: 'Air fryers',
+    gate: 'Published 2026-11-20 as game-day-wings by the parallel S15 pass, ahead of this queue’s measurement gate. The override is recorded rather than reversed; the open question is now whether measured queries justify keeping it.',
+    status: 'Published — gate recorded as overridden',
   },
   {
-    id: 'winter-crisping',
-    season: 'Winter · Weeknights',
-    title: 'Weeknight crisping season',
-    blurb:
-      'Cold evenings, hot baskets. Whether an air fryer earns its counter space — and which shape suits the food you actually cook.',
-    image: 'scene-everyday.jpg',
-    guides: ['air-fryer-worth-it', 'capacity-checklist'],
-    products: ['P01', 'P03'],
+    title: 'Holiday roast thermometer: instant-read or leave-in?',
+    cluster: 'Thermometers',
+    gate: 'Published 2026-11-20 as holiday-roast-thermometer by the parallel S15 pass, ahead of this queue’s measurement gate. Override recorded; review against measured traffic before writing the next thermometer piece.',
+    status: 'Published — gate recorded as overridden',
+  },
+  {
+    title: 'Air-fryer leftovers: what reheats safely?',
+    cluster: 'Air fryers + safety',
+    gate: 'Published 2026-11-20 as air-fryer-leftovers by the parallel S15 pass, ahead of this queue’s measurement gate. Override recorded; the USDA table still needs the reader data the gate asked for.',
+    status: 'Published — gate recorded as overridden',
+  },
+  {
+    title: 'How to assess cleanup and counter-space trade-offs',
+    cluster: 'Air fryers',
+    gate: 'Already published as cleanup-counter. Next step is a measurement worksheet, not a second article.',
+    status: 'Published — worksheet pending (SUG-04)',
+  },
+  {
+    title: 'Questions to ask before buying a multi-function kitchen appliance',
+    cluster: 'Air fryers',
+    gate: 'Already published as multifunction. Next step is measured queries, not a rewrite.',
+    status: 'Published — measured queries pending',
+  },
+  {
+    title: 'A no-hype checklist for comparing air fryer capacity',
+    cluster: 'Air fryers',
+    gate: 'Already published as capacity-checklist. Next step is a printable worksheet with the five-minute check.',
+    status: 'Published — worksheet pending (SUG-04)',
+  },
+  {
+    title: 'Holiday hosting: does the pan fit before you plan the menu?',
+    cluster: 'Air fryers',
+    gate: 'Published 2026-11-20 as holiday-format-check on an owner instruction that overrode this queue’s “do not publish yet” gate. Recorded in SUG-09; the override covers the three winter guides only.',
+    status: 'Published — winter batch (override recorded)',
+  },
+  {
+    title: 'What to ask before buying a probe thermometer',
+    cluster: 'Thermometers',
+    gate: 'Published 2026-11-20 as smart-probe-questions in the same owner-instructed winter batch (SUG-09).',
+    status: 'Published — winter batch (override recorded)',
+  },
+  {
+    title: 'How much air fryer capacity a crowd actually needs',
+    cluster: 'Air fryers',
+    gate: 'Published 2026-11-20 as crowd-capacity-math in the same owner-instructed winter batch (SUG-09).',
+    status: 'Published — winter batch (override recorded)',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Three coherent paths. The owner chooses one before anything is implemented.
+// ---------------------------------------------------------------------------
+export const PATHS = [
+  {
+    id: 'A',
+    name: 'Path A — Compliance-first shop',
+    promise: 'The safest shop. Products first, guides second, measurement last.',
+    steps: 'Close FLG-001 (tagging), keep the no-price rule, publish on the fortnightly cadence, and defer any further seasonal guides until measured (the 2026-11-20 winter batch is the recorded exception).',
+    cost: 'Slowest growth. The site stays a specification shop until a review unit is bought (SUG-01).',
+    bestIf: 'The owner wants zero policy risk and is happy to grow slowly.',
+  },
+  {
+    id: 'B',
+    name: 'Path B — Publication-first authority',
+    promise: 'The most readable site. Byline, clusters, seasonal notebook and worksheets first.',
+    steps: 'Name the byline (Q-05), publish the capacity worksheet (SUG-04), run the seasonal notebook one guide at a time (SUG-09), keep the gate on every build.',
+    cost: 'More writing before more revenue. Still needs SUG-01 for hands-on content.',
+    bestIf: 'The owner wants a site that reads as a publication and earns links.',
+  },
+  {
+    id: 'C',
+    name: 'Path C — Measurement-first growth',
+    promise: 'The most data-driven site. Endpoint, Search Console and ledger first.',
+    steps: 'Deploy the collector (SUG-03), submit the sitemap (SUG-13), choose every next topic from measured queries, keep the ledger empty until a first-party report exists.',
+    cost: 'Nothing to read until the endpoint is deployed. The shop stays as it is for 30 days.',
+    bestIf: 'The owner wants every future decision to be a data question.',
   },
 ];
 
 // ---------------------------------------------------------------------------
 // Guides. `path` keeps the already-published URL for the four live guides.
-// `cluster` links a guide to a CLUSTERS entry; null means evergreen.
 // ---------------------------------------------------------------------------
 export const GUIDES = [
   {
     slug: 'basket-or-oven',
     path: 'guides/basket-or-oven.html',
-    cluster: null,
     kicker: 'Format',
     title: 'Basket or oven-style air fryer: what should you compare?',
     summary:
@@ -1061,7 +1527,6 @@ export const GUIDES = [
   {
     slug: 'capacity-checklist',
     path: 'guides/capacity-checklist.html',
-    cluster: 'winter-crisping',
     kicker: 'Fit',
     title: 'A no-hype checklist for comparing air fryer capacity',
     summary:
@@ -1103,7 +1568,6 @@ export const GUIDES = [
   {
     slug: 'cleanup-counter',
     path: 'guides/cleanup-counter.html',
-    cluster: null,
     kicker: 'Daily use',
     title: 'Cleanup and counter space: the trade-offs to assess',
     summary:
@@ -1146,7 +1610,6 @@ export const GUIDES = [
   {
     slug: 'multifunction',
     path: 'guides/multifunction.html',
-    cluster: null,
     kicker: 'Features',
     title: 'Questions to ask before buying a multi-function appliance',
     summary:
@@ -1189,7 +1652,6 @@ export const GUIDES = [
   {
     slug: 'temperature-safety',
     path: 'guides/temperature-safety.html',
-    cluster: 'holiday-hosting',
     kicker: 'Safety',
     title: 'What temperature is actually “done”? A thermometer guide',
     summary:
@@ -1233,8 +1695,8 @@ export const GUIDES = [
       {
         h: 'The two supplied units, against those jobs',
         p: [
-          'The ThermoMaven is a handheld instant-read: a one-second read, a stated ±0.5°F accuracy, and IP67 water resistance for washing. It is the drawer tool.',
-          'The CHEF iQ Sense is a wireless leave-in system: three probes, WiFi, and a stated 1000°F heat limit. It is the long-cook tool, and it depends on an app.',
+          'The ThermoMaven is an instant-read thermometer: a one-second read, a stated ±0.5°F accuracy, and IP67 water resistance for washing. It is the drawer tool.',
+          'The CHEF iQ Sense is a wireless leave-in system: three probes, WiFi, and a stated 1000°F heat limit. It is the long-cook tool. Review summaries on the listing mention an app; the listing text read on 2026-11-20 does not spell out its requirement.',
           'If you cook both ways, a cheap instant-read plus a leave-in is usually a better spend than one expensive compromise. Neither of these listings tells you the probe’s response time when it is cold, which is the number that matters for a fast sear.',
         ],
       },
@@ -1250,146 +1712,164 @@ export const GUIDES = [
     sources: ['U1', 'A2'],
   },
   {
-    slug: 'holiday-hosting',
-    path: 'guides/holiday-hosting.html',
-    cluster: 'holiday-hosting',
-    kicker: 'Holiday hosting',
-    title: 'Holiday hosting: how much can your air fryer actually cook at once?',
+    slug: 'holiday-format-check',
+    path: 'guides/holiday-format-check.html',
+    kicker: 'Season',
+    title: 'Hosting this winter: which air fryer format fits the meal you actually cook?',
     summary:
-      'A crowd changes the arithmetic. How to think about batches, timing and leftovers when the machine you own has to help feed a table of eight — and which of the three formats earns its place at the big meal.',
+      'The oven is full, the guests are early, and the machine on the counter is either saving dinner or getting in the way. A format-first way to decide what kind of air fryer a hosting household actually needs — before the season decides for you.',
     readingTime: '6 min',
     published: '2026-11-20',
     sections: [
       {
-        h: 'The batch question nobody asks until December',
+        h: 'The two hosting failures, and which one you actually have',
         p: [
-          'Capacity in quarts describes a cavity, not a dinner. The number that matters at a holiday meal is how many single layers of food you can push through the machine between the moment the roast comes out and the moment everyone sits down.',
-          'Run the arithmetic before the shopping, not after. Count the sides you want crispy — potatoes, vegetables, stuffing balls — and decide which of them the machine will own. Everything else belongs to the oven. An air fryer earns its place at a holiday meal as a side-dish engine, not as a second turkey.',
+          'Hosting meals fail in two ways. The first is arithmetic: more dishes than oven slots, everything due at the same hour. The second is timing: food that was ready early and spent the drinks reception turning into jerky.',
+          'A machine that helps with the first failure is a second oven — a cavity that takes a tray or a whole item. A machine that helps with the second is a synchroniser — two smaller loads that finish at the same moment. Those are different products, and both are called air fryers.',
         ],
       },
       {
-        h: 'Which of the three formats suits a crowd',
+        h: 'The format decision tree',
         p: [
-          'The 26 qt French-door oven is the only one of the three air fryers here with racks and a cavity large enough to work like a second oven. If the main oven is committed to a roast, this is the format that absorbs the overflow — toast, tray sides, reheating.',
-          'The 8 qt single basket cooks the largest single batch of loose, crispy food — the format for one hero side done well. The 6 qt dual basket cooks two different sides at once and finishes them together, which is exactly the shape of a holiday side list.',
-          'None of these figures is a measurement made here; they are the stated capacities from each listing, and the shape argument is the part that transfers to your kitchen.',
+          'Ask what the main event looks like. One big thing — a bird, a joint, a whole side of salmon — needs a cavity tall and deep enough to take it, which points at an oven-style unit or a large single basket. Many small things — wings, roasted vegetables, potato skins, reheated canapés — need surface area and shaking, which points at baskets.',
+          'Then ask the question that actually separates the households: do any two dishes need to finish at the same time? If yes, two independent baskets finishing together is a genuine feature. If your sides are all room-temperature or oven-timed anyway, one big basket wastes less of your counter.',
         ],
       },
       {
-        h: 'Timing: the one-minute habit that saves the meal',
+        h: 'What the quart figures do and do not tell you about a crowd',
         p: [
-          'Air-fried sides are fastest when they go in as the main dish comes out to rest. A roast needs a rest anyway; a basket of potatoes needs the same ten minutes at high heat. Write the order of operations on a card and stick it to the fridge.',
-          'And keep the batches honest: a crowded basket steams instead of crisping. Two half batches beat one full one, every time.',
+          'The three air fryers on this site carry stated capacities of 6 quarts split into two 3 qt baskets, 8 quarts in one basket, and 26 quarts in an oven cavity — all figures taken from the manufacturer’s listings, not measured here. For a crowd, the useful translation is not volume but layers: crisping food needs a single layer, and a single layer is a surface.',
+          'The method for converting your guest list into batch counts is in the capacity guide, and the party-food version of it is in the game-day piece. Read either before you let a quart figure persuade you.',
         ],
       },
       {
-        h: 'Leftovers are the second meal — cook them like one',
+        h: 'The second-oven argument',
         p: [
-          'The USDA’s safe minimums do not stop at the table. Leftovers and casseroles should reach 165°F (73.9°C) when reheated, and all poultry — including giblets and stuffing — is done at 165°F (73.9°C) in the first place. A thermometer is the difference between “it looks fine” and “it is fine”.',
-          'This is also the moment a leave-in probe pays for itself: watching the climb on a large bird without opening the door keeps both the heat and the schedule intact.',
+          'The strongest case for an oven-style unit in a hosting kitchen is not air-frying at all. It is overflow: the tray of something that does not need the big oven’s precision, kept hot in a machine that holds temperature on a rack.',
+          'The cost is the same as always — counter. During a party the machine becomes the hot station: the place people stand near, put things down on, and open. Measure the gap it will live in with the door open, not closed, and decide in advance which corner of the kitchen is its territory for the day.',
         ],
       },
       {
-        h: 'The shortlist for a full table',
+        h: 'Five questions to answer before the guests arrive',
         p: [
-          'If the main oven will be busy all day, the Emeril Lagasse 26 qt French door is the format that behaves like a second oven. If crisp sides are the whole game, the Chefman 8 qt TurboFry handles the biggest single batch of the three. If two different sides must land at the same time, the Chefman 6 qt dual basket is built for exactly that. And for the bird itself, the CHEF iQ Sense watches the temperature so you can watch the guests.',
+          'One: how many dishes are due at the same hour, and how many of them need browning rather than reheating? Two: does anything need two temperatures at once? Three: where does the machine sit when the kitchen has four people in it? Four: what is the fallback if the thing you planned to cook in it does not actually fit — because the day you find out should not be the day you serve it? Five: what is the smoke and steam situation in a kitchen that is about to be full of coats?',
+          'None of these questions is about presets. All of them are about the meal you actually cook.',
         ],
       },
     ],
-    related: ['P02', 'P03', 'P01'],
-    sources: ['U1', 'A2'],
+    related: ['P01', 'P02', 'P03'],
+    sources: ['A2'],
   },
   {
-    slug: 'gift-guide-thermometers',
-    path: 'guides/gift-guide-thermometers.html',
-    cluster: 'gifting',
-    kicker: 'Gifting',
-    title: 'A thermometer gift guide for every kind of cook',
+    slug: 'smart-probe-questions',
+    path: 'guides/smart-probe-questions.html',
+    kicker: 'Connected gear',
+    title: 'Smart meat thermometers: the questions to ask before you pay for a radio',
     summary:
-      'The most-used tool in a kitchen is often the smallest one. Match the cook to the thermometer: an instant-read for the weeknight cook, a leave-in probe for the one who roasts — and one calibration ritual that makes either gift land well.',
-    readingTime: '5 min',
+      'A leave-in probe buys you a temperature graph and costs you an app. Before comparing models, decide which of those two facts matters more in your kitchen — the spec sheet will not decide it for you.',
+    readingTime: '6 min',
     published: '2026-11-20',
     sections: [
       {
-        h: 'Why a thermometer is the safest gift in the kitchen',
+        h: 'What a leave-in probe does that an instant-read cannot',
         p: [
-          '“Done” is not a feeling; it is a number. The USDA publishes safe minimum internal temperatures for every kind of meat, from 145°F (62.8°C) for steaks and roasts — with a three-minute rest — to 165°F (73.9°C) for all poultry. Every one of those numbers is measured with a thermometer.',
-          'A thermometer is also the rare kitchen gift that does not impose: it fits any cooking style, any kitchen size, and any skill level. It is used, not displayed.',
+          'An instant-read thermometer answers one question — what is the temperature right now — and answers it in seconds. A leave-in probe answers the only question that matters during a long cook: what is the temperature doing?',
+          'The climb is the information. Meat temperature moves unevenly, rest times are part of the safety standard (see the USDA numbers on the temperature guide), and a probe that stays in place lets you catch the target instead of repeatedly opening the heat to look for it.',
         ],
       },
       {
-        h: 'For the weeknight cook: an instant-read',
+        h: 'How to read a range claim',
         p: [
-          'The ThermoMaven 1-second thermometer is the drawer tool: a stated one-second read, a stated ±0.5°F accuracy, an auto-rotating LED screen, and IP67 water resistance so it can be rinsed under the tap. It is for the cook who wants a number and wants to move on.',
-          'Everything in that paragraph is the listing’s claim, printed as such. What the listing does not state — probe length, battery type, warranty term — is worth checking before you wrap it.',
+          'One of the two thermometers on this site advertises “WiFi Unlimited Range” in its listing title. That is a manufacturer claim, quoted here as one; this desk has not tested it and does not repeat it as a fact. “Unlimited” in a spec sheet describes a topology — usually that the base talks to your home network — not the distance the probe itself transmits.',
+          'The practical question is which link is the weakest. Probe to base, base to router, router to the phone in your pocket: a chain of three radio links, and the shortest one sets the real range. Ask what the stated distance is for each link. If the listing only gives one number, it is usually the most flattering one.',
         ],
       },
       {
-        h: 'For the roaster and the smoker: a leave-in probe',
+        h: 'Probes versus cooks: how many do you actually insert?',
         p: [
-          'The CHEF iQ Sense Gen3 is the long-cook tool: three ultra-thin probes, WiFi monitoring, a stated 1000°F heat limit, and five sensors. It stays in the food and reports the climb, which is the feature a holiday roast or a long smoke actually uses.',
-          'It is also a system, not a tool: there is an app in the loop. For a cook who would rather not manage a phone at the grill, the instant-read is the better gift.',
+          'The multi-probe system on this site ships with three probes, per its listing. Most cooks insert one probe into one piece of meat. A second probe earns its keep on a second cut, or reading the ambient temperature of the oven or smoker while the first watches the food.',
+          'Before paying for a third probe, count how often you cook two things at once in the same machine. If the honest answer is twice a year, the third probe is storage, and the money is better spent on accuracy or on a good instant-read alongside it.',
         ],
       },
       {
-        h: 'One ritual makes either gift land well',
+        h: 'Heat limits as listed, and what the number leaves out',
         p: [
-          'Fill a glass with crushed ice and water, stir it, and put the probe in for thirty seconds. It should read 32°F (0°C). This ice-point check takes a minute, works on any thermometer, and turns “I think it’s right” into a known quantity — on day one, while a return is still easy.',
-          'Write the check on the gift card. It is the part of the present that keeps working.',
+          'The same listing claims a 1000°F heat-safe limit. Read such limits carefully: they describe whichever component the manufacturer means — often the probe body or the connector — and the grill grate right under the fire is the harshest place in the system. Where the limit applies is a question for the manual, not the title.',
+          'The other stated limits matter just as much: battery life per charge, whether the case charges the probes, and what happens to the reading when the battery is low. None of these are in the headline.',
+        ],
+      },
+      {
+        h: 'The app dependency question set',
+        p: [
+          'A connected thermometer is two products: a thermometer and a service. Ask before buying: does the base show a temperature without a phone? Is an account required? What notifies you — the app, the base, both? What happens to the device if the app is eventually discontinued?',
+          'That last question is not pessimism; it is the standard longevity question for any connected appliance. The comforting answer is that the fallback is cheap: a drawer instant-read, used exactly as the temperature guide describes, still keeps dinner safe.',
+        ],
+      },
+      {
+        h: 'What no spec sheet tells you',
+        p: [
+          'Probe response time when the probe has been sitting at room temperature, calibration drift over a year, how the reading differs at the tip versus along the shaft — these decide whether a fast sear reads correctly, and none of them appear in listing titles.',
+          'Until someone publishes those numbers honestly, the decision is about jobs, not badges: an instant-read for the drawer, a leave-in for the long cooks you actually do, and a refusal to pay for radios you will not use.',
         ],
       },
     ],
-    related: ['P04', 'P05'],
-    sources: ['U1', 'A2'],
+    related: ['P05', 'P04'],
+    sources: ['A2', 'U1'],
   },
   {
-    slug: 'air-fryer-worth-it',
-    path: 'guides/air-fryer-worth-it.html',
-    cluster: 'winter-crisping',
-    kicker: 'Worth it?',
-    title: 'Is an air fryer worth it if you already own an oven?',
+    slug: 'crowd-capacity-math',
+    path: 'guides/crowd-capacity-math.html',
+    kicker: 'Season',
+    title: 'Wings for a crowd: the capacity arithmetic to do before game day',
     summary:
-      'An air fryer is a compact convection cooker: a heating element, a fan, and a small cavity that moves air hard. Whether it earns counter space depends on four questions about your kitchen — not on anyone’s sales figures.',
-    readingTime: '5 min',
+      'Party food is a surface-area problem wearing a volume costume. A short method — one bag of frozen wings, a tape measure and honest counting — that tells you how many batches a crowd really takes, and when a bigger machine would not have helped.',
+    readingTime: '6 min',
     published: '2026-11-20',
     sections: [
       {
-        h: 'What an air fryer actually is',
+        h: 'Why quarts lose to square inches for finger food',
         p: [
-          'Strip away the name and an air fryer is a small convection oven with the fan close to the food. The small cavity heats fast, the fan moves air hard, and food with dry surfaces crisps quickly. That is the entire mechanism — and it is the same mechanism inside the convection setting of a full-size oven, delivered from a much smaller box.',
-          'The difference is not magic; it is scale. A small, hot, fast-moving cavity does certain jobs noticeably better than a large oven: loose crispy foods, small batches, reheating without a soggy microwave middle.',
+          'Crisping needs a single layer: air has to reach every piece. Finger food tiles a surface the way paving stones tile a path — the useful number is the area of the layer, not the volume of the box it sits in. Two machines with the same stated capacity can differ sharply in how much party food they actually finish per batch.',
+          'The stated capacities quoted on this site — 6 quarts in two baskets, 8 quarts in one, 26 quarts in an oven cavity — remain the only common unit, and they come from the listings. Treat them as an upper bound on the box, not a serving count.',
         ],
       },
       {
-        h: 'Four questions that decide it',
+        h: 'The batch-count method',
         p: [
-          'One: how often do you cook food you want crispy — fries, wings, breaded cutlets, roasted vegetables? Weekly is a yes; twice a year is a no. Two: is there a square foot of counter it can live on permanently? These machines are heavy, corded, and used most when they are out.',
-          'Three: who washes what? A basket and a crisper plate are two parts; a countertop oven brings racks and a drip tray. Four: how many people are you cooking for at once? Food crisps in a single layer, so the honest capacity of any unit is well below its stated volume.',
+          'Buy the bag of frozen wings or wedges you actually serve. Pour a single layer into the footprint your basket or tray really has — not the theoretical basket, the one with the crisper plate in it. Count what fits. That number is your pieces-per-batch, and it is the only capacity figure that has ever meant anything to your guests.',
+          'The arithmetic is then one line: batches = people × pieces each ÷ pieces per batch, rounded up, plus one batch for the people who come back for seconds. Every input is a number you counted yourself, which is why the result can be trusted.',
         ],
       },
       {
-        h: 'When the oven you own is already enough',
+        h: 'A worked example, with the assumptions in plain sight',
         p: [
-          'If your convection setting gets a workout and your counter is full, the answer is no — and that is a good outcome of this question. An appliance that stays in the cupboard does not crisp anything.',
-          'The other honest no: if what you actually want is a second oven for big meals, do not buy a basket air fryer pretending to be one. That is the 26 qt French-door format’s job, not a drawer unit’s.',
+          'The following numbers are hypothetical, chosen for the arithmetic, and are not measurements of anything: say a single layer holds 24 pieces and you are feeding 30 people at 4 pieces each. That is 120 pieces, so 5 batches, plus the seconds batch: 6 batches total.',
+          'If each batch takes twenty minutes and needs one shake, the machine is busy for about two hours. That is the planning number. Replace every figure with your own count before it decides anything for you.',
         ],
       },
       {
-        h: 'If you buy one, buy the shape that matches your food',
+        h: 'When two baskets beat one big one — and when they do not',
         p: [
-          'Two-part meals — protein plus a side, at different times or temperatures — are the dual-basket format’s whole reason to exist (the Chefman 6 qt). Big single batches of one thing belong to the large single basket (the Chefman 8 qt TurboFry). Flat things on racks, and anything you would toast or roast, belong to the oven format (the Emeril Lagasse 26 qt).',
-          'The shape decision is the one that decides whether you are still using it in March. The full write-ups are on the pick pages, and the comparison table lays the three formats side by side.',
+          'If your layer count fills one basket with the same food, a second basket does not cook it faster; it cooks a second food alongside. That is the real party win of a dual-basket unit: wings in one, wedges in the other, finishing together instead of competing for the same slot.',
+          'If you mostly serve one thing in bulk, one large basket — or an oven-style cavity taking a flat tray per rack — wastes less machine on the problem you actually have. The format guides cover that decision in more depth.',
         ],
       },
       {
-        h: 'One measurement to take before ordering',
+        h: 'Planning the finish time backwards',
         p: [
-          'Measure the space before the machine: the height under your upper cabinets, the depth from the wall to the counter’s front edge, and the width of your sink. The first two decide what you can own; the third decides what you can wash.',
-          'It is the least glamorous paragraph in this guide and the one that prevents the most returns.',
+          'Work out when the first plate has to leave the kitchen, then subtract: total batch time, plus the minutes lost to shaking, loading and the pause between batches. Whatever remains is your margin, and on a crowded day it will be spent by someone asking where the napkins are.',
+          'One structural note for hosts: a machine that takes flat trays can hold finished food warm at a low setting on a rack, which buys margin back. A drawer of finished wings is a drawer you are now managing.',
+        ],
+      },
+      {
+        h: 'The honest limits of this method',
+        p: [
+          'This method counts food in your space. It says nothing about crisping performance, noise, smell or durability, and nothing here is a test result — this desk has not run these machines. It answers one question honestly: how many batches, and is that acceptable before you commit to the plan?',
+          'If the answer is no, the fix is usually format, not capacity: more surface, or a second heat source in the house that is already built for flat trays.',
         ],
       },
     ],
-    related: ['P01', 'P03', 'P02'],
+    related: ['P01', 'P02', 'P03'],
     sources: ['A2'],
   },
 ];

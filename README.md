@@ -11,19 +11,24 @@ two thermometers. Built for the WinB repository and published with GitHub Pages.
 ## What this is
 
 A shop, not an audit. Five product pages, two category hubs, a comparison table, eight
-question-shaped guides in seasonal clusters (holiday hosting, gifting, weeknight
-crisping), and one RSS feed. The compliance machinery is real but it lives
-under the floor — the front page leads with products, and every register is one click
-away in the footer.
+question-shaped guides, three printable worksheets, a 30-second chooser, and one RSS feed.
+The compliance machinery is real but it lives under the floor — the front page leads with
+products and decision tools, and every register is one click away in the footer.
 
 The editorial position is narrow and deliberate: **this desk has not handled any of these
 products.** Every page therefore describes what the manufacturer's listing states, shows
 its arithmetic, and lists what it cannot tell you. No page contains a fabricated test
 result, a borrowed star rating, or a price.
 
+**Scope honesty.** This is a static publication with automated generation and a compliance
+gate. It is not yet an AI-powered research/optimization platform: there is no live
+trend/commission feed, no deployed analytics endpoint, and no verified conversion data.
+See `EXECUTIVE-SUMMARY.md` §1 for what is automated today vs what needs owner credentials.
+
 ## The rules the build enforces
 
-`node tools/verify.mjs` fails the build unless all ten hold:
+`node tools/verify.mjs` fails the build unless all eleven hold, and `node tools/gate.mjs`
+adds R11–R15 for the editorial surfaces:
 
 | | Rule |
 |---|---|
@@ -37,15 +42,19 @@ result, a borrowed star rating, or a price.
 | R8 | Every product page prints its ASIN and links to the listing with the tag |
 | R9 | No page claims a traffic, click, conversion or revenue figure |
 | R10 | Every affiliate exit page is indexable, disclosed, tagged and `rel="sponsored"` |
+| R11 | A specification a listing states twice, differently, is published with **both** values |
+| R12–R14 | (gate) Social images resolve; no metric presented as measured; disclosure before first heading; every class defined |
+| R15 | (gate, S15) New guides are question-shaped, no invented demand, chooser present, worksheets printable |
 
 ## Commands
 
 ```bash
 npm run build    # generate HTML, sitemap, feed, 404, artwork
-npm run verify   # content rules R1-R10
+npm run verify   # content rules R1-R11
+npm run gate     # editorial rules R11-R15
 npm run links    # crawl the built site, validate XML
 npm run smoke    # fetch every URL at /WinB/ over HTTP (needs a local server on :3001)
-npm run check    # build + verify + links
+npm run check    # build + verify + gate + links
 ```
 
 ## Layout
@@ -53,16 +62,23 @@ npm run check    # build + verify + links
 ```
 _build/            generators (data.mjs is the single source of truth)
   data.mjs         products, flags, questions, suggestions, sources, events, ledger
+  listing-evidence.mjs  what each listing actually states, transcribed, with the
+                   phrase it came from — wattage, temp range, models, warranty,
+                   and Amazon's own review-theme counts
+  decision-queue.mjs   the 10-proposal queue and the 9 questions blocking it
+  tools-content.mjs  S15: new guides, worksheets, chooser, FAQ, November picks
   core.mjs         page shell, disclosure strip, masthead, footer
-  content-shop.mjs front page, categories, product pages, comparison, guides
+  editorial.mjs    front page, categories, product pages, comparison, guides, worksheets
   content-oversight.mjs  decision room, data room, flagged, methods, about, privacy
-tools/             verify.mjs · linkcheck.mjs · smoke.mjs
+tools/             verify.mjs · gate.mjs · linkcheck.mjs · smoke.mjs
 assets/            css/site.css · js/site.js · generated SVG artwork
-analytics/         deployable collected-worker.js + schema (NOT running)
+analytics/         deployable collector-worker.js + schema (NOT running)
 reviews/           five product pages (generated)
-guides/           eight guides (generated)
+guides/            eight guides (generated)
+tools/             three printable worksheets + index (generated)
 air-fryers/ thermometers/ compare/    category and comparison hubs
 decisions/ data-room/ flagged/        oversight surfaces
+suggestions/       the decision queue: proposals, blocking questions, owner actions
 methods/ about/ privacy/ executive-summary/
 ```
 
@@ -71,9 +87,13 @@ fails if the committed HTML drifts from `_build/`.
 
 ## Read these before changing anything
 
-- `COORDINATION.md` — the shared task board and the verification log
-- `/flagged/` — the eleven items that could not be confirmed, with what would close each
-- `/decisions/` — suggestions ranked by priority, open questions, rejected options
+- `COORDINATION.md` — the shared task board and the verification log (S15 appendix is the
+  latest live-source verification pass)
+- `EXECUTIVE-SUMMARY.md` — what was built, what it can/cannot claim, the decisions that matter
+- `/flagged/` — the items that could not be confirmed, with what would close each
+- `/suggestions/` — the decision queue: proposals with cost, reversibility
+  and failure mode, blocking questions, owner-only actions. **Choose a path here before implementing.**
+- `/decisions/` — earlier suggestions ranked by priority, rejected options
 
 ## Two things that need the owner
 
@@ -88,3 +108,21 @@ fails if the committed HTML drifts from `_build/`.
 Body copy and generated artwork are original to this repository. Amazon and the Amazon
 logo are trademarks of Amazon.com, Inc. or its affiliates. This site is not endorsed by
 Amazon. As an Amazon Associate the site owner earns from qualifying purchases.
+
+---
+
+## Preserved alternative build — Counter & Crisp (`alt-site/counter-and-crisp/`)
+
+Session `arena/6fc7de34` (PR #31) contributed an independent, self-contained site build for the
+same five products. It is **not** the canonical site: it ships `noindex,follow` and a disallowing
+`robots.txt`, consistent with the archive convention in `tools/noindex.cjs`, so search engines keep
+indexing only the canonical root build.
+
+- Live at `https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp/` (for review, not ranking).
+- Distinctive pieces worth mining: the product-intent confirmation record with strict
+  intent-vs-observation field separation, the suggestion review queue format (SUG-001..012 with
+  impact/effort/risk and blank decision columns), the open-questions register with discovery paths
+  (Q-01..15), and the five-event privacy-preserving counter design.
+- Rebuild: `python3 tools/build_site.py` · verify: `python3 tools/check_links.py`.
+- Independent cross-check recorded in `COORDINATION.md` §9: this session's fetch of the five
+  supplied short links produced the same five observed ASINs as §3/§8 of the board.
