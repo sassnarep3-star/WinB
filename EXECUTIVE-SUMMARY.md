@@ -3,6 +3,8 @@
 **Project:** a working Amazon Associates shop front for five supplied kitchen products
 **Site:** Counterwise — https://sassnarep3-star.github.io/WinB/
 **Build date:** 2026-11-20 (UTC) — merged polish cycles (sessions `30073780`, `ab61d616`, `9c38041d`, `0beabda2`)
+
+**Build date:** 2026-11-20 (UTC) — S17 refresh (session `ac3d816c`), following S15/S16 and the trend-topic cycle
 **Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
 **Pages:** 37 canonical pages (incl. 5 affiliate exit pages), 47 sitemap routes, 16 feed items (recounted at each merge round)
 **Sources:** 12 official policy/agency sources + 5 per-listing source rows (L1–L5), all re-fetched live 2026-11-20 (see §6, §11–§13)
@@ -12,7 +14,10 @@
 **Pages:** 28 canonical pages + 5 affiliate exit pages, 30 sitemap routes, 7 feed items
 **Sources:** 10 documented official sources (§6) plus the five product listings, all fetched and read on 2026-11-20
 
-**Scope boundary — read this first.** This repository delivers a static affiliate publication with automated page generation and a compliance gate that fails the build on breach. It is **not yet an AI-powered research or campaign-optimization platform**, and this summary does not claim otherwise. There is no deployed AI agent, no live trend/commission feed, no live analytics endpoint, no Search Console data, and no verified conversion reporting. What *is* automated today: page/sitemap/feed generation from a single data file, the R1–R15 compliance gate, link crawling, and an HTTP smoke test at the real `/WinB/` path. What stays human-gated by design: every product fact, every word of guide prose, every topic choice, and every ledger row. Any future AI drafting would be treated as a suggestion until a human checks it against a source (Q-12). Those capabilities need authorized data access (Creators API / PA API, Associates Central, Search Console), deployment credentials, and human approval gates before they can be claimed or switched on.
+**Pages:** 41 canonical pages + 5 affiliate exit pages, 51 sitemap routes, 20 feed items, 55 pages audited by the publication gate. 18 canonical guides, 3 printable worksheets, 5 product pages, 2 category hubs (counts are read from the build output at this merge, not copied from an earlier cycle)
+**Sources:** 17 registered official sources, each with a retrieval date; re-fetched live on 2026-11-20 (see §6, §10–§12). No value is published that an official page has not been read for.
+
+**Scope boundary — read this first.** This repository delivers a static affiliate publication with automated page generation and a compliance gate that fails the build on breach. It is **not yet an AI-powered research or campaign-optimization platform**, and this summary does not claim otherwise. There is no deployed AI agent, no live trend/commission feed, no live analytics endpoint, no Search Console data, and no verified conversion reporting. What *is* automated today: page/sitemap/feed generation from a single data file, the R1–R16 compliance gate (verify + publication gate + the register gate), link crawling, and an HTTP smoke test at the real `/WinB/` path. What stays human-gated by design: every product fact, every word of guide prose, every topic choice, and every ledger row. Any future AI drafting would be treated as a suggestion until a human checks it against a source (Q-12). Those capabilities need authorized data access (Creators API / PA API, Associates Central, Search Console), deployment credentials, and human approval gates before they can be claimed or switched on.
 
 ---
 
@@ -306,3 +311,37 @@ uncorroborated), FLG-007/FLG-008 (analytics endpoint and Search Console need own
 accounts), FLG-012/FLG-015 (two brands on one site — generator-owned; unifying is
 PR #25's proposal), FLG-016 (short-link inconsistency, new data point above),
 FLG-017 (CDN edge-cache staleness after deploy), FLG-019 (duplicate flag registers).
+
+
+## 12. This cycle — published editorial, dated provenance, and one identity (session `ac3d816c`, 2026-11-20)
+
+Four things changed. None of them added a fact about a product that was not already read from a listing.
+
+**1. The four queued trend topics are now guides.** DQ-11…DQ-14 were sitting in the review queue awaiting a decision; they are published and the queue rows now say **Built** with an *Outcome* line:
+
+| From the queue | Published as | What it does |
+|---|---|---|
+| DQ-11 counter test | `/guides/counter-fit-test.html` | Depth, clear height under the cabinet, sink width — then the vent clearance in the manual. Says out loud that **external dimensions are not stated on any of the three listings**, so the site does not invent them. |
+| DQ-12 thermometer | `/guides/wifi-probe-timing.html` | Reframed on purpose: the original wording duplicated the live holiday-roast guide, so this one answers the attention question (watching vs sampling, what “unlimited range” has to survive in a real house) against the two listings’ own statements and the USDA 165 °F figure. |
+| DQ-13 cleanup | `/guides/dishwasher-fit.html` | Separates “dishwasher-safe” (a coating claim the listing makes) from “dishwasher-sized” (a rack measurement nobody publishes), and counts the parts that touch food. |
+| DQ-14 dual basket | `/guides/two-basket-weeknight.html` | 3 + 3 = 6 against one 8 qt, decided from the reader’s own weeknight rather than from a ranking. |
+
+Titles are questions, every product figure is attributed to the listing, and `tools/gate.mjs` R15 still fails the build on any popularity, sales-rank or search-volume assertion. Publishing them **before** measured demand existed was a decision taken by the build rather than by the owner; it is recorded as **FLG-022 (Needs review)** with the reasoning, and DQ-Q10 (choose the next topics from measured queries) stays open and still gates the next cycle.
+
+**2. Every product page now dates itself.** DQ-10 shipped: a “Last checked” stamp plus a per-read change log. The first entry earned its place immediately — the ThermoMaven listing (`B0DHZTCNR5`) was read twice on 2026-11-20 by two different sessions and served two different titles: the register recorded “…IP67 Waterproof for Grill BBQ \| Black”, the re-read served “…for Grill BBQ, Stocking Stuffers Gifts for Men, Black” and “NIST&NSF” without the spaces. Same ASIN, same listing, same day. Logged as **FLG-021 (Mitigated in this build)**: a seller keyword edit, not a product change, and exactly why an undated specification is a claim about a moment.
+
+**3. One site, one name, one indexable copy of every topic.** Eleven indexable pages still carried a second brand and four of them were near-duplicates of published guides. `tools/consolidate.mjs` now: rebrands the register hub, the three about pages and the five `/go/` exit pages to the single publication identity; gives the four duplicate guides and three duplicate oversight pages `noindex,follow` with a `rel=canonical` at their canonical twin plus a visible pointer for any reader who arrives from an old link; and prunes `sitemap-register.xml` so no sitemap lists a page that asks not to be indexed. `tools/check.cjs` was changed to assert that invariant from the page itself rather than from a hand-maintained path list, and `tools/gate.mjs` gained **R16**: fail if an indexable page advertises a second brand, if a sitemap lists a noindex page, or if two indexable pages share an H1. R16 caught a real regression the hour it was written (the `/go/` pages regenerated with the old brand). Closes the surviving half of FLG-015; FLG-019’s factual half is corrected at source (see below) with the ID-namespace rename left as a logged request, because those anchors are hardcoded through the register generator.
+
+**4. A decision queue that remembers.** `/suggestions/` gained Part five — *Already decided, and what happened* — rendering the built items with their outcome, so a reviewer can see what the last choice shipped and what it cost, not only what is pending.
+
+### Verification run for this cycle (all fetched live, 2026-11-20 UTC)
+
+| Check | Result | Source |
+|---|---|---|
+| Five listing pages re-read: ASIN in URL, title, category path | 4 of 5 identical to the register; P04 title drifted as above; P03 renders “TurboFry®” | [L1](https://www.amazon.com/dp/B0CDY277D3) · [L2](https://www.amazon.com/dp/B09B7SB46R) · [L3](https://www.amazon.com/dp/B08DKYBTPH) · [L4](https://www.amazon.com/dp/B0DHZTCNR5) · [L5](https://www.amazon.com/dp/B0DZFD6R9Z) |
+| USDA safe minimums quoted in the new guide (165 °F all poultry; 145 °F + 3 min rest for steaks/roasts; 165 °F leftovers and casseroles) | Matches the chart exactly; page states “Last Updated: Apr 14, 2025” | [USDA FSIS](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) |
+| Older register claim “GitHub Actions is disabled on this repository” | **False as of this check** — four active workflows, and Pages deploys from `main`. Corrected at source in `data/shop/flags.json` with the original observation kept; `verification/research-log` entry annotated. Closes the factual half of FLG-019 | [Actions on this repository](https://github.com/sassnarep3-star/WinB/actions) |
+| Prices, ratings, sales ranks read from listings and published | **None.** Every one of the five pages served a price and a star rating; neither is recorded anywhere (rule R3, Program Policies §2(b)) | [Program Policies](https://affiliate-program.amazon.com/help/operating/policies) |
+| `tag=` on the resolved destinations | Still none observed on the resolved URLs — FLG-001 unchanged, still the owner’s ten-minute check | [Associates Central](https://affiliate-program.amazon.com/) |
+
+**Still not verified, and not claimed:** the account behind `shopnow047c-20`; whether the supplied short links are enrolled Special Links; anything at all about hands-on performance; any traffic, click, order, conversion or revenue figure (no collector is deployed, the ledger has 0 rows); and whether any of the twelve guides has been read by anyone. No number in this document is a forecast.

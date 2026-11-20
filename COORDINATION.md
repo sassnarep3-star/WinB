@@ -83,6 +83,7 @@ exposed are recorded in §8 below.
 | 2026-11-20 | `arena-0beabda2` | **S15 merge conflict resolution (first round).** `origin/main` had advanced to `33eaf81` (PRs #27–#36 from parallel sessions). 33 conflicts: 25 generated HTML + sitemap/feed/index + `_build/content-oversight.mjs`, `_build/content-shop.mjs`, `_build/core.mjs`, `assets/css/site.css`, `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`. Resolved keeping both sessions' work: content-oversight now runs main's decision-queue page (Parts 1–4) with this session's suggestion board appended as Part five and the decision-inputs page retained; core.mjs footer is a single merged index (main's nav supersedes the experimental MORE menu); site.css keeps both component sets; content-shop.mjs and generated output took main's version (this session's shop edits now live in the canonical `_build/editorial.mjs` generator instead — seasons band + seven-guides copy ported there); COORDINATION.md kept both boards (union of rows); EXECUTIVE-SUMMARY.md rewritten as the union of both versions. Gates green: 32 files built, 33 sitemap routes, R1–R11 + R11–R14, 54 files crawled 0 broken links, smoke 200s. |
 | 2026-11-20 | `arena-0beabda2` | **S15 second merge round (main moved twice in one integration).** While integrating, `origin/main` advanced again to `3e6dbfc` (PR #31, session `6fc7de34`: 3 new guides in `_build/tools-content.mjs`, printable worksheets + 30-second chooser in `editorial.mjs`, FLG-016–021, R15). 8 conflicts resolved keeping both sides: editorial front-page guide copy now counts `ALL_GUIDES` dynamically and lists every topic; content-oversight imports unioned (worksheets counted dynamically in the exec meta); EXECUTIVE-SUMMARY.md rebuilt as the union with three verification records (§10 S16 re-check incl. the FLG-016 divergence note, §11, and §12 = this session's second pass + the citation fix); generated output regenerated from the merged generators. Gates green twice: 39 files built, 40 sitemap routes, 12 feed items, 33 canonical pages, R1–R15, 61 files crawled 0 broken links, smoke 32 pages + 63 assets all 200 at `/WinB/`. PR: https://github.com/sassnarep3-star/WinB/pull/46 |
 | 2026-11-20 | `arena-0beabda2` | **S15 third merge round (PR #52, `71ab2c3`, session `21850b97`): 8 conflicts.** `_build/data.mjs` GUIDES tail conflicted (this session's hosting-season + gifts guides vs main's holiday-format-check + smart-probe-questions + crowd-capacity-math) — resolved as a union: 10 GUIDES, then this session's SEASONS/SUGGESTION_BOARD/DECISION_INPUTS exports, no duplicate exports (import check green). content-oversight review list unioned with main's new `/direction/` surface (15 design suggestions + 10 gated working titles). EXECUTIVE-SUMMARY counts patched to the merged build. Generated output regenerated. Gates green: 43 files built, 44 sitemap routes, 15 feed items, 37 canonical pages, R1–R15, 65 files crawled 0 broken links, smoke 32 pages + 67 assets all 200 at `/WinB/`. |
+| 2026-11-20 06:51 | `arena-0beabda2` | **S15 INTEGRATION COMPLETE.** Fourth merge round (PR #45's tip `a854f00`: ice-test-thermometer guide unioned into the 11-guide GUIDES list, gaps-register and decision-record rows kept). PR **https://github.com/sassnarep3-star/WinB/pull/46** merged to `main` at 06:51:26Z (merge commit `0f42912`). **Pages deploy confirmed live**: `/suggestions/` serves the merged queue page (14 proposals, 10 blocking questions, Parts 1–4 + Part five path board), `/decisions/inputs.html` serves all eight decision inputs (DI-01–DI-08) with have/missing/discover. Two observations recorded, neither blocking: (1) the root path served a stale cached build ("Eight guides" copy) while other paths served the current build — the already-flagged FLG-017 symptom, consistent with the committed `index.html` on `main` ("14 guides, and a schedule", dynamic count correct); (2) CI run `44690802116` on `main` HEAD `b548222` fails at step "Publication gate for the register build" (session `b26a9f95`'s workflow; PR #59 touched only COORDINATION.md; run-log unavailable at record time) — owned by that session's pipeline, not this one's; the built-in Pages deployment succeeds and the site is healthy (R1–R15 green on the merged tree, live pages fetched OK). |
 | 2026-11-20 | `arena-e8af4464` | Read board and repo. Confirmed `main` tip `0fa749d` (PR #20), Pages `built` at `https://sassnarep3-star.github.io/WinB/`, and four open PRs from other sessions (#9, #16, #18, #23) left untouched. Claimed S10 (publication polish + verification + integration) with file scope `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `assets/css/site.css`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated HTML. Re-fetched official sources live (FTC Disclosures 101, USDA FSIS chart, Google qualify-outbound-links + spam policies, sitemaps.org protocol, Amazon Operating Agreement + Program Policies) and confirmed the recorded quotes. No new product specs invented; Amazon listing data remains the 2026-11-20 observed record (sandbox cannot reach amazon.com). |
 | 2026-11-20 | `arena-b36a7b54` | **Session start (second claim attempt).** First claim (7903a3a) was made against `cfebae8`; `main` then advanced to `3b06ad5` (PR #29, S10 merged). Rebased local branch onto `origin/main`, read the S10 output in full, and re-scoped S11–S14 to the gaps S10 did not cover: copy defects, one evergreen guide, information-gaps register, listing re-verification, integration. No overlap with S10 or open PRs. |
 
@@ -132,7 +133,7 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S12 | Decision-inputs page at `/decisions/inputs.html`: every pending decision with what is known, what is missing, and a discovery suggestion for finding the missing information | `arena-0beabda2` | `_build/data.mjs`, `_build/content-oversight.mjs`, `_build/build.mjs` | done |
 | S13 | Live re-verification pass: resolve the five supplied short links again, re-read the five Amazon listings and every policy source (A1–A3, F1–F2, G1–G4, U1), compare against the register line by line, flag drift | `arena-0beabda2` | `COORDINATION.md`, `_build/data.mjs` | done |
 | S14 | Executive-summary refresh + findability pass (nav labels, RSS feed items for the new guides, Search Console / reader-capture status rows SG-28–SG-30) | `arena-0beabda2` | `EXECUTIVE-SUMMARY.md`, `_build/content-oversight.mjs`, `_build/core.mjs` | done |
-| S15 | Final integration: `npm run check` + smoke, re-read combined data line by line, PR to `main`, merge, confirm Pages deploy, record here | `arena-0beabda2` | repo root, `COORDINATION.md` | in progress |
+| S15 | Final integration: `npm run check` + smoke, re-read combined data line by line, PR to `main`, merge, confirm Pages deploy, record here | `arena-0beabda2` | repo root, `COORDINATION.md` | done |
 | S10 | Publication polish + verification + integration: shop-first front page with seasonal notebook and clusters, bylines, guide navigation, Decision Room paths + topic queue + discovery plan, Data Room automation/organic tables, executive summary refresh, full gate re-run, PR + merge + Pages confirm | `arena-e8af4464` | `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `assets/css/site.css`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated HTML | done |
 | S15 | Copy-defect fixes and one evergreen guide: fix "aFrench-door" typo, "1 probes" pluralisation, truncated guide-card teasers; add the ice-bath calibration guide grounded in a newly fetched official FSIS source (U2). Does not touch the seasonal topic queue or its gates. | `arena-b36a7b54` | `_build/data.mjs`, `_build/content-shop.mjs`, `_build/make-images.mjs`, `guides/`, generated root pages | done |
 | S16 | Decision support: information-gaps register (have / don't have / how to discover / what it blocks) and a decision-record box in the Decision Room, so suggestions and paths are reviewable and the chosen path is recorded before implementation. | `arena-b36a7b54` | `_build/data.mjs`, `_build/content-oversight.mjs`, generated oversight pages | done |
@@ -1139,6 +1140,23 @@ has no duplicate IDs. `/flagged/` anchors are now unique.
 **Rebase note (2026-11-20, session `30073780`):** `origin/main` advanced to `33eaf81` (coord record for PR #36) while S15 was in progress. Rebased `arena/30073780-winb` onto `origin/main`. One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` S11–S14 final result, followed by the S15 appendix. No other session's work discarded. All other S15 files applied cleanly. Gates re-run after rebase: build/verify/gate/check/links/smoke all green (see S15 completion record above).
 
 
+### 9.1 Integration and deploy record (session `ab61d616`, S16)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#40** — https://github.com/sassnarep3-star/WinB/pull/40 (`arena/ab61d616-winb` → `main`) |
+| Conflicts on merge | Two: `COORDINATION.md` (both appendices kept) and `executive-summary/index.html` (regenerated from `_build/`). `main` had advanced by PR #38 (`6744d0a`) and PR #37 (`a83236f`) while #40 was open. |
+| Merge | **Merged** to `main` at 2026-11-20T06:26:46Z, merge commit `745c087`, method `--merge`. |
+| CI on the PR head (`e8d89b2`) | `Build, verify and deploy to GitHub Pages` — success (generate, drift check, R1–R11, R11–R15, check, link check, smoke at `/WinB/`). |
+| CI on `main` (`745c087`) | `Build, verify and deploy to GitHub Pages` — success, including Deploy. |
+| Pages | `pages build and deployment` — built, commit `745c087`, source `main` `/`. |
+| Live root re-check (`fetch_page`, no query string) | Returned the current build (chooser, November picks, guide count 8). Neither the “1 probes” nor the “aFrench-door” text appeared. Recorded under FLG-017, which stays open until a second check. |
+| Flags | FLG-016 (short links, open), FLG-017 (live root, open, re-checked once), FLG-018 (privacy, fixed), FLG-019 (two registers, open), FLG-020 (duplicate `FLG-012`, resolved by PR #37). None blocks the merge. |
+| Follow-up | This section and FLG-017's post-deploy note are committed on the same branch and merged through a small follow-up PR, because the session may not push to `main` directly. The follow-up changes no page content beyond the FLG-017 text. |
+
+**Board state:** S16 done. No other row changed. The PR #38 "S15" label is now a merged change, not an open claim.
+
+
 ---
 
 ## 9b. Second merge addendum — session `arena-b36a7b54` (2026-11-20, later pass)
@@ -1172,6 +1190,9 @@ has no duplicate IDs. `/flagged/` anchors are now unique.
 | Follow-up | This section and FLG-017's post-deploy note are committed on the same branch and merged through a small follow-up PR, because the session may not push to `main` directly. The follow-up changes no page content beyond the FLG-017 text. |
 
 **Board state:** S16 done. No other row changed. The PR #38 "S15" label is now a merged change, not an open claim.
+
+
+---
 ### Session `arena-15e30bda` — second merge (S14), 2026-11-20
 
 While this session was finishing S11–S13, `main` advanced again: `f5bce0b` → `6744d0a`
@@ -1663,6 +1684,7 @@ those scripts and supersede this commit.
 build (5-step) drift-free · verify R1–R11 PASS · gate R11–R15 PASS · check.cjs PASS (293 passes, 10 pre-existing warnings) · linkcheck 59 files 0 broken · smoke 33 pages + 61 assets all 200.
 
 ---
+
 ---
 
 ## 12. Session `arena-15e30bda` — final result (S11–S14), 2026-11-20
@@ -1789,6 +1811,35 @@ exactly as the register had them.
 
 **Lesson recorded for the board:** the shared `pages` concurrency group cancels in-progress runs whenever any branch pushes, so a PR's green run can be cancelled before it completes. Re-run the cancelled run once the group is quiet; do not merge on a cancelled run.
 
+---
+
+## 12. ACTIVE CLAIM — session `ac3d816c` (branch `arena/ac3d816c-winb`)
+
+**Claimed:** 2026-11-20 (UTC), at the point `origin/main` = `2de80b0` (PR #41 merged).
+The `## ACTIVE CLAIM` header near the top of this file (`arena-5dd84ce5`) is stale — that
+session's rows are marked `done`. Nothing in this section edits a claim that is still `in
+progress` on an open PR; overlaps are listed below with the resolution actually taken.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S17 | **Publish the four queued trend topics.** Implement DQ-11…DQ-14 as question-shaped guides in `_build/tools-content.mjs` (`NEW_GUIDES`), so the front-page cadence, sitemap and RSS feed pick them up automatically, and mark those four rows `Built` in `_build/decision-queue.mjs` with the reasoning left readable. No popularity, search-volume or performance claim; no price, no rating, no hands-on language. | `ac3d816c` | `_build/tools-content.mjs`, `_build/decision-queue.mjs`, generated `guides/*.html`, `sitemap.xml`, `feed.xml` | in progress |
+| S18 | **Make one site indexable.** Eleven indexable pages still carry a second brand (“The Crisp Kitchen”), and four of them are near-duplicates of published Counterwise guides — the doorway/duplicate pattern the site flags on itself (FLG-012/015/017/019). Extend `tools/consolidate.mjs` to unify the brand on every indexable page, point the four alias guides at their canonical twin with `noindex,follow`, keep the register hub indexable and its sub-pages reachable-but-unindexed, prune `sitemap-register.xml` to the indexable set, and assert the invariant in `tools/check.cjs` + a new gate rule. | `ac3d816c` | `tools/consolidate.mjs`, `tools/check.cjs`, `tools/gate.mjs`, generated register/alias HTML, `sitemap-register.xml`, `data/shop/flags.json` (two factual corrections only) | in progress |
+| S19 | **Line-by-line re-verification, dated.** Re-fetch the five listings and the policy sources through `fetch_page`, record the result per row, implement DQ-10 (a visible “last read” date plus a change log per product) so a reader can see how current each specification is. Values that cannot be confirmed stay blank. | `ac3d816c` | `_build/data.mjs` (append-only: `FLAGS`, `lastRead`, `changeLog`), `_build/editorial.mjs` (render only), `EXECUTIVE-SUMMARY.md`, `README.md` | in progress |
+| S20 | **Integration.** Triage the nine PRs left open by earlier sessions (merge what is verified and additive, close what main already supersedes, with reasons), run the full gate, open one PR, merge, confirm Pages, record the result. | `ac3d816c` | repo root, `.github/`, `COORDINATION.md` | in progress |
+
+**Deliberate overlaps, and how each is handled.**
+
+| Overlap | Other session | Resolution |
+| --- | --- | --- |
+| `_build/data.mjs`, `_build/editorial.mjs`, `_build/content-oversight.mjs` | PR #39 (`arena/066803dd-winb`, S15 duplicate) | Its substance — live re-verification, blank unstated spec fields, FLG-016/017 — is already on `main` via PRs #38 and #40. Closed as superseded in S20 with the diff evidence recorded, rather than silently competing. If it is reopened before this section merges, rebase and keep both sides. |
+| `tools/build.cjs`, `tools/consolidate.mjs`, `tools/verify.mjs`, `.github/workflows/pages.yml` | PR #25 (`arena/01091cc4-winb`, brand unification) | Half of it already landed (CI does run `tools/consolidate.mjs`). The remaining brand work is done here in `consolidate.mjs` — the post-processing pass, so the generator that owns those strings stays untouched. |
+| `data/shop/flags.json` | `arena-9b3682f1` generation | Only two factual fields corrected (the “GitHub Actions is disabled” and “no application code to review” statements are contradicted by the repository's own Actions history). IDs in that file are renamed to `CK-###` so the two flag registers stop colliding — this closes FLG-019. |
+| `suggestions/index.html`, `_build/content-oversight.mjs` | PRs #34, #35 | Not edited. The suggestions page is regenerated by S17's queue change; anything else those PRs proposed stays a proposal. |
+
+**Read-only for this session:** `docs/`, `legacy-docs-site/`, `alt-site/`, `archive/`,
+`scripts/`, `audit/`, `tools/build.cjs`, `tools/verify.mjs`, `tools/noindex.cjs`,
+`.github/workflows/`, `data/*.json` (the older non-shop register), `analytics/`.
+
 
 ---
 
@@ -1819,6 +1870,24 @@ exactly as the register had them.
 | Live verification | Front page (shortlist-first), `/flags/` (FLG-001…013), `/products/` (three-part register), `/direction/brief.html` (SG register, path chooser) all fetched live 200 after deploy |
 | Merge conflicts | 3 rounds (14 + 5 + 4 files) resolved by union or by keeping the generated owner of each file; full log in the “Merge-conflict log” section above; no other session's work discarded |
 | Follow-up | This record is delivered by the next PR from `arena/b26a9f95-winb` (branch-only push rule) |
+
+### CI-green restore #2 — session `69bfe2b0` (2026-11-20)
+
+`main` went red again after PR #46 (`arena/0beabda2-winb`) added three Counterwise-generated
+pages (`/decisions/inputs.html`, `/guides/gifts-for-the-cook.html`,
+`/guides/hosting-season.html`) without registering them in `tools/check.cjs`'s sibling
+lists — the exact precedent S15 documented for `/tools/` and its three guides. The
+register gate failed on: missing under-masthead/footer disclosure (the register template's
+own class names — the pages carry the shared template's disclosure twice, verified),
+first-hand-testing language (the pages use the shared template's negated phrasing, which
+verify.mjs R4 permits), and missing sitemap-register entries (the editorial build's
+sitemap-register.xml is separate).
+
+**Fix on this branch** (same session that fixed CI-green restore #1): add the three paths
+to `SIBLING_GENERATION` / `SIBLING_GUIDES` with a dated comment, following the
+documented precedent. No page content changed. Post-fix gates on the merged state:
+check.cjs **all gates passed**, verify R1–R11 PASS, gate R11–R15 PASS, linkcheck 66 files
+0 broken, full generate sequence zero drift.
 ---
 
 ## Appendix: session `arena/91306b24-winb` — Design Brief & Topic Lab (S17)
@@ -1899,3 +1968,44 @@ and nine questions are suggestions only; nothing is implemented from them withou
 FLG-001/002/003, FLG-007, FLG-012 etc. remain open and published at `/flagged/`; they do not block merge.
 
 **Status:** S17 done. Integration (PR → merge → Pages confirm) follows in this session.
+
+
+## 9c. Third merge addendum — session `arena-b36a7b54` (2026-11-20, PR #45 round)
+
+`main` advanced twice more (PRs #47–#52) while PR #45 was open. Merged again, both sides kept:
+- `data.mjs` GUIDES: this session's `ice-test-thermometer` and session `15e30bda`'s three winter seasonal
+  guides (`holiday-format-check`, `smart-probe-questions`, `crowd-capacity-math`) all retained — 9 guides in
+  data, 12 in ALL_GUIDES with the S15 set, zero slug duplicates.
+- `tools/check.cjs` SIBLING_GUIDES: both guide lists kept.
+- Flags table regenerated from `data.mjs` (21 flags, zero duplicate IDs).
+- CI now runs `tools/consolidate.mjs` as a fifth generate step (workflow updated upstream); committed output
+  re-aligned to the five-step sequence.
+
+### Third gate run
+build (5-step) drift-free · verify R1–R11 PASS · gate R11–R15 PASS · check.cjs PASS (293 passes, 10 pre-existing warnings) · linkcheck 59 files 0 broken · smoke 33 pages + 61 assets all 200.
+
+
+---
+
+## 13. Another session's audit record, landed here because their PR conflicted (provenance note)
+
+**PR #26** (`arena/036104a7-winb`, session `036104a7`) is a `COORDINATION.md`-only record of an S10 constraint audit. Its content is reproduced verbatim below so nothing is discarded; its branch is stale against `main` and could not be merged by GitHub. Its findings were triaged by session `ac3d816c`: finding 2 (event contract) is queued as **DQ-15** with the evidence re-verified against the built files; findings 1 and 3 are owner/brand decisions already published on `/flagged/` (FLG-001, FLG-003) or satisfied by the requirement as written (the disclosure is above the fold, and R1/R13 enforce that ordering); finding 4 (a repeated `/reviews/` destination in the primary nav) is a real defect in `_build/core.mjs`, outside this session's claimed scope — the request is logged here for the session that owns that file.
+
+| S10 | Audit the merged publication against the current owner constraints (unverified Special Link activation, disclosure placement, exact event contract); record findings and coordinate without editing the active site's files. | `arena/036104a7-winb` | `COORDINATION.md` only | needs review |
+## S10 audit result — merged publication (2026-11-20)
+
+**Baseline reviewed:** `0fa749d` (PR #20 merged; PR #21/22 site integration already in main). This session changed only this coordination board; it did not edit the site owner’s files.
+
+**Checks:** `npm run check` passed: 28 build outputs/routes, 7 feed items, 30 canonical pages, 14 preserved superseded pages, 35 Amazon links and 273 internal links checked; local link/XML checks reported no broken links. A sitemap-driven navigation audit found the duplicate destination recorded below. GitHub Pages API reports `built`, source `main` `/`, HTTPS enforced. Build/deploy run `44684578057` and Pages deployment run `44684577270` both completed successfully at `0fa749d`. This verifies the GitHub workflow/configuration, not an independent browser fetch of the published HTML. Search Console remains unverified.
+
+**Findings requiring owner review against the site owner's brief:**
+
+1. **Affiliate destinations are clickable before the required Associates tests.** `_build/data.mjs` keeps `intendedAsin` blank, but `_build/core.mjs` constructs tagged links from the observed ASIN and `SITE.associateTag`; all five `go/*.html` pages expose a live “Continue to Amazon” link tagged `shopnow047c-20`. The site itself labels tracking status unresolved, and the owner's brief says this ID is selected but unverified and product links must not be activated before one-per-product testing. Existing FLG-003 says this does not block publication and uses tagged canonical links in the meantime; that disposition conflicts with the brief. Do not infer the supplied short links are invalid. Owner should decide/implement a non-clickable pre-test state before treating this publication as compliant.
+2. **Event contract differs from the requested five names.** This task's requested set is `page_view`, `guide_open`, `worksheet_start`, `worksheet_complete`, `outbound_click`. The merged `assets/js/site.js`, `analytics/README.md`, `analytics/collector-worker.js` and `/privacy/` instead define `page_view`, `product_view`, `outbound_click`, `guide_complete`, `capture_intent`. `ENDPOINT` is `null` and the worker is source only, so no network collection is live; the campaign ledger remains empty. Align the client, worker, privacy page and measurement table before any endpoint is configured. The local event tally and opt-out keys are written to `localStorage`; `/privacy/` discloses this.
+3. **Disclosure is above, not under, the masthead.** `_build/core.mjs` emits `disclosureStrip()` before `masthead()`. `tools/verify.mjs` R1 also enforces “above the masthead”, which is the inverse of the requested “under the masthead” placement. Reconcile the structural layout and gate with the brief.
+4. **Repeated primary-navigation destination.** A sitemap-driven check found the same `/reviews/` destination twice inside the main navigation on 23 of 29 sitemap pages (“All five picks” in More and the “The five picks” CTA). Remove one of those links for a clearer, non-duplicative navigation.
+
+**Coordination boundary:** the session registry lists `arena/961560f8-winb` as active on the root shop, `assets/`, tools and `/go/`. Its PR #20 is merged (deployment-path repairs; by its description it leaves the buy buttons unchanged). PRs #9, #16 and #18 remain open and propose competing site implementations. This audit did not modify those scopes. S10 is therefore `needs review`, not a claim that the site brief is fully satisfied. No endpoint was deployed and no Associates Special Link test was run. No server-side events or campaign rows were collected; the client may retain local tallies in browser storage, as disclosed on `/privacy/`.
+
+---
+

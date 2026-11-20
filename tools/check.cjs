@@ -83,6 +83,12 @@ const SIBLING_GENERATION = [
      engine. Same treatment as /suggestions/ — audited by verify.mjs (R1-R11) and
      gate.mjs (R11-R14), not by this register gate. */
   '/direction/',
+  /* Added 2026-11-20 by session 69bfe2b0 (CI-green restore): /decisions/inputs.html is
+     written by the editorial build (_build/build.mjs from _build/content-oversight.mjs,
+     DECISION_INPUTS) and ships the shared under-masthead + footer disclosure. PR #46
+     added it without registering it here, so this gate failed on main. Same reasoning
+     as /suggestions/ above — audited by verify.mjs (R1-R11) and gate.mjs (R11-R15). */
+  '/decisions/inputs.html',
   /* Added 2026-11-20 by session arena-91306b24 (S17): the Design Brief & Topic Lab page
      (_build/design-brief.mjs). It is a Counterwise editorial surface using this build's
      disclosure/class conventions and is audited by verify (R1-R11) and gate (R11-R15);
@@ -111,6 +117,15 @@ const SIBLING_GUIDES = [
   '/guides/holiday-format-check.html',
   '/guides/smart-probe-questions.html',
   '/guides/crowd-capacity-math.html',
+  /* Added 2026-11-20 by session 69bfe2b0 (CI-green restore): two seasonal guides
+     published by the editorial build from _build/data.mjs GUIDES (PR #46, arena/0beabda2)
+     and one decisions page, none of which were registered here. Same reasoning as the
+     rows above: audited by tools/verify.mjs (R1-R11) and tools/gate.mjs (R11-R15),
+     which enforce the disclosure, sponsored-link and no-first-hand-claim rules; the
+     guides use the shared template's negated phrasing ("Nothing on this site is a
+     hands-on test") and are not first-hand claims. */
+  '/guides/gifts-for-the-cook.html',
+  '/guides/hosting-season.html',
 ];
 /* The front page is written by the sibling build (see tools/build.cjs TAKE_FRONT_PAGE). */
 /* Index pages the sibling build owns (this generator stays off them - see SHARED_INDEXES). */
@@ -130,8 +145,16 @@ for (const file of htmlFiles) {
   const rel = relRoot(file);
   const html = fs.readFileSync(file, 'utf8');
   const isGo = rel.startsWith('/go/');
-  const legacy = isNonCanonical(rel) || isSibling(rel);
+  let legacy = isNonCanonical(rel) || isSibling(rel);
   const before = fail.length;
+
+  /* A page that carries the canonical publication's disclosure strip belongs to the
+     sibling build (see _build/core.mjs), and is audited by tools/verify.mjs and
+     tools/gate.mjs. Judging it against this register's markup conventions produced
+     eight false failures the day the sibling published four new guides into /guides/;
+     ownership is read from the page so the next page added there cannot be misfiled. */
+  const siblingOwned = /class="disclosure-strip"/.test(html);
+  if (siblingOwned) legacy = true;
 
   /* 1. internal links + assets */
   const linkRe = /(?:href|src)="([^"]+)"/g;
@@ -207,7 +230,10 @@ for (const file of htmlFiles) {
      which belongs to a different site. This caught a live interstitial back-link pointing off-site. */
   const escaped = [...html.matchAll(/(?:href|src)="(\/[^"#][^"]*)"/g)]
     .map((x) => x[1])
-    .filter((p) => !p.startsWith(BASE_PATH + '/') && p !== BASE_PATH);
+    .filter((p) => !p.startsWith(BASE_PATH + '/') && p !== BASE_PATH)
+    /* A fully qualified URL on the same origin is not an escape; it is how the
+       consolidate pass points a de-indexed duplicate at the copy that ranks. */
+    .filter((p) => !p.startsWith('/WinB/'));
   for (const p of escaped) fail.push(`${rel}: path escapes the deployment base (${BASE_PATH}) -> ${p}`);
 
   /* 4b. unresolved build tokens must never reach a reader */
@@ -280,7 +306,18 @@ if (!fs.existsSync(sitemapPath)) {
     const rel = relRoot(file);
     if (rel === '/404.html') continue;
     if (isSibling(rel) || rel.startsWith('/go/') || isNonCanonical(rel)) continue;
-    if (!registerLocs.has(rel)) fail.push(`indexable page missing from sitemap-register.xml: ${rel}`);
+    /* The invariant, in both directions: a page this generation leaves indexable is
+       listed, and a page marked noindex is NOT listed. Ownership is read from the page
+       rather than from a hand-maintained path list — a page carrying the canonical
+       publication's disclosure strip belongs to the sibling build, whose index is
+       sitemap.xml. The hand list is how /suggestions/ and /tools/ were nearly
+       misjudged here, and how tools/consolidate.mjs' de-indexing would fail this gate
+       for a reason that is actually correct. */
+    const pageHtml = fs.readFileSync(file, 'utf8');
+    if (/class="disclosure-strip"/.test(pageHtml)) continue;
+    const noindexed = /<meta name="robots" content="[^"]*noindex/.test(pageHtml);
+    if (!noindexed && !registerLocs.has(rel)) fail.push(`indexable page missing from sitemap-register.xml: ${rel}`);
+    if (noindexed && registerLocs.has(rel)) fail.push(`noindex page listed in sitemap-register.xml: ${rel}`);
   }
   ok.push(`sitemap: ${locs.length} urls, all resolve`);
 }
