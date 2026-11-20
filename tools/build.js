@@ -1965,8 +1965,8 @@ write(
   `User-agent: *
 Allow: /$
 
-# This repository is served at a project path (/WinB), so a bare "Disallow: /go/" would name a
-# directory at the domain root that this site does not own. Both forms are listed deliberately.
+# The site is served at a project path (/WinB). A bare "Disallow: /go/" would point at the
+# domain root, which this site does not own, so the project path is spelled out.
 Disallow: /WinB/go/
 
 Sitemap: ${BASE}/sitemap.xml
