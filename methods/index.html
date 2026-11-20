@@ -53,7 +53,7 @@
     <nav class="crumbs" aria-label="Breadcrumb"><a href=".././">Home</a><span class="sp">/</span><span aria-current="page">How we choose</span></nav>
     <p class="kicker">Standards</p>
     <h1>How this site works</h1>
-    <p class="lede">Five rules, applied to every page. An earlier version broke one of them by calling published specifications unpublished; that is recorded on the Flagged page and fixed. If a page breaks a rule, it is a bug.</p>
+    <p class="lede">Six rules, applied to every page, and checked by the build on every publish. An earlier version broke one of them by calling published specifications unpublished; that is recorded on the Flagged page and fixed. If a page breaks a rule, it is a bug — the build fails, not the reader.</p>
     
   </div>
 </div>
@@ -80,7 +80,12 @@
     <h2>Rule five: report what buyers actually complain about</h2>
     <p>Amazon publishes, above the reviews, a count of how many reviewers mentioned a given feature and how those mentions split positive and negative. It is the most decision-relevant thing on a product page and most buying guides ignore it. Each product page here reproduces those counts, attributed to Amazon, sorted worst-first, with a source line. They are not this desk’s sample and they are not a rating.</p>
 
-    <hr>
+        <h2>Rule six: every table row carries a source link</h2>
+    <p>A comparison table is where a reader decides, so a number without a source is a claim they cannot check. Every data row of every table on this site carries a link: to the Amazon listing when the row states a specification, to the official policy when it states a rule, to the USDA chart when it states a temperature, or to this site’s own register entry when the row records the desk’s reasoning. Tables that state a fact from an official source must give every row an official-source link; the ones that record this site’s own decisions point at the entry that holds the evidence.</p>
+    <p>This is not a convention anyone has to remember. The build checks it — <code>tools/table-sources.mjs</code> — and refuses to publish if a single row is unsourced. It is why the comparison table prints a small <span class="mono tiny">src</span> marker next to each value: that marker is the link.</p>
+    <p>The same principle governs the pages themselves. A specification is only ever published with the phrase it was transcribed from, and the phrase is recorded in the listing-evidence file with the date it was read. Nothing on this site is published without somewhere to check it.</p>
+
+<hr>
     <h2>The disclosure, and why it is where it is</h2>
     <p>“As an Amazon Associate I earn from qualifying purchases.” appears in a strip under the masthead on every page and again in the footer. It sits above the content rather than at the end because FTC guidance says disclosures are likely to be missed when they appear only on an about page or at the end of a post, and that they should be placed where they are hard to miss. The exact wording is the sentence named in section 5 of the Associates Program Operating Agreement.</p>
 
@@ -139,6 +144,7 @@
         <h4>Review &amp; oversight</h4>
         <ul>
           <li><a href="../suggestions/"><b>Suggestions — what next</b></a></li>
+          <li><a href="../design/">Design Room — directions &amp; the prompt</a></li>
           <li><a href="../flagged/">Flagged for review</a></li>
           <li><a href="../decisions/">Decision Room</a></li>
           <li><a href="../data-room/">Data Room</a></li>

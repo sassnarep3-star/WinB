@@ -36,6 +36,24 @@ const RETIRED = [
   { dir: 'archive', to: '/', why: 'superseded snapshots' },
 ];
 
+// Superseded individual pages. These were written by earlier sessions under an
+// older brand ("The Crisp Kitchen") and duplicate content the canonical build
+// now owns. They are not in the sitemap, but they were still marked
+// index,follow, so two brands of the same articles could compete in search on
+// one host. They are retired the same way the directories are: noindex, a
+// banner, and a pointer at the page that replaced them. Nothing is deleted.
+const RETIRED_FILES = [
+  { file: 'about/editorial-policy.html', to: '/methods/', why: 'an earlier generation of this site' },
+  { file: 'about/how-we-make-money.html', to: '/methods/', why: 'an earlier generation of this site' },
+  { file: 'about/privacy.html', to: '/privacy/', why: 'an earlier generation of this site' },
+  { file: 'guides/air-fryer-capacity-checklist.html', to: '/guides/capacity-checklist.html', why: 'an earlier draft of a guide now published here' },
+  { file: 'guides/basket-or-oven-air-fryer.html', to: '/guides/basket-or-oven.html', why: 'an earlier draft of a guide now published here' },
+  { file: 'guides/cleanup-and-counter-space.html', to: '/guides/cleanup-counter.html', why: 'an earlier draft of a guide now published here' },
+  { file: 'guides/multifunction-appliance-questions.html', to: '/guides/multifunction.html', why: 'an earlier draft of a guide now published here' },
+  { file: 'decisions/growth-plan.html', to: '/decisions/', why: 'an earlier version of the decision surface' },
+  { file: 'decisions/questions.html', to: '/decisions/', why: 'an earlier version of the decision surface' },
+];
+
 const touched = [];
 const goFixed = [];
 
@@ -81,6 +99,31 @@ for (const { dir, to, why } of RETIRED) {
     writeFileSync(file, html, 'utf8');
     touched.push(relative(ROOT, file));
   }
+}
+
+// ---------------------------------------------- 1a. retire superseded pages
+for (const { file, to, why } of RETIRED_FILES) {
+  const abs = join(ROOT, file);
+  if (!existsSync(abs)) continue;
+  let html = readFileSync(abs, 'utf8');
+  if (html.includes('id="archive-notice"')) continue;
+
+  if (/<meta name="robots"[^>]*>/i.test(html)) {
+    html = html.replace(/<meta name="robots"[^>]*>/i, '<meta name="robots" content="noindex,nofollow">');
+  } else if (/<head[^>]*>/i.test(html)) {
+    html = html.replace(/<head[^>]*>/i, '<head>\n<meta name="robots" content="noindex,nofollow">');
+  } else {
+    html = '<meta name="robots" content="noindex,nofollow">\n' + html;
+  }
+
+  if (/<body[^>]*>/i.test(html)) {
+    html = html.replace(/<body[^>]*>/i, (m) => `${m}\n${banner(to, why)}`);
+  } else {
+    html = banner(to, why) + html;
+  }
+
+  writeFileSync(abs, html, 'utf8');
+  touched.push(file);
 }
 
 // ------------------------ 1b. retire the parallel Python build's output tree

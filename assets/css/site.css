@@ -723,6 +723,16 @@ td a { text-decoration-thickness: 1px; }
 /* The compact source marker. Every value in a comparison table carries one,
    so a reader can check any number without leaving the page. It is deliberately
    quiet: a superscript "src" that becomes visible on hover or focus. */
+/* The copy-ready design prompt. A block a reader can select and paste. */
+.prompt {
+  white-space: pre-wrap; word-break: break-word;
+  background: var(--paper-2); border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: var(--r); padding: 1rem 1.1rem;
+  font-family: var(--mono); font-size: .78rem; line-height: 1.62;
+  color: var(--ink-2); margin: 0; text-align: left;
+}
+
 .srcmark {
   font-size: .58rem; line-height: 1; vertical-align: super;
   margin-left: .18rem; font-family: var(--mono); letter-spacing: .02em;

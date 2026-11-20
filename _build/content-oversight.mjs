@@ -67,6 +67,7 @@ ${pageHead({
   lede: 'Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so.',
   meta: `<div class="btn-row">
     <a class="btn small" href="/suggestions/">Open the suggestions room <span class="arw">→</span></a>
+    <a class="btn small ghost" href="/design/">The Design Room <span class="arw">→</span></a>
     ${badge(open.length + ' open suggestions', 'amber')}
     ${badge(done.length + ' already built', 'green')}
     ${badge(QUESTIONS.filter((q) => q.status !== 'Answered').length + ' open questions', 'plain')}
@@ -544,7 +545,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'How we choose' }],
   kicker: 'Standards',
   title: 'How this site works',
-  lede: 'Five rules, applied to every page. An earlier version broke one of them by calling published specifications unpublished; that is recorded on the Flagged page and fixed. If a page breaks a rule, it is a bug.',
+  lede: 'Six rules, applied to every page, and checked by the build on every publish. An earlier version broke one of them by calling published specifications unpublished; that is recorded on the Flagged page and fixed. If a page breaks a rule, it is a bug — the build fails, not the reader.',
 })}
 <section class="section">
   <div class="wrap-narrow prose">
@@ -569,7 +570,12 @@ ${pageHead({
     <h2>Rule five: report what buyers actually complain about</h2>
     <p>Amazon publishes, above the reviews, a count of how many reviewers mentioned a given feature and how those mentions split positive and negative. It is the most decision-relevant thing on a product page and most buying guides ignore it. Each product page here reproduces those counts, attributed to Amazon, sorted worst-first, with a source line. They are not this desk’s sample and they are not a rating.</p>
 
-    <hr>
+        <h2>Rule six: every table row carries a source link</h2>
+    <p>A comparison table is where a reader decides, so a number without a source is a claim they cannot check. Every data row of every table on this site carries a link: to the Amazon listing when the row states a specification, to the official policy when it states a rule, to the USDA chart when it states a temperature, or to this site’s own register entry when the row records the desk’s reasoning. Tables that state a fact from an official source must give every row an official-source link; the ones that record this site’s own decisions point at the entry that holds the evidence.</p>
+    <p>This is not a convention anyone has to remember. The build checks it — <code>tools/table-sources.mjs</code> — and refuses to publish if a single row is unsourced. It is why the comparison table prints a small <span class="mono tiny">src</span> marker next to each value: that marker is the link.</p>
+    <p>The same principle governs the pages themselves. A specification is only ever published with the phrase it was transcribed from, and the phrase is recorded in the listing-evidence file with the date it was read. Nothing on this site is published without somewhere to check it.</p>
+
+<hr>
     <h2>The disclosure, and why it is where it is</h2>
     <p>“As an Amazon Associate I earn from qualifying purchases.” appears in a strip under the masthead on every page and again in the footer. It sits above the content rather than at the end because FTC guidance says disclosures are likely to be missed when they appear only on an about page or at the end of a post, and that they should be placed where they are hard to miss. The exact wording is the sentence named in section 5 of the Associates Program Operating Agreement.</p>
 
@@ -714,13 +720,14 @@ ${pageHead({
   kicker: 'For the owner',
   title: 'Executive summary',
   lede: 'What was built, what it can and cannot claim, what it needs from you, and the decisions that carry the most weight.',
-  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 5 guides · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
+  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · ${PRODUCTS.length} products · ${GUIDES.length} guides · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
 })}
 <section class="section">
   <div class="wrap-narrow prose">
     <h2>In one paragraph</h2>
-    <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure above the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. This cycle moved the site from a specification summary to a buying decision: the front page now opens with five buyer situations rather than a methodology statement, the comparison table carries stated wattage, temperature range and the weakest review theme per product, and each product page reports what repeat buyers complain about using the counts Amazon itself publishes.</p>
-    <p>Two things were also fixed that mattered more than any addition. The site had been reporting published specifications as “not stated” — wattage, temperature range and model numbers were all on the listings (FLG-014). And three listings contradict themselves on their own figures; both values are now printed rather than one being quietly chosen (FLG-013).</p>
+    <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure under the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. The site reads as a shop: a magazine front page that opens with the five picks, two category hubs, a comparison table, five question-shaped guides, and a set of reviewable rooms for the decisions behind it all.</p>
+    <p>Three things were fixed this cycle that mattered more than any addition. First, the comparison and category tables were still printing “wattage — not stated” while the product pages published the same figures from the same listings; the tables now read from the one listing-evidence record, so a table cannot drift away from the page it summarises. Second, every table row now carries a source link, and the build refuses to publish if one does not — 208 data rows, 204 of them linking straight to the official source. Third, the publication ran under two names; it now runs under one, and nine superseded pages that were still indexable have been retired so that only one site competes for the same searches.</p>
+    <p>What has <em>not</em> changed is the honest part. No product has been handled, no traffic has been measured, and the supplied short links are still unconfirmed against the account. Those are the three decisions below, and everything else on this site is polish on top of them.</p>
 
     <h2>What the five supplied links turned out to be</h2>
     ${table({
@@ -737,12 +744,14 @@ ${pageHead({
     <ul>
       <li>Every product page is sourced to the manufacturer’s listing, with the ASIN printed and the read date recorded.</li>
       <li>Every Amazon link is tagged and marked <code>rel="sponsored"</code>.</li>
-      <li>The required disclosure appears above the masthead on every page, and again in the footer.</li>
+      <li>The required disclosure appears directly under the masthead on every page, and again in the footer.</li>
       <li>No price, rating or sales figure is reproduced anywhere — checked by the build, not by eye.</li>
       <li>The USDA safe-temperature table is quoted from the agency’s own chart, with rest times.</li>
       <li>Every stated wattage, temperature range, model number and warranty term is transcribed from the listing, with the phrase it came from recorded in <code>_build/listing-evidence.mjs</code>.</li>
       <li>Review-theme counts are Amazon’s own published figures, attributed and dated, sorted worst-first.</li>
       <li>The sitemap and RSS feed are generated by the build, so a new guide cannot ship without being listed in both.</li>
+      <li>Every row of every table carries a source link, checked by the build. 204 of the 208 data rows link straight to the official source; the rest point at the register entry that holds the evidence.</li>
+      <li>One name, one site. The publication runs under Counterwise everywhere, and the superseded generations are excluded from indexing so that only one site competes on this host.</li>
     </ul>
 
     <h2>What it cannot claim, and will not</h2>
@@ -773,7 +782,8 @@ ${pageHead({
       <li>The front page leads with the five picks, then the two category hubs, then the guides. Registers live in the footer and one “More” group, never in the hero.</li>
       <li>Two clusters (air fryers, thermometers) link to each other and to the comparison table. A seasonal notebook reframes the guides by cooking moment as hypotheses — no popularity or search-volume claim is made.</li>
       <li>Every guide and product page carries a byline (author, date, reading time). Imagery is generated editorial illustration, labelled as such; no Amazon photography is stored.</li>
-      <li>The automation pipeline (generation, sitemap, feed, R1–R10 gate, link crawl, smoke test) is tabled in the Data Room. Product facts, prose, topic choice and ledger rows stay human-gated.</li>
+      <li>The automation pipeline (generation, sitemap, feed, R1–R15 gate, link crawl, smoke test) is tabled in the Data Room. Product facts, prose, topic choice and ledger rows stay human-gated.</li>
+      <li>The <a href="/design/">Design Room</a> holds the design directions, the copy-ready prompt that feeds them, the organic-traffic playbook and the questions that have to be answered before a design decision is reasonable.</li>
     </ul>
 
     <h2>What you can review, in order</h2>
@@ -781,11 +791,13 @@ ${pageHead({
       <li><a href="/suggestions/">Suggestions and the decision queue</a> — ${DECISION_QUEUE.length} proposals with cost, reversibility and failure mode, the ${BLOCKING_QUESTIONS.length} questions that block them, and the five actions only you can take (about fifty minutes total). Start here.</li>
       <li><a href="/decisions/">Decision Room</a> — three paths to choose between, a seasonal topic queue with measurement gates, ${SUGGESTIONS.length} suggestions ordered by priority, ${QUESTIONS.length} questions split into known and unknown, a missing-information discovery plan, and the options rejected with sources.</li>
       <li><a href="/flagged/">Flagged for Review</a> — ${FLAGS.length} items that could not be confirmed, each with evidence and the shortest route to closing it.</li>
+      <li><a href="/design/">Design Room</a> — ten design directions with cost and reversibility, the copy-ready prompt, eight organic-traffic levers with the rule behind each, and eight questions that must be answered first.</li>
       <li><a href="/data-room/">Data Room</a> — the product-intent record, the source register, the automation pipeline, the organic playbook, the five events, and the empty ledger with its schema.</li>
     </ol>
 
     <h2>The honest assessment</h2>
-    <p>The site is in good shape as a publication and in an early state as a business. It has a coherent product set, a defensible editorial position and no compliance debt that it has hidden. What it does not have is a single reader, a single confirmed click, or a product anyone here has touched. The three suggestions at priority 1 are the ones that change that; everything else is polish on top of them.</p>
+    <p>The site is in good shape as a publication and in an early state as a business. It has a coherent product set, a defensible editorial position, one name, and no compliance debt that it has hidden. What it does not have is a single reader, a single confirmed click, or a product anyone here has touched. The three decisions above are the ones that change that; everything else is polish on top of them.</p>
+    <p>One thing to know about the shape of this site: the pages a buyer reads and the pages you read to check it are deliberately different. The shop is five picks, two categories, five guides and a comparison table. Everything else — the suggestions room, the decision room, the design room, the data room, the flagged list — sits behind the footer, because a reader who arrives from a search wants an answer, not a process.</p>
 
     <hr>
     <p class="small muted">Built and verified on ${esc(SITE.buildDate)}. Every official source is listed with its read date in the <a href="/data-room/#sources">source register</a>. The disclosure applies to this page too: <strong>${esc(SITE.associateStatement)}</strong></p>

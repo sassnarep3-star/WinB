@@ -2,7 +2,12 @@
   "meta": {
     "purpose": "The decision-blocking register. Every question here is one that cannot be answered from the material available to this build. Each records what is already known, what is missing, what decision it blocks, and the cheapest way to find the missing answer.",
     "rule": "No question below is answered by inference. Where the answer exists in a document, the question is marked answerable and the source is linked. Where it exists only in the owner's account, it is marked owner-only.",
-    "counts": { "total": 20, "answerableFromDocuments": 6, "ownerOnly": 9, "requiresPurchaseOrTest": 5 }
+    "counts": {
+      "total": 20,
+      "answerableFromDocuments": 6,
+      "ownerOnly": 9,
+      "requiresPurchaseOrTest": 5
+    }
   },
   "questions": [
     {
@@ -15,7 +20,10 @@
       "howToFind": "Associates Central → Account Settings → confirm the storefront ID. If the account is not yet approved, apply first and leave the site's buy buttons in their current no-tag state.",
       "answerType": "owner-only",
       "effort": "2 minutes",
-      "sourceIds": ["S01", "S02"],
+      "sourceIds": [
+        "S01",
+        "S02"
+      ],
       "flagRef": "FLG-001"
     },
     {
@@ -28,7 +36,10 @@
       "howToFind": "Run the one-link enrollment test in link-audit.json. Generate one SiteStripe link, click it once, and confirm the click appears in the tracking report. If it does, generate the other four the same way.",
       "answerType": "requiresPurchaseOrTest",
       "effort": "1 hour, no spend",
-      "sourceIds": ["S01", "S02"],
+      "sourceIds": [
+        "S01",
+        "S02"
+      ],
       "flagRef": "FLG-003"
     },
     {
@@ -41,7 +52,10 @@
       "howToFind": "Already resolved. See the compliance page for the resulting rule set.",
       "answerType": "answerable-from-documents",
       "effort": "done",
-      "sourceIds": ["S01", "S05"],
+      "sourceIds": [
+        "S01",
+        "S05"
+      ],
       "flagRef": null
     },
     {
@@ -54,7 +68,9 @@
       "howToFind": "A decision, not a lookup. Pick between Path A and Path B on the Suggestions page.",
       "answerType": "owner-only",
       "effort": "1 decision",
-      "sourceIds": ["S05"],
+      "sourceIds": [
+        "S05"
+      ],
       "flagRef": "FLG-006"
     },
     {
@@ -67,7 +83,9 @@
       "howToFind": "Choose one of the three on the Metrics page. The page documents what each choice obliges you to disclose.",
       "answerType": "owner-only",
       "effort": "1 decision, 1 hour to implement",
-      "sourceIds": ["S02"],
+      "sourceIds": [
+        "S02"
+      ],
       "flagRef": "FLG-010"
     },
     {
@@ -86,15 +104,18 @@
     {
       "id": "Q-07",
       "group": "Brand",
-      "question": "Is The Crisp Kitchen a name the owner wants to keep, and is it clear of Amazon marks?",
-      "known": "S02 Participation Requirements 1(g) and Trademark Guidelines 8 forbid Amazon marks or confusingly similar names in a domain, subdomain, tag, username or app name.",
-      "missing": "Whether the owner will register a domain, and whether a trademark search has been run on the working name.",
-      "blocks": "Domain registration, social handles, and the final masthead.",
+      "question": "Is the name the owner wants to keep, and is it clear of Amazon marks?",
+      "known": "The publication runs under one name, Counterwise, across the front page, the guides, the exit pages and the register. S02 Participation Requirements 1(g) and Trademark Guidelines 8 forbid Amazon marks or confusingly similar names in a domain, subdomain, tag, username or app name.",
+      "missing": "Whether the owner will register a domain and run a trademark search on the name. Neither was done here, because the build must not imply a legal clearance it did not perform.",
+      "blocks": "Domain registration, social handles, and any future rebrand.",
       "howToFind": "Run a USPTO word-mark search on the chosen name and a domain availability check. Neither was done here, because the build must not imply a legal clearance it did not perform.",
       "answerType": "requiresPurchaseOrTest",
       "effort": "1 hour",
-      "sourceIds": ["S02"],
-      "flagRef": null
+      "sourceIds": [
+        "S02"
+      ],
+      "flagRef": null,
+      "status": "Partly answered — the name is unified; clearance is not done."
     },
     {
       "id": "Q-08",
@@ -106,7 +127,9 @@
       "howToFind": "Turn on measurement first (Q-05). After 30 days, sort the five events by source and pick the topic the data points at, not the topic that sounds good.",
       "answerType": "requiresPurchaseOrTest",
       "effort": "30 days of data",
-      "sourceIds": ["S07"],
+      "sourceIds": [
+        "S07"
+      ],
       "flagRef": "FLG-010"
     },
     {
@@ -119,7 +142,9 @@
       "howToFind": "Owner decision. Cheapest credible start: buy the two thermometers, which cost the least to test objectively (ice bath, boiling water, a timed oven ramp).",
       "answerType": "owner-only",
       "effort": "1 decision, modest spend",
-      "sourceIds": ["S05"],
+      "sourceIds": [
+        "S05"
+      ],
       "flagRef": "FLG-006"
     },
     {
@@ -158,7 +183,9 @@
       "howToFind": "Re-read the privacy page the day analytics is enabled. It currently states the zero-third-party position, which is true today and will stop being true the moment an analytics product is added.",
       "answerType": "answerable-from-documents",
       "effort": "30 minutes at switch-on",
-      "sourceIds": ["S02"],
+      "sourceIds": [
+        "S02"
+      ],
       "flagRef": null
     },
     {
@@ -171,7 +198,9 @@
       "howToFind": "Apply for Creators API access inside Associates Central, or use SiteStripe native widgets, which serve the data themselves.",
       "answerType": "owner-only",
       "effort": "application wait",
-      "sourceIds": ["S02"],
+      "sourceIds": [
+        "S02"
+      ],
       "flagRef": "FLG-004"
     },
     {
@@ -184,7 +213,9 @@
       "howToFind": "Either re-check manually monthly, or obtain API access and let the API serve the data. Crawling is not an option.",
       "answerType": "owner-only",
       "effort": "20 minutes per month, or API access",
-      "sourceIds": ["S02"],
+      "sourceIds": [
+        "S02"
+      ],
       "flagRef": "FLG-007"
     },
     {
@@ -197,7 +228,9 @@
       "howToFind": "Documented on the Compliance page as a one-step kill switch: the site has a single link-configuration point, so removing the tag and the Amazon-derived content is one file change.",
       "answerType": "answerable-from-documents",
       "effort": "done",
-      "sourceIds": ["S01"],
+      "sourceIds": [
+        "S01"
+      ],
       "flagRef": null
     },
     {
@@ -223,7 +256,9 @@
       "howToFind": "Publish the five as noindex-free pages only once each has at least one thing the grid does not: a measured dimension, a tested result, or a documented trade-off. Until then, the grid is the better page.",
       "answerType": "requiresPurchaseOrTest",
       "effort": "depends on Q-09",
-      "sourceIds": ["S07"],
+      "sourceIds": [
+        "S07"
+      ],
       "flagRef": null
     },
     {
@@ -249,7 +284,9 @@
       "howToFind": "Search the NSF product and service listings for the model, and NIST's calibration records. Record certificate numbers if found; record absence if not.",
       "answerType": "requiresPurchaseOrTest",
       "effort": "1 hour",
-      "sourceIds": ["S05"],
+      "sourceIds": [
+        "S05"
+      ],
       "flagRef": "FLG-005"
     },
     {
@@ -262,7 +299,9 @@
       "howToFind": "Check for the availability statement on each page monthly, and re-check before any campaign that spends money.",
       "answerType": "requiresPurchaseOrTest",
       "effort": "10 minutes per month",
-      "sourceIds": ["S02"],
+      "sourceIds": [
+        "S02"
+      ],
       "flagRef": "FLG-007"
     }
   ]

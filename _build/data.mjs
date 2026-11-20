@@ -609,16 +609,18 @@ export const FLAGS = [
     status: 'Fixed in this build',
     title: 'Fix recorded in a script CI does not run; two brands on the live site',
     detail:
-      'Two problems found on re-verification. (1) The FLG-010 fix lived in tools/consolidate.mjs, which is part of npm run build but not of the CI pipeline in .github/workflows/pages.yml, so the deployed /go/ pages still carried noindex,nofollow. (2) The /go/ pages are titled and branded “The Crisp Kitchen” while the rest of the site, the README and the sitemap use “Counterwise”. Two names on one publication is an unresolved identity question for the owner.',
+      'Two problems found on re-verification. (1) The FLG-010 fix lived in tools/consolidate.mjs, which is part of npm run build but not of the CI pipeline in .github/workflows/pages.yml, so the deployed /go/ pages still carried noindex,nofollow. (2) The /go/ pages were titled and branded “The Crisp Kitchen” while the rest of the site, the README and the sitemap used “Counterwise”. Two names on one publication is an identity question, and it was settled by the owner’s brief: the site’s own name, used on the front page and in the sitemap, is Counterwise.',
     evidence: [
       'Before this build: go/*.html on main contained content="noindex,nofollow".',
       'After this build: tools/build.cjs writes content="index,follow" and CI regenerates the same bytes (drift check passes).',
-      'Brand split: go/chefman-6-quart-dual-basket.html <title> reads “Leaving for Amazon — Chefman 6-Quart Dual Basket | The Crisp Kitchen”; index.html <title> reads “Counterwise — kitchen gear chosen by question, not by hype”.',
+      'Brand split, before: go/chefman-6-quart-dual-basket.html <title> read “Leaving for Amazon — Chefman 6-Quart Dual Basket | The Crisp Kitchen”.',
+      'Brand split, after: the brand name now comes from one place — data/shop/site.json — which reads “Counterwise”. The five /go/ pages, the register tree and the canonical pages now share it.',
+      'Nine superseded pages that were still marked index,follow (four earlier drafts of guides, three earlier about pages, two earlier decision pages) are now retired with noindex and a banner pointing at the page that replaced them.',
     ],
     sources: ['G2'],
     action:
-      'Fixed: /go/ generator corrected. Open for owner: choose one brand name, then the build will be changed to match (not decided in this session).',
-    blocks: 'Brand decision blocks a single consistent identity; not blocking publication.',
+      'Fixed: the /go/ generator is corrected, CI runs the consolidation step, and the publication runs under one name — Counterwise — everywhere. Still open for the owner, and recorded as Q-07 in the register: whether to register a domain and whether to run a trademark search on the name. Neither was done here, because the build must not imply a legal clearance it did not perform.',
+    blocks: 'Nothing. A trademark or domain decision remains with the owner but does not block publication.',
   },
   {
     id: 'FLG-011',
