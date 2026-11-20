@@ -176,16 +176,16 @@
     {
       "id": "FLG-18",
       "severity": "Medium",
-      "title": "Earlier root-level site superseded and archived, not deleted",
-      "detail": "The root-level site from earlier sessions (index.html, styles.css, guides/, review/, feed.xml, sitemap.xml) was moved with git mv to archive/counterwise-root-site/. The live site is now built to docs/, and .github/workflows/pages.yml publishes docs/ instead of the repository root. The archived copies are not served.",
+      "title": "Earlier root site moved to archive/ and the generated site now occupies the repository root",
+      "detail": "The root-level site from earlier sessions was moved with git mv to archive/counterwise-root-site/ (nothing deleted). Pages is set to legacy source main `/` (the token cannot change Pages settings, HTTP 403). The generated site therefore sits at the repository root. Archived copies remain reachable by URL under /archive/counterwise-root-site/ but are not linked. A Pages source of main /docs was requested in the plan but could not be applied.",
       "sources": [],
-      "action": "Reviewer confirms docs/ is the intended live version; archived copies can be restored with git."
+      "action": "Reviewer may switch Pages to main /docs in settings (then restore the archive for links). Archived copies can be restored with git."
     },
     {
       "id": "FLG-19",
       "severity": "Low",
       "title": "Two sessions worked on overlapping site scope",
-      "detail": "Earlier sessions (13033d4a, 97b55f4f) also built a publication site and claimed the integration task. This session completed the integration on its own branch. Their work is kept (archive or docs/), and their board rows are unchanged.",
+      "detail": "Earlier sessions (13033d4a, 97b55f4f) also built a publication site and claimed the integration task. This session completed the integration on its own branch. Their work is kept (archive/ or the repository root), and their board rows are unchanged.",
       "sources": [],
       "action": "None required; recorded for transparency."
     }

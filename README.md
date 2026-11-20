@@ -2,10 +2,10 @@
 
 A publication-style kitchen buying guide site for five Amazon listings (three air fryers and ovens, two meat thermometers), with an evidence register, an Associates disclosure above the fold on every page, open decision questions, and a Flagged for Review page.
 
-- **Live site (expected URL, confirm after deploy):** https://sassnarep3-star.github.io/WinB/ (published from `docs/` by `.github/workflows/pages.yml`)
+- **Live site (expected URL, confirm after deploy):** https://sassnarep3-star.github.io/WinB/ (served from the repository root on `main`; Pages source is legacy `main` `/`)
 - **Data (source of truth):** `data/` — `products.json` (register), `sources.json` (S-01…S-10), `flags.json` (FLG-01…FLG-19), `questions.json`, `suggestions.json`, `campaign_ledger.csv` (empty by design).
-- **Build:** `python3 scripts/build.py` regenerates `docs/` and validates it. Exit code 1 means a rule failed; do not publish. CI runs the same check and fails if committed `docs/` differs from the build.
-- **Analytics client:** `scripts/assets/counterwise.js` (copied to `docs/assets/`). Review mode: no endpoint is configured, so it logs to the console and sends nothing.
+- **Build:** `python3 scripts/build.py` regenerates the site at the repository root (`index.html`, `guides/`, `assets/`, `feed.xml`, `sitemap.xml`, `robots.txt`) and validates it. It removes only the files it generates. Exit code 1 means a rule failed; do not publish. CI (`.github/workflows/pages.yml`) runs the same check and fails if committed output differs from the build.
+- **Analytics client:** `scripts/assets/counterwise.js` (copied to `assets/counterwise.js`). Review mode: no endpoint is configured, so it logs to the console and sends nothing.
 - **Archive:** `archive/counterwise-root-site/` holds the superseded root-level site from earlier sessions (kept, not served). See FLG-18.
 - **Coordination:** `COORDINATION.md` — the shared task board, claims, verification log, irregularities, and integration log.
 
@@ -35,4 +35,4 @@ A publication-style kitchen buying guide site for five Amazon listings (three ai
 
 ## Publishing
 
-Pushes to `main` run `.github/workflows/pages.yml`. It rebuilds and validates `docs/`, then deploys it. To change content, edit `data/` or `scripts/`, run `python3 scripts/build.py`, and commit `docs/` with the change.
+Pages serves `main` `/` (legacy). Pushes to `main` run `.github/workflows/pages.yml`, which rebuilds and validates the site. To change content, edit `data/` or `scripts/`, run `python3 scripts/build.py`, and commit the generated files with the change.
