@@ -31,10 +31,14 @@ export const url = (path = '/') => {
   return `${SITE.origin}/${clean}`;
 };
 
+// An Amazon product-listing source is an Associates link like any other, so it is
+// tagged and marked sponsored (rule R2). Every other source is plain noopener.
+export const sourceRel = (url) => (/^https:\/\/www\.amazon\.com\/dp\//.test(url) ? 'sponsored nofollow noopener' : 'noopener');
+
 export const srcLink = (id, label) => {
   const s = SOURCES[id];
   if (!s) throw new Error(`Unknown source id: ${id}`);
-  return `<a href="${s.url}" rel="noopener" target="_blank" title="${esc(s.title)}">${esc(label || s.publisher)}</a>`;
+  return `<a href="${s.url}" rel="${sourceRel(s.url)}" target="_blank" title="${esc(s.title)}">${esc(label || s.publisher)}</a>`;
 };
 
 // Every Amazon outbound link goes through here. Three guarantees:
@@ -106,6 +110,8 @@ export function footer() {
           <li><a href="/air-fryers/">Air fryers</a></li>
           <li><a href="/thermometers/">Thermometers</a></li>
           <li><a href="/compare/">Comparison table</a></li>
+          <li><a href="/#chooser">30-second chooser</a></li>
+          <li><a href="/tools/">Printable worksheets</a></li>
         </ul>
       </div>
       <div>
@@ -122,6 +128,7 @@ export function footer() {
         <h4>Review &amp; oversight</h4>
         <ul>
           <li><a href="/suggestions/"><b>Suggestions — what next</b></a></li>
+          <li><a href="/direction/">Design &amp; trend topics</a></li>
           <li><a href="/flagged/">Flagged for review</a></li>
           <li><a href="/decisions/">Decision Room</a></li>
           <li><a href="/data-room/">Data Room</a></li>

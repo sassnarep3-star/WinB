@@ -19,6 +19,35 @@
 
 import { SITE, PRODUCTS, GUIDES, SOURCES } from './data.mjs';
 import { esc, url, page, table, badge, amazonLink, srcLink, blank, crumbs } from './core.mjs';
+import { NEW_GUIDES, WORKSHEETS, CHOOSER, FAQ, NOVEMBER_PICKS } from './tools-content.mjs';
+
+export const ALL_GUIDES = [...GUIDES, ...NEW_GUIDES];
+
+import { LISTING_EVIDENCE, wattageLabel } from './listing-evidence.mjs';
+
+// Evidence-driven cells for the hub and comparison tables. A listing-stated value
+// is printed and labelled; a silent listing prints a labelled blank. Nothing is
+// estimated. (The pre-S15 build hardcoded these cells as "not stated", which
+// reported published specifications as unpublished — the FLG-014 defect class.)
+function wattageCell(p) {
+  const e = LISTING_EVIDENCE[p.asin] || {};
+  const w = wattageLabel(p.asin);
+  if (w && e.wattageContradiction) {
+    return `${e.wattageContradiction.first.value} W in the bullets, ${e.wattageContradiction.second.value} W in the description — unresolved`;
+  }
+  return w ? `${esc(w)} <span class="faint tiny">(listing claim)</span>` : blank('not stated');
+}
+function topTempCell(p) {
+  const e = LISTING_EVIDENCE[p.asin] || {};
+  const top = (e.hiFryF && e.hiFryF.value) || (e.tempRangeF && e.tempRangeF.max != null ? e.tempRangeF.max : null);
+  return top ? `${top}°F <span class="faint tiny">(listing claim)</span>` : blank('not stated');
+}
+function footprintCell(p) {
+  const e = LISTING_EVIDENCE[p.asin] || {};
+  return e.dimensions && e.dimensions.value
+    ? `${esc(e.dimensions.value)} <span class="faint tiny">(listing spec table)</span>`
+    : blank('not stated');
+}
 
 // ------------------------------------------------------------------- imagery
 // Every photograph is generated for this site and is deliberately
@@ -35,6 +64,13 @@ export const ART = {
   thermometers: '/assets/img/cat-thermometers-new.jpg',
   hero: '/assets/img/hero-new.jpg',
   guides: '/assets/img/guides-new.jpg',
+};
+
+// Alt text for the two category-hero photographs. Both are generated editorial
+// still lifes, not photographs of the reviewed units, and the alt says so.
+const CAT_IMG_ALT = {
+  'Air fryers': 'Generated editorial photograph of two air-fryer formats side by side — a tall basket unit and a wide French-door countertop oven — representative of the category, not of a specific reviewed listing',
+  Thermometers: 'Generated editorial photograph of an instant-read thermometer resting on a cloth beside a prepared dish — representative of the category, not of a specific reviewed listing',
 };
 
 const P = (id) => PRODUCTS.find((p) => p.id === id);
@@ -66,9 +102,13 @@ export const CATS = {
 
 const catOf = (p) => (p.category === 'air-fryers' ? 'Air fryer' : 'Thermometer');
 const formatOf = (p) => {
-  if (p.category === 'thermometers') return p.compare.wireless ? 'Wireless leave-in probe' : 'Handheld instant-read';
+  if (p.category === 'thermometers') return p.compare.wireless ? 'Wireless leave-in probe' : 'Instant-read';
   return p.compare.style || 'Basket';
 };
+
+// The probe count is printed only when a listing states it (FLG-021). Never inferred.
+const probeWord = (p) =>
+  p.compare.probes ? `${p.compare.probes} ${p.compare.probes === 1 ? 'probe' : 'probes'}` : 'probe count not stated';
 
 // Short "what it is" label used on cards. One phrase, no adjectives stacked.
 const ROLE = {
@@ -91,7 +131,7 @@ const productCard = (p, { cls = '' } = {}) => `
     <h3>${esc(p.shortName)}</h3>
     <p>${esc(ROLE[p.id] || p.editorialName)}.</p>
     <div class="foot">
-      <span>${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt stated') : esc(p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes'))}</span>
+      <span>${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt stated') : esc(probeWord(p))}</span>
       <span class="read">Read the pick <span class="arw">→</span></span>
     </div>
   </div>
@@ -128,6 +168,109 @@ const subscribe = ({ dark = false } = {}) => `
   </div>
   <p class="fine${dark ? '' : ''}"${dark ? ' style="color:#9db5aa"' : ''}>An email list is not open yet, and this site will not show a form that collects an address it cannot yet deliver to. <a href="/suggestions/#SUG-07"${dark ? ' style="color:#dbe9e2"' : ''}>That decision is pending</a>.</p>
 </div>`;
+
+// ------------------------------------------------- S15 decision tools
+// Chooser: three questions, answered in the browser. No network, no cookie,
+// no score. The result names a starting point and the page to read first.
+const chooserSection = () => `
+<section class="section chooser-sec" id="chooser">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">30-second chooser</p>
+        <h2>Which one fits your kitchen?</h2>
+        <p>Three questions. No account, no tracking, nothing leaves this page. The answer is a starting point — read the pick page before you decide.</p>
+      </div>
+    </div>
+    <div class="chooser" id="cw-chooser">
+      ${CHOOSER.questions.map((q, qi) => `
+      <fieldset class="chooser-q" data-q="${esc(q.id)}">
+        <legend>${qi + 1}. ${esc(q.q)}</legend>
+        <div class="chooser-opts">
+          ${q.options.map((o) => `<label class="chooser-opt"><input type="radio" name="cw-${esc(q.id)}" value="${esc(o.v)}"> <span>${esc(o.label)}</span></label>`).join('')}
+        </div>
+      </fieldset>`).join('')}
+      <div class="btn-row">
+        <button class="btn" type="button" id="cw-chooser-go">Show my starting point <span class="arw">→</span></button>
+        <button class="btn ghost" type="button" id="cw-chooser-reset">Start again</button>
+      </div>
+      <div class="chooser-result" id="cw-chooser-result" hidden></div>
+      <p class="tiny faint mt-1">This chooser uses editorial fit (what you cook, where it lives, app tolerance), not price, ratings or sales data — none of which this site publishes. See <a href="/compare/">the comparison table</a> for the underlying claims.</p>
+    </div>
+  </div>
+</section>`;
+
+const novemberSection = () => `
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">November editorial picks</p>
+        <h2>What to cook this month, and the question it asks</h2>
+        <p>Timely framing of guides you can use tonight. These are editorial picks for November — not a popularity or demand claim. No such claim is made anywhere on this site.</p>
+      </div>
+      <a class="more" href="/guides/">All guides →</a>
+    </div>
+    <div class="cards c2">
+      ${NOVEMBER_PICKS.map((t) => `
+      <a class="card" href="${esc(t.href)}">
+        <span class="num">${esc(t.kicker)}</span>
+        <h3>${esc(t.title)}</h3>
+        <p>${esc(t.note)}</p>
+        <div class="foot"><span>Guide</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>`).join('')}
+    </div>
+  </div>
+</section>`;
+
+const faqSection = (cat = 'all') => {
+  const list = cat === 'all' ? FAQ : FAQ.filter((f) => f.cat === cat || f.cat === 'all');
+  return `
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">Buyer questions</p>
+        <h2>Questions buyers ask, answered from the listing</h2>
+        <p>Every answer is attributed to the manufacturer listing, to USDA FSIS, or to Amazon policy. Where the listing does not state a value, the answer says so.</p>
+      </div>
+    </div>
+    <div class="faq-list">
+      ${list.map((f) => `
+      <details class="faq-item">
+        <summary><span>${esc(f.q)}</span><span class="faq-chev" aria-hidden="true">+</span></summary>
+        <div class="faq-body">
+          <p>${esc(f.a)}</p>
+          <p class="tiny faint">Source: ${srcLink(f.src)}</p>
+        </div>
+      </details>`).join('')}
+    </div>
+  </div>
+</section>`;
+};
+
+const worksheetsCallout = () => `
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">Printable tools</p>
+        <h2>Measure first, buy second</h2>
+        <p>Three worksheets you can print or fill on screen. They ask for your measurements, not your email, and nothing you type leaves the browser.</p>
+      </div>
+      <a class="more" href="/tools/">All worksheets →</a>
+    </div>
+    <div class="cards c3">
+      ${WORKSHEETS.map((w) => `
+      <a class="card" href="/${esc(w.path)}">
+        <span class="num">Worksheet</span>
+        <h3>${esc(w.title)}</h3>
+        <p>${esc(w.lede)}</p>
+        <div class="foot"><span>Print / fill</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>`).join('')}
+    </div>
+  </div>
+</section>`;
 
 // ------------------------------------------------------------- front page
 export function frontPage() {
@@ -166,6 +309,8 @@ export function frontPage() {
     </ol>
   </div>
 </nav>
+
+${chooserSection()}
 
 <section class="section">
   <div class="wrap">
@@ -231,8 +376,8 @@ export function frontPage() {
           <div class="fx" style="aspect-ratio:16/9"><img src="${ART.guides}" alt="A notebook, a pencil and a thermometer on a kitchen worktop" width="1400" height="788" loading="lazy" decoding="async"></div>
           <div class="fb">
             <p class="kicker plain" style="margin-bottom:.5rem">One a fortnight</p>
-            <h3 style="font-size:1.15rem">Five guides, and a schedule</h3>
-            <p style="font-size:.85rem">Capacity, format, cleanup, multi-function appliances and safe temperatures. New guides arrive on a fixed cadence rather than in a burst.</p>
+            <h3 style="font-size:1.15rem">Eight guides, and a schedule</h3>
+            <p style="font-size:.85rem">Capacity, format, cleanup, multi-function appliances, safe temperatures, holiday roasts, game-day wings and leftovers. New guides arrive on a fixed cadence rather than in a burst.</p>
             <span class="ft">Read the archive →</span>
           </div>
         </a>
@@ -269,6 +414,12 @@ export function frontPage() {
     </div>
   </div>
 </section>
+
+${novemberSection()}
+
+${worksheetsCallout()}
+
+${faqSection('all')}
 
 <section class="section ink">
   <div class="wrap">
@@ -318,7 +469,7 @@ export function categoryPage(slug) {
     ogImage: c.img,
     body: `
 <section class="cat-hero">
-  <img class="cat-img" src="${c.img}" alt="" width="1400" height="788" fetchpriority="high" decoding="async">
+  <img class="cat-img" src="${c.img}" alt="${esc(CAT_IMG_ALT[c.name] || `${c.name} — editorial photograph, representative of the category`)}" width="1400" height="788" fetchpriority="high" decoding="async">
   <div class="wrap">
     <div class="inner">
       ${crumbs([{ href: '/', label: 'Home' }, { label: c.name }])}
@@ -367,11 +518,15 @@ export function categoryPage(slug) {
     </div>
     ${guideCards(
       slug === 'air-fryers'
-        ? GUIDES.filter((g) => ['basket-or-oven', 'capacity-checklist', 'cleanup-counter'].includes(g.slug))
-        : GUIDES.filter((g) => ['temperature-safety', 'multifunction'].includes(g.slug))
+        ? ALL_GUIDES.filter((g) => ['basket-or-oven', 'capacity-checklist', 'cleanup-counter', 'game-day-wings', 'air-fryer-leftovers'].includes(g.slug))
+        : ALL_GUIDES.filter((g) => ['temperature-safety', 'multifunction', 'holiday-roast-thermometer', 'air-fryer-leftovers'].includes(g.slug))
     )}
   </div>
-</section>`,
+</section>
+
+${faqSection(slug)}
+
+${worksheetsCallout()}`,
   });
 }
 
@@ -391,16 +546,16 @@ function airFryerTable() {
       row('Baskets', (p) => (p.compare.baskets === 2 ? '2 independent, 3 qt each' : p.compare.baskets === 1 ? '1 XL basket' : 'One oven cavity')),
       row('Viewing window', (p) => (p.compare.window ? 'Stated' : blank('not stated'))),
       row('Presets stated', (p) => (p.id === 'P02' ? '24 one-touch' : blank('not stated'))),
-      row('Stated top temperature', (p) => (p.id === 'P03' ? '450°F (listing claim)' : blank('not stated'))),
-      row('Counter footprint', () => blank('not stated')),
-      row('Wattage', () => blank('not stated')),
+      row('Stated top temperature', (p) => topTempCell(p)),
+      row('Counter footprint', (p) => footprintCell(p)),
+      row('Wattage', (p) => wattageCell(p)),
       row('Best for', (p) => esc(p.bestFor)),
       row('Skip it if', (p) => esc(p.thinkTwiceIf)),
       row('Full page', (p) => `<a href="/reviews/${p.slug}.html">Read the pick →</a>`),
       row('Listing', (p) => `<a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon · ${esc(p.asin)}</a>`),
     ],
     note:
-      'Footprint and wattage are the two figures most likely to change a decision, and the two the listings do not state in the data this desk could read. They are blank on purpose rather than estimated — check the product manual before ordering.',
+      'Top temperature, footprint and wattage quote the listing wherever the listing states a value; where it states two different wattages (Chefman 8 qt), both are shown rather than averaged. Cells marked “not stated” are listings that are genuinely silent — blank on purpose, never estimated. Check the product manual before ordering.',
   });
 }
 
@@ -415,8 +570,8 @@ function thermometerTable() {
     head: ['', ...ids.map((id) => `<b>${esc(P(id).shortName)}</b><br><span class="faint" style="font-weight:400">ASIN ${esc(P(id).asin)}</span>`)],
     rows: [
       row('Form', (p) => esc(formatOf(p))),
-      row('Probes', (p) => String(p.compare.probes)),
-      row('Needs an app', (p) => (p.compare.appRequired ? 'Yes' : 'No')),
+      row('Probes', (p) => (p.compare.probes ? String(p.compare.probes) : blank('not stated'))),
+      row('Needs an app', (p) => (p.compare.appRequired === null ? blank('not stated') : p.compare.appRequired ? 'Yes' : 'No')),
       row('Stated read time', (p) => (p.id === 'P04' ? '1 second (listing claim)' : 'Continuous')),
       row('Stated heat limit', (p) => (p.compare.heatRatingF ? `${p.compare.heatRatingF}°F (listing claim)` : blank('not stated'))),
       row('Stated accuracy', (p) => (p.id === 'P04' ? '±0.5°F (listing claim)' : blank('not stated'))),
@@ -582,9 +737,9 @@ export function comparePage() {
       <td><a href="/reviews/${p.slug}.html"><b>${esc(p.shortName)}</b></a><br><span class="faint tiny">${esc(p.brand)}</span></td>
       <td>${esc(catOf(p))}</td>
       <td>${esc(formatOf(p))}</td>
-      <td class="num">${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt') : esc(p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes'))}</td>
+      <td class="num">${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt') : esc(probeWord(p))}</td>
       <td>${esc(ROLE[p.id] || p.editorialName)}</td>
-      <td>${blank('not stated')}</td>
+      <td>${wattageCell(p)}</td>
       <td>${blank('by policy')}</td>
       <td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Listing</a></td>
     </tr>`
@@ -596,7 +751,7 @@ export function comparePage() {
     ${crumbs([{ href: '/', label: 'Home' }, { label: 'Compare' }])}
     <p class="kicker">All five, one table</p>
     <h1>The comparison table</h1>
-    <p class="lede">Five products on the fields that are stable enough to print. Two columns are deliberately empty, and the reason is written directly underneath.</p>
+    <p class="lede">Five products on the fields that are stable enough to print. One column is empty by policy, and individual cells stay empty wherever a listing is silent — every empty cell is labelled, and the reasons are written directly underneath.</p>
   </div>
 </section>
 
@@ -615,8 +770,8 @@ export function comparePage() {
         <p>Amazon’s Program Policies permit a site to show prices only when Amazon serves the link carrying that data, or when the data comes from the Creators API under the licence. This is a static page with no API credentials, so a price printed here would be both stale and out of policy. Use the listing. <a href="/methods/#price">Full explanation</a>.</p>
       </div>
       <div class="callout">
-        <h4>Why wattage is blank</h4>
-        <p>It is the number that decides whether the machine trips a circuit alongside a kettle, and none of the five listings states it in the data this desk could read. Rather than guess a range, the cell is empty. Check the manual before ordering. <a href="/flagged/">Flagged for review</a>.</p>
+        <h4>How the wattage column is filled</h4>
+        <p>It is the number that decides whether the machine trips a circuit alongside a kettle, so it is printed only where the listing itself states one — here, for all three air fryers. The two thermometers are battery-powered and their listings state no wattage, so those cells stay empty. Where one listing states two different figures (Chefman 8 qt: 1000 W in its specification bullets, 1700 W in its description), both are shown rather than averaged. <a href="/flagged/">Flagged for review</a>.</p>
       </div>
     </div>
   </div>
@@ -729,7 +884,7 @@ export function guidePage(g) {
 <section class="section tint">
   <div class="wrap">
     <div class="sec-head"><div><p class="kicker">Keep reading</p><h2>More guides</h2></div><a class="more" href="/guides/">All guides →</a></div>
-    ${guideCards(GUIDES.filter((x) => x.slug !== g.slug).slice(0, 2))}
+    ${guideCards(ALL_GUIDES.filter((x) => x.slug !== g.slug).slice(0, 2))}
   </div>
 </section>`;
 
@@ -760,20 +915,20 @@ export function guidesIndex() {
     path: '/guides/',
     title: 'Buying guides — air fryers, capacity, cleanup and safe temperatures',
     description:
-      'Five question-shaped kitchen guides: air fryer format, capacity, cleanup and counter space, multi-function appliances, and USDA safe internal temperatures.',
+      'Eight question-shaped kitchen guides: air fryer format, capacity, cleanup and counter space, multi-function appliances, USDA safe internal temperatures, holiday roasts, game-day wings and leftovers.',
     body: `
 <section class="page-head">
   <div class="wrap">
     ${crumbs([{ href: '/', label: 'Home' }, { label: 'Guides' }])}
     <p class="kicker">The notebook</p>
     <h1>Guides, in the order you will need them</h1>
-    <p class="lede">Five pieces written to answer a question rather than to rank for a product name. Three are about choosing a machine; two are about using one safely.</p>
+    <p class="lede">Eight pieces written to answer a question rather than to rank for a product name. Five are about choosing a machine; three are about using one safely.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    ${guideCards(GUIDES, 'cards c2')}
+    ${guideCards(ALL_GUIDES, 'cards c2')}
   </div>
 </section>
 
@@ -845,6 +1000,130 @@ export function reviewsIndex() {
         name: p.listingTitle,
         url: url(`/reviews/${p.slug}.html`),
       })),
+    },
+  });
+}
+
+// ------------------------------------------------------- S15 worksheets
+export function toolsIndex() {
+  return page({
+    path: '/tools/',
+    title: 'Printable worksheets — measure first, buy second | Counterwise',
+    description:
+      'Three printable decision worksheets: air fryer capacity, cleanup and counter space, and thermometer calibration. Your measurements, your browser, nothing sent anywhere.',
+    body: `
+<section class="page-head">
+  <div class="wrap">
+    ${crumbs([{ href: '/', label: 'Home' }, { label: 'Worksheets' }])}
+    <p class="kicker">Printable tools</p>
+    <h1>Measure first, buy second</h1>
+    <p class="lede">Three worksheets that turn a listing claim into a decision you can check in your own kitchen. Print them, fill them on screen, or just read the steps. Nothing you type leaves the browser.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="cards c3">
+      ${WORKSHEETS.map((w) => `
+      <a class="card" href="/${esc(w.path)}">
+        <span class="num">Worksheet</span>
+        <h3>${esc(w.title)}</h3>
+        <p>${esc(w.lede)}</p>
+        <div class="foot"><span>Print / fill</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>`).join('')}
+    </div>
+    <div class="callout mt-3">
+      <h4>Why worksheets, not scores</h4>
+      <p>This site publishes no conversion score, no revenue forecast and no "best" ranking. A worksheet gives you the measurements to make the call yourself, which is both more honest and more useful than a number invented by the desk. See <a href="/data-room/">the Data Room</a> for the empty campaign ledger and its schema.</p>
+    </div>
+  </div>
+</section>`,
+    active: '/tools/',
+    ogImage: ART.guides,
+  });
+}
+
+export function worksheetPage(w) {
+  const related = w.related.map(P);
+  return page({
+    path: `/${w.path}`,
+    title: `${w.title} — Counterwise`,
+    description: w.lede,
+    body: `
+<section class="article-head">
+  <div class="wrap">
+    ${crumbs([{ href: '/', label: 'Home' }, { href: '/tools/', label: 'Worksheets' }, { label: w.title }])}
+    <p class="kicker">Worksheet · printable</p>
+    <h1>${esc(w.title)}</h1>
+    <p class="lede">${esc(w.lede)}</p>
+    <div class="byline">
+      <span class="who">${esc(SITE.author)}</span>
+      <span class="sep">·</span>
+      <span>${esc(SITE.buildDateHuman)}</span>
+      <span class="sep">·</span>
+      <span>Specification-led, not hands-on</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:1.8rem">
+  <div class="wrap">
+    <div class="split">
+      <article class="prose worksheet">
+        ${w.steps.map((s) => `<h2>${esc(s.n)}. ${esc(s.h)}</h2><p>${esc(s.p)}</p>`).join('')}
+        <hr>
+        <h2>Your measurements</h2>
+        <p>Fill these in on screen or print the page and write them down. They are stored only in this browser tab and are never sent anywhere.</p>
+        <form class="worksheet-form" id="cw-worksheet" onsubmit="return false">
+          ${w.fields.map((f, i) => `<label class="worksheet-field"><span>${esc(f)}</span><input type="text" name="f${i}" autocomplete="off"></label>`).join('')}
+          <div class="btn-row mt-2">
+            <button class="btn small" type="button" id="cw-print">Print this worksheet <span class="arw">→</span></button>
+            <button class="btn small ghost" type="button" id="cw-clear">Clear fields</button>
+          </div>
+          <p class="tiny faint mt-1">No account, no email, no upload. Closing the tab discards everything.</p>
+        </form>
+      </article>
+      <aside class="stack">
+        <div class="buy-box">
+          <p class="kicker plain" style="margin-bottom:.6rem;font-size:.64rem">The units this helps you choose</p>
+          ${related.map((p) => `<a href="/reviews/${p.slug}.html" style="display:flex;gap:.7rem;align-items:center;text-decoration:none;color:inherit;padding:.5rem 0;border-bottom:1px solid var(--line)">
+            <img src="${ART[p.id]}" alt="" width="120" height="90" loading="lazy" style="width:56px;height:44px;object-fit:cover;border-radius:5px;flex-shrink:0">
+            <span><b style="font-size:.86rem;display:block;line-height:1.25">${esc(p.shortName)}</b><span class="tiny muted">${esc(p.editorialName)}</span></span>
+          </a>`).join('')}
+          <a class="btn small wide" href="/compare/" style="margin-top:.9rem">Compare all five <span class="arw">→</span></a>
+        </div>
+        ${subscribe()}
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="kicker">Keep reading</p><h2>More worksheets and guides</h2></div><a class="more" href="/tools/">All worksheets →</a></div>
+    <div class="cards c2">
+      ${WORKSHEETS.filter((x) => x.slug !== w.slug).map((x) => `
+      <a class="card" href="/${esc(x.path)}">
+        <span class="num">Worksheet</span>
+        <h3>${esc(x.title)}</h3>
+        <p>${esc(x.lede)}</p>
+        <div class="foot"><span>Print / fill</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>`).join('')}
+    </div>
+  </div>
+</section>`,
+    isGuide: true,
+    ogImage: ART.guides,
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: w.title,
+      description: w.lede,
+      datePublished: SITE.buildDate,
+      author: { '@type': 'Organization', name: SITE.author },
+      publisher: { '@type': 'Organization', name: SITE.name },
+      mainEntityOfPage: url(`/${w.path}`),
+      isAccessibleForFree: true,
     },
   });
 }
