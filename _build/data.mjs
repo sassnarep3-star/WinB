@@ -159,6 +159,60 @@ export const SOURCES = {
       'Fish and shellfish: 145°F (62.8°C). Leftovers and casseroles: 165°F (73.9°C).',
     ],
   },
+  // Amazon listing pages, re-read in full on 2026-11-20 (UTC) by session arena-066803dd.
+  // Each row records only what the page's title / “About this item” / product-details table states.
+  L1: {
+    id: 'L1',
+    title: 'Amazon listing B0CDY277D3 (CHEFMAN 6 Quart Dual Basket Air Fryer Oven)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B0CDY277D3?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states 6 Quart, 2 Independent 3Qt baskets and “Easy View Windows”. The product-details table was not re-read this session; wattage for this listing is recorded from the earlier 2026-11-20 read (FLG-014).',
+    ],
+  },
+  L2: {
+    id: 'L2',
+    title: 'Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B09B7SB46R?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states 26QT, “24 One-Touch Preset Options”, “Extra Large Interior” and “Six Cooking Accessories Included”.',
+      'About this item states “25 COOKING PRE-SETS” and “26-QUART CAPACITY”, and that the interior light lets you “monitor food”. No viewing window is stated in the sections read.',
+    ],
+  },
+  L3: {
+    id: 'L3',
+    title: 'Amazon listing B08DKYBTPH (Chefman Air Fryer 8 Qt TurboFry)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B08DKYBTPH?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states 8 Qt, “450°F Hi-Fry Option”, “4-in-1” and “XL Nonstick Dishwasher-Safe Basket”.',
+    ],
+  },
+  L4: {
+    id: 'L4',
+    title: 'Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B0DHZTCNR5?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states “1 Sec”, “±0.5℉ Accuracy”, “NIST&NSF Certified”, “IP67 Waterproof” and “Black”.',
+      'About this item: “instant-read” thermocouple sensor, 1 second. Product-details table: Included Components “1*Meat Thermometer, 1*AAA Battery, 1*User Manual, 1*Calibration Certificate”. No probe count and no app requirement stated.',
+    ],
+  },
+  L5: {
+    id: 'L5',
+    title: 'Amazon listing B0DZFD6R9Z (CHEF iQ Sense Gen3 Smart Wireless Meat Thermometer)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B0DZFD6R9Z?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states “3 Ultra-Thin Probes”, “WiFi Unlimited Range”, “1000°F Heat Safe”, “5 Sensors” and “Gen3”.',
+    ],
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -269,7 +323,9 @@ export const PRODUCTS = [
       'Your counter is shallow, you want something you can lift out and wash in a standard sink, or you expect a countertop oven to survive several years. Reviews of this listing are dominated by complaints about the heating element failing.',
     verdict:
       'The most versatile unit here by stated use — rotisserie, 12-inch pizza, 4–6 people — and the one with the heaviest durability caveat. Treat it as a fixture with a warranty, not a gadget.',
-    compare: { format: 'oven', capacityQt: 26, baskets: 0, window: true, style: 'French-door oven' },
+    // window: null — the listing's About-this-item bullets (re-read 2026-11-20) say the
+    // interior light lets you “monitor food” but do not state a viewing window. Blank, not inferred. See FLG-017.
+    compare: { format: 'oven', capacityQt: 26, baskets: 0, window: null, style: 'French-door oven' },
   },
   {
     id: 'P03',
@@ -343,12 +399,13 @@ export const PRODUCTS = [
       { label: 'Display', value: 'Auto-rotating bright LED', basis: 'listing title' },
       { label: 'Water resistance', value: 'IP67', basis: 'listing title' },
       { label: 'Colour', value: 'Black', basis: 'listing title' },
-      { label: 'Form', value: 'Handheld instant-read', basis: 'listing title' },
+      { label: 'Form', value: 'Instant-read', basis: 'About this item (“instant-read thermometer”)' },
     ],
     arithmetic: [],
     unverifiedClaims: [
       'The NIST and NSF certification claims appear in the listing title. This desk has not located a certificate to check them against, so they are recorded as manufacturer claims, not verified facts (FLG-006).',
       'Probe length, calibration method and warranty term are not stated on the listing as read.',
+      'Probe count and app requirement are not stated on the listing as read (FLG-017).',
     ],
     bestFor:
       'Everyday cooking where you want a fast number and a rinse under the tap, and you would rather not manage an app.',
@@ -356,7 +413,10 @@ export const PRODUCTS = [
       'You want continuous monitoring of a long cook without opening the oven door. That is a leave-in probe’s job, not an instant-read’s.',
     verdict:
       'The low-risk purchase here: no app, no pairing, no battery to charge in a hub. Its own listing’s mixed theme is durability, so treat the warranty as the deciding detail.',
-    compare: { wireless: false, probes: 1, appRequired: false, heatRatingF: null },
+    // probes / appRequired: null — neither the title, the About-this-item bullets nor the
+    // product-details table (re-read 2026-11-20) states a probe count or an app requirement.
+    // Blank rather than inferred from “instant-read”. See FLG-017.
+    compare: { wireless: false, probes: null, appRequired: null, heatRatingF: null },
   },
   {
     id: 'P05',
@@ -694,6 +754,40 @@ export const FLAGS = [
     action:
       'Owner or a future session reads the linked user-guide PDF for each and records the authoritative figure with its page number. Until then the site shows both values and says they disagree.',
     blocks: 'Nothing. Each affected page states the conflict inline.',
+  },
+  {
+    id: 'FLG-016',
+    severity: 'Medium',
+    status: 'Needs review',
+    title: 'Two of the five supplied short links did not reproduce their recorded redirect on re-check',
+    detail:
+      'On 2026-11-20 (UTC) this session fetched each supplied short link once more. Three resolved to the product page recorded in the register: B02NbDxp3 → B09B7SB46R, B00hJ57DV → B08DKYBTPH and B0f3GKalj → B0DZFD6R9Z. Two returned the Amazon homepage (https://www.amazon.com/) instead: B04G1MEwY and B0c8moW59. Their recorded redirects (B0CDY277D3 and B0DHZTCNR5) were not reproduced in this session. Each of those two ASINs was confirmed separately by fetching its product page directly, so the listings themselves are confirmed; only the short-link step is in question. The homepage response may be a regional or session effect of the fetcher, and this desk cannot tell which. The site publishes the direct /dp/ URLs, never the short links, so no visitor is sent to the homepage.',
+    evidence: [
+      'Re-check B04G1MEwY: fetched https://link.amazon/B04G1MEwY → https://www.amazon.com/ (homepage). Direct https://www.amazon.com/dp/B0CDY277D3 → “CHEFMAN 6 Quart Dual Basket Air Fryer Oven …”.',
+      'Re-check B0c8moW59: fetched https://link.amazon/B0c8moW59 → https://www.amazon.com/ (homepage). Direct https://www.amazon.com/dp/B0DHZTCNR5 → “ThermoMaven 1 Sec Professional Digital Meat Thermometer …”.',
+      'Re-check B02NbDxp3 → https://www.amazon.com/dp/B09B7SB46R (“Emeril Lagasse 26QT …”). B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH (“Chefman Air Fryer 8 Qt …”). B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z (“CHEF iQ Sense … Gen3”).',
+    ],
+    sources: ['L1', 'L3', 'L4', 'L5'],
+    action:
+      'Owner opens each of the five short links in a signed-in browser and records the final URL. If a link resolves to the homepage for the owner, it is not a usable Special Link and must not be published. The publishing gate does not use short links, so this does not change any published page.',
+    blocks: 'Nothing. The site does not use the short links as money links (FLG-003).',
+  },
+  {
+    id: 'FLG-017',
+    severity: 'Medium',
+    status: 'Fixed in this build',
+    title: 'Three specification values were shown that the listing text re-read on 2026-11-20 does not state',
+    detail:
+      'Re-reading the listings line by line found three values that had been presented as stated but cannot be matched to listing text in this session. (1) P02 Emeril: “Viewing window — Stated”. The About-this-item bullets say the interior light lets you “monitor food”; they do not state a viewing window. (2) P04 ThermoMaven: “Probes — 1”. Neither the title, the bullets nor the product-details table states a probe count; the figure came from the word “instant-read”. (3) P04 ThermoMaven: “Needs an app — No”. No app requirement is stated either way. The value has been blanked to “not stated” and the site no longer infers it. Also noted: the product-details table lists “1*AAA Battery” for P04, while the review-theme summary cited under FLG-014 says “AA battery”. The two are not reconciled and both are recorded.',
+    evidence: [
+      'P02 / B09B7SB46R About this item: “Elegant French doors open with a single pull – interior light allows you to monitor food.” No viewing-window wording found in the bullets read.',
+      'P04 / B0DHZTCNR5 product-details table: “Included Components: 1*Meat Thermometer, 1*AAA Battery, 1*User Manual, 1*Calibration Certificate”. About this item: “instant-read thermometer … accurate temperature readings in just 1 second”.',
+      'Not checked this session: the full Product Description block for P02 and P04 (the chunks read did not reach it). If the owner or a later session finds a stated figure there, the blank can be filled with its quote and page reference.',
+    ],
+    sources: ['L2', 'L4'],
+    action:
+      'Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.',
+    blocks: 'Nothing.',
   },
 ];
 
@@ -1358,8 +1452,8 @@ export const GUIDES = [
       {
         h: 'The two supplied units, against those jobs',
         p: [
-          'The ThermoMaven is a handheld instant-read: a one-second read, a stated ±0.5°F accuracy, and IP67 water resistance for washing. It is the drawer tool.',
-          'The CHEF iQ Sense is a wireless leave-in system: three probes, WiFi, and a stated 1000°F heat limit. It is the long-cook tool, and it depends on an app.',
+          'The ThermoMaven is an instant-read thermometer: a one-second read, a stated ±0.5°F accuracy, and IP67 water resistance for washing. It is the drawer tool.',
+          'The CHEF iQ Sense is a wireless leave-in system: three probes, WiFi, and a stated 1000°F heat limit. It is the long-cook tool. Review summaries on the listing mention an app; the listing text read on 2026-11-20 does not spell out its requirement.',
           'If you cook both ways, a cheap instant-read plus a leave-in is usually a better spend than one expensive compromise. Neither of these listings tells you the probe’s response time when it is cold, which is the number that matters for a fast sear.',
         ],
       },

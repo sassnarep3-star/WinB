@@ -727,8 +727,69 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
 
 | ID | Task | Owner | File scope | Status |
 | --- | --- | --- | --- | --- |
-| S15 | Re-read the five Amazon listings and the five `link.amazon` short links live; blank any spec value the listing does not state; flag what could not be reproduced | `arena-066803dd` | `_build/data.mjs` (the `compare` field of P02 and P04, and two new entries appended to `FLAGS`), `_build/editorial.mjs` (null handling for `probes`, `appRequired`, `window` and the P04 form label only), `COORDINATION.md` (this appendix), regenerated HTML for affected pages | in progress |
+| S15 | Re-read the five Amazon listings and the five `link.amazon` short links live; blank any spec value the listing does not state; flag what could not be reproduced | `arena-066803dd` | `_build/data.mjs` (the `compare` field of P02 and P04, and two new entries appended to `FLAGS`), `_build/editorial.mjs` (null handling for `probes`, `appRequired`, `window` and the P04 form label only), `_build/core.mjs` (one function, `sourceRel`, so Amazon listing sources carry the tag and `rel="sponsored"`; the `srcLink` helper uses it), `_build/content-oversight.mjs` (one import and one `rel` attribute on the source register row), `COORDINATION.md` (this appendix), regenerated HTML for affected pages | done |
 
 Not touched: `_build/content-shop.mjs` (not imported by any build; see the finding below), `tools/*`, `.github/*`, `docs/`, `data/`, `alt-site/`, `archive/`, and all other sessions' pages.
 
 **Finding for the integrator:** `_build/content-shop.mjs` is dead code. No build script imports it, so its `airFryerTable`/`thermometerTable` copies are never rendered. Left in place (deleting it is a shared-file decision for the integrator).
+
+### 1. What was fetched live on 2026-11-20 (UTC), and what matched
+
+Fetched through the page fetcher (curl cannot reach amazon.com from this sandbox). Each row is one fetch of the page named.
+
+| Supplied link / listing | Fetched as | Result |
+| --- | --- | --- |
+| `link.amazon/B02NbDxp3` | short link | → `amazon.com/dp/B09B7SB46R` (matches §3) |
+| `link.amazon/B00hJ57DV` | short link | → `amazon.com/dp/B08DKYBTPH` (matches §3) |
+| `link.amazon/B0f3GKalj` | short link | → `amazon.com/dp/B0DZFD6R9Z` (matches §3) |
+| `link.amazon/B04G1MEwY` | short link | **→ `amazon.com/` (homepage). Recorded redirect not reproduced.** FLG-016 |
+| `link.amazon/B0c8moW59` | short link | **→ `amazon.com/` (homepage). Recorded redirect not reproduced.** FLG-016 |
+| `amazon.com/dp/B0CDY277D3` | listing | Title matches: CHEFMAN 6 Quart Dual Basket, “Easy View Windows” |
+| `amazon.com/dp/B09B7SB46R` | listing | Title matches: Emeril 26QT, “24 One-Touch Preset Options”, “Six Cooking Accessories”; bullets say “25 COOKING PRE-SETS” (FLG-013) |
+| `amazon.com/dp/B08DKYBTPH` | listing | Title matches: Chefman 8 Qt, “450°F Hi-Fry Option” |
+| `amazon.com/dp/B0DHZTCNR5` | listing | Title matches: ThermoMaven 1 Sec, ±0.5℉, NIST&NSF, IP67; bullets “instant-read”, 1 second; product details “1*AAA Battery” |
+| `amazon.com/dp/B0DZFD6R9Z` | listing | Title matches: CHEF iQ Sense Gen3, “3 Ultra-Thin Probes”, 1000°F |
+
+**Not re-read this session:** the full Product Description block of P02 and P04 (the chunks read did not reach it); P01 and P03 bullets and product-details tables; the Associates Operating Agreement and Program Policies (re-read by the previous session on the same date, §8.1; nothing in this pass changes what they say).
+
+### 2. Corrections made (fields that could not be matched to listing text)
+
+| Product | Field | Was | Now | Why |
+| --- | --- | --- | --- | --- |
+| P02 Emeril | Viewing window | Stated (`window: true`) | not stated (`null`) | Bullets say the interior light lets you “monitor food”; no window stated |
+| P04 ThermoMaven | Probes | `1` | not stated (`null`) | Not in title, bullets or product details; was inferred from “instant-read” |
+| P04 ThermoMaven | Needs an app | No (`false`) | not stated (`null`) | Not stated either way |
+| P04 ThermoMaven | Form | “Handheld instant-read” (basis: listing title) | “Instant-read” (basis: “instant-read thermometer”, About this item) | “Handheld” is not on the listing; the title does not say “instant-read” |
+| P04 ThermoMaven | Narrative | “is a handheld instant-read”; unverified list omitted probe/app | “is an instant-read thermometer”; probe count and app requirement listed as unverified | Same as above |
+| P05 CHEF iQ | Narrative | “depends on an app” | “Review summaries on the listing mention an app; … does not spell out its requirement” | Stated as reviewer context, not as a listing fact |
+
+Rendering: `editorial.mjs` prints “not stated” / “probe count not stated” where the value is null. Nothing was filled in with a substitute.
+
+### 3. Source-link change
+
+The five Amazon listing pages are now registered as sources `L1`–`L5` (`_build/data.mjs`) so each flag can cite them. Because they are `/dp/` links, rule R2 applies: they carry `tag=shopnow047c-20` and `rel="sponsored nofollow noopener"`, through the one function `sourceRel()` in `_build/core.mjs`. The source register row in `content-oversight.mjs` uses the same function.
+
+### 4. Gate run on the branch
+
+| Step | Result |
+| --- | --- |
+| `node _build/build.mjs && node _build/make-images.mjs && node tools/build.cjs && node tools/noindex.cjs && node tools/consolidate.mjs` | pass; drift is the intended edits only (see §2) |
+| `node tools/verify.mjs` | PASS R1–R11, 28 canonical pages, 45 Amazon links, 275 internal links |
+| `node tools/gate.mjs` | PASS R11–R14, 40 canonical pages, 50 social images |
+| `node tools/check.cjs` | All gates passed (2 pre-existing warnings in archived tree; not touched) |
+| `node tools/linkcheck.mjs` | PASS — 51 files crawled, 0 broken links, XML valid |
+| HTTP smoke at `/WinB/` (copy of tree served on :3001) | PASS — 25 pages, 51 linked assets/urls, all 200 |
+| Table-row source audit (`376` data rows, all `<table>`s in canonical pages) | 201 rows have no external link. Almost all are definitions, event descriptions, planning rows and “No rows” placeholders, not register data. Product spec rows are attributed by a per-column **Listing** row that links the listing; the brief's stricter row-level rule is noted here as an open item rather than reworked in this pass. |
+
+### 5. Irregularities for review (all on `/flagged/`)
+
+- **FLG-016** — two of five short links returned the Amazon homepage on re-check. Owner should open each link in a signed-in browser and record the final URL.
+- **FLG-017** — three values blanked (P02 window; P04 probes and app). Also: P04 product-details table says **AAA** battery; the review summary cited in FLG-014 says **AA**. Not reconciled.
+- **FLG-012 is used twice** in `_build/data.mjs` (social-image finding and build-script finding). PR #37 proposes renumbering one to FLG-015. This pass did not renumber it.
+- **`_build/content-shop.mjs` is dead code.** No build script imports it. Its tables still carry the old values (“Handheld instant-read”, `probes: 1`). Deleting it is an integrator decision.
+- **Parallel PRs touching the same files:** #24, #25, #26, #30, #31, #34, #35, #37 all touch `COORDINATION.md`, and several touch `_build/data.mjs`. Integration will need the same both-sides resolution used in §8.3a.
+
+### 6. Still open, and not done by this session
+
+No Associates account access in this sandbox, so none of these can be verified from here: whether the supplied links carry the account tag (FLG-001, Q-01); a Special Link test and tracking report (FLG-003); the analytics endpoint (FLG-007); Search Console verification (FLG-008). No review unit was obtained (FLG-004). No price, rating or traffic figure was added.
+

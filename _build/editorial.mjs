@@ -66,9 +66,13 @@ export const CATS = {
 
 const catOf = (p) => (p.category === 'air-fryers' ? 'Air fryer' : 'Thermometer');
 const formatOf = (p) => {
-  if (p.category === 'thermometers') return p.compare.wireless ? 'Wireless leave-in probe' : 'Handheld instant-read';
+  if (p.category === 'thermometers') return p.compare.wireless ? 'Wireless leave-in probe' : 'Instant-read';
   return p.compare.style || 'Basket';
 };
+
+// The probe count is printed only when a listing states it (FLG-017). Never inferred.
+const probeWord = (p) =>
+  p.compare.probes ? `${p.compare.probes} ${p.compare.probes === 1 ? 'probe' : 'probes'}` : 'probe count not stated';
 
 // Short "what it is" label used on cards. One phrase, no adjectives stacked.
 const ROLE = {
@@ -91,7 +95,7 @@ const productCard = (p, { cls = '' } = {}) => `
     <h3>${esc(p.shortName)}</h3>
     <p>${esc(ROLE[p.id] || p.editorialName)}.</p>
     <div class="foot">
-      <span>${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt stated') : esc(p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes'))}</span>
+      <span>${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt stated') : esc(probeWord(p))}</span>
       <span class="read">Read the pick <span class="arw">→</span></span>
     </div>
   </div>
@@ -415,8 +419,8 @@ function thermometerTable() {
     head: ['', ...ids.map((id) => `<b>${esc(P(id).shortName)}</b><br><span class="faint" style="font-weight:400">ASIN ${esc(P(id).asin)}</span>`)],
     rows: [
       row('Form', (p) => esc(formatOf(p))),
-      row('Probes', (p) => String(p.compare.probes)),
-      row('Needs an app', (p) => (p.compare.appRequired ? 'Yes' : 'No')),
+      row('Probes', (p) => (p.compare.probes ? String(p.compare.probes) : blank('not stated'))),
+      row('Needs an app', (p) => (p.compare.appRequired === null ? blank('not stated') : p.compare.appRequired ? 'Yes' : 'No')),
       row('Stated read time', (p) => (p.id === 'P04' ? '1 second (listing claim)' : 'Continuous')),
       row('Stated heat limit', (p) => (p.compare.heatRatingF ? `${p.compare.heatRatingF}°F (listing claim)` : blank('not stated'))),
       row('Stated accuracy', (p) => (p.id === 'P04' ? '±0.5°F (listing claim)' : blank('not stated'))),
@@ -582,7 +586,7 @@ export function comparePage() {
       <td><a href="/reviews/${p.slug}.html"><b>${esc(p.shortName)}</b></a><br><span class="faint tiny">${esc(p.brand)}</span></td>
       <td>${esc(catOf(p))}</td>
       <td>${esc(formatOf(p))}</td>
-      <td class="num">${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt') : esc(p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes'))}</td>
+      <td class="num">${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt') : esc(probeWord(p))}</td>
       <td>${esc(ROLE[p.id] || p.editorialName)}</td>
       <td>${blank('not stated')}</td>
       <td>${blank('by policy')}</td>

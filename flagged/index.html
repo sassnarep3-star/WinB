@@ -56,7 +56,7 @@
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
     <span class="badge red">6 high</span>
-    <span class="badge amber">8 medium</span>
+    <span class="badge amber">10 medium</span>
     <span class="badge plain">1 low</span>
   </div>
   </div>
@@ -380,6 +380,48 @@
     
     <div><dt>What the owner needs to do</dt><dd>Owner or a future session reads the linked user-guide PDF for each and records the authoritative figure with its page number. Until then the site shows both values and says they disagree.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing. Each affected page states the conflict inline.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-016" >
+  <summary>
+    <span class="id">FLG-016</span>
+    <span class="ft">
+      <h3>Two of the five supplied short links did not reproduce their recorded redirect on re-check</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Needs review</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">On 2026-11-20 (UTC) this session fetched each supplied short link once more. Three resolved to the product page recorded in the register: B02NbDxp3 → B09B7SB46R, B00hJ57DV → B08DKYBTPH and B0f3GKalj → B0DZFD6R9Z. Two returned the Amazon homepage (https://www.amazon.com/) instead: B04G1MEwY and B0c8moW59. Their recorded redirects (B0CDY277D3 and B0DHZTCNR5) were not reproduced in this session. Each of those two ASINs was confirmed separately by fetching its product page directly, so the listings themselves are confirmed; only the short-link step is in question. The homepage response may be a regional or session effect of the fetcher, and this desk cannot tell which. The site publishes the direct /dp/ URLs, never the short links, so no visitor is sent to the homepage.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>Re-check B04G1MEwY: fetched https://link.amazon/B04G1MEwY → https://www.amazon.com/ (homepage). Direct https://www.amazon.com/dp/B0CDY277D3 → “CHEFMAN 6 Quart Dual Basket Air Fryer Oven …”.</li><li>Re-check B0c8moW59: fetched https://link.amazon/B0c8moW59 → https://www.amazon.com/ (homepage). Direct https://www.amazon.com/dp/B0DHZTCNR5 → “ThermoMaven 1 Sec Professional Digital Meat Thermometer …”.</li><li>Re-check B02NbDxp3 → https://www.amazon.com/dp/B09B7SB46R (“Emeril Lagasse 26QT …”). B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH (“Chefman Air Fryer 8 Qt …”). B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z (“CHEF iQ Sense … Gen3”).</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://www.amazon.com/dp/B0CDY277D3?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B0CDY277D3 (CHEFMAN 6 Quart Dual Basket Air Fryer Oven)">Amazon.com — Amazon listing B0CDY277D3 (CHEFMAN 6 Quart Dual Basket Air Fryer Oven)</a><br><a href="https://www.amazon.com/dp/B08DKYBTPH?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B08DKYBTPH (Chefman Air Fryer 8 Qt TurboFry)">Amazon.com — Amazon listing B08DKYBTPH (Chefman Air Fryer 8 Qt TurboFry)</a><br><a href="https://www.amazon.com/dp/B0DHZTCNR5?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)">Amazon.com — Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)</a><br><a href="https://www.amazon.com/dp/B0DZFD6R9Z?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B0DZFD6R9Z (CHEF iQ Sense Gen3 Smart Wireless Meat Thermometer)">Amazon.com — Amazon listing B0DZFD6R9Z (CHEF iQ Sense Gen3 Smart Wireless Meat Thermometer)</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Owner opens each of the five short links in a signed-in browser and records the final URL. If a link resolves to the homepage for the owner, it is not a usable Special Link and must not be published. The publishing gate does not use short links, so this does not change any published page.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing. The site does not use the short links as money links (FLG-003).</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-017" >
+  <summary>
+    <span class="id">FLG-017</span>
+    <span class="ft">
+      <h3>Three specification values were shown that the listing text re-read on 2026-11-20 does not state</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">Re-reading the listings line by line found three values that had been presented as stated but cannot be matched to listing text in this session. (1) P02 Emeril: “Viewing window — Stated”. The About-this-item bullets say the interior light lets you “monitor food”; they do not state a viewing window. (2) P04 ThermoMaven: “Probes — 1”. Neither the title, the bullets nor the product-details table states a probe count; the figure came from the word “instant-read”. (3) P04 ThermoMaven: “Needs an app — No”. No app requirement is stated either way. The value has been blanked to “not stated” and the site no longer infers it. Also noted: the product-details table lists “1*AAA Battery” for P04, while the review-theme summary cited under FLG-014 says “AA battery”. The two are not reconciled and both are recorded.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>P02 / B09B7SB46R About this item: “Elegant French doors open with a single pull – interior light allows you to monitor food.” No viewing-window wording found in the bullets read.</li><li>P04 / B0DHZTCNR5 product-details table: “Included Components: 1*Meat Thermometer, 1*AAA Battery, 1*User Manual, 1*Calibration Certificate”. About this item: “instant-read thermometer … accurate temperature readings in just 1 second”.</li><li>Not checked this session: the full Product Description block for P02 and P04 (the chunks read did not reach it). If the owner or a later session finds a stated figure there, the blank can be filled with its quote and page reference.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)">Amazon.com — Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)</a><br><a href="https://www.amazon.com/dp/B0DHZTCNR5?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)">Amazon.com — Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing.</dd></div>
   </div>
 </details>
     <div class="callout mt-3">

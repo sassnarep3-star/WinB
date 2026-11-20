@@ -19,7 +19,7 @@
 | Marketing for the five supplied links | **Done** — all five resolved and written up as a shop | `/`, `/reviews/` |
 | Clean landing page + subpages by category | **Done** — front page, 2 category hubs, 5 product pages, comparison table | `/index.html`, `/air-fryers/`, `/thermometers/`, `/compare/` |
 | Dashboard-style tables of all findings | **Done** — product-intent record, source register, automation pipeline, organic playbook, events, ledger, inventory | `/data-room/` |
-| Every row sourced; blanks where unconfirmed | **Done** — intended ASIN blank for all five, wattage/footprint blank, 11 flags | `/data-room/#products`, `/flagged/` |
+| Every row sourced; blanks where unconfirmed | **Done** — intended ASIN blank for all five, wattage/footprint blank, 17 flags (incl. 2 added 2026-11-20) | `/data-room/#products`, `/flagged/` |
 | Live GitHub Pages site | **Done** — published from `main`, Pages `built` | `COORDINATION.md` §5–§7 |
 | Executive summary | **This document** + `/executive-summary/` | `EXECUTIVE-SUMMARY.md` |
 | Read like a shop, not an audit | **Done** — products first, registers in footer + one “More” group | `/index.html` |
@@ -97,25 +97,31 @@ Ordered by downside if left open. Full reasoning in the Decision Room.
 | G4 | [sitemaps.org protocol](https://www.sitemaps.org/protocol.html) | Sitemap XML schema (single host, UTF-8, entity-escaped) |
 | U1 | [USDA FSIS Safe Temperature Chart](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) (Last Updated Apr 14, 2025) | Safe minimum internal temperatures quoted in thermometer guides |
 
-Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed record in the Data Room. The sandbox cannot reach amazon.com, so listings were not re-fetched this session; no new product fact has been added.
+Amazon listing data was re-read on 2026-11-20 (UTC) through the page fetcher, not curl (the sandbox cannot reach amazon.com directly). All five product pages (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z) confirmed their ASIN and title. Re-check of the five short links: three reproduced their recorded redirect, two returned the Amazon homepage instead (FLG-016). Three specification values that the listing text does not state were blanked (FLG-017). No new product fact was added.
 
-## 7. Flags (11 — none blocks publication)
+## 7. Flags (17 — none blocks publication)
 
-| ID | Item | Status |
-|---|---|---|
-| FLG-001 | Supplied short links redirect without an Associates tag | Open |
-| FLG-002 | Intended ASIN unconfirmed for all five | Open |
-| FLG-003 | Compliance status of link.amazon short links unresolved | Open |
-| FLG-004 | No product has been handled by this desk | Open |
-| FLG-005 | Prices and ratings deliberately not displayed | Open |
-| FLG-006 | Certification/performance claims are manufacturer claims only | Open |
-| FLG-007 | No analytics endpoint deployed; no traffic figures exist | Open |
-| FLG-008 | No mailing provider, Search Console token, or custom domain | Open |
-| FLG-009 | Earlier sessions published competing versions | Needs review |
-| FLG-010 | Affiliate exit pages were noindex/nofollow while forwarding | **Fixed in this build** (now index,follow; enforced by R10) |
-| FLG-011 | Six competing site generations on one host | Needs review (retired via noindex + banner) |
+Generated from `_build/data.mjs`, the same register that `/flagged/` renders. FLG-012 appears twice in that register (two different findings share the ID); PR #37 proposes renumbering one to FLG-015. This table does not resolve that.
 
-All 11 are published with evidence and source links at `/flagged/`.
+| ID | Severity | Status | Item |
+|---|---|---|---|
+| FLG-001 | High | Open | The supplied short links redirect without an Associates tag |
+| FLG-002 | Medium | Open | Intended ASIN for each product is unconfirmed |
+| FLG-003 | Medium | Open | Compliance status of link.amazon short links is unresolved |
+| FLG-004 | High | Open | No product has been handled by this desk |
+| FLG-005 | Medium | Open | Prices and star ratings are deliberately not displayed |
+| FLG-006 | Medium | Open | Certification and performance claims are manufacturer claims |
+| FLG-007 | Medium | Open | No analytics endpoint is deployed, so no traffic figures exist |
+| FLG-008 | Low | Open | No mailing provider, no Search Console token, no custom domain |
+| FLG-009 | Medium | Needs review | Several earlier sessions published competing versions of this site |
+| FLG-010 | High | Fixed in this build | Affiliate redirect pages were marked noindex and nofollow |
+| FLG-011 | Medium | Needs review | Six competing site generations had accumulated on one host |
+| FLG-012 (a) | High | Fixed in this build | Fix recorded in a script CI does not run; two brands on the live site |
+| FLG-012 (b) | High | Fixed in this build | Every page advertised a social image that did not exist |
+| FLG-013 | Medium | Needs review | Three listings contradict themselves on their own stated figures |
+| FLG-014 | High | Fixed in this build | Three product pages reported stated specifications as “not stated” |
+| FLG-016 | Medium | Needs review | Two of the five supplied short links did not reproduce their recorded redirect on re-check (2026-11-20) |
+| FLG-017 | Medium | Fixed in this build | Three specification values were shown that the listing text does not state; blanked (2026-11-20) |
 
 ## 8. Recommendation
 
