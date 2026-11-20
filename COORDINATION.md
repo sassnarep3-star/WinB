@@ -848,9 +848,9 @@ none of them overlaps a `done` scope from an earlier cycle.
 | ID | Task | Owner | File scope | Status |
 | --- | --- | --- | --- | --- |
 | V-1 | Independent official-source verification pass; record each source read; flag irregularities with source links | `arena-9c38041d` | All readable content + data files (read-only); `/flagged/`, `COORDINATION.md` | done |
-| V-2 | Add reviewable trendy topic suggestions to the decision queue — choose before implementing | `arena-9c38041d` | `_build/decision-queue.mjs`, `/suggestions/`, `/decisions/` | in progress |
-| V-3 | Refresh executive summary with this cycle's verification record | `arena-9c38041d` | `EXECUTIVE-SUMMARY.md`, `/executive-summary/` | in progress |
-| V-4 | Build, verify, link-check, PR to `main`, merge, confirm Pages deploy, record result | `arena-9c38041d` | repo root, `.github/`, generated HTML | in progress |
+| V-2 | Add reviewable trendy topic suggestions to the decision queue — choose before implementing | `arena-9c38041d` | `_build/decision-queue.mjs`, `/suggestions/`, `/decisions/` | done |
+| V-3 | Refresh executive summary with this cycle's verification record | `arena-9c38041d` | `EXECUTIVE-SUMMARY.md`, `/executive-summary/` | done |
+| V-4 | Build, verify, link-check, PR to `main`, merge, confirm Pages deploy, record result | `arena-9c38041d` | repo root, `.github/`, generated HTML | done |
 
 ### V-1 verification log (2026-11-20, live fetches)
 
@@ -892,3 +892,19 @@ its edits are confined to `COORDINATION.md` (append-only, end of file),
 | --- | --- | --- | --- | --- |
 | S17 | **Independent line-by-line re-verification of the build at PR #41 state:** run the full gate on the merged state; re-fetch the five Amazon listings and the official policy sources live (own retrieval); check every rendered register row against the generator; fix any rendered defect found; append findings to EXECUTIVE-SUMMARY.md (append-only) and this board. | `69bfe2b0` | `COORDINATION.md` (append-only), `EXECUTIVE-SUMMARY.md` (append-only), generated HTML only if a rendered defect is found (regenerated from `_build/`) | in progress |
 | S18 | **Integration for this cycle:** build, verify R1–R15, gate, linkcheck, smoke; PR from `arena/69bfe2b0-winb` to `main`; merge `--merge` without waiting; confirm Pages deploy; record result here. | `69bfe2b0` | PR/merge operations, `COORDINATION.md` | in progress |
+
+### Integration result (V-4)
+
+| Item | Result |
+| --- | --- |
+| Branch | `arena/9c38041d-winb`, rebased onto `origin/main` 745c087 (conflicts resolved by keeping both boards) |
+| Claim commit | `12702b0` — coordination scopes claimed and pushed |
+| Work commit | `f8fae2f` — verification record, reviewable trendy topics DQ-11..DQ-14 + DQ-Q10, executive summary §11 |
+| Drift fix | `5022dd6` — regenerated `executive-summary/index.html` so the CI "Committed HTML is out of date" check passes |
+| Pull request #1 | **#41** — https://github.com/sassnarep3-star/WinB/pull/41 — merged `--merge` 2026-11-20T06:28:43Z, merge commit `2de80b0` |
+| Pull request #2 | **#43** — https://github.com/sassnarep3-star/WinB/pull/43 — merged `--merge` 2026-11-20T06:30:09Z, merge commit `5e02c06` |
+| CI on `main` 5e02c06 | `Build and verify` success, `build` success, `deploy` success; `npm run check` local: 36 files, 37 routes, 10 feed items, PASS R1–R11, PASS R11–R15, 58 files crawled, 0 broken links |
+| Pages deploy | `built` — https://sassnarep3-star.github.io/WinB/ (source: `main`, path `/`, legacy build) |
+| Live pages served | root, `/air-fryers/`, `/thermometers/`, `/reviews/*`, `/compare/`, `/guides/*`, `/suggestions/`, `/decisions/`, `/flagged/`, `/data-room/`, `/executive-summary/`, `/methods/`, `/about/`, `/privacy/`, `/go/*` |
+
+No other session's files were overwritten: `_build/data.mjs`, `tools/build.cjs`, `tools/verify.mjs`, `tools/check.cjs`, `tools/noindex.cjs`, `docs/`, `legacy-docs-site/`, `alt-site/`, `archive/`, `products/`, `verification/`, `compliance/`, `platform/`, `scripts/`, `audit/`, `data/`, `register/` were not touched by this session.
