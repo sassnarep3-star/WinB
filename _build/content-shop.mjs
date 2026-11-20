@@ -1,7 +1,7 @@
 // content-shop.mjs — the reader-facing shop: front page, category hubs,
 // product pages, comparison table, guides.
 
-import { SITE, PRODUCTS, GUIDES, SOURCES, SUGGESTIONS, EVENTS } from './data.mjs';
+import { SITE, PRODUCTS, GUIDES, SOURCES, SUGGESTIONS, EVENTS, MOMENTS, TOPIC_QUEUE } from './data.mjs';
 import {
   esc, url, page, pageHead, table, badge, amazonLink, srcLink, blank, crumbs,
 } from './core.mjs';
@@ -60,6 +60,20 @@ ${list.map((g) => `<a class="card" href="/${g.path.replace(/\.html$/, '')}.html"
   <div class="foot"><span>${esc(g.readingTime)} read</span><span class="read">Open <span class="arw">→</span></span></div>
 </a>`).join('\n')}
 </div>`;
+
+const byline = (date = SITE.buildDateHuman) => `<p class="byline">By ${esc(SITE.author)} · ${esc(date)} · Specification judgement, not a hands-on test. <a href="/about/">Who writes this →</a></p>`;
+
+const momentCards = () => `
+<div class="cards c2">
+${MOMENTS.map((m) => `<a class="card" href="/guides/${esc(m.guides[0])}.html">
+  <span class="num">${esc(m.season)} · cooking moment</span>
+  <h3>${esc(m.title)}</h3>
+  <p><b>${esc(m.question)}</b></p>
+  <p>${esc(m.body)}</p>
+  <div class="foot"><span>${esc(m.products.map((id) => P(id).shortName).join(' · '))}</span><span class="read">Start here <span class="arw">→</span></span></div>
+</a>`).join('\n')}
+</div>
+<p class="tiny faint mt-2">These four moments are editorial hypotheses — ways to frame the guides that already exist. They are not claims about search volume, popularity or sales, and no new guide is published until measurement (see <a href="/decisions/#SUG-09">SUG-09</a>) says which one to write next.</p>`;
 
 // -------------------------------------------------------------- front page
 export function frontPage() {
@@ -154,6 +168,30 @@ export function frontPage() {
   </div>
 </section>
 
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Seasonal notebook</p>
+        <h2>Start from the meal, not the machine</h2>
+        <p>Four cooking moments that reframe the guides above. Pick the one that matches tonight, and the right machine narrows itself.</p>
+      </div>
+      <a class="more" href="/decisions/#SUG-09">Why these four →</a>
+    </div>
+    ${momentCards()}
+    <div class="cards c2 mt-3">
+      <div class="callout">
+        <h4>Two clusters, not five scattered pages</h4>
+        <p>The <a href="/air-fryers/">air-fryer cluster</a> (format, capacity, cleanup) and the <a href="/thermometers/">thermometer cluster</a> (safe temperatures, checking vs watching) link to each other and to the <a href="/compare/">comparison table</a>. That is the site’s topical structure — depth in two adjacent jobs rather than breadth across a directory.</p>
+      </div>
+      <div class="callout">
+        <h4>What comes next is a hypothesis, not a promise</h4>
+        <p>The next guide is chosen from measured queries after 30 days of data, not from instinct. The working titles and the gate for each are listed in the <a href="/decisions/#queue">Decision Room</a>. Nothing there is published yet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section ink">
   <div class="wrap">
     <div class="split">
@@ -169,6 +207,7 @@ export function frontPage() {
       </div>
       <div class="capture" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);box-shadow:none">
         <h3 style="color:#fff;font-size:1.15rem;margin-bottom:.3rem">One guide a fortnight</h3>
+        ${byline()}
         <p style="font-size:.86rem;margin:0 0 .2rem">No list exists yet, and this form will not pretend one does. When a provider is chosen it will say who holds the address before it asks for it.</p>
         <form data-capture="front">
           <input type="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email">
@@ -233,6 +272,12 @@ ${pageHead({
         ? GUIDES.filter((g) => ['basket-or-oven', 'capacity-checklist', 'cleanup-counter'].includes(g.slug))
         : GUIDES.filter((g) => ['temperature-safety', 'multifunction'].includes(g.slug))
     )}
+    <div class="callout mt-3">
+      <h4>In this cluster</h4>
+      <p>${slug === 'air-fryers'
+        ? 'The air-fryer cluster: <a href="/guides/basket-or-oven.html">format</a>, <a href="/guides/capacity-checklist.html">capacity</a>, <a href="/guides/cleanup-counter.html">cleanup</a> and <a href="/guides/multifunction.html">multi-function questions</a>. The neighbouring cluster is <a href="/thermometers/">thermometers</a> — the tool that tells you when the food is done. Both clusters meet in the <a href="/compare/">comparison table</a>.'
+        : 'The thermometer cluster: <a href="/guides/temperature-safety.html">safe temperatures</a> and the checking-vs-watching choice. The neighbouring cluster is <a href="/air-fryers/">air fryers</a> — the machines that cook the food. Both clusters meet in the <a href="/compare/">comparison table</a>.'}</p>
+    </div>
   </div>
 </section>`;
   return page({
@@ -360,6 +405,20 @@ ${pageHead({
           <h2>Where it sits among the others</h2>
           <p>${related.map((r) => `<a href="/reviews/${r.slug}.html">${esc(r.shortName)}</a> — ${esc(r.bestFor)}`).join('</p><p>')}</p>
           <p><a href="/compare/">The full comparison table →</a></p>
+        </div>
+
+        <div class="prose mt-4">
+          <h2>Cooking moments this suits</h2>
+          <p>Seasonal framing, not a popularity claim. Each moment links to the guide that answers its question.</p>
+          ${MOMENTS.filter((m) => m.products.includes(p.id)).map((m) => `<p><b>${esc(m.title)} (${esc(m.season)}).</b> ${esc(m.question)} <a href="/guides/${esc(m.guides[0])}.html">Read the guide →</a></p>`).join('\n')}
+          <h2>Questions this page answers</h2>
+          <ul>
+            <li>What does the listing claim, in the manufacturer’s own figures?</li>
+            <li>What does the arithmetic on those figures actually say?</li>
+            <li>When should you skip it — and what would you buy instead?</li>
+            <li>What can this page not tell you, and where is that recorded?</li>
+          </ul>
+          ${byline()}
         </div>
       </div>
 
@@ -507,9 +566,13 @@ ${pageHead({
 // ------------------------------------------------------------------ guides
 export function guidePage(g) {
   const related = g.related.map(P);
+  const idx = GUIDES.findIndex((x) => x.slug === g.slug);
+  const prev = GUIDES[idx - 1];
+  const next = GUIDES[idx + 1];
+  const clusterGuides = GUIDES.filter((x) => x.slug !== g.slug && x.related.some((r) => g.related.includes(r)));
   const sections = g.sections
-    .map((s) => {
-      let html = `<h2>${esc(s.h)}</h2>`;
+    .map((s, i) => {
+      let html = `<h2 id="s${i + 1}">${esc(s.h)}</h2>`;
       if (s.p) html += s.p.map((t) => `<p>${esc(t)}</p>`).join('\n');
       if (s.table) {
         html += table({
@@ -523,6 +586,7 @@ export function guidePage(g) {
       return html;
     })
     .join('\n');
+  const toc = `<nav class="toc" aria-label="In this guide"><p class="eyebrow plain">In this guide</p><ol>${g.sections.map((s, i) => `<li><a href="#s${i + 1}">${esc(s.h)}</a></li>`).join('')}</ol></nav>`;
 
   const body = `
 ${pageHead({
@@ -535,9 +599,15 @@ ${pageHead({
   <div class="wrap">
     <div class="split">
       <article class="prose">
+        ${toc}
         ${sections}
         <hr>
         <p class="small muted">Written by ${esc(SITE.author)} on ${esc(SITE.buildDateHuman)}. This guide contains no hands-on testing and makes no claim to it. Where a product is named, the source is the manufacturer’s listing; see the <a href="/reviews/">pick pages</a> for the full attribution.</p>
+        ${clusterGuides.length ? `<div class="callout"><h4>More in this cluster</h4><p>${clusterGuides.map((x) => `<a href="/${x.path}">${esc(x.title)}</a>`).join(' · ')}</p></div>` : ''}
+        <nav class="prev-next" aria-label="More guides">
+          ${prev ? `<a href="/${prev.path}">← ${esc(prev.title)}</a>` : '<span></span>'}
+          ${next ? `<a href="/${next.path}">${esc(next.title)} →</a>` : '<span></span>'}
+        </nav>
       </article>
       <aside class="stack">
         <div class="buy-box">
@@ -597,9 +667,10 @@ ${pageHead({
 <section class="section">
   <div class="wrap">
     ${guideCards(GUIDES, 'cards c2')}
+    <div class="mt-3">${momentCards()}</div>
     <div class="callout mt-3">
       <h4>How the cadence works</h4>
-      <p>One substantial guide every two weeks, added to the <a href="/sitemap.xml">sitemap</a> and the <a href="/feed.xml">feed</a> automatically by the build. Bursts of near-identical pages are treated by Google as scaled content abuse; a slow, original cadence is both safer and more persuasive. <a href="/decisions/#SUG-06">The decision behind this</a>.</p>
+      <p>One substantial guide every two weeks, added to the <a href="/sitemap.xml">sitemap</a> and the <a href="/feed.xml">feed</a> automatically by the build. Bursts of near-identical pages are treated by Google as scaled content abuse; a slow, original cadence is both safer and more persuasive. <a href="/decisions/#SUG-06">The decision behind this</a>. The next title is chosen from measured queries after 30 days of data — see the <a href="/decisions/#queue">topic queue</a>.</p>
     </div>
   </div>
 </section>`;
