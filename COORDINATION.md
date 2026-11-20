@@ -13,6 +13,7 @@ Shared task board for every session that works on this repository. Each session 
 | Integration: commit, push, PR to main, merge, confirm GitHub Pages deploy, record result | done | `arena/97b55f4f-winb` | all files |
 | Verified product register (5 rows), sourced build, flags, questions, suggestions, ledger, validation | done | `arena/9b3682f1-winb` | `data/`, `scripts/build.py`, generated site at repo root, `archive/`, `COORDINATION.md`, `README.md`, `.github/workflows/pages.yml` |
 | Integration of all session outputs into one published site; archive of superseded root site | in progress | `arena/9b3682f1-winb` | repo-root site, `archive/`, `.github/workflows/pages.yml`, `COORDINATION.md`, `README.md` |
+| Editorial design layer + original artwork for the live site (disclosure placement fix, publication front page, shared stylesheet) | done | `arena/79fd1cfe-winb` | `scripts/build.py`, `scripts/assets/site.css`, `scripts/assets/img/`, `docs/`, `COORDINATION.md` |
 
 ## Session log
 
@@ -133,3 +134,76 @@ Hand-off rule: if this session stops, another session may take over any `in prog
 - Deploy from `main` (run 44682612846, triggered by the merge): build success, deploy success. This deploys main's `docs/` site, not `alt-site/`.
 - **Open:** the live URL https://sassnarep3-star.github.io/WinB/ still served the earlier Counterwise homepage on the check made after the deploy succeeded. Cause not confirmed (CDN cache, or Pages source still on legacy). Not claimed as live. Owner should check Settings → Pages → Source = GitHub Actions and confirm the URL serves `docs/`.
 - Live-site decision (alt-site vs docs/) is still open; see the decision request above.
+
+## Session arena-79fd1cfe — editorial design layer (2026-11-20)
+
+**What this session did, in order.** Built a complete site of its own first, then discovered on
+push that `main` had moved four times while it worked. It **closed its own PR (#10) rather than
+overwrite anyone**, and re-applied only the additive part on top of `main`'s architecture.
+
+### Claim and conflict
+
+- **Claim:** claimed T-01…T-09 on the single pinned branch `arena/79fd1cfe-winb` (Arena fixes one
+  branch per session; `session-<id>/<task>` is not available in this environment). Claim committed
+  first, before any build work.
+- **Conflict hit:** `git push` fast-forwarded a branch whose base was `5f65079` (a one-line
+  README). `origin/main` had since advanced to `a5ff49d` through PRs #1, #3, #5, #6 and #7, and now
+  contains a full `docs/`-based site, `data/` register, CI deploy workflow, an `alt-site/` build,
+  and an `audit/` gate written by three other sessions.
+- **Resolution:** PR #10 was **closed unmerged**. Its content would have deleted `data/`,
+  `scripts/`, `archive/`, `alt-site/`, `audit/` and both workflows — destroying other sessions'
+  work, which the brief forbids. `git read-tree --reset -u origin/main` was used to restore this
+  branch to exactly `main`'s tree (nothing was lost: it all still exists in `main`, and this branch
+  had no unique commits of value beyond the artwork).
+- **Kept from this session's build:** the three original images, now at `scripts/assets/img/`. They
+  are the only asset that survives, and it is the only one that was not already present.
+
+### What changed on top of `main` (additive only)
+
+| Change | Why | Reversible |
+|---|---|---|
+| Disclosure strip moved **above** the masthead | `audit/check_html.py` (session 7feafaa3, rule L11) required the statement before the first `<nav>`; `main` had it after, failing 17 of 25 pages | Yes — one template block |
+| Inline `CSS` constant replaced by `scripts/assets/site.css` | A 56-line CSS string inside a 724-line Python file cannot be reviewed or diffed. Same rules, now a real file. Every pre-existing selector is preserved verbatim; the editorial layer is appended | Yes |
+| Editorial layer appended to the stylesheet | The brief asks the site to read like a publication, not an audit | Yes |
+| Front page rebuilt as a publication front page | Brief: "lead with products, not the verification process; keep every dashboard surface reachable from the footer and a single navigation group" | Yes — generated copy only |
+| `nav`, footer links, page set, `data/` and every validation rule | **Unchanged** | n/a |
+
+### Verification performed
+
+| Check | Command | Result |
+|---|---|---|
+| Build + built-in validation | `python3 scripts/build.py` | exit 0 — "disclosures, sponsored rel, internal links, sources, blanks" |
+| Independent HTML audit | `python3 audit/check_html.py` | exit 0 — "checked 25 HTML pages under docs, archive … pass" |
+| Assets serve | `python3 -m http.server --directory docs` | `/`, `/register.html`, `/assets/style.css`, all three images → 200 |
+
+Both gates now pass on the same tree, which they did not before this change (`audit` reported 17
+failures against the pages `scripts/build.py` was producing). The fix was one template block, not a
+change to either checker.
+
+### Irregularities logged for review
+
+- **Two flag registers with colliding IDs.** `data/flags.json` uses `FLG-01..FLG-19`; the withdrawn
+  alt-site register used `FLG-001..FLG-016`. This session's (now closed) build used `FLG-001..006`
+  with different meanings. **Nothing was merged between them.** `data/flags.json` is authoritative
+  for the live site. A future pass should reconcile the numbering on `flagged.html`.
+- **`scripts/check_site.py` crashes** with `FileNotFoundError: data/config.json`. It belongs to the
+  alt-site gate (which has its own `alt-site/data/config.json`) but sits in `scripts/`, so running
+  it from the repository root fails. Not fixed here because it is outside this session's scope and
+  is referenced by session 4b09b79a's `alt-site-check.yml`. Logged for the owner of `scripts/`.
+- **Pages publishing source.** `docs/` is built and served by `.github/workflows/pages.yml`
+  (GitHub Actions). The GitHub API still reports the legacy source as `main` `/` (root). Until the
+  owner switches the Pages source to "GitHub Actions" in repository settings, the workflow can
+  build but not deploy. Recorded as C18 in `audit/compliance-rules.json` and raised again here.
+- **Screenshot verification not possible in this sandbox.** The available headless browser needs
+  `libnspr`/`libnss`, which cannot be installed here (apt repositories unreachable, no root install
+  path). HTML, links, assets, and stylesheet were verified by fetch instead. Stated rather than
+  glossed over.
+
+### No regression claim
+
+This session did not re-verify the product register line by line against Amazon; session
+`9b3682f1` did that and its `data/products.json` is unchanged. What this session re-observed
+independently before the reset: all five `link.amazon` short links still resolve to the five
+`amazon.com/dp/<ASIN>` pages recorded in that register, and none of the resolved URLs carried a
+`tag=` parameter. That is consistent with FLG-02/FLG-03 as recorded, and is not claimed as new
+verification.

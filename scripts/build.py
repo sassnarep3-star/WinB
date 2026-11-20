@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build the static site at the repository root from data/*.json, then validate it.
+"""Build the static site in docs/ from data/*.json, then validate it.
 
 Usage:  python3 scripts/build.py
 Exit code 1 if any validation check fails (the site must not be published broken).
 
 Only the Python standard library is used. The output is plain static HTML/CSS
-for GitHub Pages (publishing source: main branch, / root).
+for GitHub Pages (publishing source: main branch, /docs folder).
 """
 import csv
 import datetime
@@ -19,7 +19,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
-OUT = ROOT  # served by GitHub Pages (legacy source: main, path /)
+OUT = ROOT / "docs"
 SITE_URL = "https://sassnarep3-star.github.io/WinB/"
 BUILD_DATE = "2026-11-20"
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
@@ -152,62 +152,7 @@ GUIDES = [
     },
 ]
 
-CSS = """
-:root{--ink:#1d1b18;--muted:#6b645b;--paper:#faf7f2;--card:#ffffff;--line:#e4ddd2;--accent:#b4532a;--accent-ink:#8c3e1d;--ok:#2f6b3a;--warn:#8a5a00;--bad:#8c2b2b;--disc:#fff4d6;--disc-line:#e9c46a;}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{background:var(--paper);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif}
-a{color:var(--accent-ink)}
-.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-.masthead{border-bottom:1px solid var(--line);background:var(--card)}
-.masthead .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:18px;padding-bottom:12px}
-.brand{font-family:Georgia,"Times New Roman",serif;font-size:26px;color:var(--ink);text-decoration:none;letter-spacing:.2px}
-.brand small{display:block;font:12px/1.2 system-ui,sans-serif;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-.nav{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px}
-.nav a{color:var(--ink);text-decoration:none;padding:4px 2px;border-bottom:2px solid transparent}
-.nav a:hover,.nav a[aria-current="page"]{border-bottom-color:var(--accent)}
-.disclosure{background:var(--disc);border-top:1px solid var(--disc-line);border-bottom:1px solid var(--disc-line);font-size:14px}
-.disclosure .wrap{padding-top:8px;padding-bottom:8px}
-main{padding:32px 0 48px}
-h1{font-family:Georgia,"Times New Roman",serif;font-size:36px;line-height:1.2;margin:0 0 10px}
-h2{font-family:Georgia,"Times New Roman",serif;font-size:24px;margin:36px 0 10px;border-top:1px solid var(--line);padding-top:22px}
-h3{font-size:18px;margin:8px 0 6px}
-.deck{font-size:18px;color:var(--muted);max-width:720px;margin:0 0 18px}
-.kicker{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);font-weight:600}
-.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:6px}
-.card p{margin:0}
-.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:9px 14px;border-radius:6px;font-weight:600;margin-top:6px;align-self:flex-start}
-.btn:hover{background:var(--accent-ink)}
-.note{font-size:13px;color:var(--muted)}
-.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);background:#f4f1ec;color:var(--muted);margin-right:4px}
-.badge.ok{color:var(--ok);border-color:#b9d8bf;background:#eef7f0}
-.badge.warn{color:var(--warn);border-color:#e7cf93;background:#fdf7e6}
-.badge.bad{color:var(--bad);border-color:#e0b4b4;background:#fbeeee}
-.unv{color:var(--warn);font-style:italic}
-.table-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px}
-table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{background:#f4f1ec;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-tr:last-child td{border-bottom:none}
-.hero{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:8px}
-.hero p{max-width:680px;margin:8px 0 0;color:var(--muted)}
-.callout{background:var(--card);border-left:4px solid var(--accent);padding:14px 18px;border-radius:6px;margin:14px 0}
-.callout.flag{border-left-color:var(--warn)}
-.guide-list{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));padding:0;list-style:none}
-.guide-list li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
-.guide-list a{font-weight:600;text-decoration:none;color:var(--ink)}
-.guide-list a:hover{color:var(--accent-ink)}
-article p,article li{max-width:720px}
-.meta{font-size:14px;color:var(--muted);margin-bottom:12px}
-footer{border-top:1px solid var(--line);background:var(--card);padding:26px 0 40px;font-size:14px;color:var(--muted)}
-footer ul{list-style:none;padding:0;margin:8px 0 14px;display:flex;flex-wrap:wrap;gap:6px 16px}
-footer a{color:var(--ink)}
-.choice{border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:14px}
-.opts{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));margin:8px 0 0;padding:0;list-style:none}
-.opts li{background:#fbfaf7;border:1px solid var(--line);border-radius:8px;padding:10px}
-@media (max-width:640px){h1{font-size:28px}.brand{font-size:22px}}
-"""
+CSS_PATH = ROOT / "scripts" / "assets" / "site.css"
 
 
 # ---------------------------------------------------------------- helpers
@@ -257,18 +202,17 @@ def page_html(title, description, path, body, depth=0, active=""):
 <link rel="stylesheet" href="{prefix}assets/style.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="disclosure" role="note" aria-label="Affiliate disclosure">
+  <div class="wrap"><strong>Disclosure:</strong> {esc(DISCLOSURE)} Some links on this site are paid links. <a href="{prefix}disclosure.html">How we disclose</a>.</div>
+</div>
 <header class="masthead">
   <div class="wrap">
     <a class="brand" href="{prefix}index.html">Counterwise<small>Working name · air fryers &amp; thermometers</small></a>
-  </div>
-  <div class="disclosure" role="note">
-    <div class="wrap"><strong>Disclosure:</strong> {esc(DISCLOSURE)} Some links on this site are paid links. <a href="{prefix}disclosure.html">How we disclose</a>.</div>
-  </div>
-  <div class="wrap">
     <nav class="nav" aria-label="Main">{nav}</nav>
   </div>
 </header>
-<main class="wrap">
+<main class="wrap" id="content">
 {body}
 </main>
 <footer>
@@ -409,16 +353,12 @@ def build():
     suggestions = load("suggestions.json")
     pmap = product_map(products)
 
-    # Remove only files this generator creates. Never remove the repo root or .git.
-    for f in list(OUT.glob("*.html")) + [OUT / "feed.xml", OUT / "sitemap.xml", OUT / "robots.txt", OUT / ".nojekyll"]:
-        if f.is_file():
-            f.unlink()
-    for d in [OUT / "guides", OUT / "assets"]:
-        if d.is_dir():
-            shutil.rmtree(d)
+    if OUT.exists():
+        shutil.rmtree(OUT)
     (OUT / "assets").mkdir(parents=True)
     (OUT / "guides").mkdir()
-    (OUT / "assets" / "style.css").write_text(CSS.strip() + "\n", encoding="utf-8")
+    shutil.copyfile(CSS_PATH, OUT / "assets" / "style.css")
+    shutil.copytree(ROOT / "scripts" / "assets" / "img", OUT / "assets" / "img")
     shutil.copyfile(ROOT / "scripts" / "assets" / "counterwise.js", OUT / "assets" / "counterwise.js")
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
 
@@ -433,23 +373,100 @@ def build():
             for g in GUIDES)
     guide_items = guide_items_for("guides/")
     guide_items_here = guide_items_for("")
+    lead = GUIDES[0]
+    top = [p for p in products if p["category_slug"] == "air-fryers-ovens"][:3]
+    guides_html = "".join(
+        f"<a class='card card-link' href='guides/{g['slug']}.html'>"
+        f"<div class='kicker'>Guide &middot; working title</div>"
+        f"<h3>{esc(g['title'])}</h3><p class='note'>{esc(g['deck'])}</p>"
+        f"<span class='more'>Read the guide &rarr;</span></a>"
+        for g in GUIDES[1:5])
     pages["index.html"] = (
         "Air fryers and meat thermometers, shortlisted",
-        "Five Amazon listings for air fryers, air fryer ovens, and meat thermometers, with buyer questions and sourced details.",
-        f"""<section class="hero">
-  <p class="kicker">Shortlist · updated {BUILD_DATE}</p>
-  <h1>Five kitchen picks, compared on what their listings actually say</h1>
-  <p>Three air fryers and ovens, two meat thermometers. Each card links to the Amazon listing. Specs are only what the listing states; prices and commission rates are not shown until they can be sourced.</p>
+        "Five Amazon listings for air fryers, air fryer ovens, and meat thermometers, compared on what their listings actually state, with sources and open questions published.",
+        f"""<section class="front-hero">
+  <div>
+    <p class="kicker">Kitchen gear, no theatre</p>
+    <div class="rule"></div>
+    <h1>Decide which air fryer, then stop reading.</h1>
+    <p class="deck">We compare the specifications that change how dinner goes &mdash; basket capacity, door clearance, probe thinness. Five listings from Amazon, one source link per fact, and a public list of everything we have not verified.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="guides/{lead['slug']}.html">Start with the big question</a>
+      <a class="btn btn-ghost" href="register.html">See everything we checked</a>
+    </div>
+  </div>
+  <figure class="figure">
+    <img src="assets/img/hero-countertop.jpg" width="1400" height="910" alt="A basket air fryer and a countertop oven on a light wooden board, with a digital meat thermometer resting beside them, in a warm kitchen.">
+    <figcaption>Original illustration made for this site. No Amazon product imagery is used anywhere on it (FLG-16).</figcaption>
+  </figure>
 </section>
-<h2>Air fryers &amp; ovens</h2>
-<div class="grid">{cards}</div>
-<p><a href="air-fryers-ovens.html">Compare all three &rarr;</a></p>
-<h2>Meat thermometers</h2>
-<div class="grid">{thermo}</div>
-<p><a href="meat-thermometers.html">See both thermometers &rarr;</a></p>
+
+<div class="lead-story">
+  <div class="copy">
+    <p class="kicker">The question we hear most</p>
+    <h2>{esc(lead['title'])}</h2>
+    <p>{esc(lead['deck'])}</p>
+    <a class="btn btn-primary" href="guides/{lead['slug']}.html">Read the comparison</a>
+  </div>
+  <div class="tile">
+    <p class="kicker" style="margin:0">What it settles</p>
+    <ul>
+      <li>Which listings in the register are basket-style and which are oven-style.</li>
+      <li>The four questions that decide the format, in the order they matter.</li>
+      <li>What each listing claims about capacity and features.</li>
+      <li>Which of those claims nobody has tested &mdash; including us.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section-head">
+  <div><p class="kicker">Two categories, five listings</p><h2>Browse by what you are deciding</h2></div>
+  <p>Every product page links its source, and blank cells stay blank.</p>
+</div>
+<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(320px,1fr))">
+  <a class="card cat" href="air-fryers-ovens.html">
+    <img src="assets/img/cat-air-fryers.jpg" width="1400" height="788" alt="Line illustration of a dual-basket air fryer beside an oven-style air fryer.">
+    <div class="body">
+      <div class="kicker">3 listings</div>
+      <h3>Air fryers &amp; ovens</h3>
+      <p class="note">Dual basket, single basket, and a French-door oven. The difference is the shape of the cavity, not the wattage.</p>
+      <span class="more">Compare all three &rarr;</span>
+    </div>
+  </a>
+  <a class="card cat" href="meat-thermometers.html">
+    <img src="assets/img/cat-thermometers.jpg" width="1400" height="788" alt="Ink illustration of an instant-read thermometer and a wireless probe thermometer with a charging base.">
+    <div class="body">
+      <div class="kicker">2 listings</div>
+      <h3>Meat thermometers</h3>
+      <p class="note">An instant-read checks a temperature. A wireless probe watches it. Buying the wrong one is the common mistake.</p>
+      <span class="more">See both thermometers &rarr;</span>
+    </div>
+  </a>
+</div>
+
+<div class="section-head">
+  <div><p class="kicker">The shortlist</p><h2>Three air fryers, three trade-offs</h2></div>
+  <p>Ordering is editorial. Only what the listing states is repeated, and each card shows what is still untested.</p>
+</div>
+<div class="grid">{''.join(product_card(p) for p in top)}</div>
+<p class="note">Prices, star ratings, and commission rates are deliberately absent: Amazon permits price and review display only through Amazon-served links or the Product Advertising API. <a href="flagged.html">Why</a>.</p>
+
 <h2>Buying guides</h2>
-<ul class="guide-list">{guide_items}</ul>
-<div class="callout"><strong>Before you click.</strong> Paid links are marked. The Associates statement is above the fold on every page. Open <a href="register.html">the register</a> to see each row's source, and <a href="flagged.html">Flagged for Review</a> for open issues.</div>""",
+<p class="deck">Question-shaped, written from what the listings state. Working titles &mdash; not claims about search volume or popularity (FLG-14).</p>
+<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">{guides_html}</div>
+<p><a href="guides/index.html">All four guides &rarr;</a></p>
+
+<h2>Everything we checked, in public</h2>
+<div class="trust-grid">
+  <a class="trust" href="register.html"><div class="kicker">Data</div><h3>Product register</h3><p>Five rows, one source link each. Intended and observed identifiers kept apart.</p></a>
+  <a class="trust" href="analysis.html"><div class="kicker">Read</div><h3>Analysis</h3><p>What the register supports, and what it cannot.</p></a>
+  <a class="trust" href="questions.html"><div class="kicker">Decisions</div><h3>Open questions</h3><p>What must be answered before the next move.</p></a>
+  <a class="trust" href="suggestions.html"><div class="kicker">Proposals</div><h3>Suggestions</h3><p>Each with its trade-off and the paths open to you.</p></a>
+  <a class="trust" href="flagged.html"><div class="kicker">Risks</div><h3>Flagged for review</h3><p>Every unresolved item, published rather than hidden.</p></a>
+  <a class="trust" href="ledger.html"><div class="kicker">Measurement</div><h3>Campaign ledger</h3><p>Empty by design until a first-party report fills it.</p></a>
+</div>
+
+<div class="callout"><strong>Before you click.</strong> Paid links are marked on the face of every button and in the markup. The Associates statement sits above the fold on every page. Open <a href="register.html">the register</a> to check any row against its source, and <a href="flagged.html">Flagged for Review</a> for what is still open.</div>""",
         0, "index.html")
 
     cat_pages = {
@@ -695,33 +712,9 @@ def write_sitemap(paths):
 
 
 # ---------------------------------------------------------------- validation
-EXCLUDED_TOP = {"alt-site", "archive", "audit", "data", "scripts", "docs", ".github", ".git"}
-
-
-def generated_html():
-    """HTML pages this generator wrote (excludes other sessions' folders)."""
-    return [p for p in OUT.rglob("*.html") if p.relative_to(OUT).parts[0] not in EXCLUDED_TOP]
-
-
-def mirror_to_docs():
-    """Copy the generated site into docs/ so the audit and older references see the same pages."""
-    docs = ROOT / "docs"
-    if docs.exists():
-        shutil.rmtree(docs)
-    docs.mkdir()
-    for f in generated_html():
-        target = docs / f.relative_to(OUT)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(f, target)
-    for name in ["guides", "assets"]:
-        shutil.copytree(OUT / name, docs / name, dirs_exist_ok=True)
-    for name in ["feed.xml", "sitemap.xml", "robots.txt", ".nojekyll"]:
-        shutil.copyfile(OUT / name, docs / name)
-
-
 def validate(pages, products):
     errors = []
-    html_files = generated_html()
+    html_files = list(OUT.rglob("*.html"))
     link_re = re.compile(r"<a\s+([^>]*)>", re.I)
     href_re = re.compile(r'href=[\'"]([^\'"]+)[\'"]', re.I)
     rel_re = re.compile(r'rel=[\'"]([^\'"]+)[\'"]', re.I)
@@ -777,7 +770,7 @@ def validate(pages, products):
     client = (OUT / "assets" / "counterwise.js").read_text(encoding="utf-8")
     if re.search(r"document\.cookie|localStorage|sessionStorage", client):
         errors.append("counterwise.js writes cookies or browser storage")
-    if re.search(r"COUNTERWISE\s*=\s*\{[^}]*endpoint:\s*'https?", "".join(p.read_text(encoding='utf-8') for p in generated_html())):
+    if re.search(r"COUNTERWISE\s*=\s*\{[^}]*endpoint:\s*'https?", "".join(p.read_text(encoding='utf-8') for p in OUT.rglob('*.html'))):
         errors.append("an analytics endpoint is configured in a page; this must be a reviewed change")
     if len(GUIDES) < 4:
         errors.append("expected at least four guides, found %d" % len(GUIDES))
@@ -788,10 +781,7 @@ def main():
     pages = build()
     products = load("products.json")["products"]
     errors = validate(pages, products)
-    print(f"Built {len(pages)} pages into the repository root (served by Pages)")
-    if not errors:
-        mirror_to_docs()
-        print("Mirrored to docs/")
+    print(f"Built {len(pages)} pages into {OUT.relative_to(ROOT)}/")
     if errors:
         print("VALIDATION FAILED:")
         for e in errors:
