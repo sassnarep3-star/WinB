@@ -785,3 +785,5 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
 - FLG-001/002/003, FLG-007, Q-05/Q-07, FLG-012 brand choice remain open and published at `/flagged/`; they do not block merge per protocol.
 
 **Status:** S15 done. Integration (PR → merge → Pages confirm) follows in this session.
+
+**Rebase note (2026-11-20, session `30073780`):** `origin/main` advanced to `33eaf81` (coord record for PR #36) while S15 was in progress. Rebased `arena/30073780-winb` onto `origin/main`. One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` S11–S14 final result, followed by the S15 appendix. No other session's work discarded. All other S15 files applied cleanly. Gates re-run after rebase: build/verify/gate/check/links/smoke all green (see S15 completion record above).
