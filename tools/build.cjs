@@ -1911,7 +1911,7 @@ function goPage(p) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
+<meta name="robots" content="index,follow">
 <title>Leaving for Amazon — ${esc(p.shortName)} | ${esc(SITE.brand.name)}</title>
 <link rel="stylesheet" href="${rel('/assets/css/site.css')}">
 </head>
@@ -2018,6 +2018,12 @@ PRODUCTS.products.forEach((p) => write(`/go/${p.slug}.html`, goPage(p)));
 const sitemapRoutes = PAGES.filter(
   (p) => !p.noindex && p.routePath !== '/404.html.DISABLED'
 ).map((p) => p.routePath);
+
+/* Added 2026-11-20 (session 27fcc0b2): the reader-facing review room published by the
+   editorial build. It is a sibling page, so it is not in PAGES above - but this
+   generator owns sitemap-register.xml, and an indexable sibling page that is missing
+   from it fails tools/check.cjs. Additive: removing this block breaks only that check. */
+if (!sitemapRoutes.includes('/suggestions/index.html')) sitemapRoutes.push('/suggestions/index.html');
 const today = '2026-11-20';
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

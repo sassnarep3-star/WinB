@@ -9,7 +9,7 @@ import { esc, url, page } from './core.mjs';
 import {
   frontPage, categoryPage, productPage, comparePage,
   guidePage, guidesIndex, reviewsIndex,
-} from './content-shop.mjs';
+} from './editorial.mjs';
 import {
   decisionsPage, dataRoom, flaggedPage, methodsPage,
   aboutPage, privacyPage, execPage, suggestionsPage, decisionInputsPage,
@@ -264,7 +264,7 @@ writeFileSync(
 <div class="disclosure-strip"><div class="wrap"><strong>${esc(SITE.associateStatement)}</strong></div></div>
 <header class="masthead"><div class="wrap"><a class="brand" href="/">counterwise<span>.</span></a></div></header>
 <main class="wrap" style="padding:5rem 0;max-width:640px">
-  <p class="eyebrow">404</p>
+  <p class="kicker plain">404</p>
   <h1 style="font-size:clamp(2rem,5vw,3rem)">That page is not here.</h1>
   <p class="lede">It may have moved, or the link may be wrong. The shop, the guides and the registers are all one click away.</p>
   <div class="btn-row">
