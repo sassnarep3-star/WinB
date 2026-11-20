@@ -6,7 +6,7 @@
 
 **Build date:** 2026-11-20 (UTC) — S17 refresh (session `ac3d816c`), following S15/S16 and the trend-topic cycle
 **Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
-**Pages:** 37 canonical pages (incl. 5 affiliate exit pages), 47 sitemap routes, 16 feed items (recounted at each merge round)
+**Pages:** 43 canonical pages verified, 57 pages audited by the publication gate, 22 superseded-but-preserved pages kept reachable, 5 affiliate exit pages, 53 sitemap routes, 22 feed items; 19 canonical guides, 3 printable worksheets, 5 product pages, 2 category hubs. Every number here is read from the gate output at this merge rather than copied from an earlier cycle: `tools/verify.mjs` and `tools/gate.mjs` print them, and the CI drift check re-derives the pages from `_build/` on every push.
 **Sources:** 12 official policy/agency sources + 5 per-listing source rows (L1–L5), all re-fetched live 2026-11-20 (see §6, §11–§13)
 
 **Build date:** 2026-11-20 (UTC) — re-verified same day by QA session `arena-21850b97` (S15)
