@@ -71,12 +71,12 @@
     {
       "id": "FLG-007",
       "severity": "High",
-      "item": "No analytics endpoint is live; the five events were not defined in the brief",
-      "detail": "GitHub Pages is static and cannot run a self-hosted analytics endpoint. The client script sends events only when an endpoint URL is configured (currently blank). The brief refers to five defined events but does not list them. The five used here are proposals (see Measurement page).",
+      "item": "No analytics endpoint is live; the five event names are proposed for owner confirmation",
+      "detail": "GitHub Pages is static and cannot run a self-hosted analytics endpoint. The client script sends events only when an endpoint URL is configured (currently blank). The five event names were taken from the earlier Counterwise session in this repo (page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported); the brief itself does not list them. No event is sent from the browser for affiliate_conversion_reported.",
       "sources": [
         "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
       ],
-      "action": "Owner: name the five events and choose an endpoint (see suggestions S-03)."
+      "action": "Owner: confirm the event list and choose an endpoint (see suggestion S-03)."
     },
     {
       "id": "FLG-008",
@@ -161,6 +161,26 @@
         "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
       ],
       "action": "Owner: legal review of disclosure wording before scaling."
+    },
+    {
+      "id": "FLG-016",
+      "severity": "High",
+      "item": "Archived Counterwise site: email form and privacy claims not verified",
+      "detail": "The earlier Counterwise page (now at archive/counterwise/, not deployed) has a 'Join' email form with action=\"#\" and no backend, and states the email is used only for guide notices and never sold or shared. No provider, retention or unsubscribe mechanism was found in the repo, so those claims are unverified. The archived site is not published.",
+      "sources": [
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+      ],
+      "action": "Owner: decide whether to add a real reader-capture provider with a verified privacy policy, or drop the form."
+    },
+    {
+      "id": "FLG-017",
+      "severity": "Medium",
+      "item": "Two parallel sessions produced two sites; integrated here",
+      "detail": "Sessions arena/13033d4a-winb and arena/97b55f4f-winb published the Counterwise site to main while this session worked. This session integrated the work: one live site from this build, the Counterwise files preserved in archive/counterwise/ (git mv), the Pages workflow replaced, and the README and COORDINATION log merged without deleting content. Full decisions I-1..I-4 are in COORDINATION.md.",
+      "sources": [
+        "https://github.com/sassnarep3-star/WinB/blob/main/COORDINATION.md"
+      ],
+      "action": "Owner: review I-1..I-4; reverse any you do not want."
     }
   ]
 }

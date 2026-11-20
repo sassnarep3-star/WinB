@@ -13,22 +13,22 @@
     },
     {
       "name": "outbound_click",
-      "meaning": "A reader clicked a sponsored product link (product id only)."
+      "meaning": "A reader clicked a sponsored product link (product ID only)."
     },
     {
-      "name": "guide_scroll_75",
-      "meaning": "A reader scrolled 75% of a guide (guide slug only)."
+      "name": "guide_engaged",
+      "meaning": "A reader reached 75% of a guide (guide slug only)."
     },
     {
-      "name": "disclosure_open",
+      "name": "disclosure_view",
       "meaning": "A reader followed the disclosure link from the strip."
     },
     {
-      "name": "source_link_click",
-      "meaning": "A reader followed a verification source link (source id only)."
+      "name": "affiliate_conversion_reported",
+      "meaning": "Recorded ONLY from a dated, authorized Associates report (ledger). Never sent from the browser."
     }
   ],
-  "analytics_status": "PROPOSED — not in the brief; endpoint not configured (FLG-007)",
+  "analytics_status": "PROPOSED — event names aligned to the repo's existing five; endpoint not configured (FLG-007)",
   "publish_date": "2026-11-20",
   "publishing_cadence": "Proposed: one guide every two weeks (not yet confirmed; see S-04)"
 }

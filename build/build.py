@@ -318,7 +318,7 @@ def build_dashboard_home():
   {table(['Surface', 'What it shows', 'Link'], cls='nav-table', rows=[
       ['Product table', 'All five rows: observed title, ASINs, redirect target, source, status, flags', f'<a href="{url("dashboard/products/")}">Open</a>'],
       ['Campaign ledger', 'Empty by design. Rows only from authorized first-party reports, with provenance', f'<a href="{url("dashboard/ledger/")}">Open</a>'],
-      ['Measurement', 'Five proposed events; endpoint status', f'<a href="{url("dashboard/measurement/")}">Open</a>'],
+      ['Measurement', 'Five event names (owner to confirm); endpoint status', f'<a href="{url("dashboard/measurement/")}">Open</a>'],
       ['Verification register', 'Policy and source rows, each with an official link', f'<a href="{url("verification/")}">Open</a>'],
       ['Flagged for review', 'Irregularities and unverified items with source links', f'<a href="{url("flagged-for-review/")}">Open</a>'],
   ])}
@@ -391,7 +391,7 @@ def build_measurement():
         rows.append([f"<code>{e(ev['name'])}</code>", e(ev["meaning"]), unverified(CFG["analytics_status"])])
     body = f"""
 <section class="hero"><p class="kicker">Dashboard · Measurement</p><h1>Measurement</h1>
-<p class="lede">The five events below are <strong>proposed</strong>; the brief does not list them (FLG-007). The client script sends events only when an endpoint is configured. The endpoint is currently blank, so nothing is sent.</p></section>
+<p class="lede">The five event names below are taken from the earlier session’s definitions in this repo; they are <strong>proposed for owner confirmation</strong> (FLG-007). The client script sends events only when an endpoint is configured. The endpoint is currently blank, so nothing is sent.</p></section>
 <section class="block">{table(['Event', 'What is recorded', 'Status'], rows)}</section>
 <section class="block"><div class="section-head"><h2>Privacy rules built into the script</h2></div>
 <ul class="checks">

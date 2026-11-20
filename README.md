@@ -53,3 +53,20 @@ Pages uses the GitHub Actions source (`actions/deploy-pages@v4`; see the verific
 - No analytics server (GitHub Pages is static). The analytics hook is inert until an endpoint is configured (FLG-007).
 - No Associates account data, no conversion or revenue data (see the empty ledger).
 - Search Console verification is an owner step (FLG-008).
+
+## Earlier publication (archived, not deployed)
+
+The Counterwise site built in earlier sessions (`arena/13033d4a-winb`, `arena/97b55f4f-winb`) is kept, unchanged, at
+`archive/counterwise/` (moved with `git mv`, so history is preserved). It is not deployed: its email form has no
+backend and its privacy claims are not verified (FLG-016). Its evidence register and notes are superseded by
+`/flagged-for-review/` and `/verification/` on the live site.
+
+Its analytics event names are kept: `page_view`, `outbound_click`, `guide_engaged`, `disclosure_view`,
+`affiliate_conversion_reported` (the last is recorded only from a dated authorized report, never sent from the browser).
+
+## Official sources referenced (verified live)
+
+- Amazon Associates Program Operating Agreement: https://affiliate-program.amazon.com/help/operating/agreement (updated Oct 15, 2025)
+- Amazon Associates Program Policies: https://affiliate-program.amazon.com/help/operating/policies (updated Apr 14, 2026)
+- FTC Endorsement Guides: What People Are Asking: https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking
+- FTC Disclosures 101 for Social Media Influencers: https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers (Nov 2019)
