@@ -135,3 +135,27 @@ Do not publish the topic queue until its gates pass. Do not add categories until
 - The site’s economics are currently unproven and possibly zero: if the supplied links do not carry a tag, nothing is tracked.
 - Nothing was tested by hand, so authority rests on documentation and reasoning, not on measurement.
 - Compliance conclusions describe how the build responds to quoted policy text. They are not legal advice.
+
+## 10. Re-check of 2026-11-20 (session `ab61d616`, task S15)
+
+Added after the sections above. Sections 1–9 describe the build as it stood before this check and are not rewritten.
+
+**What was re-checked, and how.** The five canonical listing pages (`/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH`, `/dp/B0DHZTCNR5`, `/dp/B0DZFD6R9Z`) and the five supplied `link.amazon` short links were fetched again through the `fetch_page` tool. The sandbox shell cannot reach amazon.com, so this tool was the only path. Full record: `data/shop/recheck-2026-11-20.json`.
+
+| Item | Result on this check | Flag |
+| --- | --- | --- |
+| Five listing pages: ASIN in the URL and title match the register | **5 of 5 match** ([L1](https://www.amazon.com/dp/B0CDY277D3), [L2](https://www.amazon.com/dp/B09B7SB46R), [L3](https://www.amazon.com/dp/B08DKYBTPH), [L4](https://www.amazon.com/dp/B0DHZTCNR5), [L5](https://www.amazon.com/dp/B0DZFD6R9Z)) | — |
+| Short links that reached the recorded ASIN | 2 of 5 (B00hJ57DV, B0f3GKalj) | FLG-016 |
+| Short links that reached amazon.com's home page instead of a product | 2 of 5 (B04G1MEwY, B0c8moW59) | FLG-016 |
+| Short link that returned HTTP 500 from the tool | 1 of 5 (B02NbDxp3) | FLG-016 |
+| Redirect targets that contain `tag=` | 0 of 5 | FLG-001 (unchanged) |
+| Live root returns two different builds to two requests | Observed; cause not known | FLG-017 |
+| Privacy copy omitted the host's IP logging | Fixed: one sentence added to the privacy page | FLG-018 (fixed) |
+| Two flag registers disagree on IDs; one claim out of date | Open | FLG-019 |
+| `FLG-012` used twice in the flag list | Open; PR #37 proposes the fix | FLG-020 |
+
+**What this does not show.** It does not show that any short link is invalid. A single retrieval path on one day cannot establish that. The earlier record (§3) and this check disagree for three links, and the cause is unknown. Those three links should be checked from a signed-out browser and from the Associates link builder by the account owner.
+
+**What is still not verified, and needs the owner.** Whether the tag `shopnow047c-20` is enrolled and approved (FLG-001). Whether any supplied short link is an enrolled Special Link (FLG-003). Whether a Special Link test in the Associates workflow reports the expected destination and tracking (not run; it requires the account). Search Console, analytics endpoint and any mailing list: none is configured in this build (FLG-007, FLG-008).
+
+**Sources added.** [D1 — GitHub Docs, What is GitHub Pages?](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages), read 2026-11-20, for the hosting and visitor-IP statement.
