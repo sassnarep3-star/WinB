@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "task": "S16 — independent re-check of the five listings and the five supplied short links",
+    "session": "ab61d616",
+    "branch": "arena/ab61d616-winb",
+    "base_commit": "979883165f5430b6f81684584f5678e4189456cd",
+    "check_date_utc": "2026-11-20",
+    "retrieval_path": "fetch_page tool (the only path from this sandbox that reached amazon.com; bash curl to link.amazon and amazon.com returned no connection, HTTP 000)",
+    "rules": [
+      "intended_asin is never filled from observed data. It stays blank until the owner confirms it.",
+      "observed_redirect_target is stored in its own field and never merged into intended_asin.",
+      "A short link is not called invalid on the basis of one check. Mismatches are logged as flags.",
+      "No price, rating or sales figure is recorded, by policy (FLG-005)."
+    ],
+    "result_summary": "All five canonical listing pages resolved to the ASIN and the listing title held in the register. Of the five short links, two reproduced the ASIN recorded in the earlier resolution record, two reached the amazon.com home page instead, and one returned HTTP 500 from the retrieval tool. No redirect observed on this check contains a tag= parameter. Logged as FLG-016."
+  },
+  "products": [
+    {
+      "product_id": "P01",
+      "slug": "chefman-6qt-dual-basket",
+      "supplied_link": "https://link.amazon/B04G1MEwY",
+      "intended_asin": "",
+      "intended_asin_status": "blank: not confirmed by the owner",
+      "canonical_listing_url": "https://www.amazon.com/dp/B0CDY277D3",
+      "listing_asin_observed": "B0CDY277D3",
+      "listing_title_observed": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+      "listing_title_matches_register": true,
+      "short_link_observed_final_url": "https://www.amazon.com/",
+      "short_link_observed_asin": "",
+      "short_link_status_this_check": "reached amazon.com home page, not a product page",
+      "short_link_recorded_earlier": "https://www.amazon.com/dp/B0CDY277D3",
+      "short_link_matches_earlier_record": false,
+      "flag": "FLG-016"
+    },
+    {
+      "product_id": "P02",
+      "slug": "emeril-26qt-french-door",
+      "supplied_link": "https://link.amazon/B02NbDxp3",
+      "intended_asin": "",
+      "intended_asin_status": "blank: not confirmed by the owner",
+      "canonical_listing_url": "https://www.amazon.com/dp/B09B7SB46R",
+      "listing_asin_observed": "B09B7SB46R",
+      "listing_title_observed": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+      "listing_title_matches_register": true,
+      "short_link_observed_final_url": "",
+      "short_link_observed_asin": "",
+      "short_link_status_this_check": "HTTP 500 from the retrieval tool; no redirect target obtained",
+      "short_link_recorded_earlier": "https://www.amazon.com/dp/B09B7SB46R",
+      "short_link_matches_earlier_record": null,
+      "flag": "FLG-016"
+    },
+    {
+      "product_id": "P03",
+      "slug": "chefman-8qt-turbofry",
+      "supplied_link": "https://link.amazon/B00hJ57DV",
+      "intended_asin": "",
+      "intended_asin_status": "blank: not confirmed by the owner",
+      "canonical_listing_url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "listing_asin_observed": "B08DKYBTPH",
+      "listing_title_observed": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+      "listing_title_matches_register": true,
+      "short_link_observed_final_url": "https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-5756d38428f77669&channelId=704&plpRedirect=mhFallback&th=1",
+      "short_link_observed_asin": "B08DKYBTPH",
+      "short_link_status_this_check": "reached a product page; ASIN matches the earlier record",
+      "short_link_recorded_earlier": "https://www.amazon.com/dp/B08DKYBTPH",
+      "short_link_matches_earlier_record": true,
+      "flag": null
+    },
+    {
+      "product_id": "P04",
+      "slug": "thermomaven-1s-thermometer",
+      "supplied_link": "https://link.amazon/B0c8moW59",
+      "intended_asin": "",
+      "intended_asin_status": "blank: not confirmed by the owner",
+      "canonical_listing_url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "listing_asin_observed": "B0DHZTCNR5",
+      "listing_title_observed": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black",
+      "listing_title_matches_register": true,
+      "short_link_observed_final_url": "https://www.amazon.com/",
+      "short_link_observed_asin": "",
+      "short_link_status_this_check": "reached amazon.com home page, not a product page",
+      "short_link_recorded_earlier": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "short_link_matches_earlier_record": false,
+      "flag": "FLG-016"
+    },
+    {
+      "product_id": "P05",
+      "slug": "chef-iq-sense-gen3",
+      "supplied_link": "https://link.amazon/B0f3GKalj",
+      "intended_asin": "",
+      "intended_asin_status": "blank: not confirmed by the owner",
+      "canonical_listing_url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "listing_asin_observed": "B0DZFD6R9Z",
+      "listing_title_observed": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+      "listing_title_matches_register": true,
+      "short_link_observed_final_url": "https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&btn_type=ss&gaOptInStatus=true&language=en_US&btn_ref=srctok-5ed90c5aacfa7a7e&channelId=500&plpRedirect=mhFallback&th=1",
+      "short_link_observed_asin": "B0DZFD6R9Z",
+      "short_link_status_this_check": "reached a product page; ASIN matches the earlier record",
+      "short_link_recorded_earlier": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "short_link_matches_earlier_record": true,
+      "flag": null
+    }
+  ],
+  "not_verified_on_this_check": [
+    "Whether any supplied short link is an enrolled Associates Special Link (FLG-001, FLG-003). Requires the owner's Associates Central account.",
+    "Whether the tag shopnow047c-20 is enrolled and approved (FLG-001). Requires the owner's Associates Central account.",
+    "Prices, ratings and review counts. Not recorded, by policy. The retrieval tool returned them, but the site does not publish them.",
+    "Any product-specific claim beyond the listing title (wattage, dimensions, warranty). Those were handled in earlier rows and are not re-checked here."
+  ],
+  "sources": [
+    {"ref": "L1", "url": "https://www.amazon.com/dp/B0CDY277D3", "used_for": "P01 listing title and ASIN"},
+    {"ref": "L2", "url": "https://www.amazon.com/dp/B09B7SB46R", "used_for": "P02 listing title and ASIN"},
+    {"ref": "L3", "url": "https://www.amazon.com/dp/B08DKYBTPH", "used_for": "P03 listing title and ASIN"},
+    {"ref": "L4", "url": "https://www.amazon.com/dp/B0DHZTCNR5", "used_for": "P04 listing title and ASIN"},
+    {"ref": "L5", "url": "https://www.amazon.com/dp/B0DZFD6R9Z", "used_for": "P05 listing title and ASIN"},
+    {"ref": "A2", "url": "https://affiliate-program.amazon.com/help/operating/policies", "used_for": "Special Link and tag rules (see FLG-001, FLG-016)"},
+    {"ref": "D1", "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages", "used_for": "GitHub Pages hosting and visitor IP logging (FLG-017, FLG-018)"}
+  ]
+}

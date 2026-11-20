@@ -115,15 +115,23 @@ Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed r
 | FLG-003 | Compliance status of link.amazon short links unresolved | Open |
 | FLG-004 | No product has been handled by this desk | Open |
 | FLG-005 | Prices and ratings deliberately not displayed | Open |
-| FLG-006 | Certification/performance claims are manufacturer claims only | Open |
+| FLG-006 | Certification and performance claims are manufacturer claims | Open |
 | FLG-007 | No analytics endpoint deployed; no traffic figures exist | Open |
 | FLG-008 | No mailing provider, Search Console token, or custom domain | Open |
-| FLG-009 | Earlier sessions published competing versions | Needs review |
+| FLG-009 | Several earlier sessions published competing versions | Needs review |
 | FLG-010 | Affiliate exit pages were noindex/nofollow while forwarding | **Fixed** (now index,follow; enforced by R10) |
-| FLG-011 | Six competing site generations on one host | Needs review (retired via noindex + banner) |
-| FLG-012 | Two brands on one host (“Counterwise” vs “The Crisp Kitchen” on `/go/`) | Open — owner chooses one name |
-| FLG-013 | Three listings contradict themselves (presets 24 vs 25; accessories 6 vs 7; wattage 1000 vs 1700; battery 50 vs 70h) | Needs review — both values printed |
-| FLG-014 | Published specs previously reported as “not stated” | **Fixed** (transcribed in `listing-evidence.mjs`) |
+| FLG-011 | Six competing site generations on one host | Needs review |
+| FLG-012 | Every page advertised a social image that did not exist | **Fixed in this build** |
+| FLG-013 | Three listings contradict themselves on their own stated figures | Needs review — both values printed |
+| FLG-014 | Published specs previously reported as “not stated” | **Fixed** |
+| FLG-015 | A fix was recorded in a script CI does not run; two brands on the live site | **Fixed in this build** |
+| FLG-016 | Two of five supplied short links did not reproduce their recorded redirect on re-check | Open — cause unknown |
+| FLG-017 | Live site root served two different builds to two requests on one day | Open |
+| FLG-018 | Privacy page did not disclose hosting-provider IP logging | **Fixed in this build** |
+| FLG-019 | Two flag registers disagree; one older entry is out of date | Open |
+| FLG-020 | FLG-012 was used twice in the flag list | **Fixed** (duplicate renumbered to FLG-015) |
+| FLG-021 | Three spec values shown that the listing text does not state (P02 viewing window; P04 probe count and app requirement) | **Fixed in this build** (blanked, not inferred) |
+
 
 ## 8. Recommendation — choose a path before implementing anything else
 
@@ -144,3 +152,52 @@ Do not publish the topic queue until its gates pass. Do not add categories until
 - Nothing was tested by hand, so authority rests on documentation and reasoning, not on measurement.
 - The “AI-powered platform” in the original brief is scoped honestly in §1: generation + gating are automated; research, pricing, trend and commission intelligence are not built and are not claimed.
 - Compliance conclusions describe how the build responds to quoted policy text. They are not legal advice.
+
+## 10. Re-check of 2026-11-20 (session `ab61d616`, task S16)
+
+Added after the sections above. Sections 1–9 describe the build as it stood before this check and are not rewritten.
+
+**What was re-checked, and how.** The five canonical listing pages (`/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH`, `/dp/B0DHZTCNR5`, `/dp/B0DZFD6R9Z`) and the five supplied `link.amazon` short links were fetched again through the `fetch_page` tool. The sandbox shell cannot reach amazon.com, so this tool was the only path. Full record: `data/shop/recheck-2026-11-20.json`.
+
+| Item | Result on this check | Flag |
+| --- | --- | --- |
+| Five listing pages: ASIN in the URL and title match the register | **5 of 5 match** ([L1](https://www.amazon.com/dp/B0CDY277D3), [L2](https://www.amazon.com/dp/B09B7SB46R), [L3](https://www.amazon.com/dp/B08DKYBTPH), [L4](https://www.amazon.com/dp/B0DHZTCNR5), [L5](https://www.amazon.com/dp/B0DZFD6R9Z)) | — |
+| Short links that reached the recorded ASIN | 2 of 5 (B00hJ57DV, B0f3GKalj) | FLG-016 |
+| Short links that reached amazon.com's home page instead of a product | 2 of 5 (B04G1MEwY, B0c8moW59) | FLG-016 |
+| Short link that returned HTTP 500 from the tool | 1 of 5 (B02NbDxp3) | FLG-016 |
+| Redirect targets that contain `tag=` | 0 of 5 | FLG-001 (unchanged) |
+| Live root returns two different builds to two requests | Observed; cause not known | FLG-017 |
+| Privacy copy omitted the host's IP logging | Fixed: one sentence added to the privacy page | FLG-018 (fixed) |
+| Two flag registers disagree on IDs; one claim out of date | Open | FLG-019 |
+| `FLG-012` used twice in the flag list | Resolved: PR #37 renamed the duplicate to FLG-015 | FLG-020 (resolved) |
+
+**What this does not show.** It does not show that any short link is invalid. A single retrieval path on one day cannot establish that. The earlier record (§3) and this check disagree for three links, and the cause is unknown. Those three links should be checked from a signed-out browser and from the Associates link builder by the account owner.
+
+**What is still not verified, and needs the owner.** Whether the tag `shopnow047c-20` is enrolled and approved (FLG-001). Whether any supplied short link is an enrolled Special Link (FLG-003). Whether a Special Link test in the Associates workflow reports the expected destination and tracking (not run; it requires the account). Search Console, analytics endpoint and any mailing list: none is configured in this build (FLG-007, FLG-008).
+
+**Sources added.** [D1 — GitHub Docs, What is GitHub Pages?](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages), read 2026-11-20, for the hosting and visitor-IP statement.
+
+## 11. This cycle — verification record (session arena-9c38041d, 2026-11-20)
+
+Every source below was read live during this session; nothing was inferred.
+
+| # | Source | URL | Confirmed |
+|---|--------|-----|-----------|
+| S-1 | Amazon Associates Program Operating Agreement §5 | https://affiliate-program.amazon.com/help/operating/agreement | Disclosure sentence "As an Amazon Associate I earn from qualifying purchases." must be clear and prominent; the site uses it verbatim above the masthead and in the footer on every page (rule R1). |
+| S-2 | Amazon Associates Program Policies, Participation Requirements §2(b) | https://affiliate-program.amazon.com/help/operating/policies | Every Amazon link must carry the Associate ID "tag" as a URL parameter; prices/availability only when Amazon serves the link or via Creators API / PA API; no inaccurate or misleading product claims. The tag `shopnow047c-20` is on every product link; its account validity is unconfirmed (FLG-003). |
+| S-3 | Google Search Central — Qualify your outbound links | https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links | `rel="sponsored"` for paid/affiliate links; every Amazon product link on the site carries `rel="sponsored nofollow noopener"` (rule R2). |
+| S-4 | Google Search Central — Spam policies | https://developers.google.com/search/docs/essentials/spam-policies | Thin affiliation, scaled content abuse, site reputation and sneaky redirects named; the site's fortnightly cadence, single canonical site and disclosed exit pages answer these (rules R7, R10). |
+| S-5 | sitemaps.org — Sitemaps XML protocol | https://www.sitemaps.org/protocol.html | Single host, UTF-8, entity-escaped `<urlset>` with `<loc>` per page; sitemap.xml validates and lists every indexable page (rule R7). |
+| S-6 | USDA FSIS — Safe Minimum Internal Temperature Chart | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart | 145°F (+3 min rest) steaks/chops/roasts; 160°F ground meats and eggs; 165°F poultry and leftovers/casseroles; 145°F fish — matches `/guides/temperature-safety.html` row for row (source U1). |
+| S-7 | FTC — Disclosures 101 | https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers | Disclose where hard to miss; simple language acceptable; no experience claims for untried products; no made-up claims needing proof — the site's no-hands-on framing follows this (rule R4). |
+| S-8 | Amazon listings, all five, fetched live 2026-11-20 | https://www.amazon.com/dp/B0CDY277D3 · /dp/B09B7SB46R · /dp/B08DKYBTPH · /dp/B0DHZTCNR5 · /dp/B0DZFD6R9Z | Each supplied short link resolves to its registered ASIN; titles, brands and breadcrumbs match the product register exactly; none of the resolved short links carries a `tag` parameter (FLG-001). |
+
+**Note on divergence with §10 (S16 re-check).** §10 reports that a second same-day re-check of the five supplied short links did not reproduce all five redirect targets (2 reached the recorded ASIN, 2 reached amazon.com's home page, 1 returned HTTP 500; flagged FLG-016, cause unknown, not asserted invalid). This cycle's S-8 records the earlier 2026-11-20 observation (all five reached their registered ASINs). Both records are kept; neither is presented as proof of compliance or non-compliance. The account owner should settle it with the one-link Special Link test in Associates Central (FLG-001/FLG-003).
+
+**Added this cycle (reviewable before implementing — `/suggestions/`):**
+- DQ-11 "Air fryer or oven? The five-minute counter test that picks before you buy"
+- DQ-12 "Instant-read or leave-in? Which thermometer Thanksgiving actually needs"
+- DQ-13 "Dishwasher-safe does not mean dishwasher-sized: the air-fryer cleanup test"
+- DQ-14 "Two baskets or one: the weeknight meal that makes a dual-basket worth it"
+
+Each is an editorial hypothesis, not a popularity claim; each is gated on the measurement baseline (DQ-02 / DQ-Q10) and none is published until someone chooses it from the queue.

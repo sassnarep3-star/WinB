@@ -3,7 +3,7 @@
 // The front page sells; these pages account for themselves.
 
 import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, MOMENTS, TOPIC_QUEUE, PATHS } from './data.mjs';
-import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink } from './core.mjs';
+import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink, sourceRel } from './core.mjs';
 import { DECISION_QUEUE, BLOCKING_QUESTIONS, OWNER_ACTIONS } from './decision-queue.mjs';
 
 // ------------------------------------------------------------- decision room
@@ -237,7 +237,7 @@ export function dataRoom() {
     .map(
       (s) => `<tr>
       <td class="mono tiny">${esc(s.id)}</td>
-      <td><a href="${s.url}" rel="noopener" target="_blank"><b>${esc(s.title)}</b></a><br><span class="tiny muted">${esc(s.publisher)}</span></td>
+      <td><a href="${s.url}" rel="${sourceRel(s.url)}" target="_blank"><b>${esc(s.title)}</b></a><br><span class="tiny muted">${esc(s.publisher)}</span></td>
       <td class="nowrap tiny">${esc(s.updated || '—')}</td>
       <td class="nowrap tiny">${esc(s.checked)}</td>
       <td class="tiny">${s.supports.map((x) => `• ${esc(x)}`).join('<br>')}</td>
@@ -685,6 +685,7 @@ ${pageHead({
 
     <h2>What an event does not contain</h2>
     <p>No IP address is stored by the recorder. No cookie is created. No device fingerprint is computed. No cross-site identifier is attached. No email address is transmitted — the capture form explicitly does not send one, because no list provider exists yet. Each event carries a random value generated in memory for the current page load, which exists only so a server can discard a duplicate; it is not written to storage and it dies with the tab.</p>
+    <p><b>The host is not part of this recorder.</b> The site is hosted on GitHub Pages. GitHub’s documentation states that a visitor’s IP address is logged and stored for security purposes whenever a Pages site is visited, whether or not the visitor has signed in to GitHub. That log is kept by the host, not by this site’s recorder. <a href="/flagged/#FLG-018">FLG-018</a></p>
 
     <h2>Your two controls</h2>
     <p><b>Turn measurement off.</b> <a href="#" id="cw-optout-inline">Click here</a> or use “Turn off measurement” in the footer. The recorder checks the flag before it does anything and stops. Your browser keeps only the flag.</p>
@@ -870,7 +871,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Suggestions' }],
   kicker: 'Review queue',
   title: 'Suggestions, and what has to be true before each one',
-  lede: 'Ten proposals, the nine questions blocking them, and the five things only the account owner can do. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it. <b>This page is the decision board</b> — one row per proposal, with its cost, reversibility and failure mode. The <a href="/decisions/">Decision Room</a> holds the underlying <code>SUG</code> case files, the named options A/B/C behind each one, and the fifteen questions split into known, missing and how-to-find.',
+  lede: `${DECISION_QUEUE.length} proposals, ${BLOCKING_QUESTIONS.length} blocking questions, and the five actions only the account owner can take. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it. <b>This page is the decision board:</b> one row per proposal with its cost, reversibility and failure mode. The <a href="/decisions/">Decision Room</a> holds the underlying <code>SUG</code> case files, the named options A/B/C behind each one, and the questions split into known, missing and how-to-find.`,
   meta: `<div class="btn-row">
     ${badge(openItems.length + ' awaiting a decision', 'amber')}
     ${badge(doneItems.length + ' built in this cycle', 'green')}
@@ -888,7 +889,7 @@ ${pageHead({
       </div>
     </div>
     ${table({
-      caption: '<b>Ten proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.',
+      caption: `<b>${DECISION_QUEUE.length} proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.`,
       head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Risk', 'Blocked by', 'Status', ''],
       rows: [...openItems, ...doneItems].map(boardRow),
     })}
@@ -900,7 +901,7 @@ ${pageHead({
     <div class="sec-head">
       <div>
         <p class="eyebrow">Part two</p>
-        <h2>Nine questions that must be answered first</h2>
+        <h2>${BLOCKING_QUESTIONS.length} questions that must be answered first</h2>
         <p>Each is split into what is known — with where it is known from — what is missing, and the cheapest way to find the missing part. If a question cannot be answered from an official source, it says so instead of guessing.</p>
       </div>
     </div>
