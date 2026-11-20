@@ -2,7 +2,7 @@
 // footer and from a single "More" group in the nav, never from the hero.
 // The front page sells; these pages account for themselves.
 
-import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES } from './data.mjs';
+import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, TOPICS, GUIDES } from './data.mjs';
 import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink } from './core.mjs';
 
 // ------------------------------------------------------------- decision room
@@ -23,6 +23,19 @@ export function decisionsPage() {
     <dt>Effort</dt><dd>${esc(s.effort)}</dd>
     <dt>Payoff</dt><dd>${esc(s.payoff)}</dd>
     <dt>Risk</dt><dd>${esc(s.risk)}</dd>
+  </dl>
+</article>`;
+
+  const topicCard = (t) => `
+<article class="dec" id="${esc(t.id)}">
+  <div class="dh">
+    <span class="pri plain">Topic</span>
+    <h3>${esc(t.question)}</h3>
+    ${badge(t.status, 'plain')}
+  </div>
+  <dl>
+    <dt>What it would answer</dt><dd>${esc(t.why)}</dd>
+    <dt>Ties to</dt><dd>${esc(t.tie)}</dd>
   </dl>
 </article>`;
 
@@ -64,11 +77,28 @@ ${pageHead({
   </div>
 </section>
 
-<section class="section tint" id="questions">
+<section class="section tint" id="topics">
   <div class="wrap">
     <div class="sec-head">
       <div>
         <p class="eyebrow">Part two</p>
+        <h2>Candidate topics, written as questions a buyer would type</h2>
+        <p>These are the next guides this desk could write, each phrased as the question a reader is actually searching. They are <b>hypotheses for review, not a plan</b> — no keyword tool was consulted, so none of them is claimed to be popular, high-volume or likely to rank. Choose from these, or replace them, once measured queries exist (SUG-03).</p>
+      </div>
+    </div>
+    ${TOPICS.map(topicCard).join('\n')}
+    <div class="callout mt-3">
+      <h4>Why the phrasing matters</h4>
+      <p>Each title is a question, not a product name or a superlative. Question-shaped pages answer an intent a search engine can recognise, and they do not promise a result this desk has not measured. A title that claims popularity or superiority would be an unsourced claim, which is the one thing this site refuses to publish.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="questions">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part three</p>
         <h2>The questions that must be answered before a decision</h2>
         <p>Each row separates what is <b>known</b> from what is <b>unknown</b>, and names the cheapest way to find out. Rows marked Answered are decisions already made and implemented.</p>
       </div>
@@ -94,7 +124,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Part three</p>
+        <p class="eyebrow">Part four</p>
         <h2>What was considered and rejected</h2>
         <p>Recorded so the next session does not re-litigate it.</p>
       </div>
@@ -600,7 +630,7 @@ ${pageHead({
 
     <h2>What you can review, in order</h2>
     <ol>
-      <li><a href="/decisions/">Decision Room</a> — ${SUGGESTIONS.length} suggestions ordered by priority, ${QUESTIONS.length} questions split into known and unknown, and the options rejected with sources.</li>
+      <li><a href="/decisions/">Decision Room</a> — ${SUGGESTIONS.length} suggestions ordered by priority, ${TOPICS.length} candidate topics written as buyer questions, ${QUESTIONS.length} questions split into known and unknown, and the options rejected with sources.</li>
       <li><a href="/flagged/">Flagged for Review</a> — ${FLAGS.length} items that could not be confirmed, each with evidence and the shortest route to closing it.</li>
       <li><a href="/data-room/">Data Room</a> — the product-intent record, the source register, the five events, and the empty ledger with its schema.</li>
     </ol>

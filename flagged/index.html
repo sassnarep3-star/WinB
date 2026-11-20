@@ -59,7 +59,7 @@
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
     <span class="badge red">3 high</span>
-    <span class="badge amber">7 medium</span>
+    <span class="badge amber">8 medium</span>
     <span class="badge plain">1 low</span>
   </div>
   </div>
@@ -299,6 +299,27 @@
     
     <div><dt>What the owner needs to do</dt><dd>Owner decides which version is canonical. This session’s version is the one merged to main; the other branches are left untouched and unmerged.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-012" >
+  <summary>
+    <span class="id">FLG-012</span>
+    <span class="ft">
+      <h3>Two brand generations remain indexable under one host</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Needs review</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">The canonical shop is the Counterwise generation, but three Crisp Kitchen pages are still marked index,follow and are therefore eligible to compete for the same queries: /register/, /decisions/questions.html and /decisions/growth-plan.html. They carry a different brand, a different navigation and different content, and two of them duplicate the concept of the Counterwise Decision Room under a second name. FLG-011 retired the superseded trees to noindex, but these three were deliberately kept canonical as a “parallel, independently gated audit trail” (see the comment in tools/verify.mjs). Two indexable brands on one host is a doorway-abuse pattern, and it splits the authority that a single publication would concentrate.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>decisions/questions.html — &lt;meta name=&quot;robots&quot; content=&quot;index,follow,max-image-preview:large&quot;&gt;, title “Open questions blocking decisions | The Crisp Kitchen”.</li><li>decisions/growth-plan.html — &lt;meta name=&quot;robots&quot; content=&quot;index,follow,max-image-preview:large&quot;&gt;, title “Growth plan — cadence, success criteria, findability | The Crisp Kitchen”.</li><li>register/index.html — &lt;meta name=&quot;robots&quot; content=&quot;index,follow,max-image-preview:large&quot;&gt;, title “The register — sources, link audit and flags | The Crisp Kitchen”.</li><li>None of the three is listed in sitemap.xml; tools/verify.mjs exempts them via NOT_IN_SITEMAP.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Owner decides. The clean option is to mark the two Crisp Kitchen Decision Room pages (decisions/questions.html, decisions/growth-plan.html) noindex,nofollow so exactly one brand is indexable, and to keep or retire /register/ as a deliberate parallel audit surface. The files are preserved either way; noindex is not deletion.</dd></div>
+    <div><dt>Blocks</dt><dd>Clean indexing of the canonical site until search engines recrawl.</dd></div>
   </div>
 </details>
     <div class="callout mt-3">

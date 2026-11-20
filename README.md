@@ -72,7 +72,7 @@ fails if the committed HTML drifts from `_build/`.
 
 - `COORDINATION.md` — the shared task board and the verification log
 - `/flagged/` — the nine items that could not be confirmed, with what would close each
-- `/decisions/` — suggestions ranked by priority, open questions, rejected options
+- `/decisions/` — suggestions ranked by priority, candidate topics written as buyer questions, open questions, rejected options
 
 ## Two things that need the owner
 

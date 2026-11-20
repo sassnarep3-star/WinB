@@ -43,7 +43,7 @@ ${ids.map((id) => {
       <h3>${esc(p.shortName)}</h3>
       <p>${esc(p.bestFor)}</p>
       <div class="foot">
-        <span>${esc(p.compare.capacityQt ? p.compare.capacityQt + ' qt stated' : p.compare.probes + ' probes')}</span>
+        <span>${esc(p.compare.capacityQt ? p.compare.capacityQt + ' qt stated' : p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes'))}</span>
         <span class="read">Read the pick <span class="arw">→</span></span>
       </div>
     </div>
@@ -448,7 +448,7 @@ export function comparePage() {
       <td><a href="/reviews/${p.slug}.html"><b>${esc(p.shortName)}</b></a><br><span class="faint tiny">${esc(p.brand)}</span></td>
       <td>${esc(p.category === 'air-fryers' ? 'Air fryer' : 'Thermometer')}</td>
       <td>${esc(p.compare.style || (p.compare.wireless ? 'Wireless probe' : 'Instant-read'))}</td>
-      <td class="num">${p.compare.capacityQt ? p.compare.capacityQt + ' qt' : p.compare.probes + ' probes'}</td>
+      <td class="num">${p.compare.capacityQt ? p.compare.capacityQt + ' qt' : p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes')}</td>
       <td>${esc(p.bestFor.split('.')[0])}</td>
       <td>${blank('not stated')}</td>
       <td>${blank('not shown')}</td>

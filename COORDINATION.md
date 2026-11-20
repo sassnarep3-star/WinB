@@ -21,6 +21,7 @@ push the claim immediately. Never start a task another session has claimed.
 | 2026-11-20 | `arena-afa610ec` | Scopes S01–S08 completed, verified, and marked `done` (§2, §4). Build 29 files, 25 pages, 23 sitemap routes; R1–R9 pass; 0 broken links; 0 broken URLs over HTTP at `/WinB/`. |
 | 2026-11-20 | `arena-afa610ec` | **Re-merge after main advanced 55 commits.** `origin/main` now carried six separate site generations (root ×2 under two brands, `/docs/`, `/legacy-docs-site/`, `/alt-site/build/`, plus `products/`, `verification/`, `compliance/`, `platform/`) and three build systems. Resolved 17 add/add conflicts in favour of the canonical root build; preserved every file from the other sessions. Added `tools/consolidate.mjs` to mark 56 superseded pages `noindex,nofollow` with a visible archive banner, and promoted the five `/go/` exit pages to `index,follow` after finding them hidden while forwarding to affiliate links (FLG-010). Re-ran the full gate: 30 canonical pages, 14 preserved, 35 Amazon links, 273 internal links, 49 files crawled, 0 broken links, 24 pages + 42 assets HTTP 200 at `/WinB/`. |
 | 2026-11-20 | `arena-afa610ec` | Integration: branch pushed, PR opened, merged to `main`, Pages deploy confirmed (§5). |
+| 2026-11-20 | `arena/c6a17bb2-winb` (this session) | Opened on `main` tip (`0fa749d`); the merged Counterwise + Crisp Kitchen site is already the baseline. Acted as the final-integration session: independently re-verified all five product listings and every cited compliance source against the live official pages, fixed two content defects, added a candidate-topics hypotheses section to the Decision Room, and flagged the dual-brand indexability irregularity (FLG-012). Details in §8. |
 
 **Note on parallel sessions.** The protocol above assumes several concurrent sessions. At the
 time of writing there were none: the branch note, `git branch -a`, and `gh pr list` all showed a
@@ -61,6 +62,7 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S07 | Decision surfaces: Decision Room (suggestions + open questions), Flagged for Review page, Data Room register tables | `arena-afa610ec` | `_build/content-pages.mjs`, `_build/data.mjs` | done |
 | S08 | Final integration: build, link check, merge to `main`, confirm Pages deploy, record PR + result here | `arena-afa610ec` | repo root, `.github/` | done |
 | S09 | **Handoff to this session as integration session.** `main` had advanced 55 commits past this branch, carrying six competing site generations. Rebased, resolved 17 add/add conflicts in favour of the canonical root build, retired the superseded trees with noindex + banner, fixed five `/go/` pages that were `noindex,nofollow` while forwarding to affiliate links (FLG-010), and recorded the six-generation collision (FLG-011). | `arena-afa610ec` | `tools/consolidate.mjs`, `tools/verify.mjs`, `tools/linkcheck.mjs`, `_build/build.mjs`, `_build/data.mjs` | done |
+| S10 | **Final integration + independent verification (this session).** Re-fetched all five Amazon listings and every cited compliance source and matched them line by line. Fixed two content defects (missing-space typo “aFrench-door”; grammar “1 probes” → “1 probe”). Added a candidate-topics hypotheses section to the Decision Room (`TOPICS` in `_build/data.mjs`, rendered in `_build/content-oversight.mjs`). Flagged the dual-brand indexability irregularity (FLG-012). Verified build, R1–R10, link check and deploy. | `arena/c6a17bb2-winb` | `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `README.md`, `COORDINATION.md` | done |
 
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
@@ -256,3 +258,89 @@ unresolved.
 No product was handled. No traffic, click, order, conversion or revenue figure exists or is
 published. No price or star rating is shown. Whether `link.amazon` short links are an approved
 Special Link format is unresolved in both directions and stated as such (FLG-003).
+
+---
+
+## 8. Final integration and independent verification (session `arena/c6a17bb2-winb`)
+
+This session opened on the tip of `main` (`0fa749d`), where the merged Counterwise + Crisp
+Kitchen site is already the baseline. It therefore acted as the **final-integration session**:
+re-read the combined data line by line, re-fetched every fact from the live official source,
+fixed two real defects, added one reader-facing surface, flagged one irregularity, and confirmed
+the build, the content gate and the deploy.
+
+### 8.1 Product listings — re-verified against the live Amazon pages (2026-11-20)
+
+Each ASIN below was fetched directly from `amazon.com/dp/<ASIN>` and the served `<title>` and
+breadcrumb were read. **All five match the register exactly.** No price or rating was captured
+or published.
+
+| # | ASIN (observed) | Served listing title (as read) | Breadcrumb (as read) | Match |
+| --- | --- | --- | --- | --- |
+| 1 | `B0CDY277D3` | CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black | Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers | ✅ exact |
+| 2 | `B09B7SB46R` | Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven \| Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included | Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers | ✅ exact |
+| 3 | `B08DKYBTPH` | Chefman Air Fryer 8 Qt \| TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results \| Bake, Dehydrate, Frozen \| XL Nonstick Dishwasher-Safe Basket \| Stainless Steel | Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers | ✅ exact |
+| 4 | `B0DHZTCNR5` | ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy \| NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black | Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat | ✅ exact |
+| 5 | `B0DZFD6R9Z` | CHEF iQ Sense \| Smart Wireless Meat Thermometer \| 3 Ultra-Thin Probes \| WiFi Unlimited Range \| 1000°F Heat Safe \| 5 Sensors \| BBQ, Grill, Oven, Smoker, Air Fryer \| Gen3 | Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat | ✅ exact |
+
+Independent confirmation of the CHEF iQ probe count: the served title for `B0DZFD6R9Z` states
+**3** ultra-thin probes (a “2 probes” variant exists as a separate ASIN, `B0FXBQ3KX1`, and is not
+the supplied link). The register uses the correct 3 for `B0DZFD6R9Z`.
+
+### 8.2 Compliance sources — re-verified against the live official pages (2026-11-20)
+
+| Ref | Official source | Date read | What it confirms | Status |
+| --- | --- | --- | --- | --- |
+| A1 | https://affiliate-program.amazon.com/help/operating/agreement | Updated October 15, 2025 | §1 defines Special Links as the tagged formats; §5 is the disclosure. Matches the register. | ✅ live, date matches |
+| A2 | https://affiliate-program.amazon.com/help/operating/policies | Updated April 14, 2026 | Participation Requirements §2(b) (tag on every link; price/rating only from Amazon-served or API data); §3(e) (cookie/tech disclosure); IP License. Matches the register. | ✅ live, date matches |
+| F1 | https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers | November 2019 | Disclose material connection, place it where it is hard to miss, use plain language, and do not describe experience with an untried product. Matches the register. | ✅ live, date matches |
+| F2 | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5 | current as of 2026-11-18 | 16 CFR 255.5 — disclosure of material connections. Matches the register. | ✅ live, date matches |
+| G1 | https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links | Last updated 2025-12-10 UTC | `rel="sponsored"` for ads/paid placements; multiple values space- or comma-separated. Matches R2. | ✅ live, date matches |
+| G2 | https://developers.google.com/search/docs/essentials/spam-policies | live | Scaled content abuse, sneaky redirects, thin affiliation, site reputation policy. Matches the cited rules. | ✅ live |
+| U1 | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart | Last Updated Apr 14, 2025 | Safe minimum internal temperatures with rest times. The guide's figures match exactly (145°F + 3-min rest; ground meats 160°F; poultry 165°F; fish 145°F; eggs 160°F; leftovers/casseroles 165°F; reheated ham 140°F/165°F). | ✅ live, figures match |
+
+Every source the site cites was opened and confirmed to exist and to carry the date the
+register claims. No citation was found to be fabricated or dead.
+
+### 8.3 Defects fixed in this session
+
+| # | Defect | Where | Fix |
+| --- | --- | --- | --- |
+| 1 | Missing space: “aFrench-door oven” (reads as “aFrench”) | `_build/data.mjs` P02 `bestFor` | → “a French-door oven”. Propagated to the front page, category hub, comparison table, reviews hub and product pages. |
+| 2 | Grammar: “1 probes” for the single-probe ThermoMaven | `_build/content-shop.mjs` pick-card and comparison renders | Pluralised conditionally: “1 probe” / “n probes”. Propagated to front page, compare table, reviews hub, category hubs and the related-product cards. |
+
+Both were reader-visible copy errors on the live site, not build-tooling errors. Both are now
+fixed at the source and verified absent after rebuild.
+
+### 8.4 New surface added: candidate topics in the Decision Room
+
+The brief asked for suggestions of catchy, question-shaped topics to drive organic traffic, in
+a place a reviewer can act on. A new **“Candidate topics, written as questions a buyer would
+type”** section now sits in the Decision Room (`/decisions/#topics`), backed by a `TOPICS` array
+in `_build/data.mjs`. Six unwritten topic hypotheses are listed, each tied to the product set and
+each explicitly labelled a **hypothesis, not a claim** — no keyword tool was consulted and no
+popularity, volume or ranking figure is stated anywhere. The section states why question-shaped
+titles are used and refuses to promise a result the desk has not measured. The executive summary
+now counts the candidate topics alongside the suggestions and questions.
+
+### 8.5 Irregularities flagged
+
+| ID | Irregulararity | Where | Status |
+| --- | --- | --- | --- |
+| FLG-012 | Two brand generations are both indexable under one host. `/register/`, `/decisions/questions.html` and `/decisions/growth-plan.html` are Crisp Kitchen pages marked `index,follow`; they are not in the sitemap (exempt in `tools/verify.mjs`) and duplicate the Counterwise Decision Room concept under a second brand. Two indexable brands on one host is a doorway-abuse pattern. | `/flagged/` (FLG-012), `COORDINATION.md` §8.5 | Needs review — does not block the merge. Owner decides whether to noindex the two Crisp Kitchen decision pages so exactly one brand is indexable. |
+
+No other irregularity was found during line-by-line review of the canonical pages. The bare
+Amazon URLs without a `tag=` parameter that the link scanner lists appear **only** on `noindex`
+documentation/verification pages (the observed-redirect record); every indexable shop page
+carries the tagged, `rel="sponsored"` link.
+
+### 8.6 Gate results (this session)
+
+| Check | Result |
+| --- | --- |
+| `npm run build` | pass — 28 files, 29 sitemap routes, 7 feed items, 5 illustrations + 3 images |
+| `npm run verify` | pass — R1–R10 hold; 27 canonical pages, 18 superseded-preserved, 35 Amazon links, 252 internal links |
+| `npm run links` | pass — 50 files crawled, 0 broken links, sitemap + feed XML valid |
+| Typos/grammar scan | clean after §8.3 fixes |
+| Deploy | see §7 (baseline) — re-confirmed below |
+

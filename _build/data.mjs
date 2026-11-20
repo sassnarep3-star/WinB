@@ -262,7 +262,7 @@ export const PRODUCTS = [
       'The accessory list behind “six cooking accessories” is not itemised in the data available to this desk.',
     ],
     bestFor:
-      'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for aFrench-door oven rather than a tall basket unit.',
+      'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for a French-door oven rather than a tall basket unit.',
     thinkTwiceIf:
       'Your counter is shallow, or you want something you can lift out and wash in a standard sink. An oven this size is a fixture, not a gadget.',
     compare: { format: 'oven', capacityQt: 26, baskets: 0, window: true, style: 'French-door oven' },
@@ -615,6 +615,24 @@ export const FLAGS = [
       'Owner decides which version is canonical. This session’s version is the one merged to main; the other branches are left untouched and unmerged.',
     blocks: 'Nothing.',
   },
+  {
+    id: 'FLG-012',
+    severity: 'Medium',
+    status: 'Needs review',
+    title: 'Two brand generations remain indexable under one host',
+    detail:
+      'The canonical shop is the Counterwise generation, but three Crisp Kitchen pages are still marked index,follow and are therefore eligible to compete for the same queries: /register/, /decisions/questions.html and /decisions/growth-plan.html. They carry a different brand, a different navigation and different content, and two of them duplicate the concept of the Counterwise Decision Room under a second name. FLG-011 retired the superseded trees to noindex, but these three were deliberately kept canonical as a “parallel, independently gated audit trail” (see the comment in tools/verify.mjs). Two indexable brands on one host is a doorway-abuse pattern, and it splits the authority that a single publication would concentrate.',
+    evidence: [
+      'decisions/questions.html — <meta name="robots" content="index,follow,max-image-preview:large">, title “Open questions blocking decisions | The Crisp Kitchen”.',
+      'decisions/growth-plan.html — <meta name="robots" content="index,follow,max-image-preview:large">, title “Growth plan — cadence, success criteria, findability | The Crisp Kitchen”.',
+      'register/index.html — <meta name="robots" content="index,follow,max-image-preview:large">, title “The register — sources, link audit and flags | The Crisp Kitchen”.',
+      'None of the three is listed in sitemap.xml; tools/verify.mjs exempts them via NOT_IN_SITEMAP.',
+    ],
+    sources: ['G2'],
+    action:
+      'Owner decides. The clean option is to mark the two Crisp Kitchen Decision Room pages (decisions/questions.html, decisions/growth-plan.html) noindex,nofollow so exactly one brand is indexable, and to keep or retire /register/ as a deliberate parallel audit surface. The files are preserved either way; noindex is not deletion.',
+    blocks: 'Clean indexing of the canonical site until search engines recrawl.',
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -827,6 +845,70 @@ export const SUGGESTIONS = [
     payoff: 'Protects the whole site',
     risk: 'Feels slow. It is slow.',
     status: 'Standing recommendation',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Candidate editorial topics. Every entry is a WORKING HYPOTHESIS for the next
+// guide, not a claim about popularity, search volume, difficulty or product
+// superiority. No keyword tool was consulted and no demand figure is stated
+// anywhere. A topic is chosen from measured queries (SUG-03) before it is
+// written; until then these are candidates for review, not a plan.
+// ---------------------------------------------------------------------------
+export const TOPICS = [
+  {
+    id: 'TOPIC-01',
+    question:
+      'Do you actually need a meat thermometer if you own an air fryer?',
+    tie: 'Thermometers × air fryers',
+    why:
+      'It connects the two categories this shop sells. A reader who buys an air fryer is one step from needing a thermometer, and the honest answer is that it depends on what they cook — which is a decision, not a product pitch.',
+    status: 'Unwritten hypothesis',
+  },
+  {
+    id: 'TOPIC-02',
+    question:
+      'How long does an air fryer really take to preheat — and does it matter?',
+    tie: 'Air fryers',
+    why:
+      'Preheat time is not among the specifications the three listings state. A buyer discovers it only after the first cook, so a guide that explains what to look for — without inventing a figure — is useful whether the answer turns out fast or slow.',
+    status: 'Unwritten hypothesis',
+  },
+  {
+    id: 'TOPIC-03',
+    question:
+      'What “dishwasher-safe” actually means for an air fryer basket',
+    tie: 'Air fryers · cleanup',
+    why:
+      'The phrase appears in the air-fryer listing titles. Readers assume it means “throw it in and forget it”; the reality is narrower, and getting care wrong is how a nonstick basket loses its coating.',
+    status: 'Unwritten hypothesis',
+  },
+  {
+    id: 'TOPIC-04',
+    question:
+      'Can a French-door air fryer oven replace your toaster oven?',
+    tie: 'Emeril Lagasse 26 qt',
+    why:
+      'It is the largest item in the set and the one that promises to consolidate appliances. A replacement question is answered by footprint and by what the owner already owns, not by a quart count.',
+    status: 'Unwritten hypothesis',
+  },
+  {
+    id: 'TOPIC-05',
+    question:
+      'Air-fryer oil: how much do you need, and can you skip it?',
+    tie: 'Air fryers',
+    why:
+      'How much oil to use — and whether any is needed — is the practical worry behind most air-fryer questions. The useful answer is method and judgement; this desk will not state a result it has not measured.',
+    status: 'Unwritten hypothesis',
+  },
+  {
+    id: 'TOPIC-06',
+    question:
+      'Wireless probe or instant-read: which thermometer for a weeknight?',
+    tie: 'Thermometers',
+    why:
+      'The two thermometers solve different problems. A guide that maps a reader’s cooking habit to the right tool is the shape of content that earns a click rather than a quart comparison.',
+    status: 'Unwritten hypothesis',
   },
 ];
 
