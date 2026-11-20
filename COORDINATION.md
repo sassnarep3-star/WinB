@@ -310,7 +310,24 @@ stale and required repeated merges. In each pass:
 
 **Final state:** the canonical live site is byte-identical to `main` (this
 session's net contribution is `.gitignore` and this `COORDINATION.md`
-appendix only). PR #18 was merged into `main`; GitHub Pages deploy confirmed.
+appendix only).
+
+**Pull request & merge result (recorded per protocol):**
+
+- PR: **#18** — https://github.com/sassnarep3-star/WinB/pull/18
+  ("Build COUNTER: polished Amazon Associates affiliate site with verified
+  product register")
+- Merge method: `gh pr merge 18 --merge`
+- Merge commit: `cfebae881ffe0cae741b1aceff7e2bd6d48c8bc7`
+- Merged: 2026-11-20T06:00:21Z by `sassnarep3-star`
+- Merge result: **MERGED** — merged cleanly after the parallel-session
+  conflicts above were resolved (no other session's work discarded).
+- GitHub Pages deploy: **confirmed** — `gh api repos/.../pages` returned
+  `status: built`; live site at https://sassnarep3-star.github.io/WinB/
+  (source: `main`, path `/`, legacy build, public).
+- Flagged irregularities and unverified items did **not** block the merge;
+  they are published on the site's Flagged for Review page with source links
+  for manual review after the site is live.
 
 ### This session's official sources (for manual review)
 
