@@ -46,6 +46,8 @@ const MORE = [
   { href: '/reviews/', label: 'All five picks' },
   { href: '/compare/', label: 'Comparison table' },
   { group: 'How this works' },
+  { href: '/suggestions/', label: 'Suggestion Board' },
+  { href: '/questions/', label: 'Open questions' },
   { href: '/decisions/', label: 'Decision Room' },
   { href: '/data-room/', label: 'Data Room' },
   { href: '/flagged/', label: 'Flagged for Review' },
@@ -129,6 +131,8 @@ export function footer() {
       <div>
         <h4>Oversight</h4>
         <ul>
+          <li><a href="/suggestions/">Suggestion Board</a></li>
+          <li><a href="/questions/">Open questions</a></li>
           <li><a href="/decisions/">Decision Room</a></li>
           <li><a href="/data-room/">Data Room</a></li>
           <li><a href="/flagged/">Flagged for Review</a></li>

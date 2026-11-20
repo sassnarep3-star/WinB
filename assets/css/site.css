@@ -579,6 +579,15 @@ td code, p code, li code {
 }
 .cw-toast.show { transform: translate(-50%, 0); }
 
+/* -------------------------------------------------- suggestion board bits */
+.opt-rec > th, .opt-rec > td { background: rgba(30, 64, 52, 0.06); }
+.opt-rec > th { box-shadow: inset 3px 0 0 var(--accent, #1e4034); }
+.badge.tiny { font-size: .62rem; padding: .12rem .42rem; vertical-align: middle; }
+.gate h4 { margin-bottom: .35rem; }
+.gate p { margin: .3rem 0; }
+.dec .table-wrap { margin: .9rem 0; box-shadow: none; border: 1px solid var(--line); border-radius: 10px; }
+.dec .table-wrap table caption { text-align: left; }
+
 /* -------------------------------------------------------------- print */
 @media print {
   .masthead, .nav, .capture, .site-foot, .buy-box .btn, .cw-toast { display: none !important; }

@@ -599,7 +599,7 @@ ${pageHead({
     ${guideCards(GUIDES, 'cards c2')}
     <div class="callout mt-3">
       <h4>How the cadence works</h4>
-      <p>One substantial guide every two weeks, added to the <a href="/sitemap.xml">sitemap</a> and the <a href="/feed.xml">feed</a> automatically by the build. Bursts of near-identical pages are treated by Google as scaled content abuse; a slow, original cadence is both safer and more persuasive. <a href="/decisions/#SUG-06">The decision behind this</a>.</p>
+      <p>One substantial guide every two weeks, added to the <a href="/sitemap.xml">sitemap</a> and the <a href="/feed.xml">feed</a> automatically by the build. Bursts of near-identical pages are treated by Google as scaled content abuse; a slow, original cadence is both safer and more persuasive. <a href="/suggestions/#SUG-06">The proposal behind this</a> is open for decision on the Suggestion Board.</p>
     </div>
   </div>
 </section>`;

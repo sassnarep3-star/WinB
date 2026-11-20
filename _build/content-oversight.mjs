@@ -10,31 +10,6 @@ export function decisionsPage() {
   const open = SUGGESTIONS.filter((s) => s.status !== 'Implemented');
   const done = SUGGESTIONS.filter((s) => s.status === 'Implemented');
 
-  const card = (s) => `
-<article class="dec" id="${esc(s.id)}">
-  <div class="dh">
-    <span class="pri">P${s.priority}</span>
-    <h3>${esc(s.title)}</h3>
-    ${badge(s.status, s.status === 'Implemented' ? 'green' : s.status.startsWith('Blocked') || s.status.includes('access') ? 'amber' : 'plain')}
-  </div>
-  <div class="rec"><b>Recommendation</b>${esc(s.recommendation)}</div>
-  <dl>
-    <dt>Why it matters</dt><dd>${esc(s.why)}</dd>
-    <dt>Effort</dt><dd>${esc(s.effort)}</dd>
-    <dt>Payoff</dt><dd>${esc(s.payoff)}</dd>
-    <dt>Risk</dt><dd>${esc(s.risk)}</dd>
-  </dl>
-</article>`;
-
-  const qRow = (q) => `<tr>
-    <td class="mono tiny">${esc(q.id)}</td>
-    <td>${badge(q.status, q.status === 'Answered' ? 'green' : q.status === 'Blocked' ? 'red' : 'amber')}</td>
-    <td><b>${esc(q.question)}</b><br><span class="tiny muted">${esc(q.why)}</span></td>
-    <td class="tiny">${esc(q.known)}</td>
-    <td class="tiny">${esc(q.unknown)}</td>
-    <td class="tiny">${esc(q.howToFind)}</td>
-  </tr>`;
-
   const body = `
 ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Decision Room' }],
@@ -45,6 +20,8 @@ ${pageHead({
     ${badge(open.length + ' open suggestions', 'amber')}
     ${badge(done.length + ' already built', 'green')}
     ${badge(QUESTIONS.filter((q) => q.status !== 'Answered').length + ' open questions', 'plain')}
+    <a class="btn small" href="/suggestions/">Open the Suggestion Board <span class="arw">→</span></a>
+    <a class="btn small ghost" href="/questions/">Open the question register <span class="arw">→</span></a>
   </div>`,
 })}
 
@@ -53,14 +30,29 @@ ${pageHead({
     <div class="sec-head">
       <div>
         <p class="eyebrow">Part one</p>
-        <h2>Suggestions, in the order they should be reviewed</h2>
-        <p>Priority 1 means “do this before writing another word”. Every item states its risk, because a recommendation without a failure mode is marketing.</p>
+        <h2>Suggestions — review and choose on the Suggestion Board</h2>
+        <p>Every suggestion is now a proposal with named options and a decision gate: compare the paths, choose one, and only then does implementation begin. Priority 1 means “review this before writing another word”. The full option tables live on the <a href="/suggestions/">Suggestion Board</a>; this table is the index.</p>
       </div>
     </div>
-    ${open.map(card).join('\n')}
-
-    <h3 class="mt-4" style="font-size:1.15rem">Already built in this version</h3>
-    ${done.map(card).join('\n')}
+    <div class="table-wrap">
+      <table>
+        <caption><b>${SUGGESTIONS.length} proposals.</b> ${open.length} awaiting a decision, ${done.length} decided and recorded.</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Priority</th><th scope="col">Proposal</th>
+          <th scope="col">Recommended path</th><th scope="col">Decision state</th><th scope="col">Board</th>
+        </tr></thead>
+        <tbody>${SUGGESTIONS.map(
+          (s) => `<tr>
+          <td class="mono tiny">${esc(s.id)}</td>
+          <td class="tiny">P${s.priority}</td>
+          <td><b>${esc(s.title)}</b><br><span class="tiny muted">${esc(s.effort)} · payoff: ${esc(s.payoff)}</span></td>
+          <td class="tiny">${esc(s.recommendedOption)} — ${esc((s.options.find((o) => o.letter === s.recommendedOption) || {}).title || '')}</td>
+          <td>${badge(s.decisionState, s.decisionState.startsWith('Decided') ? 'green' : 'amber')}</td>
+          <td class="tiny"><a href="/suggestions/#${esc(s.id)}">Compare options →</a></td>
+        </tr>`
+        ).join('\n')}</tbody>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -69,8 +61,8 @@ ${pageHead({
     <div class="sec-head">
       <div>
         <p class="eyebrow">Part two</p>
-        <h2>The questions that must be answered before a decision</h2>
-        <p>Each row separates what is <b>known</b> from what is <b>unknown</b>, and names the cheapest way to find out. Rows marked Answered are decisions already made and implemented.</p>
+        <h2>Open questions — the full register is one click away</h2>
+        <p>Each question separates what is <b>known</b> from what is <b>missing</b>, and names the cheapest way to find out. The complete register, with answered items and their source links and a discovery plan for the rest, is on <a href="/questions/">the question register</a>.</p>
       </div>
     </div>
     <div class="table-wrap">
@@ -78,14 +70,20 @@ ${pageHead({
         <caption><b>${QUESTIONS.length} questions.</b> ${QUESTIONS.filter((q) => q.status === 'Answered').length} answered, ${QUESTIONS.filter((q) => q.status !== 'Answered').length} still need information.</caption>
         <thead><tr>
           <th scope="col">ID</th><th scope="col">Status</th><th scope="col">Question</th>
-          <th scope="col">What is known</th><th scope="col">What is missing</th><th scope="col">How to find out</th>
+          <th scope="col">What is missing</th><th scope="col">Register</th>
         </tr></thead>
-        <tbody>${QUESTIONS.map(qRow).join('\n')}</tbody>
+        <tbody>${QUESTIONS.map((q) => `<tr>
+          <td class="mono tiny">${esc(q.id)}</td>
+          <td>${badge(q.status, q.status === 'Answered' ? 'green' : q.status === 'Blocked' ? 'red' : 'amber')}</td>
+          <td><b>${esc(q.question)}</b></td>
+          <td class="tiny">${esc(q.unknown)}</td>
+          <td class="tiny"><a href="/questions/#${esc(q.id)}">Full row →</a></td>
+        </tr>`).join('\n')}</tbody>
       </table>
     </div>
     <div class="callout mt-3">
       <h4>The pattern in the open questions</h4>
-      <p>Six of the seven open items need something only the owner has: dashboard access, a decision about identity, or money. That is not a research failure — it is the boundary of what a session without account access can settle. Where the answer is a check anyone with the login could do in ten minutes, the question says so and gives the steps.</p>
+      <p>Most open items need something only the owner has: dashboard access, a decision about identity, or money. That is not a research failure — it is the boundary of what a session without account access can settle. Where the answer is a check anyone with the login could do in ten minutes, the question says so and gives the steps.</p>
     </div>
   </div>
 </section>
@@ -122,6 +120,248 @@ ${pageHead({
     title: 'Decision Room — suggestions, questions and rejected options | Counterwise',
     description:
       'Reviewable suggestions ranked by priority, open questions separated into known and unknown, and the options this project rejected with sources.',
+    body,
+  });
+}
+
+// --------------------------------------------------------- suggestion board
+// The dedicated decision section: every suggestion is a proposal with named
+// options, and the rule of the board is that a path is chosen BEFORE anything
+// is implemented. Nothing here ships because it is listed here.
+export function suggestionsBoardPage() {
+  const awaiting = SUGGESTIONS.filter((s) => s.decisionState.startsWith('Awaiting'));
+  const decided = SUGGESTIONS.filter((s) => !s.decisionState.startsWith('Awaiting'));
+
+  const optionRows = (s) =>
+    s.options
+      .map(
+        (o) => `<tr${o.letter === s.recommendedOption ? ' class="opt-rec"' : ''}>
+      <th scope="row" style="font-weight:600;color:var(--ink-2)">${esc(o.letter)}${o.letter === s.recommendedOption ? ' ' + badge('Recommended', 'green') : ''}</th>
+      <td><b>${esc(o.title)}</b><br><span class="tiny muted">${esc(o.what)}</span></td>
+      <td class="tiny">${esc(o.effort)}</td>
+      <td class="tiny">${esc(o.payoff)}</td>
+      <td class="tiny">${esc(o.risk)}</td>
+    </tr>`
+      )
+      .join('\n');
+
+  const proposal = (s) => `
+<article class="dec" id="${esc(s.id)}">
+  <div class="dh">
+    <span class="pri">P${s.priority}</span>
+    <h3>${esc(s.title)}</h3>
+    ${badge(s.decisionState, s.decisionState.startsWith('Decided') ? 'green' : 'amber')}
+  </div>
+  <div class="rec"><b>Why it is on the board</b>${esc(s.why)}</div>
+  <div class="table-wrap">
+    <table>
+      <caption><b>${esc(s.id)} — compare the paths, then choose one.</b> This proposal is not implemented until a choice is recorded.</caption>
+      <thead><tr>
+        <th scope="col">Option</th><th scope="col">What it involves</th>
+        <th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">Risk</th>
+      </tr></thead>
+      <tbody>${optionRows(s)}</tbody>
+    </table>
+  </div>
+  <div class="callout ${s.decisionState.startsWith('Decided') ? 'green' : 'amber'} gate mt-2">
+    <h4>${s.decisionState.startsWith('Decided') ? 'Decision recorded' : 'Decision gate — nothing moves until you choose'}</h4>
+    <p><b>Desk recommendation: ${esc(s.recommendedOption)}.</b> ${esc(s.recommendedWhy)}</p>
+    <p class="small" style="margin:.35rem 0 0"><b>How to record a decision:</b> ${esc(s.decisionHow)}</p>
+  </div>
+</article>`;
+
+  const body = `
+${pageHead({
+  trail: [{ href: '/', label: 'Home' }, { label: 'Suggestion Board' }],
+  kicker: 'Decide before building',
+  title: 'Suggestion Board',
+  lede: 'Every proposed change to this project, with the realistic paths laid side by side. Review the options, choose the best one, and record the choice — implementation starts only after that. Nothing on this page has been built because it appears here.',
+  meta: `<div class="btn-row">
+    ${badge(awaiting.length + ' awaiting a decision', 'amber')}
+    ${badge(decided.length + ' decided and recorded', 'green')}
+  </div>`,
+})}
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout amber">
+      <h4>How this board works</h4>
+      <p><b>One.</b> Read the proposal and why it is on the board. <b>Two.</b> Compare its options on effort, payoff and risk — the recommended path is marked, but it is a recommendation, not a decision. <b>Three.</b> Record a choice with the suggestion ID and option letter (for example, <code>SUG-01: A</code>) in chat or as a repository issue. <b>Four.</b> Only then is the change implemented, and the state on this page is updated in the same build that ships it.</p>
+      <p class="small muted" style="margin:.4rem 0 0">The rule the board exists to enforce: <b>choose the best path before implementing any change.</b> A suggestion without a recorded choice stays a proposal, however loudly it is recommended.</p>
+    </div>
+
+    <div class="table-wrap mt-3">
+      <table>
+        <caption><b>All proposals at a glance.</b> ${awaiting.length} need a decision; ${decided.length} are already decided and recorded below.</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Pri</th><th scope="col">Proposal</th>
+          <th scope="col">Recommended</th><th scope="col">Decision state</th><th scope="col">Jump</th>
+        </tr></thead>
+        <tbody>${SUGGESTIONS.map(
+          (s) => `<tr>
+          <td class="mono tiny">${esc(s.id)}</td>
+          <td class="tiny">P${s.priority}</td>
+          <td><b>${esc(s.title)}</b></td>
+          <td class="tiny">${esc(s.recommendedOption)}</td>
+          <td>${badge(s.decisionState, s.decisionState.startsWith('Decided') ? 'green' : 'amber')}</td>
+          <td class="tiny"><a href="#${esc(s.id)}">Options →</a></td>
+        </tr>`
+        ).join('\n')}</tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">The queue</p>
+        <h2>Proposals awaiting a decision</h2>
+        <p>In review order. Priority 1 means “decide this before the next article is commissioned”.</p>
+      </div>
+    </div>
+    ${awaiting.map(proposal).join('\n')}
+
+    <h3 class="mt-4" style="font-size:1.15rem">Already decided</h3>
+    <p class="small muted" style="margin-top:.2rem">Recorded here so the reasoning survives the decision. Implemented items say so; standing policies stay visible so nobody re-litigates them quietly.</p>
+    ${decided.map(proposal).join('\n')}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout">
+      <h4>What this board deliberately does not do</h4>
+      <p>It does not rank options by revenue potential, because no revenue has been measured (the campaign ledger is empty and says why). It does not score ideas with invented weights, and it does not mark anything implemented to make the list look productive. A proposal here is cheap; a decision is the expensive part, which is why the gate sits before the build and not after it.</p>
+    </div>
+  </div>
+</section>`;
+
+  return page({
+    path: '/suggestions/',
+    title: 'Suggestion Board — choose the path before the build | Counterwise',
+    description:
+      'Every proposed change to this project with named options, effort, payoff and risk. Compare the paths, record a choice, and only then is anything implemented.',
+    body,
+  });
+}
+
+// ------------------------------------------------- open questions register
+// The clear list the brief asks for: what is answered (with official sources),
+// what is missing, and how the missing information would be discovered.
+export function questionsRegisterPage() {
+  const answered = QUESTIONS.filter((q) => q.status === 'Answered');
+  const missing = QUESTIONS.filter((q) => q.status !== 'Answered');
+
+  const answerRow = (q) => `<tr id="${esc(q.id)}">
+    <td class="mono tiny">${esc(q.id)}</td>
+    <td><b>${esc(q.question)}</b></td>
+    <td>${esc(q.known)}</td>
+    <td class="src">${(q.sources || []).map((id) => srcLink(id)).join('<br>') || blank('No source')}</td>
+    <td class="tiny">${esc(q.blocks)}</td>
+  </tr>`;
+
+  const missingRow = (q) => `<tr id="${esc(q.id)}">
+    <td class="mono tiny">${esc(q.id)}</td>
+    <td>${badge(q.status, q.status === 'Blocked' ? 'red' : 'amber')}</td>
+    <td><b>${esc(q.question)}</b><br><span class="tiny muted">${esc(q.why)}</span></td>
+    <td class="tiny">${esc(q.known)}</td>
+    <td class="tiny">${esc(q.unknown)} <span class="badge plain tiny">Unverified — no source exists yet</span></td>
+    <td class="tiny">${esc(q.howToFind)}</td>
+    <td class="tiny">${esc(q.owner)}</td>
+    <td class="tiny">${esc(q.blocks)}</td>
+  </tr>`;
+
+  const body = `
+${pageHead({
+  trail: [{ href: '/', label: 'Home' }, { label: 'Question register' }],
+  kicker: 'Know, unknown, find out',
+  title: 'Open questions &amp; missing information',
+  lede: 'The list a decision should rest on: what this project already knows and can source, what it does not know, and the cheapest suggestion for discovering each missing piece. Answered rows carry their official source. Unanswered rows are labelled unverified rather than filled in.',
+  meta: `<div class="btn-row">
+    ${badge(answered.length + ' answered, with sources', 'green')}
+    ${badge(missing.length + ' open or blocked', 'amber')}
+  </div>`,
+})}
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part one</p>
+        <h2>What is already known — answered, decided and sourced</h2>
+        <p>Each answer is checked against an official document, and the row links that document. These are closed questions; they are kept visible so the reasoning is auditable.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>${answered.length} answered questions.</b> Every row carries a link to the official source it was answered from.</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Question</th><th scope="col">The answer</th>
+          <th scope="col">Official source</th><th scope="col">Note</th>
+        </tr></thead>
+        <tbody>${answered.map(answerRow).join('\n')}</tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part two</p>
+        <h2>What is missing — open and blocked questions</h2>
+        <p>The three middle columns are the point of this table: <b>what is known</b>, <b>what is missing</b>, and <b>how to find out</b>. Missing values are labelled unverified and left unfilled; nothing here is inferred.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>${missing.length} open questions.</b> An unanswered question has no source by definition; each row states the context instead and never invents an answer.</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Status</th><th scope="col">Question</th>
+          <th scope="col">What is known</th><th scope="col">What is missing</th>
+          <th scope="col">How to find out (discovery suggestion)</th>
+          <th scope="col">Who can answer</th><th scope="col">Blocks</th>
+        </tr></thead>
+        <tbody>${missing.map(missingRow).join('\n')}</tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part three</p>
+        <h2>The missing-information discovery plan</h2>
+        <p>Suggestions made specifically to discover the missing information, in the order they should be run. Each one names what it unlocks. None of them requires a purchase.</p>
+      </div>
+    </div>
+    <div class="prose" style="max-width:74ch">
+      <ol>
+        ${missing
+          .map(
+            (q) => `<li style="margin-bottom:.75rem"><b>${esc(q.id)} — ${esc(q.question)}</b><br>${esc(q.howToFind)} <span class="tiny muted">(Owner: ${esc(q.owner)}. Unlocks: ${esc(q.blocks)}.)</span></li>`
+          )
+          .join('\n')}
+      </ol>
+      <div class="callout amber mt-3">
+        <h4>The pattern in the open questions</h4>
+        <p>Most open items need something only the owner has: dashboard access, a decision about identity, or a small budget. That is not a research failure — it is the boundary of what a session without account access can settle. Where the answer is a check anyone with the login could do in ten minutes (Q-01, Q-11, Q-12), the row gives the steps and the time it takes.</p>
+      </div>
+      <p class="small muted" id="missing-note">Context note: rows in the missing table describe absences. There is no official source for information that does not exist yet, so those rows carry no source link and are marked unverified instead. When a question is answered, its row moves to Part one with the source attached — it is never answered from inference.</p>
+    </div>
+  </div>
+</section>`;
+
+  return page({
+    path: '/questions/',
+    title: 'Open questions & missing information — what is known, what is not | Counterwise',
+    description:
+      'The decision register: answered questions with official sources, open questions separated into known and missing, and a discovery plan for every missing piece of information.',
     body,
   });
 }

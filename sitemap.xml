@@ -97,6 +97,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/holiday-format-check.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/smart-probe-questions.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/crowd-capacity-math.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/suggestions/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/questions/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sassnarep3-star.github.io/WinB/decisions/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>weekly</changefreq>
