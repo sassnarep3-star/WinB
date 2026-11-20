@@ -1,0 +1,2 @@
+/* Privacy-minimal local click counter: stores aggregate counts only in this browser. No network request or conversion tracking is active. */
+(function(){document.querySelectorAll('a[data-item]').forEach(function(link){link.addEventListener('click',function(){try{var key='shopnote_outbound_clicks';var counts=JSON.parse(localStorage.getItem(key)||'{}');counts[link.dataset.item]=(counts[link.dataset.item]||0)+1;localStorage.setItem(key,JSON.stringify(counts));}catch(e){/* Storage may be unavailable; navigation still proceeds. */}});});})();
