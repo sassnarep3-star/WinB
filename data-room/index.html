@@ -301,9 +301,65 @@
   </div>
 </section>
 
+<section class="section" id="automation">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register five</p>
+        <h2>Automation pipeline — what is automated, what is gated</h2>
+        <p>The platform automates everything that can be checked by a machine, and puts a human gate in front of everything that cannot. The gate runs on every build and fails the publish on any breach.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Automation vs human gate.</b> Every row states who owns it and what happens on failure.</caption>
+        <thead><tr><th scope="col">Step</th><th scope="col">Automated or gated</th><th scope="col">What it does</th><th scope="col">Source / gate</th></tr></thead>
+        <tbody>
+          <tr><td>Page generation</td><td>Automated</td><td>Writes every page, sitemap and feed from the same data file, so a page cannot ship without being listed.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank" title="Build and submit a sitemap">Google Search Central</a> · <a href="https://www.sitemaps.org/protocol.html" rel="noopener" target="_blank" title="Sitemaps XML format">sitemaps.org</a></td></tr>
+          <tr><td>Compliance gate R1–R10</td><td>Automated, fails build</td><td>Checks disclosure, sponsored marking, no prices or ratings, no hands-on claims, canonicals, internal links, sitemap and feed validity.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank" title="Amazon Associates Program Operating Agreement">Amazon.com Associates Central</a> · <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a> · <a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener" target="_blank" title="Disclosures 101 for Social Media Influencers">U.S. Federal Trade Commission</a> · <a href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank" title="Qualify your outbound links to Google">Google Search Central</a></td></tr>
+          <tr><td>Link check + XML validation</td><td>Automated, fails build</td><td>Crawls every page, validates sitemap and feed XML, fails on any broken internal link.</td><td class="src"><a href="https://www.sitemaps.org/protocol.html" rel="noopener" target="_blank" title="Sitemaps XML format">sitemaps.org</a></td></tr>
+          <tr><td>HTTP smoke at /WinB/</td><td>Automated, fails build</td><td>Serves the site at its real project path and fetches every sitemap URL.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank" title="Build and submit a sitemap">Google Search Central</a></td></tr>
+          <tr><td>Product facts</td><td>Human-gated</td><td>Every spec comes from the listing record with a read date. No AI step writes a product fact.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr>
+          <tr><td>Guide prose</td><td>Human-gated</td><td>AI drafting, if ever used, is a suggestion until a human checks it against a source (Q-12).</td><td class="src"><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener" target="_blank" title="Disclosures 101 for Social Media Influencers">U.S. Federal Trade Commission</a> · <a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central</a></td></tr>
+          <tr><td>Topic choice</td><td>Human-gated, data-led</td><td>Next guide is chosen from measured queries after 30 days, not from instinct (SUG-03, SUG-13).</td><td class="src"><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central</a></td></tr>
+          <tr><td>Ledger rows</td><td>Human-gated</td><td>A row may only be added from an authorised first-party report with provenance. No estimates, no forecasts.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="organic">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register six</p>
+        <h2>Organic traffic playbook — one site, one reason to rank</h2>
+        <p>Search engines are given one site to index and a reason to rank it: original, question-shaped answers in two coherent clusters, with every claim sourced. No keyword stuffing, no bulk publishing, no doorway pages.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Findability levers.</b> Each row states what the build does and the official source behind it.</caption>
+        <thead><tr><th scope="col">Lever</th><th scope="col">What the build does</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr><td>One indexable site</td><td>Superseded generations are marked noindex and excluded in robots.txt, so exactly one site competes on this host.</td><td class="src"><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central</a></td></tr>
+          <tr><td>Sitemap</td><td>Generated from the same data as the pages; every indexable page is listed, single-host, UTF-8.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank" title="Build and submit a sitemap">Google Search Central</a> · <a href="https://www.sitemaps.org/protocol.html" rel="noopener" target="_blank" title="Sitemaps XML format">sitemaps.org</a></td></tr>
+          <tr><td>RSS feed</td><td>Generated with the sitemap; every new guide appears in both automatically.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank" title="Build and submit a sitemap">Google Search Central</a></td></tr>
+          <tr><td>Canonical + Open Graph</td><td>Every page carries a canonical URL, title, description and social tags.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank" title="Build and submit a sitemap">Google Search Central</a></td></tr>
+          <tr><td>Cluster interlinking</td><td>Air-fryer and thermometer clusters link to each other, to the hubs and to the comparison table.</td><td class="src"><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central</a></td></tr>
+          <tr><td>Cadence</td><td>One substantial guide per fortnight. Bursts are treated as scaled content abuse.</td><td class="src"><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central</a></td></tr>
+          <tr><td>Outbound marking</td><td>Every Amazon link carries rel="sponsored" so paid placements are qualified.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank" title="Qualify your outbound links to Google">Google Search Central</a></td></tr>
+          <tr><td>Measurement</td><td>Five events, no cookies, no third-party scripts. Topic choice waits for measured queries.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
-    <div class="sec-head"><div><p class="eyebrow">Register five</p><h2>Content inventory</h2></div></div>
+    <div class="sec-head"><div><p class="eyebrow">Register seven</p><h2>Content inventory</h2></div></div>
     
 <div class="table-wrap">
   <table>

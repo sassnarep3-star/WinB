@@ -778,6 +778,50 @@ export const QUESTIONS = [
     owner: '—',
     blocks: 'Nothing. Implemented.',
   },
+  {
+    id: 'Q-11',
+    status: 'Open',
+    question: 'Which seasonal moments should the notebook cover first?',
+    why: 'Seasonal framing helps a reader find the guide that matches the meal in front of them, but picking the wrong season first wastes the cadence.',
+    known: 'Four cooking moments are drafted as editorial hypotheses (weeknight two-food dinners, big-batch sharing, holiday roasts and leftovers, summer grilling). None is a claim about search volume or popularity.',
+    unknown: 'Which moment the owner’s audience actually cooks, and in which hemisphere the site is read.',
+    howToFind: 'Owner picks one moment for the next guide, or waits for 30 days of page_view data (SUG-03) and lets measured queries choose. Do not publish all four at once.',
+    owner: 'Site owner',
+    blocks: 'Seasonal publishing order',
+  },
+  {
+    id: 'Q-12',
+    status: 'Open',
+    question: 'What may the AI pipeline do, and what must a human approve?',
+    why: 'The brief asks for an AI-powered platform that automates research, content and optimisation. Automation without a gate is how a site publishes an unverified price or a hands-on claim it cannot support.',
+    known: 'The build already automates sitemap, feed, link checks and the R1–R10 compliance gate. No AI step writes product facts; every spec comes from the listing record.',
+    unknown: 'Whether the owner wants AI drafting of guide prose, and under what review rule.',
+    howToFind: 'Owner approves the automation table in the Data Room: automated steps stay automated, editorial and compliance steps stay human-gated. Any AI draft is treated as a suggestion until a human checks it against a source.',
+    owner: 'Site owner',
+    blocks: 'AI scope',
+  },
+  {
+    id: 'Q-13',
+    status: 'Open',
+    question: 'Stay on github.io or move to a custom domain?',
+    why: 'A project path is a fine host but a weak brand home, and Search Console domain properties are awkward on a subpath.',
+    known: 'Current origin is https://sassnarep3-star.github.io/WinB/ (Pages legacy build, main branch, path /).',
+    unknown: 'Domain budget, DNS control, and whether brand matters enough to pay for it.',
+    howToFind: 'Owner decision. If yes, add a CNAME file, set up a domain property in Search Console, and keep the github.io URLs as redirects.',
+    owner: 'Site owner',
+    blocks: 'Brand, Search Console',
+  },
+  {
+    id: 'Q-14',
+    status: 'Open',
+    question: 'Which product images may be shown?',
+    why: 'Readers expect photography, but Amazon’s IP License forbids storing or caching Product Advertising Content images. A static site is a cache.',
+    known: 'The site uses generated editorial illustrations and states so. No Amazon product photography is stored.',
+    unknown: 'Whether any brand will license its own photography for this site.',
+    howToFind: 'Ask the two brands for licensed images. Until then, keep generated illustrations and label them. Do not scrape listing images.',
+    owner: 'Site owner',
+    blocks: 'Imagery',
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -873,6 +917,193 @@ export const SUGGESTIONS = [
     payoff: 'Protects the whole site',
     risk: 'Feels slow. It is slow.',
     status: 'Standing recommendation',
+  },
+  {
+    id: 'SUG-09',
+    priority: 2,
+    title: 'Run the seasonal notebook as hypotheses, not as a content burst',
+    recommendation: 'Frame the four cooking moments on the front page as editorial hypotheses. Publish at most one seasonal guide per fortnight, only after 30 days of measurement (SUG-03).',
+    why: 'Seasonal framing matches the meal a reader is cooking tonight, which is the cheapest way to feel current without chasing popularity claims. Publishing four seasonal guides at once would be the scaled-content pattern Google names as abuse.',
+    effort: 'One guide per fortnight',
+    payoff: 'Timely without being thin',
+    risk: 'Seasonal copy goes stale. Date every seasonal guide and retire it when the season passes.',
+    status: 'Framing implemented; guides not yet published',
+  },
+  {
+    id: 'SUG-10',
+    priority: 3,
+    title: 'Tighten the two clusters with cross-links',
+    recommendation: 'Link every air-fryer guide to the air-fryer hub and every thermometer guide to the thermometer hub, and link the two hubs to each other and to the comparison table.',
+    why: 'Clusters tell search engines what the site is about and tell readers where to go next. The build now does this on every product and guide page; the remaining work is to keep it true as guides are added.',
+    effort: 'Done in this build; ongoing discipline',
+    payoff: 'Compounding internal authority',
+    risk: 'Over-linking reads as SEO. Link where a reader would actually click.',
+    status: 'Implemented',
+  },
+  {
+    id: 'SUG-11',
+    priority: 3,
+    title: 'Publish a named byline and a dated byline block',
+    recommendation: 'Add the author, the date and the reading time to every guide and product page, and a two-line biography on the About page. Owner to supply the name (Q-05).',
+    why: 'Google’s site-reputation policy weighs stated authorship, and an unauthored affiliate page is its own example of content likely to attract action. A byline costs nothing and changes the policy posture.',
+    effort: 'One owner decision, then template work (done)',
+    payoff: 'Trust and policy posture',
+    risk: 'A byline without accountability is decoration. The biography must state the non-testing position plainly.',
+    status: 'Template implemented; name pending Q-05',
+  },
+  {
+    id: 'SUG-12',
+    priority: 4,
+    title: 'Keep generated illustrations until licensed photography exists',
+    recommendation: 'Do not scrape or cache Amazon listing images. Ask the two brands for licensed photography (Q-14); until then, keep the generated illustrations and label them as editorial art.',
+    why: 'The IP License forbids storing or caching Product Advertising Content images. A static site is a cache, so listing photography cannot be used here even if it looks better.',
+    effort: 'One email per brand',
+    payoff: 'Better imagery without a licence breach',
+    risk: 'Generated art can look generic. Caption it honestly rather than passing it off as a photograph.',
+    status: 'Standing rule',
+  },
+  {
+    id: 'SUG-13',
+    priority: 2,
+    title: 'Submit the sitemap and RSS feed, then read Search Console queries',
+    recommendation: 'Submit sitemap.xml in Search Console, subscribe to the feed, and after 30 days choose the next topic from measured queries instead of instinct.',
+    why: 'The build already generates both files from the same data as the pages, so a new guide cannot ship without being listed. Submission is the step that turns files into indexing.',
+    effort: 'Under an hour, then waiting',
+    payoff: 'The next topic is a data question',
+    risk: 'Search Console needs a verification token only the owner can supply (FLG-008).',
+    status: 'Files shipped; submission pending owner',
+  },
+  {
+    id: 'SUG-14',
+    priority: 4,
+    title: 'Gate every AI step behind the compliance check',
+    recommendation: 'Automate research, drafting and scheduling, but never automate the compliance gate. The R1–R10 check runs on every build and fails the publish on any breach.',
+    why: 'Automation is what makes this site scalable; the gate is what makes it trustworthy. Removing the gate to move faster would publish the exact failures the gate exists to catch.',
+    effort: 'Standing rule',
+    payoff: 'Scalable without being reckless',
+    risk: 'A gate that is skipped once is a gate that no longer exists. CI enforces it.',
+    status: 'Standing rule',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Seasonal notebook: editorial hypotheses, not popularity claims.
+// Each moment reframes existing guides and products by the meal being cooked.
+// No search-volume, popularity or sales claim is made anywhere.
+// ---------------------------------------------------------------------------
+export const MOMENTS = [
+  {
+    id: 'weeknight-two-food',
+    season: 'All year',
+    title: 'Weeknight, two foods at once',
+    question: 'Protein in one basket, vegetables in the other — what should you compare?',
+    body: 'The dual-basket question. Two foods, two temperatures, one finish time. Start with the format guide, then check whether your single layer fits in 3 qt.',
+    guides: ['basket-or-oven', 'capacity-checklist'],
+    products: ['P01'],
+    note: 'Hypothesis: the most common weeknight shape. Not a popularity claim.',
+  },
+  {
+    id: 'big-batch-sharing',
+    season: 'All year',
+    title: 'Big batch for sharing',
+    question: 'One tray of fries or wings, not two small ones — one basket or two?',
+    body: 'The single-basket question. When splitting a batch across two baskets is a nuisance, capacity in one cavity matters more than a second basket.',
+    guides: ['capacity-checklist', 'cleanup-counter'],
+    products: ['P03'],
+    note: 'Hypothesis: game-day and family-batch shape. Not a popularity claim.',
+  },
+  {
+    id: 'holiday-roast',
+    season: 'Winter',
+    title: 'Holiday roasts and leftovers',
+    question: 'A whole bird, a rest, and a safe leftover — which thermometer job is this?',
+    body: 'The long-cook question. A leave-in probe watches the climb and the rest; an instant-read checks the number. The USDA minimums and the rest time decide which tool earns its drawer.',
+    guides: ['temperature-safety', 'multifunction'],
+    products: ['P02', 'P05'],
+    note: 'Hypothesis: winter roast shape. Not a popularity claim.',
+  },
+  {
+    id: 'summer-grilling',
+    season: 'Summer',
+    title: 'Summer grilling and smoking',
+    question: 'Steaks, chicken and a long smoke — checking or watching?',
+    body: 'The outdoor question. Instant-read for a fast number at the grill, leave-in for a smoke you do not want to stand over. Both jobs, two tools.',
+    guides: ['temperature-safety'],
+    products: ['P04', 'P05'],
+    note: 'Hypothesis: summer outdoor shape. Not a popularity claim.',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Topic queue: working titles only. Nothing here is published until the
+// measurement gate (SUG-03) has run and the owner has chosen one title.
+// ---------------------------------------------------------------------------
+export const TOPIC_QUEUE = [
+  {
+    title: 'Game-day wings: one big basket or two small ones?',
+    cluster: 'Air fryers',
+    gate: 'Publish only after 30 days of page_view data ranks capacity-checklist above the other guides.',
+    status: 'Hypothesis — do not publish yet',
+  },
+  {
+    title: 'Holiday roast thermometer: instant-read or leave-in?',
+    cluster: 'Thermometers',
+    gate: 'Publish only after temperature-safety shows guide_complete above 25% of its readers.',
+    status: 'Hypothesis — do not publish yet',
+  },
+  {
+    title: 'Air-fryer leftovers: what reheats safely?',
+    cluster: 'Air fryers + safety',
+    gate: 'Publish only after the USDA table is the most-read section of temperature-safety.',
+    status: 'Hypothesis — do not publish yet',
+  },
+  {
+    title: 'How to assess cleanup and counter-space trade-offs',
+    cluster: 'Air fryers',
+    gate: 'Already published as cleanup-counter. Next step is a measurement worksheet, not a second article.',
+    status: 'Published — worksheet pending (SUG-04)',
+  },
+  {
+    title: 'Questions to ask before buying a multi-function kitchen appliance',
+    cluster: 'Air fryers',
+    gate: 'Already published as multifunction. Next step is measured queries, not a rewrite.',
+    status: 'Published — measured queries pending',
+  },
+  {
+    title: 'A no-hype checklist for comparing air fryer capacity',
+    cluster: 'Air fryers',
+    gate: 'Already published as capacity-checklist. Next step is a printable worksheet with the five-minute check.',
+    status: 'Published — worksheet pending (SUG-04)',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Three coherent paths. The owner chooses one before anything is implemented.
+// ---------------------------------------------------------------------------
+export const PATHS = [
+  {
+    id: 'A',
+    name: 'Path A — Compliance-first shop',
+    promise: 'The safest shop. Products first, guides second, measurement last.',
+    steps: 'Close FLG-001 (tagging), keep the no-price rule, publish on the fortnightly cadence, defer seasonal guides until measured.',
+    cost: 'Slowest growth. The site stays a specification shop until a review unit is bought (SUG-01).',
+    bestIf: 'The owner wants zero policy risk and is happy to grow slowly.',
+  },
+  {
+    id: 'B',
+    name: 'Path B — Publication-first authority',
+    promise: 'The most readable site. Byline, clusters, seasonal notebook and worksheets first.',
+    steps: 'Name the byline (Q-05), publish the capacity worksheet (SUG-04), run the seasonal notebook one guide at a time (SUG-09), keep the gate on every build.',
+    cost: 'More writing before more revenue. Still needs SUG-01 for hands-on content.',
+    bestIf: 'The owner wants a site that reads as a publication and earns links.',
+  },
+  {
+    id: 'C',
+    name: 'Path C — Measurement-first growth',
+    promise: 'The most data-driven site. Endpoint, Search Console and ledger first.',
+    steps: 'Deploy the collector (SUG-03), submit the sitemap (SUG-13), choose every next topic from measured queries, keep the ledger empty until a first-party report exists.',
+    cost: 'Nothing to read until the endpoint is deployed. The shop stays as it is for 30 days.',
+    bestIf: 'The owner wants every future decision to be a data question.',
   },
 ];
 

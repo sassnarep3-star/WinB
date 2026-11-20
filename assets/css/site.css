@@ -399,6 +399,27 @@ td code, p code, li code {
 .callout h4 { margin-bottom: .3rem; color: var(--ink); }
 .callout p { margin: 0; }
 
+/* ------------------------------------------------- byline, toc, prev-next */
+.byline { font-size: .8rem; color: var(--muted); margin: .6rem 0 0; }
+.byline a { color: var(--amber); }
+.section.ink .byline { color: #bdb5a9; }
+.section.ink .byline a { color: #f0b48a; }
+.toc {
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--card); padding: 1rem 1.2rem; margin-bottom: 1.6rem;
+}
+.toc .eyebrow { margin-bottom: .5rem; }
+.toc ol { margin: 0; padding-left: 1.2rem; font-size: .88rem; display: grid; gap: .3rem; }
+.toc a { color: var(--ink-2); text-decoration: none; }
+.toc a:hover { color: var(--amber); text-decoration: underline; }
+.prev-next {
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  margin-top: 1.6rem; padding-top: 1.2rem; border-top: 1px solid var(--line);
+  font-size: .86rem;
+}
+.prev-next a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.prev-next a:hover { color: var(--amber); text-decoration: underline; }
+
 /* --------------------------------------------------------------- page head */
 .page-head { padding: clamp(2rem, 4vw, 3.2rem) 0 1.6rem; border-bottom: 1px solid var(--line); }
 .page-head h1 { font-size: clamp(2rem, 4.2vw, 3.1rem); margin-bottom: .7rem; }
