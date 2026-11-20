@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "compiled": "2026-11-20",
+    "observationMethod": "Each supplied short link was opened once and redirected to a public Amazon product detail page. The ASIN, page title, brand and category breadcrumb recorded below were read from that page. No Amazon page was scraped at scale and no Amazon images were downloaded or cached, because S02 IP License 2(h) forbids caching images and forbids data-mining/robots, and the Agent Terms require agent traffic to identify itself.",
+    "fieldTiers": {
+      "observed": "Read directly from the official listing page on 2026-11-20. Safe to display.",
+      "listing-claim": "A capability or performance statement made by the seller or manufacturer in the listing. Reproduced as a claim, never as a tested fact.",
+      "unverified": "Not confirmed from a source that could support it. Left blank on the site and listed on the Flagged for Review page.",
+      "blocked": "The check could not be performed at all in this environment."
+    },
+    "withheldByPolicy": [
+      {
+        "field": "price",
+        "reason": "S02 Participation Requirements 2(b) allows a Site to show price and availability only if Amazon serves that data in the link, or if it is obtained via Creators API / PA API with the required date stamp and disclaimer. Static HTML prices copied from a product page satisfy neither condition.",
+        "handling": "No price is published anywhere on this site. Each buy button says the price is shown on Amazon."
+      },
+      {
+        "field": "star rating",
+        "reason": "Ratings are Amazon-served content. They also cannot be reliably attributed from the retrieved page text, which interleaves ratings for recommended products with the viewed product.",
+        "handling": "No rating is published. Ratings are left blank rather than guessed."
+      },
+      {
+        "field": "product photography",
+        "reason": "S02 IP License 2(h) forbids storing or caching Product Advertising Content that consists of an image. A GitHub Pages site is a cache by definition.",
+        "handling": "No Amazon product image is used. Product cards use generated editorial illustration instead, plus the plain product name."
+      }
+    ]
+  },
+  "products": [
+    {
+      "id": "P1",
+      "slug": "chefman-6-quart-dual-basket",
+      "asin": "B0CDY277D3",
+      "asinTier": "observed",
+      "suppliedLink": "https://link.amazon/B04G1MEwY",
+      "observedFinalUrl": "https://www.amazon.com/dp/B0CDY277D3",
+      "suppliedCodeMatchesAsin": false,
+      "title": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+      "shortName": "Chefman 6-Quart Dual Basket",
+      "brand": "Chefman",
+      "category": "Air fryers",
+      "categoryId": "air-fryers",
+      "categoryPath": ["Home & Kitchen", "Kitchen & Dining", "Small Appliances", "Fryers", "Air Fryers"],
+      "categoryTier": "observed",
+      "sellTheStrengths": [
+        { "text": "Two independent 3-quart baskets, so a protein and a side can run on different settings at once.", "tier": "listing-claim" },
+        { "text": "Sync Finish is designed to land both baskets done at the same time.", "tier": "listing-claim" },
+        { "text": "Easy View windows let you watch browning without pulling a basket.", "tier": "listing-claim" },
+        { "text": "Both baskets are listed as nonstick and dishwasher safe.", "tier": "listing-claim" }
+      ],
+      "watchOutFor": [
+        { "text": "Two baskets mean a taller, wider footprint than a single-basket model — measure the counter before buying.", "tier": "editorial-inference" },
+        { "text": "6 quarts total is not 6 quarts in one basket: each side holds 3 quarts, which is small for a whole chicken.", "tier": "editorial-inference" },
+        { "text": "Cleaning two baskets and two crisper plates doubles the washing-up compared with one drawer.", "tier": "editorial-inference" }
+      ],
+      "bestFor": "Cooking two different components at once without timing shuffle.",
+      "notFor": "A single large roast, or anyone short on counter depth.",
+      "price": null,
+      "priceTier": "unverified",
+      "rating": null,
+      "ratingTier": "unverified",
+      "observedOn": "2026-11-20",
+      "sourceIds": ["S02"],
+      "flags": ["FLG-004", "FLG-007"]
+    },
+    {
+      "id": "P2",
+      "slug": "emeril-lagasse-26qt-french-door",
+      "asin": "B09B7SB46R",
+      "asinTier": "observed",
+      "suppliedLink": "https://link.amazon/B02NbDxp3",
+      "observedFinalUrl": "https://www.amazon.com/dp/B09B7SB46R",
+      "suppliedCodeMatchesAsin": false,
+      "title": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+      "shortName": "Emeril Lagasse 26-Quart French Door",
+      "brand": "Emeril Lagasse",
+      "category": "Air fryers",
+      "categoryId": "air-fryers",
+      "categoryPath": ["Home & Kitchen", "Kitchen & Dining", "Small Appliances", "Fryers", "Air Fryers"],
+      "categoryTier": "observed",
+      "sellTheStrengths": [
+        { "text": "French-door access on a 26-quart cabinet, which is a different shape of problem from a pull-out drawer.", "tier": "listing-claim" },
+        { "text": "24 one-touch presets, which suits someone who wants a labelled button rather than a temperature dial.", "tier": "listing-claim" },
+        { "text": "Six cooking accessories included, so it arrives ready as an oven rather than just an air fryer.", "tier": "listing-claim" },
+        { "text": "Multi-function: it is sold as an oven that air-fries, not an air fryer that happens to be big.", "tier": "listing-claim" }
+      ],
+      "watchOutFor": [
+        { "text": "26 quarts is a countertop oven footprint. This is the largest decision on the site, not a small upgrade.", "tier": "editorial-inference" },
+        { "text": "More presets and more accessories mean more surfaces and more pieces to clean.", "tier": "editorial-inference" },
+        { "text": "A French door is glass on two leaves; it is not a sealed drawer, so expect oven-style heat behaviour.", "tier": "editorial-inference" }
+      ],
+      "bestFor": "A household replacing a toaster oven and an air fryer with one box.",
+      "notFor": "Anyone who wants a drawer they can pull out and shake.",
+      "price": null,
+      "priceTier": "unverified",
+      "rating": null,
+      "ratingTier": "unverified",
+      "observedOn": "2026-11-20",
+      "sourceIds": ["S02"],
+      "flags": ["FLG-004", "FLG-007"]
+    },
+    {
+      "id": "P3",
+      "slug": "chefman-8-quart-turbofry",
+      "asin": "B08DKYBTPH",
+      "asinTier": "observed",
+      "suppliedLink": "https://link.amazon/B00hJ57DV",
+      "observedFinalUrl": "https://www.amazon.com/dp/B08DKYBTPH",
+      "suppliedCodeMatchesAsin": false,
+      "title": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+      "shortName": "Chefman 8-Quart TurboFry",
+      "brand": "Chefman",
+      "category": "Air fryers",
+      "categoryId": "air-fryers",
+      "categoryPath": ["Home & Kitchen", "Kitchen & Dining", "Small Appliances", "Fryers", "Air Fryers"],
+      "categoryTier": "observed",
+      "sellTheStrengths": [
+        { "text": "8 quarts in a single basket — the largest single-drawer capacity on this site.", "tier": "listing-claim" },
+        { "text": "450°F Hi-Fry top setting, aimed at crispier results than a standard 400°F ceiling.", "tier": "listing-claim" },
+        { "text": "Bake, dehydrate and frozen modes beyond plain air-fry.", "tier": "listing-claim" },
+        { "text": "One nonstick dishwasher-safe basket and one crisper plate to wash.", "tier": "listing-claim" }
+      ],
+      "watchOutFor": [
+        { "text": "One drawer means one temperature at a time; a side and a main need to be sequenced or batched.", "tier": "editorial-inference" },
+        { "text": "An 8-quart drawer is physically large even though it is a single basket.", "tier": "editorial-inference" },
+        { "text": "Four-in-one naming refers to modes, not to four separate compartments.", "tier": "editorial-inference" }
+      ],
+      "bestFor": "Feeding a family from one big drawer with the least washing-up.",
+      "notFor": "Two foods that need different temperatures at the same time.",
+      "price": null,
+      "priceTier": "unverified",
+      "rating": null,
+      "ratingTier": "unverified",
+      "observedOn": "2026-11-20",
+      "sourceIds": ["S02"],
+      "flags": ["FLG-004", "FLG-007"]
+    },
+    {
+      "id": "P4",
+      "slug": "thermomaven-1-second-thermometer",
+      "asin": "B0DHZTCNR5",
+      "asinTier": "observed",
+      "suppliedLink": "https://link.amazon/B0c8moW59",
+      "observedFinalUrl": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "suppliedCodeMatchesAsin": false,
+      "title": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black",
+      "shortName": "ThermoMaven Instant-Read Thermometer",
+      "brand": "ThermoMaven",
+      "category": "Wireless thermometers",
+      "categoryId": "thermometers",
+      "categoryPath": ["Home & Kitchen", "Kitchen & Dining", "Kitchen Utensils & Gadgets", "Thermometers & Timers", "Meat"],
+      "categoryTier": "observed",
+      "sellTheStrengths": [
+        { "text": "The listing says one second to a reading, which is the difference between checking a piece of fish once and checking it four times.", "tier": "listing-claim" },
+        { "text": "The listing claims ±0.5°F accuracy and cites NIST and NSF certification.", "tier": "listing-claim" },
+        { "text": "IP67 waterproof, so it can be washed rather than wiped.", "tier": "listing-claim" },
+        { "text": "Auto-rotating bright LED screen for over-the-shoulder reads.", "tier": "listing-claim" }
+      ],
+      "watchOutFor": [
+        { "text": "The ±0.5°F figure and the NIST/NSF certification are the seller's claims in the listing; the certifying bodies' own registries were not checked. Treat as a claim to verify, not a tested fact.", "tier": "editorial-inference" },
+        { "text": "This is an instant-read probe, not a leave-in wireless probe. It does not give you a reading from across the kitchen.", "tier": "editorial-inference" },
+        { "text": "1 second is a speed claim. Speed and accuracy can trade off in cheap sensors, so the only real test is a calibrated ice bath and boiling water.", "tier": "editorial-inference" }
+      ],
+      "bestFor": "Spot-checking any protein, bread or oil quickly, including in an air fryer.",
+      "notFor": "Unattended monitoring of a long cook while you are in another room.",
+      "price": null,
+      "priceTier": "unverified",
+      "rating": null,
+      "ratingTier": "unverified",
+      "observedOn": "2026-11-20",
+      "sourceIds": ["S02"],
+      "flags": ["FLG-004", "FLG-005", "FLG-007"]
+    },
+    {
+      "id": "P5",
+      "slug": "chef-iq-sense-gen3",
+      "asin": "B0DZFD6R9Z",
+      "asinTier": "observed",
+      "suppliedLink": "https://link.amazon/B0f3GKalj",
+      "observedFinalUrl": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "suppliedCodeMatchesAsin": false,
+      "title": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+      "shortName": "CHEF iQ Sense Gen3",
+      "brand": "CHEF iQ",
+      "category": "Wireless thermometers",
+      "categoryId": "thermometers",
+      "categoryPath": ["Home & Kitchen", "Kitchen & Dining", "Kitchen Utensils & Gadgets", "Thermometers & Timers", "Meat"],
+      "categoryTier": "observed",
+      "sellTheStrengths": [
+        { "text": "Three ultra-thin probes, so three pieces can be tracked at once.", "tier": "listing-claim" },
+        { "text": "WiFi rather than short-range Bluetooth, which is the difference between watching a cook from the garden and from the next room.", "tier": "listing-claim" },
+        { "text": "The listing calls it 1000°F heat safe and explicitly names air fryer as a use.", "tier": "listing-claim" },
+        { "text": "Five sensors across the probes.", "tier": "listing-claim" }
+      ],
+      "watchOutFor": [
+        { "text": "“Unlimited range” is a claim about how it is networked. The app, the hub and your router all have to cooperate; test it in your own house.", "tier": "editorial-inference" },
+        { "text": "Three probes and an app is a system, not a gadget. There is a setup step before the first cook.", "tier": "editorial-inference" },
+        { "text": "This is the most expensive decision on the site by role, not by observed price — no price is published here.", "tier": "editorial-inference" }
+      ],
+      "bestFor": "Long, unattended cooks where you want three readings from a distance.",
+      "notFor": "Someone who wants to pull a probe from a drawer and read it in a second.",
+      "price": null,
+      "priceTier": "unverified",
+      "rating": null,
+      "ratingTier": "unverified",
+      "observedOn": "2026-11-20",
+      "sourceIds": ["S02"],
+      "flags": ["FLG-004", "FLG-005", "FLG-007"]
+    }
+  ]
+}

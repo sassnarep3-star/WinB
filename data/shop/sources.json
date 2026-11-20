@@ -1,0 +1,243 @@
+{
+  "meta": {
+    "version": "1.0",
+    "compiled": "2026-11-20",
+    "rule": "A source is listed here only if it was actually retrieved during this build. Each entry records what was read, what it is cited for, and whether it is a primary source (the operator or agency itself) or a third-party report.",
+    "retrievalMethod": "Pages were fetched directly over HTTPS during the build session on 2026-11-20. Quoted text is copied from the retrieved page. No source below is cited from memory.",
+    "tierDefinitions": {
+      "primary": "Published by the organisation that owns the rule or the data.",
+      "secondary": "A third party restating a primary rule. Used only for orientation, never as the sole support for a claim.",
+      "blocked": "The host could not be reached from the build sandbox, so the source was not inspected. Recorded for honesty; not cited."
+    }
+  },
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Associates Program Operating Agreement",
+      "publisher": "Amazon.com, Inc.",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "tier": "primary",
+      "dated": "Updated October 15, 2025",
+      "retrieved": "2026-11-20",
+      "verified": true,
+      "supports": [
+        "Section 1: Special Links must use the tagged link formats Amazon provides.",
+        "Section 5: the exact required disclosure sentence, and that it must appear clearly and prominently on the Site or wherever Program Content is displayed.",
+        "Section 5: you may not misrepresent or embellish the relationship, or imply that Amazon supports, sponsors or endorses you.",
+        "Section 6: violations of Section 5 are treated as a material breach."
+      ],
+      "quotes": [
+        {
+          "ref": "Section 5",
+          "text": "You must clearly and prominently state the following, or any substantially similar statement previously allowed under this Agreement, on your Site or any other location where Amazon may authorize your display or other use of Program Content: “As an Amazon Associate I earn from qualifying purchases.”"
+        },
+        {
+          "ref": "Section 1",
+          "text": "The links must properly use the special “tagged” link formats we provide and comply with this Agreement (“Special Links”)."
+        }
+      ],
+      "evidence": "B — sections 1, 5 and 6 read and quoted"
+    },
+    {
+      "id": "S02",
+      "title": "Associates Program Policies",
+      "publisher": "Amazon.com, Inc.",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "tier": "primary",
+      "dated": "Updated April 14, 2026",
+      "retrieved": "2026-11-20",
+      "verified": true,
+      "supports": [
+        "Participation Requirements 1: the Site must contain original content, be publicly available, and third-party material must carry significant commentary, analysis or transformation.",
+        "Participation Requirements 1(g): no Amazon trademark, variant or misspelling in a domain name, subdomain, tag, Associates ID or social identifier.",
+        "Participation Requirements 2(b): every Special Link must carry the Associates tag as a URL parameter, must be accessed directly from the Site, and prices may only be shown if Amazon serves them or they come from Creators API / PA API.",
+        "Participation Requirements 2(b): no inaccurate, overbroad, deceptive or misleading claims about a product, price or Amazon policy. No dynamic per-user sub-tags.",
+        "Trademark Guidelines 8: no trademark, domain, subdomain, username or app name confusingly similar to an Amazon mark.",
+        "IP License 1: Program Content may be copied and displayed solely on your Site; no data mining, robots or extraction tools.",
+        "IP License 2(h): images may not be stored or cached; other Product Advertising Content may be cached no longer than 24 hours. ASINs may be stored indefinitely.",
+        "IP License 2(i): a date/time stamp is required next to pricing or availability, plus a fixed prices-change disclaimer.",
+        "IP License 2(k): a fixed “CERTAIN CONTENT THAT APPEARS ... COMES FROM AMAZON” notice is required when text from Amazon is displayed."
+      ],
+      "quotes": [
+        {
+          "ref": "Participation Requirements 2(b)",
+          "text": "you may not state that you are linking to a smartphone that has 128 GB of memory"
+        },
+        {
+          "ref": "IP License 2(h)",
+          "text": "(h) You will not store or cache Product Advertising Content consisting of an image"
+        },
+        {
+          "ref": "IP License Agent Terms (a)",
+          "text": "No Agent may access, use, or interact with Program Content unless, at all times, it identifies itself"
+        }
+      ],
+      "evidence": "B — five sections read: Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License, Agent Terms"
+    },
+    {
+      "id": "S03",
+      "title": "Amazon Standard Identification Number (ASIN)",
+      "publisher": "Amazon Seller Central glossary",
+      "url": "https://sellercentral.amazon.com/help/hub/reference/external/G200390640",
+      "tier": "primary",
+      "dated": "undated glossary entry",
+      "retrieved": "not retrieved",
+      "verified": false,
+      "supports": [],
+      "quotes": [],
+      "status": "blocked",
+      "note": "Seller Central requires a signed-in seller account. The ASIN is therefore defined here only as it is used by Amazon in retrieved documents, and the glossary link is offered for the owner's own manual review. No definition text is quoted.",
+      "evidence": "not retrieved"
+    },
+    {
+      "id": "S04",
+      "title": "Associates Program Commission Income Statement (within Program Policies)",
+      "publisher": "Amazon.com, Inc.",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies#Associates%20Program%20Fee%20Statement",
+      "tier": "primary",
+      "dated": "Updated April 14, 2026",
+      "retrieved": "2026-11-20",
+      "verified": true,
+      "supports": [
+        "A Qualifying Purchase begins when a customer clicks through a Special Link.",
+        "The tracking session runs 24 hours from the click, or ends earlier on an order or on a click-through of someone else's link.",
+        "Products added to cart may still qualify up to 89 days after the initial click-through.",
+        "Commission is normally paid about 60 days after the month in which it was earned."
+      ],
+      "quotes": [
+        {
+          "ref": "Section 1",
+          "text": "(x) 24 hours elapse from that click"
+        }
+      ],
+      "evidence": "B — section 1 read and quoted"
+    },
+    {
+      "id": "S05",
+      "title": "Disclosures 101 for Social Media Influencers",
+      "publisher": "U.S. Federal Trade Commission",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "tier": "primary",
+      "dated": "November 2019",
+      "retrieved": "2026-11-20",
+      "verified": true,
+      "supports": [
+        "Disclose any financial relationship with a brand.",
+        "Place the disclosure so it is hard to miss; disclosures at the end of a page or behind a click are likely to be missed.",
+        "Use simple, clear language such as “advertisement”, “ad”, or “sponsored”.",
+        "Do not use vague terms such as “sp”, “spon”, or “collab”.",
+        "You cannot talk about your experience with a product you have not tried.",
+        "You cannot make up claims that would require proof the advertiser does not have."
+      ],
+      "quotes": [
+        {
+          "ref": "How to Disclose",
+          "text": "Disclosures are likely to be missed if they appear only on an ABOUT ME or profile page, at the end of posts or videos, or anywhere that requires a person to click MORE."
+        },
+        {
+          "ref": "What Else to Know",
+          "text": "You can’t talk about your experience with a product you haven’t tried."
+        }
+      ],
+      "evidence": "A — full page read"
+    },
+    {
+      "id": "S06",
+      "title": "FTC Endorsement Guides: What People Are Asking",
+      "publisher": "U.S. Federal Trade Commission",
+      "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+      "tier": "primary",
+      "dated": "FTC staff publication",
+      "retrieved": "not retrieved",
+      "verified": false,
+      "supports": [],
+      "quotes": [],
+      "status": "referenced-only",
+      "note": "Linked from S05 as further reading. Not retrieved in this build, so nothing is quoted from it and no claim depends on it.",
+      "evidence": "not retrieved"
+    },
+    {
+      "id": "S07",
+      "title": "Build and submit a sitemap",
+      "publisher": "Google Search Central",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+      "tier": "primary",
+      "dated": "living documentation",
+      "retrieved": "2026-11-20",
+      "verified": true,
+      "supports": [
+        "Google supports the sitemaps.org protocol and a text-file sitemap format.",
+        "Google does not state a preference among supported sitemap formats."
+      ],
+      "quotes": [
+        {
+          "ref": "intro",
+          "text": "Google supports the sitemap formats defined by the sitemaps protocol"
+        }
+      ],
+      "evidence": "B — intro and format comparison read"
+    },
+    {
+      "id": "S08",
+      "title": "sitemaps.org protocol",
+      "publisher": "sitemaps.org",
+      "url": "https://www.sitemaps.org/protocol.html",
+      "tier": "primary",
+      "dated": "living documentation",
+      "retrieved": "not retrieved",
+      "verified": false,
+      "supports": [],
+      "quotes": [],
+      "status": "blocked",
+      "note": "The protocol document itself was not retrieved from this sandbox. The sitemap built here follows the element names Google documents in S07 (urlset, url, loc, lastmod). The protocol link is offered for manual review.",
+      "evidence": "not retrieved"
+    },
+    {
+      "id": "S09",
+      "title": "amzn.to / link.amazon affiliate link behaviour",
+      "publisher": "AffiliScan (independent blog)",
+      "url": "https://www.affiliscan.app/blog/how-to-tell-if-amazon-affiliate-link",
+      "tier": "secondary",
+      "dated": "2026-10-23",
+      "retrieved": "2026-11-20",
+      "verified": false,
+      "supports": [
+        "Orientation only: third parties describe link.amazon as the short form produced by the Amazon Shopping app's Share action."
+      ],
+      "quotes": [],
+      "status": "secondary-not-authoritative",
+      "note": "This is a third-party blog, not an Amazon document. It is recorded because it was read, and it is deliberately not used to support any claim about the supplied links. The behaviour of the five supplied links is recorded from direct observation instead (see link-audit.json).",
+      "evidence": "C — third-party blog, orientation only"
+    },
+    {
+      "id": "S10",
+      "title": "Amazon Associates Central — Program Help",
+      "publisher": "Amazon.com, Inc.",
+      "url": "https://affiliate-program.amazon.com/help/node",
+      "tier": "primary",
+      "dated": "living documentation",
+      "retrieved": "not retrieved",
+      "verified": false,
+      "supports": [],
+      "quotes": [],
+      "status": "referenced-only",
+      "note": "Entry point for SiteStripe and link-generation help. Not retrieved; linked for the owner.",
+      "evidence": "not retrieved"
+    },
+    {
+      "id": "S11",
+      "title": "Google Analytics 4 — measurement of outbound clicks and custom events",
+      "publisher": "Google Analytics Help",
+      "url": "https://support.google.com/analytics/answer/9216061",
+      "tier": "primary",
+      "dated": "living documentation",
+      "retrieved": "not retrieved",
+      "verified": false,
+      "supports": [],
+      "quotes": [],
+      "status": "referenced-only",
+      "note": "The site ships an internal, privacy-preserving event counter and does not load a third-party analytics script, so no GA4 claim is made. The link is provided for the owner's decision on Q-05.",
+      "evidence": "not retrieved"
+    }
+  ]
+}

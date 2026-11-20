@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+# Archived or alternate site generation. The canonical site is at https://sassnarep3-star.github.io/WinB/

@@ -1,0 +1,111 @@
+// consolidate.mjs — final-integration step.
+//
+// main accumulated six competing site generations from parallel sessions:
+//   /            (v1 "Counterwise" then v6 "Crisp Kitchen")  <- canonical
+//   /docs/       (v2)
+//   /alt-site/build/ (v3)
+//   /legacy-docs-site/ (v4)
+//   three root folders with the same purpose: products/ verification/ compliance/
+//   three build systems: tools/build.js, scripts/build.py, alt-site/build/build.py
+//
+// The brief asks for one site to index. This retires the others without deleting
+// anyone's work: every superseded page gets a noindex meta tag and a small,
+// visible banner pointing at the equivalent page on the canonical site. Files
+// stay in the repository; they simply stop competing in search.
+//
+// It also fixes the compliance defect described in FLG-010: the /go/ redirect
+// pages marked themselves noindex,nofollow while exposing an affiliate link,
+// which is precisely the sneaky-redirect pattern Google's spam policy names.
+
+import { readdirSync, readFileSync, writeFileSync, statSync, existsSync } from 'node:fs';
+import { join, relative } from 'node:path';
+
+const ROOT = new URL('..', import.meta.url).pathname;
+const SITE = 'https://sassnarep3-star.github.io/WinB';
+
+// Superseded trees, and where a reader should go instead.
+const RETIRED = [
+  { dir: 'docs', to: '/', why: 'an earlier generation of this site' },
+  { dir: 'legacy-docs-site', to: '/', why: 'an earlier generation, kept for the record' },
+  { dir: 'alt-site/build', to: '/', why: 'a parallel session’s build output' },
+  { dir: 'alt-site', to: '/', why: 'a parallel session’s source; documented in the archive' },
+  { dir: 'products', to: '/reviews/', why: 'folded into the product pages' },
+  { dir: 'verification', to: '/data-room/', why: 'folded into the Data Room' },
+  { dir: 'compliance', to: '/methods/', why: 'folded into How this site works' },
+  { dir: 'platform', to: '/decisions/', why: 'folded into the Decision Room' },
+  { dir: 'archive', to: '/', why: 'superseded snapshots' },
+];
+
+const touched = [];
+const goFixed = [];
+
+function walk(dir, out = []) {
+  for (const n of readdirSync(dir)) {
+    const f = join(dir, n);
+    if (statSync(f).isDirectory()) walk(f, out);
+    else out.push(f);
+  }
+  return out;
+}
+
+const banner = (to, why) => `<div id="archive-notice" style="position:relative;z-index:9999;background:#191714;color:#fbf8f3;font:14px/1.5 ui-sans-serif,system-ui,sans-serif;padding:12px 18px;text-align:center">
+  <strong>Archived page.</strong> This is ${why}, kept for the record and excluded from search.
+  The current site is <a href="${SITE}/" style="color:#f0b48a">Counterwise</a>${to !== '/' ? ` — a matching page is at <a href="${SITE}${to}" style="color:#f0b48a">${to}</a>` : ''}.
+</div>`;
+
+// -------------------------------------------------- 1. retire superseded HTML
+for (const { dir, to, why } of RETIRED) {
+  const abs = join(ROOT, dir);
+  if (!existsSync(abs)) continue;
+  for (const file of walk(abs)) {
+    if (!file.endsWith('.html')) continue;
+    let html = readFileSync(file, 'utf8');
+    if (html.includes('id="archive-notice"')) continue;
+
+    // Force noindex, replacing any existing robots meta.
+    if (/<meta name="robots"[^>]*>/i.test(html)) {
+      html = html.replace(/<meta name="robots"[^>]*>/i, '<meta name="robots" content="noindex,nofollow">');
+    } else if (/<head[^>]*>/i.test(html)) {
+      html = html.replace(/<head[^>]*>/i, '<head>\n<meta name="robots" content="noindex,nofollow">');
+    } else {
+      html = '<meta name="robots" content="noindex,nofollow">\n' + html;
+    }
+
+    // Banner directly after <body ...>.
+    if (/<body[^>]*>/i.test(html)) {
+      html = html.replace(/<body[^>]*>/i, (m) => `${m}\n${banner(to, why)}`);
+    } else {
+      html = banner(to, why) + html;
+    }
+
+    writeFileSync(file, html, 'utf8');
+    touched.push(relative(ROOT, file));
+  }
+}
+
+// ---------------------------------- 2. /go/ redirect pages: fix noindex,nofollow
+// A page that is noindex,nofollow but forwards to an affiliate URL is a sneaky
+// redirect. These are legitimate affiliate landing pages on our own domain, so
+// they should be indexed, carry the disclosure, and link out with rel=sponsored.
+const goDir = join(ROOT, 'go');
+if (existsSync(goDir)) {
+  for (const file of walk(goDir)) {
+    if (!file.endsWith('.html')) continue;
+    let html = readFileSync(file, 'utf8');
+    const before = html;
+    html = html.replace(/<meta name="robots" content="noindex,nofollow">/i,
+      '<meta name="robots" content="index,follow">');
+    // Point the "back" link at the live page, not the archived Crisp Kitchen root.
+    html = html.replace(/<a href="\/index\.html">← The Crisp Kitchen<\/a>/,
+      `<a href="${SITE}/">← Counterwise</a>`);
+    html = html.replace(/href="\/WinB\/index\.html"/g, `href="${SITE}/"`);
+    if (html !== before) {
+      writeFileSync(file, html, 'utf8');
+      goFixed.push(relative(ROOT, file));
+    }
+  }
+}
+
+console.log(`consolidate: ${touched.length} archived pages marked noindex + banner`);
+console.log(`consolidate: ${goFixed.length} /go/ redirect pages changed to index,follow`);
+for (const g of goFixed) console.log('   go: ' + g);

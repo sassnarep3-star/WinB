@@ -1,0 +1,338 @@
+{
+  "_meta": {
+    "purpose": "Editorial guides. Each is a decision framework, not a product review. No guide names a 'best' product, because no product here has been tested.",
+    "editorialRule": "Write to a person standing in their kitchen with a measuring tape, not to a search engine.",
+    "publishRule": "A draft is published only when the live site has no guide on the same subject. Duplicates stay in this file as drafts to avoid duplicate content."
+  },
+  "guides": [
+    {
+      "slug": "basket-or-oven",
+      "order": 1,
+      "number": "01",
+      "kicker": "Format",
+      "title": "Basket or oven-style air fryer: what should you compare?",
+      "h1": "Basket or oven-style air fryer?",
+      "dek": "The shape of the machine decides what you can cook in it far more than the wattage does. Here is how to choose before you look at a single model.",
+      "category": "air-fryers",
+      "readMins": 6,
+      "lede": "Air fryers are sold on capacity and presets. Neither tells you whether the thing will fit your food. A basket and an oven do the same job through completely different openings, and that one difference drives almost everything you will notice in daily use.",
+      "sections": [
+        {
+          "h": "The real difference is the opening, not the heating element",
+          "p": [
+            "Both formats move hot air around food. A basket pulls out toward you and you drop food into a deep well. An oven swings or drops a door and you slide a tray in flat.",
+            "That changes what fits. A whole chicken, a tray of roast vegetables spread in one layer, or four slices of toast need a flat surface. Loose fries, nuggets, or a handful of chickpeas that you want to shake halfway through want a basket you can grab by the handle.",
+            "Before comparing anything else, picture the three meals you cook most often and ask whether each one needs a flat tray or a deep well."
+          ]
+        },
+        {
+          "h": "Agitation: can you shake it?",
+          "p": [
+            "Even crisping depends on food moving. In a basket you pull the drawer and shake it in two seconds without losing much heat. In an oven you slide a tray out, turn food with a spatula, and push it back.",
+            "If your default is frozen fries, vegetables, or anything in small pieces, the shake matters more than you expect. If you mostly cook larger items you will turn once with tongs anyway, and the format stops mattering."
+          ]
+        },
+        {
+          "h": "Count the parts you will actually wash",
+          "p": [
+            "A dual-basket unit has two drawers plus usually two crisper plates. An oven may have a rack, a tray, a basket insert, and accessories that came in the box.",
+            "The honest question is not which is easier to clean but which you will keep cleaning in month four. Fewer large parts that fit your sink beat more small parts that technically are dishwasher safe."
+          ]
+        },
+        {
+          "h": "Measure your counter, then measure it again",
+          "p": [
+            "Depth matters more than people plan for, because a door has to open and a drawer has to pull out. A unit that fits against the wall may not fit in use.",
+            "Take two measurements: the footprint of the appliance, and the total clear space you need with the door open or drawer extended. Then measure the height under your upper cabinets. Oven-style units are tall and often vent from the top."
+          ]
+        },
+        {
+          "h": "Decide what it is replacing",
+          "p": [
+            "If it replaces a toaster, an oven-style unit may absorb that job and earn its counter space. If it is an addition that sits next to a full oven, a basket unit is usually the smaller, simpler answer.",
+            "Write down what you will stop using once the air fryer arrives. If the answer is nothing, you are buying storage with a heating element."
+          ]
+        }
+      ],
+      "checklist": [
+        "The three meals I cook most need: flat tray or deep well?",
+        "Total clear space with the door open or drawer out, measured",
+        "Height under the upper cabinet, measured",
+        "Number of separate parts that need washing",
+        "Which appliance this replaces"
+      ],
+      "related": [
+        "chefman-6qt-dual-basket",
+        "chefman-8qt-turbofry",
+        "emeril-26qt-french-door"
+      ],
+      "publish": false,
+      "duplicateOf": "published live as guides/basket-or-oven-style-air-fryer.html",
+      "products": [
+        "P-01",
+        "P-03",
+        "P-02"
+      ]
+    },
+    {
+      "slug": "capacity-checklist",
+      "order": 2,
+      "number": "02",
+      "kicker": "Fit",
+      "title": "A no-hype checklist for comparing air fryer capacity",
+      "h1": "Comparing capacity without the marketing",
+      "dek": "Quart ratings are not comparable across formats and rarely tell you how much food fits in one layer. Measure the food instead.",
+      "category": "air-fryers",
+      "readMins": 5,
+      "lede": "Capacity is the number shoppers anchor on and the number sellers are most creative with. Six quarts in a deep basket and six quarts across a flat tray behave nothing alike, and neither figure tells you whether dinner fits without overlapping.",
+      "sections": [
+        {
+          "h": "Why quart ratings mislead",
+          "p": [
+            "The advertised volume is the interior of the cooking chamber. Food does not fill a chamber efficiently, and air frying depends on air reaching the surface. A pile of food in the middle of a large basket cooks worse than a single layer in a small one.",
+            "Two units with the same rating but different shapes hold very different amounts of usable single-layer food. Treat the quart figure as a rough size class, not a portion count."
+          ]
+        },
+        {
+          "h": "Measure with the food you actually cook",
+          "p": [
+            "Take the thing you make most: a bag of frozen fries, a chicken breast, a head of cauliflower. Check the usable flat area of the basket or tray against a single layer of that food.",
+            "For a basket, the useful figure is the width and depth of the flat bottom, not the rim. For an oven, it is the tray area you can actually use before food touches the elements."
+          ]
+        },
+        {
+          "h": "Then scale to your household",
+          "p": [
+            "One or two people cooking a protein and a side: a single medium basket is usually enough, and a second batch is not a crisis.",
+            "Three or more, or anyone cooking for tomorrow: batch size starts to matter, and either a larger single basket or a dual basket saves a full cooking cycle.",
+            "If you regularly cook two different foods that need different times, capacity is the wrong axis. Look at whether the unit can run two zones."
+          ]
+        },
+        {
+          "h": "Overcrowding is the most common disappointment",
+          "p": [
+            "Most complaints about air fryers being uneven trace back to overfilling, not to a defective unit. If you have to stack food, you will need to shake and rotate more, and the result will be patchy.",
+            "Buy for the single layer you need, not for the volume on the box."
+          ]
+        }
+      ],
+      "checklist": [
+        "Flat usable width and depth, not the rim measurement",
+        "A single layer of your most-cooked food, tested against that area",
+        "Number of people you usually cook for",
+        "Whether you cook two foods needing different times"
+      ],
+      "related": [
+        "chefman-8qt-turbofry",
+        "chefman-6qt-dual-basket",
+        "emeril-26qt-french-door"
+      ],
+      "publish": false,
+      "duplicateOf": "published live as guides/air-fryer-capacity-checklist.html",
+      "products": [
+        "P-03",
+        "P-01",
+        "P-02"
+      ]
+    },
+    {
+      "slug": "cleanup-counter",
+      "order": 3,
+      "number": "03",
+      "kicker": "Daily use",
+      "title": "Cleanup and counter space: the trade-offs to assess",
+      "h1": "The parts of ownership nobody photographs",
+      "dek": "An air fryer earns its place or loses it in the ten minutes after dinner. Assess that before the cooking features.",
+      "category": "air-fryers",
+      "readMins": 5,
+      "lede": "Reviews show food. Ownership is mostly washing up, wiping a counter, and finding somewhere to put a machine that does not fit in a cupboard. Those are the parts that decide whether you keep using it.",
+      "sections": [
+        {
+          "h": "Count the surfaces that touch grease",
+          "p": [
+            "A basket unit has a drawer, a crisper plate, and a heating element above that you cannot remove. An oven-style unit adds a rack, a tray, and possibly a basket insert, plus a glass door that shows every smear.",
+            "Walk through the parts list and ask which ones you can reach without tools. That is your real cleaning job."
+          ]
+        },
+        {
+          "h": "Does it fit in your sink?",
+          "p": [
+            "A large single basket or a wide oven tray often does not lie flat in a standard sink, which turns a two-minute wash into an awkward balancing act.",
+            "Measure the widest part of the basket or tray against your sink basin before buying. Dishwasher-safe is only useful if the part also fits the dishwasher loaded sensibly."
+          ]
+        },
+        {
+          "h": "Where does it live when it is not in use?",
+          "p": [
+            "Air fryers are heavy and bulky enough that most people leave them on the counter. If yours must go in a cupboard, measure the cupboard and picture lifting it in and out daily.",
+            "If it stays out, it occupies prime counter real estate permanently. Decide whether you would rather have that space back than own the appliance."
+          ]
+        },
+        {
+          "h": "Ventilation and the grease film",
+          "p": [
+            "Air fryers vent hot, greasy air. Under a low cabinet or tight against a wall, that air has nowhere to go and leaves a film on nearby surfaces.",
+            "Check the manufacturer's clearance instructions for the back and top of the unit, and leave more than the minimum if your cabinet is low."
+          ]
+        },
+        {
+          "h": "Liners: convenience with a caveat",
+          "p": [
+            "Disposable or reusable liners cut cleaning dramatically. They also block airflow from below, which is how air frying works. If you use one, follow the manufacturer's position guidance and expect slightly different results.",
+            "Never use a liner that the manufacturer does not sanction for your model."
+          ]
+        }
+      ],
+      "checklist": [
+        "Every removable part identified, with tools needed",
+        "Widest basket or tray measured against your sink",
+        "Cupboard height, if it will be stored away",
+        "Required clearance from wall and cabinet per the manual"
+      ],
+      "related": [
+        "chefman-8qt-turbofry",
+        "emeril-26qt-french-door",
+        "thermomaven-instant-read"
+      ],
+      "publish": false,
+      "duplicateOf": "published live as guides/cleanup-and-counter-space.html",
+      "products": [
+        "P-03",
+        "P-02",
+        "P-04"
+      ]
+    },
+    {
+      "slug": "multi-function",
+      "order": 4,
+      "number": "04",
+      "kicker": "Features",
+      "title": "Questions to ask before buying a multi-function appliance",
+      "h1": "Is multi-function worth the complexity?",
+      "dek": "A machine that claims ten jobs often does two of them well. Work out which modes you will genuinely use before the preset count persuades you.",
+      "category": "air-fryers",
+      "readMins": 6,
+      "lede": "Preset counts are easy to inflate and hard to use. A machine with twenty-four buttons asks you to make a decision every time you cook, and most people converge on two or three modes within a month.",
+      "sections": [
+        {
+          "h": "List the modes you already have elsewhere",
+          "p": [
+            "If you own a working oven, a toaster, and a dehydrator, a multi-function appliance is duplicating them. Duplication is fine if the new machine is more convenient, wasteful if it is not.",
+            "Write the modes you used in the last month on your existing appliances. That list is your real requirement."
+          ]
+        },
+        {
+          "h": "Ask whether the modes share a heating design",
+          "p": [
+            "Air frying needs fast moving hot air. Dehydrating needs low steady air. Broiling needs a top element. A single machine can do all three, but it usually does one of them as a compromise.",
+            "Look for the mode the machine was designed around, and treat the others as bonuses rather than reasons to buy."
+          ]
+        },
+        {
+          "h": "Count the steps to start cooking",
+          "p": [
+            "Press power, choose mode, set temperature, set time, press start. That is five interactions before food goes in. If presets replace that, good. If presets overlap and contradict the manual, they add confusion.",
+            "A simpler machine you can start without thinking gets used more than a capable one that requires a decision."
+          ]
+        },
+        {
+          "h": "Accessories are storage, not value",
+          "p": [
+            "Six included accessories sound generous until you have to keep them somewhere. Racks, skewers, and inserts that live in a drawer unused are a cost, not a benefit.",
+            "Check whether the accessories stow inside the unit. If not, budget a shelf."
+          ]
+        },
+        {
+          "h": "Then decide what you would trade away",
+          "p": [
+            "The honest comparison is not feature against feature. It is the simplest machine that does your main job against the most capable one you can afford, and whether the extra capability survives contact with a weekday evening.",
+            "If you cannot name the second mode you will use next week, buy the simpler machine."
+          ]
+        }
+      ],
+      "checklist": [
+        "Modes actually used on existing appliances in the last month",
+        "The one mode this machine is designed around",
+        "Interactions required to start a cook",
+        "Where accessories live when not in use",
+        "The second mode you will genuinely use next week"
+      ],
+      "related": [
+        "emeril-26qt-french-door",
+        "chef-iq-sense-wireless",
+        "chefman-6qt-dual-basket"
+      ],
+      "publish": false,
+      "duplicateOf": "published live as guides/questions-before-multi-function-appliance.html",
+      "products": [
+        "P-02",
+        "P-05",
+        "P-01"
+      ]
+    },
+    {
+      "slug": "do-you-need-a-thermometer",
+      "order": 5,
+      "number": "05",
+      "kicker": "Method",
+      "title": "Do you need a meat thermometer if you own an air fryer?",
+      "h1": "The cheapest fix for uneven results",
+      "dek": "Air fryers brown the outside before the inside is done. A thermometer is the only way to know which happened.",
+      "category": "thermometers",
+      "readMins": 4,
+      "lede": "Most air fryer disappointments are a timing problem, not an appliance problem. Recipes give a time range because the same food cooks differently depending on size, starting temperature, and how full the basket is. A thermometer replaces the range with a reading.",
+      "sections": [
+        {
+          "h": "Why time alone fails",
+          "p": [
+            "Air frying is a high-surface-heat method. The outside can look finished while the centre is well behind. A recipe's time is a starting point tuned to a specific thickness and a specific machine.",
+            "Judging by colour works for vegetables and fails for poultry and pork, where the outside browns long before the centre is safe."
+          ]
+        },
+        {
+          "h": "Instant-read versus leave-in wireless",
+          "p": [
+            "An instant-read is a handheld probe you insert at the end to check. It is cheap, needs no app, and works everywhere. It only reads where you put it, so you check piece by piece.",
+            "A wireless probe stays in the food and reports continuously. It suits long cooks where you want to walk away, and it removes the open-the-door-and-lose-heat loop. It brings an app, a pairing step, and extra parts."
+          ]
+        },
+        {
+          "h": "What to check before trusting a stated accuracy",
+          "p": [
+            "A headline accuracy figure is only meaningful with a temperature range attached. A probe accurate to half a degree at room temperature may be less accurate near 400°F, which is where air frying happens.",
+            "Look for a stated range in the manual rather than a single number in the title. Calibration instructions are a good sign that the maker expects the reading to matter."
+          ]
+        },
+        {
+          "h": "The practical test",
+          "p": [
+            "Fill a glass with crushed ice and water, stir, and insert the probe. A properly calibrated thermometer reads close to freezing. If it is well off, the reading you take from dinner is unreliable too.",
+            "This takes a minute and tells you more than any specification."
+          ]
+        },
+        {
+          "h": "If you only buy one",
+          "p": [
+            "Buy the instant-read unless you specifically cook long roasts and want to monitor without opening the door. It covers the job that matters most in an air fryer, for the least money and the fewest dependencies."
+          ]
+        }
+      ],
+      "checklist": [
+        "Do you cook poultry or pork where colour is not a safe guide?",
+        "Short checks or long monitored cooks?",
+        "Accuracy figure with a stated temperature range",
+        "Calibration method published by the maker",
+        "App required, and what it retains"
+      ],
+      "related": [
+        "thermomaven-instant-read",
+        "chef-iq-sense-wireless"
+      ],
+      "publish": true,
+      "products": [
+        "P-04",
+        "P-05"
+      ]
+    }
+  ]
+}

@@ -19,6 +19,7 @@ push the claim immediately. Never start a task another session has claimed.
 | 2026-11-20 | `arena-afa610ec` | Found that PRs #1–#2 from `arena/13033d4a-winb` had already merged a "Counterwise" publication to `main` (12 files, no product pages, no affiliate links), and that PRs #3/#4 plus six further branches were open from parallel sessions. Decision: extend the live site rather than replace it, and preserve every URL that was already in the published sitemap (`/`, `/review/`, and the four guide URLs). `/review/` is kept as a noindex stub pointing at the new Decision Room. |
 | 2026-11-20 | `arena-afa610ec` | Cross-checked against PR #4 (`arena/7feafaa3-winb`, independent session): its `data/products.json` observed ASINs are identical to this session's five resolutions. Recorded as corroboration, not as official confirmation. |
 | 2026-11-20 | `arena-afa610ec` | Scopes S01–S08 completed, verified, and marked `done` (§2, §4). Build 29 files, 25 pages, 23 sitemap routes; R1–R9 pass; 0 broken links; 0 broken URLs over HTTP at `/WinB/`. |
+| 2026-11-20 | `arena-afa610ec` | **Re-merge after main advanced 55 commits.** `origin/main` now carried six separate site generations (root ×2 under two brands, `/docs/`, `/legacy-docs-site/`, `/alt-site/build/`, plus `products/`, `verification/`, `compliance/`, `platform/`) and three build systems. Resolved 17 add/add conflicts in favour of the canonical root build; preserved every file from the other sessions. Added `tools/consolidate.mjs` to mark 56 superseded pages `noindex,nofollow` with a visible archive banner, and promoted the five `/go/` exit pages to `index,follow` after finding them hidden while forwarding to affiliate links (FLG-010). Re-ran the full gate: 30 canonical pages, 14 preserved, 35 Amazon links, 273 internal links, 49 files crawled, 0 broken links, 24 pages + 42 assets HTTP 200 at `/WinB/`. |
 | 2026-11-20 | `arena-afa610ec` | Integration: branch pushed, PR opened, merged to `main`, Pages deploy confirmed (§5). |
 
 **Note on parallel sessions.** The protocol above assumes several concurrent sessions. At the
@@ -59,6 +60,7 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S06 | Measurement: privacy-preserving outbound-click counter, self-hosted analytics endpoint, five defined events, empty campaign ledger with schema | `arena-afa610ec` | `assets/js/site.js`, `analytics/*`, `/data-room/` | done |
 | S07 | Decision surfaces: Decision Room (suggestions + open questions), Flagged for Review page, Data Room register tables | `arena-afa610ec` | `_build/content-pages.mjs`, `_build/data.mjs` | done |
 | S08 | Final integration: build, link check, merge to `main`, confirm Pages deploy, record PR + result here | `arena-afa610ec` | repo root, `.github/` | done |
+| S09 | **Handoff to this session as integration session.** `main` had advanced 55 commits past this branch, carrying six competing site generations. Rebased, resolved 17 add/add conflicts in favour of the canonical root build, retired the superseded trees with noindex + banner, fixed five `/go/` pages that were `noindex,nofollow` while forwarding to affiliate links (FLG-010), and recorded the six-generation collision (FLG-011). | `arena-afa610ec` | `tools/consolidate.mjs`, `tools/verify.mjs`, `tools/linkcheck.mjs`, `_build/build.mjs`, `_build/data.mjs` | done |
 
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
@@ -104,7 +106,8 @@ Special Link for this account is **unresolved** and recorded as FLG-003.
 wording on the site is close paraphrase or direct quote of the fetched text. Where a page had
 been updated, the update date shown on the page is recorded in `_build/data.mjs` (`sources[].updated`).
 
-**Irregularities found** (all published on `/flagged/`, none blocking): FLG-001 … FLG-009.
+**Irregularities found** (all published on `/flagged/`, none blocking): FLG-001 … FLG-011.
+FLG-010 (exit pages hidden from search) was fixed in this build and is recorded as `Fixed in this build`.
 
 ---
 
@@ -130,7 +133,18 @@ been updated, the update date shown on the page is recorded in `_build/data.mjs`
 
 ### Merge log
 
-*(filled in by S08 — see §6)*
+| Step | Result |
+| --- | --- |
+| Branch rebased/merged onto `origin/main` (55 commits ahead) | 17 add/add conflicts, all resolved in favour of the canonical root build |
+| Files from other sessions preserved | Yes — `docs/`, `legacy-docs-site/`, `alt-site/`, `archive/`, `products/`, `verification/`, `compliance/`, `platform/`, `data/`, `scripts/`, `audit/` all retained |
+| Superseded pages retired | 56, via `tools/consolidate.mjs` (noindex + visible banner) |
+| Compliance defect fixed | 5 `/go/` pages changed from `noindex,nofollow` to `index,follow` (FLG-010) |
+| `npm run build` | pass — 28 files, 28 sitemap routes, 7 feed items |
+| `npm run verify` | pass — 30 canonical pages, R1–R9 hold |
+| `npm run links` | pass — 49 files crawled, 0 broken links, XML valid |
+| HTTP smoke at `/WinB/` | pass — 24 pages + 42 assets, all 200 |
+| Pull request | see §6 |
+| Pages deploy | see §6 |
 
 ---
 

@@ -1,0 +1,177 @@
+{
+  "as_of": "2026-11-20",
+  "rows": [
+    {
+      "id": "V-01",
+      "topic": "Required Associates disclosure wording",
+      "claim": "“As an Amazon Associate I earn from qualifying purchases.” must be clearly and prominently stated on the site (or a substantially similar statement).",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "source_label": "Operating Agreement §5 (Identifying Yourself as an Associate), updated Oct 15, 2025",
+      "status": "Verified",
+      "used_on": "Disclosure strip (every page), footer, /disclosure/",
+      "flags": []
+    },
+    {
+      "id": "V-02",
+      "topic": "Special Links must carry the Associates ID",
+      "claim": "Special Links must include the Associates ID or “tag” (appearing as XXXXX-##, or another format Amazon designates) as a URL parameter.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Program Policies, Participation Requirements §2(b), updated Apr 14, 2026",
+      "status": "Verified",
+      "used_on": "Validation plan (FLG-003)",
+      "flags": [
+        "FLG-003",
+        "FLG-004"
+      ]
+    },
+    {
+      "id": "V-03",
+      "topic": "Tracking ID format",
+      "claim": "Policy example format is XXXXX-##. The selected tracking ID is shopnow047c-20 (11-character prefix). Format acceptance is not confirmed from the policy text.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Program Policies, Participation Requirements §2(b)",
+      "status": "Unverified",
+      "used_on": "Dashboard: tracking ID",
+      "flags": [
+        "FLG-004"
+      ]
+    },
+    {
+      "id": "V-04",
+      "topic": "Prices may only be displayed under conditions",
+      "claim": "Price and availability may be shown only if Amazon serves the link displaying them, or the data comes via Creators API / PA-API under its License.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Program Policies, Participation Requirements §2(b)",
+      "status": "Verified",
+      "used_on": "Product table: price fields left blank",
+      "flags": [
+        "FLG-005"
+      ]
+    },
+    {
+      "id": "V-05",
+      "topic": "Links that are not properly formatted disqualify purchases",
+      "claim": "Purchases are disqualified if they are not correctly tracked because links are not properly formatted; purchases via a Redirecting Link (indirect, no click on the intermediate site) are disqualified.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Program Policies, Commission Income Statement §2(e) and §2(g)",
+      "status": "Verified",
+      "used_on": "FLG-003 validation plan",
+      "flags": [
+        "FLG-003"
+      ]
+    },
+    {
+      "id": "V-06",
+      "topic": "Links generated on search engines are excluded",
+      "claim": "Purchases by customers referred by a link generated or displayed on a search engine (including sponsored placements) are disqualified.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Program Policies, Commission Income Statement §2(d)",
+      "status": "Verified",
+      "used_on": "Growth plan (SEO) — noted, not an exclusion of organic search traffic",
+      "flags": []
+    },
+    {
+      "id": "V-07",
+      "topic": "Paid search keywords containing Amazon marks",
+      "claim": "Purchases referred via ads bought on keywords including “amazon” or “kindle” (or misspellings) are disqualified.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Program Policies, Commission Income Statement §2(c)",
+      "status": "Verified",
+      "used_on": "Campaign ledger rules (no paid search planned)",
+      "flags": []
+    },
+    {
+      "id": "V-08",
+      "topic": "Domain names must not include Amazon trademarks",
+      "claim": "Domain names, subdomains and tags must not include an Amazon trademark or misspelling.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Program Policies, Participation Requirements §1(g)",
+      "status": "Verified",
+      "used_on": "Site name “Crisp & Done” contains no Amazon mark (checked against the cited list only; see FLG-009)",
+      "flags": [
+        "FLG-009"
+      ]
+    },
+    {
+      "id": "V-09",
+      "topic": "Endorsement disclosure: material connection",
+      "claim": "Disclose any financial relationship with a brand; placement must be hard to miss and placed with the endorsement itself, not only on an About/profile page or below the fold.",
+      "source_url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "source_label": "FTC, Disclosures 101 for Social Media Influencers (Nov 2019)",
+      "status": "Verified",
+      "used_on": "Disclosure strip under masthead on every page; repeated in footer",
+      "flags": [
+        "FLG-015"
+      ]
+    },
+    {
+      "id": "V-10",
+      "topic": "Claims must be supportable",
+      "claim": "You can’t talk about experience with a product you haven’t tried, and can’t make claims that require proof the advertiser doesn’t have.",
+      "source_url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "source_label": "FTC, Disclosures 101 for Social Media Influencers, “What Else to Know”",
+      "status": "Verified",
+      "used_on": "Guides: no product performance claims; only listing text is quoted",
+      "flags": [
+        "FLG-011"
+      ]
+    },
+    {
+      "id": "V-11",
+      "topic": "Only Amazon Associates text may be used for commission-related claims",
+      "claim": "Commission rates are set in the Associates rate schedule. The schedule page redirected to sign-in when fetched.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/schedule",
+      "source_label": "Associates Program — Standard Commission Income schedule (sign-in required)",
+      "status": "Unverified",
+      "used_on": "Not shown on site",
+      "flags": [
+        "FLG-012"
+      ]
+    },
+    {
+      "id": "V-12",
+      "topic": "ASIN identifier format",
+      "claim": "Observed product URLs use /dp/<ASIN>; the five observed ASINs are 10 alphanumeric characters. An official Amazon definition page was not located in this session.",
+      "source_url": "https://www.amazon.com/dp/B0CDY277D3",
+      "source_label": "Observed on Amazon.com product page (P-01); same pattern on P-02..P-05 (see products.json)",
+      "status": "Verified (observed) / official definition not located",
+      "used_on": "Products table",
+      "flags": [
+        "FLG-001"
+      ]
+    },
+    {
+      "id": "V-13",
+      "topic": "Supplied short-link token format",
+      "claim": "Each supplied link path token is 9 characters. Each redirects to a different 10-character ASIN.",
+      "source_url": "https://link.amazon/B04G1MEwY",
+      "source_label": "Supplied short link P-01 (redirect followed); P-02..P-05 tokens are in products.json",
+      "status": "Verified (observed)",
+      "used_on": "Products table; FLG-001 / FLG-002",
+      "flags": [
+        "FLG-001",
+        "FLG-002"
+      ]
+    },
+    {
+      "id": "V-14",
+      "topic": "GitHub Pages publishing via custom Actions workflow",
+      "claim": "A site can be published by selecting GitHub Actions as the Pages source; the workflow deploys the uploaded artifact.",
+      "source_url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+      "source_label": "GitHub Docs — Configuring a publishing source for GitHub Pages",
+      "status": "Verified",
+      "used_on": "Deployment (.github/workflows/pages.yml)",
+      "flags": []
+    },
+    {
+      "id": "V-15",
+      "topic": "Deploy action version",
+      "claim": "Usage example: uses actions/deploy-pages@v4 after actions/upload-pages-artifact.",
+      "source_url": "https://github.com/actions/deploy-pages",
+      "source_label": "actions/deploy-pages README (main branch, fetched 2026-11-20)",
+      "status": "Verified",
+      "used_on": "Deployment workflow",
+      "flags": []
+    }
+  ]
+}

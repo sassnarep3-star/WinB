@@ -6,7 +6,18 @@ import { readFileSync, existsSync, statSync } from 'node:fs';
 import { join, relative, posix } from 'node:path';
 
 const ROOT = new URL('..', import.meta.url).pathname;
-const SEEDS = ['index.html'];
+// Every entry point that must work, including pages written by earlier
+// sessions that this build preserved (aliases) and the /go/ exit pages.
+const SEEDS = [
+  'index.html',
+  'go/chef-iq-sense-gen3.html', 'go/chefman-6-quart-dual-basket.html',
+  'go/chefman-8-quart-turbofry.html', 'go/emeril-lagasse-26qt-french-door.html',
+  'go/thermomaven-1-second-thermometer.html',
+  'guides/air-fryer-capacity-checklist.html', 'guides/basket-or-oven-air-fryer.html',
+  'guides/cleanup-and-counter-space.html', 'guides/multifunction-appliance-questions.html',
+  'about/editorial-policy.html', 'about/how-we-make-money.html', 'about/privacy.html',
+  'decisions/growth-plan.html', 'decisions/questions.html',
+];
 
 const seen = new Set();
 const queue = [...SEEDS];
@@ -27,8 +38,10 @@ function resolve(fromRel, href) {
     external.add(href);
     return null;
   }
-  // relative, resolved against the page's own directory and normalised so
-  // that "./" and "../" never accumulate into an infinite crawl.
+  // project-path links written by earlier sessions
+  if (href.startsWith('/WinB/')) return posix.normalize(href.slice('/WinB'.length) || '/');
+  // relative or site-root, resolved against the page's own directory and
+  // normalised so "./" and "../" never accumulate into an infinite crawl.
   if (href.startsWith('/')) return posix.normalize(href);
   const dir = fromRel.includes('/') ? fromRel.slice(0, fromRel.lastIndexOf('/') + 1) : '';
   return posix.normalize('/' + dir + href);

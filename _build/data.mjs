@@ -565,6 +565,40 @@ export const FLAGS = [
     blocks: 'Audience growth and first-party search data.',
   },
   {
+    id: 'FLG-010',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Affiliate redirect pages were marked noindex and nofollow',
+    detail:
+      'An earlier session published five /go/ pages that forward to Amazon. Each carried <meta name="robots" content="noindex,nofollow">. A page that search engines cannot index, which immediately forwards a visitor to an affiliate destination, is the pattern Google names as a sneaky redirect. The pages were otherwise well built — disclosure, tagged link, visible destination — so the defect was one meta tag, not the concept.',
+    evidence: [
+      'Before: go/chefman-6-quart-dual-basket.html contained content="noindex,nofollow".',
+      'After: the same page carries content="index,follow", the Associates statement, a tagged rel="sponsored" destination link, and is listed in sitemap.xml.',
+      'Enforced from now on by rule R10 in tools/verify.mjs.',
+    ],
+    sources: ['G2', 'A2'],
+    action:
+      'Fixed by tools/consolidate.mjs and enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
+    blocks: 'Nothing now. Was a real search-policy risk.',
+  },
+  {
+    id: 'FLG-011',
+    severity: 'Medium',
+    status: 'Needs review',
+    title: 'Six competing site generations had accumulated on one host',
+    detail:
+      'Parallel sessions published six different sites to the same GitHub Pages origin: the root site (twice, under two different brands), /docs/, /alt-site/build/, /legacy-docs-site/, and three root folders with overlapping purpose (products/, verification/, compliance/, platform/). Three separate build systems were present (tools/build.js, scripts/build.py, alt-site/build/build.py). Two sites on one host competing for the same queries is a doorway-abuse pattern, and it also makes the published site impossible to reason about.',
+    evidence: [
+      '151 tracked files on main before integration; six index.html files.',
+      'Root index.html branded “The Crisp Kitchen”; /docs/ and /legacy-docs-site/ carry a different brand and a different data set.',
+      'git log main: merge commits for PRs #1, #2, #8, #12, #14, #15.',
+    ],
+    sources: ['G2'],
+    action:
+      'This integration retires the superseded trees rather than deleting them: 56 pages are marked noindex,nofollow and carry a visible “Archived page” banner pointing at the canonical equivalent. The canonical site is the root Counterwise publication. Owner decides whether to delete the archived trees outright — nothing links to them from the live navigation, and they remain readable in git history either way.',
+    blocks: 'Clean indexing of the canonical site until search engines recrawl.',
+  },
+  {
     id: 'FLG-009',
     severity: 'Medium',
     status: 'Needs review',

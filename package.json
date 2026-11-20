@@ -3,12 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Static Amazon Associates publication for the WinB repository.",
+  "description": "Counterwise \u2014 a static Amazon Associates publication for five kitchen products.",
   "scripts": {
-    "build": "node _build/build.mjs && node _build/make-images.mjs",
+    "build": "node _build/build.mjs && node _build/make-images.mjs && node tools/consolidate.mjs",
     "verify": "node tools/verify.mjs",
     "links": "node tools/linkcheck.mjs",
+    "smoke": "BASE=http://localhost:3001/WinB node tools/smoke.mjs",
     "check": "npm run build && npm run verify && npm run links",
-    "smoke": "BASE=http://localhost:3001/WinB node tools/smoke.mjs"
+    "serve": "python3 -m http.server 8080 --bind 0.0.0.0",
+    "legacy:build": "node tools/build.js",
+    "legacy:check": "node tools/check.js"
   }
 }

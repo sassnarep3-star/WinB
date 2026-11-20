@@ -76,6 +76,16 @@ routes.push({ loc: '/privacy/', pri: '0.5', freq: 'yearly' });
 write('executive-summary/index.html', execPage());
 routes.push({ loc: '/executive-summary/', pri: '0.5', freq: 'monthly' });
 
+// Affiliate exit pages written by an earlier session and kept: they are legitimate
+// disclosure-carrying landing pages, so they belong in the index rather than
+// being hidden (a noindex affiliate redirect is a sneaky-redirect pattern).
+for (const g of ['chef-iq-sense-gen3', 'chefman-6-quart-dual-basket', 'chefman-8-quart-turbofry',
+  'emeril-lagasse-26qt-french-door', 'thermomaven-1-second-thermometer']) {
+  if (existsSync(join(ROOT, 'go', `${g}.html`))) {
+    routes.push({ loc: `/go/${g}.html`, pri: '0.4', freq: 'monthly' });
+  }
+}
+
 // Legacy URL compatibility: the previously published site used /review/ (singular).
 // Keep it working rather than breaking an indexed URL.
 write(

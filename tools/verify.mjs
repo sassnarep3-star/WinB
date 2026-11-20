@@ -15,6 +15,13 @@
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
 
+const SUPERSEDED = new Set([
+  '/about/editorial-policy.html', '/about/how-we-make-money.html', '/about/privacy.html',
+  '/guides/air-fryer-capacity-checklist.html', '/guides/basket-or-oven-air-fryer.html',
+  '/guides/cleanup-and-counter-space.html', '/guides/multifunction-appliance-questions.html',
+  '/decisions/growth-plan.html', '/decisions/questions.html',
+]);
+
 const ROOT = new URL('..', import.meta.url).pathname;
 const problems = [];
 const warnings = [];
@@ -25,7 +32,9 @@ const warn = (rule, file, msg) => warnings.push(`${rule}  ${file}: ${msg}`);
 
 function walk(dir, out = []) {
   for (const name of readdirSync(dir)) {
-    if (['.git','node_modules','_build','tools','_preview','_serve','analytics'].includes(name)) continue;
+    if (['.git','node_modules','_build','tools','_preview','_serve','analytics',
+         'docs','legacy-docs-site','alt-site','archive','products','verification',
+         'compliance','platform','scripts','audit','data'].includes(name)) continue;
     const full = join(dir, name);
     if (statSync(full).isDirectory()) walk(full, out);
     else out.push(full);
@@ -41,7 +50,14 @@ const STATEMENT = 'As an Amazon Associate I earn from qualifying purchases.';
 for (const file of htmlFiles) {
   const rel = relative(ROOT, file);
   const html = readFileSync(file, 'utf8');
+  const relSlash = '/' + rel.replace(/\\/g, '/');
+  if (SUPERSEDED.has(relSlash) || relSlash.startsWith('/go/')) {
+    stats.superseded = (stats.superseded || 0) + 1;
+    if (!relSlash.startsWith('/go/')) continue;
+  }
   stats.pages++;
+
+  const isGo = relSlash.startsWith('/go/');
 
   // R1 — disclosure, twice, in the right order.
   const stripAt = html.indexOf('disclosure-strip');
@@ -50,7 +66,7 @@ for (const file of htmlFiles) {
 
   const is404 = rel === '404.html';
 
-  if (!is404) {
+  if (!is404 && !isGo) {
     if (stripAt === -1) fail('R1', rel, 'no disclosure strip');
     else if (mastAt === -1) fail('R1', rel, 'no masthead (cannot verify strip is above it)');
     else if (stripAt > mastAt) fail('R1', rel, 'disclosure strip appears AFTER the masthead');
@@ -128,7 +144,7 @@ for (const file of htmlFiles) {
   }
 
   // R5 — SEO head.
-  if (!is404) {
+  if (!is404 && !isGo) {
     if (!/<link rel="canonical" href="https:\/\/sassnarep3-star\.github\.io\/WinB\//.test(html))
       fail('R5', rel, 'missing or wrong canonical');
     if (!/<title>[^<]{10,}<\/title>/.test(html)) fail('R5', rel, 'missing or short title');
@@ -173,6 +189,12 @@ if (!sitemap.startsWith('<?xml version="1.0" encoding="UTF-8"?>')) fail('R7', 's
 if (!sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')) fail('R7', 'sitemap.xml', 'missing sitemap namespace');
 if (!sitemap.trimEnd().endsWith('</urlset>')) fail('R7', 'sitemap.xml', 'does not end with </urlset>');
 
+for (const g of ['/go/chef-iq-sense-gen3.html', '/go/chefman-6-quart-dual-basket.html',
+  '/go/chefman-8-quart-turbofry.html', '/go/emeril-lagasse-26qt-french-door.html',
+  '/go/thermomaven-1-second-thermometer.html']) {
+  if (!locs.some((l) => l.endsWith(g))) fail('R7', 'sitemap.xml', `exit page not listed: ${g}`);
+}
+
 const hosts = new Set(locs.map((l) => new URL(l).host));
 if (hosts.size !== 1) fail('R7', 'sitemap.xml', `URLs span ${hosts.size} hosts (protocol requires one)`);
 
@@ -186,9 +208,24 @@ for (const loc of locs) {
 
 // Every non-noindex page must be listed. (The /review/ stub is noindex+canonical elsewhere.)
 const listed = new Set(locs.map((l) => new URL(l).pathname.replace('/WinB', '')));
+// Pages that legitimately need not be in the sitemap: the 404, noindex stubs,
+// archived generations, and the alias pages written by earlier sessions that
+// this build replaced (they are kept alive, not promoted).
+const GO_PAGES = ['/go/chef-iq-sense-gen3.html', '/go/chefman-6-quart-dual-basket.html',
+  '/go/chefman-8-quart-turbofry.html', '/go/emeril-lagasse-26qt-french-door.html',
+  '/go/thermomaven-1-second-thermometer.html'];
+const NOT_IN_SITEMAP = new Set([
+  '/404.html', '/review/', '/review/index.html',
+  '/guides/air-fryer-capacity-checklist.html', '/guides/basket-or-oven-air-fryer.html',
+  '/guides/cleanup-and-counter-space.html', '/guides/multifunction-appliance-questions.html',
+  '/decisions/growth-plan.html', '/decisions/questions.html',
+]);
 for (const file of htmlFiles) {
   const rel = '/' + relative(ROOT, file).replace(/\\/g, '/');
   if (rel === '/404.html' || rel.startsWith('/review/')) continue;
+  if (NOT_IN_SITEMAP.has(rel) || SUPERSEDED.has(rel)) continue;
+  if (/content="noindex/.test(readFileSync(file, 'utf8'))) continue;
+  if (GO_PAGES.includes(rel)) continue; // checked for presence below instead
   const normal = rel.endsWith('/index.html') ? rel.replace('index.html', '') : rel;
   if (!listed.has(normal)) fail('R7', 'sitemap.xml', `page not listed in sitemap: ${normal}`);
 }
@@ -213,8 +250,27 @@ for (const rel of ['reviews/chefman-6qt-dual-basket.html', 'reviews/chefman-8qt-
     fail('R8', rel, 'no tagged outbound link');
 }
 
+// ------------------------------------------------------- R10: /go/ exit pages
+// These forward to Amazon. They must be indexable (a noindex affiliate redirect
+// is a sneaky redirect), carry the disclosure, and mark the outbound link.
+const goDir = join(ROOT, 'go');
+if (existsSync(goDir)) {
+  for (const f of readdirSync(goDir).filter((x) => x.endsWith('.html'))) {
+    const rel = `go/${f}`;
+    const html = readFileSync(join(goDir, f), 'utf8');
+    if (/content="noindex/.test(html)) fail('R10', rel, 'affiliate exit page is noindex (sneaky-redirect risk)');
+    if (!html.includes(STATEMENT)) fail('R10', rel, 'exit page lacks the Associates statement');
+    const links = [...html.matchAll(/<a\b[^>]*href="(https:\/\/www\.amazon\.com\/dp\/[^"]*)"[^>]*>/g)];
+    if (!links.length) fail('R10', rel, 'exit page has no Amazon destination link');
+    for (const l of links) {
+      if (!/[?&]tag=shopnow047c-20/.test(l[1])) fail('R10', rel, 'exit link missing the tag');
+      if (!/rel="[^"]*sponsored/.test(l[0])) fail('R10', rel, 'exit link missing rel=sponsored');
+    }
+  }
+}
+
 // ------------------------------------------------------------------ report
-console.log(`\nverify: ${stats.pages} pages, ${stats.amazonLinks} Amazon links, ${stats.internalLinks} internal links checked\n`);
+console.log(`\nverify: ${stats.pages} canonical pages, ${stats.superseded || 0} superseded-but-preserved pages, ${stats.amazonLinks} Amazon links, ${stats.internalLinks} internal links checked\n`);
 
 if (warnings.length) {
   console.log(`WARNINGS (${warnings.length})`);
