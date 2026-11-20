@@ -578,8 +578,25 @@ export const FLAGS = [
     ],
     sources: ['G2', 'A2'],
     action:
-      'Fixed by tools/consolidate.mjs and enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
+      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-012). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
     blocks: 'Nothing now. Was a real search-policy risk.',
+  },
+  {
+    id: 'FLG-012',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Fix recorded in a script CI does not run; two brands on the live site',
+    detail:
+      'Two problems found on re-verification. (1) The FLG-010 fix lived in tools/consolidate.mjs, which is part of npm run build but not of the CI pipeline in .github/workflows/pages.yml, so the deployed /go/ pages still carried noindex,nofollow. (2) The /go/ pages are titled and branded “The Crisp Kitchen” while the rest of the site, the README and the sitemap use “Counterwise”. Two names on one publication is an unresolved identity question for the owner.',
+    evidence: [
+      'Before this build: go/*.html on main contained content="noindex,nofollow".',
+      'After this build: tools/build.cjs writes content="index,follow" and CI regenerates the same bytes (drift check passes).',
+      'Brand split: go/chefman-6-quart-dual-basket.html <title> reads “Leaving for Amazon — Chefman 6-Quart Dual Basket | The Crisp Kitchen”; index.html <title> reads “Counterwise — kitchen gear chosen by question, not by hype”.',
+    ],
+    sources: ['G2'],
+    action:
+      'Fixed: /go/ generator corrected. Open for owner: choose one brand name, then the build will be changed to match (not decided in this session).',
+    blocks: 'Brand decision blocks a single consistent identity; not blocking publication.',
   },
   {
     id: 'FLG-011',

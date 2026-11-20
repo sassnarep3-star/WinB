@@ -23,6 +23,8 @@ push the claim immediately. Never start a task another session has claimed.
 | 2026-11-20 | `arena-afa610ec` | Integration: branch pushed, PR opened, merged to `main`, Pages deploy confirmed (§5). |
 | 2026-11-20 | `arena-e8af4464` | Read board and repo. Confirmed `main` tip `0fa749d` (PR #20), Pages `built` at `https://sassnarep3-star.github.io/WinB/`, and four open PRs from other sessions (#9, #16, #18, #23) left untouched. Claimed S10 (publication polish + verification + integration) with file scope `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `assets/css/site.css`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated HTML. Re-fetched official sources live (FTC Disclosures 101, USDA FSIS chart, Google qualify-outbound-links + spam policies, sitemaps.org protocol, Amazon Operating Agreement + Program Policies) and confirmed the recorded quotes. No new product specs invented; Amazon listing data remains the 2026-11-20 observed record (sandbox cannot reach amazon.com). |
 
+| 2026-11-20 | `arena-2139de5f` | Re-verification session on branch `arena/2139de5f-winb` (base `0fa749d`, = `main`). Ran the CI build sequence: clean. Found that the FLG-010 fix existed only in `tools/consolidate.mjs` (not run by CI), so the deployed `/go/` pages were still `noindex,nofollow`. Fixed the generator (`tools/build.cjs`), corrected FLG-010, logged FLG-012 (fix-in-wrong-script; two brands). Re-checked all five short links against amazon.com (§8). |
+
 **Note on parallel sessions.** The protocol above assumes several concurrent sessions. At the
 time of writing there were none: the branch note, `git branch -a`, and `gh pr list` all showed a
 single working branch and no collaborators. This board therefore records one session claiming
@@ -63,6 +65,8 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S08 | Final integration: build, link check, merge to `main`, confirm Pages deploy, record PR + result here | `arena-afa610ec` | repo root, `.github/` | done |
 | S09 | **Handoff to this session as integration session.** `main` had advanced 55 commits past this branch, carrying six competing site generations. Rebased, resolved 17 add/add conflicts in favour of the canonical root build, retired the superseded trees with noindex + banner, fixed five `/go/` pages that were `noindex,nofollow` while forwarding to affiliate links (FLG-010), and recorded the six-generation collision (FLG-011). | `arena-afa610ec` | `tools/consolidate.mjs`, `tools/verify.mjs`, `tools/linkcheck.mjs`, `_build/build.mjs`, `_build/data.mjs` | done |
 | S10 | Publication polish + verification + integration: shop-first front page with seasonal notebook and clusters, bylines, guide navigation, Decision Room paths + topic queue + discovery plan, Data Room automation/organic tables, executive summary refresh, full gate re-run, PR + merge + Pages confirm | `arena-e8af4464` | `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `assets/css/site.css`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated HTML | done |
+
+| S10 | Re-verify `main` against the CI sequence; fix `/go/` robots drift (FLG-010/012); re-check the five short links on amazon.com; record in §8 | `arena-2139de5f` | `tools/build.cjs`, `_build/data.mjs`, `go/*.html`, `flagged/`, `executive-summary/`, `COORDINATION.md` | done |
 
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
@@ -408,3 +412,27 @@ appendix only).
 ### S10 rebase note (2026-11-20)
 
 `main` advanced while S10 was in progress (PR #18 `cfebae8` and PR #23 `0d34699` merged). Rebased `arena/e8af4464-winb` onto `origin/main` (`0d34699`). One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` Outcome + `session-integration-winb` appendix, followed by §8 above. No other session's work discarded. All other S10 files applied cleanly.
+
+## 8. Re-verification record (session `arena-2139de5f`, branch `arena/2139de5f-winb`)
+
+| Check | Result |
+| --- | --- |
+| Base | `0fa749d` = `origin/main`, clean tree before work |
+| CI sequence (`_build/build.mjs`, `_build/make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`) then `tools/verify.mjs` and `tools/linkcheck.mjs` | Passes. Output is deterministic; the diff after this session's change is limited to the files listed in S10. |
+| `npm run build` (includes `tools/consolidate.mjs`, which CI does not run) | Produces drift that CI never sees. Not committed. Logged as FLG-012. |
+| `/go/` robots on `main` before this session | `noindex,nofollow` (5 of 5 pages). Contradicted FLG-010 "Fixed". |
+| `/go/` robots after this session | `index,follow` (5 of 5 pages), via `tools/build.cjs`. |
+| Short-link re-check on amazon.com (fetch, 2026-11-20 UTC) | All five resolve to listings whose ASIN equals the register's observed ASIN. Intended ASIN is not set by this check and stays as recorded in §3. |
+
+| Supplied link | Observed redirect (amazon.com/dp/…) | Matches §3 | Sources |
+| --- | --- | --- | --- |
+| `https://link.amazon/B04G1MEwY` | `B0CDY277D3` | Yes | [listing](https://www.amazon.com/dp/B0CDY277D3) |
+| `https://link.amazon/B02NbDxp3` | `B09B7SB46R` | Yes | [listing](https://www.amazon.com/dp/B09B7SB46R) |
+| `https://link.amazon/B00hJ57DV` | `B08DKYBTPH` | Yes | [listing](https://www.amazon.com/dp/B08DKYBTPH) |
+| `https://link.amazon/B0c8moW59` | `B0DHZTCNR5` | Yes | [listing](https://www.amazon.com/dp/B0DHZTCNR5) |
+| `https://link.amazon/B0f3GKalj` | `B0DZFD6R9Z` | Yes | [listing](https://www.amazon.com/dp/B0DZFD6R9Z) |
+
+**Not verified in this session, and not claimed:** Associates account behaviour (Special Link test, tracking report), Search Console verification, the deployed analytics endpoint, and any price, rating or sales figure. These need the owner's account access and remain open (FLG-003, FLG-009, FLG-010 and Q-04..Q-06).
+
+**Irregularities logged:** FLG-010 corrected (the fix was in the wrong script). FLG-012 added: fix in a script CI does not run; the site uses two brands (“Counterwise” and “The Crisp Kitchen”).
+
