@@ -719,3 +719,26 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
    Closes FLG-007 and makes topic selection an evidence question.
 3. Decide who owns the site and where corrections go (Q-05 / Q-07), which unblocks the contact
    route and the email list.
+## Appendix: session `arena/30073780-winb` — polished shop, decision tools, trendy guides, executive refresh (S15)
+
+**Session ID:** `30073780` · **Branch:** `arena/30073780-winb` · **Claimed:** 2026-11-20 (UTC) · **Status:** in progress
+
+**Board read before claiming.** `origin/main` at `9798831` (empty redeploy commit on top of `cf51332`, PR #36). Open PRs at claim time: #37 (`_build/data.mjs`, `flagged/`), #35 (`_build/content-oversight.mjs`, `suggestions/`), #34 (`_build/data.mjs`, `_build/content-oversight.mjs`, `_build/content-shop.mjs`, many generated HTML), #31, #30, #26, #25 (`_build/data.mjs`, `tools/build.cjs`, `tools/verify.mjs`), #16, #9. Their scopes were read via `gh pr view --json files` before this claim.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S15 | Polished shop + decision tools + trendy question guides + executive-summary refresh + line-by-line re-verification (2026-11-20). Add: (1) 30-second "Which one fits your kitchen?" chooser on front page, (2) printable capacity + cleanup + thermometer-calibration worksheets, (3) 3 new question-shaped trendy guides (holiday roast, game-day wings, air-fryer leftovers — hypotheses, no popularity claims), (4) buyer-questions FAQ matrix on front page + category hubs, (5) refreshed EXECUTIVE-SUMMARY.md + README with honest AI-platform scope, (6) re-verify all official sources live via fetch_page and record results. | `30073780` | `_build/tools-content.mjs` (NEW), `_build/editorial.mjs`, `_build/build.mjs`, `_build/content-oversight.mjs` (minimal, see overlap note), `assets/css/site.css`, `assets/js/site.js`, `tools/gate.mjs` (R15 only), `EXECUTIVE-SUMMARY.md`, `README.md`, `COORDINATION.md`, generated HTML (`index.html`, `guides/`, `tools/`, `air-fryers/`, `thermometers/`, `compare/`, `sitemap.xml`, `feed.xml`) | in progress |
+
+**Non-overlap strategy.** New content lives in the NEW file `_build/tools-content.mjs` so `_build/data.mjs` (owned by PRs #37/#34/#25) is NOT edited. `_build/content-oversight.mjs` is touched only for the executive-summary refresh; PRs #34/#35 also touch it — this session will `git pull --rebase` before push and resolve any conflict by keeping both sides, logging the resolution here. No other session's files (`tools/build.cjs`, `tools/verify.mjs`, `tools/check.cjs`, `docs/`, `legacy-docs-site/`, `alt-site/`, `archive/`, `products/`, `verification/`, `compliance/`, `platform/`, `scripts/`, `audit/`, `data/`, `register/`) are edited.
+
+**Verification performed before claiming (2026-11-20, via fetch_page, live):**
+- A1 Operating Agreement (Updated Oct 15, 2025): §5 exact sentence "As an Amazon Associate I earn from qualifying purchases." confirmed; §1 Special Links = tagged link formats; §6 violation of §5 = material breach.
+- A2 Program Policies (Updated Apr 14, 2026): §2(b) tag as URL parameter, price only if Amazon serves link or via Creators/PA API, no inaccurate/overbroad/deceptive claims — all confirmed.
+- F1 FTC Disclosures 101 (Nov 2019): hard-to-miss, with endorsement, simple language, "You can't talk about your experience with a product you haven't tried." — confirmed.
+- U1 USDA FSIS Safe Temperature Chart (Last Updated Apr 14, 2025): 145°F+3min rest, 160°F ground, 165°F poultry/leftovers/casseroles, 145°F fish — confirmed.
+- G1 Google qualify outbound links (Last updated 2025-12-10): rel="sponsored" for ads/paid placements — confirmed.
+- G2 Google spam policies: scaled content abuse, site reputation, thin affiliation, sneaky redirects sections present — confirmed.
+- G4 sitemaps.org protocol: urlset namespace, single host, UTF-8 entity-escaped — confirmed.
+- Amazon listing B0CDY277D3 fetched live: title matches register (CHEFMAN 6 Quart Dual Basket...), category path Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers matches. Prices/ratings visible on page were deliberately NOT recorded (R3).
+- ASIN definition: 10-character Amazon Standard Identification Number, unique per listing/region (secondary sources; Amazon does not publish a standalone ASIN glossary page — flagged as corroboration, not official confirmation).
+
