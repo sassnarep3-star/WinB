@@ -28,16 +28,23 @@ jobs:
           node-version: '20'
 
       # Regenerate from source so CI proves the committed HTML matches the data.
-      # Regenerate from source so CI proves the committed HTML matches the data.
-      # Order matters: the Counterwise build owns the shared publication files
-      # (index.html, 404.html, robots.txt, sitemap.xml, feed.xml); the Crisp Kitchen
-      # register build owns only its own trees and never writes those five.
+      # Order is critical and must match `npm run build` exactly, which is what
+      # contributors run before committing:
+      #   1. the Counterwise build owns the shared publication files
+      #      (index.html, 404.html, robots.txt, sitemap.xml, feed.xml)
+      #   2. the Crisp Kitchen register build owns only its own trees
+      #   3. consolidate.mjs is what actually performs the FLG-010 fix (it rewrites
+      #      the /go/ robots meta to index,follow) and the archive noindex pass.
+      #      Leaving it out of this list made the drift check fail on every commit
+      #      produced by `npm run build`, because the committed bytes were the
+      #      post-consolidate ones and CI regenerated the pre-consolidate ones.
       - name: Generate site
         run: |
           node _build/build.mjs
           node _build/make-images.mjs
           node tools/build.cjs
           node tools/noindex.cjs
+          node tools/consolidate.mjs
 
       - name: Fail if generated output differs from what is committed
         run: |
@@ -47,8 +54,14 @@ jobs:
             exit 1
           fi
 
-      - name: Verify content rules (R1-R9)
+      - name: Verify content rules (R1-R10)
         run: node tools/verify.mjs
+
+      # The editorial surfaces add four rules of their own: social images must
+      # resolve, no metric may be presented as measured, the disclosure must sit
+      # before the first heading, and every class used must be styled.
+      - name: Verify editorial rules (R11-R14)
+        run: node tools/gate.mjs
 
       - name: Publication gate for the register build
         run: node tools/check.cjs

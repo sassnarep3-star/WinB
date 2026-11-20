@@ -9,11 +9,13 @@
     "verify": "node tools/verify.mjs",
     "links": "node tools/linkcheck.mjs",
     "smoke": "BASE=http://localhost:3001/WinB node tools/smoke.mjs",
-    "check": "npm run build && npm run verify && npm run links",
+    "check": "npm run build && npm run verify && npm run gate && npm run links",
     "serve": "python3 -m http.server 8080 --bind 0.0.0.0",
     "legacy:build": "node tools/build.cjs",
     "legacy:check": "node tools/check.cjs",
     "legacy:noindex": "node tools/noindex.cjs",
-    "crisp:verify": "node tools/build.cjs && node tools/noindex.cjs && node tools/check.cjs"
+    "crisp:verify": "node tools/build.cjs && node tools/noindex.cjs && node tools/check.cjs",
+    "gate": "node tools/gate.mjs",
+    "build:editorial": "node _build/build-editorial.mjs"
   }
 }
