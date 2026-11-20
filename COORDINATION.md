@@ -1063,3 +1063,27 @@ Standing requirement: every table row needs a source link to an official site. T
 | Flag mapping | Variant FLG-001..008 map onto the board's FLG set. Variant FLG-003 = board FLG-003: the supplied short links are **not claimed invalid**; compliance unresolved pending the one-link Associates test. Variant FLG-005 notes the five-event taxonomy was not enumerated in the owner's brief. |
 | Brand note (see FLG-012) | The preserved variant carries a third brand label ("Counter & Crisp"), inherited from this session's independent build. It is noindexed and archived; if the owner prefers one brand, delete `alt-site/counter-and-crisp/` or relabel — a one-line decision, logged here rather than acted on. |
 | Requests to file owners | None. Only this board and `README.md` were touched among `done`-scope files, **appended only**, per this board's logging rule. |
+
+### S18 note — `main` CI drift found and fixed on this branch (2026-11-20)
+
+After PR #31 merged, `main`'s `Build, verify and deploy to GitHub Pages` run
+(44688631018) went **failure**: PR #31 committed its `alt-site/counter-and-crisp/` tree
+in its own generator's state (`noindex,follow`, no banner), but the standard CI generation
+sequence runs `tools/consolidate.mjs`, which applies the archive policy to that tree
+(`noindex,nofollow` + visible archive banner) across 36 files. The drift check therefore
+fails on `main` as committed, and the Pages deploy step did not run.
+
+**Fix applied on this branch** (the remedy the drift check itself prints: run the build and
+commit the result): commit `bb4fb26` carries the post-consolidate state of those 36 files.
+This is the same treatment every other preserved parallel generation already has
+(`docs/`, `legacy-docs-site/`, `alt-site/build/`, `archive/` — 44 files previously marked).
+All gates re-run green after the fix: verify R1–R11 (45 Amazon links now), gate R11–R15,
+check.cjs all gates passed, linkcheck 58 files / 0 broken, smoke at `/WinB/` 32 pages +
+60 assets all 200. The site's canonical tree is unchanged; only the parallel alt-site
+tree's robots/banner state moves to the established archive policy.
+
+**Board-level irregularity for the `_build/data.mjs` owner** (this session does not edit
+that file — open PR #42 claims it): the drift above deserves a flag in the site's FLG
+register (suggested next free number, subject to the register owner's check) — "PR #31
+merged a parallel tree in a state the CI generation immediately rewrites; main CI red
+until consolidated state committed." Logged here so the record is not lost.
