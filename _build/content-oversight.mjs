@@ -860,7 +860,7 @@ ${pageHead({
     </div>
     ${table({
       caption: '<b>Ten proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.',
-      head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Risk', 'Blocked by', 'Status', ''],
+      head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Cost of being wrong', 'Blocked by', 'Status', ''],
       rows: [...openItems, ...doneItems].map(boardRow),
     })}
   </div>
