@@ -12,11 +12,11 @@
 <meta property="og:title" content="Flagged for Review — unverified items and irregularities | Counterwise">
 <meta property="og:description" content="Nine flagged items with evidence and official sources: untagged short links, unconfirmed intended ASINs, no hands-on testing, withheld prices, and unmeasured traffic.">
 <meta property="og:url" content="https://sassnarep3-star.github.io/WinB/flagged/">
-<meta property="og:image" content="https://sassnarep3-star.github.io/WinB/assets/img/og-default.png">
+<meta property="og:image" content="https://sassnarep3-star.github.io/WinB/assets/img/og-default.svg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Flagged for Review — unverified items and irregularities | Counterwise">
 <meta name="twitter:description" content="Nine flagged items with evidence and official sources: untagged short links, unconfirmed intended ASINs, no hands-on testing, withheld prices, and unmeasured traffic.">
-<meta name="twitter:image" content="https://sassnarep3-star.github.io/WinB/assets/img/og-default.png">
+<meta name="twitter:image" content="https://sassnarep3-star.github.io/WinB/assets/img/og-default.svg">
 <meta name="theme-color" content="#1e4034">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="alternate" type="application/rss+xml" title="Counterwise — new guides" href="https://sassnarep3-star.github.io/WinB/feed.xml">
@@ -42,7 +42,7 @@
       <a href="../air-fryers/">Air fryers</a><a href="../thermometers/">Thermometers</a><a href="../guides/">Guides</a>
       <details>
         <summary aria-haspopup="true">More</summary>
-        <div class="menu"><span class="menu-label">The shop</span><a href="../reviews/">All five picks</a><a href="../compare/">Comparison table</a><span class="menu-label">How this works</span><a href="../decisions/">Decision Room</a><a href="../data-room/">Data Room</a><a href="../flagged/">Flagged for Review</a><a href="../methods/">How we choose</a><span class="menu-label">The project</span><a href="../executive-summary/">Executive summary</a><a href="../about/">About &amp; contact</a><a href="../privacy/">Privacy &amp; measurement</a></div>
+        <div class="menu"><span class="menu-label">The shop</span><a href="../reviews/">All five picks</a><a href="../compare/">Comparison table</a><span class="menu-label">How this works</span><a href="../suggestions/">Suggestions &amp; decision queue</a><a href="../decisions/">Decision Room</a><a href="../data-room/">Data Room</a><a href="../flagged/">Flagged for Review</a><a href="../methods/">How we choose</a><span class="menu-label">The project</span><a href="../executive-summary/">Executive summary</a><a href="../about/">About &amp; contact</a><a href="../privacy/">Privacy &amp; measurement</a></div>
       </details>
       <a class="cta" href="../reviews/">The five picks</a>
     </nav>
@@ -58,8 +58,8 @@
     <h1>Flagged for Review</h1>
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
-    <span class="badge red">3 high</span>
-    <span class="badge amber">7 medium</span>
+    <span class="badge red">4 high</span>
+    <span class="badge amber">8 medium</span>
     <span class="badge plain">1 low</span>
   </div>
   </div>
@@ -301,6 +301,48 @@
     <div><dt>Blocks</dt><dd>Nothing.</dd></div>
   </div>
 </details>
+
+<details class="flag" id="FLG-012" open>
+  <summary>
+    <span class="id">FLG-012</span>
+    <span class="ft">
+      <h3>Three product pages reported stated specifications as &quot;not stated&quot;</h3>
+      <span class="meta">
+        <span class="badge red">High severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">The build as previously published listed wattage as “not stated” for both air fryers and described temperature range, model numbers and warranty terms as unavailable. All four of those were published on the listings themselves, in the “About this Item” bullets and the Product Description block. Reporting a published specification as unpublished is a factual error against the reader, and it made the comparison table less useful than the data allowed.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>P01 / B0CDY277D3: “RESOURCES … 120 Volts/1700 Watts”, and “temperature settings from 200-450°F”.</li><li>P03 / B08DKYBTPH: “RESOURCES … 1000 Watts/120 Volts – RJ38-SQSS-8T”, and “a temperature range from 200-400°F”.</li><li>P04 / B0DHZTCNR5: “Runs on a AA battery” per the published review summary.</li><li>P05 / B0DZFD6R9Z: “built to endure 1000°F heat”, “accurate within 1°F”, two-year assurance.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed: /_build/listing-evidence.mjs holds the transcribed evidence, and the wattage, temperature-range and review-theme rows are populated from it on the comparison table, both category tables and every product page. Values that genuinely are unpublished (external dimensions) remain blank and labelled.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing. Published on /flagged/ for review.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-013" >
+  <summary>
+    <span class="id">FLG-013</span>
+    <span class="ft">
+      <h3>Three listings contradict themselves on their own stated figures</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Needs review</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">Where a single listing states two different values for the same specification, this site prints both and flags the conflict rather than choosing one. None of these can be resolved from the listing alone; the rating plate or the manual is the tiebreaker.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>P02 / B09B7SB46R: title says “24 One-Touch Preset Options”; the bullets say “25 COOKING PRE-SETS”. The description returns to 24. Separately, the title says “Six Cooking Accessories Included” while the description says “7 premium accessories”.</li><li>P03 / B08DKYBTPH: “About this Item” states “1000 Watts/120 Volts”; the Product Description states “1700W/120V” for the same model, RJ38-SQSS-8T.</li><li>P05 / B0DZFD6R9Z: bullets state “up to 50 hours on a full charge”; the description states “up to 70 hours of usage on a full charge”.</li></ul></dd></div>
+    
+    <div><dt>What the owner needs to do</dt><dd>Owner or a future session reads the linked user-guide PDF for each and records the authoritative figure with its page number. Until then the site shows both values and says they disagree.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing. Each affected page states the conflict inline.</dd></div>
+  </div>
+</details>
     <div class="callout mt-3">
       <h4>How to read a “needs review” item</h4>
       <p>A flag with status <b>Needs review</b> is published here and does not block anything. A flag with status <b>Open</b> is a live limitation on a specific claim, named in the flag. If you want any of these resolved, the “what the owner needs to do” line under each one is the shortest path.</p>
@@ -356,6 +398,7 @@
       <div>
         <h4>Oversight</h4>
         <ul>
+          <li><a href="../suggestions/">Suggestions &amp; decision queue</a></li>
           <li><a href="../decisions/">Decision Room</a></li>
           <li><a href="../data-room/">Data Room</a></li>
           <li><a href="../flagged/">Flagged for Review</a></li>

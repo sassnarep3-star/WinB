@@ -215,12 +215,14 @@ export const PRODUCTS = [
     ],
     unverifiedClaims: [
       '“Sync Finish”, “Hi-Fry” and “Auto Shutoff” are listed as features; the timing behaviour of these modes is not documented in the data available to this desk.',
-      'Actual usable basket volume, power draw in watts, and oven-safe accessory limits are not stated in the data available to this desk.',
+      'Actual usable basket volume, external dimensions and oven-safe accessory limits are not stated on the listing as read.',
     ],
     bestFor:
       'A household that regularly cooks two different things at once — protein in one basket, vegetables in the other — and wants to finish them together.',
     thinkTwiceIf:
-      'You mostly cook one large item. Two smaller baskets split a single batch rather than accommodating it.',
+      'You mostly cook one large item, or you want the appliance to still be working in three years. Two smaller baskets split a single batch, and durability is the single worst-rated theme on its own listing.',
+    verdict:
+      'Buy it for the two-basket idea. Check the warranty and the return window before you rely on it, because the reviews are unusually blunt about failure.',
     compare: { format: 'basket', capacityQt: 6, baskets: 2, window: true, style: 'Dual basket' },
   },
   {
@@ -258,13 +260,15 @@ export const PRODUCTS = [
       },
     ],
     unverifiedClaims: [
-      'The specific 24 preset names, wattage, and external dimensions are not stated in the data available to this desk.',
-      'The accessory list behind “six cooking accessories” is not itemised in the data available to this desk.',
+      'The specific preset names are published in the listing bullets, but the title says 24 presets and the bullets say 25 — see FLG-013. This desk has not resolved which is correct.',
+      'Wattage, external dimensions and temperature range are not stated on the listing as read.',
     ],
     bestFor:
-      'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for aFrench-door oven rather than a tall basket unit.',
+      'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for a French-door oven rather than a tall basket unit.',
     thinkTwiceIf:
-      'Your counter is shallow, or you want something you can lift out and wash in a standard sink. An oven this size is a fixture, not a gadget.',
+      'Your counter is shallow, you want something you can lift out and wash in a standard sink, or you expect a countertop oven to survive several years. Reviews of this listing are dominated by complaints about the heating element failing.',
+    verdict:
+      'The most versatile unit here by stated use — rotisserie, 12-inch pizza, 4–6 people — and the one with the heaviest durability caveat. Treat it as a fixture with a warranty, not a gadget.',
     compare: { format: 'oven', capacityQt: 26, baskets: 0, window: true, style: 'French-door oven' },
   },
   {
@@ -302,13 +306,15 @@ export const PRODUCTS = [
       },
     ],
     unverifiedClaims: [
-      'Whether “450°F” is a sustained set temperature or a peak is not stated in the data available to this desk.',
-      'Wattage and external dimensions are not stated in the data available to this desk.',
+      'Whether “450°F” is a sustained set temperature or a short Hi-Fry boost is not resolved: the Hi-Fry text says the last two minutes of cooking, while the base range is 200–400°F.',
+      'External dimensions are not stated on the listing as read.',
     ],
     bestFor:
       'Big single batches — a whole chicken’s worth of wings, a full tray of fries — where splitting across two baskets would be a nuisance.',
     thinkTwiceIf:
-      'You regularly cook two foods that need different temperatures at the same time.',
+      'You regularly cook two foods that need different temperatures at the same time, or your kitchen circuit is already busy — this is the only unit here whose listing states a wattage at 120 V, and it states two different ones.',
+    verdict:
+      'The simplest machine here: one basket, four modes, a stated wattage and a stated temperature range. Check the rating plate on the unit against the listing when it arrives, because the listing gives two different wattages.',
     compare: { format: 'basket', capacityQt: 8, baskets: 1, window: false, style: 'Single XL basket' },
   },
   {
@@ -342,12 +348,14 @@ export const PRODUCTS = [
     arithmetic: [],
     unverifiedClaims: [
       'The NIST and NSF certification claims appear in the listing title. This desk has not located a certificate to check them against, so they are recorded as manufacturer claims, not verified facts (FLG-006).',
-      'Probe length, battery type, calibration method and warranty term are not stated in the data available to this desk.',
+      'Probe length, calibration method and warranty term are not stated on the listing as read.',
     ],
     bestFor:
       'Everyday cooking where you want a fast number and a rinse under the tap, and you would rather not manage an app.',
     thinkTwiceIf:
       'You want continuous monitoring of a long cook without opening the oven door. That is a leave-in probe’s job, not an instant-read’s.',
+    verdict:
+      'The low-risk purchase here: no app, no pairing, no battery to charge in a hub. Its own listing’s mixed theme is durability, so treat the warranty as the deciding detail.',
     compare: { wireless: false, probes: 1, appRequired: false, heatRatingF: null },
   },
   {
@@ -387,12 +395,15 @@ export const PRODUCTS = [
     ],
     unverifiedClaims: [
       '“Unlimited range” cannot be verified here: WiFi range depends on your router and home. Treat it as “not limited by probe length”, not as a measured distance.',
-      'App platform support, subscription requirements, battery life and warranty term are not stated in the data available to this desk.',
+      'App platform support, subscription requirements, external dimensions and the exact hub charging time are not stated on the listing as read.',
+      'Battery life is stated twice with different figures — 50 hours in the bullets, 70 hours in the description. See FLG-013.',
     ],
     bestFor:
       'Long cooks — smoking, roasting, an air-fried chicken — where you want to watch a temperature climb without standing over it.',
     thinkTwiceIf:
-      'You do not want a phone in the loop. A wireless probe with an app is more machinery than an instant-read, and more to go wrong.',
+      'You do not want a phone in the loop, or you want the connection to be the least interesting thing about a thermometer. Connectivity is the most negative theme on its own listing.',
+    verdict:
+      'The only leave-in system here, and the only one whose listing is candid about a weak point: reviewers complain far more about connectivity than about accuracy. Buy it for the guided cooks, not for the radio.',
     compare: { wireless: true, probes: 3, appRequired: true, heatRatingF: 1000 },
   },
 ];
@@ -614,6 +625,41 @@ export const FLAGS = [
     action:
       'Owner decides which version is canonical. This session’s version is the one merged to main; the other branches are left untouched and unmerged.',
     blocks: 'Nothing.',
+  },
+  {
+    id: 'FLG-012',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Three product pages reported stated specifications as "not stated"',
+    detail:
+      'The build as previously published listed wattage as “not stated” for both air fryers and described temperature range, model numbers and warranty terms as unavailable. All four of those were published on the listings themselves, in the “About this Item” bullets and the Product Description block. Reporting a published specification as unpublished is a factual error against the reader, and it made the comparison table less useful than the data allowed.',
+    evidence: [
+      'P01 / B0CDY277D3: “RESOURCES … 120 Volts/1700 Watts”, and “temperature settings from 200-450°F”.',
+      'P03 / B08DKYBTPH: “RESOURCES … 1000 Watts/120 Volts – RJ38-SQSS-8T”, and “a temperature range from 200-400°F”.',
+      'P04 / B0DHZTCNR5: “Runs on a AA battery” per the published review summary.',
+      'P05 / B0DZFD6R9Z: “built to endure 1000°F heat”, “accurate within 1°F”, two-year assurance.',
+    ],
+    sources: ['A2'],
+    action:
+      'Fixed: /_build/listing-evidence.mjs holds the transcribed evidence, and the wattage, temperature-range and review-theme rows are populated from it on the comparison table, both category tables and every product page. Values that genuinely are unpublished (external dimensions) remain blank and labelled.',
+    blocks: 'Nothing. Published on /flagged/ for review.',
+  },
+  {
+    id: 'FLG-013',
+    severity: 'Medium',
+    status: 'Needs review',
+    title: 'Three listings contradict themselves on their own stated figures',
+    detail:
+      'Where a single listing states two different values for the same specification, this site prints both and flags the conflict rather than choosing one. None of these can be resolved from the listing alone; the rating plate or the manual is the tiebreaker.',
+    evidence: [
+      'P02 / B09B7SB46R: title says “24 One-Touch Preset Options”; the bullets say “25 COOKING PRE-SETS”. The description returns to 24. Separately, the title says “Six Cooking Accessories Included” while the description says “7 premium accessories”.',
+      'P03 / B08DKYBTPH: “About this Item” states “1000 Watts/120 Volts”; the Product Description states “1700W/120V” for the same model, RJ38-SQSS-8T.',
+      'P05 / B0DZFD6R9Z: bullets state “up to 50 hours on a full charge”; the description states “up to 70 hours of usage on a full charge”.',
+    ],
+    sources: [],
+    action:
+      'Owner or a future session reads the linked user-guide PDF for each and records the authoritative figure with its page number. Until then the site shows both values and says they disagree.',
+    blocks: 'Nothing. Each affected page states the conflict inline.',
   },
 ];
 

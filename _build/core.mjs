@@ -46,6 +46,7 @@ const MORE = [
   { href: '/reviews/', label: 'All five picks' },
   { href: '/compare/', label: 'Comparison table' },
   { group: 'How this works' },
+  { href: '/suggestions/', label: 'Suggestions & decision queue' },
   { href: '/decisions/', label: 'Decision Room' },
   { href: '/data-room/', label: 'Data Room' },
   { href: '/flagged/', label: 'Flagged for Review' },
@@ -129,6 +130,7 @@ export function footer() {
       <div>
         <h4>Oversight</h4>
         <ul>
+          <li><a href="/suggestions/">Suggestions &amp; decision queue</a></li>
           <li><a href="/decisions/">Decision Room</a></li>
           <li><a href="/data-room/">Data Room</a></li>
           <li><a href="/flagged/">Flagged for Review</a></li>
@@ -164,7 +166,7 @@ export function page({
   schema,
 }) {
   const canonical = url(path);
-  const img = ogImage ? url(ogImage) : url('/assets/img/og-default.png');
+  const img = ogImage ? url(ogImage) : url('/assets/img/og-default.svg');
   return `<!doctype html>
 <html lang="en">
 <head>
