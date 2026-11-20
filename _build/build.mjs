@@ -15,6 +15,7 @@ import {
   decisionsPage, dataRoom, flaggedPage, methodsPage,
   aboutPage, privacyPage, execPage, suggestionsPage,
 } from './content-oversight.mjs';
+import { directionPage } from './content-direction.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const written = [];
@@ -70,6 +71,9 @@ routes.push({ loc: '/decisions/', pri: '0.6', freq: 'weekly' });
 
 write('suggestions/index.html', suggestionsPage());
 routes.push({ loc: '/suggestions/', pri: '0.6', freq: 'weekly' });
+
+write('direction/index.html', directionPage());
+routes.push({ loc: '/direction/', pri: '0.6', freq: 'weekly' });
 
 write('data-room/index.html', dataRoom());
 routes.push({ loc: '/data-room/', pri: '0.6', freq: 'weekly' });
