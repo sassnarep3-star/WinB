@@ -43,6 +43,8 @@ const OFFICIAL = [
   'fsis.usda.gov',
   'developers.google.com',
   'sitemaps.org',
+  'docs.github.com',
+  'github.com',
 ];
 
 // Generations owned by other sessions. Preserved and audited by their own

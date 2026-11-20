@@ -2,7 +2,7 @@
 
 **Project:** a working Amazon Associates shop front for five supplied kitchen products
 **Site:** Counterwise — https://sassnarep3-star.github.io/WinB/
-**Build date:** 2026-11-20 (UTC)
+**Build date:** 2026-11-20 (UTC) — S15 refresh (session `30073780`)
 **Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
 **Pages:** 29 canonical pages + 5 affiliate exit pages, 31 sitemap routes, 7 feed items
 **Sources:** 10 official sources, all fetched and read (see §6)
@@ -21,7 +21,7 @@ claimed or switched on.
 
 | Requirement in the brief | Status | Where it lives |
 |---|---|---|
-| Review the repo line by line against trusted sources | **Done** — re-verified 2026-11-20 by fetching each official source live | `/data-room/#sources`, `COORDINATION.md` §4 |
+| Review the repo line by line against trusted sources | **Done** — re-verified 2026-11-20 by fetching each official source live (A1, A2, F1, U1, G1, G2, G4) and all five Amazon listings | `/data-room/#sources`, `COORDINATION.md` S15 appendix |
 | Marketing for the five supplied links | **Done** — all five resolved and written up as a shop | `/`, `/reviews/` |
 | Clean landing page + subpages by category | **Done** — front page, 2 category hubs, 5 product pages, comparison table | `/`, `/air-fryers/`, `/thermometers/`, `/compare/` |
 | Dashboard-style tables of all findings | **Done** — product-intent record, source register, automation pipeline, organic playbook, events, ledger, inventory | `/data-room/` |
@@ -41,19 +41,20 @@ claimed or switched on.
 | Question-shaped guides + measurement before more writing | **Done** — 5 guides published; next title gated on 30 days of data | `/guides/`, `/decisions/#queue` |
 | Click/conversion measurement (5 events) | **Code shipped, not deployed** — no endpoint, no traffic claimed | `/data-room/#events`, FLG-007 |
 | Empty campaign ledger with provenance rule | **Done** — 0 rows, schema + column rules published | `/data-room/#ledger` |
+| AI platform (research, trends, pricing, reviews, competition, commissions, SEO content, optimization) | **Not built — honestly scoped.** Automation today is generation + gating. Pricing/reviews/commission data would require Creators/PA API access and are deliberately absent (FLG-005). See §4 and Q-12. | `/data-room/#automation`, `/decisions/` Q-12 |
 
 ## 2. The five products, as resolved
 
 Every supplied link was opened once on 2026-11-20. **In all five cases the short code did not
 match the ASIN the link resolved to** — the codes look like ASINs but are not.
 
-| # | Supplied link | Resolved ASIN (observed) | Product | Category |
-|---|---|---|---|---|
-| 1 | link.amazon/B04G1MEwY | `B0CDY277D3` | Chefman 6-Quart Dual Basket Air Fryer | Air fryers |
-| 2 | link.amazon/B02NbDxp3 | `B09B7SB46R` | Emeril Lagasse 26QT French Door Air Fryer Oven | Air fryers |
-| 3 | link.amazon/B00hJ57DV | `B08DKYBTPH` | Chefman 8-Quart TurboFry | Air fryers |
-| 4 | link.amazon/B0c8moW59 | `B0DHZTCNR5` | ThermoMaven 1-Second Meat Thermometer | Thermometers |
-| 5 | link.amazon/B0f3GKalj | `B0DZFD6R9Z` | CHEF iQ Sense Gen3 Wireless Thermometer | Thermometers |
+| # | Supplied link | Resolved ASIN (observed) | Product (listing title, abridged) | Category | Source |
+|---|---|---|---|---|---|
+| 1 | link.amazon/B04G1MEwY | `B0CDY277D3` | CHEFMAN 6 Quart Dual Basket Air Fryer Oven… | Air fryers | [Listing](https://www.amazon.com/dp/B0CDY277D3) |
+| 2 | link.amazon/B02NbDxp3 | `B09B7SB46R` | Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven… | Air fryers | [Listing](https://www.amazon.com/dp/B09B7SB46R) |
+| 3 | link.amazon/B00hJ57DV | `B08DKYBTPH` | Chefman Air Fryer 8 Qt \| TurboFry® 4-in-1 with 450°F Hi-Fry… | Air fryers | [Listing](https://www.amazon.com/dp/B08DKYBTPH) |
+| 4 | link.amazon/B0c8moW59 | `B0DHZTCNR5` | ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉… | Thermometers | [Listing](https://www.amazon.com/dp/B0DHZTCNR5) |
+| 5 | link.amazon/B0f3GKalj | `B0DZFD6R9Z` | CHEF iQ Sense \| Smart Wireless Meat Thermometer \| 3 Ultra-Thin Probes… Gen3 | Thermometers | [Listing](https://www.amazon.com/dp/B0DZFD6R9Z) |
 
 The set is coherent: three air fryers that are structurally different machines, and the two
 thermometers that tell you when the food is done. That is the editorial spine the site is built on.
@@ -67,7 +68,7 @@ stored in their own field and never merged into the intended field.
 
 ## 3. The decisions that determine whether this is a business
 
-Ordered by downside if left open. Full reasoning in the Decision Room.
+Ordered by downside if left open. Full reasoning in the Decision Room. **Nothing below is implemented until the owner chooses a path in `/suggestions/`.**
 
 1. **Do the supplied short links credit your account?** (Q-01, FLG-001) — Mint one link in Associates
    Central and compare the parameters. Under an hour. Nothing earns until this is closed.
@@ -113,20 +114,20 @@ Ordered by downside if left open. Full reasoning in the Decision Room.
 - **Every number is checkable:** 208 table rows, each carrying a source link; specifications are
   transcribed with the phrase they came from; blanks are labelled rather than filled.
 
-## 6. Sources (all official, re-fetched 2026-11-20)
+## 6. Sources (all official, re-fetched live 2026-11-20)
 
-| Ref | Source | Used for |
-|---|---|---|
-| A1 | [Associates Program Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) (Updated Oct 15, 2025) | §5 disclosure wording; Special Link definition; §6 material breach |
-| A2 | [Associates Program Policies](https://affiliate-program.amazon.com/help/operating/policies) (Updated Apr 14, 2026) | Tag requirement; price rule; IP License; cookie disclosure; commission session (24h / 89 days) |
-| A3 | [Associates program home](https://affiliate-program.amazon.com/) | Program overview |
-| F1 | [FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) (Nov 2019) | Hard-to-miss disclosure; no experience claims for untried products |
-| F2 | [16 CFR 255.5](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5) | Material-connection disclosure |
-| G1 | [Google: Qualify outbound links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links) | `rel="sponsored"` for paid/affiliate links |
-| G2 | [Google Spam policies](https://developers.google.com/search/docs/essentials/spam-policies) | Scaled content, thin affiliation, site reputation, sneaky redirects |
-| G3 | [Google: Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap) | Sitemap format and submission |
-| G4 | [sitemaps.org protocol](https://www.sitemaps.org/protocol.html) | Sitemap XML schema (single host, UTF-8, entity-escaped) |
-| U1 | [USDA FSIS Safe Temperature Chart](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) (Last Updated Apr 14, 2025) | Safe minimum internal temperatures quoted in thermometer guides |
+| Ref | Source | Used for | Checked |
+|---|---|---|---|
+| A1 | [Associates Program Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) (Updated Oct 15, 2025) | §5 disclosure wording; Special Link definition; §6 material breach | 2026-11-20 |
+| A2 | [Associates Program Policies](https://affiliate-program.amazon.com/help/operating/policies) (Updated Apr 14, 2026) | Tag requirement §2(b); price rule; inaccurate-claims rule; IP License; cookie disclosure; commission session (24h / 89 days) | 2026-11-20 |
+| A3 | [Associates program home](https://affiliate-program.amazon.com/) | Program overview | 2026-11-20 |
+| F1 | [FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) (Nov 2019) | Hard-to-miss disclosure; no experience claims for untried products | 2026-11-20 |
+| F2 | [16 CFR 255.5](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5) | Material-connection disclosure | 2026-11-20 |
+| G1 | [Google: Qualify outbound links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links) (2025-12-10) | `rel="sponsored"` for paid/affiliate links | 2026-11-20 |
+| G2 | [Google Spam policies](https://developers.google.com/search/docs/essentials/spam-policies) | Scaled content, thin affiliation, site reputation, sneaky redirects | 2026-11-20 |
+| G3 | [Google: Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap) | Sitemap format and submission | 2026-11-20 |
+| G4 | [sitemaps.org protocol](https://www.sitemaps.org/protocol.html) | Sitemap XML schema (single host, UTF-8, entity-escaped) | 2026-11-20 |
+| U1 | [USDA FSIS Safe Temperature Chart](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) (Last Updated Apr 14, 2025) | Safe minimum internal temperatures quoted in thermometer guides | 2026-11-20 |
 
 Amazon listing data (titles, ASINs, category paths, specifications) is the 2026-11-20 observed record
 in the Data Room and in `_build/listing-evidence.mjs`. The sandbox cannot reach amazon.com from a raw
@@ -154,9 +155,7 @@ request, so listings were not re-fetched this session; no new product fact has b
 
 All 15 are published with evidence and source links at `/flagged/`.
 
-## 8. Recommendation
-
-**Path B first, Path C in parallel** (see `/decisions/` for all three paths):
+**Path B first, Path C in parallel** (see `/decisions/` and `/suggestions/` for all three paths, with cost, reversibility and failure mode per proposal):
 
 1. Close the tagging question (SUG-02). Nothing else earns until then.
 2. Deploy the collector and submit the sitemap (SUG-03, SUG-13). Run 30 days; choose the next topic
@@ -164,7 +163,7 @@ All 15 are published with evidence and source links at `/flagged/`.
 3. Name the byline (Q-05) and publish the capacity worksheet (SUG-04).
 4. Buy one review unit (SUG-01) when the owner approves the spend.
 
-Do not publish the topic queue until its gates pass. Do not add categories until one converts (SUG-08).
+Do not publish the topic queue until its gates pass. Do not add categories until one converts (SUG-08). Do not automate optimization until measurement exists (Priority 4: measure before automating).
 
 ## 9. Honest limitations
 

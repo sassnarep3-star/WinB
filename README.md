@@ -10,15 +10,20 @@ two thermometers. Built for the WinB repository and published with GitHub Pages.
 
 ## What this is
 
-A shop, not an audit. Five product pages, two category hubs, a comparison table, five
-question-shaped guides, and one RSS feed. The compliance machinery is real but it lives
-under the floor — the front page leads with products, and every register is one click
-away in the footer.
+A shop, not an audit. Five product pages, two category hubs, a comparison table, eight
+question-shaped guides, three printable worksheets, a 30-second chooser, and one RSS feed.
+The compliance machinery is real but it lives under the floor — the front page leads with
+products and decision tools, and every register is one click away in the footer.
 
 The editorial position is narrow and deliberate: **this desk has not handled any of these
 products.** Every page therefore describes what the manufacturer's listing states, shows
 its arithmetic, and lists what it cannot tell you. No page contains a fabricated test
 result, a borrowed star rating, or a price.
+
+**Scope honesty.** This is a static publication with automated generation and a compliance
+gate. It is not yet an AI-powered research/optimization platform: there is no live
+trend/commission feed, no deployed analytics endpoint, and no verified conversion data.
+See `EXECUTIVE-SUMMARY.md` §1 for what is automated today vs what needs owner credentials.
 
 ## The rules the build enforces
 
@@ -65,15 +70,17 @@ _build/            generators (data.mjs is the single source of truth)
                    phrase it came from — wattage, temp range, models, warranty,
                    and Amazon's own review-theme counts
   decision-queue.mjs   the 10-proposal queue and the 9 questions blocking it
+  tools-content.mjs  S15: new guides, worksheets, chooser, FAQ, November picks
   core.mjs         page shell, disclosure strip, masthead, footer
   editorial.mjs    front page, categories, product pages, comparison, guides
   content-oversight.mjs  decision room, data room, flagged, methods, about, privacy
   design.mjs       the Design Room: directions, the copy-ready prompt, the traffic playbook
 tools/             verify.mjs · gate.mjs · table-sources.mjs · linkcheck.mjs · smoke.mjs
 assets/            css/site.css · js/site.js · generated SVG artwork
-analytics/         deployable collected-worker.js + schema (NOT running)
+analytics/         deployable collector-worker.js + schema (NOT running)
 reviews/           five product pages (generated)
-guides/            five guides (generated)
+guides/            eight guides (generated)
+tools/             three printable worksheets + index (generated)
 air-fryers/ thermometers/ compare/    category and comparison hubs
 decisions/ data-room/ flagged/        oversight surfaces
 suggestions/       the decision queue: proposals, blocking questions, owner actions

@@ -5,6 +5,7 @@
 import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, MOMENTS, TOPIC_QUEUE, TOPICS, PATHS } from './data.mjs';
 import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink, listingMark, deskMark } from './core.mjs';
 import { DECISION_QUEUE, BLOCKING_QUESTIONS, OWNER_ACTIONS } from './decision-queue.mjs';
+import { ALL_GUIDES, WORKSHEETS } from './editorial.mjs';
 
 // ------------------------------------------------------------- decision room
 
@@ -699,6 +700,7 @@ ${pageHead({
 
     <h2>What an event does not contain</h2>
     <p>No IP address is stored by the recorder. No cookie is created. No device fingerprint is computed. No cross-site identifier is attached. No email address is transmitted — there is no email field on this site at all, because no mailing provider exists yet and a form that discards an address is worse than no form (FLG-008). Each event carries a random value generated in memory for the current page load, which exists only so a server can discard a duplicate; it is not written to storage and it dies with the tab.</p>
+    <p><b>The host is not part of this recorder.</b> The site is hosted on GitHub Pages. GitHub’s documentation states that a visitor’s IP address is logged and stored for security purposes whenever a Pages site is visited, whether or not the visitor has signed in to GitHub. That log is kept by the host, not by this site’s recorder. <a href="/flagged/#FLG-018">FLG-018</a></p>
 
     <h2>Your two controls</h2>
     <p><b>Turn measurement off.</b> <a href="#" id="cw-optout-inline">Click here</a> or use “Turn off measurement” in the footer. The recorder checks the flag before it does anything and stops. Your browser keeps only the flag.</p>
@@ -729,7 +731,7 @@ ${pageHead({
   kicker: 'For the owner',
   title: 'Executive summary',
   lede: 'What was built, what it can and cannot claim, what it needs from you, and the decisions that carry the most weight.',
-  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · ${PRODUCTS.length} products · ${GUIDES.length} guides · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
+  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · ${PRODUCTS.length} products · ${ALL_GUIDES.length} guides · ${WORKSHEETS.length} worksheets · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
 })}
 <section class="section">
   <div class="wrap-narrow prose">
@@ -737,6 +739,9 @@ ${pageHead({
     <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure under the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. The site reads as a shop: a magazine front page that opens with the five picks, two category hubs, a comparison table, five question-shaped guides, and a set of reviewable rooms for the decisions behind it all.</p>
     <p>Three things were fixed this cycle that mattered more than any addition. First, the comparison and category tables were still printing “wattage — not stated” while the product pages published the same figures from the same listings; the tables now read from the one listing-evidence record, so a table cannot drift away from the page it summarises. Second, every table row now carries a source link, and the build refuses to publish if one does not — 208 data rows, 204 of them linking straight to the official source. Third, the publication ran under two names; it now runs under one, and nine superseded pages that were still indexable have been retired so that only one site competes for the same searches.</p>
     <p>What has <em>not</em> changed is the honest part. No product has been handled, no traffic has been measured, and the supplied short links are still unconfirmed against the account. Those are the three decisions below, and everything else on this site is polish on top of them.</p>
+
+    <h2>November 2026 refresh (S15)</h2>
+    <p>This cycle added decision tools rather than more product copy: a 30-second chooser on the front page (“Which one fits your kitchen?”), three printable worksheets (capacity, cleanup/counter-space, thermometer calibration), three new question-shaped guides (holiday roast thermometer, game-day wings, air-fryer leftovers), and a buyer-questions FAQ matrix on the front page and both category hubs. All new guides are timely framing of existing, sourced material — editorial hypotheses for November, not popularity or demand claims. The chooser and worksheets run entirely in the browser: no account, no cookie, nothing sent anywhere. The build now enforces R15 (question-shaped new guides, no invented demand, chooser present, worksheets printable) in addition to R1–R14.</p>
 
     <h2>What the five supplied links turned out to be</h2>
     ${table({
@@ -861,7 +866,7 @@ export function suggestionsPage() {
     <td><b>${esc(d.title)}</b><br><span class="tiny muted">${esc(d.lane)}</span></td>
     <td class="tiny">${esc(d.cost)}</td>
     <td class="tiny">${d.reversible}</td>
-    <td>${d.reversible === 'Yes' || d.reversible.startsWith('Yes') ? '<span class="badge green">Yes</span>' : d.reversible.startsWith('n/a') ? '<span class="badge plain">Information only</span>' : '<span class="badge amber">Hard to undo</span>'}</td>
+    <td class="tiny">${esc(d.risk)}</td>
     <td class="tiny">${d.dependsOn.length ? d.dependsOn.map((q) => `<a href="#${esc(q)}">${esc(q)}</a>`).join(' ') : '—'}</td>
     <td>${d.implemented ? '<span class="badge green">Built</span>' : '<span class="badge plain">Awaiting decision</span>'}</td>
     <td class="src">${srcLink(d.source, 'the rule behind this proposal')}</td>
@@ -890,7 +895,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Suggestions' }],
   kicker: 'Review queue',
   title: 'Suggestions, and what has to be true before each one',
-  lede: 'Ten proposals, the nine questions blocking them, and the five things only the account owner can do. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it.',
+  lede: `${DECISION_QUEUE.length} proposals, ${BLOCKING_QUESTIONS.length} blocking questions, and the five actions only the account owner can take. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it.`,
   meta: `<div class="btn-row">
     ${badge(openItems.length + ' awaiting a decision', 'amber')}
     ${badge(doneItems.length + ' built in this cycle', 'green')}
@@ -908,7 +913,7 @@ ${pageHead({
       </div>
     </div>
     ${table({
-      caption: '<b>Ten proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.',
+      caption: `<b>${DECISION_QUEUE.length} proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.`,
       kind: 'editorial',
       head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Cost of being wrong', 'Blocked by', 'Status', 'Source', ''],
       rows: [...openItems, ...doneItems].map(boardRow),
@@ -921,7 +926,7 @@ ${pageHead({
     <div class="sec-head">
       <div>
         <p class="eyebrow">Part two</p>
-        <h2>Nine questions that must be answered first</h2>
+        <h2>${BLOCKING_QUESTIONS.length} questions that must be answered first</h2>
         <p>Each is split into what is known — with where it is known from — what is missing, and the cheapest way to find the missing part. If a question cannot be answered from an official source, it says so instead of guessing.</p>
       </div>
     </div>
