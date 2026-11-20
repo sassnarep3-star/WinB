@@ -34,6 +34,29 @@ const suggestionsPage = () => {
 };
 import { PRODUCTS } from './data.mjs';
 
+// ---------------------------------------------------------------------------
+// RETIRED — this module writes pages. It is kept for the record, not run.
+//
+// Before this guard, executing the file rewrote three live canonical pages and
+// then died with ERR_MODULE_NOT_FOUND on a deleted import, which leaves the
+// repository half-overwritten by a superseded generation. Verified 2026-11-20:
+// `node _build/build-editorial.mjs` modified air-fryers/index.html,
+// compare/index.html and guides/basket-or-oven.html, and nothing else in the
+// build references it (no `npm run build` step, no CI step).
+//
+// The canonical front page comes from _build/editorial.mjs via _build/build.mjs;
+// /suggestions/ comes from _build/content-oversight.mjs. Opt in by name only if
+// you are deliberately reviving this generation, and rebuild + re-gate after.
+if (process.env.COUNTERWISE_REVIVE_EDITORIAL_BUILD !== '1') {
+  console.error(
+    'build-editorial: retired generator, refusing to write. This tree publishes\n' +
+    'the canonical site from _build/build.mjs (front page via _build/editorial.mjs)\n' +
+    'and /suggestions/ from _build/content-oversight.mjs. Set\n' +
+    'COUNTERWISE_REVIVE_EDITORIAL_BUILD=1 only to revive this generation on purpose.'
+  );
+  process.exit(1);
+}
+
 const ROOT = new URL('..', import.meta.url).pathname;
 const written = [];
 

@@ -56,7 +56,7 @@
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
     <span class="badge red">6 high</span>
-    <span class="badge amber">13 medium</span>
+    <span class="badge amber">14 medium</span>
     <span class="badge plain">4 low</span>
   </div>
   </div>
@@ -548,6 +548,27 @@
     <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
     <div><dt>What the owner needs to do</dt><dd>Owner to review the four pages and either keep them or delete them. If they stay, the next four topics should wait for measured queries — the gate is still in force for anything after this cycle, and DQ-Q10 stays open.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing. It is disclosed here rather than presented as an evidence-led editorial win.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-023" >
+  <summary>
+    <span class="id">FLG-023</span>
+    <span class="ft">
+      <h3>A retired generator script rewrote sixteen canonical pages when executed</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">_build/build-editorial.mjs is an editorial generator from an earlier cycle. It is not referenced by `npm run build`, by `npm run check` or by any CI step, and it imports _build/suggestions.mjs — a module deleted on 2026-11-20 when two sessions were generating /suggestions/ from two modules and the merged generator was kept. Because module linking happens before the script body runs, the missing import had masked what the top of the script already does: it writes pages. Anyone “fixing the import” would silently replace the published front page, both category hubs, all product pages and seven guides with a superseded generation, and the site would still pass nothing, because the drift check compares committed bytes with the generators the build actually uses.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>Reproduced 2026-11-20: executing the module modified guides/gifts-for-the-cook.html, guides/hosting-season.html, guides/ice-test-thermometer.html, guides/index.html, guides/multifunction.html, guides/smart-probe-questions.html, guides/temperature-safety.html, index.html, reviews/*.html (5), thermometers/index.html, air-fryers/index.html, compare/index.html and three more, then exited on ERR_MODULE_NOT_FOUND.</li><li>The overwritten files were restored by regenerating from _build/build.mjs, and `node _build/build.mjs` afterwards reproduces the committed tree exactly (zero drift).</li><li>Nothing in package.json or .github/workflows/pages.yml calls build-editorial.mjs.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed in this build: the missing import is replaced by a stub that refuses to run, and the script now exits with a stated reason before it touches any file unless COUNTERWISE_REVIVE_EDITORIAL_BUILD=1 is set deliberately. The file is kept, not deleted, because another session’s work is not this desk’s to remove. If a session wants this generation back, the honest route is a rebuild plus the full gate, not a restored import.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing. It is a warning to whoever next finds an “obviously broken” script in _build/ and reaches for the fix.</dd></div>
   </div>
 </details>
     <div class="callout mt-3">

@@ -1044,6 +1044,23 @@ export const FLAGS = [
     blocks: 'Nothing. It is disclosed here rather than presented as an evidence-led editorial win.',
   },
 
+  {
+    id: 'FLG-023',
+    severity: 'Medium',
+    status: 'Fixed in this build',
+    title: 'A retired generator script rewrote sixteen canonical pages when executed',
+    detail:
+      '_build/build-editorial.mjs is an editorial generator from an earlier cycle. It is not referenced by `npm run build`, by `npm run check` or by any CI step, and it imports _build/suggestions.mjs — a module deleted on 2026-11-20 when two sessions were generating /suggestions/ from two modules and the merged generator was kept. Because module linking happens before the script body runs, the missing import had masked what the top of the script already does: it writes pages. Anyone “fixing the import” would silently replace the published front page, both category hubs, all product pages and seven guides with a superseded generation, and the site would still pass nothing, because the drift check compares committed bytes with the generators the build actually uses.',
+    evidence: [
+      'Reproduced 2026-11-20: executing the module modified guides/gifts-for-the-cook.html, guides/hosting-season.html, guides/ice-test-thermometer.html, guides/index.html, guides/multifunction.html, guides/smart-probe-questions.html, guides/temperature-safety.html, index.html, reviews/*.html (5), thermometers/index.html, air-fryers/index.html, compare/index.html and three more, then exited on ERR_MODULE_NOT_FOUND.',
+      'The overwritten files were restored by regenerating from _build/build.mjs, and `node _build/build.mjs` afterwards reproduces the committed tree exactly (zero drift).',
+      'Nothing in package.json or .github/workflows/pages.yml calls build-editorial.mjs.',
+    ],
+    sources: ['G2'],
+    action:
+      'Fixed in this build: the missing import is replaced by a stub that refuses to run, and the script now exits with a stated reason before it touches any file unless COUNTERWISE_REVIVE_EDITORIAL_BUILD=1 is set deliberately. The file is kept, not deleted, because another session’s work is not this desk’s to remove. If a session wants this generation back, the honest route is a rebuild plus the full gate, not a restored import.',
+    blocks: 'Nothing. It is a warning to whoever next finds an “obviously broken” script in _build/ and reaches for the fix.',
+  },
 ];
 
 // ---------------------------------------------------------------------------
