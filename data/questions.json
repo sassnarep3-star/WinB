@@ -1,141 +1,169 @@
 {
-  "as_of": "2026-11-20",
-  "intro": "Questions that must be answered before any decision can reasonably be made. Each entry says what we already have and what is missing.",
   "questions": [
     {
-      "id": "Q1",
-      "question": "What is the intended ASIN for each supplied short link?",
-      "have": "Resolved destinations for all five links (F01).",
-      "missing": "Owner confirmation of intent. The short-link codes are 9 characters, so they cannot be read as ASINs.",
-      "how_to_answer": "Owner confirms the five ASINs, or confirms that the observed ones are correct.",
-      "blocks": "Product confirmation record (FLG-01)",
-      "status": "Open"
+      "id": "Q-01",
+      "area": "Links & compliance",
+      "question": "Is each supplied short link the product you intend?",
+      "status": "Partly answered",
+      "answer": "Each supplied short link resolves to an amazon.com listing (observed 2026-11-20). Whether that listing is the intended product is not known, because no intended ASIN was given.",
+      "sources": [
+        "S-08",
+        "S-09"
+      ],
+      "flags": [
+        "FLG-01"
+      ],
+      "how_to_discover": "Requester confirms the intended ASIN or listing for each of the five products."
     },
     {
-      "id": "Q2",
-      "question": "Is shopnow047c-20 an active Associates tracking ID, and under which account?",
-      "have": "The ID as supplied. Program Policies §2(b) names the ID format as XXXXX-## 'or such other format as we may designate'.",
-      "missing": "Confirmation of enrollment and account ownership. Not verifiable from the sandbox.",
-      "how_to_answer": "Owner checks the Associates account (Tools / Reports).",
-      "blocks": "Special Link validation (FLG-04)",
-      "status": "Open"
+      "id": "Q-02",
+      "area": "Links & compliance",
+      "question": "Do the supplied short links track correctly and comply with the Associates rules?",
+      "status": "Unanswered",
+      "answer": "Unresolved. Commission Income Statement s.2(e) and s.2(g) describe the risks (S-02). The request asks that this not be asserted either way.",
+      "sources": [
+        "S-02"
+      ],
+      "flags": [
+        "FLG-02",
+        "FLG-04"
+      ],
+      "how_to_discover": "Run one Special Link per product in Associates Central and compare the tracking report with the supplied link."
     },
     {
-      "id": "Q3",
-      "question": "Do the supplied short links attribute clicks to the tracking ID?",
-      "have": "Observed redirect targets without a tag parameter (F03).",
-      "missing": "A test click per product and the tracking report result.",
-      "how_to_answer": "Run one test click per product through the Associates workflow; record date, destination and the report line.",
-      "blocks": "Short-link compliance decision (D1, FLG-03)",
-      "status": "Open"
+      "id": "Q-03",
+      "area": "Links & compliance",
+      "question": "Is the supplied tracking ID valid for this account?",
+      "status": "Unanswered",
+      "answer": "Not checked. The format differs from the documented 'XXXXX-##' pattern (S-02, s.2(b)).",
+      "sources": [
+        "S-02"
+      ],
+      "flags": [
+        "FLG-03"
+      ],
+      "how_to_discover": "Open Associates Central and look up the tracking ID in the tracking-ID list."
     },
     {
-      "id": "Q4",
-      "question": "Will the site be enrolled in PA-API or Creators API so prices and ratings can be shown?",
-      "have": "The policy text (§2(b), §6(t)).",
-      "missing": "Enrollment status and eligibility.",
-      "how_to_answer": "Owner checks API access in the Associates account.",
-      "blocks": "Price and rating fields (FLG-05)",
-      "status": "Open"
+      "id": "Q-04",
+      "area": "Economics",
+      "question": "What commission rate applies to each category?",
+      "status": "Unanswered",
+      "answer": "Not available. The schedule page requires sign-in (S-03).",
+      "sources": [
+        "S-03"
+      ],
+      "flags": [
+        "FLG-07"
+      ],
+      "how_to_discover": "Read the commission schedule while signed in to Associates Central; record the date and page."
     },
     {
-      "id": "Q5",
-      "question": "What are the five click and conversion events to record?",
-      "have": "assets/counterwise.js names five events: page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported. The brief does not name them (FLG-21).",
-      "missing": "Owner confirmation that these are the five intended events.",
-      "how_to_answer": "Owner confirms the list or replaces it.",
-      "blocks": "Measurement plan (FLG-08)",
-      "status": "Open"
+      "id": "Q-05",
+      "area": "Economics",
+      "question": "What are current prices and availability?",
+      "status": "Unanswered",
+      "answer": "Not captured. Amazon-served or PA API data is the only permitted price source (S-02, s.2(b)).",
+      "sources": [
+        "S-02"
+      ],
+      "flags": [
+        "FLG-08"
+      ],
+      "how_to_discover": "Decide on a price method (Suggestions S-01) and capture only from that source."
     },
     {
-      "id": "Q6",
-      "question": "Where should a click counter or analytics endpoint run?",
-      "have": "GitHub Pages is static hosting (S-GHP).",
-      "missing": "A host that can run an endpoint, and a privacy stance.",
-      "how_to_answer": "Owner chooses one option on D3.",
-      "blocks": "Click counter and analytics (T10)",
-      "status": "Open"
+      "id": "Q-06",
+      "area": "Measurement",
+      "question": "Are the five analytics events (page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported) the right ones?",
+      "status": "Unanswered",
+      "answer": "Defined in the client's header by an earlier session (assets/counterwise.js). The request did not list them, so the requester has not confirmed them.",
+      "sources": [],
+      "flags": [
+        "FLG-05"
+      ],
+      "how_to_discover": "Requester confirms or replaces the five events, with trigger and properties."
     },
     {
-      "id": "Q7",
-      "question": "Who is the named author or editor for articles?",
-      "have": "Nothing supplied.",
-      "missing": "Author name, role, and short bio the owner approves.",
-      "how_to_answer": "Owner provides the byline.",
-      "blocks": "Authorship and publication polish (SG-27..SG-30)",
-      "status": "Open"
+      "id": "Q-07",
+      "area": "Measurement",
+      "question": "Where should the click counter and analytics endpoint run?",
+      "status": "Unanswered",
+      "answer": "This static site cannot run them. GitHub Pages serves files only (S-07).",
+      "sources": [
+        "S-07"
+      ],
+      "flags": [
+        "FLG-06"
+      ],
+      "how_to_discover": "Choose a hosting option (Suggestions S-02)."
     },
     {
-      "id": "Q8",
-      "question": "Should the site use a custom domain or the GitHub Pages address?",
-      "have": "GitHub Pages can publish from this repository.",
-      "missing": "Domain choice and DNS access.",
-      "how_to_answer": "Owner chooses on D7.",
-      "blocks": "Findability and indexing decisions",
-      "status": "Open"
+      "id": "Q-08",
+      "area": "Measurement",
+      "question": "Which topic should be written next?",
+      "status": "Unanswered",
+      "answer": "No measured query or click data exists yet. The four working titles carry no demand evidence.",
+      "sources": [],
+      "flags": [
+        "FLG-14"
+      ],
+      "how_to_discover": "Collect first-party analytics and Search Console query data for at least one publishing cycle."
     },
     {
-      "id": "Q9",
-      "question": "Should the brand remain 'Counterwise'?",
-      "have": "The site is already published as 'Counterwise'.",
-      "missing": "Owner approval of the brand name.",
-      "how_to_answer": "Owner confirms or replaces the name.",
-      "blocks": "Brand and masthead (FLG-12)",
-      "status": "Open"
+      "id": "Q-09",
+      "area": "Compliance",
+      "question": "Is the Associates disclosure placed clearly and prominently enough?",
+      "status": "Partly answered",
+      "answer": "The Section 5 sentence matches S-01 verbatim and is shown above the fold on every page and in the footer. Reviewer judgment is still needed.",
+      "sources": [
+        "S-01",
+        "S-05"
+      ],
+      "flags": [
+        "FLG-15"
+      ],
+      "how_to_discover": "Reviewer checks the live pages against S-01 and S-05."
     },
     {
-      "id": "Q10",
-      "question": "What publishing cadence should guides follow?",
-      "have": "The brief asks for a cadence but gives no number.",
-      "missing": "Frequency and the first publication date.",
-      "how_to_answer": "Owner chooses on D5.",
-      "blocks": "Guide publishing",
-      "status": "Open"
+      "id": "Q-10",
+      "area": "Brand",
+      "question": "Who is the author, and what is the brand name?",
+      "status": "Unanswered",
+      "answer": "Not supplied. Pages say 'Editorial team (unnamed)'.",
+      "sources": [],
+      "flags": [
+        "FLG-12"
+      ],
+      "how_to_discover": "Requester provides the byline and brand decision."
     },
     {
-      "id": "Q11",
-      "question": "Does the account meet the current enrollment rule?",
-      "have": "A secondary-source claim of 3 qualifying sales in 180 days (FLG-10).",
-      "missing": "Confirmation of the current rule and the account's status.",
-      "how_to_answer": "Owner checks Associates Central.",
-      "blocks": "Program eligibility",
-      "status": "Open"
+      "id": "Q-11",
+      "area": "Claims",
+      "question": "Are the seller certification claims in the listings accurate?",
+      "status": "Unanswered",
+      "answer": "Not checked. P-04 lists 'NIST&NSF Certified' as a title claim only.",
+      "sources": [
+        "S-08"
+      ],
+      "flags": [
+        "FLG-09"
+      ],
+      "how_to_discover": "Check the certifying body's own registry for each named certificate."
     },
     {
-      "id": "Q12",
-      "question": "Which of the four working titles should become guides?",
-      "have": "Four working titles (guides.json).",
-      "missing": "A choice. Titles are not findings.",
-      "how_to_answer": "Owner picks on D6.",
-      "blocks": "Editorial plan",
-      "status": "Open"
-    },
-    {
-      "id": "Q13",
-      "question": "Do the brief's identifiers (FLG-003, S01, S02, S07, S24, SG-27..SG-30) refer to documents you have?",
-      "have": "Only the references in the brief.",
-      "missing": "The documents themselves.",
-      "how_to_answer": "Owner provides the source register or confirms the public documents used here (FLG-07).",
-      "blocks": "Traceability of internal IDs",
-      "status": "Open"
-    },
-    {
-      "id": "Q14",
-      "question": "Which first-party reports will feed the campaign ledger?",
-      "have": "Ledger schema (ledger.json), empty.",
-      "missing": "Authorized report exports and their dates.",
-      "how_to_answer": "Owner names the report and export schedule.",
-      "blocks": "Campaign ledger rows",
-      "status": "Open"
-    },
-    {
-      "id": "Q15",
-      "question": "Has counsel reviewed the disclosure wording?",
-      "have": "Disclosure text tied to Operating Agreement §5 and FTC guidance.",
-      "missing": "Legal review. Not performed here.",
-      "how_to_answer": "Owner arranges review.",
-      "blocks": "Scaling beyond the five products (FLG-18)",
-      "status": "Open"
+      "id": "Q-12",
+      "area": "Discovery",
+      "question": "Is the site indexed, and does it rank for any query?",
+      "status": "Unanswered",
+      "answer": "Not checked. The site has not been submitted to Search Console.",
+      "sources": [
+        "S-06"
+      ],
+      "flags": [
+        "FLG-13"
+      ],
+      "how_to_discover": "Verify the property in Search Console and check coverage after the first deploy."
     }
   ]
 }

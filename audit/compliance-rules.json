@@ -1,0 +1,204 @@
+{
+  "as_of": "2026-11-20",
+  "note": "Compliance gate written by session 7feafaa3. Each rule cites a primary source URL fetched on 2026-11-20. Site status column refers to the Counterwise + register build as it stood before integration; the integration session should re-check against docs/.",
+  "rules": [
+    {
+      "id": "C01",
+      "rule": "Identification statement: state 'As an Amazon Associate I earn from qualifying purchases' clearly and prominently on the site.",
+      "source_id": "S-OA",
+      "source_detail": "Operating Agreement §5",
+      "site_implementation": "Disclosure strip under the masthead and in the footer of every page, using the exact statement.",
+      "status": "Implemented",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "source_title": "Associates Program Operating Agreement",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C02",
+      "rule": "Violating §5 is a material breach (termination and forfeited commissions).",
+      "source_id": "S-OA",
+      "source_detail": "Operating Agreement §6 (last paragraph) and §2",
+      "site_implementation": "Statement is generated from one template on every page so it cannot drift between pages.",
+      "status": "Implemented",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "source_title": "Associates Program Operating Agreement",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C03",
+      "rule": "Special Links must include the Associates ID as a parameter in the URL of each link to an Amazon Site.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §2(b)",
+      "site_implementation": "Supplied short links kept as-is. Observed redirect targets do not show a tag parameter. Not claimed valid. Test pending (FLG-02, FLG-04).",
+      "status": "Open — not validated",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C04",
+      "rule": "Prices and availability may be shown only if Amazon serves the link or the data comes via PA-API / Creators API.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §2(b)",
+      "site_implementation": "No prices or availability published. Price fields are blank and marked.",
+      "status": "Implemented (no prices shown)",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C05",
+      "rule": "Star ratings and customer reviews may be displayed only via Creators API / PA-API.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §6(t)",
+      "site_implementation": "No ratings or review counts published.",
+      "status": "Implemented (no ratings shown)",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C06",
+      "rule": "Site must not have price tracking and/or price alerting functionality (unless Amazon agrees).",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §6(y)",
+      "site_implementation": "No price tracking. Brief's 'analyzes pricing' step is listed as a decision (Suggestions D2).",
+      "status": "Implemented (no price tracking)",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C07",
+      "rule": "Do not use a link shortening service in a way that makes it unclear that the link goes to an Amazon Site.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §6(w)",
+      "site_implementation": "Short links are displayed with the text 'Amazon' and the product title beside them. Whether the supplied short links meet §6(w) is not determined. Not claimed invalid (FLG-03).",
+      "status": "Unresolved (FLG-03)",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C08",
+      "rule": "Do not cloak, hide, spoof or obscure the Site URL containing Special Links.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §6(v)",
+      "site_implementation": "No redirect layer, no link cloaking. Outbound links point directly to the supplied URLs.",
+      "status": "Implemented",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C09",
+      "rule": "No incentive for clicks, and no encouragement of artificial clicks.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §6(g) and §6(s)",
+      "site_implementation": "Copy contains no click prompts, rewards or discounts.",
+      "status": "Implemented",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C10",
+      "rule": "No sub-tag may be tied to a specific end user.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §2(b)",
+      "site_implementation": "No per-user tracking. Click counting (D3) must be aggregate only.",
+      "status": "Implemented (no per-user tags)",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C11",
+      "rule": "Disclosure must be clear and conspicuous, placed with the endorsement, and not only on an About page.",
+      "source_id": "S-FTC-D101",
+      "source_detail": "FTC Disclosures 101, 'How to Disclose'",
+      "site_implementation": "Disclosure strip sits directly under the masthead on every page (register and Counterwise pages), and the same statement is in the footer.",
+      "status": "Implemented",
+      "source_url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "source_title": "Disclosures 101 for Social Media Influencers",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C12",
+      "rule": "Material connection (including commission income) must be disclosed (16 CFR 255.5 — section title only verified).",
+      "source_id": "S-ECFR-255",
+      "source_detail": "16 CFR §255.5 (title only; see FLG-18)",
+      "site_implementation": "Disclosure states that the site may earn commission on qualifying purchases.",
+      "status": "Implemented — legal wording not reviewed by counsel",
+      "source_url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
+      "source_title": "16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C13",
+      "rule": "Mark paid links with rel=\"sponsored\".",
+      "source_id": "S-GOOG-QOL",
+      "source_detail": "Google Search Central — 'rel=\"sponsored\"'",
+      "site_implementation": "Every outbound product link carries rel=\"sponsored noopener\" (checked by scripts/check_site.py).",
+      "status": "Implemented",
+      "source_url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "source_title": "Qualify your outbound links to Google",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C14",
+      "rule": "Program Content (text, images, widgets) may not be altered except resizing images or truncating text.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §6(a)",
+      "site_implementation": "No Amazon images were copied or scraped. Product text is limited to the listing title and observed ASIN.",
+      "status": "Implemented",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C15",
+      "rule": "Special Links must link to Products; product-list pages need original content on your site.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §2(b)",
+      "site_implementation": "Each link goes to one product detail page (dp/ASIN), not a search results or list page.",
+      "status": "Implemented",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C16",
+      "rule": "Special Links may not be used in print, ebooks, mailings or orally; email/SMS only when opted in.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §4",
+      "site_implementation": "Web-only. No email or print distribution.",
+      "status": "Implemented",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C17",
+      "rule": "Do not display Amazon-marked names in site domains, subdomains, tags or identifiers.",
+      "source_id": "S-PP",
+      "source_detail": "Program Policies, Participation Requirements §1 (suitability), item (g)",
+      "site_implementation": "Site name is 'Counterwise'. No Amazon mark appears in domain names, subdomains or tags.",
+      "status": "Implemented",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
+      "source_accessed": "2026-11-20"
+    },
+    {
+      "id": "C18",
+      "rule": "Static hosting publishes from a branch and a /docs folder.",
+      "source_id": "S-GHP",
+      "source_detail": "GitHub Docs — publishing from a branch",
+      "site_implementation": "Pages source is main branch, /docs folder.",
+      "status": "Set after merge (see COORDINATION.md)",
+      "source_url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+      "source_title": "Configuring a publishing source for your GitHub Pages site",
+      "source_accessed": "2026-11-20"
+    }
+  ]
+}

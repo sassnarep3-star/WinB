@@ -1,160 +1,85 @@
 {
-  "as_of": "2026-11-20",
-  "method": "Each source was fetched with the page fetcher on 2026-11-20. Only sources listed here are cited anywhere on the site. Search-result snippets from third-party blogs were read for leads only and are not cited.",
+  "accessed_on": "2026-11-20",
   "sources": [
     {
-      "id": "S-OA",
-      "title": "Associates Program Operating Agreement",
-      "publisher": "Amazon Associates Central",
+      "id": "S-01",
+      "title": "Associates Program Operating Agreement (Amazon Associates Central)",
       "url": "https://affiliate-program.amazon.com/help/operating/agreement",
-      "official": true,
-      "page_updated": "October 15, 2025 (as shown on page)",
-      "accessed": "2026-11-20",
-      "used_for": "§5 identification statement; §6 material-breach rule for §5 violations; §2 compliance",
-      "status": "Fetched — §5 and §6 read in full text"
+      "publisher": "Amazon.com, Inc.",
+      "status": "Verified",
+      "used_for": "Section 5 disclosure sentence (verbatim): \"As an Amazon Associate I earn from qualifying purchases.\" Section 5 requires it be stated clearly and prominently on the Site. Section 6 makes a Section 5 violation a material breach. Page shows 'Updated: October 15, 2025'."
     },
     {
-      "id": "S-PP",
-      "title": "Associates Program Policies (Participation Requirements, Commission Income Statement, Products Statement)",
-      "publisher": "Amazon Associates Central",
+      "id": "S-02",
+      "title": "Associates Program Policies (Amazon Associates Central)",
       "url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "official": true,
-      "page_updated": "April 14, 2026 (as shown on page)",
-      "accessed": "2026-11-20",
-      "used_for": "§2(a) Special Links use the Associates ID; §2(b) tag parameter, prices and availability only when Amazon serves them or via PA-API/Creators API, comparison pricing; §3(e) privacy and cookie disclosure; §4 no offline/print use; §6(g) no click incentives; §6(q) no circumvention; §6(s) no artificial clicks; §6(t) reviews/ratings only via API; §6(v) no cloaking; §6(w) no link-shortening that makes the Amazon link unclear; §6(y) no price tracking or alerting",
-      "status": "Fetched — chunks 0, 3, 4, 5 read; §3(e), §4, §6 read in full text"
+      "publisher": "Amazon.com, Inc.",
+      "status": "Verified",
+      "used_for": "Participation Requirements s.2(a)-(b): Special Links must use the Associates ID; tag format 'XXXXX-##' or 'such other format as we may designate'; prices may be shown only if served by Amazon or via PA API/Creators API. s.3(e): site must disclose cookies/pixels and visitor choices. s.4: no offline promotion; solicited email/SMS only. s.6(a): Program Content may not be altered. Commission Income Statement s.2(e) (Redirecting Link disqualification) and s.2(g) (improperly formatted links). Page shows 'Updated: April 14, 2026'."
     },
     {
-      "id": "S-FTC-D101",
+      "id": "S-03",
+      "title": "Associates Program Commission schedule (Appendix)",
+      "url": "https://affiliate-program.amazon.com/help/operating/schedule",
+      "publisher": "Amazon.com, Inc.",
+      "status": "Not verified - redirects to sign-in",
+      "used_for": "Commission rates are NOT recorded. The page returned a sign-in screen to this session."
+    },
+    {
+      "id": "S-04",
       "title": "Disclosures 101 for Social Media Influencers",
-      "publisher": "U.S. Federal Trade Commission",
       "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
-      "official": true,
-      "page_updated": "November 2019 (as shown on page)",
-      "accessed": "2026-11-20",
-      "used_for": "Disclosure must be clear and hard to miss, placed with the endorsement, not only in an About page or after a click-to-expand",
-      "status": "Fetched — full text"
+      "publisher": "U.S. Federal Trade Commission",
+      "status": "Verified",
+      "used_for": "Disclose any financial relationship; place disclosure where it is 'hard to miss' with the endorsement; avoid vague terms ('sp', 'spon', 'collab'); do not mix into hashtags or links; do not assume a platform tool is enough. Brochure dated November 2019."
     },
     {
-      "id": "S-ECFR-255",
-      "title": "16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising",
-      "publisher": "U.S. Federal Trade Commission via eCFR (eCFR states it is authoritative but unofficial)",
-      "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
-      "official": true,
-      "page_updated": "Up to date as of 11/18/2026 (as shown on page)",
-      "accessed": "2026-11-20",
-      "used_for": "§255.5 'Disclosure of material connections' (section title only — see FLG-18)",
-      "status": "Fetched — table of contents only; body text not read"
+      "id": "S-05",
+      "title": "16 CFR 255.0 - Purpose and definitions (Endorsement Guides)",
+      "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.0",
+      "publisher": "U.S. Federal Trade Commission / eCFR (authoritative but unofficial)",
+      "status": "Verified",
+      "used_for": "s.255.0(f) defines 'clear and conspicuous': difficult to miss, easily understandable, and 'unavoidable' in interactive electronic media. Published version 88 FR 48102 (July 26, 2023)."
     },
     {
-      "id": "S-GOOG-QOL",
-      "title": "Qualify your outbound links to Google",
-      "publisher": "Google Search Central",
+      "id": "S-06",
+      "title": "Qualify your outbound links to Google (Search Central)",
       "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
-      "official": true,
-      "page_updated": "Last updated 2025-12-10 UTC (as shown on page)",
-      "accessed": "2026-11-20",
-      "used_for": "rel=\"sponsored\" for advertisements or paid placements (paid links)",
-      "status": "Fetched — full text"
+      "publisher": "Google LLC",
+      "status": "Verified",
+      "used_for": "rel=\"sponsored\" for advertisements or paid placements; multiple rel values allowed; page last updated 2025-12-10."
     },
     {
-      "id": "S-SITEMAP",
-      "title": "Sitemaps XML format",
-      "publisher": "sitemaps.org (protocol)",
-      "url": "https://www.sitemaps.org/protocol.html",
-      "official": true,
-      "page_updated": "as shown on page",
-      "accessed": "2026-11-20",
-      "used_for": "sitemap.xml structure (loc, lastmod, changefreq, priority)",
-      "status": "Fetched — full text"
-    },
-    {
-      "id": "S-RSS",
-      "title": "RSS 2.0 Specification (current)",
-      "publisher": "RSS Advisory Board",
-      "url": "https://www.rssboard.org/rss-specification",
-      "official": true,
-      "page_updated": "Version 2.0.11 (as shown on page)",
-      "accessed": "2026-11-20",
-      "used_for": "rss.xml channel elements (title, link, description) and item structure",
-      "status": "Fetched — required elements read"
-    },
-    {
-      "id": "S-GHP",
-      "title": "Configuring a publishing source for your GitHub Pages site",
-      "publisher": "GitHub Docs",
+      "id": "S-07",
+      "title": "Configuring a publishing source for your GitHub Pages site (GitHub Docs)",
       "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
-      "official": true,
-      "page_updated": "as shown on page",
-      "accessed": "2026-11-20",
-      "used_for": "Publishing from a branch with the /docs folder",
-      "status": "Fetched — full text"
+      "publisher": "GitHub, Inc.",
+      "status": "Verified",
+      "used_for": "Publishing from a branch supports the root or /docs folder; GitHub Pages sites are public. Static hosting only: this document describes no server-side processing."
     },
     {
-      "id": "S-AMZ-P01",
-      "title": "Amazon.com product page — ASIN B0CDY277D3 (observed via short link)",
-      "publisher": "Amazon.com",
+      "id": "S-08",
+      "title": "Amazon product detail pages (five listings, observed via redirect)",
       "url": "https://www.amazon.com/dp/B0CDY277D3",
-      "official": true,
-      "page_updated": "live page, observed 2026-11-20",
-      "accessed": "2026-11-20",
-      "used_for": "Listing title, ASIN in URL, breadcrumb (Air Fryers)",
-      "status": "Fetched via short-link resolution"
+      "publisher": "Amazon.com, Inc.",
+      "status": "Verified (observed 2026-11-20)",
+      "used_for": "Observed title, breadcrumb, and ASIN in the /dp/ path for each listing. Listed here: B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z."
     },
     {
-      "id": "S-AMZ-P02",
-      "title": "Amazon.com product page — ASIN B09B7SB46R (observed via short link)",
-      "publisher": "Amazon.com",
-      "url": "https://www.amazon.com/dp/B09B7SB46R",
-      "official": true,
-      "page_updated": "live page, observed 2026-11-20",
-      "accessed": "2026-11-20",
-      "used_for": "Listing title, ASIN in URL, breadcrumb (Air Fryers)",
-      "status": "Fetched via short-link resolution"
-    },
-    {
-      "id": "S-AMZ-P03",
-      "title": "Amazon.com product page — ASIN B08DKYBTPH (observed via short link)",
-      "publisher": "Amazon.com",
-      "url": "https://www.amazon.com/dp/B08DKYBTPH",
-      "official": true,
-      "page_updated": "live page, observed 2026-11-20",
-      "accessed": "2026-11-20",
-      "used_for": "Listing title, ASIN in URL, breadcrumb (Air Fryers)",
-      "status": "Fetched via short-link resolution"
-    },
-    {
-      "id": "S-AMZ-P04",
-      "title": "Amazon.com product page — ASIN B0DHZTCNR5 (observed via short link)",
-      "publisher": "Amazon.com",
-      "url": "https://www.amazon.com/dp/B0DHZTCNR5",
-      "official": true,
-      "page_updated": "live page, observed 2026-11-20",
-      "accessed": "2026-11-20",
-      "used_for": "Listing title, ASIN in URL, breadcrumb (Thermometers & Timers > Meat)",
-      "status": "Fetched via short-link resolution"
-    },
-    {
-      "id": "S-AMZ-P05",
-      "title": "Amazon.com product page — ASIN B0DZFD6R9Z (observed via short link)",
-      "publisher": "Amazon.com",
-      "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
-      "official": true,
-      "page_updated": "live page, observed 2026-11-20",
-      "accessed": "2026-11-20",
-      "used_for": "Listing title, ASIN in URL, breadcrumb (Thermometers & Timers > Meat)",
-      "status": "Fetched via short-link resolution"
-    },
-    {
-      "id": "S-SHORT",
+      "id": "S-09",
       "title": "Supplied Amazon short links (link.amazon)",
-      "publisher": "Supplied by site owner; resolved by the page fetcher",
       "url": "https://link.amazon/B04G1MEwY",
-      "official": false,
-      "page_updated": "n/a",
-      "accessed": "2026-11-20",
-      "used_for": "Starting URLs for the five products (5 links, listed in products.json)",
-      "status": "Resolved; compliance status unresolved (FLG-03)"
+      "publisher": "Amazon.com, Inc.",
+      "status": "Verified (resolved 2026-11-20)",
+      "used_for": "Supplied links, resolved by the fetch tool to the listings in S-08. Others: https://link.amazon/B02NbDxp3 , https://link.amazon/B00hJ57DV , https://link.amazon/B0c8moW59 , https://link.amazon/B0f3GKalj"
+    },
+    {
+      "id": "S-10",
+      "title": "Amazon ASIN definition (Amazon official help page)",
+      "url": "",
+      "publisher": "Amazon.com, Inc.",
+      "status": "Not verified - official page not retrieved",
+      "used_for": "Not relied on. Only third-party glossaries returned in search. The 10-character ASIN format is taken from the /dp/ path observed in S-08; reviewer to confirm against Amazon's own help page (FLG-01)."
     }
   ]
 }
