@@ -1601,3 +1601,15 @@ Note on CI: this branch's own pull-request run was cancelled twice by the workfl
 | Gates after fix | `tools/verify.mjs` R1–R11 pass · `tools/gate.mjs` R11–R15 pass · `tools/check.cjs` all gates pass · `tools/linkcheck.mjs` 58 files, 0 broken links, XML valid · CI smoke sequence (serve at `/WinB/`) 32 pages + 60 assets all HTTP 200 · variant checker 20 pages, 737 links clean |
 | Pages | Legacy branch deploy serving `https://sassnarep3-star.github.io/WinB/` (canonical) and `https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp/` (preserved variant, archived-banner treatment per `tools/consolidate.mjs`) |
 >>>>>>> origin/main
+
+### Integration result (recorded 2026-11-20)
+
+| Item | Result |
+| --- | --- |
+| Pull request | [#30](https://github.com/sassnarep3-star/WinB/pull/30) |
+| Merge | **Merged** 2026-11-20T06:45:50Z via merge commit [`a10e87b`](https://github.com/sassnarep3-star/WinB/commit/a10e87bb1f5fd86c755b7a91961211de96858d36) (`gh pr merge 30 --merge`) |
+| CI on `main` | Run [44690107208](https://github.com/sassnarep3-star/WinB/actions/runs/44690107208) — **success** (build, drift check, verify R1–R11, gate R11–R15, check, linkcheck, publish gate, smoke; only a Node 20 deprecation annotation) |
+| Pages | `pages-build-deployment` **success**; Pages API status `built` for https://sassnarep3-star.github.io/WinB/ |
+| Live verification | Front page (shortlist-first), `/flags/` (FLG-001…013), `/products/` (three-part register), `/direction/brief.html` (SG register, path chooser) all fetched live 200 after deploy |
+| Merge conflicts | 3 rounds (14 + 5 + 4 files) resolved by union or by keeping the generated owner of each file; full log in the “Merge-conflict log” section above; no other session's work discarded |
+| Follow-up | This record is delivered by the next PR from `arena/b26a9f95-winb` (branch-only push rule) |
