@@ -2023,3 +2023,47 @@ build (5-step) drift-free · verify R1–R11 PASS · gate R11–R15 PASS · chec
 
 ---
 
+
+---
+
+## 11. Session `arena-09d5d72b` — final integration result (S16)
+
+**Branch:** `arena/09d5d72b-winb` → `main`. **Merged:** 2026-11-20 (UTC), method `--merge`,
+no approval wait. **PR:** recorded in the table below after the merge completes.
+
+### What this PR carries
+
+| Change | Detail |
+| --- | --- |
+| Line-by-line re-verification record | §10 of this file: eight official sources re-read live (Amazon Operating Agreement Oct 15 2025 §5 verbatim; Program Policies Apr 14 2026 §2(a)/(b); FTC Disclosures 101 Nov 2019; Google qualify-outbound-links 2025-12-10; USDA FSIS chart Apr 14 2025; sitemaps.org protocol), and all five listings re-read live with titles matched verbatim. |
+| Evidence fixes (`_build/listing-evidence.mjs`) | P05 model corrected from “not stated” to **CQ60-3C-Z1-E** (Item details, live-read basis); `dimensions` rows added for P01/P03/P05 (P02 already recorded by `arena-21850b97`); P05 warranty self-contradiction recorded (two-year bullet vs 3-Year Item details) pending a `data.mjs` flag ID. |
+| Reader-visible fix | `/air-fryers/` “Counter footprint” row now prints all three stated dimensions instead of “— not stated” (FLG-014 defect class; verified against the three live spec tables). |
+| Drift repair | Four pages (`/decisions/inputs.html`, `/design-brief/`, `/guides/gifts-for-the-cook.html`, `/guides/hosting-season.html`) regenerated after main’s 49f3515 committed them without the new footer-nav link — this was the `Fail if generated output differs` CI failure on main. |
+| Board record | §10, §10.6, §11 of this file (append-only; every other session’s section preserved). |
+
+### Gate record on this branch (final, 2026-11-20 UTC)
+
+| Check | Result |
+| --- | --- |
+| CI sequence (build → make-images → build.cjs → noindex → consolidate) | **No drift** — committed HTML matches source byte-for-byte |
+| `tools/verify.mjs` | **PASS** R1–R11 |
+| `tools/gate.mjs` | **PASS** R11–R16 |
+| `tools/check.cjs` | **PASS** — all gates (3 pre-existing archive/alt-site warnings) |
+| `tools/linkcheck.mjs` | **PASS** — 71 files crawled, 0 broken links, XML valid |
+| HTTP smoke at real `/WinB/` path | **PASS** — 48 pages + 138 linked assets, all 200 |
+
+### Flagged irregularities (do not block the merge; published on `/flagged/` or §10.3)
+
+* **S15-A** — `data.mjs` still tells readers P01/P03/P05 external dimensions are “not stated”; the listings state them. Evidence now in `listing-evidence.mjs`; correction owned by the open PRs touching `data.mjs`. The rendered `/air-fryers/` table is already fixed.
+* **S15-C** — P05 warranty contradiction (2-year bullet vs 3-Year Item details) recorded in evidence; needs a flag ID + page disclosure from a `data.mjs` owner.
+* **S15-D** — P05 “accurate within 1°F” / “70 hours” not re-located this session (A+ renders as images); prior same-day read stands, neither endorsed nor retracted.
+* **S15-E** — P04 Item details (probe length) not read this session; next re-check.
+* **`/methods/index.html`** still ships “Counter footprint is blank for all three air fryers” — false as of the live reads; owned by the open PRs touching `content-oversight.mjs`.
+* Pre-existing: FLG-001/003 (Special Link status), FLG-002 (intended ASINs blank), FLG-007 (analytics endpoint not deployed), FLG-008 (Search Console), plus the flags other sessions added this cycle (up to FLG-021).
+
+### Not verified, and not claimed anywhere
+
+No product was handled. No price, rating, traffic, click, order, conversion or revenue figure is
+published. Whether the supplied `link.amazon` short links credit this account remains unresolved
+in both directions (FLG-003). Intended ASINs remain blank (FLG-002).
+
