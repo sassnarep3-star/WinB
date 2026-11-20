@@ -1,30 +1,67 @@
 name: Deploy static site to GitHub Pages
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: pages
   cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate site files
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build the site from the data layer
+        run: npm run build
+
+      - name: Verify the release gate
+        # Fails the deploy if a table row loses its source link, a page loses its
+        # disclosure, an outbound Amazon link stops being tagged and marked
+        # sponsored, an internal link breaks, or the sitemap drifts from the
+        # pages that were generated.
+        run: npm run verify
+
+      - name: Confirm the expected entry points exist
         run: |
           test -f index.html
           test -f styles.css
           test -f sitemap.xml
           test -f feed.xml
-          for file in guides/basket-or-oven.html guides/capacity-checklist.html guides/cleanup-counter.html guides/multifunction.html review/index.html; do test -f "$file"; done
+          test -f robots.txt
+          test -f summary/index.html
+          test -f guides/index.html
+          test -f air-fryers/index.html
+          test -f thermometers/index.html
+          test -f review/index.html
+          test -f review/questions.html
+          test -f review/suggestions.html
+          test -f review/flagged.html
+          test -f review/sources.html
+          test -f dashboard/index.html
+          test -f dashboard/products.html
+          test -f dashboard/competition.html
+          test -f dashboard/content.html
+          test -f dashboard/links.html
+          test -f dashboard/campaigns.html
+          test -f dashboard/compliance.html
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
   deploy:
     environment:
       name: github-pages

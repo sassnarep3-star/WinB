@@ -1,7 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"><channel><title>Counterwise — The Buyer’s Notebook</title><link>https://sassnarep3-star.github.io/WinB/</link><description>Practical, no-hype kitchen buying guides.</description><language>en-us</language>
-<item><title>Basket or oven-style air fryer: what should you compare?</title><link>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven.html</link><guid>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven.html</guid><description>A decision framework for capacity, access, counter space, and the shape of meals you make.</description></item>
-<item><title>A no-hype checklist for comparing air fryer capacity</title><link>https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</link><guid>https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</guid><description>Measure the food and the space—not just the number printed on a product page.</description></item>
-<item><title>Cleanup and counter space: the trade-offs to assess</title><link>https://sassnarep3-star.github.io/WinB/guides/cleanup-counter.html</link><guid>https://sassnarep3-star.github.io/WinB/guides/cleanup-counter.html</guid><description>Questions about parts, storage, ventilation, and routine maintenance to check before buying.</description></item>
-<item><title>Questions to ask before buying a multi-function appliance</title><link>https://sassnarep3-star.github.io/WinB/guides/multifunction.html</link><guid>https://sassnarep3-star.github.io/WinB/guides/multifunction.html</guid><description>Decide which modes you will use, what they replace, and how complexity fits your kitchen.</description></item>
-</channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Counterwise — The Buyer's Notebook</title>
+    <link>https://sassnarep3-star.github.io/WinB/</link>
+    <atom:link href="https://sassnarep3-star.github.io/WinB/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Question-shaped guides for choosing air fryers and kitchen thermometers. Every fact dated and sourced.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Nov 2026 09:00:00 GMT</lastBuildDate>
+    <generator>tools/build.mjs</generator>
+  <item>
+    <title>Basket or oven-style air fryer: what should you compare?</title>
+    <link>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven.html</link>
+    <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/basket-or-oven.html</guid>
+    <description>Two formats, two different sets of trade-offs. The useful comparison is not which one is better, but which one fits how you cook.</description>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Air fryers &amp; countertop convection</category>
+  </item>
+  <item>
+    <title>A no-hype checklist for comparing air fryer capacity</title>
+    <link>https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</link>
+    <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</guid>
+    <description>Capacity labels answer the wrong question most of the time. Here is the small set of measurements that actually decides whether an appliance fits your life.</description>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Air fryers &amp; countertop convection</category>
+  </item>
+  <item>
+    <title>Cleanup and counter space: the trade-offs to assess</title>
+    <link>https://sassnarep3-star.github.io/WinB/guides/cleanup-counter.html</link>
+    <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/cleanup-counter.html</guid>
+    <description>The friction that decides whether you still use an appliance in month three is rarely on the product page.</description>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Air fryers &amp; countertop convection</category>
+  </item>
+  <item>
+    <title>Questions to ask before buying a multi-function appliance</title>
+    <link>https://sassnarep3-star.github.io/WinB/guides/multifunction.html</link>
+    <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/multifunction.html</guid>
+    <description>A long feature list makes comparison harder, not easier. Start from the jobs you would actually replace.</description>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Air fryers &amp; countertop convection</category>
+  </item>
+  <item>
+    <title>Air fryer toaster oven vs. a plain air fryer: which problem are you actually solving?</title>
+    <link>https://sassnarep3-star.github.io/WinB/guides/air-fryer-or-toaster-oven.html</link>
+    <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/air-fryer-or-toaster-oven.html</guid>
+    <description>One of these is a fryer with an oven attached. That is a genuinely different machine, and it is not the right answer for everyone.</description>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Air fryers &amp; countertop convection</category>
+  </item>
+  <item>
+    <title>Dual-basket air fryers: what does cooking two things at once really change?</title>
+    <link>https://sassnarep3-star.github.io/WinB/guides/dual-basket-air-fryer.html</link>
+    <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/dual-basket-air-fryer.html</guid>
+    <description>Two baskets sound like a gimmick until you have cooked for two people who want different things at the same time.</description>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Air fryers &amp; countertop convection</category>
+  </item>
+  <item>
+    <title>Your first air fryer: five questions that decide it before you spend anything</title>
+    <link>https://sassnarep3-star.github.io/WinB/guides/your-first-air-fryer.html</link>
+    <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/your-first-air-fryer.html</guid>
+    <description>You do not need a feature comparison to choose well. You need five answers about your own kitchen.</description>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Air fryers &amp; countertop convection</category>
+  </item>
+  <item>
+    <title>Instant-read vs. leave-in thermometer: which one actually changes your cooking?</title>
+    <link>https://sassnarep3-star.github.io/WinB/guides/instant-read-vs-leave-in.html</link>
+    <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/instant-read-vs-leave-in.html</guid>
+    <description>They solve different problems. The honest question is which problem you have.</description>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Thermometers &amp; cooking precision</category>
+  </item>
+  <item>
+    <title>How to judge thermometer accuracy without taking the marketing at face value</title>
+    <link>https://sassnarep3-star.github.io/WinB/guides/how-to-judge-thermometer-accuracy.html</link>
+    <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/how-to-judge-thermometer-accuracy.html</guid>
+    <description>Every thermometer listing claims accuracy. Here is how to read the claim properly, and how to check the device.</description>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Thermometers &amp; cooking precision</category>
+  </item>
+  </channel>
+</rss>

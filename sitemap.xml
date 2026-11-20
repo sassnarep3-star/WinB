@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://sassnarep3-star.github.io/WinB/</loc></url>
-<url><loc>https://sassnarep3-star.github.io/WinB/review/</loc></url>
-<url><loc>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven.html</loc></url>
-<url><loc>https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</loc></url>
-<url><loc>https://sassnarep3-star.github.io/WinB/guides/cleanup-counter.html</loc></url>
-<url><loc>https://sassnarep3-star.github.io/WinB/guides/multifunction.html</loc></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/</loc><priority>1.0</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/guides/</loc><priority>0.9</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/air-fryers/</loc><priority>0.8</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/thermometers/</loc><priority>0.8</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/summary/</loc><priority>0.8</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven.html</loc><priority>0.7</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</loc><priority>0.7</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/guides/cleanup-counter.html</loc><priority>0.7</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/guides/multifunction.html</loc><priority>0.7</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/guides/air-fryer-or-toaster-oven.html</loc><priority>0.7</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/guides/dual-basket-air-fryer.html</loc><priority>0.7</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/guides/your-first-air-fryer.html</loc><priority>0.7</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/guides/instant-read-vs-leave-in.html</loc><priority>0.7</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/guides/how-to-judge-thermometer-accuracy.html</loc><priority>0.7</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/dashboard/</loc><priority>0.6</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/dashboard/products.html</loc><priority>0.6</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/dashboard/competition.html</loc><priority>0.5</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/dashboard/content.html</loc><priority>0.5</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/dashboard/links.html</loc><priority>0.5</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/dashboard/campaigns.html</loc><priority>0.4</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/dashboard/compliance.html</loc><priority>0.5</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/review/</loc><priority>0.7</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/review/questions.html</loc><priority>0.6</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/review/suggestions.html</loc><priority>0.6</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/review/flagged.html</loc><priority>0.6</priority></url>
+  <url><loc>https://sassnarep3-star.github.io/WinB/review/sources.html</loc><priority>0.6</priority></url>
 </urlset>
