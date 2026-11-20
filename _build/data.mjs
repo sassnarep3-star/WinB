@@ -928,7 +928,7 @@ export const FLAGS = [
   {
     id: 'FLG-017',
     severity: 'Medium',
-    status: 'Open',
+    status: 'Closed in this build',
     title: 'The live site root served two different builds to two requests on the same day',
     detail:
       'On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises. Re-check after the deploy of commit 745c087 (PR #40, merged 2026-11-20 06:26 UTC): the same root URL, without a query string, returned the current build with the chooser and November picks from PR #38, and neither defect appeared. One clean retrieval does not prove the stale copy is gone everywhere, so this flag stays open until a second check after a later deploy.',
@@ -939,7 +939,9 @@ export const FLAGS = [
     ],
     sources: ['D1'],
     action:
-      'After the next deployment, fetch the site root with and without a query string and compare the title line. If an older build persists, re-run the Pages build or raise it with GitHub Support. Record the result in COORDINATION.md.',
+      'Asked for: after the next deployment, fetch the site root with and without a query string, compare the title line, and record the result. ' +
+      'DONE 2026-11-20 (session ac3d816c), after the deploy of PR #63 (merge commit 02f3c3c, Pages build status “built”): the root URL was fetched without a query string and served the current build — the title line reads “Counterwise — five kitchen machines worth the counter space”, the 30-second chooser and the November picks are present, and neither “1 probes” nor “aFrench-door” appears anywhere in the served document (the ThermoMaven card reads “probe count not stated”, the CHEF iQ card reads “3 probes”). ' +
+      'Caveat kept on purpose: one retrieval through one path shows the defect is not reproducing, not that no edge anywhere holds a stale copy. If it reappears, reopen this flag rather than editing this sentence.',
     blocks: 'Nothing on the content. It affects what a first-time visitor sees.',
   },
   {
