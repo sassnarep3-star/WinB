@@ -3,6 +3,7 @@
 | Task | Status | Owner session | Scope |
 |---|---|---|---|
 | Publication-style static site, evidence/decision pages, SEO artifacts, Pages workflow | done | `arena/13033d4a-winb` | `index.html`, `styles.css`, `guides/`, `review/`, `feed.xml`, `sitemap.xml`, `.github/workflows/pages.yml`, `COORDINATION.md` |
+| Shop-front rebuild: landing as publication front page, `/shop/` storefront + product-intent register, new guides, `/desk/` executive summary + questions + suggestions, validation pipeline, sitemap/feed/robots updates, Pages re-deploy | in progress | `arena/e4a7a1fc-winb` | `index.html`, `styles.css`, `README.md`, `guides/`, `shop/`, `desk/`, `data/`, `assets/`, `scripts/`, `review/index.html`, `feed.xml`, `sitemap.xml`, `robots.txt`, `.github/workflows/pages.yml`, `COORDINATION.md` |
 
 ## Session log
 
