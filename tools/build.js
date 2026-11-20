@@ -596,7 +596,7 @@ const GUIDE_BODIES = {
 
 <h2>3. What does "two zones" actually buy you?</h2>
 <p>Dual-basket units let a protein and a side run on different temperatures and finish together. That is a real capability, and it is the one thing a single large drawer cannot do.</p>
-<p>The trade-off is arithmetic: a "6 quart" dual basket is two 3-quart baskets, not one 6-quart basket. A whole chicken fits in neither half. See the <a href="/guides/air-fryer-capacity-checklist.html">capacity checklist</a> before you compare headline numbers.</p>
+<p>The trade-off is arithmetic: a "6 quart" dual basket is two 3-quart baskets, not one 6-quart basket. A whole chicken fits in neither half. See the <a href="${rel('/guides/air-fryer-capacity-checklist.html')}">capacity checklist</a> before you compare headline numbers.</p>
 
 <h2>4. What will you clean, and how often?</h2>
 <p>Count the parts that touch food. A dual basket has two drawers and usually two crisper plates. An oven has a door, a rack, a drip tray and whatever accessories came in the box — the Lagasse listing says six are included.</p>
@@ -611,9 +611,9 @@ const GUIDE_BODIES = {
 <table class="data">
 <thead><tr><th>Product</th><th>Shape</th><th>The consequence</th></tr></thead>
 <tbody>
-<tr><td><a href="/products/air-fryers.html#chefman-6-quart-dual-basket">Chefman 6-Quart Dual Basket</a></td><td>Two drawers, 3 qt each</td><td>Two temperatures, two wash-ups, small per side</td></tr>
-<tr><td><a href="/products/air-fryers.html#chefman-8-quart-turbofry">Chefman 8-Quart TurboFry</a></td><td>One 8 qt drawer</td><td>One temperature, one wash-up, large batch</td></tr>
-<tr><td><a href="/products/air-fryers.html#emeril-lagasse-26qt-french-door">Emeril Lagasse 26-Quart French Door</a></td><td>Oven cabinet, French doors</td><td>Replaces a toaster oven, most parts, largest footprint</td></tr>
+<tr><td><a href="${rel('/products/air-fryers.html')}#chefman-6-quart-dual-basket">Chefman 6-Quart Dual Basket</a></td><td>Two drawers, 3 qt each</td><td>Two temperatures, two wash-ups, small per side</td></tr>
+<tr><td><a href="${rel('/products/air-fryers.html')}#chefman-8-quart-turbofry">Chefman 8-Quart TurboFry</a></td><td>One 8 qt drawer</td><td>One temperature, one wash-up, large batch</td></tr>
+<tr><td><a href="${rel('/products/air-fryers.html')}#emeril-lagasse-26qt-french-door">Emeril Lagasse 26-Quart French Door</a></td><td>Oven cabinet, French doors</td><td>Replaces a toaster oven, most parts, largest footprint</td></tr>
 </tbody>
 </table>
 <p class="fineprint">Shape and capacity are read from listing titles observed 2026-11-20 (${src('S02')} is the rule that makes claims about a product a compliance matter; the listing text itself is the source of the shape descriptions). None of these was tested.</p>
@@ -687,7 +687,7 @@ const GUIDE_BODIES = {
 <p>Name them before you look at the price. If you cannot name two, you are buying a control panel. A 24-preset oven is excellent if you want presets and no better than a dial if you will only ever use one.</p>
 
 <h3>2. What did the extra functions cost in physical space?</h3>
-<p>More modes usually means more interior volume, more accessories, or both. The <a href="/guides/cleanup-and-counter-space.html">cleanup guide</a> covers how to measure that cost before you commit.</p>
+<p>More modes usually means more interior volume, more accessories, or both. The <a href="${rel('/guides/cleanup-and-counter-space.html')}">cleanup guide</a> covers how to measure that cost before you commit.</p>
 
 <h3>3. Does the appliance do the second job properly, or adequately?</h3>
 <p>An air fryer that also dehydrates is an air fryer with a low fan setting. That is a real function and a limited one. Ask what the temperature range and time limit are for the secondary mode, and whether they suit the job you have in mind.</p>
@@ -700,7 +700,7 @@ const GUIDE_BODIES = {
 
 <div class="callout callout--warn">
   <h3>On claims in this category</h3>
-  <p>Multi-function listings lean on certification and accuracy language: NIST, NSF, ±0.5°F, 1000°F safe. Those are seller claims in the listing text. This site repeats them only with that label, because the certifying bodies' registries were not checked for this build. See <a href="/flagged/index.html#FLG-005">FLG-005</a>.</p>
+  <p>Multi-function listings lean on certification and accuracy language: NIST, NSF, ±0.5°F, 1000°F safe. Those are seller claims in the listing text. This site repeats them only with that label, because the certifying bodies' registries were not checked for this build. See <a href="${rel('/flagged/index.html')}#FLG-005">FLG-005</a>.</p>
 </div>
 
 <h2>Applied to the two thermometers here</h2>
@@ -1877,7 +1877,7 @@ function goPage(p) {
   )} <a href="${rel('/about/how-we-make-money.html')}">How this site makes money</a>.</p>
 </div>
 <main class="go__box">
-  <p class="go__back"><a href="/index.html">← The Crisp Kitchen</a></p>
+  <p class="go__back"><a href="${rel('/index.html')}">← The Crisp Kitchen</a></p>
   <p class="kicker">You are leaving this site</p>
   <h1>${esc(p.shortName)}</h1>
   <p>This link is an affiliate link. As an Amazon Associate I earn from qualifying purchases.</p>

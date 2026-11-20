@@ -140,6 +140,14 @@ for (const file of htmlFiles) {
   if (!html.includes('class="footer-disclosure"')) fail.push(`${rel}: missing the footer disclosure`);
   }
 
+  /* 3b. no internal absolute path may escape the deployment base.
+     GitHub Pages serves this repo at /WinB; an href of "/index.html" resolves to the domain root,
+     which belongs to a different site. This caught a live interstitial back-link pointing off-site. */
+  const escaped = [...html.matchAll(/(?:href|src)="(\/[^"#][^"]*)"/g)]
+    .map((x) => x[1])
+    .filter((p) => !p.startsWith(BASE_PATH + '/') && p !== BASE_PATH);
+  for (const p of escaped) fail.push(`${rel}: path escapes the deployment base (${BASE_PATH}) -> ${p}`);
+
   /* 4b. unresolved build tokens must never reach a reader */
   const token = html.match(/\{\{[A-Z_]+\}\}/);
   if (token) fail.push(`${rel}: unresolved build token ${token[0]}`);
