@@ -17,7 +17,7 @@
 //
 // Last verified: 2026-11-20 (UTC)
 
-import { SITE, PRODUCTS, GUIDES, SOURCES } from './data.mjs';
+import { SITE, PRODUCTS, GUIDES, SOURCES, SEASONS } from './data.mjs';
 import { esc, url, page, table, badge, amazonLink, srcLink, blank, crumbs } from './core.mjs';
 import { NEW_GUIDES, WORKSHEETS, CHOOSER, FAQ, NOVEMBER_PICKS } from './tools-content.mjs';
 
@@ -376,12 +376,33 @@ ${chooserSection()}
           <div class="fx" style="aspect-ratio:16/9"><img src="${ART.guides}" alt="A notebook, a pencil and a thermometer on a kitchen worktop" width="1400" height="788" loading="lazy" decoding="async"></div>
           <div class="fb">
             <p class="kicker plain" style="margin-bottom:.5rem">One a fortnight</p>
-            <h3 style="font-size:1.15rem">Eight guides, and a schedule</h3>
-            <p style="font-size:.85rem">Capacity, format, cleanup, multi-function appliances, safe temperatures, holiday roasts, game-day wings and leftovers. New guides arrive on a fixed cadence rather than in a burst.</p>
+            <h3 style="font-size:1.15rem">${ALL_GUIDES.length} guides, and a schedule</h3>
+            <p style="font-size:.85rem">Capacity, format, cleanup, multi-function appliances, safe temperatures, holiday roasts, game-day wings, leftovers — plus a hosting-season plan and a gift guide. New guides arrive on a fixed cadence rather than in a burst.</p>
             <span class="ft">Read the archive →</span>
           </div>
         </a>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">${esc(SEASONS.kicker)}</p>
+        <h2>${esc(SEASONS.title)}</h2>
+        <p>${esc(SEASONS.lede)}</p>
+      </div>
+      <a class="more" href="/guides/">All guides →</a>
+    </div>
+    <div class="cards c4">
+      ${SEASONS.cards.map((s) => `<a class="card" href="${s.href}">
+        <span class="num">${esc(s.tag)}</span>
+        <h3>${esc(s.title)}</h3>
+        <p>${esc(s.desc)}</p>
+        <div class="foot"><span>Guide</span><span class="read">Open →</span></div>
+      </a>`).join('\n')}
     </div>
   </div>
 </section>
