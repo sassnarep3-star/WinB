@@ -737,7 +737,7 @@ export const FLAGS = [
     evidence: [
       'Repository check (2026-11-20): “1 probes” and “aFrench” do not appear in the generated HTML of this branch.',
       'GitHub Pages API (2026-11-20): latest build status “built”, source main, path /.',
-      'Two retrievals of the same page, different content. Recorded in COORDINATION.md under S15.',
+      'Two retrievals of the same page, different content. Recorded in COORDINATION.md under S16.',
     ],
     sources: ['D1'],
     action:

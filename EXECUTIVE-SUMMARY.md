@@ -136,7 +136,7 @@ Do not publish the topic queue until its gates pass. Do not add categories until
 - Nothing was tested by hand, so authority rests on documentation and reasoning, not on measurement.
 - Compliance conclusions describe how the build responds to quoted policy text. They are not legal advice.
 
-## 10. Re-check of 2026-11-20 (session `ab61d616`, task S15)
+## 10. Re-check of 2026-11-20 (session `ab61d616`, task S16)
 
 Added after the sections above. Sections 1–9 describe the build as it stood before this check and are not rewritten.
 
