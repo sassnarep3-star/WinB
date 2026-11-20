@@ -6,7 +6,7 @@
 | Category subpages (air fryers, kitchen appliances) as publication dashboards | done | `arena/97b55f4f-winb` | `guides/category/air-fryers.html`, `guides/category/kitchen-appliances.html` |
 | Privacy-preserving outbound-click counter + self-hosted analytics client (5 events) | done | `arena/97b55f4f-winb` | `assets/counterwise.js`, wired into `index.html`, guides, category pages, review page |
 | Verification hardening: source links on every table row, unverified flags, executive summary | done | `arena/97b55f4f-winb` | `review/index.html`, `sitemap.xml`, `feed.xml`, `README.md` |
-| Integration: commit, push, PR to main, merge, confirm GitHub Pages deploy, record result | in progress | `arena/97b55f4f-winb` | all files |
+| Integration: commit, push, PR to main, merge, confirm GitHub Pages deploy, record result | done | `arena/97b55f4f-winb` | all files |
 
 ## Session log
 
@@ -16,4 +16,5 @@
 - Five user-supplied Amazon short links are preserved verbatim. Product identity, ASIN, official listing URL, and redirect targets are NOT asserted; left blank (`—`) and flagged unverified pending confirmation in the enrolled Associates workflow (per brief: do not claim short links are invalid; status unresolved).
 - GitHub Pages is static: no server-side analytics endpoint can be provisioned here. Client-side event client added; conversion event is entered only from a dated authorized report, never inferred. Endpoint URL is configurable placeholder requiring separate hosting.
 - Category dashboards, reader capture section, author bylines, and CSS added. Analytics client wired to all pages. Sitemap updated with category pages.
+- Integration complete: PR #3 (https://github.com/sassnarep3-star/WinB/pull/3) merged to main via `gh pr merge 3 --merge` (merge commit 63667cc). GitHub Pages deploy run 44681957859 succeeded (build + deploy). Site live at https://sassnarep3-star.github.io/WinB/. Verified live render: disclosure above fold, guides, reader capture, all nav links resolve.
 - This session works on branch `arena/97b55f4f-winb` only (fixed by Arena). No branch switching or separate worktree.
