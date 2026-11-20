@@ -1,0 +1,22 @@
+name: Resolve supplied short links
+on:
+  workflow_dispatch:
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve each link.head (no page body) and print redirect chain
+        run: |
+          set -u
+          for u in "https://link.amazon/B04G1MEwY" "https://link.amazon/B02NbDxp3" "https://link.amazon/B00hJ57DV" "https://link.amazon/B0c8moW59" "https://link.amazon/B0f3GKalj"; do
+            echo "===== LINK: $u"
+            echo "--- HEAD headers:"
+            curl -sS -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" \
+              -o /dev/null -D - --max-time 30 "$u" 2>&1 | sed -n '1,20p'
+            echo "--- effective:"
+            curl -sS -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" \
+              -o /dev/null -w '%{url_effective} code=%{http_code} redirects=%{num_redirects}\n' --max-time 40 "$u" 2>&1
+            echo "--- location chain:"
+            curl -sS -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" \
+              -o /dev/null -w '%{url_effective}\n' -D /tmp/h --max-time 40 "$u" 2>&1 >/dev/null; grep -i '^location:' /tmp/h | head -10
+          done

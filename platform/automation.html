@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automation and the human gate | The Crisp Kitchen</title>
+<meta name="description" content="Which steps run automatically, which require a person, and the rule that nothing publishes without a source.">
+<link rel="canonical" href="https://sassnarep3-star.github.io/WinB/platform/automation.html">
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:site_name" content="The Crisp Kitchen">
+<meta property="og:title" content="Automation and the human gate | The Crisp Kitchen">
+<meta property="og:description" content="Which steps run automatically, which require a person, and the rule that nothing publishes without a source.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sassnarep3-star.github.io/WinB/platform/automation.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f1b17">
+<link rel="icon" href="/WinB/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/WinB/assets/css/site.css">
+<link rel="alternate" type="application/rss+xml" title="The Crisp Kitchen — new guides" href="/WinB/feed.xml">
+
+
+</head><body>
+<div id="archive-notice" style="position:relative;z-index:9999;background:#191714;color:#fbf8f3;font:14px/1.5 ui-sans-serif,system-ui,sans-serif;padding:12px 18px;text-align:center">
+  <strong>Archived page.</strong> This is folded into the Decision Room, kept for the record and excluded from search.
+  The current site is <a href="https://sassnarep3-star.github.io/WinB/" style="color:#f0b48a">Counterwise</a> — a matching page is at <a href="https://sassnarep3-star.github.io/WinB/decisions/" style="color:#f0b48a">/decisions/</a>.
+</div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="/WinB/index.html">
+      <span class="brand__mark" aria-hidden="true">CK</span>
+      <span class="brand__text"><strong>The Crisp Kitchen</strong><em>Air fryers and the tools that make them work</em></span>
+    </a>
+    <nav class="mainnav" aria-label="Primary">
+      <ul>
+        <li><a href="/WinB/index.html">Shop</a></li>
+        <li><a href="/WinB/guides/index.html">Guides</a></li>
+        <li><a href="/WinB/decisions/index.html">Suggestions</a></li>
+        <li><a href="/WinB/verification/index.html">Verification</a></li>
+        <li><a href="/WinB/flagged/index.html">Flagged for Review</a></li>
+        <li><a href="/WinB/about/index.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="disclosure" role="note">
+  <p><strong>Affiliate disclosure.</strong> As an Amazon Associate I earn from qualifying purchases. If you buy through a link on this page, this site may earn a commission. It does not change the price you pay. <a href="/WinB/about/how-we-make-money.html">How this site makes money</a>.</p>
+</div><main id="main" class="wrap"><div class="pagehead">
+    <p class="kicker">System · Automation</p>
+    <h1>Automate the arithmetic, gate the judgement</h1>
+    <p class="lede">The brief asked for automation and for verified data. Those pull in opposite directions: the fastest automation is bulk extraction, and bulk extraction is exactly what the Associates licence forbids. This page states the line and why it sits where it does.</p>
+  </div>
+  <div class="prose">
+    <h2>The pipeline, as built</h2>
+    <ol class="checklist">
+      <li><strong>Supplied link → observed target.</strong> Each supplied link is opened once and the redirect recorded. The ASIN is read from the destination. This is manual by design.</li>
+      <li><strong>Observed target → product register.</strong> The ASIN, brand, title and category path are written to a JSON file with a date. ASINs may be stored indefinitely; listing text may not be cached, so nothing else is copied.</li>
+      <li><strong>Register → labelled claims.</strong> Strengths are labelled as seller claims and trade-offs as editorial inference. The build will not accept a claim without a label.</li>
+      <li><strong>Claims → pages.</strong> Templates render the pages, adding the disclosure, the navigation and the footer from one shared layout.</li>
+      <li><strong>Pages → gate.</strong> The checker verifies every internal link resolves, every product anchor is sponsored, every cited source exists, and every page has both disclosures.</li>
+      <li><strong>Gate → publish.</strong> Only a passing build is pushed.</li>
+    </ol>
+
+    <h2>Where a human has to stand</h2>
+    <div class="tablewrap"><table class="data ">
+  <thead><tr><th scope="col">Step</th><th scope="col">Why it cannot be automated</th><th scope="col">What a person does</th></tr></thead>
+  <tbody>
+  <tr><td>Confirming the account</td><td>Requires a signed-in session that a build must never hold.</td><td>Signs in, reads the storefront ID, confirms it.</td></tr>
+  <tr><td>Confirming a click tracked</td><td>Requires reading the Associates report after a real click.</td><td>Clicks once, reads the report.</td></tr>
+  <tr><td>Checking a certification</td><td>Needs a registry lookup and judgement about whether a match is the same model.</td><td>Looks it up, records the certificate number or its absence.</td></tr>
+  <tr><td>Deciding a claim is fair</td><td>A label can be checked mechanically; whether a sentence is misleading cannot.</td><td>Reads the sentence as a buyer would.</td></tr>
+  <tr><td>Choosing the next topic</td><td>Requires reading event data in context.</td><td>Reads the week's events, picks.</td></tr>
+  </tbody>
+</table></div>
+
+    <h2>The rule that makes this honest</h2>
+    <div class="callout">
+      <p>Automation is allowed to <em>check</em> a human decision. It is never allowed to <em>make</em> one and present it as checked. That single rule is why the site has a build that fails on a missing source id, and no scraper.</p>
+    </div>
+
+    <h2>What would unlock more automation</h2>
+    <ul class="ticks ticks--plain">
+      <li><strong>Product Advertising API access</strong> — turns price, availability and images into served data with the required timestamp, and would retire FLG-004 entirely.</li>
+      <li><strong>A collection endpoint</strong> — turns the five client-side events into something that can be read a week later.</li>
+      <li><strong>An identified agent</strong> — the licence permits agent access only for an agent that identifies itself in the user agent string. A compliant, self-identifying re-check job is possible; a disguised crawler is not.</li>
+    </ul>
+  </div></main><footer class="sitefooter">
+  <div class="sitefooter__inner">
+    <div class="footergrid">
+      <div class="footergroup">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="/WinB/index.html">All products</a></li>
+          <li><a href="/WinB/products/air-fryers.html">Air fryers</a> <span class="footernote">3 products</span></li>
+          <li><a href="/WinB/products/thermometers.html">Wireless thermometers</a> <span class="footernote">2 products</span></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Guides</h3>
+        <ul>
+          <li><a href="/WinB/guides/index.html">All guides</a></li>
+          <li><a href="/WinB/guides/basket-or-oven-air-fryer.html">Basket or oven-style air fryer?</a></li>
+          <li><a href="/WinB/guides/air-fryer-capacity-checklist.html">Capacity without the hype</a></li>
+          <li><a href="/WinB/guides/cleanup-and-counter-space.html">Cleanup and counter space</a></li>
+          <li><a href="/WinB/guides/multifunction-appliance-questions.html">Multi-function appliance questions</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Decide</h3>
+        <ul>
+          <li><a href="/WinB/decisions/index.html">Suggestions register</a></li>
+          <li><a href="/WinB/decisions/questions.html">Open questions</a></li>
+          <li><a href="/WinB/decisions/growth-plan.html">Growth plan (SEO + measurement)</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Trust</h3>
+        <ul>
+          <li><a href="/WinB/verification/index.html">Verification dashboard</a></li>
+          <li><a href="/WinB/verification/sources.html">Source register</a></li>
+          <li><a href="/WinB/verification/links.html">Link audit</a></li>
+          <li><a href="/WinB/verification/products.html">Product data table</a></li>
+          <li><a href="/WinB/flagged/index.html">Flagged for Review</a></li>
+          <li><a href="/WinB/compliance/index.html">Compliance gate</a></li>
+          <li><a href="/WinB/about/editorial-policy.html">Editorial policy</a></li>
+          <li><a href="/WinB/about/how-we-make-money.html">How we make money</a></li>
+          <li><a href="/WinB/about/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>System</h3>
+        <ul>
+          <li><a href="/WinB/platform/index.html">Platform overview</a></li>
+          <li><a href="/WinB/platform/automation.html">Automation and the human gate</a></li>
+          <li><a href="/WinB/platform/metrics.html">Metrics that are actually measurable</a></li>
+          <li><a href="/WinB/platform/ledger.html">Campaign ledger (empty by design)</a></li>
+          <li><a href="/WinB/verification/research-log.html">Research log</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclosure">
+  <p><strong>Affiliate disclosure (repeated).</strong> As an Amazon Associate I earn from qualifying purchases. If you buy through a link on this page, this site may earn a commission. It does not change the price you pay.</p>
+  <p class="footer-disclosure__note">Product links on this site are marked <code>rel="sponsored"</code>. Prices, if a page ever shows one, must come from Amazon itself or from the Product Advertising API with the required timestamp — which is why no price appears in the HTML of this site.</p>
+</div>
+    <div class="colophon">
+      <p><strong>The Crisp Kitchen</strong> — An independent kitchen-appliance review desk. Product links are affiliate links; the reasoning behind every recommendation is published next to it.</p>
+      <p>Published by The Crisp Kitchen Editorial Desk. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. This site is not endorsed by or affiliated with Amazon.</p>
+      <p class="colophon__meta">Compiled 2026-11-20 · <a href="/WinB/verification/sources.html">Source register</a> · <a href="/WinB/flagged/index.html">Flagged for Review</a></p>
+    </div>
+  </div>
+</footer>
+<script src="/WinB/assets/js/site.js" defer></script>
+</body>
+</html>

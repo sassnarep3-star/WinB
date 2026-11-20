@@ -1,37 +1,88 @@
-# WinB — COUNTER (Amazon Associates affiliate platform)
+# Counterwise — kitchen gear, chosen by question
 
-**COUNTER** is a polished, publication-style Amazon Associates affiliate site for
-kitchen products — **air fryers** and **meat thermometers**. It reads like a
-shop, not an audit: a buyer-facing front page with verified product listings,
-no-hype question-shaped buying guides, a campaign dashboard, a decision board
-(suggestions + open questions), and a flagged-for-review page.
+A static Amazon Associates publication for five kitchen products: three air fryers and
+two thermometers. Built for the WinB repository and published with GitHub Pages.
 
-Tracking ID: **shopnow047c-20**
+**Live site:** https://sassnarep3-star.github.io/WinB/
+**Associate tag:** `shopnow047c-20`
 
-## What's here
+---
 
-- `index.html` — publication front page
-- `products.html` — verified product register + product-intent confirmation record
-- `buying-guides.html` / `articles.html` — question-shaped guides & explainers
-- `analysis.html` — analysis & findings (every row source-linked)
-- `dashboard.html` — campaign dashboard, events, privacy-preserving click counter, empty campaign ledger
-- `suggestions.html` — decision board: suggestions + open questions
-- `flagged.html` — irregularities & unverified items with source links
-- `compliance.html` — disclosure & official policy sources
-- `about.html` — executive summary
-- `css/`, `js/`, `img/`, `sitemap.xml`, `robots.txt`, `site.webmanifest`
-- `.nojekyll` — served as plain static files (no Jekyll processing)
-- `COORDINATION.md` — shared task board, sources, verification record
+## What this is
 
-The site is published to GitHub Pages from the repository root (branch `main`,
-path `/`). GitHub Pages is configured to deploy from the `main` branch, so a
-push to `main` publishes the site automatically.
+A shop, not an audit. Five product pages, two category hubs, a comparison table, five
+question-shaped guides, and one RSS feed. The compliance machinery is real but it lives
+under the floor — the front page leads with products, and every register is one click
+away in the footer.
 
-## Local preview
+The editorial position is narrow and deliberate: **this desk has not handled any of these
+products.** Every page therefore describes what the manufacturer's listing states, shows
+its arithmetic, and lists what it cannot tell you. No page contains a fabricated test
+result, a borrowed star rating, or a price.
+
+## The rules the build enforces
+
+`node tools/verify.mjs` fails the build unless all nine hold:
+
+| | Rule |
+|---|---|
+| R1 | The Associates statement appears above the masthead **and** in the footer of every page |
+| R2 | Every Amazon product link carries `?tag=shopnow047c-20` and `rel="sponsored nofollow noopener"` |
+| R3 | No price, star rating, rating count or popularity position appears anywhere |
+| R4 | No hands-on testing claim appears anywhere (disclaimers of that claim are allowed) |
+| R5 | Every page has a canonical URL, a title ≥10 chars and a description ≥40 chars |
+| R6 | Every internal `href`/`src` resolves to a real file |
+| R7 | The sitemap is valid, single-host, and lists every indexable page; the RSS feed is valid RFC-822 |
+| R8 | Every product page prints its ASIN and links to the listing with the tag |
+| R9 | No page claims a traffic, click, conversion or revenue figure |
+
+## Commands
 
 ```bash
-# serve the repo root (the site files live at the root)
-python3 -m http.server 8000
+npm run build    # generate HTML, sitemap, feed, 404, artwork
+npm run verify   # content rules R1-R9
+npm run links    # crawl the built site, validate XML
+npm run smoke    # fetch every URL at /WinB/ over HTTP (needs a local server on :3001)
+npm run check    # build + verify + links
 ```
 
-Then open http://localhost:8000
+## Layout
+
+```
+_build/            generators (data.mjs is the single source of truth)
+  data.mjs         products, flags, questions, suggestions, sources, events, ledger
+  core.mjs         page shell, disclosure strip, masthead, footer
+  content-shop.mjs front page, categories, product pages, comparison, guides
+  content-oversight.mjs  decision room, data room, flagged, methods, about, privacy
+tools/             verify.mjs · linkcheck.mjs · smoke.mjs
+assets/            css/site.css · js/site.js · generated SVG artwork
+analytics/         deployable collected-worker.js + schema (NOT running)
+reviews/           five product pages (generated)
+guides/            five guides (generated)
+air-fryers/ thermometers/ compare/    category and comparison hubs
+decisions/ data-room/ flagged/        oversight surfaces
+methods/ about/ privacy/ executive-summary/
+```
+
+Generated files are committed so GitHub Pages serves them directly. CI regenerates and
+fails if the committed HTML drifts from `_build/`.
+
+## Read these before changing anything
+
+- `COORDINATION.md` — the shared task board and the verification log
+- `/flagged/` — the nine items that could not be confirmed, with what would close each
+- `/decisions/` — suggestions ranked by priority, open questions, rejected options
+
+## Two things that need the owner
+
+1. **Confirm the short links.** All five `link.amazon` links resolve to live listings but
+   none of the resolved URLs carries a `tag=` parameter. The site publishes tagged
+   canonical links instead. See FLG-001.
+2. **Deploy the analytics endpoint.** The collector is real code; it is not running, so
+   nothing is measured. See `analytics/README.md` and FLG-007.
+
+## Licence and attribution
+
+Body copy and generated artwork are original to this repository. Amazon and the Amazon
+logo are trademarks of Amazon.com, Inc. or its affiliates. This site is not endorsed by
+Amazon. As an Amazon Associate the site owner earns from qualifying purchases.

@@ -1,0 +1,246 @@
+{
+  "as_of": "2026-11-20",
+  "note": "Suggestions are listed for review. None has been implemented. Implementation starts only after a path is chosen.",
+  "rows": [
+    {
+      "id": "S-01",
+      "topic": "Site positioning",
+      "summary": "What kind of site this should be.",
+      "options": [
+        {
+          "key": "A",
+          "label": "Buyer's guide publication (proposed default)",
+          "desc": "Question-led guides that link to listings; category pages; disclosure everywhere.",
+          "tradeoff": "Slower to build; strongest long-term fit with the editorial hypotheses."
+        },
+        {
+          "key": "B",
+          "label": "Product comparison directory",
+          "desc": "Tables and filters for the five products and more.",
+          "tradeoff": "Needs a much larger, verified product dataset (FLG-001 must be resolved first)."
+        },
+        {
+          "key": "C",
+          "label": "Deal and trend news",
+          "desc": "Frequent short posts on listing changes.",
+          "tradeoff": "Needs price data (blocked by policy §2(b) without PA-API) and fast refresh."
+        }
+      ],
+      "recommended": "A",
+      "status": "Awaiting your choice — not applied"
+    },
+    {
+      "id": "S-02",
+      "topic": "Outbound link path",
+      "summary": "How product links should be formed once validated.",
+      "options": [
+        {
+          "key": "A",
+          "label": "Keep the supplied short links (current)",
+          "desc": "Links are used as supplied and marked sponsored.",
+          "tradeoff": "Compliance status unresolved (FLG-003)."
+        },
+        {
+          "key": "B",
+          "label": "Test one link per product, then switch to tagged /dp/ Special Links (proposed default)",
+          "desc": "Run the validation plan; on success, use https://www.amazon.com/dp/<ASIN>?tag=shopnow047c-20 with ASINs confirmed by the owner.",
+          "tradeoff": "Requires owner to confirm intended ASINs (FLG-001)."
+        },
+        {
+          "key": "C",
+          "label": "Use Amazon-generated links only",
+          "desc": "Create every link in the Associates link builder.",
+          "tradeoff": "Manual step for each product; slower."
+        }
+      ],
+      "recommended": "B",
+      "status": "Awaiting your choice — not applied"
+    },
+    {
+      "id": "S-03",
+      "topic": "Measurement and analytics",
+      "summary": "Where outbound clicks and page views should go.",
+      "options": [
+        {
+          "key": "A",
+          "label": "Self-hosted privacy analytics (e.g., on an owned server)",
+          "desc": "Server receives events; no cookies; short retention.",
+          "tradeoff": "Needs hosting; not possible on GitHub Pages alone."
+        },
+        {
+          "key": "B",
+          "label": "Cloud function endpoint (e.g., Worker) logging events only",
+          "desc": "Counts clicks and page views with no cookies; keeps the static site.",
+          "tradeoff": "Needs an account and a deployed endpoint; the IP address reaches the host."
+        },
+        {
+          "key": "C",
+          "label": "Third-party analytics with consent banner",
+          "desc": "Standard tooling.",
+          "tradeoff": "Consent UI needed; less privacy-preserving than A/B."
+        }
+      ],
+      "recommended": "B",
+      "status": "Awaiting your choice — endpoint not configured"
+    },
+    {
+      "id": "S-04",
+      "topic": "Publishing cadence",
+      "summary": "How often a new guide is published.",
+      "options": [
+        {
+          "key": "A",
+          "label": "Weekly",
+          "desc": "Fastest learning loop.",
+          "tradeoff": "Higher editorial load."
+        },
+        {
+          "key": "B",
+          "label": "Every two weeks (proposed default)",
+          "desc": "Balance of quality and learning speed.",
+          "tradeoff": "Slower signal."
+        },
+        {
+          "key": "C",
+          "label": "Monthly",
+          "desc": "Lowest load.",
+          "tradeoff": "Slowest learning."
+        }
+      ],
+      "recommended": "B",
+      "status": "Awaiting your choice — not applied"
+    },
+    {
+      "id": "S-05",
+      "topic": "Price and availability display",
+      "summary": "Whether prices appear on the site.",
+      "options": [
+        {
+          "key": "A",
+          "label": "No prices (current)",
+          "desc": "Compliant by default.",
+          "tradeoff": "Less purchase context on the page."
+        },
+        {
+          "key": "B",
+          "label": "Prices via PA-API / Creators API after eligibility",
+          "desc": "Allowed under policy §2(b) with the API License.",
+          "tradeoff": "Needs API access and attribution rules."
+        }
+      ],
+      "recommended": "A",
+      "status": "Awaiting your choice — not applied"
+    },
+    {
+      "id": "S-06",
+      "topic": "Imagery",
+      "summary": "What visuals the site uses.",
+      "options": [
+        {
+          "key": "A",
+          "label": "Typographic design, no product photos (current)",
+          "desc": "Avoids image-licence questions.",
+          "tradeoff": "Less visual appeal for products."
+        },
+        {
+          "key": "B",
+          "label": "Licensed stock photography",
+          "desc": "Editorial-style lifestyle imagery.",
+          "tradeoff": "Licence cost; must not imply Amazon endorsement."
+        },
+        {
+          "key": "C",
+          "label": "Owner-shot photos after hands-on testing",
+          "desc": "Original, credible imagery.",
+          "tradeoff": "Needs products and time."
+        }
+      ],
+      "recommended": "A",
+      "status": "Awaiting your choice — not applied"
+    },
+    {
+      "id": "S-07",
+      "topic": "Seasonal content",
+      "summary": "Seasonal topics on the calendar.",
+      "options": [
+        {
+          "key": "A",
+          "label": "Gift-season guide (proposed for Nov–Dec)",
+          "desc": "A question-led gift checklist for kitchen gadgets.",
+          "tradeoff": "Time-bound; needs refresh before the season."
+        },
+        {
+          "key": "B",
+          "label": "Evergreen only",
+          "desc": "No seasonal pieces.",
+          "tradeoff": "Less timely traffic."
+        }
+      ],
+      "recommended": "A",
+      "status": "Awaiting your choice — not applied"
+    },
+    {
+      "id": "S-08",
+      "topic": "Topic clusters",
+      "summary": "How guides are grouped.",
+      "options": [
+        {
+          "key": "A",
+          "label": "Three clusters: air fryers, thermometers, buying questions (current)",
+          "desc": "Maps to the category pages.",
+          "tradeoff": "Thermometer cluster has only one guide so far."
+        },
+        {
+          "key": "B",
+          "label": "Add a thermometer-buying guide next",
+          "desc": "Strengthens the thermometer cluster.",
+          "tradeoff": "Adds to editorial load."
+        }
+      ],
+      "recommended": "B",
+      "status": "Awaiting your choice — not applied"
+    },
+    {
+      "id": "S-09",
+      "topic": "Authorship",
+      "summary": "Who is named as author.",
+      "options": [
+        {
+          "key": "A",
+          "label": "Editorial team byline (current)",
+          "desc": "No invented people.",
+          "tradeoff": "Less personal trust signal."
+        },
+        {
+          "key": "B",
+          "label": "Named author with a real bio",
+          "desc": "Stronger E-E-A-T-style trust for readers.",
+          "tradeoff": "Needs owner-supplied details."
+        }
+      ],
+      "recommended": "B",
+      "status": "Awaiting your choice — needs owner input"
+    },
+    {
+      "id": "S-10",
+      "topic": "Search Console",
+      "summary": "How to verify the site.",
+      "options": [
+        {
+          "key": "A",
+          "label": "HTML meta tag verification",
+          "desc": "Simple, runs on the static site.",
+          "tradeoff": "Needs an edit to the template with the token."
+        },
+        {
+          "key": "B",
+          "label": "DNS verification of a custom domain",
+          "desc": "Cleaner long-term.",
+          "tradeoff": "Needs a custom domain."
+        }
+      ],
+      "recommended": "A",
+      "status": "Awaiting owner action (FLG-008)"
+    }
+  ]
+}

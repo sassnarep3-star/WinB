@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "purpose": "A review surface for proposed changes. Each suggestion states what it fixes, what it costs, what evidence it would produce, and which of the three coherent paths it belongs to. Nothing here is implemented silently; the decision is the owner's.",
+    "rule": "Effort is stated in hours of work and in dependencies, not in adjectives. \"Evidence it works\" is stated as an event that would be observable, not as a promise of a result."
+  },
+  "groups": [
+    {
+      "id": "G1",
+      "title": "Make the front page sell, not explain",
+      "intro": "The current front page is already product-led, because that is a prerequisite for anyone buying anything. These suggestions go further: they remove the last traces of the audit voice from the buying surface.",
+      "items": [
+        {
+          "id": "SG-01",
+          "title": "Lead every product card with the decision, not the model number",
+          "detail": "Cards currently say \"Best for: cooking two components at once\". That is a decision. Keep it, and move the ASIN to the button subtitle where it belongs — a buyer never chooses by ASIN.",
+          "fixes": "The last remaining engineering voice on the buying surface.",
+          "effort": "Done in this build",
+          "evidence": "Product-intent event rate on cards; outbound-click rate.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-02",
+          "title": "Replace the three-product short list with a five-product 'choose one of these five' filter",
+          "detail": "Three cards cover fryers only. A buyer looking for a thermometer has to leave the front page. A single five-item decision strip with a question — 'what are you cooking at once?' — would serve both categories above the fold.",
+          "fixes": "The front page currently under-represents 40% of the catalogue.",
+          "effort": "3 hours, no dependency",
+          "evidence": "Click distribution across the five products; drop in bounce from the landing page.",
+          "path": "A or B"
+        },
+        {
+          "id": "SG-03",
+          "title": "Add a 'what we would buy' line to each product, with the reasoning visible",
+          "detail": "A single sentence naming the trade-off the buyer is accepting. Not a recommendation of a person, which this desk cannot honestly give — a recommendation of a trade-off, which it can.",
+          "fixes": "Cards describe features; they do not yet take a position.",
+          "effort": "2 hours",
+          "evidence": "Guide-read → product-intent conversion.",
+          "path": "A or B"
+        }
+      ]
+    },
+    {
+      "id": "G2",
+      "title": "Make it findable",
+      "intro": "Indexing is mechanical and mostly done. Ranking is editorial and cannot be claimed from here. These suggestions separate the two.",
+      "items": [
+        {
+          "id": "SG-04",
+          "title": "Publish one canonical host and 301 everything else to it",
+          "detail": "The site currently exists at a project path, so its canonical host is sassnarep3-star.github.io/WinB. A project path is indexable but it is not a brand. Every canonical tag, the sitemap, the feed and robots.txt already point at one host.",
+          "fixes": "Duplicate-host dilution.",
+          "effort": "Done in this build",
+          "evidence": "Search Console coverage report showing one indexed property.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-05",
+          "title": "Register the property in Search Console before publishing week two",
+          "detail": "Without Search Console there is no way to see which queries produced impressions, which is the single most useful input for choosing topics five to eight.",
+          "fixes": "Flying blind on search demand.",
+          "effort": "30 minutes, requires the owner's Google account",
+          "evidence": "Query report with impressions after 30 days.",
+          "path": "B",
+          "blockedBy": "Owner action — Q-05"
+        },
+        {
+          "id": "SG-06",
+          "title": "Give every guide a distinct question in the title and an answer in the first 60 words",
+          "detail": "Question-shaped titles only help if the page answers the question before it starts explaining. Each guide here already opens with a direct paragraph, but the answer should be one sentence that could be lifted into a featured snippet.",
+          "fixes": "Guides that read well but are not quotable.",
+          "effort": "1 hour per guide",
+          "evidence": "Guide-read rate at 25% scroll; impressions per query.",
+          "path": "A, B or C"
+        },
+        {
+          "id": "SG-07",
+          "title": "Do not create five thin product pages",
+          "detail": "Counter-suggestion, included because the obvious move is the wrong one. Five pages that repeat the same template with a different product name will look like doorway pages. Add a product page only when it has something the grid does not.",
+          "fixes": "A predictable thin-content mistake.",
+          "effort": "0 — it is a decision not to build",
+          "evidence": "Absence of the problem.",
+          "path": "All"
+        }
+      ]
+    },
+    {
+      "id": "G3",
+      "title": "Make the machinery trustworthy",
+      "intro": "The build enforces what can be enforced. These suggestions extend the gate without pretending it can judge quality.",
+      "items": [
+        {
+          "id": "SG-08",
+          "title": "Fail the build on any page missing either disclosure",
+          "detail": "Already enforced: the layout injects both, and the checker verifies their presence on every generated page. A page cannot ship without them because the template cannot produce one.",
+          "fixes": "Disclosure drift as pages are added.",
+          "effort": "Done in this build",
+          "evidence": "Checker output: 0 pages missing disclosure.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-09",
+          "title": "Add a monthly re-verification checklist with a hard expiry",
+          "detail": "Every product row carries an observed date. Add a visible 'this record expires' date 30 days out, and let the page say so honestly when it has expired, rather than silently ageing.",
+          "fixes": "Stale data that still looks current.",
+          "effort": "4 hours",
+          "evidence": "Zero expired records at any crawl date.",
+          "path": "A or B"
+        },
+        {
+          "id": "SG-10",
+          "title": "Replace the manual product read with an API feed when access is granted",
+          "detail": "Creators API or PA API would make price and availability servable with the required timestamp, which retires the largest limitation on the site.",
+          "fixes": "FLG-004 — the missing price.",
+          "effort": "2 days, requires API approval",
+          "evidence": "A price displayed with a timestamp and the required disclaimer, passing the checker.",
+          "path": "B",
+          "blockedBy": "API approval — Q-13"
+        },
+        {
+          "id": "SG-11",
+          "title": "Keep a kill switch for termination",
+          "detail": "Amazon-derived content lives in one JSON file and one link helper. If the account ends, removing the tag and the product file removes every Amazon reference in a single commit.",
+          "fixes": "Being unable to comply quickly with a termination notice.",
+          "effort": "Done in this build",
+          "evidence": "One-file diff removes all Amazon-derived content.",
+          "path": "Live"
+        }
+      ]
+    },
+    {
+      "id": "G4",
+      "title": "Make it read like a publication",
+      "intro": "Authorship, navigation, brand, imagery, seasons and clusters. This is the layer that separates a page that works from a site that feels published.",
+      "items": [
+        {
+          "id": "SG-12",
+          "title": "Ship a desk byline now, and a named author only when a person consents",
+          "detail": "The site publishes under an editorial-desk byline with an explicit note that it is not a person. This is deliberate: an invented author with an invented bio is the most common tell of a generated site.",
+          "fixes": "The uncanny absence of an author without inventing one.",
+          "effort": "Done in this build",
+          "evidence": "Author surfaced in byline and JSON-LD.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-13",
+          "title": "One navigation group, and every dashboard surface reachable from the footer",
+          "detail": "The brief asked for exactly this split: a single primary nav for readers, and the verification and platform surfaces in the footer. It is implemented as asked, with footer groups matching content areas.",
+          "fixes": "Dashboards colonising the reader's navigation.",
+          "effort": "Done in this build",
+          "evidence": "Primary nav has 6 reader-facing items; 5 footer groups carry the rest.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-14",
+          "title": "Use generated editorial illustration instead of Amazon product photography",
+          "detail": "Not a stylistic choice: caching product images is prohibited. The illustration is generic by design, and each card states the ASIN so the buyer can find the real product picture on Amazon.",
+          "fixes": "A card with no image at all, without breaching the licence.",
+          "effort": "Done in this build",
+          "evidence": "Zero external image requests; browser network panel shows only this host.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-15",
+          "title": "Add a seasonal cluster: the November-to-January cooking season",
+          "detail": "Air fryers and probe thermometers both peak in the gift-and-holiday window. A dated cluster — holiday cooking, turkey temperatures, small-kitchen gifts — would give the site a reason to be re-read at a specific time of year.",
+          "fixes": "No reason for a reader to return on a schedule.",
+          "effort": "3 guides, 2 days",
+          "evidence": "Return-visit event rising in November and December.",
+          "path": "A, B or C",
+          "caveat": "No seasonal search volume is claimed. This is a hypothesis about reader intent, not a keyword forecast."
+        },
+        {
+          "id": "SG-16",
+          "title": "Cluster the guides around one hub page per decision",
+          "detail": "Four guides currently sit in a flat list. Two hubs — 'choosing an air fryer' and 'knowing when food is done' — would let each guide link sideways to its siblings and give the category pages a place to send readers who are not ready to buy.",
+          "fixes": "A flat guide list with no internal linking logic.",
+          "effort": "1 day",
+          "evidence": "Guide-to-guide navigation events; pages per session.",
+          "path": "A, B or C"
+        },
+        {
+          "id": "SG-17",
+          "title": "Never publish a countdown or a 'deal ends' banner",
+          "detail": "Counter-suggestion. Urgency devices age badly, are frequently false, and a static site cannot know when a promotion ended — which the participation requirements require you to remove once it does.",
+          "fixes": "A temptation that would breach the promotion-removal rule.",
+          "effort": "0 — a decision not to build",
+          "evidence": "Absence of the problem.",
+          "path": "All"
+        }
+      ]
+    },
+    {
+      "id": "G5",
+      "title": "Measure before optimising",
+      "intro": "The order matters more than the tools. Measurement first, content second, optimisation last.",
+      "items": [
+        {
+          "id": "SG-18",
+          "title": "Define the five events before writing a single article",
+          "detail": "Done, and shipped: page view, guide read, product intent, outbound click, return visit. Each is defined as an observable action rather than a vague engagement score.",
+          "fixes": "Writing content with no way to know if it worked.",
+          "effort": "Done in this build",
+          "evidence": "Five named events in assets/js/site.js.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-19",
+          "title": "Pre-register the success thresholds before the first week publishes",
+          "detail": "The growth plan states, in advance, what would count as working and what would count as stop-and-rethink. Written before any data exists, so it cannot be renegotiated afterwards.",
+          "fixes": "Numbers reinterpreted after the fact.",
+          "effort": "Done in this build",
+          "evidence": "Threshold table on the growth plan page.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-20",
+          "title": "Point the outbound-click event at a real endpoint",
+          "detail": "The counter works, but a browser-local count is a note in a notebook. One serverless function is enough.",
+          "fixes": "The gap between instrumented and measured.",
+          "effort": "1 hour, requires a host decision",
+          "evidence": "A row appearing in the campaign ledger with a dated provenance trail.",
+          "path": "B",
+          "blockedBy": "Q-05 and Q-10"
+        },
+        {
+          "id": "SG-21",
+          "title": "Reconcile clicks against Associates reports monthly, and record the discrepancy",
+          "detail": "Client-side departures and server-side attributions will never match exactly. The gap is itself the interesting number: a large gap means clicks are not being attributed, which is FLG-003 in a measurable form.",
+          "fixes": "No feedback loop between the site and the commission report.",
+          "effort": "1 hour per month",
+          "evidence": "A ledger row per month with both figures and the delta.",
+          "path": "B"
+        }
+      ]
+    },
+    {
+      "id": "G6",
+      "title": "Compliance as a product feature",
+      "intro": "The constraint that shaped this build is also the thing that differentiates it. These suggestions make that visible rather than apologetic.",
+      "items": [
+        {
+          "id": "SG-22",
+          "title": "Publish the compliance gate as a reader-facing page",
+          "detail": "A page listing the eleven clauses that changed the design, each linked to the source. Most affiliate sites hide this. Publishing it is a trust signal that costs nothing and cannot be copied without doing the work.",
+          "fixes": "Compliance documentation that only exists internally.",
+          "effort": "Done in this build",
+          "evidence": "Page exists and is linked from the footer on every page.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-23",
+          "title": "Put the unresolved link status in front of the buyer, not just in a dashboard",
+          "detail": "The interstitial page between the site and Amazon states that the tracking status is unresolved. This is unusual, and it is correct: the buyer is entitled to know the link may not support the site they are reading.",
+          "fixes": "A hidden defect that quietly affects the site's economics.",
+          "effort": "Done in this build",
+          "evidence": "Visible badge on every /go/ page.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-24",
+          "title": "Review disclosure placement against the endorsements guidance once a quarter",
+          "detail": "Placement rules are interpreted, not mechanical. A quarterly read of the FTC guidance and the participation requirements, with the result recorded on the compliance page, keeps the interpretation current.",
+          "fixes": "A compliance page that drifts out of date.",
+          "effort": "2 hours per quarter",
+          "evidence": "A dated review note on the compliance page.",
+          "path": "All"
+        }
+      ]
+    },
+    {
+      "id": "G7",
+      "title": "The parallel passes",
+      "intro": "Four smaller passes that run alongside the main work rather than as their own projects.",
+      "items": [
+        {
+          "id": "SG-27",
+          "title": "Navigation labels written in the reader's words",
+          "detail": "Primary nav reads Shop, Guides, Suggestions, Verification, Flagged for Review, About. Each label names what the reader will find, not an internal process. 'Suggestions' and 'Verification' stay in the primary nav because the brief asked for those surfaces to be reachable, and they are reader-meaningful as labels.",
+          "fixes": "Navigation written by an engineer for an engineer.",
+          "effort": "Done in this build",
+          "evidence": "Six labels, each a noun a reader would use.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-28",
+          "title": "Ship a working RSS feed, not a link to one",
+          "detail": "The feed is generated at build time from the guide list, with absolute links, stable GUIDs and publication dates. Adding a guide to the data file adds it to the feed and to the sitemap on the next build.",
+          "fixes": "A feed that 404s or is hand-maintained.",
+          "effort": "Done in this build",
+          "evidence": "feed.xml parses and lists four items; sitemap lists the same guides.",
+          "path": "Live"
+        },
+        {
+          "id": "SG-29",
+          "title": "Search Console verification — owner action, prepared here",
+          "detail": "The site ships a sitemap at the canonical root and a robots.txt that points at it, which is everything the site can do. Verification itself needs the owner's Google account and cannot be done by a build.",
+          "fixes": "No query-level visibility.",
+          "effort": "15 minutes, owner only",
+          "evidence": "Sitemap status 'Success' in Search Console.",
+          "path": "B",
+          "blockedBy": "Owner action"
+        },
+        {
+          "id": "SG-30",
+          "title": "Reader capture — deliberately not built",
+          "detail": "An email list would be the obvious next step. It is not built, because there is no privacy notice, no unsubscribe mechanism, no mailbox, and no reason yet to believe the traffic would justify it. A capture form on a site with no readers is a placeholder that collects nothing but distrust.",
+          "fixes": "Premature list-building.",
+          "effort": "0 now; 1 day when traffic justifies it",
+          "evidence": "Revisit when return-visit events are non-trivial.",
+          "path": "Later",
+          "caveat": "Recorded as deliberately deferred rather than forgotten."
+        }
+      ]
+    }
+  ]
+}

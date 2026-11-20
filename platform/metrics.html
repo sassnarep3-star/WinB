@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metrics that are actually measurable | The Crisp Kitchen</title>
+<meta name="description" content="The five defined events, what each one answers, and the honest boundary between click measurement and conversion measurement.">
+<link rel="canonical" href="https://sassnarep3-star.github.io/WinB/platform/metrics.html">
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:site_name" content="The Crisp Kitchen">
+<meta property="og:title" content="Metrics that are actually measurable | The Crisp Kitchen">
+<meta property="og:description" content="The five defined events, what each one answers, and the honest boundary between click measurement and conversion measurement.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sassnarep3-star.github.io/WinB/platform/metrics.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f1b17">
+<link rel="icon" href="/WinB/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/WinB/assets/css/site.css">
+<link rel="alternate" type="application/rss+xml" title="The Crisp Kitchen — new guides" href="/WinB/feed.xml">
+
+
+</head><body>
+<div id="archive-notice" style="position:relative;z-index:9999;background:#191714;color:#fbf8f3;font:14px/1.5 ui-sans-serif,system-ui,sans-serif;padding:12px 18px;text-align:center">
+  <strong>Archived page.</strong> This is folded into the Decision Room, kept for the record and excluded from search.
+  The current site is <a href="https://sassnarep3-star.github.io/WinB/" style="color:#f0b48a">Counterwise</a> — a matching page is at <a href="https://sassnarep3-star.github.io/WinB/decisions/" style="color:#f0b48a">/decisions/</a>.
+</div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="/WinB/index.html">
+      <span class="brand__mark" aria-hidden="true">CK</span>
+      <span class="brand__text"><strong>The Crisp Kitchen</strong><em>Air fryers and the tools that make them work</em></span>
+    </a>
+    <nav class="mainnav" aria-label="Primary">
+      <ul>
+        <li><a href="/WinB/index.html">Shop</a></li>
+        <li><a href="/WinB/guides/index.html">Guides</a></li>
+        <li><a href="/WinB/decisions/index.html">Suggestions</a></li>
+        <li><a href="/WinB/verification/index.html">Verification</a></li>
+        <li><a href="/WinB/flagged/index.html">Flagged for Review</a></li>
+        <li><a href="/WinB/about/index.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="disclosure" role="note">
+  <p><strong>Affiliate disclosure.</strong> As an Amazon Associate I earn from qualifying purchases. If you buy through a link on this page, this site may earn a commission. It does not change the price you pay. <a href="/WinB/about/how-we-make-money.html">How this site makes money</a>.</p>
+</div><main id="main" class="wrap"><div class="pagehead">
+    <p class="kicker">System · Measurement</p>
+    <h1>Five events, and one thing this site cannot measure</h1>
+    <p class="lede">Click and conversion measurement was asked for before any content was written. Half of that is possible from a static site. The other half lives inside an account this build cannot see. Here is exactly where the line falls.</p>
+  </div>
+
+  <div class="tablewrap"><table class="data ">
+  <thead><tr><th scope="col">Event</th><th scope="col">Fires when</th><th scope="col">Question it answers</th><th scope="col">Privacy posture</th><th scope="col">Status</th></tr></thead>
+  <tbody>
+  <tr><td><code>page_view</code></td><td>A page loads</td><td>Did anyone arrive, and on which page?</td><td>No cookie, no identifier, no referrer stored beyond the host.</td><td><span class="badge badge--ok">Live, browser-local</span></td></tr>
+  <tr><td><code>guide_read</code></td><td>A guide reaches 90% scroll</td><td>Did the writing hold attention to the end?</td><td>Scroll position only; no reading time profile.</td><td><span class="badge badge--ok">Live, browser-local</span></td></tr>
+  <tr><td><code>product_intent</code></td><td>A product card, table row or detail is opened</td><td>Did a reader move from information to consideration?</td><td>Product id only.</td><td><span class="badge badge--ok">Live, browser-local</span></td></tr>
+  <tr><td><code>outbound_click</code></td><td>A buy link is clicked</td><td>Did consideration become a departure to the retailer?</td><td>Product id and page path; nothing that identifies a person.</td><td><span class="badge badge--ok">Live, browser-local</span></td></tr>
+  <tr><td><code>return_visit</code></td><td>The same browser returns after a day</td><td>Is this a publication people come back to?</td><td>A local flag only. Not transmitted.</td><td><span class="badge badge--ok">Live, browser-local</span></td></tr>
+  <tr><td>Conversion / reported orders</td><td>—</td><td>Did the click become a sale?</td><td>Lives in the Associates report.</td><td><span class="badge badge--fail">Not measurable here</span></td></tr>
+  </tbody>
+</table></div>
+
+  <section class="section">
+    <div class="section__head"><h2>Why conversions are not on this page</h2></div>
+    <div class="prose">
+      <p>Reported orders exist only inside the Associates reporting interface, behind the owner's sign-in. No API key, session or credential is held by this build, and none should be. Any conversion rate, earnings figure or revenue forecast printed on this site would therefore be invented. <a class="src src--ok" href="https://affiliate-program.amazon.com/help/operating/policies#Associates%20Program%20Fee%20Statement" title="Associates Program Commission Income Statement (within Program Policies) — Amazon.com, Inc." target="_blank" rel="noopener">S04</a> defines when a qualifying purchase happens — a click through a Special Link, then a session that can run up to 24 hours, with cart items qualifying up to 89 days — and reading that definition is the closest this site can honestly get to a conversion number.</p>
+      <p>The <a href="/WinB/platform/ledger.html">campaign ledger</a> starts empty for the same reason: a ledger with invented opening balances teaches you nothing and misleads anyone who reads it later.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head"><h2>What has to be true before these events mean anything</h2></div>
+    <div class="callout callout--warn">
+      <p>A browser-local counter proves nothing beyond the browser it ran in. For these five events to become a measurement, one of three things must happen: a serverless endpoint accepts the POST, a hosted analytics product is configured, or the counts are read manually from a device. Each option has a different disclosure consequence under <a class="src src--ok" href="https://affiliate-program.amazon.com/help/operating/policies" title="Associates Program Policies — Amazon.com, Inc." target="_blank" rel="noopener">S02</a> section 3(e). That decision is <a href="/WinB/decisions/questions.html#Q-05">Q-05</a>, and until it is made the honest statement is: measurement is instrumented, not yet collected.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head"><h2>What the site refuses to record</h2></div>
+    <ul class="crosses">
+      <li>No unique visitor identifier, so no individual can be followed across a session.</li>
+      <li>No cross-site identifiers, and no fingerprinting.</li>
+      <li>No sub-tag per visitor: <a class="src src--ok" href="https://affiliate-program.amazon.com/help/operating/policies" title="Associates Program Policies — Amazon.com, Inc." target="_blank" rel="noopener">S02</a> explicitly forbids dynamically assigning sub-tags to users to monitor their behaviour.</li>
+      <li>No stored referrer beyond the referring host.</li>
+    </ul>
+  </section></main><footer class="sitefooter">
+  <div class="sitefooter__inner">
+    <div class="footergrid">
+      <div class="footergroup">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="/WinB/index.html">All products</a></li>
+          <li><a href="/WinB/products/air-fryers.html">Air fryers</a> <span class="footernote">3 products</span></li>
+          <li><a href="/WinB/products/thermometers.html">Wireless thermometers</a> <span class="footernote">2 products</span></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Guides</h3>
+        <ul>
+          <li><a href="/WinB/guides/index.html">All guides</a></li>
+          <li><a href="/WinB/guides/basket-or-oven-air-fryer.html">Basket or oven-style air fryer?</a></li>
+          <li><a href="/WinB/guides/air-fryer-capacity-checklist.html">Capacity without the hype</a></li>
+          <li><a href="/WinB/guides/cleanup-and-counter-space.html">Cleanup and counter space</a></li>
+          <li><a href="/WinB/guides/multifunction-appliance-questions.html">Multi-function appliance questions</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Decide</h3>
+        <ul>
+          <li><a href="/WinB/decisions/index.html">Suggestions register</a></li>
+          <li><a href="/WinB/decisions/questions.html">Open questions</a></li>
+          <li><a href="/WinB/decisions/growth-plan.html">Growth plan (SEO + measurement)</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Trust</h3>
+        <ul>
+          <li><a href="/WinB/verification/index.html">Verification dashboard</a></li>
+          <li><a href="/WinB/verification/sources.html">Source register</a></li>
+          <li><a href="/WinB/verification/links.html">Link audit</a></li>
+          <li><a href="/WinB/verification/products.html">Product data table</a></li>
+          <li><a href="/WinB/flagged/index.html">Flagged for Review</a></li>
+          <li><a href="/WinB/compliance/index.html">Compliance gate</a></li>
+          <li><a href="/WinB/about/editorial-policy.html">Editorial policy</a></li>
+          <li><a href="/WinB/about/how-we-make-money.html">How we make money</a></li>
+          <li><a href="/WinB/about/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>System</h3>
+        <ul>
+          <li><a href="/WinB/platform/index.html">Platform overview</a></li>
+          <li><a href="/WinB/platform/automation.html">Automation and the human gate</a></li>
+          <li><a href="/WinB/platform/metrics.html">Metrics that are actually measurable</a></li>
+          <li><a href="/WinB/platform/ledger.html">Campaign ledger (empty by design)</a></li>
+          <li><a href="/WinB/verification/research-log.html">Research log</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclosure">
+  <p><strong>Affiliate disclosure (repeated).</strong> As an Amazon Associate I earn from qualifying purchases. If you buy through a link on this page, this site may earn a commission. It does not change the price you pay.</p>
+  <p class="footer-disclosure__note">Product links on this site are marked <code>rel="sponsored"</code>. Prices, if a page ever shows one, must come from Amazon itself or from the Product Advertising API with the required timestamp — which is why no price appears in the HTML of this site.</p>
+</div>
+    <div class="colophon">
+      <p><strong>The Crisp Kitchen</strong> — An independent kitchen-appliance review desk. Product links are affiliate links; the reasoning behind every recommendation is published next to it.</p>
+      <p>Published by The Crisp Kitchen Editorial Desk. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. This site is not endorsed by or affiliated with Amazon.</p>
+      <p class="colophon__meta">Compiled 2026-11-20 · <a href="/WinB/verification/sources.html">Source register</a> · <a href="/WinB/flagged/index.html">Flagged for Review</a></p>
+    </div>
+  </div>
+</footer>
+<script src="/WinB/assets/js/site.js" defer></script>
+</body>
+</html>
