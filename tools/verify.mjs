@@ -11,6 +11,8 @@
 //   R7  Sitemap and feed are well-formed and list every indexable page.
 //   R8  Every product page names its ASIN and links to its listing.
 //   R9  No page claims a traffic/click/revenue figure.
+//   R10 Every /go/ affiliate exit page is indexable, disclosed, tagged and sponsored
+//       (a noindex page that forwards to an affiliate link is a sneaky redirect).
 
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
@@ -285,5 +287,5 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log('PASS — every rule R1–R9 holds.');
+console.log('PASS — every rule R1–R10 holds.');
 process.exit(0);
