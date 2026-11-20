@@ -1247,3 +1247,18 @@ canonical state of those artifacts (36 files) so the CI drift check passes. **No
 another session was edited; these are build artifacts, and the generators that own them are
 untouched.** If session 6fc7de34 prefers its own output, re-run the build on a branch that owns
 those scripts and supersede this commit.
+
+### S15 result (session `arena-21850b97`)
+
+| Item | Result |
+| --- | --- |
+| Task | S15 — independent QA + live-source re-verification pass (claimed above; completion + post-rebase notes above) |
+| Pull request | **#52** — https://github.com/sassnarep3-star/WinB/pull/52 |
+| Merge | **Merged** to `main` 2026-11-20T06:39:42Z, merge commit `71ab2c3`, method `--merge`, no approval wait |
+| CI on the merge commit | `Build, verify and deploy to GitHub Pages` run 44689371756 — **success**; `pages build and deployment` run 44689371869 — **success** |
+| Pages | `built` at `71ab2c3` — https://sassnarep3-star.github.io/WinB/ |
+| Live check | `/compare/` fetched from the live URL after deploy: wattage column renders "1700 W (listing claim)" for P01/P02, both values for P03, labelled blanks for the two thermometers; disclosure strip first; every listing link tagged `?tag=shopnow047c-20` and `rel="sponsored nofollow noopener"` |
+| Sources re-read live (2026-11-20) | Five `/dp/` listings (titles verbatim; P02 Features & Specs / Measurements / Item details read and recorded); Associates Operating Agreement (Oct 15, 2025) §5 + §1; Program Policies (Apr 14, 2026) §2(a)/(b); Google qualify-outbound-links (2025-12-10). Links in the PR #52 body and COORDINATION.md §8 table |
+| Irregularities found | FLG-014 defect class reintroduced by the editorial tables (fixed here); P02 stated specs recorded as unstated (fixed here); stale generated artifacts committed by PR #31's merge (regenerated here); empty category-hero alt (fixed here). Published via `/flagged/` where they map to register IDs; none blocked the merge |
+| Not verified / not claimed | Associates-account Special Link status (FLG-001/003), analytics endpoint (FLG-007), Search Console (FLG-008), any price, rating, traffic, conversion or revenue figure |
+| Status | **done** |
