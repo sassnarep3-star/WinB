@@ -1171,7 +1171,16 @@ handled), FLG-006 (manufacturer certification claims), FLG-007 (no analytics end
 (no provider/Search Console/domain), and the Q-05/Q-07 ownership questions. All are published on
 `/flagged/` and `/suggestions/` with sources.
 
-**Integration result.** See the session log entry at the end of this file once the PR is merged.
+**Integration result (session `3e1be50a`).**
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#47** — https://github.com/sassnarep3-star/WinB/pull/47 (`arena/3e1be50a-winb` → `main`, `--merge`) |
+| Merge | Merged 2026-11-20T06:38:21Z, merge commit `8d91a57e60b465f490fa688cb7f5fe8dcc752ca7` |
+| Rebase note | `main` advanced twice while this PR was open (to `1772ab8`, then `3e6dbfc`). Rebased onto the latest `main` before each push; the only recurring conflict was the append-only `COORDINATION.md`, resolved by keeping both sessions' appendices. Generated output was regenerated from `_build` after each rebase, so no drift. |
+| Pages deploy | `built` — `pages/builds/latest` reports status `built` for commit `8d91a57`, created 2026-11-20T06:38:22Z. Deploy confirmed. (The sandbox's outbound allow-list does not include `github.io`, so the live URL was confirmed through the Pages API rather than `curl`.) |
+| Post-merge drift | Re-ran the full generate sequence on the merged tree: `git status` clean — the committed output equals what CI regenerates. |
+| Follow-up record | PR **#53** records this result on `main` (documentation only, no site change). |
 
 ## Claim: session `arena-21850b97` (branch `arena/21850b97-winb`) — S15
 
