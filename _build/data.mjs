@@ -590,7 +590,7 @@ export const FLAGS = [
       'Parallel sessions published six different sites to the same GitHub Pages origin: the root site (twice, under two different brands), /docs/, /alt-site/build/, /legacy-docs-site/, and three root folders with overlapping purpose (products/, verification/, compliance/, platform/). Three separate build systems were present (tools/build.js, scripts/build.py, alt-site/build/build.py). Two sites on one host competing for the same queries is a doorway-abuse pattern, and it also makes the published site impossible to reason about.',
     evidence: [
       '151 tracked files on main before integration; six index.html files.',
-      'Root index.html branded “The Crisp Kitchen”; /docs/ and /legacy-docs-site/ carry a different brand and a different data set.',
+      'Root index.html branded “Counterwise”; /docs/ and /legacy-docs-site/ carry a different brand and a different data set.',
       'git log main: merge commits for PRs #1, #2, #8, #12, #14, #15.',
     ],
     sources: ['G2'],

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Static site build for The Crisp Kitchen.
+ * Static site build for Counterwise.
  *
  * Design rules this file enforces mechanically:
  *  1. Every outbound product link is rewritten to an explicit /go/<code>.html interstitial and marked
@@ -1922,7 +1922,7 @@ function goPage(p) {
   )} <a href="${rel('/about/how-we-make-money.html')}">How this site makes money</a>.</p>
 </div>
 <main class="go__box">
-  <p class="go__back"><a href="${rel('/index.html')}">← The Crisp Kitchen</a></p>
+  <p class="go__back"><a href="${rel('/index.html')}">← Counterwise</a></p>
   <p class="kicker">You are leaving this site</p>
   <h1>${esc(p.shortName)}</h1>
   <p>This link is an affiliate link. As an Amazon Associate I earn from qualifying purchases.</p>
@@ -1975,7 +1975,7 @@ const resolveTokens = (html) =>
  * published shop front once during integration, which is exactly the kind of collision the
  * coordination file exists to prevent.
  *
- * Set CK_TAKE_FRONT_PAGE=1 to publish the Crisp Kitchen front page deliberately.
+ * Set CK_TAKE_FRONT_PAGE=1 to publish the Counterwise front page deliberately.
  */
 const TAKE_FRONT_PAGE = process.env.CK_TAKE_FRONT_PAGE === '1';
 

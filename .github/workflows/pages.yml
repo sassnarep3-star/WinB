@@ -38,6 +38,7 @@ jobs:
           node _build/make-images.mjs
           node tools/build.cjs
           node tools/noindex.cjs
+          node tools/consolidate.mjs
 
       - name: Fail if generated output differs from what is committed
         run: |

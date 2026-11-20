@@ -1,7 +1,7 @@
 // consolidate.mjs — final-integration step.
 //
 // main accumulated six competing site generations from parallel sessions:
-//   /            (v1 "Counterwise" then v6 "Crisp Kitchen")  <- canonical
+//   /            (v1 "Counterwise", later rebranded to a second name)  <- canonical
 //   /docs/       (v2)
 //   /alt-site/build/ (v3)
 //   /legacy-docs-site/ (v4)
@@ -126,8 +126,8 @@ if (existsSync(goDir)) {
     const before = html;
     html = html.replace(/<meta name="robots" content="noindex,nofollow">/i,
       '<meta name="robots" content="index,follow">');
-    // Point the "back" link at the live page, not the archived Crisp Kitchen root.
-    html = html.replace(/<a href="\/index\.html">← The Crisp Kitchen<\/a>/,
+    // Point the "back" link at the live page, not the archived Counterwise root.
+    html = html.replace(/<a href="\/index\.html">← Counterwise<\/a>/,
       `<a href="${SITE}/">← Counterwise</a>`);
     html = html.replace(/href="\/WinB\/index\.html"/g, `href="${SITE}/"`);
     if (html !== before) {
