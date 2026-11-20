@@ -510,14 +510,17 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head"><div><p class="eyebrow">Register seven</p><h2>Content inventory</h2></div></div>
     ${table({
-      caption: '<b>Everything published.</b> Five product pages, five guides, two category hubs, one comparison table.',
+      caption: `<b>Everything published.</b> ${PRODUCTS.length} product pages, ${ALL_GUIDES.length} guides, ${WORKSHEETS.length} worksheets, ${new Set(PRODUCTS.map((x) => x.category)).size} category hubs, one comparison table. Counted from the build data rather than typed: this caption used to read “five guides”, which was true of the first build and of nothing since. An inventory that under-reports its own contents is a defect, not a rounding error.`,
       head: ['Type', 'Title', 'Path', 'Published', 'Sources'],
       rows: [
         ...PRODUCTS.map(
-          (p) => `<tr><td>Product</td><td>${esc(p.shortName)}</td><td class="mono tiny">/reviews/${esc(p.slug)}.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr>`
+          (p) => `<tr><td>Product</td><td>${esc(p.shortName)}</td><td class="mono tiny">/reviews/${esc(p.slug)}.html</td><td class="nowrap">${esc(p.confirmationDate)}</td><td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr>`
         ),
-        ...GUIDES.map(
+        ...ALL_GUIDES.map(
           (g) => `<tr><td>Guide</td><td>${esc(g.title)}</td><td class="mono tiny">/${esc(g.path)}</td><td class="nowrap">${esc(g.published)}</td><td class="src">${g.sources.map((s) => srcLink(s)).join(', ')}</td></tr>`
+        ),
+        ...WORKSHEETS.map(
+          (w) => `<tr><td>Worksheet</td><td>${esc(w.title)}</td><td class="mono tiny">/${esc(w.path)}</td><td class="nowrap">${esc(SITE.buildDate)}</td><td class="src">Reader-measured; nothing leaves the browser</td></tr>`
         ),
         `<tr><td>Category</td><td>Air fryers</td><td class="mono tiny">/air-fryers/</td><td class="nowrap">2026-11-20</td><td class="src">${srcLink('A2')}</td></tr>`,
         `<tr><td>Category</td><td>Thermometers</td><td class="mono tiny">/thermometers/</td><td class="nowrap">2026-11-20</td><td class="src">${srcLink('A2')}, ${srcLink('U1')}</td></tr>`,
@@ -1016,7 +1019,7 @@ ${pageHead({
     </div>
     ${table({
       caption: `<b>${DECISION_QUEUE.length} proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.`,
-      head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Risk', 'Blocked by', 'Status', ''],
+      head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Cost of being wrong', 'Blocked by', 'Status', ''],
       rows: [...openItems, ...doneItems].map(boardRow),
     })}
   </div>
