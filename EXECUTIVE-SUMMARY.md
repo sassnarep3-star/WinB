@@ -115,15 +115,23 @@ Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed r
 | FLG-003 | Compliance status of link.amazon short links unresolved | Open |
 | FLG-004 | No product has been handled by this desk | Open |
 | FLG-005 | Prices and ratings deliberately not displayed | Open |
-| FLG-006 | Certification/performance claims are manufacturer claims only | Open |
+| FLG-006 | Certification and performance claims are manufacturer claims | Open |
 | FLG-007 | No analytics endpoint deployed; no traffic figures exist | Open |
 | FLG-008 | No mailing provider, Search Console token, or custom domain | Open |
-| FLG-009 | Earlier sessions published competing versions | Needs review |
+| FLG-009 | Several earlier sessions published competing versions | Needs review |
 | FLG-010 | Affiliate exit pages were noindex/nofollow while forwarding | **Fixed** (now index,follow; enforced by R10) |
-| FLG-011 | Six competing site generations on one host | Needs review (retired via noindex + banner) |
-| FLG-012 | Two brands on one host (“Counterwise” vs “The Crisp Kitchen” on `/go/`) | Open — owner chooses one name |
-| FLG-013 | Three listings contradict themselves (presets 24 vs 25; accessories 6 vs 7; wattage 1000 vs 1700; battery 50 vs 70h) | Needs review — both values printed |
-| FLG-014 | Published specs previously reported as “not stated” | **Fixed** (transcribed in `listing-evidence.mjs`) |
+| FLG-011 | Six competing site generations on one host | Needs review |
+| FLG-012 | Every page advertised a social image that did not exist | **Fixed in this build** |
+| FLG-013 | Three listings contradict themselves on their own stated figures | Needs review — both values printed |
+| FLG-014 | Published specs previously reported as “not stated” | **Fixed** |
+| FLG-015 | A fix was recorded in a script CI does not run; two brands on the live site | **Fixed in this build** |
+| FLG-016 | Two of five supplied short links did not reproduce their recorded redirect on re-check | Open — cause unknown |
+| FLG-017 | Live site root served two different builds to two requests on one day | Open |
+| FLG-018 | Privacy page did not disclose hosting-provider IP logging | **Fixed in this build** |
+| FLG-019 | Two flag registers disagree; one older entry is out of date | Open |
+| FLG-020 | FLG-012 was used twice in the flag list | **Fixed** (duplicate renumbered to FLG-015) |
+| FLG-021 | Three spec values shown that the listing text does not state (P02 viewing window; P04 probe count and app requirement) | **Fixed in this build** (blanked, not inferred) |
+
 
 ## 8. Recommendation — choose a path before implementing anything else
 
@@ -145,7 +153,6 @@ Do not publish the topic queue until its gates pass. Do not add categories until
 - The “AI-powered platform” in the original brief is scoped honestly in §1: generation + gating are automated; research, pricing, trend and commission intelligence are not built and are not claimed.
 - Compliance conclusions describe how the build responds to quoted policy text. They are not legal advice.
 
-<<<<<<< HEAD
 ## 10. Re-check of 2026-11-20 (session `ab61d616`, task S16)
 
 Added after the sections above. Sections 1–9 describe the build as it stood before this check and are not rewritten.
