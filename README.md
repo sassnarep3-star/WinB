@@ -1,72 +1,38 @@
-# WinB — Crisp & Done (Amazon Associates buyer's guide)
+# Counterwise (working name)
 
-A static, GitHub Pages site with five supplied Amazon product links (air fryers and meat thermometers),
-question-led guides, a dashboard, a verification register, and a flagged-for-review page.
+A publication-style kitchen buying guide site for five Amazon listings (three air fryers and ovens, two meat thermometers), with an evidence register, an Associates disclosure above the fold on every page, open decision questions, and a Flagged for Review page.
 
-**Live site (after deploy):** https://sassnarep3-star.github.io/WinB/
+- **Live site (expected URL, confirm after deploy):** https://sassnarep3-star.github.io/WinB/ (published from `docs/` by `.github/workflows/pages.yml`)
+- **Data (source of truth):** `data/` — `products.json` (register), `sources.json` (S-01…S-10), `flags.json` (FLG-01…FLG-19), `questions.json`, `suggestions.json`, `campaign_ledger.csv` (empty by design).
+- **Build:** `python3 scripts/build.py` regenerates `docs/` and validates it. Exit code 1 means a rule failed; do not publish. CI runs the same check and fails if committed `docs/` differs from the build.
+- **Analytics client:** `scripts/assets/counterwise.js` (copied to `docs/assets/`). Review mode: no endpoint is configured, so it logs to the console and sends nothing.
+- **Archive:** `archive/counterwise-root-site/` holds the superseded root-level site from earlier sessions (kept, not served). See FLG-18.
+- **Coordination:** `COORDINATION.md` — the shared task board, claims, verification log, irregularities, and integration log.
 
-## Start here
+## What the build enforces
 
-- Executive summary: `/plan/executive-summary/` on the live site (source: `build/build.py`)
-- Flagged for review (irregularities, unverified items, source links): `/flagged-for-review/`
-- Coordination log: [COORDINATION.md](COORDINATION.md)
+1. The Associates statement, verbatim from Operating Agreement s.5, sits above the fold and in the footer on every page.
+2. Every Amazon-hosted link carries `rel="sponsored noopener"`.
+3. Every blank value is marked unverified and linked to a flag. Nothing is inferred.
+4. Internal links resolve. The only script allowed is `assets/counterwise.js`. The client must not write cookies or browser storage, and no analytics endpoint may be configured in a page.
 
-## Build and check locally
+## Not built or not verified (see Flagged for Review)
 
-```bash
-python3 build/build.py                 # writes _site/ (BASE_PATH defaults to /WinB/)
-BASE_PATH=/ python3 build/build.py     # root-relative build for a local preview
-python3 scripts/check_site.py          # compliance + link gate; exit 1 on failure
-```
+- Analytics endpoint and hosting (FLG-06). Five events to be confirmed (FLG-05).
+- Special Link test in an Associates account (FLG-04). Scaling is blocked until it passes.
+- Commission rates and prices (FLG-07, FLG-08).
+- Intended ASINs and tracking-ID validity (FLG-01, FLG-03). Redirect compliance (FLG-02).
+- Search Console verification (FLG-13).
 
-Requires Python 3.11+ (standard library only) and Node 22+ for the `node --check` of the analytics script.
-
-## What the gate checks (`scripts/check_site.py`)
-
-- Associates disclosure ("As an Amazon Associate I earn from qualifying purchases.") in the strip under the masthead **and** in the footer, on every page.
-- Every Amazon link has `rel="sponsored"`. No tagged (`tag=`) URL is published until the Special Link test passes (FLG-003).
-- Only approved outbound URLs appear (supplied links, observed listing pages, cited policy pages).
-- Internal links and `#anchors` resolve; sitemap lists every page; RSS lists every guide.
-- Every data table row has an official source link or an explicit "Unverified" marker.
-- Data: no prices or ratings are populated (Associates policy §2(b)); observed ASINs are 10 characters; intended ASINs stay blank unless confirmed with a listing URL.
-
-## Data (single source of truth)
-
-| File | What it holds |
-|---|---|
-| `data/products.json` | Five product rows: supplied link, intended ASIN (blank), observed redirect target, observed ASIN, source |
-| `data/verification.json` | Policy and source register (each row has an official link) |
-| `data/flagged.json` | Irregularities and unverified items (FLG-001 …) with source links |
-| `data/questions.json` | Open questions: what we know, what is missing, how to discover it |
-| `data/suggestions.json` | Options for each decision. Nothing is implemented until a path is chosen |
-| `data/guides.json` | Guide metadata; bodies live in `content/guides/*.html` |
-| `data/campaign_ledger.csv` | Campaign ledger. Header only, by design |
-| `data/config.json` | Site name, base path, tracking ID, analytics endpoint (blank), proposed events |
-
-## Deployment
-
-`.github/workflows/pages.yml` builds, runs the gate, and deploys to GitHub Pages on `main`. A failing gate stops the deploy.
-Pages uses the GitHub Actions source (`actions/deploy-pages@v4`; see the verification register, V-14/V-15).
-
-## Not in this repo
-
-- No analytics server (GitHub Pages is static). The analytics hook is inert until an endpoint is configured (FLG-007).
-- No Associates account data, no conversion or revenue data (see the empty ledger).
-- Search Console verification is an owner step (FLG-008).
-
-## Earlier publication (archived, not deployed)
-
-The Counterwise site built in earlier sessions (`arena/13033d4a-winb`, `arena/97b55f4f-winb`) is kept, unchanged, at
-`archive/counterwise/` (moved with `git mv`, so history is preserved). It is not deployed: its email form has no
-backend and its privacy claims are not verified (FLG-016). Its evidence register and notes are superseded by
-`/flagged-for-review/` and `/verification/` on the live site.
-
-Its analytics event names are kept: `page_view`, `outbound_click`, `guide_engaged`, `disclosure_view`,
-`affiliate_conversion_reported` (the last is recorded only from a dated authorized report, never sent from the browser).
-
-## Official sources referenced (verified live)
+## Official sources (accessed 2026-11-20)
 
 - Amazon Associates Program Operating Agreement: https://affiliate-program.amazon.com/help/operating/agreement (updated Oct 15, 2025)
 - Amazon Associates Program Policies: https://affiliate-program.amazon.com/help/operating/policies (updated Apr 14, 2026)
-- FTC Endorsement Guides: What People Are Asking: https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking
 - FTC Disclosures 101 for Social Media Influencers: https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers (Nov 2019)
+- 16 CFR 255.0 (Endorsement Guides): https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.0
+- Google, qualify outbound links (rel="sponsored"): https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
+- GitHub Docs, publishing sources for GitHub Pages: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+
+## Publishing
+
+Pushes to `main` run `.github/workflows/pages.yml`. It rebuilds and validates `docs/`, then deploys it. To change content, edit `data/` or `scripts/`, run `python3 scripts/build.py`, and commit `docs/` with the change.

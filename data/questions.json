@@ -1,184 +1,169 @@
 {
-  "as_of": "2026-11-20",
-  "rows": [
+  "questions": [
     {
       "id": "Q-01",
-      "question": "Which listing is each supplied short link supposed to reach?",
-      "known": "Each link resolves to an Amazon product page with a 10-character ASIN; each token is 9 characters (P-01..P-05).",
-      "missing": "The intended ASIN or listing URL for each product.",
-      "discover": "Owner confirms the intended product for each link, or opens each link in Associates Central's link builder.",
+      "area": "Links & compliance",
+      "question": "Is each supplied short link the product you intend?",
+      "status": "Partly answered",
+      "answer": "Each supplied short link resolves to an amazon.com listing (observed 2026-11-20). Whether that listing is the intended product is not known, because no intended ASIN was given.",
       "sources": [
-        "FLG-001",
-        "FLG-002"
+        "S-08",
+        "S-09"
       ],
-      "source_urls": [
-        "https://www.amazon.com/dp/B0CDY277D3",
-        "https://www.amazon.com/dp/B09B7SB46R",
-        "https://www.amazon.com/dp/B08DKYBTPH",
-        "https://www.amazon.com/dp/B0DHZTCNR5",
-        "https://www.amazon.com/dp/B0DZFD6R9Z"
-      ]
+      "flags": [
+        "FLG-01"
+      ],
+      "how_to_discover": "Requester confirms the intended ASIN or listing for each of the five products."
     },
     {
       "id": "Q-02",
-      "question": "Are the supplied short links valid Special Links from the enrolled Associates account?",
-      "known": "Policy requires Special Links to carry the Associates ID as a parameter (V-02). The links were not tested in an account.",
-      "missing": "Whether the links are credited to shopnow047c-20 and appear in tracking reports.",
-      "discover": "Run one test per product: click, confirm destination, check the tracking report. Then scale.",
+      "area": "Links & compliance",
+      "question": "Do the supplied short links track correctly and comply with the Associates rules?",
+      "status": "Unanswered",
+      "answer": "Unresolved. Commission Income Statement s.2(e) and s.2(g) describe the risks (S-02). The request asks that this not be asserted either way.",
       "sources": [
-        "FLG-003"
+        "S-02"
       ],
-      "source_urls": [
-        "https://affiliate-program.amazon.com/help/operating/policies"
-      ]
+      "flags": [
+        "FLG-02",
+        "FLG-04"
+      ],
+      "how_to_discover": "Run one Special Link per product in Associates Central and compare the tracking report with the supplied link."
     },
     {
       "id": "Q-03",
-      "question": "Is shopnow047c-20 an active, enrolled Associates ID?",
-      "known": "Tracking ID given by owner. Policy example format is XXXXX-## (V-03).",
-      "missing": "Enrollment status and format acceptance.",
-      "discover": "Associates Central account settings.",
+      "area": "Links & compliance",
+      "question": "Is the supplied tracking ID valid for this account?",
+      "status": "Unanswered",
+      "answer": "Not checked. The format differs from the documented 'XXXXX-##' pattern (S-02, s.2(b)).",
       "sources": [
-        "FLG-004"
+        "S-02"
       ],
-      "source_urls": [
-        "https://affiliate-program.amazon.com/help/operating/policies"
-      ]
+      "flags": [
+        "FLG-03"
+      ],
+      "how_to_discover": "Open Associates Central and look up the tracking ID in the tracking-ID list."
     },
     {
       "id": "Q-04",
-      "question": "Can the site show prices or ratings?",
-      "known": "Policy limits price display (V-04). Listing pages show prices, but those are not confirmed as stable official values.",
-      "missing": "PA-API / Creators API eligibility and credentials.",
-      "discover": "Associates Central: check API access; decide whether to use it.",
+      "area": "Economics",
+      "question": "What commission rate applies to each category?",
+      "status": "Unanswered",
+      "answer": "Not available. The schedule page requires sign-in (S-03).",
       "sources": [
-        "FLG-005"
+        "S-03"
       ],
-      "source_urls": [
-        "https://affiliate-program.amazon.com/help/operating/policies"
-      ]
+      "flags": [
+        "FLG-07"
+      ],
+      "how_to_discover": "Read the commission schedule while signed in to Associates Central; record the date and page."
     },
     {
       "id": "Q-05",
-      "question": "What commission rate applies to these products?",
-      "known": "Rate schedule page exists but requires sign-in (V-11).",
-      "missing": "Category rates for Home & Kitchen (air fryers, thermometers).",
-      "discover": "Export the rate card after sign-in.",
+      "area": "Economics",
+      "question": "What are current prices and availability?",
+      "status": "Unanswered",
+      "answer": "Not captured. Amazon-served or PA API data is the only permitted price source (S-02, s.2(b)).",
       "sources": [
-        "FLG-012"
+        "S-02"
       ],
-      "source_urls": [
-        "https://affiliate-program.amazon.com/help/operating/schedule"
-      ]
+      "flags": [
+        "FLG-08"
+      ],
+      "how_to_discover": "Decide on a price method (Suggestions S-01) and capture only from that source."
     },
     {
       "id": "Q-06",
-      "question": "Who is the author and what are their credentials?",
-      "known": "No author supplied.",
-      "missing": "Name, bio, relevant experience.",
-      "discover": "Owner decision.",
-      "sources": [
-        "FLG-006"
+      "area": "Measurement",
+      "question": "Are the five analytics events (page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported) the right ones?",
+      "status": "Unanswered",
+      "answer": "Defined in the client's header by an earlier session (assets/counterwise.js). The request did not list them, so the requester has not confirmed them.",
+      "sources": [],
+      "flags": [
+        "FLG-05"
       ],
-      "source_urls": []
+      "how_to_discover": "Requester confirms or replaces the five events, with trigger and properties."
     },
     {
       "id": "Q-07",
-      "question": "Which five events should be measured?",
-      "known": "The brief refers to five defined events but does not list them. Five are proposed on the Measurement page.",
-      "missing": "Confirmed event list.",
-      "discover": "Owner confirms or edits the proposed list.",
+      "area": "Measurement",
+      "question": "Where should the click counter and analytics endpoint run?",
+      "status": "Unanswered",
+      "answer": "This static site cannot run them. GitHub Pages serves files only (S-07).",
       "sources": [
-        "FLG-007"
+        "S-07"
       ],
-      "source_urls": []
+      "flags": [
+        "FLG-06"
+      ],
+      "how_to_discover": "Choose a hosting option (Suggestions S-02)."
     },
     {
       "id": "Q-08",
-      "question": "Is there any search or traffic demand for these topics?",
-      "known": "No search, traffic, or keyword data was available to this session. The four guide titles are working hypotheses from the brief, not measured demand.",
-      "missing": "Query volumes, impressions, clicks, and rankings.",
-      "discover": "Verify the site in Search Console after launch; review queries after 28 days; optionally use a keyword tool with an official data source.",
-      "sources": [
-        "FLG-008",
-        "FLG-011"
+      "area": "Measurement",
+      "question": "Which topic should be written next?",
+      "status": "Unanswered",
+      "answer": "No measured query or click data exists yet. The four working titles carry no demand evidence.",
+      "sources": [],
+      "flags": [
+        "FLG-14"
       ],
-      "source_urls": [
-        "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
-      ]
+      "how_to_discover": "Collect first-party analytics and Search Console query data for at least one publishing cycle."
     },
     {
       "id": "Q-09",
-      "question": "Does the product-quality or 'best' claim hold for any product?",
-      "known": "No product was tested. Only listing text is quoted.",
-      "missing": "Hands-on testing data, independent review data, or manufacturer test reports.",
-      "discover": "Commission testing or cite independent test reports with links.",
+      "area": "Compliance",
+      "question": "Is the Associates disclosure placed clearly and prominently enough?",
+      "status": "Partly answered",
+      "answer": "The Section 5 sentence matches S-01 verbatim and is shown above the fold on every page and in the footer. Reviewer judgment is still needed.",
       "sources": [
-        "FLG-011"
+        "S-01",
+        "S-05"
       ],
-      "source_urls": [
-        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
-      ]
+      "flags": [
+        "FLG-15"
+      ],
+      "how_to_discover": "Reviewer checks the live pages against S-01 and S-05."
     },
     {
       "id": "Q-10",
-      "question": "Is the disclosure wording and placement legally sufficient?",
-      "known": "Amazon's required statement is used verbatim (V-01). FTC placement guidance is followed (V-09).",
-      "missing": "Legal review of the overall disclosure set and any future endorsement context.",
-      "discover": "Legal review before scaling.",
-      "sources": [
-        "FLG-015"
+      "area": "Brand",
+      "question": "Who is the author, and what is the brand name?",
+      "status": "Unanswered",
+      "answer": "Not supplied. Pages say 'Editorial team (unnamed)'.",
+      "sources": [],
+      "flags": [
+        "FLG-12"
       ],
-      "source_urls": [
-        "https://affiliate-program.amazon.com/help/operating/agreement",
-        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
-      ]
+      "how_to_discover": "Requester provides the byline and brand decision."
     },
     {
       "id": "Q-11",
-      "question": "What is the publishing cadence?",
-      "known": "No cadence was set by the owner.",
-      "missing": "Owner choice of cadence and capacity.",
-      "discover": "Choose from the options on the Suggestions page.",
-      "sources": [],
-      "source_urls": []
+      "area": "Claims",
+      "question": "Are the seller certification claims in the listings accurate?",
+      "status": "Unanswered",
+      "answer": "Not checked. P-04 lists 'NIST&NSF Certified' as a title claim only.",
+      "sources": [
+        "S-08"
+      ],
+      "flags": [
+        "FLG-09"
+      ],
+      "how_to_discover": "Check the certifying body's own registry for each named certificate."
     },
     {
       "id": "Q-12",
-      "question": "What is the campaign's measured performance?",
-      "known": "No authorized first-party report has been provided. The ledger is empty.",
-      "missing": "Clicks, eligible sessions, orders, and dates.",
-      "discover": "Export Associates reports and add dated rows to the ledger with provenance.",
+      "area": "Discovery",
+      "question": "Is the site indexed, and does it rank for any query?",
+      "status": "Unanswered",
+      "answer": "Not checked. The site has not been submitted to Search Console.",
       "sources": [
-        "FLG-013"
+        "S-06"
       ],
-      "source_urls": [
-        "https://affiliate-program.amazon.com/help/operating/policies"
-      ]
-    },
-    {
-      "id": "Q-13",
-      "question": "Is the 'Crisp & Done' brand available and safe to use?",
-      "known": "Checked only against the cited Amazon trademark rule (V-08).",
-      "missing": "Trademark registry search and domain availability.",
-      "discover": "Owner or counsel runs a registry search.",
-      "sources": [
-        "FLG-009"
+      "flags": [
+        "FLG-13"
       ],
-      "source_urls": [
-        "https://affiliate-program.amazon.com/help/operating/policies"
-      ]
-    },
-    {
-      "id": "Q-14",
-      "question": "Should the site host imagery, and of what type?",
-      "known": "No product images were used. Program Content rules restrict image use (Participation Requirements §6(a)).",
-      "missing": "Licensed or owned imagery decision.",
-      "discover": "Owner decision (see Suggestions S-06).",
-      "sources": [],
-      "source_urls": [
-        "https://affiliate-program.amazon.com/help/operating/policies"
-      ]
+      "how_to_discover": "Verify the property in Search Console and check coverage after the first deploy."
     }
   ]
 }
