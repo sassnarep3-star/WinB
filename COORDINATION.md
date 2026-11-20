@@ -3,6 +3,7 @@
 | Task | Status | Owner session | Scope |
 |---|---|---|---|
 | Publication-style static site, evidence/decision pages, SEO artifacts, Pages workflow | done | `arena/13033d4a-winb` | `index.html`, `styles.css`, `guides/`, `review/`, `feed.xml`, `sitemap.xml`, `.github/workflows/pages.yml`, `COORDINATION.md` |
+| Decision-register and publication-discovery follow-up | in progress | `f6ecc338` | `index.html`, `guides/*.html`, `review/index.html`, `feed.xml`, `README.md`, `COORDINATION.md` |
 
 ## Session log
 
