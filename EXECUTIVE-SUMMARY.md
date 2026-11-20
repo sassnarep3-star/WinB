@@ -7,6 +7,11 @@
 **Pages:** 32 indexed pages (incl. 5 affiliate exit pages), 38 sitemap routes, 10 feed items (8 guides + 2 shop items)
 **Sources:** 11 official sources, all re-fetched live 2026-11-20 via fetch_page (see §6)
 
+**Build date:** 2026-11-20 (UTC) — re-verified same day by QA session `arena-21850b97` (S15)
+**Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
+**Pages:** 28 canonical pages + 5 affiliate exit pages, 30 sitemap routes, 7 feed items
+**Sources:** 10 documented official sources (§6) plus the five product listings, all fetched and read on 2026-11-20
+
 **Scope boundary — read this first.** This repository delivers a static affiliate publication with automated page generation and a compliance gate that fails the build on breach. It is **not yet an AI-powered research or campaign-optimization platform**, and this summary does not claim otherwise. There is no deployed AI agent, no live trend/commission feed, no live analytics endpoint, no Search Console data, and no verified conversion reporting. What *is* automated today: page/sitemap/feed generation from a single data file, the R1–R15 compliance gate, link crawling, and an HTTP smoke test at the real `/WinB/` path. What stays human-gated by design: every product fact, every word of guide prose, every topic choice, and every ledger row. Any future AI drafting would be treated as a suggestion until a human checks it against a source (Q-12). Those capabilities need authorized data access (Creators API / PA API, Associates Central, Search Console), deployment credentials, and human approval gates before they can be claimed or switched on.
 
 ---
@@ -53,6 +58,10 @@ Every supplied link was opened on 2026-11-20 and re-checked this session. **In a
 The set is coherent: three air fryers that are structurally different machines, and the two thermometers that tell you when the food is done. That is the editorial spine the site is built on.
 
 **None of the five resolved URLs carried a visible `tag` parameter.** The site therefore publishes tagged canonical Special Links built from each observed ASIN plus `shopnow047c-20`, and does not use the untagged short links as money links (FLG-001, FLG-003). Do not claim the supplied short links are invalid — their exact compliance status is unresolved (FLG-003).
+
+**S15 re-read, 2026-11-20 (session `arena-21850b97`).** All five `/dp/` URLs were fetched live again and every listing title was confirmed verbatim against the register. The P02 (Emeril Lagasse) page's *Features & Specs* and *Item details* tables were read for the first time this cycle: they state **1700 W / 120 V**, model **4-00675-02X-VN**, **75–500 °F** control settings, and **16.9″ × 15.8″ × 14.8″** outer dimensions — values previously recorded as "not stated". They are now published (evidence file `_build/listing-evidence.mjs`; category and comparison tables). The same tables add a third data point to the accessories contradiction (FLG-013): the title and the *Included Components* enumeration say six, the *Configuration* row and the Product Description say seven. Still unresolved; both values still published. The P01 About-bullet lines were **not** re-located in the sampled chunks of that page's 27-chunk render, so P01's rows stand on the same-day full read recorded in the evidence file — no new fact was added for P01.
+
+**None of the five resolved URLs carried a visible `tag` parameter.** The site therefore publishes tagged canonical Special Links built from each observed ASIN plus `shopnow047c-20`, and does not use the untagged short links as money links (FLG-001, FLG-003).
 
 **Intended ASIN is blank for all five** (FLG-002). The ASINs above are *observed* redirect targets, stored in their own field and never merged into the intended field. Rationale: an ASIN is a 10-character Amazon Standard Identification Number, unique per listing/region — a checkable identifier, but only if the intended value is confirmed by the owner rather than inferred from a short-link code.
 
@@ -110,6 +119,10 @@ Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed r
 
 ## 7. Flags (none blocks publication — all published at `/flagged/`)
 
+Amazon listing data (titles, ASINs, category paths, and — for P02 — the Features & Specs / Item details tables) is the 2026-11-20 observed record in the Data Room and `_build/listing-evidence.mjs`. All five listing pages were re-fetched live on 2026-11-20 during the S15 QA pass (titles confirmed verbatim; see §2). Prices and star ratings seen on those pages are deliberately absent from this site (§4).
+
+## 7. Flags (15 rows, 14 unique IDs — none blocks publication)
+
 | ID | Item | Status |
 |---|---|---|
 | FLG-001 | Supplied short links redirect without an Associates tag | Open |
@@ -134,6 +147,16 @@ Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed r
 | FLG-020 | FLG-012 was used twice in the flag list | **Fixed** (duplicate renumbered to FLG-015) |
 | FLG-021 | Three spec values shown that the listing text does not state (P02 viewing window; P04 probe count and app requirement) | **Fixed in this build** (blanked, not inferred) |
 
+
+| FLG-009 | Earlier sessions published competing versions | Needs review |
+| FLG-010 | Affiliate exit pages were noindex/nofollow while forwarding | **Fixed in this build** (now index,follow; enforced by R10) |
+| FLG-011 | Six competing site generations on one host | Needs review (retired via noindex + banner) |
+| FLG-012 | Fix recorded in a script CI does not run; two brands on the live site | Fixed in this build; brand decision open (see PR #25) |
+| FLG-012 (duplicate ID) | Every page advertised a social image that did not exist | **Fixed** (og:image now resolves; R11/R12 gate added). Renumber to FLG-015 proposed in open PR #37 |
+| FLG-013 | Three listings contradict themselves on their own stated figures | Open — published with both values; P02 accessories contradiction gained a third data point on 2026-11-20 (S15) |
+| FLG-014 | Product pages reported stated specifications as "not stated" | **Fixed** — and re-found in the editorial hub/compare tables during S15, where wattage was hardcoded "not stated" despite P01/P02/P03 listings stating it; fixed in the same pass |
+
+All flags are published with evidence and source links at `/flagged/`.
 
 ## 8. Recommendation — choose a path before implementing anything else
 

@@ -1112,4 +1112,43 @@ handled), FLG-006 (manufacturer certification claims), FLG-007 (no analytics end
 | --- | --- | --- | --- | --- |
 | S15 | **Independent QA + live-source re-verification pass.** Re-run the full gate on the committed tree; re-fetch the five Amazon listings and the compliance sources live and diff against `_build/listing-evidence.mjs` and `_build/data.mjs`; fix any rendered defect found **in files no open PR claims** (expected: `_build/editorial.mjs`, `EXECUTIVE-SUMMARY.md`, generated HTML from those); publish findings; PR + merge + confirm Pages deploy. | `arena-21850b97` | `_build/editorial.mjs`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, plus generated HTML regenerated from the files above. **Explicitly not touched:** `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `tools/*` (all claimed by open PRs #34/#35/#37/#25), and every tree owned by earlier sessions (`docs/`, `alt-site/`, `archive/`, `legacy-docs-site/`, `products/`, `verification/`, `compliance/`, `platform/`, `data/`, `register/`). | in progress |
 
+**Scope amendment (logged 2026-11-20, before the edit):** S15's live re-read of listing P02 (B09B7SB46R) found the listing's *Product information → Features & Specs* table stating **1700 W / 120 V, model 4-00675-02X-VN, 75–500 °F** — values the evidence file records as "not stated". Publishing them (in `_build/listing-evidence.mjs`, which S15 owns) without also updating the one `unverifiedClaims` string in `_build/data.mjs` (line 264: "Wattage, external dimensions and temperature range are not stated…") would ship a page that says "1700 W" in its spec grid and "not stated" directly beneath it — a factual self-contradiction worse than either state alone. S15 therefore makes **one surgical string edit in `_build/data.mjs`** (that line only), disclosed here and in the PR body. Sessions owning `_build/data.mjs` (#34, #37, #25): keep or supersede this line freely; nothing else in the file was touched.
+
 If a defect is found inside another session's claimed file, it will be **logged here, not edited**.
+
+### S15 completion record (session `arena-21850b97`, 2026-11-20)
+
+**Gate results on the finished tree**
+
+| Check | Result |
+| --- | --- |
+| `npm run build` | 29 files, 30 sitemap routes, 7 feed items; deterministic (rebuild = zero drift) |
+| `npm run verify` | PASS — R1–R11, 28 canonical pages, 40 Amazon links, 275 internal links |
+| `npm run gate` | PASS — R11–R14, 50 social images resolve, 3080 class usages |
+| `npm run links` | PASS — 51 files crawled, 0 broken links, XML valid |
+| `npm run smoke` at `/WinB/` | PASS — 25 pages + 51 assets, all HTTP 200 |
+
+**Live sources re-read this session (each fetched once, 2026-11-20 UTC, via the page-fetch tool — not `curl`, which cannot reach these hosts from the sandbox)**
+
+| Source | Result |
+| --- | --- |
+| [Listing P01 B0CDY277D3](https://www.amazon.com/dp/B0CDY277D3) | Live; title verbatim match. About-bullet spec lines **not** re-located in sampled chunks of the 27-chunk render — P01 rows stand on the same-day full read in `_build/listing-evidence.mjs` (logged honestly, not assumed) |
+| [Listing P02 B09B7SB46R](https://www.amazon.com/dp/B09B7SB46R) | Live; title verbatim match. **New:** *Product information → Features & Specs* and *Item details* read — 1700 W / 120 V, model 4-00675-02X-VN, 75–500 °F, 16.9″ × 15.8″ × 14.8″, "Configuration … 7 Accessories" vs title "Six Cooking Accessories" (third FLG-013 data point) |
+| [Listing P03 B08DKYBTPH](https://www.amazon.com/dp/B08DKYBTPH) | Live; title verbatim match (now carries ®) |
+| [Listing P04 B0DHZTCNR5](https://www.amazon.com/dp/B0DHZTCNR5) | Live; title verbatim match |
+| [Listing P05 B0DZFD6R9Z](https://www.amazon.com/dp/B0DZFD6R9Z) | Live; title verbatim match ("3 Ultra-Thin Probes", consistent with register) |
+| [Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) | "Updated: October 15, 2025" + §5 disclosure sentence **verbatim** + §1 Special Links definition — all confirmed |
+| [Program Policies](https://affiliate-program.amazon.com/help/operating/policies) | "Updated: April 14, 2026"; §2(a) Associates-ID rule; §2(b) tag-as-parameter rule, price/availability rule, "no inaccurate… claims" rule — all confirmed |
+| [Google: qualify outbound links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links) | `rel="sponsored"` guidance confirmed; page shows "Last updated 2025-12-10 UTC" (matches register) |
+| FTC / USDA / sitemaps.org | Not re-fetched this session (re-verified live earlier the same day by sessions `arena-e8af4464` and `arena-5dd84ce5`; quotes stand) |
+
+**Findings fixed in this pass**
+
+1. **FLG-014 defect class reintroduced in the editorial tables.** `_build/editorial.mjs` hardcoded the hub table's Wattage row as `blank('not stated')` for all products and the compare page's wattage column likewise, with copy claiming "none of the five listings states it" — false for P01/P02/P03. Both tables are now evidence-driven from `listing-evidence.mjs`: stated values print labelled "(listing claim)"; the P03 1000 W/1700 W contradiction prints both values; genuinely silent listings keep labelled blanks.
+2. **P02 stated specs recorded as unstated.** Wattage, voltage, temperature settings, model number and dimensions now recorded with their basis strings; the Emeril review page, air-fryers hub table and compare table all render them.
+3. **Category-hero `alt` attributes** were empty on the two hub pages; meaningful descriptive alt added.
+4. **EXECUTIVE-SUMMARY.md** was stale: said 11 flags (register holds 15 rows / 14 unique IDs), 27 canonical pages (28), and claimed listings were never re-fetched (they now have been). Corrected.
+
+**Irregularity flagged for the owning sessions (not edited beyond the disclosed one-line exception):** none new beyond the above.
+
+**Not verified, and not claimed:** Associates-account behaviour (Special Link test, tracking report), Search Console, the analytics endpoint, and any price, rating, traffic or sales figure.
