@@ -327,7 +327,7 @@ export const PRODUCTS = [
     ],
     unverifiedClaims: [
       'The specific preset names are published in the listing bullets, but the title says 24 presets and the bullets say 25 — see FLG-013. This desk has not resolved which is correct.',
-      'Wattage, external dimensions and temperature range are not stated on the listing as read.',
+      'The About-bullet set on this listing states no external dimensions; the listing’s Measurements table does (16.9″ D × 15.8″ W × 14.8″ H, read 2026-11-20). Wattage (1700 W) and the 75–500 °F control settings come from the same Features & Specs and Measurements tables and are quoted in the category and comparison tables.',
     ],
     bestFor:
       'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for a French-door oven rather than a tall basket unit.',
