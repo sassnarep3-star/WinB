@@ -1,0 +1,132 @@
+{
+  "flags": [
+    {
+      "id": "FLG-01",
+      "severity": "High",
+      "title": "Intended ASIN not supplied; short-link codes are not 10-character ASINs",
+      "detail": "The five supplied codes (e.g., B04G1MEwY) are 9 characters. Amazon ASINs are 10 characters (format observed in S-08; Amazon's own definition page not retrieved, see S-10). The intended ASIN field is therefore blank. The observed ASIN from the redirect is kept in a separate field and is not used as the intended ASIN.",
+      "sources": ["S-08", "S-09", "S-10"],
+      "action": "Requester to confirm the intended ASIN for each product."
+    },
+    {
+      "id": "FLG-02",
+      "severity": "High",
+      "title": "Redirect targets observed by a fetch tool, not a live buyer session; intermediate-redirect rule",
+      "detail": "The redirect was observed on 2026-11-20 by the Arena fetch tool. Commission Income Statement s.2(e) disqualifies purchases referred by a 'Redirecting Link' that sends users indirectly through an intermediate site, and s.2(g) disqualifies purchases not correctly tracked because links are not properly formatted (S-02). Whether the supplied short links meet these rules is UNRESOLVED. This register does NOT state that they are invalid.",
+      "sources": ["S-02", "S-09"],
+      "action": "Run the Special Link test in FLG-04 and compare the result with the supplied links."
+    },
+    {
+      "id": "FLG-03",
+      "severity": "Medium",
+      "title": "Tracking ID format and validity not confirmed",
+      "detail": "The supplied tracking ID is 'shopnow047c-20'. Program Policies s.2(b) describes the tag format as 'XXXXX-##, or such other format as we may designate' (S-02). The supplied ID does not literally match that pattern, and its status in Associates Central was not checked.",
+      "sources": ["S-02"],
+      "action": "Confirm the ID in Associates Central (Tracking IDs)."
+    },
+    {
+      "id": "FLG-04",
+      "severity": "High",
+      "title": "Special Link test not run; scaling is blocked until it is",
+      "detail": "The request asks to test one Special Link per product in the enrolled Associates workflow and confirm the destination and tracking report before scaling. That requires a logged-in Associates account, which this session does not have. No Special Links were created or published.",
+      "sources": ["S-01", "S-02"],
+      "action": "Run one test link per product in Associates Central; confirm destination and the tracking report."
+    },
+    {
+      "id": "FLG-05",
+      "severity": "High",
+      "title": "The 'five defined events' are not defined in any available material",
+      "detail": "The request says to record five defined events, but names only the outbound-click and conversion measurement. No event list, schema, or definitions exist in the repository or the request. Nothing was instrumented.",
+      "sources": [],
+      "action": "Define the five events (name, trigger, and properties) before implementation."
+    },
+    {
+      "id": "FLG-06",
+      "severity": "High",
+      "title": "Outbound-click counter and self-hosted analytics endpoint not built",
+      "detail": "GitHub Pages serves static files only (S-07). A click counter and analytics endpoint need a server or hosted service. None was built. Any analytics also needs a privacy disclosure for cookies and pixels (S-02 s.3(e)).",
+      "sources": ["S-02", "S-07"],
+      "action": "Choose a hosting option (see Suggestions S-02)."
+    },
+    {
+      "id": "FLG-07",
+      "severity": "Medium",
+      "title": "Commission rates not verified",
+      "detail": "The commission schedule (S-03) redirected to a sign-in page. Rates are left blank, and no commission potential is estimated anywhere on the site.",
+      "sources": ["S-03"],
+      "action": "Read the schedule while signed in to Associates Central and record it with a dated source."
+    },
+    {
+      "id": "FLG-08",
+      "severity": "Medium",
+      "title": "Prices and availability not captured",
+      "detail": "Prices were not captured. Program Policies s.2(b) allows a site to show prices only when Amazon serves them or via the PA API (S-02). The site shows no prices.",
+      "sources": ["S-02", "S-08"],
+      "action": "Decide the price-display method (Suggestions S-01)."
+    },
+    {
+      "id": "FLG-09",
+      "severity": "Low",
+      "title": "Seller certification claim is repeated only as listed",
+      "detail": "The P-04 title says 'NIST&NSF Certified'. That is a seller claim in the listing title. It was not checked against NIST or NSF records and is shown only as listed.",
+      "sources": ["S-08"],
+      "action": "Check any certification against the certifying body's own records before relying on it."
+    },
+    {
+      "id": "FLG-10",
+      "severity": "Medium",
+      "title": "Referenced IDs in the request are not defined in the repository",
+      "detail": "The request cites SG-27 to SG-30, FLG-003, and source IDs S01, S02, S07, and S24. None of these exist in the repository, which at start held only README.md. This site uses its own IDs (S-01 to S-10, FLG-01 to FLG-16). Where this site cites Amazon or FTC documents, it links them directly.",
+      "sources": [],
+      "action": "Provide the referenced register, or confirm that the IDs here replace it."
+    },
+    {
+      "id": "FLG-11",
+      "severity": "Medium",
+      "title": "Branch and coordination model differs from the request",
+      "detail": "The request asks for session-<id>/task branches. The Arena branch rule fixes this session to one branch, arena/9b3682f1-winb. All work, claims, and the final merge are recorded on that branch. No other session claims existed in the repository at start.",
+      "sources": [],
+      "action": "None required; recorded for transparency."
+    },
+    {
+      "id": "FLG-12",
+      "severity": "Medium",
+      "title": "Authorship and brand identity not provided",
+      "detail": "No author, editor, or brand name was supplied. Pages are signed 'Editorial team (unnamed)'. No credentials are claimed.",
+      "sources": [],
+      "action": "Decide the byline and brand name (Suggestions S-04)."
+    },
+    {
+      "id": "FLG-13",
+      "severity": "Medium",
+      "title": "Search Console and analytics not set up",
+      "detail": "Search Console ownership was not verified and no property was created. The sitemap and feed are generated, but nothing has been submitted to Google.",
+      "sources": ["S-06"],
+      "action": "Verify the site in Search Console after the first deploy."
+    },
+    {
+      "id": "FLG-14",
+      "severity": "Medium",
+      "title": "Guide titles are working titles, not demand or performance claims",
+      "detail": "The four guide titles are working titles from the request. No search-volume, popularity, or product-superiority data was gathered or claimed. The guides compare only what the listings themselves state.",
+      "sources": ["S-08"],
+      "action": "Choose the next topic from measured queries once analytics exists (FLG-06)."
+    },
+    {
+      "id": "FLG-15",
+      "severity": "Medium",
+      "title": "Disclosure placement needs reviewer judgment",
+      "detail": "The Section 5 sentence appears verbatim above the fold on every page and in the footer. The FTC standard (S-05 s.255.0(f)) also asks that the disclosure be 'unavoidable' and not contradicted. Reviewer should confirm placement and wording.",
+      "sources": ["S-01", "S-04", "S-05"],
+      "action": "Review disclosure placement (Flagged page)."
+    },
+    {
+      "id": "FLG-16",
+      "severity": "Low",
+      "title": "No Amazon product images used",
+      "detail": "No images were taken from Amazon media. Program Policies s.6(a) bars altering Program Content, and the image rights terms were not reviewed in full here. The site uses text and CSS only.",
+      "sources": ["S-02"],
+      "action": "Choose an image approach (Suggestions S-03)."
+    }
+  ]
+}
