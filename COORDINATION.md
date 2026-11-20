@@ -742,3 +742,46 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
 - Amazon listing B0CDY277D3 fetched live: title matches register (CHEFMAN 6 Quart Dual Basket...), category path Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers matches. Prices/ratings visible on page were deliberately NOT recorded (R3).
 - ASIN definition: 10-character Amazon Standard Identification Number, unique per listing/region (secondary sources; Amazon does not publish a standalone ASIN glossary page — flagged as corroboration, not official confirmation).
 
+
+### S15 completion record (session `30073780`)
+
+**What changed, reader-facing**
+
+| Surface | Before (PR #36) | After (S15) |
+| --- | --- | --- |
+| Front page | hero + shortlist ribbon + five picks + categories + guides + 3 questions + editorial note | + 30-second chooser (`#chooser`, 3 questions, browser-only), + November editorial picks (4 timely guides, labelled hypotheses), + printable worksheets callout (3), + buyer-questions FAQ matrix (8 Q&A, sourced) |
+| Guides | 5 guides | 8 guides (+ holiday-roast-thermometer, game-day-wings, air-fryer-leftovers — all question-shaped, all link to product pages) |
+| Worksheets | none (SUG-04 pending) | `/tools/` index + 3 printable worksheets (capacity, cleanup/counter-space, thermometer calibration) with print/clear controls, no data leaves browser |
+| Category hubs | picks + table + guides | + FAQ matrix (filtered by category) + worksheets callout |
+| Footer | Shop / Read / Review groups | + "30-second chooser" and "Printable worksheets" in Shop group |
+| Gates | R1–R11 (verify) + R11–R14 (gate) | + R15 (gate): new guides question-shaped, no invented demand, chooser present, worksheets printable |
+| Docs | EXECUTIVE-SUMMARY.md (27 pages, 5 guides) | Refreshed: 31 canonical pages, 37 sitemap routes, 10 feed items, honest AI-platform scope, S15 verification table |
+
+**What did not change, deliberately.** No page gained a price, star rating, sales position, hands-on claim, or traffic figure. Disclosure strip still first on every page + footer repeat (R1/R13). Every Amazon link still tagged canonical `/dp/` with `rel="sponsored nofollow noopener"` (R2/R10). Five ASINs and resolutions unchanged. Intended ASIN still blank (FLG-002). Ledger still empty (0 rows).
+
+**Verification performed (line by line, 2026-11-20 UTC, via fetch_page live):**
+
+| Check | Result |
+| --- | --- |
+| A1 Operating Agreement §5 disclosure sentence, §1 Special Links, §6 material breach | Confirmed verbatim |
+| A2 Policies §2(b) tag parameter, price rule, inaccurate-claims rule | Confirmed |
+| F1 FTC Disclosures 101 hard-to-miss + no untried-experience claim | Confirmed |
+| U1 USDA FSIS chart (145°F+3min, 160°F, 165°F, 145°F fish) | Confirmed |
+| G1 `rel="sponsored"`, G2 spam policies, G4 sitemaps protocol | Confirmed |
+| All five Amazon listings (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z) titles + category paths | Match register; prices/ratings seen but deliberately not recorded (R3) |
+| `npm run build` | 36 files, 37 sitemap routes, 10 feed items |
+| `node tools/verify.mjs` | PASS R1–R11 (31 canonical, 40 Amazon links, 334 internal) |
+| `node tools/gate.mjs` | PASS R11–R15 (43 canonical, 56 social images) |
+| `node tools/check.cjs` (register gate) | PASS after adding `/tools/` + 3 new guides to SIBLING lists (see below) |
+| `node tools/linkcheck.mjs` | PASS 58 files, 0 broken, XML valid |
+| HTTP smoke at `/WinB/` (32 seeds incl. new pages) | PASS all 200 |
+| Full CI sequence (build → make-images → build.cjs → noindex → consolidate → verify → gate → check → links) | Green |
+
+**Irregularities / overlap notes:**
+- `tools/check.cjs` (register gate, owned by earlier sessions) hardcodes sibling trees. New S15 pages were initially judged as register pages (wrong disclosure class names, "hands-on" disclaimer ban, sitemap-register expectation). Fixed by adding `/tools/` to `SIBLING_GENERATION` and the 3 new guide paths to `SIBLING_GUIDES`, with S15 comments — same pattern as session 27fcc0b2 for `/suggestions/`. No other session's logic changed.
+- `_build/content-oversight.mjs` (also touched by PRs #34/#35) edited minimally: exec-page guide count 5→8 + one S15 refresh paragraph. Rebased before push; conflict resolution keeps both sides.
+- `_build/data.mjs` NOT edited (owned by PRs #37/#34/#25). New data lives in NEW `_build/tools-content.mjs`.
+- ASIN definition corroborated by secondary sources only (no standalone Amazon glossary page found) — recorded as corroboration in EXECUTIVE-SUMMARY.md §6, not official confirmation.
+- FLG-001/002/003, FLG-007, Q-05/Q-07, FLG-012 brand choice remain open and published at `/flagged/`; they do not block merge per protocol.
+
+**Status:** S15 done. Integration (PR → merge → Pages confirm) follows in this session.

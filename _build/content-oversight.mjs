@@ -690,13 +690,16 @@ ${pageHead({
   kicker: 'For the owner',
   title: 'Executive summary',
   lede: 'What was built, what it can and cannot claim, what it needs from you, and the decisions that carry the most weight.',
-  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 5 guides · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
+  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 8 guides · 3 worksheets · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
 })}
 <section class="section">
   <div class="wrap-narrow prose">
     <h2>In one paragraph</h2>
     <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure above the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. This cycle moved the site from a specification summary to a buying decision: the front page now opens with five buyer situations rather than a methodology statement, the comparison table carries stated wattage, temperature range and the weakest review theme per product, and each product page reports what repeat buyers complain about using the counts Amazon itself publishes.</p>
     <p>Two things were also fixed that mattered more than any addition. The site had been reporting published specifications as “not stated” — wattage, temperature range and model numbers were all on the listings (FLG-014). And three listings contradict themselves on their own figures; both values are now printed rather than one being quietly chosen (FLG-013).</p>
+
+    <h2>November 2026 refresh (S15)</h2>
+    <p>This cycle added decision tools rather than more product copy: a 30-second chooser on the front page (“Which one fits your kitchen?”), three printable worksheets (capacity, cleanup/counter-space, thermometer calibration), three new question-shaped guides (holiday roast thermometer, game-day wings, air-fryer leftovers), and a buyer-questions FAQ matrix on the front page and both category hubs. All new guides are timely framing of existing, sourced material — editorial hypotheses for November, not popularity or demand claims. The chooser and worksheets run entirely in the browser: no account, no cookie, nothing sent anywhere. The build now enforces R15 (question-shaped new guides, no invented demand, chooser present, worksheets printable) in addition to R1–R14.</p>
 
     <h2>What the five supplied links turned out to be</h2>
     ${table({

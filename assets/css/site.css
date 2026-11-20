@@ -1035,3 +1035,72 @@ td a { text-decoration-thickness: 1px; }
 }
 
 /* 12.1 social card: a real image, named so og:image:alt is meaningful */
+
+/* ==========================================================================
+   13. S15 decision tools (session 30073780): chooser, FAQ, worksheets.
+   Every class emitted by _build/tools-content.mjs via editorial.mjs is
+   defined here so tools/gate.mjs R14 passes. No third-party assets.
+   ========================================================================== */
+
+/* 13.1 chooser */
+.chooser-sec { background: var(--paper-2); }
+.chooser {
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--card); padding: clamp(1.2rem, 3vw, 1.8rem);
+  box-shadow: var(--shadow);
+}
+.chooser-q { border: 0; margin: 0 0 1.3rem; padding: 0; }
+.chooser-q legend {
+  font-family: var(--display); font-size: 1.05rem; font-weight: 600;
+  margin-bottom: .6rem; padding: 0;
+}
+.chooser-opts { display: grid; gap: .45rem; }
+.chooser-opt {
+  display: flex; align-items: flex-start; gap: .6rem;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  padding: .6rem .8rem; cursor: pointer; font-size: .9rem;
+  transition: border-color .13s, background .13s;
+}
+.chooser-opt:hover { border-color: var(--green-line); background: var(--green-soft); }
+.chooser-opt input { margin-top: .25rem; accent-color: var(--green); flex-shrink: 0; }
+.chooser-opt:has(input:checked) { border-color: var(--green); background: var(--green-soft); }
+.chooser-result {
+  margin-top: 1.2rem; padding: 1rem 1.1rem;
+  border: 1px solid var(--green-line); border-radius: var(--r);
+  background: var(--green-soft);
+}
+.chooser-result h3 { margin: 0 0 .3rem; font-size: 1.05rem; }
+.chooser-result p { margin: 0 0 .7rem; font-size: .88rem; color: var(--ink-2); }
+
+/* 13.2 FAQ */
+.faq-list { display: grid; gap: .6rem; }
+.faq-item {
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--card); overflow: hidden;
+}
+.faq-item > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: .9rem 1.1rem; cursor: pointer; list-style: none;
+  font-weight: 600; font-size: .95rem;
+}
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary:hover { background: var(--paper-2); }
+.faq-item[open] > summary { border-bottom: 1px solid var(--line); background: var(--paper); }
+.faq-chev { color: var(--amber); font-size: 1.2rem; line-height: 1; flex-shrink: 0; }
+.faq-item[open] .faq-chev { transform: rotate(45deg); }
+.faq-body { padding: .9rem 1.1rem 1.1rem; font-size: .9rem; color: var(--ink-2); }
+.faq-body p { margin: 0 0 .5rem; }
+
+/* 13.3 worksheets */
+.worksheet-form { display: grid; gap: .7rem; margin-top: 1rem; }
+.worksheet-field { display: grid; gap: .3rem; font-size: .85rem; font-weight: 600; }
+.worksheet-field input {
+  border: 1px solid var(--line-2); border-radius: var(--r-sm);
+  padding: .6rem .8rem; font-family: var(--sans); font-size: .9rem;
+  background: var(--paper); color: var(--ink); width: 100%;
+}
+.worksheet-field input:focus { outline: 2.5px solid var(--amber); outline-offset: 1px; }
+@media print {
+  .worksheet-form .btn-row { display: none !important; }
+  .worksheet-field input { border: 0; border-bottom: 1px solid #999; border-radius: 0; background: #fff; }
+}
