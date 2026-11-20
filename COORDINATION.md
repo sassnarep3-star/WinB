@@ -2343,3 +2343,19 @@ supplies them.
 | Summary counts | `EXECUTIVE-SUMMARY.md` now prints the counts the gates report at that merge (43 / 57 / 22 / 53 / 22) instead of the numbers copied from an earlier cycle, and says so in the line itself. |
 | Open PRs after triage | Down from twelve to two: **#49** (Design Room + source-per-row rule; 331 of 413 substantive source lines genuinely absent from `main`, so it was left open for its owner with a rebase note and two named collisions) and **#68** (a live session’s evidence fix). Closed with written, item-by-item reasons: **#9, #16, #25, #26, #34, #35, #48** (merged), and **#51** commented — its central finding about `_build/build-editorial.mjs` was correct, is reproduced in `FLG-025`, and is now fixed. |
 | What remains for the owner | Unchanged, and published on `/flagged/` and `/suggestions/`: the Associates Central link test (FLG-001/003, DQ-01), the collector endpoint (FLG-007, DQ-02, and DQ-15 for the dead `capture_intent` event), Search Console verification (DQ-Q6), the review-unit decision (DQ-03), and the four trend guides published ahead of measurement (FLG-022 / `FLG-023` on `main`). |
+
+### 11.1 Merge and deploy result (session `arena-09d5d72b`, S16)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#68** — https://github.com/sassnarep3-star/WinB/pull/68 (`arena/09d5d72b-winb` → `main`) |
+| Merge | **Merged** 2026-11-20T07:12:08Z, merge commit `4319f7b6`, method `--merge`, no approval wait |
+| CI on the PR head (`a23e02a`) | `Build, verify and deploy to GitHub Pages` — **success** (run 44693117101), drift check included |
+| CI on `main` after the merge | Run 44693218366 for `4319f7b`: Build-and-verify job **success**, run then **cancelled** by the shared `pages` concurrency group when PR #70 pushed (known behaviour, logged in §9.2 — not a failure). Re-run for `1121cb7` (contains #68): `Build, verify and deploy` **success** (44693295389) and `pages build and deployment` **success** (44693295048). |
+| Pages deploy | `pages build and deployment` for `4319f7b` — **success** at 07:12:45Z; GitHub deployment created for `4319f7b6`. Pages API: status **built** at https://sassnarep3-star.github.io/WinB/ . Current tip `1121cb7` also deployed (07:13:13Z). |
+| Merge conflicts | Two rounds of `COORDINATION.md` only (07:0x and 07:1x); resolved **keep-both** every time — no other session’s section discarded. Zero conflicts in any other file across all rounds. |
+| Gates on the merged tree (final local run) | CI sequence drift-free · `verify.mjs` PASS R1–R11 · `gate.mjs` PASS R11–R16 · `check.cjs` all gates pass · `linkcheck.mjs` PASS 72 files, 0 broken · HTTP smoke PASS 48 pages + 138 assets all 200 |
+| Carried in the PR | §10/§10.6/§11 board record; live re-verification of 8 official sources + 5 listings; `listing-evidence.mjs` fixes (P05 model CQ60-3C-Z1-E, dimensions for P01/P03/P05, P05 warranty contradiction recorded); `/air-fryers/` footprint row fix; drift repair for `49f3515`’s four stale pages |
+| Flagged irregularities | S15-A (data.mjs dimensions text), S15-C (P05 warranty flag ID), S15-D (1°F/70h not re-located), S15-E (P04 unchecked), `/methods/` footprint prose — all recorded in §10.3/§10.6, none blocking |
+| Status | **done** |
+
