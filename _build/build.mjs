@@ -13,7 +13,7 @@ import {
 import { WORKSHEETS } from './tools-content.mjs';
 import {
   decisionsPage, dataRoom, flaggedPage, methodsPage,
-  aboutPage, privacyPage, execPage, suggestionsPage,
+  aboutPage, privacyPage, execPage, suggestionsPage, decisionInputsPage,
 } from './content-oversight.mjs';
 import { directionPage } from './content-direction.mjs';
 
@@ -68,6 +68,8 @@ for (const w of WORKSHEETS) {
 write('decisions/index.html', decisionsPage());
 routes.push({ loc: '/decisions/', pri: '0.6', freq: 'weekly' });
 
+write('decisions/inputs.html', decisionInputsPage());
+routes.push({ loc: '/decisions/inputs.html', pri: '0.6', freq: 'weekly' });
 
 write('suggestions/index.html', suggestionsPage());
 routes.push({ loc: '/suggestions/', pri: '0.6', freq: 'weekly' });

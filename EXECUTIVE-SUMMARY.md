@@ -2,10 +2,12 @@
 
 **Project:** a working Amazon Associates shop front for five supplied kitchen products
 **Site:** Counterwise — https://sassnarep3-star.github.io/WinB/
+**Build date:** 2026-11-20 (UTC) — merged polish cycles (sessions `30073780`, `ab61d616`, `9c38041d`, `0beabda2`)
+
 **Build date:** 2026-11-20 (UTC) — S17 refresh (session `ac3d816c`), following S15/S16 and the trend-topic cycle
 **Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
-**Pages:** 32 indexed pages (incl. 5 affiliate exit pages), 38 sitemap routes, 11 feed items
-**Sources:** 12 official policy/agency sources + 5 per-listing source rows (L1–L5), all re-fetched live 2026-11-20 via fetch_page (see §6)
+**Pages:** 37 canonical pages (incl. 5 affiliate exit pages), 47 sitemap routes, 16 feed items (recounted at each merge round)
+**Sources:** 12 official policy/agency sources + 5 per-listing source rows (L1–L5), all re-fetched live 2026-11-20 (see §6, §11–§13)
 
 **Build date:** 2026-11-20 (UTC) — re-verified same day by QA session `arena-21850b97` (S15)
 **Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
@@ -33,9 +35,9 @@
 | Read like a shop, not an audit | **Done** — products first, registers in footer + one navigation group | `/index.html` |
 | Polished publication feel (authorship, brand, imagery, seasons, clusters) | **Done** — bylines, Counterwise brand, generated illustrations, seasonal notebook, 2 clusters | `/`, `/methods/`, `/about/` |
 | Polished marketing feel + trendy, timely topics + organic traffic | **Done** — November editorial picks, 30-second chooser, 3 printable worksheets, FAQ matrix; all timely framing is labelled hypothesis, never a demand claim | `/`, `/tools/`, `/guides/` |
-| Suggestions section to choose a path before implementing | **Done** — 3 paths, a 10-row decision board, all 14 proposals carrying named options A/B/C with a recommended option and a decision gate, plus a decision-record box; nothing is implemented until an option is recorded | `/suggestions/`, `/decisions/#decision-record` |
+| Suggestions section to choose a path before implementing | **Done** — 3 paths, a 10-row decision board, all 14 proposals carrying named options A/B/C with a recommended option and a decision gate, a decision-record box, and a Path A/B/C design-and-content board (Part five); nothing is implemented until an option is recorded | `/suggestions/`, `/decisions/#decision-record` |
 | Design suggestions feeding the build prompt, + catchy trend topic engine | **Done** — 15 design suggestions, 10 gated working titles, design brief | `/direction/` |
-| Questions / information / answers + discovery plan | **Done** — 15 questions (known / missing / how to find), a 10-row information-gaps register, 9 blocking questions, discovery plan, owner-action checklist, FAQ matrix | `/decisions/#questions`, `/decisions/#gaps`, `/suggestions/`, `/` (FAQ) |
+| Questions / information / answers + discovery plan | **Done** — 15 questions (known / missing / how to find), a 10-row information-gaps register, 9 blocking questions, 8 decision inputs with have/missing/discover, discovery plan, owner-action checklist, FAQ matrix | `/decisions/#questions`, `/decisions/#gaps`, `/decisions/inputs.html`, `/suggestions/`, `/` (FAQ) |
 | Findable (one site to index) | **Done** — sitemap, RSS, robots, canonicals, OG, JSON-LD, noindex on superseded trees | `/sitemap.xml`, `/feed.xml`, `/robots.txt` |
 | Trustworthy machinery (automate + gate) | **Done** — R1–R15 gate fails the build; human gates for facts, prose, topics, ledger | `/data-room/#automation` |
 | Disclosure above the fold on every page | **Done** — strip under masthead + footer repeat, enforced by R1/R13 | every page |
@@ -72,10 +74,10 @@ The set is coherent: three air fryers that are structurally different machines, 
 
 Ordered by downside if left open. Full reasoning in the Decision Room. **Nothing below is implemented until the owner chooses a path in `/suggestions/`.**
 
-1. **Do the supplied short links credit your account?** (Q-01, FLG-001) — Mint one link in Associates Central and compare the parameters. Under an hour. Nothing earns until this is closed. Test one link per product in the enrolled Associates workflow and confirm destination + tracking report before scaling (S02).
-2. **Buy and document one review unit** (SUG-01, FLG-004) — The only durable answer to thin-affiliation risk and reader distrust. Pick the cheapest of the five, buy it, publish the receipt.
-3. **Deploy the analytics endpoint** (SUG-03, FLG-007) — Until it exists, the next topic is chosen by instinct. Deploy the supplied worker (`analytics/collector-worker.js`), set one line in `assets/js/site.js` (`ENDPOINT`), run 30 days. The five events are frozen: `page_view`, `product_view`, `outbound_click`, `guide_complete`, `capture_intent`.
-4. **Decide who the site belongs to** (Q-05) — Google’s site-reputation policy weighs stated authorship; an unauthored affiliate page is its own example of a problem. A named byline and a two-line biography.
+1. **Do the supplied short links credit your account?** (Q-01, DI-01, FLG-001) — Mint one link in Associates Central and compare the parameters. Under an hour. Nothing earns until this is closed. Test one link per product in the enrolled Associates workflow and confirm destination + tracking report before scaling (S02).
+2. **Buy and document one review unit** (SUG-01, DI-03, FLG-004) — The only durable answer to thin-affiliation risk and reader distrust. Pick the cheapest of the five, buy it, publish the receipt.
+3. **Deploy the analytics endpoint** (SUG-03, DI-04, FLG-007) — Until it exists, the next topic is chosen by instinct. Deploy the supplied worker (`analytics/collector-worker.js`), set one line in `assets/js/site.js` (`ENDPOINT`), run 30 days. The five events are frozen: `page_view`, `product_view`, `outbound_click`, `guide_complete`, `capture_intent`.
+4. **Decide who the site belongs to** (Q-05, DI-06) — Google’s site-reputation policy weighs stated authorship; an unauthored affiliate page is its own example of a problem. A named byline and a two-line biography.
 5. **Choose the brand once** (FLG-012) — The canonical site is “Counterwise”; preserved `/go/` pages from an earlier generation say “The Crisp Kitchen”. One name, then one template change.
 6. **Submit the sitemap + Search Console** (SUG-13, FLG-008) — Files exist; submission is the step that turns files into indexing. Needs the owner’s verification token.
 
@@ -97,7 +99,8 @@ Ordered by downside if left open. Full reasoning in the Decision Room. **Nothing
 - **Decision tools (S15):** 30-second chooser (what you cook / where it lives / app tolerance → starting point + pick page), 3 printable worksheets (capacity, cleanup/counter-space, thermometer calibration), FAQ matrix on front page + both hubs. All run in the browser; nothing is collected.
 - **Timely topics without hype:** November editorial picks (holiday roast, game-day wings, weeknight format, leftovers) reframe existing guides. They are labelled hypotheses. No popularity, search-volume or sales claim is made; R15 fails the build if one appears.
 - **Clusters:** air-fryer cluster (format, capacity, cleanup, wings, leftovers) and thermometer cluster (safe temperatures, checking vs watching, the two-minute ice test, holiday roast) link to each other and to the comparison table.
-- **Seasonal notebook:** four cooking moments (weeknight two-food, big-batch sharing, holiday roasts, summer grilling) reframe guides as hypotheses.
+- **Seasonal notebook:** four cooking moments (weeknight two-food, big-batch sharing, holiday roasts, summer grilling) reframe guides as hypotheses; a seasonal entry band on the front page routes into the same themes.
+- **Seasonal guides published this cycle:** "Hosting season: which machine cooks what on the big day?" and "Five gifts for the cook who already has an oven" — both question-shaped and sourced; all timely framing labelled hypothesis.
 - **Publication polish:** byline (author, date, reading time) on every guide, worksheet and product page; Counterwise brand; generated editorial illustrations labelled as such.
 - **Design direction & topics:** a reviewable `/direction/` surface carries the design brief that feeds the next build (15 suggestions) and a gated trend-topic engine (10 catchy working titles) so the next article is chosen by measurement, not instinct.
 - **Findability:** one indexable site (superseded trees are noindex + disallowed), sitemap + RSS generated from the same data as the pages (new guides/worksheets cannot ship unlisted), canonicals + Open Graph + JSON-LD on every page, `rel="sponsored"` on every Amazon link, fortnightly cadence (bursts are scaled-content abuse per G2).
@@ -228,7 +231,25 @@ Every source below was read live during this session; nothing was inferred.
 
 Each is an editorial hypothesis, not a popularity claim; each is gated on the measurement baseline (DQ-02 / DQ-Q10) and none is published until someone chooses it from the queue.
 
-## 12. Independent re-verification of the PR #44 state (session `69bfe2b0`, 2026-11-20)
+## 12. Second-pass verification record (session `0beabda2`, 2026-11-20)
+
+An independent second pass over the same ground as §11, run later the same day.
+
+| Item | Result on this pass |
+|---|---|
+| All five supplied short links re-resolved live | **All five reproduced the registered targets** (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z), listing titles unchanged; again no `tag=` parameter in any resolved URL |
+| All ten register sources (A1–A3, F1–F2, G1–G4, U1) re-read line by line | Every quote printed on the site compared against the fetched text: **all confirmed, no drift** |
+| Citation irregularity found and fixed | The register attributed the machine-learning clause to "IP License §1 and §2(c)"; it sits in Participation Requirements §5 **and** IP License §1. The citation now names both. Substance unchanged |
+
+**On the FLG-016 divergence.** Three retrieval records now exist for the short links, all dated
+2026-11-20: two passes in this session that reproduced all five targets (and S-8 in §11), and the
+S16 pass in §10 that reproduced only two, with two landing on the amazon.com home page and one
+HTTP 500. The records are kept side by side; none of them establishes that any supplied short link
+is valid or invalid. The cause of the divergence is unknown and the compliance status stays
+unresolved (FLG-003). The owner settles it with the one-link Special Link test in Associates
+Central (DI-01).
+
+## 13. Independent re-verification of the PR #44 state (session `69bfe2b0`, 2026-11-20)
 
 This session started from `745c087` (PR #40), merged `origin/main` through PR #41 and PRs
 #43/#44 (`1772ab8`), and re-ran every gate on the merged state. Nothing was inferred; every
