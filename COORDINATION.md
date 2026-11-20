@@ -1023,3 +1023,82 @@ Standing requirement: every table row needs a source link to an official site. T
 | Flag mapping | Variant FLG-001..008 map onto the board's FLG set. Variant FLG-003 = board FLG-003: the supplied short links are **not claimed invalid**; compliance unresolved pending the one-link Associates test. Variant FLG-005 notes the five-event taxonomy was not enumerated in the owner's brief. |
 | Brand note (see FLG-012) | The preserved variant carries a third brand label ("Counter & Crisp"), inherited from this session's independent build. It is noindexed and archived; if the owner prefers one brand, delete `alt-site/counter-and-crisp/` or relabel — a one-line decision, logged here rather than acted on. |
 | Requests to file owners | None. Only this board and `README.md` were touched among `done`-scope files, **appended only**, per this board's logging rule. |
+
+## Appendix: session `3e1be50a` — design-direction suggestions + trend topic engine
+
+**Session ID:** `3e1be50a` · **Branch:** `arena/3e1be50a-winb` · **Base:** `9798831` (= `main` tip at
+claim time) · **Claimed:** 2026-11-20 (UTC).
+
+**Board read before claiming.** `main` was at `9798831`, identical to this session's base, so the
+working tree already carried every prior merged generation. Open PRs at claim time: #37, #35, #34,
+#31, #30, #26, #25, #16, #9 (other sessions). This session did **not** touch or merge those. Its
+scope is additive and non-overlapping: a new content module, one new page, and the integration
+wiring for it.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S15 | Add a design-direction + trend-topic surface: a prompt-ready design brief, a reviewable decision board of design suggestions, and a gated catchy-topic engine — so the next build reads as a polished marketing affiliate publication and the next article is chosen by measurement | `3e1be50a` | `_build/content-direction.mjs` (new), `_build/build.mjs`, `_build/core.mjs` (footer link), `_build/content-oversight.mjs` (exec review list), `assets/css/site.css`, `tools/check.cjs`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated `direction/` | done |
+| S16 | Integration for this cycle: full CI-equivalent generate + drift, verify R1–R11, gate R11–R14, register gate, linkcheck, smoke at `/WinB/`, PR, merge, confirm Pages deploy, record result | `3e1be50a` | repo root, `.github/` | in progress |
+
+**What was added, and why.** The brief's newest asks were (a) suggestions that feed the prompt to
+design a polished marketing affiliate site, with catchy trendy topics that pull organic traffic and
+do not read as generated; (b) a section to review suggestions and choose a path before implementing;
+(c) a clear list of the questions/answers needed before any decision. The site already carried a
+strong `/suggestions/` decision queue and a `/decisions/` question set from earlier sessions, but
+had no surface that *fed a design brief* or carried *catchy, gated topic titles*. `/direction/`
+fills exactly that gap without duplicating the existing queues.
+
+**Content on `/direction/`**
+
+| Part | Contents |
+| --- | --- |
+| 1 · Design brief | 15 one-line suggestions, written to be read straight into a build prompt |
+| 2 · Decision board | the same 15 as a table: effort, payoff, status (Built / For review / Blocked) |
+| 3 · Cases | per-suggestion argument: why it reads as published, the failure mode, what must be known |
+| 4 · Trend topic engine | 10 catchy, question-shaped working titles, each with the gate it must pass |
+| 5 · Topic cards | the same titles as cards with the angle each would take |
+| 6 · Paths | the three existing paths (A/B/C), reused from the single source of truth |
+| 7 · Blocking questions | the register gate questions: known / missing / how to find out, linking to `/suggestions/` |
+
+**Compliance posture of the new content.** No price, rating, sales, traffic, click, order, conversion
+or revenue figure appears anywhere on the page (verified by `verify.mjs` R3/R9 and `gate.mjs` R12).
+No hands-on claim is made (R4). Every title is labelled a *working hypothesis*, not a claim about
+popularity, search volume or product superiority. The three paths and the blocking questions are
+reused from `data.mjs` / `decision-queue.mjs`, so they cannot drift from the Decision Room.
+
+**Files touched and non-overlap.** New: `_build/content-direction.mjs`, `direction/index.html`.
+Integration wiring: `_build/build.mjs` (import + route), `_build/core.mjs` (one footer link),
+`_build/content-oversight.mjs` (one review-list item), `assets/css/site.css` (one `.choose .opt
+.meta` rule), `tools/check.cjs` (added `/direction/` to `SIBLING_GENERATION`, following the
+existing `/suggestions/` precedent), `EXECUTIVE-SUMMARY.md` (page counts + new surface),
+`COORDINATION.md` (this record). No file owned by a `done` scope was edited except the additive
+integration edits listed here; every edit is additive and logged.
+
+**Verification performed in this session (2026-11-20 UTC).** The exact CI generate sequence was run
+locally — `node _build/build.mjs`, `make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`,
+`tools/consolidate.mjs` — then:
+
+| Check | Result |
+| --- | --- |
+| Drift check (`git status` after full generate) | clean once the generated files are committed |
+| `node tools/verify.mjs` | PASS — R1–R11; 29 canonical pages, 40 Amazon links, 282 internal links |
+| `node tools/gate.mjs` | PASS — R11–R14; 41 canonical pages, 52 social images, 3652 class usages |
+| `node tools/check.cjs` | All gates passed (2 pre-existing warnings in an archived tree) |
+| `node tools/linkcheck.mjs` | PASS — 52 files crawled, 0 broken links, XML valid |
+| Smoke at the real `/WinB/` path | PASS — 25 pages + 52 linked assets, all 200 |
+
+**Sources.** The new surface rests on the same verified sources as the rest of the site and makes no
+new factual claim, so no new source was added: A1/A2 (Associates Operating Agreement and Policies —
+disclosure, tagging, price rule, IP licence), F1 (FTC — no experience claims for untried products),
+G1/G2 (Google — `rel="sponsored"`, scaled-content and site-reputation policy). Re-read this session.
+
+**Irregularities / open items carried forward.** None introduced by this session. One pre-existing
+defect was fixed during the rebase onto `main`: `EXECUTIVE-SUMMARY.md` on `origin/main` carried an
+orphaned `<<<<<<< HEAD` conflict marker at the head of §10, committed by an earlier session's
+merge. Removed; noted here so it is not mistaken for a live edit. Still open and not blocking:
+FLG-001/FLG-003 (short-link tag status), FLG-002 (intended ASIN unconfirmed), FLG-004 (no unit
+handled), FLG-006 (manufacturer certification claims), FLG-007 (no analytics endpoint), FLG-008
+(no provider/Search Console/domain), and the Q-05/Q-07 ownership questions. All are published on
+`/flagged/` and `/suggestions/` with sources.
+
+**Integration result.** See the session log entry at the end of this file once the PR is merged.

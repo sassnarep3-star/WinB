@@ -806,6 +806,10 @@ td a { text-decoration-thickness: 1px; }
   font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
   padding: .18rem .5rem; border-radius: 4px;
 }
+.choose .opt .meta {
+  display: flex; flex-wrap: wrap; gap: .4rem;
+  margin-top: .7rem;
+}
 
 .ans {
   display: inline-flex; align-items: center; gap: .3rem;
