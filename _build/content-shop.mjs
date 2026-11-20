@@ -2,6 +2,7 @@
 // product pages, comparison table, guides.
 
 import { SITE, PRODUCTS, GUIDES, SOURCES, SUGGESTIONS, EVENTS, MOMENTS, TOPIC_QUEUE } from './data.mjs';
+import { LISTING_EVIDENCE, tempRangeLabel, wattageLabel, hasThemes, worstTheme } from './listing-evidence.mjs';
 import {
   esc, url, page, pageHead, table, badge, amazonLink, srcLink, blank, crumbs,
 } from './core.mjs';
@@ -29,6 +30,36 @@ const CATS = {
 };
 
 // ------------------------------------------------------------------ helpers
+
+// One phrase that reads correctly for 1 probe and for 3. The previous build
+// printed "1 probes" on the front page, the comparison table and the
+// thermometer table — a small thing that makes a publication look generated.
+export const capacityPhrase = (p) => {
+  if (p.compare.capacityQt) return `${p.compare.capacityQt} qt stated`;
+  const n = p.compare.probes;
+  return `${n} ${n === 1 ? 'probe' : 'probes'} stated`;
+};
+
+// A one-line, decision-shaped answer per product, built only from what the
+// listing states. Used on the "pick by situation" block and in the table.
+export const decisiveLine = (p) => {
+  const e = LISTING_EVIDENCE[p.asin] || {};
+  const w = worstTheme(p.asin);
+  if (p.category === 'air-fryers') {
+    const range = tempRangeLabel(p.asin);
+    const watts = wattageLabel(p.asin);
+    const bits = [p.compare.style];
+    if (range) bits.push(range);
+    if (watts) bits.push(watts);
+    return bits.join(' · ');
+  }
+  const heats = e.heatLimitF && e.heatLimitF.value ? `${e.heatLimitF.value}°F heat limit` : null;
+  const acc = e.accuracyClaim || null;
+  return [p.compare.wireless ? 'Wireless leave-in' : 'Handheld instant-read', heats, acc]
+    .filter(Boolean)
+    .join(' · ');
+};
+
 const pickCards = (ids, { cls = 'cards c3' } = {}) => `
 <div class="${cls}">
 ${ids.map((id) => {
@@ -43,7 +74,7 @@ ${ids.map((id) => {
       <h3>${esc(p.shortName)}</h3>
       <p>${esc(p.bestFor)}</p>
       <div class="foot">
-        <span>${esc(p.compare.capacityQt ? p.compare.capacityQt + ' qt stated' : p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes'))}</span>
+        <span>${esc(capacityPhrase(p))}</span>
         <span class="read">Read the pick <span class="arw">→</span></span>
       </div>
     </div>
@@ -61,6 +92,101 @@ ${list.map((g) => `<a class="card" href="/${g.path.replace(/\.html$/, '')}.html"
 </a>`).join('\n')}
 </div>`;
 
+// ------------------------------------------------------- situation cards
+// "Start with the sentence that sounds like you." Each situation names one
+// product and gives the reason in the buyer's terms, not the spec sheet's.
+const SITUATIONS = [
+  {
+    who: 'Two things, different temperatures, one plate',
+    pick: 'P01',
+    why:
+      'Protein in one basket, vegetables in the other, finishing together. This is the only unit here built for that, and its reviews agree on the baskets even while they disagree about everything else.',
+    caution: 'Durability is the worst-rated theme on its own listing.',
+  },
+  {
+    who: 'One big batch, as little machinery as possible',
+    pick: 'P03',
+    why:
+      '8 qt in a single basket, four cooking modes, and a stated 200–400°F range. No second basket to clean and no door to open — one cavity, one job.',
+    caution: 'The listing states two different wattages. Check the rating plate.',
+  },
+  {
+    who: 'I want it to roast, toast and air-fry',
+    pick: 'P02',
+    why:
+      'A 26 qt French-door oven that takes a 6-lb rotisserie chicken or a 12-inch pizza. One appliance instead of three, if the counter can take the footprint.',
+    caution: 'Reviews are dominated by heating-element failures. Buy it as a fixture with a warranty.',
+  },
+  {
+    who: 'I just want to know the number, fast',
+    pick: 'P04',
+    why:
+      'One second, ±0.5°F claimed, no app, no pairing, no charging hub. Rinse it and put it back in the drawer.',
+    caution: 'A minority report failure within a year. Warranty is the deciding detail.',
+  },
+  {
+    who: 'I want to watch a long cook from the sofa',
+    pick: 'P05',
+    why:
+      'Three probes, guided cooks, flip reminders, and a 1000°F heat limit. The only leave-in system here.',
+    caution: 'Connectivity is the most negative theme on its listing — 105 of 137 mentions.',
+  },
+];
+
+const situationCards = () => `
+<div class="sit-grid">
+${SITUATIONS.map((s, i) => {
+  const p = P(s.pick);
+  return `<article class="sit">
+    <div class="sit-head"><span class="sit-n">0${i + 1}</span><span class="sit-q">“${esc(s.who)}”</span></div>
+    <a class="sit-pick" href="/reviews/${p.slug}.html">
+      <span class="sit-name">${esc(p.shortName)}</span>
+      <span class="sit-sub">${esc(decisiveLine(p))}</span>
+    </a>
+    <p>${esc(s.why)}</p>
+    <p class="sit-caution"><b>The catch.</b> ${esc(s.caution)}</p>
+  </article>`;
+}).join('\n')}
+</div>`;
+
+// ------------------------------------------------------- buyer questions
+// Question-shaped headings, each pointing at the page that answers it.
+const BUYER_QUESTIONS = [
+  {
+    q: 'Basket or oven-style — what actually differs?',
+    a: 'How food goes in and comes out. A basket lifts out and washes in the sink; an oven has a door and a rack, and lives where it is put. Quart figures do not capture that difference at all.',
+    href: '/guides/basket-or-oven.html',
+    linkText: 'Basket or oven, compared',
+  },
+  {
+    q: 'Is 6 qt enough for two people?',
+    a: 'The listing says 3 qt per basket. Whether that is enough is arithmetic you can do with a bag of frozen chips and a tape measure before you buy, which is what the capacity checklist is for.',
+    href: '/guides/capacity-checklist.html',
+    linkText: 'The capacity checklist',
+  },
+  {
+    q: 'How much counter and sink does each one take?',
+    a: 'The two costs nobody compares. A dual-basket drawer is two baskets and two crisper plates to wash; a 26 qt oven is a permanent footprint on your counter.',
+    href: '/guides/cleanup-and-counter-space.html',
+    linkText: 'Cleanup and counter space',
+  },
+  {
+    q: 'Do I need an app with my thermometer?',
+    a: 'Only if you want to watch a temperature climb without opening the door. If you want a number in one second, an app is a liability you are choosing to own.',
+    href: '/reviews/chef-iq-sense-gen3.html',
+    linkText: 'The wireless option',
+  },
+];
+
+const buyerQuestions = () => BUYER_QUESTIONS.map(
+  (b) => `<article class="qa">
+    <h3>${esc(b.q)}</h3>
+    <p>${esc(b.a)}</p>
+    <a class="qa-link" href="${b.href}">${esc(b.linkText)} <span class="arw">→</span></a>
+  </article>`
+).join('\n');
+
+// ---- added by the parallel publication-polish session (kept) ----
 const byline = (date = SITE.buildDateHuman) => `<p class="byline">By ${esc(SITE.author)} · ${esc(date)} · Specification judgement, not a hands-on test. <a href="/about/">Who writes this →</a></p>`;
 
 const momentCards = () => `
@@ -143,14 +269,43 @@ export function frontPage() {
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">The five</p>
-        <h2>Picked by specification, described without pretending</h2>
-        <p>Each page states what the listing claims, what the arithmetic says, and what this desk cannot tell you. Nothing here is a hands-on review, because nothing here has been handled.</p>
+        <p class="eyebrow">Pick by situation</p>
+        <h2>Start with the sentence that sounds like you</h2>
+        <p>Five products is small enough to compare by hand, so compare by hand. Each line below is a situation, the one product that fits it, and the reason — drawn from what the listing states and from the review themes Amazon publishes above the reviews.</p>
       </div>
       <a class="more" href="/compare/">Full comparison table →</a>
     </div>
+    ${situationCards()}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">All five</p>
+        <h2>Picked by specification, described without pretending</h2>
+        <p>Each page states what the listing claims, what the arithmetic says, and what this desk cannot tell you. Nothing here is a hands-on review, because nothing here has been handled.</p>
+      </div>
+      <a class="more" href="/reviews/">The five picks →</a>
+    </div>
     ${pickCards(['P01', 'P03', 'P02'])}
     <div class="mt-2">${pickCards(['P04', 'P05'], { cls: 'cards c2' })}</div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">What buyers ask</p>
+        <h2>The four questions that decide this category</h2>
+        <p>Each one has a real answer on this site, and each answer says which part is the manufacturer’s claim and which part is this desk’s judgement.</p>
+      </div>
+    </div>
+    <div class="qa-grid">
+      ${buyerQuestions()}
+    </div>
   </div>
 </section>
 
@@ -205,16 +360,16 @@ export function frontPage() {
           <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" href="/flagged/">What is still unverified →</a>
         </div>
       </div>
-      <div class="capture" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);box-shadow:none">
-        <h3 style="color:#fff;font-size:1.15rem;margin-bottom:.3rem">One guide a fortnight</h3>
+      <div class="follow" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18)">
         ${byline()}
-        <p style="font-size:.86rem;margin:0 0 .2rem">No list exists yet, and this form will not pretend one does. When a provider is chosen it will say who holds the address before it asks for it.</p>
-        <form data-capture="front">
-          <input type="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email">
-          <button class="btn amber" type="submit">Notify me</button>
-          <p class="status" role="status"></p>
-        </form>
-        <p class="fine">Nothing is transmitted. See <a href="/data-room/#events" style="color:#cfe0d6">the five measured events</a>.</p>
+        <p class="eyebrow plain" style="color:#9ec4b2;margin:0 0 .4rem">Follow the notebook</p>
+        <h3 style="color:#fff;font-size:1.2rem;margin:0 0 .5rem">One guide a fortnight, in a feed reader</h3>
+        <p style="font-size:.88rem;color:#c9d8d0;margin:0 0 .9rem">The RSS feed is live and needs no address from you. There is no email list, so there is nothing to subscribe to and no inbox to be sold — when that changes, this box will say who holds the address before it asks for it.</p>
+        <div class="btn-row">
+          <a class="btn amber" href="/feed.xml">Open the RSS feed <span class="arw">→</span></a>
+          <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" href="/guides/">Browse every guide</a>
+        </div>
+        <p class="fine" style="color:#9ec4b2">Measurement is described on <a href="/data-room/#events" style="color:#cfe0d6">the five measured events</a>. Nothing here identifies you.</p>
       </div>
     </div>
   </div>
@@ -304,16 +459,26 @@ function airFryerTable() {
       row('Stated total capacity', (p) => `${p.compare.capacityQt} qt`),
       row('Baskets', (p) => (p.compare.baskets === 2 ? '2 independent' : p.compare.baskets === 1 ? '1 XL' : 'Oven cavity')),
       row('Viewing window', (p) => (p.compare.window ? 'Yes' : 'Not stated')),
-      row('Presets stated', (p) => (p.id === 'P02' ? '24' : 'Not stated in title')),
-      row('Counter footprint', () => blank('not stated') ),
-      row('Wattage', () => blank('not stated')),
+      row('Presets stated', (p) => (p.id === 'P02' ? '24 in the title, 25 in the bullets — see FLG-013' : 'Not stated in title')),
+      row('Stated temperature range', (p) => {
+        const r = tempRangeLabel(p.asin);
+        return r ? esc(r) : blank('not stated');
+      }),
+      row('Wattage', (p) => {
+        const w = wattageLabel(p.asin);
+        if (!w) return blank('not stated');
+        return LISTING_EVIDENCE[p.asin].wattageContradiction
+          ? `${esc(w)} in the bullets, 1700 W in the description — unresolved`
+          : esc(w);
+      }),
+      row('Counter footprint', () => blank('not stated')),
       row('What it is for', (p) => esc(p.bestFor)),
       row('When to skip it', (p) => esc(p.thinkTwiceIf)),
       row('Page', (p) => `<a href="/reviews/${p.slug}.html">Read the pick →</a>`),
       row('Listing', (p) => `<a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon · ${p.asin}</a>`),
     ],
     note:
-      'Footprint and wattage are the two numbers most likely to change a decision and the two numbers the listings do not state in the data this desk could read. They are left blank on purpose rather than estimated. Verify them in the product manual before ordering.',
+      'Every stated value is transcribed from the listing as read on 2026-11-20. External dimensions are the one number none of the three listings states, so that row is empty rather than estimated — measure your counter before ordering. Where a listing contradicts itself, both figures are printed.',
   });
 }
 
@@ -332,7 +497,7 @@ function thermometerTable() {
       row('Requires an app', (p) => (p.compare.appRequired ? 'Yes (as a smart device)' : 'No')),
       row('Stated read time', (p) => (p.id === 'P04' ? '1 second (listing claim)' : 'Continuous')),
       row('Stated heat limit', (p) => (p.compare.heatRatingF ? `${p.compare.heatRatingF}°F (listing claim)` : blank('not stated'))),
-      row('Stated accuracy', (p) => (p.id === 'P04' ? '±0.5°F (listing claim)' : blank('not stated'))),
+      row('Stated accuracy', (p) => (p.id === 'P04' ? '±0.5°F (listing claim)' : 'Within 1°F (listing claim)')),
       row('Water resistance', (p) => (p.id === 'P04' ? 'IP67 (listing claim)' : blank('not stated'))),
       row('Best for', (p) => esc(p.bestFor)),
       row('Skip it if', (p) => esc(p.thinkTwiceIf)),
@@ -342,6 +507,52 @@ function thermometerTable() {
     note:
       '“Listing claim” means the manufacturer says so in the listing and this desk has not been able to check it against a certificate or a test report. See FLG-006 on the Flagged for Review page.',
   });
+}
+
+// ---------------------------------------------------- review themes block
+// Amazon publishes, above the reviews, a per-theme count of how many reviewers
+// mentioned something and how those mentions split. It is the single most
+// decision-relevant thing on the page and the previous build did not use it.
+// These are Amazon's OWN counts, transcribed; they are not this desk's sample,
+// rating, or score, and no star rating is reproduced anywhere (rule R3).
+function themeBlock(p) {
+  const e = LISTING_EVIDENCE[p.asin];
+  if (!e) return '';
+  if (!hasThemes(p.asin)) {
+    return `<div class="callout mt-3"><h4>What repeat buyers complain about</h4>
+      <p style="margin:0">This listing did not display Amazon's review-theme summary on the check date, so there is no
+      theme count to report. That is an absence of evidence, not a clean record — read the reviews yourself before ordering.</p></div>`;
+  }
+  const sorted = [...e.themes].sort((a, b) => {
+    // worst-first: lowest share of positive mentions at the top
+    const ra = a.mentions ? a.positive / a.mentions : 1;
+    const rb = b.mentions ? b.positive / b.mentions : 1;
+    return ra - rb;
+  });
+  const rows = sorted
+    .map((t) => {
+      const pct = t.mentions ? Math.round((t.positive / t.mentions) * 100) : null;
+      const cls = pct === null ? '' : pct >= 70 ? 'good' : pct >= 45 ? 'mid' : 'bad';
+      return `<tr>
+        <th scope="row">${esc(t.theme)}</th>
+        <td class="num">${t.mentions ?? '—'}</td>
+        <td class="num">${t.positive ?? '—'} / ${t.negative ?? '—'}</td>
+        <td><span class="meter ${cls}"><span style="width:${pct ?? 0}%"></span></span>${pct !== null ? `<span class="tiny faint">${pct}% positive</span>` : ''}</td>
+        <td class="tiny">${esc(t.summary)}</td>
+      </tr>`;
+    })
+    .join('\n');
+
+  return `<div class="prose mt-4">
+    <h2>What repeat buyers complain about</h2>
+    <p>Amazon groups reviews by the feature people mention and publishes the counts. The numbers below are Amazon’s, copied on ${esc(e.checked)} — not a sample this desk ran, and not a rating. Sorted worst-first, because that is the useful order.</p>
+    ${table({
+      caption: '<b>Review themes, as Amazon publishes them.</b> “Positive / negative” is Amazon’s own split of the mentions.',
+      head: ['Theme', 'Mentions', 'Positive / negative', 'Share positive', 'What the summary says'],
+      rows: [rows],
+    })}
+    <p class="tiny faint">Source: the “Customers say” review-theme panel on the <a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">listing for ASIN ${esc(p.asin)}</a>, read ${esc(e.checked)}. Theme counts move as reviews accumulate.</p>
+  </div>`;
 }
 
 // ------------------------------------------------------------ product page
@@ -382,6 +593,10 @@ ${pageHead({
           ${specRows}
         </div>
         <p class="tiny faint mt-1">Source: <a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon listing for ASIN ${esc(p.asin)}</a>, read ${esc(p.confirmationDate)}. Category path observed: ${esc(p.directory)}.</p>
+
+        ${p.verdict ? `<div class="callout green mt-3"><h4>The short version</h4><p style="margin:0">${esc(p.verdict)}</p></div>` : ''}
+
+        ${themeBlock(p)}
 
         ${p.arithmetic.length ? `<div class="prose mt-4"><h2>The arithmetic, shown</h2>${p.arithmetic
           .map(
@@ -449,14 +664,10 @@ ${pageHead({
           </p>
         </div>
 
-        <div class="capture">
-          <h4 style="font-family:var(--display);font-size:1.05rem">One guide a fortnight</h4>
-          <p class="small muted" style="margin:.2rem 0 0">No list exists yet. This form counts intent and says so.</p>
-          <form data-capture="${esc(p.slug)}">
-            <input type="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email">
-            <button class="btn small" type="submit">Notify me</button>
-            <p class="status" role="status"></p>
-          </form>
+        <div class="follow">
+          <h4 style="font-family:var(--display);font-size:1.05rem;margin:0 0 .3rem">New guides, in your reader</h4>
+          <p class="small muted" style="margin:0 0 .7rem">No email list — the feed is the follow button. It costs you nothing and tells us nothing.</p>
+          <div class="btn-row"><a class="btn small" href="/feed.xml">RSS feed</a><a class="btn small ghost" href="/guides/">All guides</a></div>
         </div>
       </aside>
     </div>
@@ -503,16 +714,34 @@ ${pageHead({
 // ---------------------------------------------------------- comparison page
 export function comparePage() {
   const rows = PRODUCTS.map(
-    (p) => `<tr>
+    (p) => {
+      const watts = wattageLabel(p.asin);
+      const range = tempRangeLabel(p.asin);
+      const w = worstTheme(p.asin);
+      // Wattage: print the stated figure; where the listing states two, say so;
+      // where it states none, leave it blank and label it. Never estimated.
+      const wattCell = watts
+        ? `${esc(watts)}${LISTING_EVIDENCE[p.asin].wattageContradiction ? ' <span class="tiny faint">(listing also states 1700 W)</span>' : ''}`
+        : blank('not stated');
+      const heatCell = range
+        ? esc(range)
+        : LISTING_EVIDENCE[p.asin].heatLimitF && LISTING_EVIDENCE[p.asin].heatLimitF.value
+          ? `${LISTING_EVIDENCE[p.asin].heatLimitF.value}°F limit`
+          : blank('not stated');
+      const themeCell = w
+        ? `<span class="tiny">${esc(w.theme)}</span><br><span class="faint tiny">${w.positive}/${w.mentions} of ${w.mentions} mentions positive</span>`
+        : blank('no themes published');
+      return `<tr>
       <td><a href="/reviews/${p.slug}.html"><b>${esc(p.shortName)}</b></a><br><span class="faint tiny">${esc(p.brand)}</span></td>
       <td>${esc(p.category === 'air-fryers' ? 'Air fryer' : 'Thermometer')}</td>
       <td>${esc(p.compare.style || (p.compare.wireless ? 'Wireless probe' : 'Instant-read'))}</td>
-      <td class="num">${p.compare.capacityQt ? p.compare.capacityQt + ' qt' : p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes')}</td>
-      <td>${esc(p.bestFor.split('.')[0])}</td>
-      <td>${blank('not stated')}</td>
-      <td>${blank('not shown')}</td>
+      <td class="num">${esc(capacityPhrase(p))}</td>
+      <td class="num">${wattCell}</td>
+      <td class="num">${heatCell}</td>
+      <td>${themeCell}</td>
       <td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Listing</a></td>
-    </tr>`
+    </tr>`;
+    }
   ).join('\n');
 
   const body = `
@@ -527,7 +756,7 @@ ${pageHead({
     ${table({
       caption:
         '<b>Five products.</b> Every value is either the manufacturer’s stated claim or a blank. Nothing is estimated.',
-      head: ['Product', 'Category', 'Format', 'Capacity / probes', 'Best for', 'Wattage', 'Price', 'Source'],
+      head: ['Product', 'Category', 'Format', 'Capacity / probes', 'Wattage', 'Heat range', 'Weakest theme in reviews', 'Source'],
       rows: [rows],
     })}
     <div class="cards c2 mt-3">
@@ -619,14 +848,10 @@ ${pageHead({
             .join('')}
           <a class="btn small mt-1" href="/compare/" style="width:100%;justify-content:center">Compare all five <span class="arw">→</span></a>
         </div>
-        <div class="capture">
-          <h4 style="font-family:var(--display);font-size:1rem">Next guide</h4>
-          <p class="small muted" style="margin:.2rem 0 0">One a fortnight. No list exists yet.</p>
-          <form data-capture="${esc(g.slug)}">
-            <input type="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email">
-            <button class="btn small" type="submit">Notify me</button>
-            <p class="status" role="status"></p>
-          </form>
+        <div class="follow">
+          <h4 style="font-family:var(--display);font-size:1rem;margin:0 0 .3rem">Next guide</h4>
+          <p class="small muted" style="margin:0 0 .7rem">One a fortnight. No email list — the feed is the follow button.</p>
+          <div class="btn-row"><a class="btn small" href="/feed.xml">RSS feed</a><a class="btn small ghost" href="/guides/">All guides</a></div>
         </div>
       </aside>
     </div>
