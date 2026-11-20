@@ -104,6 +104,46 @@
   </div>
 </nav>
 
+
+<section class="section chooser-sec" id="chooser">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">30-second chooser</p>
+        <h2>Which one fits your kitchen?</h2>
+        <p>Three questions. No account, no tracking, nothing leaves this page. The answer is a starting point — read the pick page before you decide.</p>
+      </div>
+    </div>
+    <div class="chooser" id="cw-chooser">
+      
+      <fieldset class="chooser-q" data-q="cook">
+        <legend>1. What do you cook most often?</legend>
+        <div class="chooser-opts">
+          <label class="chooser-opt"><input type="radio" name="cw-cook" value="two"> <span>Two foods at once, different temperatures</span></label><label class="chooser-opt"><input type="radio" name="cw-cook" value="big"> <span>One big batch — wings, fries, a whole tray</span></label><label class="chooser-opt"><input type="radio" name="cw-cook" value="flat"> <span>Flat things on racks — toast, fish, a tray of veg</span></label><label class="chooser-opt"><input type="radio" name="cw-cook" value="long"> <span>Long cooks I want to walk away from</span></label><label class="chooser-opt"><input type="radio" name="cw-cook" value="quick"> <span>Quick checks — is it done yet?</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="chooser-q" data-q="space">
+        <legend>2. Where will it live?</legend>
+        <div class="chooser-opts">
+          <label class="chooser-opt"><input type="radio" name="cw-space" value="sink"> <span>I can lift it out and wash it in the sink</span></label><label class="chooser-opt"><input type="radio" name="cw-space" value="counter"> <span>It will stay on the counter as a fixture</span></label><label class="chooser-opt"><input type="radio" name="cw-space" value="drawer"> <span>In a drawer / cupboard when not in use</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="chooser-q" data-q="app">
+        <legend>3. How do you feel about an app?</legend>
+        <div class="chooser-opts">
+          <label class="chooser-opt"><input type="radio" name="cw-app" value="noapp"> <span>No app — just a number on a screen</span></label><label class="chooser-opt"><input type="radio" name="cw-app" value="okapp"> <span>An app is fine if it watches while I am away</span></label>
+        </div>
+      </fieldset>
+      <div class="btn-row">
+        <button class="btn" type="button" id="cw-chooser-go">Show my starting point <span class="arw">→</span></button>
+        <button class="btn ghost" type="button" id="cw-chooser-reset">Start again</button>
+      </div>
+      <div class="chooser-result" id="cw-chooser-result" hidden></div>
+      <p class="tiny faint mt-1">This chooser uses editorial fit (what you cook, where it lives, app tolerance), not price, ratings or sales data — none of which this site publishes. See <a href="compare/">the comparison table</a> for the underlying claims.</p>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     <div class="sec-head">
@@ -249,7 +289,7 @@
 <a class="card" href="guides/basket-or-oven.html">
   <span class="num">Format · 6 min read</span>
   <h3>Basket or oven-style air fryer: what should you compare?</h3>
-  <p>Two machines, both called air fryers, doing different jobs.</p>
+  <p>Drawer or door? The comparison that decides daily use before capacity ever matters.</p>
   <div class="foot"><span>Guide</span><span class="read">Open <span class="arw">→</span></span></div>
 </a>
       </div>
@@ -258,8 +298,8 @@
           <div class="fx" style="aspect-ratio:16/9"><img src="assets/img/guides-new.jpg" alt="A notebook, a pencil and a thermometer on a kitchen worktop" width="1400" height="788" loading="lazy" decoding="async"></div>
           <div class="fb">
             <p class="kicker plain" style="margin-bottom:.5rem">One a fortnight</p>
-            <h3 style="font-size:1.15rem">Five guides, and a schedule</h3>
-            <p style="font-size:.85rem">Capacity, format, cleanup, multi-function appliances and safe temperatures. New guides arrive on a fixed cadence rather than in a burst.</p>
+            <h3 style="font-size:1.15rem">Eight guides, and a schedule</h3>
+            <p style="font-size:.85rem">Capacity, format, cleanup, multi-function appliances, safe temperatures, holiday roasts, game-day wings and leftovers. New guides arrive on a fixed cadence rather than in a burst.</p>
             <span class="ft">Read the archive →</span>
           </div>
         </a>
@@ -293,6 +333,154 @@
         <h3>Checking, or watching?</h3>
         <p>Checking a number takes an instant-read. Watching a temperature climb over three hours takes a leave-in probe and an app. Both, honestly, is two tools.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">November editorial picks</p>
+        <h2>What to cook this month, and the question it asks</h2>
+        <p>Timely framing of guides you can use tonight. These are editorial picks for November — not a popularity or demand claim. No such claim is made anywhere on this site.</p>
+      </div>
+      <a class="more" href="guides/">All guides →</a>
+    </div>
+    <div class="cards c2">
+      
+      <a class="card" href="guides/holiday-roast-thermometer.html">
+        <span class="num">November · Roasts</span>
+        <h3>Holiday roast thermometer: instant-read or leave-in?</h3>
+        <p>The long-cook question, with the USDA rest time front and centre.</p>
+        <div class="foot"><span>Guide</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>
+      <a class="card" href="guides/game-day-wings.html">
+        <span class="num">November · Sharing</span>
+        <h3>Game-day wings: one big basket or two small ones?</h3>
+        <p>One tray for sharing, decided by 2 qt of arithmetic and how you sauce.</p>
+        <div class="foot"><span>Guide</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>
+      <a class="card" href="guides/basket-or-oven.html">
+        <span class="num">November · Weeknights</span>
+        <h3>Basket or oven-style air fryer: what should you compare?</h3>
+        <p>Two foods at once, or one big thing? The format question that settles most of it.</p>
+        <div class="foot"><span>Guide</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>
+      <a class="card" href="guides/air-fryer-leftovers.html">
+        <span class="num">November · Leftovers</span>
+        <h3>Air-fryer leftovers: what reheats safely?</h3>
+        <p>Reheat to 165°F, not to &quot;hot&quot;. A ten-second check with an instant-read.</p>
+        <div class="foot"><span>Guide</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">Printable tools</p>
+        <h2>Measure first, buy second</h2>
+        <p>Three worksheets you can print or fill on screen. They ask for your measurements, not your email, and nothing you type leaves the browser.</p>
+      </div>
+      <a class="more" href="tools/">All worksheets →</a>
+    </div>
+    <div class="cards c3">
+      
+      <a class="card" href="tools/capacity-worksheet.html">
+        <span class="num">Worksheet</span>
+        <h3>The five-minute capacity worksheet</h3>
+        <p>Measure your kitchen, not the listing. Five minutes with a tape measure and the bag of food you actually buy will tell you more than any quart figure.</p>
+        <div class="foot"><span>Print / fill</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>
+      <a class="card" href="tools/cleanup-worksheet.html">
+        <span class="num">Worksheet</span>
+        <h3>Cleanup and counter-space worksheet</h3>
+        <p>The two costs nobody compares at purchase: how much of the sink it takes, and how much of the counter it permanently occupies.</p>
+        <div class="foot"><span>Print / fill</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>
+      <a class="card" href="tools/thermometer-calibration.html">
+        <span class="num">Worksheet</span>
+        <h3>Thermometer calibration worksheet</h3>
+        <p>Calibrate once, then trust it. The ice-water check takes thirty seconds and tells you whether the number on the screen can be believed.</p>
+        <div class="foot"><span>Print / fill</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">Buyer questions</p>
+        <h2>Questions buyers ask, answered from the listing</h2>
+        <p>Every answer is attributed to the manufacturer listing, to USDA FSIS, or to Amazon policy. Where the listing does not state a value, the answer says so.</p>
+      </div>
+    </div>
+    <div class="faq-list">
+      
+      <details class="faq-item">
+        <summary><span>Basket or oven-style — what should I compare?</span><span class="faq-chev" aria-hidden="true">+</span></summary>
+        <div class="faq-body">
+          <p>How you get food in and out, and where the machine lives. A basket is a drawer you lift, shake and wash in the sink. An oven is a door and racks in a machine that stays on the counter. Measure counter depth and sink width first. See the basket-or-oven guide.</p>
+          <p class="tiny faint">Source: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary><span>How do I compare air fryer capacity without hype?</span><span class="faq-chev" aria-hidden="true">+</span></summary>
+        <div class="faq-body">
+          <p>Ignore quarts until you have built a single flat layer of the food you actually buy, multiplied by the people you cook for, and compared that volume to the stated capacity. If your layer needs more than about half the stated capacity, expect two batches. The capacity worksheet walks through it.</p>
+          <p class="tiny faint">Source: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary><span>What are the cleanup and counter-space trade-offs?</span><span class="faq-chev" aria-hidden="true">+</span></summary>
+        <div class="faq-body">
+          <p>Count dishwasher parts, not features. A drawer has about two parts that fit a normal sink; a French-door oven has racks, a basket, a drip tray and often a spit. &quot;Dishwasher-safe&quot; describes the coating, not the geometry. Decide the home before you buy — most air fryers end up on the counter permanently.</p>
+          <p class="tiny faint">Source: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary><span>What temperature is actually &quot;done&quot;?</span><span class="faq-chev" aria-hidden="true">+</span></summary>
+        <div class="faq-body">
+          <p>USDA FSIS minimums: beef/pork/veal/lamb steaks, chops and roasts 145°F (62.8°C) with a 3-minute rest; ground meats 160°F (71.1°C); all poultry 165°F (73.9°C); fish and shellfish 145°F (62.8°C); leftovers and casseroles 165°F (73.9°C). Measured with a food thermometer before food leaves the heat source.</p>
+          <p class="tiny faint">Source: <a href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank" title="Safe Minimum Internal Temperature Chart">USDA Food Safety and Inspection Service</a></p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary><span>Instant-read or leave-in thermometer?</span><span class="faq-chev" aria-hidden="true">+</span></summary>
+        <div class="faq-body">
+          <p>Checking a number takes an instant-read (the ThermoMaven listing states a 1-second read). Watching a temperature climb over a long cook takes a leave-in probe (the CHEF iQ Sense Gen3 listing states three probes and WiFi). Wanting both, honestly, is owning two tools.</p>
+          <p class="tiny faint">Source: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary><span>Can I see the price and star rating here?</span><span class="faq-chev" aria-hidden="true">+</span></summary>
+        <div class="faq-body">
+          <p>No — deliberately. Amazon permits price display only when Amazon serves the link or data comes via Creators API / PA API. This static site has neither, so no price and no rating is reproduced. Check the listing for today’s price. See FLG-005.</p>
+          <p class="tiny faint">Source: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary><span>Has this desk tested any of these products?</span><span class="faq-chev" aria-hidden="true">+</span></summary>
+        <div class="faq-body">
+          <p>No. FTC guidance states you cannot talk about your experience with a product you have not tried. Every page therefore describes what the manufacturer listing states, shows its arithmetic, and lists what it cannot tell you. See FLG-004.</p>
+          <p class="tiny faint">Source: <a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener" target="_blank" title="Disclosures 101 for Social Media Influencers">U.S. Federal Trade Commission</a></p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary><span>Why are some cells blank in the comparison table?</span><span class="faq-chev" aria-hidden="true">+</span></summary>
+        <div class="faq-body">
+          <p>Because the listing does not state the value in the data this desk could read, and estimating it would be an inaccurate claim about a product — which the Program Policies prohibit. Blanks are labelled &quot;not stated&quot; rather than filled in. See FLG-014.</p>
+          <p class="tiny faint">Source: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></p>
+        </div>
+      </details>
     </div>
   </div>
 </section>
@@ -342,6 +530,8 @@
           <li><a href="air-fryers/">Air fryers</a></li>
           <li><a href="thermometers/">Thermometers</a></li>
           <li><a href="compare/">Comparison table</a></li>
+          <li><a href="#chooser">30-second chooser</a></li>
+          <li><a href="tools/">Printable worksheets</a></li>
         </ul>
       </div>
       <div>
