@@ -16,7 +16,7 @@ push the claim immediately. Never start a task another session has claimed.
 
 | ID | Task | Owner | File scope | Status |
 | --- | --- | --- | --- | --- |
-| S10 | **Reader-facing quality pass + source re-verification.** Fix rendered defects (`1 probes`, `aFrench-door`, empty `<tbody>`), replace the non-functional email capture with a real RSS/alert path, re-verify all five listings against Amazon on 2026-11-20 and publish every spec that *is* stated (wattage, temperature range, model numbers), publish a decision-led "who should buy which" surface, add the buyer-questions → answer matrix, and add a Suggestions Review page with a clear decision queue. | `arena-5dd84ce5` | `_build/data.mjs`, `_build/core.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/build.mjs`, `assets/css/site.css`, `assets/js/site.js`, `tools/verify.mjs`, `COORDINATION.md`, `README.md`, `EXECUTIVE-SUMMARY.md` | in progress |
+| S10 | **Reader-facing quality pass + source re-verification.** Fix rendered defects (`1 probes`, `aFrench-door`, empty `<tbody>`), replace the non-functional email capture with a real RSS/alert path, re-verify all five listings against Amazon on 2026-11-20 and publish every spec that *is* stated (wattage, temperature range, model numbers), publish a decision-led "who should buy which" surface, add the buyer-questions → answer matrix, and add a Suggestions Review page with a clear decision queue. | `arena-5dd84ce5` | `_build/data.mjs`, `_build/core.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/build.mjs`, `assets/css/site.css`, `assets/js/site.js`, `tools/verify.mjs`, `COORDINATION.md`, `README.md`, `EXECUTIVE-SUMMARY.md` | done |
 | S11 | **Integration for this cycle:** build, verify, link-check, rebase on `main`, PR, merge, confirm Pages deploy, record result. | `arena-5dd84ce5` | repo root, `.github/` | in progress |
 
 **Non-overlap.** S10 writes only files in the scope above. It does **not** touch
@@ -285,3 +285,62 @@ unresolved.
 No product was handled. No traffic, click, order, conversion or revenue figure exists or is
 published. No price or star rating is shown. Whether `link.amazon` short links are an approved
 Special Link format is unresolved in both directions and stated as such (FLG-003).
+
+---
+
+## 8. Session `arena-5dd84ce5` — verification log and findings (S10/S11)
+
+### 8.1 What was fetched live, and when
+
+Every row below was read on **2026-11-20 (UTC)** through the agent's page fetcher. `curl` from the
+sandbox cannot reach these hosts (all returned `000`), so the fetcher is the only path to source;
+this is recorded so the provenance is not overstated as a raw HTTP request from this machine.
+
+| Source | URL | Used to check |
+| --- | --- | --- |
+| Operating Agreement | https://affiliate-program.amazon.com/help/operating/agreement | §5 disclosure wording **verbatim**; §1 “Special Links” definition; §6 termination. Page shows “Updated: October 15, 2025”. |
+| Program Policies | https://affiliate-program.amazon.com/help/operating/policies | Participation Requirements §2(a) “Special Links must use the Associates ID”; §2(b) the `tag` parameter requirement, the price/availability rule, and “must not make inaccurate, overbroad, deceptive or otherwise misleading claims about any Product”; §1 original-content requirement. Page shows “Updated: April 14, 2026”. |
+| Listing P01 | https://www.amazon.com/dp/B0CDY277D3 | Title, “About this Item”, Product Description, review-theme panel |
+| Listing P02 | https://www.amazon.com/dp/B09B7SB46R | same |
+| Listing P03 | https://www.amazon.com/dp/B08DKYBTPH | same |
+| Listing P04 | https://www.amazon.com/dp/B0DHZTCNR5 | same |
+| Listing P05 | https://www.amazon.com/dp/B0DZFD6R9Z | same |
+
+### 8.2 Defects found in the previously published build, and their status
+
+| # | Defect | Evidence | Status |
+| --- | --- | --- | --- |
+| 1 | `/compare/` shipped an **empty `<tbody>`**. The table generator was called as `rows: [rows]` — a one-element array holding a string — so the comparison page, the site's most useful page, rendered with zero rows while passing every rule. | Rendered `compare/index.html` before the fix | **Fixed** — rows now passed flat |
+| 2 | Front page, comparison table and thermometer table printed **“1 probes”**. | `content-shop.mjs` line 46 and 451, old | **Fixed** — `capacityPhrase()` |
+| 3 | P02's `bestFor` read “**aFrench-door** oven” (missing space). | `data.mjs` old line 265 | **Fixed** |
+| 4 | Wattage reported as **“not stated”** for both air fryers; temperature range, model numbers and warranty terms also reported unavailable. **All were on the listings.** | P01 “120 Volts/1700 Watts”, “200-450°F”; P03 “1000 Watts/120 Volts – RJ38-SQSS-8T”, “200-400°F”; P05 “1000°F heat”, “accurate within 1°F”, two-year assurance | **Fixed** — see FLG-012 |
+| 5 | Report card computed `[object Object]` for a P05 heat limit after the fix above — caught in local render, not shipped. | `heatLimitF` is an object, template treated it as scalar | **Fixed** |
+| 6 | Default OG image pointed at **`og-default.png`**, which does not exist (the build writes `og-default.svg`). Every page without a product image advertised a 404 to social crawlers. | `core.mjs` line 167 old | **Fixed** |
+| 7 | Three **email capture forms** shipped and could not subscribe anyone. The page said “nothing is transmitted”, so the forms collected nothing by design — but a buyer reads a submit button as a promise. | `content-shop.mjs` three `data-capture` forms | **Replaced** — forms removed; a live RSS feed is the follow path |
+| 8 | `/methods/` claimed “four rules”, one of which said wattage was blank. Both were wrong after the fix. | `content-oversight.mjs` | **Fixed** — five rules, corrected |
+| 9 | A “Sorted worst-first” caption on the review-theme table while the table was unsorted. | Rendered `reviews/chef-iq-sense-gen3.html` | **Fixed** — sorted by positive share ascending |
+| 10 | See also **FLG-013**: three listings contradict themselves (preset count 24 vs 25; wattage 1000 W vs 1700 W; battery 50 h vs 70 h; accessories 6 vs 7). | Listing pages, verbatim | **Published with both values**, not resolved |
+
+### 8.3 Verification that was run
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Build | `npm run build` | 29 files, 30 sitemap routes, 7 feed items |
+| Content rules | `node tools/verify.mjs` | **PASS** — R1–R11 (R11 added this cycle) |
+| Link + XML check | `node tools/linkcheck.mjs` | **PASS** — 51 files crawled, 0 broken links, XML valid |
+| HTTP smoke at `/WinB/` | `BASE=… node tools/smoke.mjs` | **PASS** — every page + asset 200 (seeds extended to include `/suggestions/`) |
+| R11 is not vacuous | sabotaged `mentioned` → 3 failures reported | Confirmed it detects all three contradictions, then restored |
+
+### 8.4 Deliberate non-changes
+
+* **No price or star rating is published**, although every one of the five listings displayed both.
+  Participation Requirements §2(b) allow prices only when Amazon serves the link carrying that data
+  or the data comes via Creators API / PA API. This static build has neither. Rule R3 enforces it.
+* **The supplied `link.amazon` short links are still not used as money links.** Their compliance
+  status remains unresolved (FLG-003); no claim is made either way.
+* **Intended ASINs remain blank** (FLG-002). Nothing in the supplied material states them and they
+  are kept strictly separate from the observed redirects.
+* **The superseded site generations are untouched.** `docs/`, `legacy-docs-site/`, `alt-site/`,
+  `archive/`, `products/`, `verification/`, `compliance/`, `platform/`, `scripts/`, `audit/`, `data/`
+  were not edited. `tools/build.cjs` and its `/register/` tree were not edited.
+

@@ -477,7 +477,13 @@ function themeBlock(p) {
       <p style="margin:0">This listing did not display Amazon's review-theme summary on the check date, so there is no
       theme count to report. That is an absence of evidence, not a clean record — read the reviews yourself before ordering.</p></div>`;
   }
-  const rows = e.themes
+  const sorted = [...e.themes].sort((a, b) => {
+    // worst-first: lowest share of positive mentions at the top
+    const ra = a.mentions ? a.positive / a.mentions : 1;
+    const rb = b.mentions ? b.positive / b.mentions : 1;
+    return ra - rb;
+  });
+  const rows = sorted
     .map((t) => {
       const pct = t.mentions ? Math.round((t.positive / t.mentions) * 100) : null;
       const cls = pct === null ? '' : pct >= 70 ? 'good' : pct >= 45 ? 'mid' : 'bad';
