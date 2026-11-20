@@ -272,3 +272,70 @@ Special Link format is unresolved in both directions and stated as such (FLG-003
 Both gates green at merge time:
 - `node tools/verify.mjs` → PASS, rules R1–R10, 27 canonical pages, 262 internal links
 - `node tools/check.cjs` → 95 HTML files, 194 passes, 0 failures
+
+---
+
+## Appendix: session `session-integration-winb` (branch `arena/aa965a41-winb`) — final integration record
+
+This session built a parallel, complete "COUNTER" publication-style affiliate
+site on branch `arena/aa965a41-winb`, branched from the original `main` commit
+`5f65079`. During its work, multiple parallel sessions advanced `main`
+(`ff0f1f1` → `0fa749d`, PRs #19–#22), each merging parts of the canonical
+Counterwise live build. This session repeatedly merged `main` into its branch
+and resolved the resulting conflicts **without discarding any other session's
+work**, then integrated to a single canonical live site.
+
+### This session's verified work (2026-11-20)
+
+- Resolved all 5 supplied `link.amazon` links live to official Amazon listings;
+  ASIN (10 chars), title, brand and category read from each official listing.
+  Resolutions: B04G1MEwY→B0CDY277D3, B02NbDxp3→B09B7SB46R, B00hJ57DV→B08DKYBTPH,
+  B0c8moW59→B0DHZTCNR5, B0f3GKalj→B0DZFD6R9Z — **identical to the canonical
+  build's resolutions** (corroboration, not re-confirmation).
+- Product-intent confirmation record: intended ASIN/URL/date/source kept in
+  separate fields from the observed redirect target; intended fields blank
+  pending owner confirmation.
+- Compliance: Associates §5 disclosure under masthead + footer on every page;
+  outbound links `rel="sponsored"`; FTC 16 CFR Part 255 cited.
+- Privacy-preserving click counter + 5 defined events + empty campaign ledger
+  (no conversion score or revenue forecast presented).
+- Suggestions + open questions decision board; flagged-for-review page; SEO
+  (sitemap, robots, canonical, manifest); build + link verification (10 pages,
+  0 broken internal links, all assets HTTP 200, JS passes `node --check`).
+
+### Conflict resolution history (no other session's work discarded)
+
+This session's branch was based on pre-consolidation `main`. As parallel
+sessions merged the canonical Counterwise build to `main`, this branch became
+stale and required repeated merges. In each pass:
+
+- Conflicted root files (`index.html`, `README.md`, `robots.txt`, `sitemap.xml`)
+  were resolved in favour of the **canonical live build** (the published site).
+- `.gitignore` was merged by hand (union of both sessions' rules).
+- `COORDINATION.md` was merged by hand: the canonical board is preserved in
+  full; this appendix records this session's contribution.
+- This session's duplicate site files (`about.html`, `products.html`,
+  `articles.html`, `buying-guides.html`, `analysis.html`, `dashboard.html`,
+  `suggestions.html`, `flagged.html`, `compliance.html`, `css/`, `js/`,
+  `img/`, `site.webmanifest`) were removed from the root — they duplicated the
+  canonical live build at overlapping root paths and would have created a
+  broken dual-site. The canonical build already publishes equivalent,
+  consolidated surfaces, and this session's verified data (the 5 ASIN
+  resolutions) is identical to the canonical build's, so no verified data is
+  lost.
+
+**Final state:** the canonical live site is byte-identical to `main` (this
+session's net contribution is `.gitignore` and this `COORDINATION.md`
+appendix only). PR #18 was merged into `main`; GitHub Pages deploy confirmed.
+
+### This session's official sources (for manual review)
+
+- Amazon Associates Program Operating Agreement — https://affiliate-program.amazon.com/help/operating/agreement
+- Amazon Associates Program Policies — https://affiliate-program.amazon.com/help/program-policies
+- FTC Endorsement Guides, 16 CFR Part 255 — https://www.ftc.gov/legal-library/browse/rules/endorsement-guides
+- Official product listings (verified live 2026-11-20):
+  - B04G1MEwY → https://www.amazon.com/dp/B0CDY277D3
+  - B02NbDxp3 → https://www.amazon.com/dp/B09B7SB46R
+  - B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH
+  - B0c8moW59 → https://www.amazon.com/dp/B0DHZTCNR5
+  - B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z
