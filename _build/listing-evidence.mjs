@@ -13,7 +13,7 @@
 // TWO RULES THIS FILE EXISTS TO KEEP:
 //   1. A spec that the listing *does* state must not be reported as "not stated".
 //      The previous build did exactly that for wattage and temperature range on
-//      three products. That is the defect this file fixes (FLG-012).
+//      three products. That is the defect this file fixes (FLG-014).
 //   2. Where a listing contradicts itself, BOTH values are recorded and the
 //      contradiction is published. It is never silently resolved (FLG-013).
 //

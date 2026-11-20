@@ -58,7 +58,7 @@
     <h1>Flagged for Review</h1>
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
-    <span class="badge red">4 high</span>
+    <span class="badge red">5 high</span>
     <span class="badge amber">8 medium</span>
     <span class="badge plain">1 low</span>
   </div>
@@ -255,8 +255,29 @@
     <div><p class="mt-0" style="margin:0">An earlier session published five /go/ pages that forward to Amazon. Each carried &lt;meta name=&quot;robots&quot; content=&quot;noindex,nofollow&quot;&gt;. A page that search engines cannot index, which immediately forwards a visitor to an affiliate destination, is the pattern Google names as a sneaky redirect. The pages were otherwise well built — disclosure, tagged link, visible destination — so the defect was one meta tag, not the concept.</p></div>
     <div><dt>Evidence</dt><dd><ul><li>Before: go/chefman-6-quart-dual-basket.html contained content=&quot;noindex,nofollow&quot;.</li><li>After: the same page carries content=&quot;index,follow&quot;, the Associates statement, a tagged rel=&quot;sponsored&quot; destination link, and is listed in sitemap.xml.</li><li>Enforced from now on by rule R10 in tools/verify.mjs.</li></ul></dd></div>
     <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
-    <div><dt>What the owner needs to do</dt><dd>Fixed by tools/consolidate.mjs and enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.</dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-012). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing now. Was a real search-policy risk.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-012" open>
+  <summary>
+    <span class="id">FLG-012</span>
+    <span class="ft">
+      <h3>Fix recorded in a script CI does not run; two brands on the live site</h3>
+      <span class="meta">
+        <span class="badge red">High severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">Two problems found on re-verification. (1) The FLG-010 fix lived in tools/consolidate.mjs, which is part of npm run build but not of the CI pipeline in .github/workflows/pages.yml, so the deployed /go/ pages still carried noindex,nofollow. (2) The /go/ pages are titled and branded “The Crisp Kitchen” while the rest of the site, the README and the sitemap use “Counterwise”. Two names on one publication is an unresolved identity question for the owner.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>Before this build: go/*.html on main contained content=&quot;noindex,nofollow&quot;.</li><li>After this build: tools/build.cjs writes content=&quot;index,follow&quot; and CI regenerates the same bytes (drift check passes).</li><li>Brand split: go/chefman-6-quart-dual-basket.html &lt;title&gt; reads “Leaving for Amazon — Chefman 6-Quart Dual Basket | The Crisp Kitchen”; index.html &lt;title&gt; reads “Counterwise — kitchen gear chosen by question, not by hype”.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed: /go/ generator corrected. Open for owner: choose one brand name, then the build will be changed to match (not decided in this session).</dd></div>
+    <div><dt>Blocks</dt><dd>Brand decision blocks a single consistent identity; not blocking publication.</dd></div>
   </div>
 </details>
 
@@ -302,9 +323,9 @@
   </div>
 </details>
 
-<details class="flag" id="FLG-012" open>
+<details class="flag" id="FLG-014" open>
   <summary>
-    <span class="id">FLG-012</span>
+    <span class="id">FLG-014</span>
     <span class="ft">
       <h3>Three product pages reported stated specifications as &quot;not stated&quot;</h3>
       <span class="meta">

@@ -537,7 +537,7 @@ ${pageHead({
 
     <h2>Rule four: what cannot be sourced is blank, and labelled</h2>
     <p>Counter footprint is blank for all three air fryers. External dimensions for the two thermometers are blank. Probe length is blank. In each case the listing did not state it in the data this desk could read, and guessing a plausible range is the exact failure mode this project was set up to avoid. A blank with “not stated” beside it is a fact; a plausible number would be a fabrication.</p>
-    <p>The reverse rule applies too, and an earlier version of this page broke it. Wattage, temperature range, model numbers and warranty terms <em>were</em> published on the listings, and the site was reporting them as “not stated”. That was fixed on 2026-11-20: those values are now printed, transcribed from the listing, with the phrase they came from. See <a href="/flagged/#FLG-012">FLG-012</a>. A specification only counts as missing when the listing is actually silent.</p>
+    <p>The reverse rule applies too, and an earlier version of this page broke it. Wattage, temperature range, model numbers and warranty terms <em>were</em> published on the listings, and the site was reporting them as “not stated”. That was fixed on 2026-11-20: those values are now printed, transcribed from the listing, with the phrase they came from. See <a href="/flagged/#FLG-014">FLG-014</a>. A specification only counts as missing when the listing is actually silent.</p>
     <p>Where a single listing states two different values for the same thing, both are printed and the disagreement is flagged rather than quietly resolved — see <a href="/flagged/#FLG-013">FLG-013</a>.</p>
     <p>Every genuine blank is collected on the <a href="/flagged/">Flagged for Review</a> page with the action that would resolve it.</p>
 
@@ -695,7 +695,7 @@ ${pageHead({
   <div class="wrap-narrow prose">
     <h2>In one paragraph</h2>
     <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure above the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. This cycle moved the site from a specification summary to a buying decision: the front page now opens with five buyer situations rather than a methodology statement, the comparison table carries stated wattage, temperature range and the weakest review theme per product, and each product page reports what repeat buyers complain about using the counts Amazon itself publishes.</p>
-    <p>Two things were also fixed that mattered more than any addition. The site had been reporting published specifications as “not stated” — wattage, temperature range and model numbers were all on the listings (FLG-012). And three listings contradict themselves on their own figures; both values are now printed rather than one being quietly chosen (FLG-013).</p>
+    <p>Two things were also fixed that mattered more than any addition. The site had been reporting published specifications as “not stated” — wattage, temperature range and model numbers were all on the listings (FLG-014). And three listings contradict themselves on their own figures; both values are now printed rather than one being quietly chosen (FLG-013).</p>
 
     <h2>What the five supplied links turned out to be</h2>
     ${table({
