@@ -680,3 +680,42 @@ than silently renumbered, because `tools/verify.mjs` is owned by another session
 links are the enrolled Special Links — an owner check in Associates Central, ten minutes),
 FLG-007 (analytics endpoint not deployed, so nothing is measured), Q-05/Q-07 (who owns the site
 and where corrections go). These are published on `/flagged/` and do not block the merge.
+
+---
+
+### S11–S14 final result (session `27fcc0b2`) — merged and deployed
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#36** — https://github.com/sassnarep3-star/WinB/pull/36 |
+| Merge | **Merged** to `main` with `--merge`, merge commit `cf51332`, 2026-11-20T06:15Z |
+| CI on the PR | `Build and verify` — **pass** (18s) after one re-run. The first attempt was **cancelled by concurrency**, not a real failure: other sessions' runs were queued against the same `pages` group. |
+| CI on `main` | `Build, verify and deploy to GitHub Pages` — **success**, all steps including the new R11–R14 gate and the drift check |
+| Pages build | **built** — `pages/builds/latest` reports status `built` for commit `cf51332` |
+| Deploy | One transient **502** from GitHub (`Failed to create deployment … is githubstatus.com reporting a Pages outage?`). Not a content failure: `main` rebuilt from a clean checkout regenerates **zero** files, and both gates pass. A second successful deployment followed, and the served root initially lagged behind due to edge caching. An empty commit (`9798831`) forced a fresh build of the same tree; both deploy workflows then reported **success**. |
+| Live verification | Root page, all five product pages, both category hubs, `/suggestions/`, `/flagged/`, `/guides/`, `/compare/` all fetched from the live URL and confirmed serving the rebuilt pages with the new photographs and `og:image` = `assets/img/hero-new.jpg` |
+
+**One thing to know when reading the live site in a browser.** GitHub Pages serves project
+pages through a CDN with a short edge cache. Immediately after a merge, a request without a
+cache-busting query can still return the previous build — that is what happened here, and it
+resolved on its own. If a page looks stale, append `?v=2`.
+
+**Net change to the published site from this session:** a magazine front page with a real
+photograph, a five-product shortlist ribbon, verdict-first product pages, photographic category
+hubs, one navigation group with all oversight surfaces in the footer, nine editorial
+photographs, a fixed and now-enforced `og:image`, and a new four-rule gate (`tools/gate.mjs`,
+R11–R14) wired into CI.
+
+**Net change to the facts on the site:** none. Same five ASINs, same five resolutions, same
+sources, same disclosure, same blanks. No price, rating, sales rank, traffic figure or hands-on
+claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
+
+**What still needs the owner (unchanged, published on `/flagged/`):**
+
+1. Open Associates Central and confirm whether the five supplied short links are the enrolled
+   Special Links for `shopnow047c-20`. Ten minutes. Closes FLG-001 / FLG-003 — the only open
+   item that could invalidate the rest of the build.
+2. Deploy the analytics collector (`analytics/`) and set `ENDPOINT` in `assets/js/site.js`.
+   Closes FLG-007 and makes topic selection an evidence question.
+3. Decide who owns the site and where corrections go (Q-05 / Q-07), which unblocks the contact
+   route and the email list.
