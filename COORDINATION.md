@@ -838,3 +838,22 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
 **Status:** S15 done. Integration (PR → merge → Pages confirm) follows in this session.
 
 **Rebase note (2026-11-20, session `30073780`):** `origin/main` advanced to `33eaf81` (coord record for PR #36) while S15 was in progress. Rebased `arena/30073780-winb` onto `origin/main`. One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` S11–S14 final result, followed by the S15 appendix. No other session's work discarded. All other S15 files applied cleanly. Gates re-run after rebase: build/verify/gate/check/links/smoke all green (see S15 completion record above).
+## 9. Current cycle — session `arena-9c38041d`
+
+Branch: `arena/9c38041d-winb`, branched from `main` at `9798831` (2026-11-20).
+No other session is active, so this session acts as content, verification **and**
+final integration in sequence. Every scope below is claimed by this session;
+none of them overlaps a `done` scope from an earlier cycle.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| V-1 | Independent official-source verification pass; record each source read; flag irregularities with source links | `arena-9c38041d` | All readable content + data files (read-only); `/flagged/`, `COORDINATION.md` | in progress |
+| V-2 | Add reviewable trendy topic suggestions to the decision queue — choose before implementing | `arena-9c38041d` | `_build/decision-queue.mjs`, `/suggestions/`, `/decisions/` | in progress |
+| V-3 | Refresh executive summary with this cycle's verification record | `arena-9c38041d` | `EXECUTIVE-SUMMARY.md`, `/executive-summary/` | in progress |
+| V-4 | Build, verify, link-check, PR to `main`, merge, confirm Pages deploy, record result | `arena-9c38041d` | repo root, `.github/`, generated HTML | in progress |
+
+**Ground rules for this cycle.** No session input is requested: every change below is made
+on this branch, verified against an official source where one exists, left blank and flagged
+where it cannot be confirmed, gated by `npm run check` before merge, and published only after
+Pages reports `built`. Irregularities do not block the merge; they are published on `/flagged/`
+with source links.
