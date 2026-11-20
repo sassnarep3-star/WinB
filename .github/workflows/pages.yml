@@ -2,6 +2,7 @@ name: Validate static site (Pages serves main / from the repository root)
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
@@ -13,8 +14,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
       - name: Rebuild and validate the site (fails on any broken rule or link)
         run: python3 scripts/build.py
+
       - name: Committed site must match the build
         run: |
           if [ -n "$(git status --porcelain -- index.html guides assets feed.xml sitemap.xml robots.txt .nojekyll '*.html')" ]; then
@@ -22,3 +25,6 @@ jobs:
             git status --porcelain -- index.html guides assets feed.xml sitemap.xml robots.txt .nojekyll '*.html'
             exit 1
           fi
+
+      - name: Independent compliance audit of published HTML
+        run: python3 audit/check_html.py
