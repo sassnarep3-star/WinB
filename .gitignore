@@ -1,0 +1,19 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+.cache/
+
+# Keep docs/ (the published site) and .github/ tracked; ignore local scratch only.
+/scratch/
+*.local
