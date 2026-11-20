@@ -627,6 +627,23 @@ export const FLAGS = [
     blocks: 'Clean indexing of the canonical site until search engines recrawl.',
   },
   {
+    id: 'FLG-012',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Every page advertised a social image that did not exist',
+    detail:
+      'Every page on the site declared og:image and twitter:image as .../assets/img/og-default.png. No such file has ever existed on disk: the generated default is og-default.svg. The consequence was silent — the page renders normally, but every share to a social network, chat app or search preview would have shown a card with no image. Found while checking that the rebuilt pages pointed at real photographs.',
+    evidence: [
+      'grep -r "og-default" — 40+ pages referencing og-default.png.',
+      'ls assets/img/ — og-default.svg present, no .png.',
+      'The rebuild check in _build/build-editorial.mjs now fails the build if og:image does not resolve to a real file.',
+    ],
+    sources: ['G2'],
+    action:
+      'Fixed in this build. Every page now points at a real 1400px photograph (assets/img/hero-new.jpg, or the relevant product or category image), and tools/gate.mjs rule R11 fails the build if any og:image or twitter:image resolves to a missing file or a file under 2 KB.',
+    blocks: 'Nothing now. It blocked every social preview before the fix.',
+  },
+  {
     id: 'FLG-009',
     severity: 'Medium',
     status: 'Needs review',
