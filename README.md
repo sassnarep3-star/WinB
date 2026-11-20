@@ -10,7 +10,7 @@ two thermometers. Built for the WinB repository and published with GitHub Pages.
 
 ## What this is
 
-A shop, not an audit. Five product pages, two category hubs, a comparison table, twelve
+A shop, not an audit. Five product pages, two category hubs, a comparison table, sixteen
 question-shaped guides, three printable worksheets, a 30-second chooser, and one RSS feed.
 The compliance machinery is real but it lives under the floor — the front page leads with
 products and decision tools, and every register is one click away in the footer.
