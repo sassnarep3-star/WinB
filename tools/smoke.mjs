@@ -27,7 +27,7 @@ const seeds = [
   `${BASE}/reviews/chef-iq-sense-gen3.html`,
   `${BASE}/guides/basket-or-oven.html`, `${BASE}/guides/capacity-checklist.html`,
   `${BASE}/guides/cleanup-counter.html`, `${BASE}/guides/multifunction.html`,
-  `${BASE}/guides/temperature-safety.html`,
+  `${BASE}/guides/temperature-safety.html`, `${BASE}/guides/ice-test-thermometer.html`,
 ];
 
 for (const s of seeds) {

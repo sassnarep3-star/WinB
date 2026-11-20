@@ -619,7 +619,7 @@ export const FLAGS = [
     ],
     sources: ['G2', 'A2'],
     action:
-      'Fixed by tools/consolidate.mjs and enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
+      'Fixed by tools/consolidate.mjs and enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex. Status note (2026-11-20, session arena-b36a7b54): the fix lives in the consolidate step of `npm run build`; the CI generator (`tools/build.cjs`) still emits `noindex,nofollow` for these pages, so the files committed for deploy carry noindex until that generator is changed. Recorded in COORDINATION.md §9; an open pull request (#24) targets exactly this generator fix. The pages remain fully disclosed and tagged either way, and R10 still blocks meta-refresh hiding.',
     blocks: 'Nothing now. Was a real search-policy risk.',
   },
   {

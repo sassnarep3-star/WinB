@@ -468,3 +468,28 @@ calibrated" statement are quoted on the new guide; recorded as source **U2**.
 pages, 36 Amazon links, 307 internal links — **PASS R1–R10** (it caught one defect during development: an
 untagged Amazon reference link in the new verification log; fixed by tagging it, which is also what A2 §2(b)
 requires of every link) · `node tools/linkcheck.mjs` → 51 files crawled, 0 broken links, XML valid.
+
+### S14 integration note — a defect found while replicating the CI sequence, and how it was handled (no collision)
+
+Replicating CI's exact generate → drift-check sequence locally (`node _build/build.mjs && node _build/make-images.mjs
+&& node tools/build.cjs && node tools/noindex.cjs`) exposed a discrepancy between the two build systems:
+
+- `npm run build` runs `tools/consolidate.mjs`, which applies the FLG-010 fix (the five `/go/` pages become
+  `index,follow`) and retires the superseded trees with noindex + banner.
+- CI runs the four commands above **without** `consolidate.mjs`, so its regenerated output — which is what the
+  drift check compares against and what actually deploys — carries `/go/` pages as `noindex,nofollow` and the
+  register trees as the Crisp Kitchen generator wrote them. `origin/main` is committed in exactly that state,
+  which is why CI is green there.
+
+This branch therefore commits the CI-sequence output (19 files re-aligned to it), keeping the drift check green,
+and records the substance honestly rather than silently overriding another session's scope:
+
+| Fact | Where it is stated |
+| --- | --- |
+| The FLG-010 fix exists in-repo but reaches the deployed pages only after the CI generator is changed | FLG-010 status note on `/flagged/`; COORDINATION.md §9 |
+| An open PR (#24, `arena/2139de5f-winb`) targets exactly that generator change | this table |
+| The `/go/` pages remain disclosed, tagged, sponsored and meta-refresh-free either way; R10 blocks the sneaky-redirect pattern (meta refresh / CSP hiding), and its check is narrower than its name in one respect: a plain robots noindex on a fully-disclosed exit page is not failed | `tools/verify.mjs` R10 implementation |
+
+Nothing in `tools/build.cjs` or `.github/` was edited by this session — that scope belongs to PR #24 / #25.
+No other session's work was discarded; the only files re-aligned were generated outputs reverted to their
+generator's committed state.
