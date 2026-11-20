@@ -11,8 +11,8 @@ Shared task board for every session that works on this repository. Each session 
 | Privacy-preserving outbound-click counter + self-hosted analytics client (5 events) | done | `arena/97b55f4f-winb` | `assets/counterwise.js`, wired into `index.html`, guides, category pages, review page |
 | Verification hardening: source links on every table row, unverified flags, executive summary | done | `arena/97b55f4f-winb` | `review/index.html`, `sitemap.xml`, `feed.xml`, `README.md` |
 | Integration: commit, push, PR to main, merge, confirm GitHub Pages deploy, record result | done | `arena/97b55f4f-winb` | all files |
-| Verified product register (5 rows), sourced build, flags, questions, suggestions, ledger, validation | done | `arena/9b3682f1-winb` | `data/`, `scripts/build.py`, `docs/`, `archive/`, `COORDINATION.md`, `README.md`, `.github/workflows/pages.yml` |
-| Integration of all session outputs into one published site; archive of superseded root site | in progress | `arena/9b3682f1-winb` | `docs/`, `archive/`, `.github/workflows/pages.yml`, `COORDINATION.md`, `README.md` |
+| Verified product register (5 rows), sourced build, flags, questions, suggestions, ledger, validation | done | `arena/9b3682f1-winb` | `data/`, `scripts/build.py`, generated site at repo root, `archive/`, `COORDINATION.md`, `README.md`, `.github/workflows/pages.yml` |
+| Integration of all session outputs into one published site; archive of superseded root site | in progress | `arena/9b3682f1-winb` | repo-root site, `archive/`, `.github/workflows/pages.yml`, `COORDINATION.md`, `README.md` |
 
 ## Session log
 
@@ -24,13 +24,13 @@ Shared task board for every session that works on this repository. Each session 
 - Category dashboards, reader capture section, author bylines, and CSS added. Analytics client wired to all pages. Sitemap updated with category pages.
 - This session works on branch `arena/97b55f4f-winb` only (fixed by Arena). No branch switching or separate worktree.
 
-- 2026-11-20 — Session `arena/9b3682f1-winb` merged `main` (`63667cc`) into its branch. The superseded root site is preserved, unchanged, in `archive/counterwise-root-site/`. The live site is now built to `docs/` and deployed by `.github/workflows/pages.yml` (publish path changed from the repository root to `docs/`). Analytics client `assets/counterwise.js` is carried into the live site unchanged (review mode, no endpoint).
+- 2026-11-20 — Session `arena/9b3682f1-winb` merged `main` (`63667cc`) into its branch. The superseded root site is preserved, unchanged, in `archive/counterwise-root-site/`. The generated site is written to the repository root, which Pages serves (`main` `/`, legacy). `.github/workflows/pages.yml` validates it. Analytics client `assets/counterwise.js` is carried into the live site unchanged (review mode, no endpoint).
 
 ## Session arena-9b3682f1 — protocol note
 
 - The request asks for `session-<id>/<task>` branches. Arena fixes this session to **one branch**, `arena/9b3682f1-winb`. All tasks, claims, and the final merge are recorded on that branch. Logged as **FLG-11** in `data/flags.json`.
 - Status values: `unclaimed`, `in progress`, `done`, `needs review`, `blocked`. A `needs review` item is published on the Flagged for Review page and does not block anything.
-- Only the integration task changes shared outputs (`docs/`, `README.md`, navigation). Here, this single session did all tasks in order and then ran the integration step.
+- Only the integration task changes shared outputs (root site files, `README.md`, navigation). Here, this single session did all tasks in order and then ran the integration step.
 - No other session's claims were present when this session started (the repository held only `README.md`).
 
 ## Task board
@@ -40,11 +40,11 @@ Shared task board for every session that works on this repository. Each session 
 | T-01 | Repo review; irregularities | done | arena-9b3682f1 | `README.md`, `data/flags.json` | FLG-10, FLG-11 raised. |
 | T-02 | Source verification (Amazon, FTC, eCFR, Google, GitHub) | done | arena-9b3682f1 | `data/sources.json` | S-01 to S-10. S-03 and S-10 not verified. |
 | T-03 | Product register (5 rows) | done | arena-9b3682f1 | `data/products.json`, `data/flags.json`, `data/questions.json` | Intended ASIN, price, commission left blank and flagged. |
-| T-04 | Site: landing page, category pages, guides, register, analysis, questions, suggestions, flagged, sources, disclosure, executive summary | done | arena-9b3682f1 | `scripts/build.py`, `docs/` | Generated from `data/`. Validation passes. |
+| T-04 | Site: landing page, category pages, guides, register, analysis, questions, suggestions, flagged, sources, disclosure, executive summary | done | arena-9b3682f1 | `scripts/build.py`, repo-root site | Generated from `data/`. Validation passes. |
 | T-05 | Outbound-click counter and self-hosted analytics endpoint (5 events) | blocked | — | none | Needs a server and the five event definitions. FLG-05, FLG-06. Options on Suggestions S-02. |
 | T-06 | Special Link test per product (Associates workflow) | blocked | — | none | Needs a logged-in Associates account. FLG-04. Blocks scaling. |
 | T-07 | Commission schedule capture | blocked | — | none | Schedule page requires sign-in. FLG-07. |
-| T-08 | Guides: cadence, RSS, sitemap | done (cadence pending) | arena-9b3682f1 | `docs/feed.xml`, `docs/sitemap.xml` | Cadence is a choice: Suggestions S-05. |
+| T-08 | Guides: cadence, RSS, sitemap | done (cadence pending) | arena-9b3682f1 | `feed.xml`, `sitemap.xml` | Cadence is a choice: Suggestions S-05. |
 | T-09 | Search Console verification | blocked | — | none | Needs the site owner's account after deploy. FLG-13. |
 | T-10 | Integration: merge, re-verify combined data, build, no broken links, PR, merge, Pages deploy | in progress | arena-9b3682f1 | `COORDINATION.md` | See Integration log below. |
 
@@ -52,7 +52,7 @@ Shared task board for every session that works on this repository. Each session 
 
 | Session | Task | Scope (files) | Claimed | Pushed commit |
 |---|---|---|---|---|
-| arena-9b3682f1 | T-01 to T-04, T-08 | `data/`, `scripts/`, `docs/`, `README.md`, `COORDINATION.md` | 2026-11-20 | see git log on branch |
+| arena-9b3682f1 | T-01 to T-04, T-08 | `data/`, `scripts/`, root site files, `README.md`, `COORDINATION.md` | 2026-11-20 | see git log on branch |
 | arena-9b3682f1 | T-05, T-06, T-07, T-09 | none (blocked, nothing changed) | 2026-11-20 | — |
 
 ## Verification log (2026-11-20)
@@ -69,7 +69,7 @@ Every value in the register was checked against an official source. Blank values
 | Cookie and privacy duties | Program Policies s.3(e) (S-02) | Read. Site sets no cookies (verified by build check). |
 | FTC disclosure standard | Disclosures 101 (S-04); 16 CFR 255.0(f) (S-05) | Read and applied. |
 | rel="sponsored" | Google Search Central, updated 2025-12-10 (S-06) | Read and applied to every Amazon link (build check). |
-| Static publishing | GitHub Docs, Pages publishing sources (S-07) | Read. Publish from `main` `/docs`. |
+| Static publishing | GitHub Docs, Pages publishing sources (S-07) | Read. Pages source here is legacy `main` `/` (token cannot change it, 403). Site generated at repo root. |
 | Commission schedule | `affiliate-program.amazon.com/help/operating/schedule` (S-03) | Not verified. Redirected to sign-in. |
 | ASIN definition page | Amazon official help | Not verified. Only third-party glossaries found (S-10). |
 

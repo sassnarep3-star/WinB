@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build the static site in docs/ from data/*.json, then validate it.
+"""Build the static site at the repository root from data/*.json, then validate it.
 
 Usage:  python3 scripts/build.py
 Exit code 1 if any validation check fails (the site must not be published broken).
 
 Only the Python standard library is used. The output is plain static HTML/CSS
-for GitHub Pages (publishing source: main branch, /docs folder).
+for GitHub Pages (publishing source: main branch, / root).
 """
 import csv
 import datetime
@@ -19,7 +19,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
-OUT = ROOT / "docs"
+OUT = ROOT  # served by GitHub Pages (legacy source: main, path /)
 SITE_URL = "https://sassnarep3-star.github.io/WinB/"
 BUILD_DATE = "2026-11-20"
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
@@ -360,8 +360,13 @@ def build():
     suggestions = load("suggestions.json")
     pmap = product_map(products)
 
-    if OUT.exists():
-        shutil.rmtree(OUT)
+    # Remove only files this generator creates. Never remove the repo root or .git.
+    for f in list(OUT.glob("*.html")) + [OUT / "feed.xml", OUT / "sitemap.xml", OUT / "robots.txt", OUT / ".nojekyll"]:
+        if f.is_file():
+            f.unlink()
+    for d in [OUT / "guides", OUT / "assets"]:
+        if d.is_dir():
+            shutil.rmtree(d)
     (OUT / "assets").mkdir(parents=True)
     (OUT / "guides").mkdir()
     (OUT / "assets" / "style.css").write_text(CSS.strip() + "\n", encoding="utf-8")
@@ -710,7 +715,7 @@ def main():
     pages = build()
     products = load("products.json")["products"]
     errors = validate(pages, products)
-    print(f"Built {len(pages)} pages into {OUT.relative_to(ROOT)}/")
+    print(f"Built {len(pages)} pages into the repository root (served by Pages)")
     if errors:
         print("VALIDATION FAILED:")
         for e in errors:
