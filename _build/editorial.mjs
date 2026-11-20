@@ -146,7 +146,7 @@ const guideCard = (g) => `
 <a class="card" href="/${g.path.replace(/\.html$/, '')}.html">
   <span class="num">${esc(g.kicker)} · ${esc(g.readingTime)} read</span>
   <h3>${esc(g.title)}</h3>
-  <p>${esc(g.summary.split('. ')[0].replace(/\.$/, ''))}.</p>
+  <p>${esc(g.card || g.summary)}</p>
   <div class="foot"><span>Guide</span><span class="read">Open <span class="arw">→</span></span></div>
 </a>`;
 
@@ -540,7 +540,7 @@ export function categoryPage(slug) {
     ${guideCards(
       slug === 'air-fryers'
         ? ALL_GUIDES.filter((g) => ['basket-or-oven', 'capacity-checklist', 'cleanup-counter', 'game-day-wings', 'air-fryer-leftovers'].includes(g.slug))
-        : ALL_GUIDES.filter((g) => ['temperature-safety', 'multifunction', 'holiday-roast-thermometer', 'air-fryer-leftovers'].includes(g.slug))
+        : ALL_GUIDES.filter((g) => ['temperature-safety', 'multifunction', 'ice-test-thermometer', 'holiday-roast-thermometer', 'air-fryer-leftovers'].includes(g.slug))
     )}
   </div>
 </section>

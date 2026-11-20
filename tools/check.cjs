@@ -95,6 +95,8 @@ const SIBLING_GUIDES = [
   '/guides/holiday-roast-thermometer.html',
   '/guides/game-day-wings.html',
   '/guides/air-fryer-leftovers.html',
+  /* Added 2026-11-20 by session arena-b36a7b54 (S15): the ice-test calibration guide. */
+  '/guides/ice-test-thermometer.html',
   /* Added 2026-11-20 by session 15e30bda (S13): three winter seasonal guides.
      Same reasoning as the rows above: published by the editorial build from
      _build/data.mjs GUIDES, audited by tools/verify.mjs (R1-R11) and
