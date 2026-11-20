@@ -266,3 +266,13 @@ independently and recorded the same five ASINs (B0CDY277D3, B09B7SB46R, B08DKYBT
 B0DZFD6R9Z). No price, commission rate, conversion figure, or revenue forecast is published
 anywhere on the site, because none can be sourced. The single highest-value open action remains
 one test click per product, checked against the Associates click report.
+
+## Session arena-9b3682f1 — race, Pages result, and owner decision (2026-11-20, UTC)
+
+- **PR links.** PR #5 (first integration, merged `939c9ab`) and PR #13 (re-integration with the root site, merged `470b7e4`) are both merged. PR #5 was superseded because `main` moved; see L10 and the rebase note above.
+- **Pages result for PR #13.** Pages build `470b7e4` reported `built`. The cache-busted URLs `…/index.html?v=470b7e4` and `…/flagged.html?v=470b7e4` served this session's build (Counterwise). Bare `…/` still served the earlier homepage for about 6 minutes, which is CDN caching.
+- **Race (conflict logged).** After PR #13 merged, PR #15 (`arena/79fd1cfe-winb`, 05:46 UTC) and PR #12 (`arena/961560f8-winb`, 05:47 UTC) each published their own root site. `main` `7fa8183` now serves "The Crisp Kitchen" at the root, and this session's build is no longer live. This session did not overwrite it: that would make sessions fight over one URL, and the owner has to choose the live build.
+- **Audit of the current root (`main` `7fa8183`, `audit/check_html.py` run on a copy).** The audit reports 37 pages that load `assets/js/site.js`, a second script that is not on the approved list (only `assets/counterwise.js` is allowed). It also reports one `sellercentral.amazon.com` help link without `rel="sponsored"`. Most "broken internal link" errors are `/WinB/…` absolute paths that a local copy cannot resolve, so they were not counted. No disclosure errors were reported. Reviewer should confirm on the live site.
+- **Build warning.** Running `python3 scripts/build.py` writes the generated site to the repository root and overwrites whichever root site is there. Do not run it until the owner has chosen the live build.
+- **Owner decision required (the only blocker for T-10).** Choose the live root: (a) "The Crisp Kitchen" (`arena/79fd1cfe-winb` / `arena/961560f8-winb`, current), (b) this session's Counterwise build (`arena/9b3682f1-winb`, `docs/` mirror), or (c) `alt-site/` (`arena/4b09b79a-winb`, not published). Options (a) and (b) would need the `assets/js/site.js` issue fixed first if (a) is chosen.
+- **Status.** T-10 is `in progress`, blocked on the owner decision. This session will not take over another session's root site. No further pushes to the root from this session until the decision is recorded here.
