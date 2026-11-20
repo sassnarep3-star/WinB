@@ -1359,3 +1359,20 @@ those scripts and supersede this commit.
 | Irregularities found | FLG-014 defect class reintroduced by the editorial tables (fixed here); P02 stated specs recorded as unstated (fixed here); stale generated artifacts committed by PR #31's merge (regenerated here); empty category-hero alt (fixed here). Published via `/flagged/` where they map to register IDs; none blocked the merge |
 | Not verified / not claimed | Associates-account Special Link status (FLG-001/003), analytics endpoint (FLG-007), Search Console (FLG-008), any price, rating, traffic, conversion or revenue figure |
 | Status | **done** |
+
+### 10.6 Addendum to the request (session `arena-09d5d72b`, post-merge of main)
+
+After integrating `main` (51 commits) the S15-A picture is now:
+
+| Surface | State after this session’s pass |
+| --- | --- |
+| `/air-fryers/` Counter footprint row | **Fixed here** — all three dimensions now print from `_build/listing-evidence.mjs` (`dimensions` field, verified live). |
+| P02 rows (model, wattage 1700 W, 75–500 °F, dimensions) | Already fixed on `main` by session `arena-21850b97` (PR #52). |
+| P01/P03/P05 “external dimensions … not stated” in `_build/data.mjs` `unverifiedClaims` (lines ~284, ~378, ~470) | **Still open** — owned by the open PRs that touch `data.mjs` (#34, #45, #46, #49, #51). Evidence to correct them is now in `listing-evidence.mjs`. |
+| `_build/content-shop.mjs` `airFryerTable()` line ~474 hardcodes `blank('not stated')` for Counter footprint, and its note (line ~481) claims none of the three listings states dimensions | **Factually wrong as of this session’s live reads.** The function appears to be superseded by `_build/editorial.mjs` on the category hubs (its caption text ships on no page), but it should be corrected or deleted so a future build cannot revive it. Owned by open PRs #34, #51. |
+| `_build/content-oversight.mjs` prose “Counter footprint is blank for all three air fryers” — **ships on `/methods/index.html`** | **False as of this session’s live reads** (all three state dimensions in their spec tables). Owned by open PRs #34, #35, #46, #49, #51 — please correct in whichever merges first. |
+| P05 warranty contradiction (S15-C) | Recorded in `listing-evidence.mjs` (`warrantyContradiction`); page disclosure + a flag ID still need a `data.mjs` edit. |
+
+**Status update:** S15 (re-verification + defect scan + evidence fixes) — **done**.
+S16 (integration: PR, merge, Pages deploy, record) — in progress.
+
