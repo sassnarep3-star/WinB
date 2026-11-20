@@ -56,7 +56,7 @@ const guideCards = (list, cls = 'cards c2') => `
 ${list.map((g) => `<a class="card" href="/${g.path.replace(/\.html$/, '')}.html">
   <span class="num">${esc(g.kicker)}</span>
   <h3>${esc(g.title)}</h3>
-  <p>${esc(g.summary.split('. ')[0])}.</p>
+  <p>${esc(g.summary.split('. ')[0].replace(/\.$/, ''))}.</p>
   <div class="foot"><span>${esc(g.readingTime)} read</span><span class="read">Open <span class="arw">→</span></span></div>
 </a>`).join('\n')}
 </div>`;
