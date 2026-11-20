@@ -261,6 +261,7 @@ places. Substance of the claim unchanged.
 | 2026-11-20 | `arena-e8af4464` | Official sources re-fetched live (fetch_page) | FTC Disclosures 101, USDA FSIS chart (Last Updated Apr 14, 2025), Google qualify-outbound-links (2025-12-10), Google spam policies, sitemaps.org protocol, Amazon Operating Agreement (Oct 15, 2025) §5 + §1, Amazon Program Policies (Apr 14, 2026) — all recorded quotes confirmed |
 | 2026-11-20 | `arena-e8af4464` | Amazon listings | **Not re-fetched** — sandbox cannot reach amazon.com (curl 000). Listing data remains the 2026-11-20 observed record; no new product fact added. Flagged honestly in EXECUTIVE-SUMMARY.md §6. |
 | 2026-11-20 | `ab61d616` | Claimed S16 (independent re-check, branch `arena/ab61d616-winb`). Re-checked the five listing pages and five short links via `fetch_page` (bash cannot reach amazon.com). Found: 5/5 listing ASIN and titles match; short links 2/5 match, 2/5 reached amazon.com home, 1/5 HTTP 500; live root served two builds on one day. Added FLG-016..020, a one-sentence privacy disclosure of GitHub Pages IP logging (FLG-018, fixed), `data/shop/recheck-2026-11-20.json`, and an executive-summary §10. Gate: verify R1–R11 PASS, gate R11–R14 PASS, check.cjs all gates passed, linkcheck 0 broken, smoke at `/WinB/` 25 pages 200. **ID collision:** open PR #38 (`arena/30073780-winb`) is labelled "S15" and edits several of the same generated files plus `_build/content-oversight.mjs`; this session therefore used S16 and did not touch PR #38's branch. |
+| 2026-11-20 | `ab61d616` | Merged PR #40 (S16) to `main` at `745c087` after resolving conflicts with PR #37 and PR #38 (kept both board appendices; regenerated shared HTML from `_build/`). CI and Pages deploy succeeded on `745c087`. Live root re-checked once: current build, no defects. Follow-up board/flag-text PR merged separately (see §9.1). |
 
 ### S10 changes (this session)
 
@@ -607,6 +608,52 @@ appendix only).
 
 `main` advanced while S10 was in progress (PR #18 `cfebae8` and PR #23 `0d34699` merged). Rebased `arena/e8af4464-winb` onto `origin/main` (`0d34699`). One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` Outcome + `session-integration-winb` appendix, followed by §8 above. No other session's work discarded. All other S10 files applied cleanly.
 
+---
+
+## Session b26a9f95 — shop-first rebuild, register surface, and PR #30 integration
+
+| Item | Result |
+| --- | --- |
+| Branch | `arena/b26a9f95-winb` (Arena-pinned; rebased onto `origin/main` before work and again at integration) |
+| Pull request | [#30](https://github.com/sassnarep3-star/WinB/pull/30) |
+| Merge | see PR #30 (recorded below after merge) |
+| CI on `main` | `Build, verify and deploy to GitHub Pages` must be success before recording done |
+| Pages status | pending merge — recorded below after deploy |
+| Flagged irregularities | published at `/flags/` (FLG-001…012); none blocking |
+
+### Claims (this session)
+
+| Task | Status | Scope |
+| --- | --- | --- |
+| Shop-first landing rebuild, product category pages, product-intent register, Special Links, disclosure under masthead | done | `index.html` (resolved to the integrated front page, see conflict note), `products/`, `assets/` |
+| Direction page (executive summary, suggestions, path chooser, open questions, cadence) + Flagged-for-Review page | done | `direction/`, `flags/` |
+| Measurement machinery: event layer, five defined events, measurement page, robots/sitemap/feed | done | `assets/analytics.js`, `analytics/`, SEO artefacts |
+| Publishing gate + verification + integration | done | `scripts/publish_gate.py`, `.github/workflows/pages.yml`, `COORDINATION.md` |
+
+### Verification performed (2026-11-20)
+
+- **Five supplied short links resolved live**: `B04G1MEwY→B0CDY277D3`, `B02NbDxp3→B09B7SB46R`, `B00hJ57DV→B08DKYBTPH`, `B0c8moW59→B0DHZTCNR5`, `B0f3GKalj→B0DZFD6R9Z`. All five official listings read line-by-line (brand, model, observed ASIN, category). Observed fields kept separate from blank intent fields.
+- **Policy sources re-read live**: [Program Policies](https://affiliate-program.amazon.com/help/operating/policies) (page: updated 2026-04-14), [Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement), [ASIN definition](https://sell.amazon.com/blog/fba-new-selection-program), [Google rel="sponsored"](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links), [FTC Endorsement Guides FAQ](https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking).
+- **Full local CI suite run on the merged tree**: `node _build/build.mjs`, `_build/make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`, `tools/verify.mjs` (R1–R10), `tools/check.cjs`, `tools/linkcheck.mjs`, `tools/smoke.mjs`, `scripts/publish_gate.py` — all green (recorded below).
+
+### Merge-conflict log (PR #30)
+
+`main` advanced during this session (PRs #18, #23, #28, #29 from other sessions). 14 conflicts resolved **without discarding the other session's work**:
+
+- **Kept the integrated (theirs) version** for every file owned by the canonical generators `_build/build.mjs` / `tools/build.cjs`: `index.html`, `review/index.html`, `guides/index.html`, the four `guides/*.html`, `feed.xml`, `sitemap.xml`, `robots.txt`, `.github/workflows/pages.yml`, `scripts/check_site.py`. Rationale: CI fails when committed output differs from generated output; the canonical front page already leads with the five-product shortlist.
+- **Merged both sides** in `README.md` and `COORDINATION.md` (theirs first, this session's section appended).
+- **This session's surviving pages** (`products/`, `direction/`, `flags/`, `analytics/`) follow the register-surface conventions already established by the other session: `class="disclosure"` strip under the masthead, `class="footer-disclosure"` repeat, listed in `sitemap-register.xml`, excluded from canonical R1–R10 via `tools/verify.mjs` SUPERSEDED/NOT_IN_SITEMAP (same treatment as `/flagged/`, `/decisions/`).
+- **Irregularity noted for review**: the canonical surface enforces the disclosure strip *above* the masthead (`tools/verify.mjs` R1) while the register surface enforces it *under* the masthead (`tools/check.cjs`); this session's brief specifies under-the-masthead. Both placements are above the fold and both repeat the statement in the footer. Flagged at `/flags/` as FLG-013 for the owner to pick one convention site-wide.
+
+### Sources
+
+- Official product listings (verified live 2026-11-20): [B0CDY277D3](https://www.amazon.com/dp/B0CDY277D3), [B09B7SB46R](https://www.amazon.com/dp/B09B7SB46R), [B08DKYBTPH](https://www.amazon.com/dp/B08DKYBTPH), [B0DHZTCNR5](https://www.amazon.com/dp/B0DHZTCNR5), [B0DZFD6R9Z](https://www.amazon.com/dp/B0DZFD6R9Z)
+- Amazon Associates Program Policies — https://affiliate-program.amazon.com/help/operating/policies (read 2026-11-20)
+- Amazon Associates Program Operating Agreement — https://affiliate-program.amazon.com/help/operating/agreement
+- Amazon ASIN definition — https://sell.amazon.com/blog/fba-new-selection-program
+- Google, qualify outbound links — https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
+- FTC Endorsement Guides FAQ — https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking
+
 
 ## 8. Re-verification record (session `arena-2139de5f`, branch `arena/2139de5f-winb`)
 
@@ -903,6 +950,21 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
 
 **Rebase note (2026-11-20, session `30073780`):** `origin/main` advanced to `33eaf81` (coord record for PR #36) while S15 was in progress. Rebased `arena/30073780-winb` onto `origin/main`. One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` S11–S14 final result, followed by the S15 appendix. No other session's work discarded. All other S15 files applied cleanly. Gates re-run after rebase: build/verify/gate/check/links/smoke all green (see S15 completion record above).
 
+### 9.1 Integration and deploy record (session `ab61d616`, S16)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#40** — https://github.com/sassnarep3-star/WinB/pull/40 (`arena/ab61d616-winb` → `main`) |
+| Conflicts on merge | Two: `COORDINATION.md` (both appendices kept) and `executive-summary/index.html` (regenerated from `_build/`). `main` had advanced by PR #38 (`6744d0a`) and PR #37 (`a83236f`) while #40 was open. |
+| Merge | **Merged** to `main` at 2026-11-20T06:26:46Z, merge commit `745c087`, method `--merge`. |
+| CI on the PR head (`e8d89b2`) | `Build, verify and deploy to GitHub Pages` — success (generate, drift check, R1–R11, R11–R15, check, link check, smoke at `/WinB/`). |
+| CI on `main` (`745c087`) | `Build, verify and deploy to GitHub Pages` — success, including Deploy. |
+| Pages | `pages build and deployment` — built, commit `745c087`, source `main` `/`. |
+| Live root re-check (`fetch_page`, no query string) | Returned the current build (chooser, November picks, guide count 8). Neither the “1 probes” nor the “aFrench-door” text appeared. Recorded under FLG-017, which stays open until a second check. |
+| Flags | FLG-016 (short links, open), FLG-017 (live root, open, re-checked once), FLG-018 (privacy, fixed), FLG-019 (two registers, open), FLG-020 (duplicate `FLG-012`, resolved by PR #37). None blocks the merge. |
+| Follow-up | This section and FLG-017's post-deploy note are committed on the same branch and merged through a small follow-up PR, because the session may not push to `main` directly. The follow-up changes no page content beyond the FLG-017 text. |
+
+**Board state:** S16 done. No other row changed. The PR #38 "S15" label is now a merged change, not an open claim.
 ### Session `arena-15e30bda` — second merge (S14), 2026-11-20
 
 While this session was finishing S11–S13, `main` advanced again: `f5bce0b` → `6744d0a`
@@ -982,6 +1044,46 @@ on this branch, verified against an official source where one exists, left blank
 where it cannot be confirmed, gated by `npm run check` before merge, and published only after
 Pages reports `built`. Irregularities do not block the merge; they are published on `/flagged/`
 with source links.
+
+---
+
+## 10. Session `69bfe2b0` — cycle claim (2026-11-20)
+
+**Board read before claiming.** `origin/main` at `2de80b0` (PR #41, merged into this branch
+before claiming — fast-forward, no conflicts). Open PRs at claim time: #42, #39, #35, #34,
+#31, #30, #26, #25, #16, #9. Their file scopes were read with `gh pr view --json files`
+before this claim was written. To keep scopes non-overlapping, this session does **not**
+edit `_build/data.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`,
+`_build/editorial.mjs`, `.github/workflows/pages.yml`, or any tree owned by an open PR —
+its edits are confined to `COORDINATION.md` (append-only, end of file),
+`EXECUTIVE-SUMMARY.md` (append-only), and generated HTML regenerated from `_build/`.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S17 | **Independent line-by-line re-verification of the build at PR #41 state:** run the full gate on the merged state; re-fetch the five Amazon listings and the official policy sources live (own retrieval); check every rendered register row against the generator; fix any rendered defect found; append findings to EXECUTIVE-SUMMARY.md (append-only) and this board. | `69bfe2b0` | `COORDINATION.md` (append-only), `EXECUTIVE-SUMMARY.md` (append-only), generated HTML only if a rendered defect is found (regenerated from `_build/`) | done |
+| S18 | **Integration for this cycle:** build, verify R1–R15, gate, linkcheck, smoke; PR from `arena/69bfe2b0-winb` to `main`; merge `--merge` without waiting; confirm Pages deploy; record result here. | `69bfe2b0` | PR/merge operations, `COORDINATION.md` | in progress |
+
+### S17 completion record (session `69bfe2b0`, 2026-11-20)
+
+Scope of the pass: the merged state of `origin/main` through PR #44 (`1772ab8`) plus this
+session's merge commit. **No rendered defect was found, so no generated file changed** —
+this session's net file changes are `COORDINATION.md` and `EXECUTIVE-SUMMARY.md` (§12) only.
+
+| Check | Result |
+| --- | --- |
+| Five canonical listings re-fetched live (`/dp/` pages) | **5 of 5** ASIN + title match the register exactly (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z). Prices/ratings visible on the listings were deliberately not recorded (R3). |
+| Official policy sources re-fetched live | A1 "Updated: October 15, 2025" — §1 Special Links definition, §5 disclosure sentence **verbatim**, §6 material breach. A2 "Updated: April 14, 2026" — §1 original content; §2(a) Associates ID requirement; §2(b) tag "XXXXX-##, or such other format"; price rule; misleading-claims rule. F1 FTC (Nov 2019) — hard-to-miss, no untried-experience claims. U1 USDA FSIS (Last Updated Apr 14, 2025) — all temperature rows re-read. G1 Google (2025-12-10) — `rel="sponsored"`. |
+| Supplied short-link sample re-check | `link.amazon/B04G1MEwY` landed on **amazon.com home** in this retrieval — matches S16's observation for the same link; recorded as a new data point for FLG-016, not asserted invalid; owner Special Link test remains the resolution path (FLG-001/003). |
+| Rendered-defect sweep | No `[object Object]`, `undefined`, `NaN`, empty `<tbody>`, `1 probes`, `aFrench` anywhere in the canonical pages; all five product pages print the correct ASIN; `/compare/` renders rows. |
+| Full CI generation sequence | `build.mjs → make-images → build.cjs → noindex → consolidate` — **zero drift** against the committed tree. |
+| `node tools/verify.mjs` | **PASS** R1–R11 (31 canonical, 18 preserved, 40 Amazon links, 334 internal) |
+| `node tools/gate.mjs` | **PASS** R11–R15 (43 canonical, 56 social images, 3,739 class usages) |
+| `node tools/check.cjs` | All gates passed (2 pre-existing archived-tree warnings, unchanged) |
+| `node tools/linkcheck.mjs` | **PASS** — 58 files crawled, 0 broken links, XML valid |
+| HTTP smoke at `/WinB/` | **PASS** — 32 pages, 60 linked assets, all 200 |
+| SEO artefacts | sitemap.xml 37 routes, single host; feed.xml 10 items; robots.txt allows the canonical site, disallows the superseded trees. |
+
+Full details and per-source links are in `EXECUTIVE-SUMMARY.md` §12.
 
 ### Integration result (V-4)
 
@@ -1132,6 +1234,29 @@ Standing requirement: every table row needs a source link to an official site. T
 | Brand note (see FLG-012) | The preserved variant carries a third brand label ("Counter & Crisp"), inherited from this session's independent build. It is noindexed and archived; if the owner prefers one brand, delete `alt-site/counter-and-crisp/` or relabel — a one-line decision, logged here rather than acted on. |
 | Requests to file owners | None. Only this board and `README.md` were touched among `done`-scope files, **appended only**, per this board's logging rule. |
 
+### S18 note — `main` CI drift found and fixed on this branch (2026-11-20)
+
+After PR #31 merged, `main`'s `Build, verify and deploy to GitHub Pages` run
+(44688631018) went **failure**: PR #31 committed its `alt-site/counter-and-crisp/` tree
+in its own generator's state (`noindex,follow`, no banner), but the standard CI generation
+sequence runs `tools/consolidate.mjs`, which applies the archive policy to that tree
+(`noindex,nofollow` + visible archive banner) across 36 files. The drift check therefore
+fails on `main` as committed, and the Pages deploy step did not run.
+
+**Fix applied on this branch** (the remedy the drift check itself prints: run the build and
+commit the result): commit `bb4fb26` carries the post-consolidate state of those 36 files.
+This is the same treatment every other preserved parallel generation already has
+(`docs/`, `legacy-docs-site/`, `alt-site/build/`, `archive/` — 44 files previously marked).
+All gates re-run green after the fix: verify R1–R11 (45 Amazon links now), gate R11–R15,
+check.cjs all gates passed, linkcheck 58 files / 0 broken, smoke at `/WinB/` 32 pages +
+60 assets all 200. The site's canonical tree is unchanged; only the parallel alt-site
+tree's robots/banner state moves to the established archive policy.
+
+**Board-level irregularity for the `_build/data.mjs` owner** (this session does not edit
+that file — open PR #42 claims it): the drift above deserves a flag in the site's FLG
+register (suggested next free number, subject to the register owner's check) — "PR #31
+merged a parallel tree in a state the CI generation immediately rewrites; main CI red
+until consolidated state committed." Logged here so the record is not lost.
 ## Appendix: session `3e1be50a` — design-direction suggestions + trend topic engine
 
 **Session ID:** `3e1be50a` · **Branch:** `arena/3e1be50a-winb` · **Base:** `9798831` (= `main` tip at
@@ -1209,7 +1334,16 @@ handled), FLG-006 (manufacturer certification claims), FLG-007 (no analytics end
 (no provider/Search Console/domain), and the Q-05/Q-07 ownership questions. All are published on
 `/flagged/` and `/suggestions/` with sources.
 
-**Integration result.** See the session log entry at the end of this file once the PR is merged.
+**Integration result (session `3e1be50a`).**
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#47** — https://github.com/sassnarep3-star/WinB/pull/47 (`arena/3e1be50a-winb` → `main`, `--merge`) |
+| Merge | Merged 2026-11-20T06:38:21Z, merge commit `8d91a57e60b465f490fa688cb7f5fe8dcc752ca7` |
+| Rebase note | `main` advanced twice while this PR was open (to `1772ab8`, then `3e6dbfc`). Rebased onto the latest `main` before each push; the only recurring conflict was the append-only `COORDINATION.md`, resolved by keeping both sessions' appendices. Generated output was regenerated from `_build` after each rebase, so no drift. |
+| Pages deploy | `built` — `pages/builds/latest` reports status `built` for commit `8d91a57`, created 2026-11-20T06:38:22Z. Deploy confirmed. (The sandbox's outbound allow-list does not include `github.io`, so the live URL was confirmed through the Pages API rather than `curl`.) |
+| Post-merge drift | Re-ran the full generate sequence on the merged tree: `git status` clean — the committed output equals what CI regenerates. |
+| Follow-up record | PR **#53** records this result on `main` (documentation only, no site change). |
 
 ## Claim: session `arena-21850b97` (branch `arena/21850b97-winb`) — S15
 
@@ -1285,3 +1419,79 @@ canonical state of those artifacts (36 files) so the CI drift check passes. **No
 another session was edited; these are build artifacts, and the generators that own them are
 untouched.** If session 6fc7de34 prefers its own output, re-run the build on a branch that owns
 those scripts and supersede this commit.
+
+---
+
+## 12. Session `arena-15e30bda` — final result (S11–S14), 2026-11-20
+
+**PR:** [#50 — S11–S14: suggestion board with decision gates, question register, winter guides, full integration](https://github.com/sassnarep3-star/WinB/pull/50)
+**Merge:** merged with `--merge` at 2026-11-20T06:39:35Z → merge commit `eaf1207`. No approval wait, per the brief. Flagged irregularities did not block, and are published on `/flagged/`.
+
+### What shipped
+
+| Item | State |
+| --- | --- |
+| S11 — options and decision gates on all 14 proposals | Live at `/decisions/`; every proposal has A/B/C with effort, payoff and failure mode, plus a recommended option and a gate. Protocol panel at the top records `SUG-05: A` and `SUG-08: A`. |
+| S12 — question register | Live; 15 questions, 9 of them blocking. Q-15 (endpoint) added after checking it did not duplicate main's Q-11. Duplicate `Q-11`/`Q-12` ids produced by the auto-merge were resolved, not left in place. |
+| S13 — three winter guides | Live at `/guides/holiday-format-check.html`, `/guides/smart-probe-questions.html`, `/guides/crowd-capacity-math.html`; in the notebook, the topic queue and both sitemaps. |
+| S14 — integration | Four merges of `main` (`f5bce0b`, `6744d0a`, `eec8c5f`, `3e6dbfc`, `8d91a57`), each keeping every other session's work. |
+
+### Defects found and fixed in this cycle
+
+1. `tools/check.cjs` allowlists sibling guides; this session's three were absent, so the register gate failed them for disclosure markup they carry and for the template's negated "hands-on" phrase. Registered with the same additive pattern earlier sessions used.
+2. `tools/build.cjs` omitted all three guides from `sitemap-register.xml`.
+3. A stale `questions/` directory from this session's first push was still publishing a page no generator owned. Deleted; the content lives in the Decision Room.
+4. The guides lede said "Five pieces" for eleven guides; `content-shop.mjs` became dead code after the editorial redesign, so that copy item closed as moot rather than patched in a file nothing imports.
+5. The topic queue still said "do not publish yet" for three titles another session had just published. Rewritten as recorded overrides, keeping both sessions' decisions visible.
+
+### Deploy verification
+
+| Check | Result |
+| --- | --- |
+| `main` CI run after the merge (`71ab2c3`) | **success** — Build and verify, Deploy |
+| `gh api .../pages` | `status: built`, `build_type: legacy`, `https://sassnarep3-star.github.io/WinB/` |
+| Live `/decisions/` fetch | Renders the protocol panel, three paths, the 9-row topic queue with override rows, and every option table with its decision gate |
+| Live disclosure | Present above the masthead and in the footer |
+
+Note on CI: this branch's own pull-request run was cancelled twice by the workflow's `concurrency: group: pages, cancel-in-progress: true`, which is shared with every push to `main`. The job log shows steps 1–10 (generate, drift check, R1–R10, R11–R14, register gate, link check, smoke) all **success** before cancellation; the merge then rode the `main` run, which completed green.
+
+### Sources re-checked this cycle (2026-11-20)
+
+| ID | Source | Check |
+| --- | --- | --- |
+| A1 | Amazon Associates Operating Agreement, §5 disclosure wording | unchanged |
+| A2 | Associates Program Policies (Participation Requirements §2(b) — no price/rating without Amazon serving it) | unchanged |
+| F1 | FTC, *Disclosures 101 for Social Media Influencers* | unchanged |
+| G1 | Google Search Central, *Qualify your outbound links* | unchanged |
+| G2 | Google Search Central, *Spam policies* — link spam, scaled content abuse, site reputation, thin affiliation all still present | re-fetched this cycle |
+| U1 | USDA FSIS safe temperature chart | unchanged |
+| — | 16 CFR 255.5 (eCFR) | "up to date as of 11/18/2026", matching the stored record |
+
+### Still open, unchanged, and published for the owner
+
+`FLG-003` remains unresolved: this session makes **no claim** that the supplied `link.amazon` short links are invalid. `FLG-007` — the analytics collector is undeployed, now also tracked as `Q-15`. No price, rating, conversion score or revenue figure exists anywhere on the site; the campaign ledger is still empty by policy.
+
+**Owner action that moves the queue furthest:** record one line — `SUG-01: A` or `SUG-02: A`. The two cheapest items on the board are minting one tagged link and buying one unit; everything else is downstream of those.
+
+### S15 result (session `arena-21850b97`)
+
+| Item | Result |
+| --- | --- |
+| Task | S15 — independent QA + live-source re-verification pass (claimed above; completion + post-rebase notes above) |
+| Pull request | **#52** — https://github.com/sassnarep3-star/WinB/pull/52 |
+| Merge | **Merged** to `main` 2026-11-20T06:39:42Z, merge commit `71ab2c3`, method `--merge`, no approval wait |
+| CI on the merge commit | `Build, verify and deploy to GitHub Pages` run 44689371756 — **success**; `pages build and deployment` run 44689371869 — **success** |
+| Pages | `built` at `71ab2c3` — https://sassnarep3-star.github.io/WinB/ |
+| Live check | `/compare/` fetched from the live URL after deploy: wattage column renders "1700 W (listing claim)" for P01/P02, both values for P03, labelled blanks for the two thermometers; disclosure strip first; every listing link tagged `?tag=shopnow047c-20` and `rel="sponsored nofollow noopener"` |
+| Sources re-read live (2026-11-20) | Five `/dp/` listings (titles verbatim; P02 Features & Specs / Measurements / Item details read and recorded); Associates Operating Agreement (Oct 15, 2025) §5 + §1; Program Policies (Apr 14, 2026) §2(a)/(b); Google qualify-outbound-links (2025-12-10). Links in the PR #52 body and COORDINATION.md §8 table |
+| Irregularities found | FLG-014 defect class reintroduced by the editorial tables (fixed here); P02 stated specs recorded as unstated (fixed here); stale generated artifacts committed by PR #31's merge (regenerated here); empty category-hero alt (fixed here). Published via `/flagged/` where they map to register IDs; none blocked the merge |
+| Not verified / not claimed | Associates-account Special Link status (FLG-001/003), analytics endpoint (FLG-007), Search Console (FLG-008), any price, rating, traffic, conversion or revenue figure |
+| Status | **done** |
+### §9 addendum — integration result (session `arena/6fc7de34`, 2026-11-20)
+
+| Item | Result |
+| --- | --- |
+| PR | [#31](https://github.com/sassnarep3-star/WinB/pull/31) — **merged** 2026-11-20T06:33:22Z as merge commit `3e6dbfc` into `main` |
+| Post-merge CI | First run on the merge commit failed the byte-drift check: the integration rounds had run the generate sequence without `tools/consolidate.mjs`, the step the workflow comment calls out as performing the FLG-010 `/go/` robots fix and the archive banner/noindex pass. Fixed in this follow-up by running the exact CI sequence (`_build/build.mjs`, `_build/make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`, `tools/consolidate.mjs`) and committing the result. No content change intended; the same commit also clears pre-existing drift in `compliance/`, `platform/` and `go/` from earlier rounds. |
+| Gates after fix | `tools/verify.mjs` R1–R11 pass · `tools/gate.mjs` R11–R15 pass · `tools/check.cjs` all gates pass · `tools/linkcheck.mjs` 58 files, 0 broken links, XML valid · CI smoke sequence (serve at `/WinB/`) 32 pages + 60 assets all HTTP 200 · variant checker 20 pages, 737 links clean |
+| Pages | Legacy branch deploy serving `https://sassnarep3-star.github.io/WinB/` (canonical) and `https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp/` (preserved variant, archived-banner treatment per `tools/consolidate.mjs`) |

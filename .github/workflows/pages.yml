@@ -69,6 +69,9 @@ jobs:
       - name: Link check and XML validation
         run: node tools/linkcheck.mjs
 
+      - name: Register-surface publish gate (session b26a9f95 pages)
+        run: python3 scripts/publish_gate.py
+
       # Prove the site works at the real project path (/WinB/), not just on disk.
       - name: Serve at the project path and smoke-test every URL
         run: |

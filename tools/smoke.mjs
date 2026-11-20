@@ -20,6 +20,7 @@ const seeds = [
   `${BASE}/compare/`, `${BASE}/guides/`, `${BASE}/decisions/`, `${BASE}/data-room/`,
   `${BASE}/flagged/`, `${BASE}/methods/`, `${BASE}/about/`, `${BASE}/privacy/`,
   `${BASE}/executive-summary/`, `${BASE}/review/`, `${BASE}/suggestions/`,
+  `${BASE}/products/`, `${BASE}/direction/`, `${BASE}/flags/`, `${BASE}/analytics/`,
   `${BASE}/reviews/chefman-6qt-dual-basket.html`,
   `${BASE}/reviews/chefman-8qt-turbofry.html`,
   `${BASE}/reviews/emeril-26qt-french-door.html`,
