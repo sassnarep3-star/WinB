@@ -2063,4 +2063,4 @@ CI sequence byte-reproducible).
 | CI on the merge commit | “Build, verify and deploy to GitHub Pages” run 44692294261 — **success** (drift check, verify R1–R11, gate R11–R16, register gate, linkcheck, HTTP smoke at /WinB/ all green in CI) |
 | GitHub Pages | `pages build and deployment` run 44692292952 — **success**; `GET /pages` reports `built` |
 | Live site | https://sassnarep3-star.github.io/WinB/ — serving the merged state (verified live: front page leads with the five picks and the chooser; disclosure above the fold; seasonal notebook live; `air-fryer-worth-it` guide live) |
-| Follow-up record | This table, merged by PR #67 (branch `arena/c17764af-winb`) |
+| Follow-up record | This table, merged by PR #69 (branch `arena/c17764af-winb`) |
