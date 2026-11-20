@@ -1257,6 +1257,59 @@ another session was edited; these are build artifacts, and the generators that o
 untouched.** If session 6fc7de34 prefers its own output, re-run the build on a branch that owns
 those scripts and supersede this commit.
 
+---
+
+## 12. Session `arena-15e30bda` — final result (S11–S14), 2026-11-20
+
+**PR:** [#50 — S11–S14: suggestion board with decision gates, question register, winter guides, full integration](https://github.com/sassnarep3-star/WinB/pull/50)
+**Merge:** merged with `--merge` at 2026-11-20T06:39:35Z → merge commit `eaf1207`. No approval wait, per the brief. Flagged irregularities did not block, and are published on `/flagged/`.
+
+### What shipped
+
+| Item | State |
+| --- | --- |
+| S11 — options and decision gates on all 14 proposals | Live at `/decisions/`; every proposal has A/B/C with effort, payoff and failure mode, plus a recommended option and a gate. Protocol panel at the top records `SUG-05: A` and `SUG-08: A`. |
+| S12 — question register | Live; 15 questions, 9 of them blocking. Q-15 (endpoint) added after checking it did not duplicate main's Q-11. Duplicate `Q-11`/`Q-12` ids produced by the auto-merge were resolved, not left in place. |
+| S13 — three winter guides | Live at `/guides/holiday-format-check.html`, `/guides/smart-probe-questions.html`, `/guides/crowd-capacity-math.html`; in the notebook, the topic queue and both sitemaps. |
+| S14 — integration | Four merges of `main` (`f5bce0b`, `6744d0a`, `eec8c5f`, `3e6dbfc`, `8d91a57`), each keeping every other session's work. |
+
+### Defects found and fixed in this cycle
+
+1. `tools/check.cjs` allowlists sibling guides; this session's three were absent, so the register gate failed them for disclosure markup they carry and for the template's negated "hands-on" phrase. Registered with the same additive pattern earlier sessions used.
+2. `tools/build.cjs` omitted all three guides from `sitemap-register.xml`.
+3. A stale `questions/` directory from this session's first push was still publishing a page no generator owned. Deleted; the content lives in the Decision Room.
+4. The guides lede said "Five pieces" for eleven guides; `content-shop.mjs` became dead code after the editorial redesign, so that copy item closed as moot rather than patched in a file nothing imports.
+5. The topic queue still said "do not publish yet" for three titles another session had just published. Rewritten as recorded overrides, keeping both sessions' decisions visible.
+
+### Deploy verification
+
+| Check | Result |
+| --- | --- |
+| `main` CI run after the merge (`71ab2c3`) | **success** — Build and verify, Deploy |
+| `gh api .../pages` | `status: built`, `build_type: legacy`, `https://sassnarep3-star.github.io/WinB/` |
+| Live `/decisions/` fetch | Renders the protocol panel, three paths, the 9-row topic queue with override rows, and every option table with its decision gate |
+| Live disclosure | Present above the masthead and in the footer |
+
+Note on CI: this branch's own pull-request run was cancelled twice by the workflow's `concurrency: group: pages, cancel-in-progress: true`, which is shared with every push to `main`. The job log shows steps 1–10 (generate, drift check, R1–R10, R11–R14, register gate, link check, smoke) all **success** before cancellation; the merge then rode the `main` run, which completed green.
+
+### Sources re-checked this cycle (2026-11-20)
+
+| ID | Source | Check |
+| --- | --- | --- |
+| A1 | Amazon Associates Operating Agreement, §5 disclosure wording | unchanged |
+| A2 | Associates Program Policies (Participation Requirements §2(b) — no price/rating without Amazon serving it) | unchanged |
+| F1 | FTC, *Disclosures 101 for Social Media Influencers* | unchanged |
+| G1 | Google Search Central, *Qualify your outbound links* | unchanged |
+| G2 | Google Search Central, *Spam policies* — link spam, scaled content abuse, site reputation, thin affiliation all still present | re-fetched this cycle |
+| U1 | USDA FSIS safe temperature chart | unchanged |
+| — | 16 CFR 255.5 (eCFR) | "up to date as of 11/18/2026", matching the stored record |
+
+### Still open, unchanged, and published for the owner
+
+`FLG-003` remains unresolved: this session makes **no claim** that the supplied `link.amazon` short links are invalid. `FLG-007` — the analytics collector is undeployed, now also tracked as `Q-15`. No price, rating, conversion score or revenue figure exists anywhere on the site; the campaign ledger is still empty by policy.
+
+**Owner action that moves the queue furthest:** record one line — `SUG-01: A` or `SUG-02: A`. The two cheapest items on the board are minting one tagged link and buying one unit; everything else is downstream of those.
+
 ### S15 result (session `arena-21850b97`)
 
 | Item | Result |
