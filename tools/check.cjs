@@ -80,8 +80,13 @@ const SIBLING_GUIDES = [
   '/guides/temperature-safety.html',
 ];
 /* The front page is written by the sibling build (see tools/build.cjs TAKE_FRONT_PAGE). */
+/* Index pages the sibling build owns (this generator stays off them - see SHARED_INDEXES). */
+const SHARED_INDEXES = [
+  '/index.html', '/404.html', '/guides/index.html', '/decisions/index.html',
+  '/flagged/index.html', '/about/index.html', '/verification/index.html',
+];
 const isSibling = (rel) =>
-  rel === '/index.html' || rel === '/404.html' ||
+  SHARED_INDEXES.includes(rel) ||
   SIBLING_GENERATION.some((p) => rel.startsWith(p)) ||
   SIBLING_GUIDES.includes(rel);
 const isNonCanonical = (rel) => NON_CANONICAL.some((p) => rel.startsWith(p));

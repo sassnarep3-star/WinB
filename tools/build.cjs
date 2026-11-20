@@ -1979,8 +1979,17 @@ const resolveTokens = (html) =>
  */
 const TAKE_FRONT_PAGE = process.env.CK_TAKE_FRONT_PAGE === '1';
 
+/**
+ * Shared index pages belong to the sibling build. Overwriting guides/index.html orphaned every
+ * Counterwise guide - the pages still existed but nothing linked to them. Same rule as the front
+ * page: never silently replace another generator's index.
+ */
+const SHARED_INDEXES = new Set(['/guides/index.html', '/decisions/index.html', '/flagged/index.html',
+  '/about/index.html', '/verification/index.html']);
+
 PAGES.forEach((p) => {
   if (p.routePath === '/index.html' && !TAKE_FRONT_PAGE) return;
+  if (SHARED_INDEXES.has(p.routePath) && !TAKE_FRONT_PAGE) return;
   const html = resolveTokens(
     page({
       title: p.title,
