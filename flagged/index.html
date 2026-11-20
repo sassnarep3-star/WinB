@@ -56,8 +56,8 @@
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
     <span class="badge red">6 high</span>
-    <span class="badge amber">8 medium</span>
-    <span class="badge plain">1 low</span>
+    <span class="badge amber">12 medium</span>
+    <span class="badge plain">3 low</span>
   </div>
   </div>
 </div>
@@ -252,14 +252,14 @@
     <div><p class="mt-0" style="margin:0">An earlier session published five /go/ pages that forward to Amazon. Each carried &lt;meta name=&quot;robots&quot; content=&quot;noindex,nofollow&quot;&gt;. A page that search engines cannot index, which immediately forwards a visitor to an affiliate destination, is the pattern Google names as a sneaky redirect. The pages were otherwise well built — disclosure, tagged link, visible destination — so the defect was one meta tag, not the concept.</p></div>
     <div><dt>Evidence</dt><dd><ul><li>Before: go/chefman-6-quart-dual-basket.html contained content=&quot;noindex,nofollow&quot;.</li><li>After: the same page carries content=&quot;index,follow&quot;, the Associates statement, a tagged rel=&quot;sponsored&quot; destination link, and is listed in sitemap.xml.</li><li>Enforced from now on by rule R10 in tools/verify.mjs.</li></ul></dd></div>
     <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
-    <div><dt>What the owner needs to do</dt><dd>Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-012). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.</dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-015). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing now. Was a real search-policy risk.</dd></div>
   </div>
 </details>
 
-<details class="flag" id="FLG-012" open>
+<details class="flag" id="FLG-015" open>
   <summary>
-    <span class="id">FLG-012</span>
+    <span class="id">FLG-015</span>
     <span class="ft">
       <h3>Fix recorded in a script CI does not run; two brands on the live site</h3>
       <span class="meta">
@@ -382,6 +382,132 @@
     <div><dt>Blocks</dt><dd>Nothing. Each affected page states the conflict inline.</dd></div>
   </div>
 </details>
+
+<details class="flag" id="FLG-016" >
+  <summary>
+    <span class="id">FLG-016</span>
+    <span class="ft">
+      <h3>On a second check, two of the five supplied short links did not reproduce their recorded redirect, and one returned an error</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge amber">Open</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">On 2026-11-20 (UTC) the five supplied link.amazon short links were fetched again through a second retrieval path. Two of them (B04G1MEwY and B0c8moW59) reached the amazon.com home page instead of the product page recorded in the link resolution record. One (B02NbDxp3) returned HTTP 500 from the retrieval tool. Two (B00hJ57DV and B0f3GKalj) reached the ASINs recorded in the register. The cause is not known. It could be the retrieval client, a session or region effect, or a change in Amazon’s routing. This is an observation about how the links behaved on one check. It is not a finding that any link is invalid. The sandbox cannot reach amazon.com directly, so this check depended on a single tool.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>link.amazon/B04G1MEwY → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0CDY277D3)</li><li>link.amazon/B0c8moW59 → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0DHZTCNR5)</li><li>link.amazon/B02NbDxp3 → HTTP 500 from the retrieval tool (the earlier record says https://www.amazon.com/dp/B09B7SB46R)</li><li>link.amazon/B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&amp;btn_type=ss&amp;gaOptInStatus=true&amp;btn_ref=srctok-5756d38428f77669&amp;channelId=704&amp;plpRedirect=mhFallback&amp;th=1 (ASIN matches)</li><li>link.amazon/B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&amp;sbo=…&amp;btn_ref=srctok-5ed90c5aacfa7a7e&amp;channelId=500&amp;plpRedirect=mhFallback&amp;th=1 (ASIN matches)</li><li>No redirect observed on this check contains a tag= parameter.</li><li>Third retrieval, session arena-066803dd (2026-11-20, UTC): B04G1MEwY and B0c8moW59 again resolved to https://www.amazon.com/ (homepage); B02NbDxp3 resolved to https://www.amazon.com/dp/B09B7SB46R on this retrieval (no error). B00hJ57DV and B0f3GKalj resolved to their recorded ASINs. The two homepage results repeat across independent retrievals; the B02NbDxp3 result differs between retrievals. Cause unknown.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Owner: open each of the five short links in a normal, signed-out browser and in the Associates link builder. Record where each lands, and whether each link is an enrolled Special Link (see FLG-001 and FLG-003). Until then the site publishes only the tagged /dp/ links built from the ASINs, and the short links are not used as money links.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing on the site. Attribution for the short links stays unknown.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-017" >
+  <summary>
+    <span class="id">FLG-017</span>
+    <span class="ft">
+      <h3>The live site root served two different builds to two requests on the same day</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge amber">Open</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>Repository check (2026-11-20): “1 probes” and “aFrench” do not appear in the generated HTML of this branch.</li><li>GitHub Pages API (2026-11-20): latest build status “built”, source main, path /.</li><li>Two retrievals of the same page, different content. Recorded in COORDINATION.md under S16.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages" rel="noopener" target="_blank" title="What is GitHub Pages? (GitHub Docs)">GitHub Docs — What is GitHub Pages? (GitHub Docs)</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>After the next deployment, fetch the site root with and without a query string and compare the title line. If an older build persists, re-run the Pages build or raise it with GitHub Support. Record the result in COORDINATION.md.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing on the content. It affects what a first-time visitor sees.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-018" >
+  <summary>
+    <span class="id">FLG-018</span>
+    <span class="ft">
+      <h3>The privacy page did not say that the hosting provider logs visitor IP addresses</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">The privacy page states that the site’s own recorder stores no IP address, which matches the event code. It did not disclose that the site is hosted on GitHub Pages. GitHub’s documentation says a visitor’s IP address is logged and stored for security purposes whenever a Pages site is visited, whether or not the visitor has signed in. This build adds one sentence to the privacy page that says so.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>GitHub Docs, “What is GitHub Pages?”, Data collection section.</li><li>Fixed in _build/content-oversight.mjs (privacyPage), generated to privacy/index.html.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages" rel="noopener" target="_blank" title="What is GitHub Pages? (GitHub Docs)">GitHub Docs — What is GitHub Pages? (GitHub Docs)</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed in this build. If a formal privacy notice is needed, the owner should have it reviewed; this is not legal advice.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing now.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-019" >
+  <summary>
+    <span class="id">FLG-019</span>
+    <span class="ft">
+      <h3>Two flag registers disagree, and one entry in the older register is out of date</h3>
+      <span class="meta">
+        <span class="badge plain">Low severity</span>
+        <span class="badge amber">Open</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">data/shop/flags.json (FLG-001 to FLG-010) and the Flagged for Review page, which is built from FLAGS in _build/data.mjs, use the same IDs for different items. For example, FLG-003 reads “None of the five supplied short links carried a visible Associates tag” in the first and “Compliance status of link.amazon short links is unresolved” in the second. The older register also says that GitHub Actions is disabled on this repository. GitHub reports successful workflow runs on main, so that statement is out of date. The site publishes only the second register. Nothing has been merged to reconcile them.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>data/shop/flags.json, FLG-009: “GitHub Actions is disabled on this repository, so the link resolver workflow cannot run”.</li><li>GitHub Actions on this repository (2026-11-20): “Build, verify and deploy to GitHub Pages” completed with success on main.</li><li>_build/data.mjs FLAGS, FLG-003: “Compliance status of link.amazon short links is unresolved”.</li></ul></dd></div>
+    
+    <div><dt>What the owner needs to do</dt><dd>Owner or integration session: treat the Flagged for Review register as canonical and mark data/shop/flags.json as superseded. Do not renumber published IDs without a note that maps the old ID to the new one.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-020" >
+  <summary>
+    <span class="id">FLG-020</span>
+    <span class="ft">
+      <h3>Flag ID FLG-012 was used twice in the FLAGS list</h3>
+      <span class="meta">
+        <span class="badge plain">Low severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">Two entries in _build/data.mjs carried the ID FLG-012. Pull request #37 renumbered the second to FLG-015 and merged to main. FLG-012 now appears once. Anchors such as /flagged/#FLG-012 resolve to the single remaining entry.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>_build/data.mjs: two objects with id 'FLG-012' (title: “Every page advertised a social image that did not exist” and title: “Fix recorded in a script CI does not run; two brands on the live site”).</li><li>PR #37 (merged into main at a83236f): “Renumber FLG-012 duplicate to FLG-015; record PR #32”.</li></ul></dd></div>
+    
+    <div><dt>What the owner needs to do</dt><dd>Resolved by PR #37 (merged). No further action.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-021" >
+  <summary>
+    <span class="id">FLG-021</span>
+    <span class="ft">
+      <h3>Three specification values were shown that the listing text re-read on 2026-11-20 does not state</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">Re-reading the listings line by line found three values that had been presented as stated but cannot be matched to listing text in this session. (1) P02 Emeril: “Viewing window — Stated”. The About-this-item bullets say the interior light lets you “monitor food”; they do not state a viewing window. (2) P04 ThermoMaven: “Probes — 1”. Neither the title, the bullets nor the product-details table states a probe count; the figure came from the word “instant-read”. (3) P04 ThermoMaven: “Needs an app — No”. No app requirement is stated either way. The value has been blanked to “not stated” and the site no longer infers it. Also noted: the product-details table lists “1*AAA Battery” for P04, while the review-theme summary cited under FLG-014 says “AA battery”. The two are not reconciled and both are recorded.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>P02 / B09B7SB46R About this item: “Elegant French doors open with a single pull – interior light allows you to monitor food.” No viewing-window wording found in the bullets read.</li><li>P04 / B0DHZTCNR5 product-details table: “Included Components: 1*Meat Thermometer, 1*AAA Battery, 1*User Manual, 1*Calibration Certificate”. About this item: “instant-read thermometer … accurate temperature readings in just 1 second”.</li><li>Not checked this session: the full Product Description block for P02 and P04 (the chunks read did not reach it). If the owner or a later session finds a stated figure there, the blank can be filled with its quote and page reference.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)">Amazon.com — Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)</a><br><a href="https://www.amazon.com/dp/B0DHZTCNR5?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)">Amazon.com — Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.</dd></div>
+    <div><dt>Blocks</dt><dd></dd></div>
+  </div>
+</details>
     <div class="callout mt-3">
       <h4>How to read a “needs review” item</h4>
       <p>A flag with status <b>Needs review</b> is published here and does not block anything. A flag with status <b>Open</b> is a live limitation on a specific claim, named in the flag. If you want any of these resolved, the “what the owner needs to do” line under each one is the shortest path.</p>
@@ -422,6 +548,8 @@
           <li><a href="../air-fryers/">Air fryers</a></li>
           <li><a href="../thermometers/">Thermometers</a></li>
           <li><a href="../compare/">Comparison table</a></li>
+          <li><a href="../#chooser">30-second chooser</a></li>
+          <li><a href="../tools/">Printable worksheets</a></li>
         </ul>
       </div>
       <div>

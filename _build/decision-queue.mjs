@@ -202,6 +202,82 @@ export const DECISION_QUEUE = [
     chooseIf: 'You will actually re-check quarterly.',
     notIf: 'You will not. An undated page is less embarrassing than a stale date.',
   },
+  {
+    id: 'DQ-11',
+    title: 'Air fryer or oven? The five-minute counter test that picks before you buy',
+    lane: 'Content — trend topic',
+    ownerOnly: false,
+    whatChanges:
+      'Publish one question-shaped guide that walks a reader through measuring their counter, cabinet height and sink width, then maps the result to basket vs oven. Added to the sitemap and the RSS feed by the existing build; no build changes.',
+    why:
+      'The query people type when they are about to buy is "will it fit?", not "which air fryer is best?". A useful answer to a real question earns organic traffic; a "best air fryers 2026" listicle does not, and a new site cannot win that query anyway.',
+    cost: '1–2 days of writing',
+    reversible: 'Yes — unpublish the guide',
+    riskLow: true,
+    risk:
+      'Specific counter examples age. The method must stay the product, not any model\'s dimensions, or the page goes stale.',
+    dependsOn: ['DQ-Q2', 'DQ-Q10'],
+    recommendation: 'First trend topic to consider, after the 30-day baseline shows where readers arrive.',
+    chooseIf: 'You can answer it with a tape measure and a kitchen, not a lab.',
+    notIf: 'You want to declare which machine sells best — that claim is unsupported and this site does not make popularity claims.',
+  },
+  {
+    id: 'DQ-12',
+    title: 'Instant-read or leave-in? Which thermometer Thanksgiving actually needs',
+    lane: 'Content — trend topic',
+    ownerOnly: false,
+    whatChanges:
+      'Publish one seasonal guide matching the two supplied thermometers to the two USDA temperature jobs (fast check vs long-cook watch), built only from the official USDA FSIS minimums and rest times.',
+    why:
+      'Holiday-season framing matches when readers actually need a thermometer. The USDA numbers are official and stable, so the guide does not go stale the way a "best of" list does.',
+    cost: '1 day of writing',
+    reversible: 'Yes — unpublish the guide',
+    riskLow: true,
+    risk:
+      'Seasonal copy goes stale when the season passes. Date it and retire it, per SUG-09.',
+    dependsOn: ['DQ-Q2', 'DQ-Q10'],
+    recommendation: 'Second trend topic; only if the temperature guide already shows guide_complete above its gate.',
+    chooseIf: 'You can keep it to official numbers and two clear jobs.',
+    notIf: 'You want to name a "best thermometer for Thanksgiving" — neither unit has been handled, so no such claim is permitted.',
+  },
+  {
+    id: 'DQ-13',
+    title: 'Dishwasher-safe does not mean dishwasher-sized: the air-fryer cleanup test',
+    lane: 'Content — trend topic',
+    ownerOnly: false,
+    whatChanges:
+      'Publish one short guide counting dishwasher parts per machine (basket, crisper plate, racks, drip tray, rotisserie spit) and matching them to a standard sink and dishwasher. Framed as a test the reader can run at home.',
+    why:
+      'Cleanup is the cost nobody compares at purchase time, and it is the reason most air fryers end up in a cupboard. Practical, evergreen, and no manufacturer claim is required.',
+    cost: '1 day of writing',
+    reversible: 'Yes — unpublish the guide',
+    riskLow: true,
+    risk:
+      'Readers may treat part counts as universal; the guide must say "check your own machine".',
+    dependsOn: ['DQ-Q2', 'DQ-Q10'],
+    recommendation: 'Third trend topic, after DQ-11 or DQ-12 proves the cadence.',
+    chooseIf: 'You can count parts without claiming fit for any specific model.',
+    notIf: 'You want to say which machine is "easiest to clean" — that is a hands-on claim this desk cannot make.',
+  },
+  {
+    id: 'DQ-14',
+    title: 'Two baskets or one: the weeknight meal that makes a dual-basket worth it',
+    lane: 'Content — trend topic',
+    ownerOnly: false,
+    whatChanges:
+      'Publish one guide framing the dual-basket choice around the actual weeknight shape (protein in one basket, vegetables in the other, finish together), referencing the two supplied baskets only by what their listings state.',
+    why:
+      'Weeknight two-food cooking is the most common air-fryer shape, and it is a decision a reader can make from their own meals — no lab required.',
+    cost: '1 day of writing',
+    reversible: 'Yes — unpublish the guide',
+    riskLow: true,
+    risk:
+      'Slips into "best for families" popularity claims if unedited. The framing stays "if your meals look like this".',
+    dependsOn: ['DQ-Q2', 'DQ-Q10'],
+    recommendation: 'Fourth trend topic; publish only one per fortnight per SUG-06.',
+    chooseIf: 'You can keep the claim to meal shape, not to machine performance.',
+    notIf: 'You want to promise sync finish or cooking times — those are listing features, not verified results.',
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -328,6 +404,20 @@ export const BLOCKING_QUESTIONS = [
     whoCanAnswer: 'The account owner',
     ifYes: 'Add them behind the same gate; every rule applies unchanged.',
     ifNo: 'Do not expand. Depth is the better bet anyway.',
+  },
+  {
+    id: 'DQ-Q10',
+    question: 'Which topic gets published next, and on what evidence?',
+    unblocks: 'DQ-11, DQ-12, DQ-13, DQ-14',
+    known:
+      'Four trendy topic suggestions are drafted as editorial hypotheses. None carries search-volume, popularity or sales evidence.',
+    missing:
+      'Measured queries from Search Console or 30 days of page_view data (FLG-007), plus the owner\'s channel answer (Q-02).',
+    howToFind:
+      'Deploy the collector (DQ-02), verify Search Console (DQ-Q6), wait one cycle, then let measured queries pick. Until then every trendy topic stays a hypothesis.',
+    whoCanAnswer: 'The account owner, after measurement exists',
+    ifYes: 'Publish the winning topic as the next guide, dated and added to sitemap + feed.',
+    ifNo: 'Keep the topic queue gated and unpublished. An empty queue is better than a guessed one.',
   },
 ];
 
