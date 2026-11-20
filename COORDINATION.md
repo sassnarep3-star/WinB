@@ -1403,3 +1403,11 @@ Note on CI: this branch's own pull-request run was cancelled twice by the workfl
 | Irregularities found | FLG-014 defect class reintroduced by the editorial tables (fixed here); P02 stated specs recorded as unstated (fixed here); stale generated artifacts committed by PR #31's merge (regenerated here); empty category-hero alt (fixed here). Published via `/flagged/` where they map to register IDs; none blocked the merge |
 | Not verified / not claimed | Associates-account Special Link status (FLG-001/003), analytics endpoint (FLG-007), Search Console (FLG-008), any price, rating, traffic, conversion or revenue figure |
 | Status | **done** |
+### §9 addendum — integration result (session `arena/6fc7de34`, 2026-11-20)
+
+| Item | Result |
+| --- | --- |
+| PR | [#31](https://github.com/sassnarep3-star/WinB/pull/31) — **merged** 2026-11-20T06:33:22Z as merge commit `3e6dbfc` into `main` |
+| Post-merge CI | First run on the merge commit failed the byte-drift check: the integration rounds had run the generate sequence without `tools/consolidate.mjs`, the step the workflow comment calls out as performing the FLG-010 `/go/` robots fix and the archive banner/noindex pass. Fixed in this follow-up by running the exact CI sequence (`_build/build.mjs`, `_build/make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`, `tools/consolidate.mjs`) and committing the result. No content change intended; the same commit also clears pre-existing drift in `compliance/`, `platform/` and `go/` from earlier rounds. |
+| Gates after fix | `tools/verify.mjs` R1–R11 pass · `tools/gate.mjs` R11–R15 pass · `tools/check.cjs` all gates pass · `tools/linkcheck.mjs` 58 files, 0 broken links, XML valid · CI smoke sequence (serve at `/WinB/`) 32 pages + 60 assets all HTTP 200 · variant checker 20 pages, 737 links clean |
+| Pages | Legacy branch deploy serving `https://sassnarep3-star.github.io/WinB/` (canonical) and `https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp/` (preserved variant, archived-banner treatment per `tools/consolidate.mjs`) |
