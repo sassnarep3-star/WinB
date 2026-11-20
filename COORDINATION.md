@@ -874,3 +874,21 @@ on this branch, verified against an official source where one exists, left blank
 where it cannot be confirmed, gated by `npm run check` before merge, and published only after
 Pages reports `built`. Irregularities do not block the merge; they are published on `/flagged/`
 with source links.
+
+---
+
+## 10. Session `69bfe2b0` — cycle claim (2026-11-20)
+
+**Board read before claiming.** `origin/main` at `2de80b0` (PR #41, merged into this branch
+before claiming — fast-forward, no conflicts). Open PRs at claim time: #42, #39, #35, #34,
+#31, #30, #26, #25, #16, #9. Their file scopes were read with `gh pr view --json files`
+before this claim was written. To keep scopes non-overlapping, this session does **not**
+edit `_build/data.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`,
+`_build/editorial.mjs`, `.github/workflows/pages.yml`, or any tree owned by an open PR —
+its edits are confined to `COORDINATION.md` (append-only, end of file),
+`EXECUTIVE-SUMMARY.md` (append-only), and generated HTML regenerated from `_build/`.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S17 | **Independent line-by-line re-verification of the build at PR #41 state:** run the full gate on the merged state; re-fetch the five Amazon listings and the official policy sources live (own retrieval); check every rendered register row against the generator; fix any rendered defect found; append findings to EXECUTIVE-SUMMARY.md (append-only) and this board. | `69bfe2b0` | `COORDINATION.md` (append-only), `EXECUTIVE-SUMMARY.md` (append-only), generated HTML only if a rendered defect is found (regenerated from `_build/`) | in progress |
+| S18 | **Integration for this cycle:** build, verify R1–R15, gate, linkcheck, smoke; PR from `arena/69bfe2b0-winb` to `main`; merge `--merge` without waiting; confirm Pages deploy; record result here. | `69bfe2b0` | PR/merge operations, `COORDINATION.md` | in progress |
