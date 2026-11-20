@@ -756,6 +756,7 @@ ${pageHead({
 
     <h2>What you can review, in order</h2>
     <ol>
+      <li><a href="/direction/">Design &amp; trend topics</a> — the design brief for the next build, fifteen design suggestions with a decision board, and ten catchy working titles each carrying the gate it must pass before it is published.</li>
       <li><a href="/suggestions/">Suggestions and the decision queue</a> — ${DECISION_QUEUE.length} proposals with cost, reversibility and failure mode, the ${BLOCKING_QUESTIONS.length} questions that block them, and the five actions only you can take (about fifty minutes total). Start here.</li>
       <li><a href="/decisions/">Decision Room</a> — three paths to choose between, a seasonal topic queue with measurement gates, ${SUGGESTIONS.length} suggestions ordered by priority, ${QUESTIONS.length} questions split into known and unknown, a missing-information discovery plan, and the options rejected with sources.</li>
       <li><a href="/flagged/">Flagged for Review</a> — ${FLAGS.length} items that could not be confirmed, each with evidence and the shortest route to closing it.</li>

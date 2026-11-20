@@ -4,7 +4,7 @@
 **Site:** Counterwise — https://sassnarep3-star.github.io/WinB/
 **Build date:** 2026-11-20 (UTC) — S15 refresh (session `30073780`)
 **Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
-**Pages:** 31 canonical pages + 5 affiliate exit pages, 37 sitemap routes, 10 feed items (8 guides + 2 shop items)
+**Pages:** 32 indexed pages (incl. 5 affiliate exit pages), 38 sitemap routes, 10 feed items (8 guides + 2 shop items)
 **Sources:** 11 official sources, all re-fetched live 2026-11-20 via fetch_page (see §6)
 
 **Scope boundary — read this first.** This repository delivers a static affiliate publication with automated page generation and a compliance gate that fails the build on breach. It is **not yet an AI-powered research or campaign-optimization platform**, and this summary does not claim otherwise. There is no deployed AI agent, no live trend/commission feed, no live analytics endpoint, no Search Console data, and no verified conversion reporting. What *is* automated today: page/sitemap/feed generation from a single data file, the R1–R15 compliance gate, link crawling, and an HTTP smoke test at the real `/WinB/` path. What stays human-gated by design: every product fact, every word of guide prose, every topic choice, and every ledger row. Any future AI drafting would be treated as a suggestion until a human checks it against a source (Q-12). Those capabilities need authorized data access (Creators API / PA API, Associates Central, Search Console), deployment credentials, and human approval gates before they can be claimed or switched on.
@@ -26,6 +26,7 @@
 | Polished publication feel (authorship, brand, imagery, seasons, clusters) | **Done** — bylines, Counterwise brand, generated illustrations, seasonal notebook, 2 clusters | `/`, `/methods/`, `/about/` |
 | Polished marketing feel + trendy, timely topics + organic traffic | **Done (S15)** — November editorial picks, 30-second chooser, 3 printable worksheets, FAQ matrix; all timely framing is labelled hypothesis, never a demand claim | `/`, `/tools/`, `/guides/` |
 | Suggestions section to choose a path before implementing | **Done** — 3 paths, decision queue with cost/reversibility/failure mode, blocking questions, owner actions | `/suggestions/`, `/decisions/` |
+| Design suggestions feeding the build prompt, + catchy trend topic engine | **Done** — 15 design suggestions, 10 gated working titles, design brief | `/direction/` |
 | Questions / information / answers + discovery plan | **Done** — 14 questions (known / missing / how to find), discovery plan, FAQ matrix | `/decisions/#questions`, `/` (FAQ) |
 | Findable (one site to index) | **Done** — sitemap, RSS, robots, canonicals, OG, JSON-LD, noindex on superseded trees | `/sitemap.xml`, `/feed.xml`, `/robots.txt` |
 | Trustworthy machinery (automate + gate) | **Done** — R1–R15 gate fails the build; human gates for facts, prose, topics, ledger | `/data-room/#automation` |
@@ -86,6 +87,7 @@ Ordered by downside if left open. Full reasoning in the Decision Room. **Nothing
 - **Clusters:** air-fryer cluster (format, capacity, cleanup, wings, leftovers) and thermometer cluster (safe temperatures, checking vs watching, holiday roast) link to each other and to the comparison table.
 - **Seasonal notebook:** four cooking moments (weeknight two-food, big-batch sharing, holiday roasts, summer grilling) reframe guides as hypotheses.
 - **Publication polish:** byline (author, date, reading time) on every guide, worksheet and product page; Counterwise brand; generated editorial illustrations labelled as such.
+- **Design direction & topics:** a reviewable `/direction/` surface carries the design brief that feeds the next build (15 suggestions) and a gated trend-topic engine (10 catchy working titles) so the next article is chosen by measurement, not instinct.
 - **Findability:** one indexable site (superseded trees are noindex + disallowed), sitemap + RSS generated from the same data as the pages (new guides/worksheets cannot ship unlisted), canonicals + Open Graph + JSON-LD on every page, `rel="sponsored"` on every Amazon link, fortnightly cadence (bursts are scaled-content abuse per G2).
 - **Automation + gate:** generation, sitemap, feed, R1–R15 compliance gate, link crawl and HTTP smoke at `/WinB/` all run on every build and fail the publish on breach. Product facts, prose, topic choice and ledger rows stay human-gated.
 
