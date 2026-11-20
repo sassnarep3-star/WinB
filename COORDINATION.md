@@ -229,6 +229,7 @@ FLG-010 (exit pages hidden from search) was fixed in this build and is recorded 
 | 2026-11-20 | `arena-e8af4464` | Amazon listings | **Not re-fetched** — sandbox cannot reach amazon.com (curl 000). Listing data remains the 2026-11-20 observed record; no new product fact added. Flagged honestly in EXECUTIVE-SUMMARY.md §6. |
 | 2026-11-20 | `ab61d616` | Claimed S16 (independent re-check, branch `arena/ab61d616-winb`). Re-checked the five listing pages and five short links via `fetch_page` (bash cannot reach amazon.com). Found: 5/5 listing ASIN and titles match; short links 2/5 match, 2/5 reached amazon.com home, 1/5 HTTP 500; live root served two builds on one day. Added FLG-016..020, a one-sentence privacy disclosure of GitHub Pages IP logging (FLG-018, fixed), `data/shop/recheck-2026-11-20.json`, and an executive-summary §10. Gate: verify R1–R11 PASS, gate R11–R14 PASS, check.cjs all gates passed, linkcheck 0 broken, smoke at `/WinB/` 25 pages 200. **ID collision:** open PR #38 (`arena/30073780-winb`) is labelled "S15" and edits several of the same generated files plus `_build/content-oversight.mjs`; this session therefore used S16 and did not touch PR #38's branch. |
 | 2026-11-20 | `ab61d616` | Merged PR #40 (S16) to `main` at `745c087` after resolving conflicts with PR #37 and PR #38 (kept both board appendices; regenerated shared HTML from `_build/`). CI and Pages deploy succeeded on `745c087`. Live root re-checked once: current build, no defects. Follow-up board/flag-text PR merged separately (see §9.1). |
+| 2026-11-20 | `ab61d616` | Merged PR #42 to `main` at `63a6de8` (06:43 UTC). Repaired `main` drift failures from PR #41 (`2de80b0`) and PR #31 (`3e6dbfc`) by regenerating shared HTML from `_build/`; CI success on `a10e87b` and `a854f00`; Pages `built`. See §9.2. |
 
 ### S10 changes (this session)
 
@@ -1591,6 +1592,20 @@ Note on CI: this branch's own pull-request run was cancelled twice by the workfl
 | Post-merge CI | First run on the merge commit failed the byte-drift check: the integration rounds had run the generate sequence without `tools/consolidate.mjs`, the step the workflow comment calls out as performing the FLG-010 `/go/` robots fix and the archive banner/noindex pass. Fixed in this follow-up by running the exact CI sequence (`_build/build.mjs`, `_build/make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`, `tools/consolidate.mjs`) and committing the result. No content change intended; the same commit also clears pre-existing drift in `compliance/`, `platform/` and `go/` from earlier rounds. |
 | Gates after fix | `tools/verify.mjs` R1–R11 pass · `tools/gate.mjs` R11–R15 pass · `tools/check.cjs` all gates pass · `tools/linkcheck.mjs` 58 files, 0 broken links, XML valid · CI smoke sequence (serve at `/WinB/`) 32 pages + 60 assets all HTTP 200 · variant checker 20 pages, 737 links clean |
 | Pages | Legacy branch deploy serving `https://sassnarep3-star.github.io/WinB/` (canonical) and `https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp/` (preserved variant, archived-banner treatment per `tools/consolidate.mjs`) |
+
+### 9.2 Second integration result (session `ab61d616`, PR #42)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#42** — https://github.com/sassnarep3-star/WinB/pull/42 (`arena/ab61d616-winb` → `main`). Carried the §9.1 record, the FLG-017 post-deploy note, and a repair of the failing `main` build. |
+| Why it was needed | `main` at `2de80b0` (PR #41) and again at `3e6dbfc` (PR #31) failed the drift check: committed `executive-summary/index.html` did not match its own `_build/` source. The deploy step was skipped on those commits, so the live site kept the last good build. Fixed by regenerating from source on this branch. |
+| Merge | **Merged** to `main` at 2026-11-20T06:43:11Z, merge commit `63a6de8`, method `--merge`. |
+| CI on the PR head (`25b5cc6`) | `Build, verify and deploy to GitHub Pages` — success. |
+| CI on `main` after the merge | Superseded by later `main` pushes from other sessions (concurrency group `pages` cancels older runs). `a10e87b` (contains `63a6de8`) — success. `a854f00` (current head at time of record) — success. |
+| Pages | `pages/builds/latest`: status `built`, commit `a854f00`. |
+| Open at time of record | Other sessions' PRs (#39 and others). Not touched by this session. |
+
+**Lesson recorded for the board:** the shared `pages` concurrency group cancels in-progress runs whenever any branch pushes, so a PR's green run can be cancelled before it completes. Re-run the cancelled run once the group is quiet; do not merge on a cancelled run.
 
 
 ---
