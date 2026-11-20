@@ -413,3 +413,58 @@ appendix only).
 ### S10 rebase note (2026-11-20)
 
 `main` advanced while S10 was in progress (PR #18 `cfebae8` and PR #23 `0d34699` merged). Rebased `arena/e8af4464-winb` onto `origin/main` (`0d34699`). One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` Outcome + `session-integration-winb` appendix, followed by §8 above. No other session's work discarded. All other S10 files applied cleanly.
+
+---
+
+## 9. Session `arena-b36a7b54` (branch `arena/b36a7b54-winb`) — S11–S14 record
+
+### S13 — independent re-verification of the five listings (first re-check since the original resolution)
+
+Each canonical listing URL was fetched live and read on 2026-11-20 with this session's page-reader tooling
+(the same class of tool S10 used for the policy pages, which could not reach amazon.com via `curl`).
+Results, also published in the Data Room verification log (`/data-room/#verification-log`) and per product:
+
+| Product | Observed ASIN | Re-check result | Listing link (for manual review) |
+| --- | --- | --- | --- |
+| P01 Chefman 6 qt dual basket | B0CDY277D3 | **Live; page title as served matches the recorded listing title word for word**; category path Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers | https://www.amazon.com/dp/B0CDY277D3 |
+| P02 Emeril Lagasse 26 qt French door | B09B7SB46R | **Live; title matches word for word**; same category path | https://www.amazon.com/dp/B09B7SB46R |
+| P03 Chefman 8 qt TurboFry | B08DKYBTPH | **Live; title matches word for word** (incl. TurboFry® and 450°F Hi-Fry claims); same category path | https://www.amazon.com/dp/B08DKYBTPH |
+| P04 ThermoMaven 1-second thermometer | B0DHZTCNR5 | **Live; title matches word for word** (NIST&NSF still a listing claim, still FLG-006); category path … Utensils & Gadgets › Thermometers & Timers › Meat; availability observed: In Stock | https://www.amazon.com/dp/B0DHZTCNR5 |
+| P05 CHEF iQ Sense Gen3 | B0DZFD6R9Z | **Live; title matches word for word** (3 probes / WiFi / 1000°F still listing claims, still attributed); category path matches | https://www.amazon.com/dp/B0DZFD6R9Z |
+
+What was deliberately **not** copied from those fetches: prices, star ratings, review counts, availability
+windows, badge text. The price rule (A2 §2(b)) governs what a page *displays*; R3 enforces it on every build
+and the fetch content was treated the same way. Nothing was inferred; no field was filled from the fetch.
+
+Also fetched and verified live: the USDA FSIS **Food Thermometers** factsheet
+(https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers —
+the `kitchen-thermometers` URL redirects to this canonical page). Its ice-water (32°F) and boiling-water
+(212°F at sea level, lower at altitude) calibration methods, care guidance, and "smart thermometers can be
+calibrated" statement are quoted on the new guide; recorded as source **U2**.
+
+### S11 — editorial pass (defects found by reading the shipped output line by line)
+
+| Defect found | Where | Fix |
+| --- | --- | --- |
+| "…counter depth for **aFrench-door** oven…" | `_build/data.mjs` P02 `bestFor` → shipped on front page + product page + review card | Typo fixed at the data layer; regenerates everywhere |
+| "**1 probes**" | `content-shop.mjs` card + comparison table rendered `probes + ' probes'` unconditionally | Pluralisation fixed (`1 probe`, `3 probes`) in both places |
+| Guide-card teasers cut mid-sentence (`summary.split('. ')[0]`) — the truncated-sentence look the owner called AI slop | `content-shop.mjs` `guideCards()` | Each guide now has a written one-sentence `card` teaser; fallback is the full summary, never a cut |
+| New guide | `_build/data.mjs` GUIDES | **"Is your thermometer telling the truth? The two-minute ice test"** (`/guides/ice-test-thermometer.html`) — catchy, evergreen, grounded in the newly fetched official U2 source; explicitly not a seasonal-hypothesis queue item, so it does not contradict the site's own published gates. Sitemap (30 routes) and feed (8 items) include it automatically |
+| Category/cluster wiring | `content-shop.mjs` | `multifunction` moved to the air-fryer cluster guide list where it belongs; ice-test added to the thermometer cluster; front-page notebook curated (4 titles incl. the new one); guides-index lede count made dynamic |
+
+### S12 — decision support
+
+- **Information-gaps register** (`GAPS`, 10 rows) rendered on the Decision Room (`/decisions/#gaps`):
+  item · have/don't-have · what we know · cheapest discovery step · what it blocks. This is the
+  "questions, information, answers before decisions" surface the brief asked for, complementing the
+  existing 14 questions and S10's discovery plan.
+- **Decision-record box** (`/decisions/#decision-record`): four blank rows (path, byline, next queue
+  title, review unit) for the owner to fill *before* implementation. Suggestions and paths remain
+  proposals until this record says otherwise.
+
+### S11–S13 gate runs
+
+`node _build/build.mjs` → 29 files, 30 sitemap routes, 8 feed items · `node tools/verify.mjs` → 28 canonical
+pages, 36 Amazon links, 307 internal links — **PASS R1–R10** (it caught one defect during development: an
+untagged Amazon reference link in the new verification log; fixed by tagging it, which is also what A2 §2(b)
+requires of every link) · `node tools/linkcheck.mjs` → 51 files crawled, 0 broken links, XML valid.

@@ -159,6 +159,22 @@ export const SOURCES = {
       'Fish and shellfish: 145°F (62.8°C). Leftovers and casseroles: 165°F (73.9°C).',
     ],
   },
+  U2: {
+    id: 'U2',
+    title: 'Food Thermometers (factsheet, incl. Calibration: ice-water and boiling-water methods)',
+    publisher: 'USDA Food Safety and Inspection Service',
+    url: 'https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers',
+    updated: null,
+    checked: '2026-11-20',
+    supports: [
+      'Ice-water calibration: fill a large glass with ice cubes, add drinking water, stir well; immerse the stem at least 2 inches without touching the sides or bottom; wait at least 30 seconds and read without removing the stem. It should read 32°F.',
+      'Boiling-water calibration: the thermometer should read 212°F at sea level; at high altitude water boils lower — by at least 2°F and perhaps as much as 5°F; check the local Cooperative Extension System office or health department for the exact figure.',
+      'If a thermometer does not allow manual calibration, it may need to be replaced.',
+      'Most food thermometers give an accurate reading within 2 to 4°F; many dial thermometers have a calibration nut under the dial.',
+      'Wireless and smart thermometers: the probe stays in the food while cooking and displays on a connected device; smart thermometers can be calibrated.',
+      'Thermometer care: wash with hot, soapy water; most thermometers should not be immersed in water.',
+    ],
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -187,6 +203,11 @@ export const PRODUCTS = [
     listingTitle:
       'CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black',
     asin: 'B0CDY277D3',
+    recheck: {
+      date: '2026-11-20',
+      method: 'Listing URL fetched live and read (platform page reader), session arena-b36a7b54.',
+      result: 'Live. Page title as served matches the recorded listing title word for word. Category path as served: Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers. No spec, price or rating value was copied into this site from the re-check.',
+    },
     suppliedLink: 'https://link.amazon/B04G1MEwY',
     observedRedirect:
       'https://www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-0710b7a4f0d14338&channelId=704&plpRedirect=mhFallback',
@@ -233,6 +254,11 @@ export const PRODUCTS = [
     listingTitle:
       'Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included',
     asin: 'B09B7SB46R',
+    recheck: {
+      date: '2026-11-20',
+      method: 'Listing URL fetched live and read (platform page reader), session arena-b36a7b54.',
+      result: 'Live. Page title as served matches the recorded listing title word for word. Category path as served: Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers. No spec, price or rating value was copied into this site from the re-check.',
+    },
     suppliedLink: 'https://link.amazon/B02NbDxp3',
     observedRedirect:
       'https://www.amazon.com/dp/B09B7SB46R?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-77f54b7c4a256532&channelId=704&plpRedirect=mhFallback',
@@ -262,7 +288,7 @@ export const PRODUCTS = [
       'The accessory list behind “six cooking accessories” is not itemised in the data available to this desk.',
     ],
     bestFor:
-      'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for aFrench-door oven rather than a tall basket unit.',
+      'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for a French-door oven rather than a tall basket unit.',
     thinkTwiceIf:
       'Your counter is shallow, or you want something you can lift out and wash in a standard sink. An oven this size is a fixture, not a gadget.',
     compare: { format: 'oven', capacityQt: 26, baskets: 0, window: true, style: 'French-door oven' },
@@ -277,6 +303,11 @@ export const PRODUCTS = [
     listingTitle:
       'Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel',
     asin: 'B08DKYBTPH',
+    recheck: {
+      date: '2026-11-20',
+      method: 'Listing URL fetched live and read (platform page reader), session arena-b36a7b54.',
+      result: 'Live. Page title as served matches the recorded listing title word for word, including the 450°F Hi-Fry and TurboFry claims. Category path as served: Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers. No spec, price or rating value was copied into this site from the re-check.',
+    },
     suppliedLink: 'https://link.amazon/B00hJ57DV',
     observedRedirect:
       'https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-2189f4dab9032c5f&channelId=704&plpRedirect=mhFallback&th=1',
@@ -321,6 +352,11 @@ export const PRODUCTS = [
     listingTitle:
       'ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black',
     asin: 'B0DHZTCNR5',
+    recheck: {
+      date: '2026-11-20',
+      method: 'Listing URL fetched live and read (platform page reader), session arena-b36a7b54.',
+      result: 'Live. Page title as served matches the recorded listing title word for word, including the NIST&NSF claim (still a listing claim, still FLG-006). Category path as served: Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat. Availability at fetch time: In Stock. No spec, price or rating value was copied into this site from the re-check.',
+    },
     suppliedLink: 'https://link.amazon/B0c8moW59',
     observedRedirect:
       'https://www.amazon.com/dp/B0DHZTCNR5?lv=shuf&btn_type=ss&gaOptInStatus=true&_encoding=UTF8&sp_csd=d2lkZ2V0TmFtZT1zcF9waG9uZV9ob21lcGFnZV9ibGVuZGVk&language=en_US&content-id=amzn1.sym.4582c56b-139d-4168-9db2-822c68889360&ie=UTF8&btn_ref=srctok-3fc2944d621f80c1&channelId=500&plpRedirect=mhFallback',
@@ -360,6 +396,11 @@ export const PRODUCTS = [
     listingTitle:
       'CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3',
     asin: 'B0DZFD6R9Z',
+    recheck: {
+      date: '2026-11-20',
+      method: 'Listing URL fetched live and read (platform page reader), session arena-b36a7b54.',
+      result: 'Live. Page title as served matches the recorded listing title word for word (3 Ultra-Thin Probes, WiFi Unlimited Range, 1000°F Heat Safe, Gen3 — all still listing claims, still attributed). Category path as served: Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat. No spec, price or rating value was copied into this site from the re-check.',
+    },
     suppliedLink: 'https://link.amazon/B0f3GKalj',
     observedRedirect:
       'https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&btn_type=ss&gaOptInStatus=true&language=en_US&btn_ref=srctok-15c87a8b6e264a7a&channelId=500&plpRedirect=mhFallback&th=1',
@@ -1062,11 +1103,133 @@ export const PATHS = [
 ];
 
 // ---------------------------------------------------------------------------
-// Guides. `path` keeps the already-published URL for the four live guides.
+// Information gaps — what this project HAS, what it DOES NOT HAVE, and the
+// cheapest way to discover each missing item. The user-facing rule: no decision
+// is made on a gap. Each row names the decision it blocks.
+// ---------------------------------------------------------------------------
+export const GAPS = [
+  {
+    id: 'GAP-01',
+    item: 'Whether the supplied short links credit the shopnow047c-20 account',
+    have: 'No',
+    detail: 'All five resolved listings carry tracking parameters but no tag= (FLG-001). Compliance status of link.amazon itself is unresolved either way (FLG-003).',
+    discover: 'One check in Associates Central: mint one link while signed in, resolve it, compare parameters. Under an hour (Q-01).',
+    blocks: 'Revenue attribution; the tagging question in SUG-02.',
+  },
+  {
+    id: 'GAP-02',
+    item: 'The intended ASIN for each product',
+    have: 'No',
+    detail: 'The owner never stated which listing each short link was meant to point at. The observed ASINs are recorded in a separate field and never merged (FLG-002).',
+    discover: 'Owner confirms each row in the Data Room product-intent record, or confirms the observed ASIN is the intended one.',
+    blocks: 'Closing FLG-001/FLG-002 cleanly.',
+  },
+  {
+    id: 'GAP-03',
+    item: 'Any traffic, click or conversion figure',
+    have: 'No',
+    detail: 'No analytics endpoint is deployed; the collector ships with the site but nothing receives it (FLG-007). The ledger is empty by design.',
+    discover: 'Deploy the collector (SUG-03), confirm one event arrives, then run 30 days before ranking anything.',
+    blocks: 'Topic selection, cadence gates, every measurement claim.',
+  },
+  {
+    id: 'GAP-04',
+    item: 'Current commission rates for these two categories',
+    have: 'No',
+    detail: 'Amazon publishes commission rates in Associates Central; they vary by category and change over time. No rate is printed on this site because none has been read from an authorised report.',
+    discover: 'Owner reads the commission income statement in Associates Central and records the rate and read date in the ledger provenance column.',
+    blocks: 'Revenue modelling. Deliberately absent until a dated first-party source exists.',
+  },
+  {
+    id: 'GAP-05',
+    item: 'Hands-on experience with any of the five products',
+    have: 'No',
+    detail: 'No unit has been handled, so FTC guidance bars experience claims (FLG-004). Every page states the specification-judgement position.',
+    discover: 'Buy the cheapest unit and document the purchase, or ask the brands for a review unit (Q-03, SUG-01).',
+    blocks: 'Review-style content; the single biggest differentiation available.',
+  },
+  {
+    id: 'GAP-06',
+    item: 'Footprints, wattages and other unstated specifications',
+    have: 'No',
+    detail: 'The five listing titles do not state external dimensions or wattage in the data this desk could read. Those cells are blank, not estimated.',
+    discover: 'Read the manufacturer manuals or spec sheets; record values with a per-model source before any table cell is filled.',
+    blocks: 'The blank comparison cells. They stay blank until then.',
+  },
+  {
+    id: 'GAP-07',
+    item: 'Whether the NIST/NSF certification claim (P04) is documented',
+    have: 'No',
+    detail: 'The claim appears in the listing title only. No certificate has been located (FLG-006).',
+    discover: 'Request the certificate from the brand, or keep the claim attributed. Attribution is the safe default and is what the site does.',
+    blocks: 'Upgrading the claim from attributed to verified.',
+  },
+  {
+    id: 'GAP-08',
+    item: 'Search Console data (queries, impressions)',
+    have: 'No',
+    detail: 'Verification needs a token only the owner can place (FLG-008). Until then, topic gates run on site-side events alone.',
+    discover: 'Owner verifies the github.io property, submits sitemap.xml, and grants the desk read access or screenshots.',
+    blocks: 'Measured query choice for the topic queue.',
+  },
+  {
+    id: 'GAP-09',
+    item: 'The owner’s existing audience (list, social, community)',
+    have: 'No',
+    detail: 'Nothing in the supplied material describes any channel the owner can already reach (Q-02).',
+    discover: 'Owner inventory of reachable channels; if none, plan for long-tail search plus one distribution channel.',
+    blocks: 'The first-traction plan.',
+  },
+  {
+    id: 'GAP-10',
+    item: 'A named author and a contact route',
+    have: 'Partly',
+    detail: 'Pages sign as “The Counterwise desk” with a stated non-testing policy, but no human byline or public email exists (Q-05, Q-07).',
+    discover: 'Owner decision: publish a named byline and one public contact address, or formalise the issue tracker as the route.',
+    blocks: 'Authorship trust signals; the reader-question suggestion (SUG-07).',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Verification log — dated record of re-verification attempts made by later
+// sessions against the original records. Every row states the method used and
+// what was NOT copied. Append-only; never edit a past row.
+// ---------------------------------------------------------------------------
+export const VERIFICATION_LOG = [
+  {
+    date: '2026-11-20',
+    who: 'arena-b36a7b54',
+    item: 'All five Amazon listings (P01–P05), canonical /dp/ URLs',
+    method: 'Each listing URL fetched live and read with the platform page reader; title and category path compared against the recorded register.',
+    result: 'PASS — all five live; titles match the recorded listing titles word for word; category paths match. Prices and ratings visible on the pages were deliberately not copied into this site (R3).',
+    link: 'https://www.amazon.com/dp/B0CDY277D3',
+  },
+  {
+    date: '2026-11-20',
+    who: 'arena-b36a7b54',
+    item: 'USDA FSIS “Food Thermometers” factsheet (new source U2)',
+    method: 'Fetched live and read; the ice-water and boiling-water calibration methods quoted on the new guide are the agency’s own wording.',
+    result: 'PASS — page live at the canonical food-thermometers URL; the kitchen-thermometers URL redirects there. Quoted steps: ice-water 32°F, boiling 212°F at sea level, high-altitude caveat, care instructions.',
+    link: 'https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers',
+  },
+  {
+    date: '2026-11-20',
+    who: 'arena-e8af4464',
+    item: 'Official policy sources (A1, A2, F1, F2, G1, G2, G3, G4, U1)',
+    method: 'Re-fetched live per the S10 record in this board.',
+    result: 'PASS per S10 — recorded quotes confirmed. Amazon listings were not re-fetched in that session (recorded honestly there; re-done here, row 1).',
+    link: 'https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Guides. `path` keeps the already-published URLs. New guides append below;
+// the build adds each to the sitemap and feed automatically.
 // ---------------------------------------------------------------------------
 export const GUIDES = [
   {
     slug: 'basket-or-oven',
+    card: "Drawer or door? The comparison that decides daily use before capacity ever matters.",
     path: 'guides/basket-or-oven.html',
     kicker: 'Format',
     title: 'Basket or oven-style air fryer: what should you compare?',
@@ -1109,6 +1272,7 @@ export const GUIDES = [
   },
   {
     slug: 'capacity-checklist',
+    card: "Quarts are a marketing unit; food is a physical object. Close the gap with a tape measure and one bag of frozen chips.",
     path: 'guides/capacity-checklist.html',
     kicker: 'Fit',
     title: 'A no-hype checklist for comparing air fryer capacity',
@@ -1150,6 +1314,7 @@ export const GUIDES = [
   },
   {
     slug: 'cleanup-counter',
+    card: "The two costs nobody compares: how much of the sink it takes, and how much of the counter it keeps forever.",
     path: 'guides/cleanup-counter.html',
     kicker: 'Daily use',
     title: 'Cleanup and counter space: the trade-offs to assess',
@@ -1192,6 +1357,7 @@ export const GUIDES = [
   },
   {
     slug: 'multifunction',
+    card: "Twenty-four presets is a menu, not a feature list. Ask what each mode replaces before it earns counter space.",
     path: 'guides/multifunction.html',
     kicker: 'Features',
     title: 'Questions to ask before buying a multi-function appliance',
@@ -1234,6 +1400,7 @@ export const GUIDES = [
   },
   {
     slug: 'temperature-safety',
+    card: "The USDA safe minimum temperatures in one table, with the rest time most people skip.",
     path: 'guides/temperature-safety.html',
     kicker: 'Safety',
     title: 'What temperature is actually “done”? A thermometer guide',
@@ -1293,5 +1460,64 @@ export const GUIDES = [
     ],
     related: ['P04', 'P05'],
     sources: ['U1', 'A2'],
+  },
+  {
+    slug: 'ice-test-thermometer',
+    path: 'guides/ice-test-thermometer.html',
+    card: "A thermometer that drifts lies confidently. The agency's own two-minute ice test catches it before dinner does.",
+    kicker: 'Calibration',
+    title: 'Is your thermometer telling the truth? The two-minute ice test',
+    summary:
+      'A thermometer can be fast, waterproof and beautifully made and still read wrong. The USDA food-safety agency publishes a two-minute check that catches a drifting thermometer before it ruins a roast — this page walks through it, and through what a failure means.',
+    readingTime: '4 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'Why a thermometer drifts, and why the number it shows is a promise',
+        p: [
+          'Every safe-temperature figure worth trusting — the USDA minimums, the rest times — assumes the thermometer measuring them is honest. The agency’s own factsheet notes that most food thermometers read within about 2 to 4°F of true, which is fine for safety margins, but a thermometer that has been dropped, soaked or overheated can sit further out than that and still look completely normal.',
+          'There is no visible sign of drift. The screen shows a number with the same confidence as always. That is the case for checking it against a fixed physical reference — and the two most reliable references in a kitchen are the freezing point and the boiling point of water.',
+        ],
+      },
+      {
+        h: 'The ice test, as the agency describes it',
+        p: [
+          'Fill a large glass with ice cubes, add drinking water, and stir well. Immerse the thermometer stem at least two inches into the mixture, touching neither the sides nor the bottom of the glass. Wait at least thirty seconds and read without removing the stem from the water.',
+          'It should read 32°F (0°C). If it does, the thermometer is calibrated. If it does not, adjust it according to the manufacturer’s instructions — some have a calibration nut or dial — and if it cannot be adjusted, the agency’s guidance is blunt: it may need to be replaced.',
+          'The whole test costs two minutes, one glass of ice, and no equipment. Doing it the day the thermometer arrives, while it can still be returned, is the cheapest quality control there is.',
+        ],
+        table: {
+          head: ['Method', 'Reference', 'Watch for'],
+          rows: [
+            ['Ice water (best for most thermometers)', 'Should read 32°F (0°C)', 'Stem must sit at least 2 inches deep, not touching the glass; wait at least 30 seconds'],
+            ['Boiling water (for higher temperatures)', 'Should read 212°F at sea level', 'Water boils lower at altitude — at least 2°F lower, perhaps up to 5°F; ask the local Cooperative Extension office or health department for the exact figure'],
+          ],
+          source: 'U2',
+        },
+      },
+      {
+        h: 'What a failure means, and what it does not',
+        p: [
+          'A fail does not mean the thermometer is cheap or bad; it means it has drifted, and drift is correctable on many models and fatal on the rest. The agency’s factsheet is explicit that a thermometer which cannot be manually calibrated may need to be replaced — which is a reason to check calibration early, inside the return window.',
+          'A pass does not mean the thermometer is accurate everywhere on its scale; it means it is honest at 32°F, which is the reference kitchen checks can rely on. For cooking-range confidence, the boiling check adds a second point, with the altitude caveat above.',
+        ],
+      },
+      {
+        h: 'Which of the two units on this site this applies to',
+        p: [
+          'Both. The ThermoMaven instant-read has a fast read and a stated ±0.5°F accuracy claim — the kind of claim worth checking on day one, because an instant-read that sits 3°F out quietly undercooks chicken. The CHEF iQ Sense is a wireless system with leave-in probes; the agency’s factsheet notes that smart thermometers can be calibrated, and this desk could not read from the listing how (or whether) the Sense exposes calibration — it is not stated in the data available here.',
+          'That sentence is deliberately careful: this desk has handled neither unit. The ice test above is the reader’s action, taken from the agency’s own method. The only claim being made about the two products is about what their listings do and do not state.',
+        ],
+      },
+      {
+        h: 'The care half of accuracy',
+        p: [
+          'Calibration holds only if the thermometer survives. The agency’s care guidance: wash with hot, soapy water — most thermometers should not be immersed — store probes in their sheaths, and keep plastic-faced units away from heat that can melt them.',
+          'An instant-read that rides in a drawer with metal tongs, or a probe that goes through the dishwasher against instructions, can lose its calibration between checks. The test is free, so the practical habit is: test on arrival, and re-test after any drop or soak.',
+        ],
+      },
+    ],
+    related: ['P04', 'P05'],
+    sources: ['U2', 'U1'],
   },
 ];

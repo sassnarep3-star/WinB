@@ -4,8 +4,8 @@
 **Site:** Counterwise — https://sassnarep3-star.github.io/WinB/
 **Build date:** 2026-11-20 (UTC)
 **Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
-**Pages:** 27 canonical pages + 5 affiliate exit pages, 29 sitemap routes, 7 feed items
-**Sources:** 11 official sources, all fetched and read (see §6)
+**Pages:** 28 canonical pages + 5 affiliate exit pages, 30 sitemap routes, 8 feed items
+**Sources:** 12 official sources, all fetched and read (see §6)
 
 ---
 
@@ -17,19 +17,19 @@
 | Marketing for the five supplied links | **Done** — all five resolved and written up as a shop | `/`, `/reviews/` |
 | Clean landing page + subpages by category | **Done** — front page, 2 category hubs, 5 product pages, comparison table | `/index.html`, `/air-fryers/`, `/thermometers/`, `/compare/` |
 | Dashboard-style tables of all findings | **Done** — product-intent record, source register, automation pipeline, organic playbook, events, ledger, inventory | `/data-room/` |
-| Every row sourced; blanks where unconfirmed | **Done** — intended ASIN blank for all five, wattage/footprint blank, 11 flags | `/data-room/#products`, `/flagged/` |
+| Every row sourced; blanks where unconfirmed | **Done** — intended ASIN blank for all five, wattage/footprint blank, 11 flags, plus a 10-row information-gaps register | `/data-room/#products`, `/flagged/` |
 | Live GitHub Pages site | **Done** — published from `main`, Pages `built` | `COORDINATION.md` §5–§7 |
 | Executive summary | **This document** + `/executive-summary/` | `EXECUTIVE-SUMMARY.md` |
 | Read like a shop, not an audit | **Done** — products first, registers in footer + one “More” group | `/index.html` |
 | Polished publication feel (authorship, brand, imagery, seasons, clusters) | **Done** — bylines, Counterwise brand, generated illustrations, seasonal notebook, 2 clusters | `/`, `/methods/`, `/about/` |
 | Suggestions section to choose a path before implementing | **Done** — 3 paths, 14 suggestions, topic queue with gates | `/decisions/` |
-| Questions / information / answers + discovery plan | **Done** — 14 questions (known / missing / how to find), discovery plan | `/decisions/#questions` |
+| Questions / information / answers + discovery plan | **Done** — 14 questions (known / missing / how to find), a 10-row information-gaps register, a decision-record box, discovery plan | `/decisions/#questions` |
 | Findable (one site to index) | **Done** — sitemap, RSS, robots, canonicals, OG, JSON-LD, noindex on superseded trees | `/sitemap.xml`, `/feed.xml`, `/robots.txt` |
 | Trustworthy machinery (automate + gate) | **Done** — R1–R10 gate fails the build; human gates for facts, prose, topics, ledger | `/data-room/#automation` |
 | Disclosure above the fold on every page | **Done** — strip under masthead + footer repeat, enforced by R1 | every page |
 | Every outbound product link marked sponsored | **Done** — `rel="sponsored nofollow noopener"` + tag, enforced by R2/R10 | every page |
 | Product-intent confirmation record (separate fields) | **Done** — intended ASIN and observed redirect never merged | `/data-room/#products` |
-| Question-shaped guides + measurement before more writing | **Done** — 5 guides published; next title gated on 30 days of data | `/guides/`, `/decisions/#queue` |
+| Question-shaped guides + measurement before more writing | **Done** — 6 guides published (incl. the ice-test calibration guide); the seasonal queue stays gated on 30 days of data | `/guides/`, `/decisions/#queue` |
 | Click/conversion measurement (5 events) | **Code shipped, not deployed** — no endpoint, no traffic claimed | `/data-room/#events`, FLG-007 |
 | Empty campaign ledger with provenance rule | **Done** — 0 rows, schema + column rules published | `/data-room/#ledger` |
 
@@ -74,7 +74,7 @@ Ordered by downside if left open. Full reasoning in the Decision Room.
 ## 5. How it reads as a shop (and how it ranks)
 
 - **Shop first:** front page leads with the five picks, then the two category hubs, then the guides. Dashboards live in the footer and one “More” group.
-- **Clusters:** air-fryer cluster (format, capacity, cleanup) and thermometer cluster (safe temperatures, checking vs watching) link to each other and to the comparison table.
+- **Clusters:** air-fryer cluster (format, capacity, cleanup, multi-function questions) and thermometer cluster (safe temperatures, checking vs watching, calibration) link to each other and to the comparison table.
 - **Seasonal notebook:** four cooking moments (weeknight two-food, big-batch sharing, holiday roasts, summer grilling) reframe existing guides as hypotheses. No search-volume, popularity or sales claim is made.
 - **Publication polish:** byline (author, date, reading time) on every guide and product page; Counterwise brand; generated editorial illustrations labelled as such.
 - **Findability:** one indexable site (superseded trees are noindex + disallowed), sitemap + RSS generated from the same data as the pages, canonicals + Open Graph + JSON-LD on every page, `rel="sponsored"` on every Amazon link, fortnightly cadence (bursts are scaled-content abuse).
@@ -94,8 +94,9 @@ Ordered by downside if left open. Full reasoning in the Decision Room.
 | G3 | [Google: Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap) | Sitemap format and submission |
 | G4 | [sitemaps.org protocol](https://www.sitemaps.org/protocol.html) | Sitemap XML schema (single host, UTF-8, entity-escaped) |
 | U1 | [USDA FSIS Safe Temperature Chart](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) (Last Updated Apr 14, 2025) | Safe minimum internal temperatures quoted in thermometer guides |
+| U2 | [USDA FSIS Food Thermometers factsheet](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers) | Ice-water and boiling-water calibration methods quoted on the ice-test guide |
 
-Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed record in the Data Room. The sandbox cannot reach amazon.com, so listings were not re-fetched this session; no new product fact has been added.
+Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed record in the Data Room — and was **independently re-verified the same day by session `arena-b36a7b54`** (first re-check since the original resolution): all five listings fetched live, titles matching word for word, category paths matching. Prices and ratings visible during those fetches were deliberately not copied (R3). The dated log sits in the Data Room (`/data-room/#verification-log`).
 
 ## 7. Flags (11 — none blocks publication)
 
