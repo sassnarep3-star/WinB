@@ -1,0 +1,89 @@
+{
+  "brand": {
+    "name": "The Crisp Kitchen",
+    "domain": "sassnarep3-star.github.io/WinB",
+    "baseUrl": "https://sassnarep3-star.github.io/WinB",
+    "tagline": "Air fryers and the tools that make them work — tested against what the listing actually says.",
+    "founded": "2026-11-20",
+    "publisherNote": "An independent kitchen-appliance review desk. Product links are affiliate links; the reasoning behind every recommendation is published next to it.",
+    "author": {
+      "name": "The Crisp Kitchen Editorial Desk",
+      "role": "Product research and verification",
+      "bio": "A research desk that reads manufacturer documentation and retailer listings line by line, keeps a dated record of every check, and publishes what could not be verified instead of guessing.",
+      "avatarInitials": "CK"
+    }
+  },
+  "trackingId": {
+    "value": "shopnow047c-20",
+    "source": "supplied by the site owner in the build brief",
+    "verified": false,
+    "note": "A tracking ID is not published on a page as a claim. It appears inside outbound links only, and only after the Associates enrollment check in FLG-001 clears."
+  },
+  "disclosure": {
+    "requiredStatement": "As an Amazon Associate I earn from qualifying purchases.",
+    "requiredStatementSource": "S01",
+    "plainLanguage": "If you buy through a link on this page, this site may earn a commission. It does not change the price you pay.",
+    "placementRule": "Disclosure strip directly under the masthead on every page, and again in the footer on every page.",
+    "placementSource": "S05"
+  },
+  "nav": [
+    { "label": "Shop", "href": "/index.html" },
+    { "label": "Guides", "href": "/guides/index.html" },
+    { "label": "Suggestions", "href": "/decisions/index.html" },
+    { "label": "Verification", "href": "/verification/index.html" },
+    { "label": "Flagged for Review", "href": "/flagged/index.html" },
+    { "label": "About", "href": "/about/index.html" }
+  ],
+  "footerGroups": [
+    {
+      "title": "Shop",
+      "links": [
+        { "label": "All products", "href": "/index.html" },
+        { "label": "Air fryers", "href": "/products/air-fryers.html", "note": "3 products" },
+        { "label": "Wireless thermometers", "href": "/products/thermometers.html", "note": "2 products" }
+      ]
+    },
+    {
+      "title": "Guides",
+      "links": [
+        { "label": "All guides", "href": "/guides/index.html" },
+        { "label": "Basket or oven-style air fryer?", "href": "/guides/basket-or-oven-air-fryer.html" },
+        { "label": "Capacity without the hype", "href": "/guides/air-fryer-capacity-checklist.html" },
+        { "label": "Cleanup and counter space", "href": "/guides/cleanup-and-counter-space.html" },
+        { "label": "Multi-function appliance questions", "href": "/guides/multifunction-appliance-questions.html" }
+      ]
+    },
+    {
+      "title": "Decide",
+      "links": [
+        { "label": "Suggestions register", "href": "/decisions/index.html" },
+        { "label": "Open questions", "href": "/decisions/questions.html" },
+        { "label": "Growth plan (SEO + measurement)", "href": "/decisions/growth-plan.html" }
+      ]
+    },
+    {
+      "title": "Trust",
+      "links": [
+        { "label": "Verification dashboard", "href": "/verification/index.html" },
+        { "label": "Source register", "href": "/verification/sources.html" },
+        { "label": "Link audit", "href": "/verification/links.html" },
+        { "label": "Product data table", "href": "/verification/products.html" },
+        { "label": "Flagged for Review", "href": "/flagged/index.html" },
+        { "label": "Compliance gate", "href": "/compliance/index.html" },
+        { "label": "Editorial policy", "href": "/about/editorial-policy.html" },
+        { "label": "How we make money", "href": "/about/how-we-make-money.html" },
+        { "label": "Privacy", "href": "/about/privacy.html" }
+      ]
+    },
+    {
+      "title": "System",
+      "links": [
+        { "label": "Platform overview", "href": "/platform/index.html" },
+        { "label": "Automation and the human gate", "href": "/platform/automation.html" },
+        { "label": "Metrics that are actually measurable", "href": "/platform/metrics.html" },
+        { "label": "Campaign ledger (empty by design)", "href": "/platform/ledger.html" },
+        { "label": "Research log", "href": "/verification/research-log.html" }
+      ]
+    }
+  ]
+}

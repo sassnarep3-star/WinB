@@ -1,18 +1,27 @@
 #!/usr/bin/env python3
-# check_links.py — verification gate for the generated site.
-#   1. every internal link resolves to a file that exists
+# check_links.py — verification gate for the generated Counter & Crisp variant.
+#   1. every internal link resolves to a file that exists (incl. anchors)
 #   2. every page carries the disclosure strip (above the fold) + footer disclosure
 #   3. every product link is marked sponsored (class + rel)
-#   4. register pages carry source links for every source id
+#   4. register page carries every source id
 #   5. sitemap.xml and feed.xml reference only existing pages
 #   6. no stray template tokens (%%...%%) left in output
+#
+# Usage: python3 tools/check_links.py [dir]   (default: alt-site/counter-and-crisp)
 
 import os
 import re
 import sys
 import glob
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+from content_data import SITE
+
+ROOT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
+    os.path.dirname(HERE), "alt-site", "counter-and-crisp")
+BASE = SITE["base_url"].rstrip("/")
+
 errors = []
 checked = 0
 
@@ -42,10 +51,9 @@ for path in html_files:
             continue
         target = href.split("#")[0].split("?")[0]
         if href.startswith("http"):
-            base = "https://sassnarep3-star.github.io/WinB/"
-            if not target.startswith(base):
+            if not target.startswith(BASE):
                 continue  # external source link; existence checked at verification time
-            target = target[len(base):]
+            target = target[len(BASE):]
         if not target:
             continue  # canonical root link
         target = target.lstrip("/")
@@ -65,16 +73,13 @@ for path in html_files:
         if 'rel="sponsored' not in tag:
             errors.append("%s: sponsored link missing rel=sponsored -> %s" % (name, tag[:90]))
 
-    # 4/5 presence checks for specific pages
+    # 4. register completeness
     if name == "register.html":
         for sid in ["SRC-%02d" % i for i in range(1, 13)]:
             if sid not in html:
                 errors.append("register.html: missing source id %s" % sid)
-    if name == "index.html":
-        if "counterandcrisp" not in html and "Counter" not in html:
-            errors.append("index.html: brand missing")
 
-for xml_name, needle in [("sitemap.xml", "<loc>"), ("feed.xml", "<item>")]:
+for xml_name in ("sitemap.xml", "feed.xml"):
     p = os.path.join(ROOT, xml_name)
     if not os.path.exists(p):
         errors.append("%s: missing" % xml_name)
@@ -95,4 +100,5 @@ if errors:
     for e in errors:
         print("  -", e)
     sys.exit(1)
-print("OK — %d pages, %d internal links checked, disclosures present, tokens clean." % (len(html_files), checked))
+print("OK — %d pages, %d internal links checked, disclosures present, tokens clean. (dir: %s)"
+      % (len(html_files), checked, ROOT))

@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "purpose": "Product-intent confirmation record. For every submitted link this file stores (1) what the product is intended to be and (2) what the link was observed to do, in two separate fields that are never merged.",
+    "whySeparate": "The supplied short code is not an ASIN and does not correspond to one. If the intended ASIN and the observed redirect target were stored in a single column, a reader could not tell whether a product had been validated or merely clicked. Keeping them apart makes the failure visible: on 2026-11-20 all five supplied codes differed from the ASIN that the link actually resolved to.",
+    "trackingParameter": {
+      "presentInSuppliedUrl": false,
+      "presentInObservedRedirect": false,
+      "note": "The supplied URL is of the form https://link.amazon/<code> and carries no tag parameter. The redirect target observed on 2026-11-20 also carried no tag parameter; the parameters present were page-context parameters (lv, btn_type, gaOptInStatus, btn_ref, channelId, plpRedirect). A link without the Associates tag cannot accrue commission, so these are not yet Special Links in the S01 Section 1 sense.",
+      "source": "S01"
+    },
+    "complianceStatus": "The compliance status of link.amazon short links is unresolved and is treated as unresolved. Nothing in this file asserts that the supplied links are invalid or forbidden. What is asserted is narrower and checkable: they carried no visible tag on the date observed, and none of them resolved to the ASIN their code appears to spell."
+  },
+  "records": [
+    {
+      "recordId": "L-01",
+      "productId": "P1",
+      "submitted": {
+        "suppliedUrl": "https://link.amazon/B04G1MEwY",
+        "suppliedCode": "B04G1MEwY",
+        "intendedAsin": null,
+        "intendedAsinTier": "unverified",
+        "intendedAsinNote": "No ASIN was supplied. The code resembles an ASIN but is not one: it does not match the ASIN the link resolves to, and it uses lower-case letters.",
+        "officialListingUrl": null,
+        "confirmedOn": null,
+        "source": "site owner build brief",
+        "confirmed": false
+      },
+      "observed": {
+        "observedFinalUrl": "https://www.amazon.com/dp/B0CDY277D3",
+        "observedAsin": "B0CDY277D3",
+        "observedTitle": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+        "observedOn": "2026-11-20",
+        "observedBy": "single manual fetch of the redirect target",
+        "tagParameterFound": false
+      },
+      "match": { "codeMatchesObservedAsin": false, "intendedMatchesObserved": "unknown" },
+      "flag": "FLG-003"
+    },
+    {
+      "recordId": "L-02",
+      "productId": "P2",
+      "submitted": {
+        "suppliedUrl": "https://link.amazon/B02NbDxp3",
+        "suppliedCode": "B02NbDxp3",
+        "intendedAsin": null,
+        "intendedAsinTier": "unverified",
+        "officialListingUrl": null,
+        "confirmedOn": null,
+        "source": "site owner build brief",
+        "confirmed": false
+      },
+      "observed": {
+        "observedFinalUrl": "https://www.amazon.com/dp/B09B7SB46R",
+        "observedAsin": "B09B7SB46R",
+        "observedTitle": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+        "observedOn": "2026-11-20",
+        "observedBy": "single manual fetch of the redirect target",
+        "tagParameterFound": false
+      },
+      "match": { "codeMatchesObservedAsin": false, "intendedMatchesObserved": "unknown" },
+      "flag": "FLG-003"
+    },
+    {
+      "recordId": "L-03",
+      "productId": "P3",
+      "submitted": {
+        "suppliedUrl": "https://link.amazon/B00hJ57DV",
+        "suppliedCode": "B00hJ57DV",
+        "intendedAsin": null,
+        "intendedAsinTier": "unverified",
+        "officialListingUrl": null,
+        "confirmedOn": null,
+        "source": "site owner build brief",
+        "confirmed": false
+      },
+      "observed": {
+        "observedFinalUrl": "https://www.amazon.com/dp/B08DKYBTPH",
+        "observedAsin": "B08DKYBTPH",
+        "observedTitle": "Chefman Air Fryer 8 Qt | TurboFry 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+        "observedOn": "2026-11-20",
+        "observedBy": "single manual fetch of the redirect target",
+        "tagParameterFound": false
+      },
+      "match": { "codeMatchesObservedAsin": false, "intendedMatchesObserved": "unknown" },
+      "flag": "FLG-003"
+    },
+    {
+      "recordId": "L-04",
+      "productId": "P4",
+      "submitted": {
+        "suppliedUrl": "https://link.amazon/B0c8moW59",
+        "suppliedCode": "B0c8moW59",
+        "intendedAsin": null,
+        "intendedAsinTier": "unverified",
+        "officialListingUrl": null,
+        "confirmedOn": null,
+        "source": "site owner build brief",
+        "confirmed": false
+      },
+      "observed": {
+        "observedFinalUrl": "https://www.amazon.com/dp/B0DHZTCNR5",
+        "observedAsin": "B0DHZTCNR5",
+        "observedTitle": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black",
+        "observedOn": "2026-11-20",
+        "observedBy": "single manual fetch of the redirect target",
+        "tagParameterFound": false
+      },
+      "match": { "codeMatchesObservedAsin": false, "intendedMatchesObserved": "unknown" },
+      "flag": "FLG-003"
+    },
+    {
+      "recordId": "L-05",
+      "productId": "P5",
+      "submitted": {
+        "suppliedUrl": "https://link.amazon/B0f3GKalj",
+        "suppliedCode": "B0f3GKalj",
+        "intendedAsin": null,
+        "intendedAsinTier": "unverified",
+        "officialListingUrl": null,
+        "confirmedOn": null,
+        "source": "site owner build brief",
+        "confirmed": false
+      },
+      "observed": {
+        "observedFinalUrl": "https://www.amazon.com/dp/B0DZFD6R9Z",
+        "observedAsin": "B0DZFD6R9Z",
+        "observedTitle": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+        "observedOn": "2026-11-20",
+        "observedBy": "single manual fetch of the redirect target",
+        "tagParameterFound": false
+      },
+      "match": { "codeMatchesObservedAsin": false, "intendedMatchesObserved": "unknown" },
+      "flag": "FLG-003"
+    }
+  ],
+  "enrollmentTestPlan": {
+    "status": "not performed — cannot be performed from this build environment",
+    "reason": "Testing one link through the enrolled Associates workflow requires signing in to Associates Central and reading the tracking report. The build has no Associates credentials and must not use any.",
+    "steps": [
+      "Sign in to Associates Central and confirm the account is approved and the storefront is shopnow047c-20.",
+      "Generate one link with SiteStripe for a single product and confirm the tag parameter appears in the URL.",
+      "Publish exactly that one link on exactly one page.",
+      "Use the link once from a clean browser and record the date.",
+      "Read the Associates tracking report and confirm the click appears against that link.",
+      "Only then replace the remaining links, one at a time, checking the report after each."
+    ],
+    "source": "S01",
+    "owner": "site owner",
+    "questionRef": "Q-01"
+  }
+}

@@ -1,158 +1,247 @@
-/* Counter & Crisp — privacy-preserving event counter.
- *
- * What it does: counts five defined events (page_view, session, product_impression,
- * outbound_click, guide_view) and stores aggregate tallies locally in the visitor's
- * browser. If a collect endpoint is configured (via <meta name="cc-collect-endpoint">),
- * batches are also POSTed to it with navigator.sendBeacon.
- *
- * What it never does: no cookies, no cross-site identifiers, no IP capture, no user
- * agents, no referrer strings, no query strings. Payload fields are: event name, page
- * path only (no query), product id (observed ASIN) when relevant, coarse timestamp.
- *
- * Endpoint contract (self-hosted, e.g. a small worker/function):
- *   POST  <endpoint>
- *   body: {"events":[{"e":"outbound_click","p":"/products.html","a":"B0CDY277D3","t":1763600000000}]}
- *   204 No Content on success. Server must not log IP addresses or user agents.
- */
+/* ==========================================================================
+   Counterwise — measurement
+
+   Design rules, in order of importance:
+
+   1. Nothing here talks to a third party. There is no Google Analytics, no
+      pixel, no CDN script. Every event goes to ENDPOINT, which is a host the
+      owner controls.
+   2. Nothing here identifies a reader. No cookie is set by this file, no
+      device fingerprint, no persistent id. A random per-page-load nonce is
+      generated in memory and discarded when the tab closes; it exists only so
+      a server can de-duplicate double-fired events.
+   3. Nothing here blocks the page. If ENDPOINT is unreachable the events queue
+      in memory and are dropped. A broken endpoint must never break reading.
+   4. Nothing here reports a number the desk has not been given.
+
+   Set ENDPOINT to your collector URL. While it is null the site is honest:
+   events are counted in the browser only, and the Data Room says so.
+   ========================================================================== */
 (function () {
-  "use strict";
+  'use strict';
 
-  var STORAGE_KEY = "cc-tally-v1";
-  var SESSION_KEY = "cc-session-v1";
-  var MAX_QUEUE = 50;
+  // ---------------------------------------------------------------- config
+  var ENDPOINT = null; // e.g. 'https://counterwise-events.example.workers.dev/e'
 
-  function endpoint() {
-    var m = document.querySelector('meta[name="cc-collect-endpoint"]');
-    return (m && m.content && m.content.indexOf("http") === 0) ? m.content : "";
-  }
+  var EVENTS = {
+    PAGE_VIEW: 'page_view',
+    PRODUCT_VIEW: 'product_view',
+    OUTBOUND_CLICK: 'outbound_click',
+    GUIDE_COMPLETE: 'guide_complete',
+    CAPTURE_INTENT: 'capture_intent'
+  };
 
-  function load() {
-    try {
-      var raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw);
-    } catch (e) { /* private mode or disabled storage: fall through to memory-only */ }
-    return { events: {}, total: 0, byPage: {}, started: new Date().toISOString() };
-  }
-
-  function save(tally) {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(tally));
-    } catch (e) { /* memory-only mode */ }
-  }
-
-  var tally = load();
-
-  function record(eventName, product) {
-    var payload = {
-      e: eventName,
-      p: window.location.pathname.replace(/\/WinB/, "") || "/",
-      a: product || null,
-      t: Date.now()
+  // --------------------------------------------------------------- helpers
+  function pageMeta() {
+    var b = document.body;
+    return {
+      path: location.pathname,
+      product: b.getAttribute('data-product') || null,
+      asin: b.getAttribute('data-asin') || null,
+      guide: b.getAttribute('data-guide') || null,
+      category: b.getAttribute('data-category') || null,
+      viewport: window.innerWidth < 640 ? 's'
+        : window.innerWidth < 1024 ? 'm' : 'l'
     };
-    tally.events[eventName] = (tally.events[eventName] || 0) + 1;
-    tally.total = (tally.total || 0) + 1;
-    var page = payload.p;
-    if (!tally.byPage[page]) tally.byPage[page] = {};
-    tally.byPage[page][eventName] = (tally.byPage[page][eventName] || 0) + 1;
-    save(tally);
-    queue(payload);
   }
 
-  var queue = (function () {
-    var buffer = [];
-    function flush() {
-      if (!buffer.length) return;
-      var url = endpoint();
-      if (url && navigator.sendBeacon) {
-        try {
-          navigator.sendBeacon(url, JSON.stringify({ events: buffer.splice(0, buffer.length) }));
-        } catch (e) { buffer = []; }
-      } else {
-        // Local-only mode: tallies stay in this browser (see measurement.html).
-        buffer = [];
+  function nonce() {
+    try {
+      var a = new Uint8Array(8);
+      (window.crypto || window.msCrypto).getRandomValues(a);
+      return Array.prototype.map.call(a, function (n) {
+        return ('0' + n.toString(16)).slice(-2);
+      }).join('');
+    } catch (e) {
+      return String(Date.now()).slice(-8);
+    }
+  }
+
+  var NONCE = nonce();
+  var queue = [];
+
+  function record(name, extra) {
+    var payload = {
+      e: name,
+      n: NONCE,
+      t: new Date().toISOString(),
+      m: pageMeta()
+    };
+    if (extra) {
+      for (var k in extra) {
+        if (Object.prototype.hasOwnProperty.call(extra, k)) payload[k] = extra[k];
       }
     }
-    return function (payload) {
-      buffer.push(payload);
-      if (buffer.length >= MAX_QUEUE) flush();
-      else window.setTimeout(flush, 4000);
-    };
-  })();
 
-  function isFirstEventOfSession() {
+    // Keep a local tally so a developer can inspect without a server.
     try {
-      if (window.sessionStorage.getItem(SESSION_KEY)) return false;
-      window.sessionStorage.setItem(SESSION_KEY, "1");
-      return true;
-    } catch (e) {
-      return true;
+      var key = 'cw_tally';
+      var tally = JSON.parse(localStorage.getItem(key) || '{}');
+      tally[name] = (tally[name] || 0) + 1;
+      localStorage.setItem(key, JSON.stringify(tally));
+    } catch (e) { /* storage may be blocked; not our problem */ }
+
+    if (window.console && console.debug) {
+      console.debug('[counterwise] ' + name, payload);
     }
+
+    if (!ENDPOINT) return;
+
+    queue.push(payload);
+    flush();
   }
 
-  function boot() {
-    var type = document.body.getAttribute("data-page-type") || "page";
-    if (isFirstEventOfSession()) record("session");
-    record("page_view");
-    if (type === "guide") record("guide_view");
+  function flush() {
+    if (!ENDPOINT || !queue.length) return;
+    var batch = queue.splice(0, queue.length);
+    var body;
+    try {
+      body = JSON.stringify({ v: 1, events: batch });
+    } catch (e) { return; }
 
-    // product_impression: fired when a product card/row first becomes visible.
-    if ("IntersectionObserver" in window) {
-      var seen = {};
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (!en.isIntersecting) return;
-          var el = en.target;
-          var id = el.getAttribute("data-product");
-          if (!id || seen[id]) return;
-          seen[id] = true;
-          record("product_impression", id);
-          io.unobserve(el);
-        });
-      }, { threshold: 0.35 });
-      Array.prototype.forEach.call(document.querySelectorAll("[data-product]"), function (el) {
-        io.observe(el);
-      });
-    }
+    // sendBeacon survives the page being navigated away from, which is exactly
+    // the case that matters for an outbound click.
+    try {
+      if (navigator.sendBeacon) {
+        var blob = new Blob([body], { type: 'application/json' });
+        if (navigator.sendBeacon(ENDPOINT, blob)) return;
+      }
+    } catch (e) { /* fall through to fetch */ }
 
-    // outbound_click: fired on sponsored product links before navigation.
-    Array.prototype.forEach.call(document.querySelectorAll("a.sponsored-link"), function (link) {
-      link.addEventListener("click", function () {
-        record("outbound_click", link.getAttribute("data-product") || null);
-      });
+    try {
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: body,
+        keepalive: true,
+        credentials: 'omit',
+        referrerPolicy: 'no-referrer'
+      }).catch(function () { /* silently drop */ });
+    } catch (e) { /* silently drop */ }
+  }
+
+  // Give the reader a way out. Honouring this flag is the whole privacy story.
+  function optedOut() {
+    try {
+      return localStorage.getItem('cw_optout') === '1';
+    } catch (e) { return false; }
+  }
+
+  // ------------------------------------------------------------ page view
+  if (!optedOut()) record(EVENTS.PAGE_VIEW);
+
+  // --------------------------------------------------------- product view
+  if (document.body.hasAttribute('data-product') && !optedOut()) {
+    record(EVENTS.PRODUCT_VIEW, {
+      product: document.body.getAttribute('data-product'),
+      asin: document.body.getAttribute('data-asin')
     });
-
-    // Local tally export controls (measurement.html).
-    var out = document.getElementById("tally-output");
-    if (out) {
-      out.textContent = JSON.stringify(load(), null, 2);
-    }
-    var dl = document.getElementById("tally-download");
-    if (dl) {
-      dl.addEventListener("click", function (ev) {
-        ev.preventDefault();
-        var blob = new Blob([JSON.stringify(load(), null, 2)], { type: "application/json" });
-        var a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "counter-and-crisp-tally.json";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      });
-    }
-    var rs = document.getElementById("tally-reset");
-    if (rs) {
-      rs.addEventListener("click", function (ev) {
-        ev.preventDefault();
-        try { window.localStorage.removeItem(STORAGE_KEY); } catch (e) {}
-        tally = load();
-        if (out) out.textContent = JSON.stringify(tally, null, 2);
-      });
-    }
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else {
-    boot();
+  // ------------------------------------------------------- outbound click
+  // Delegated so it survives any future markup change. The link is already
+  // marked rel="sponsored" in the HTML; this only counts the click.
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest ? ev.target.closest('a[data-outbound]') : null;
+    if (!a) return;
+    if (optedOut()) return;
+    record(EVENTS.OUTBOUND_CLICK, {
+      product: a.getAttribute('data-product') || null,
+      asin: a.getAttribute('data-asin') || null,
+      pos: a.getAttribute('data-pos') || 'unknown'
+    });
+  }, { capture: true });
+
+  // ------------------------------------------------------- guide complete
+  var guideEl = document.querySelector('[data-guide]');
+  if (guideEl && !optedOut()) {
+    var fired = false;
+    var onScroll = function () {
+      if (fired) return;
+      var doc = document.documentElement;
+      var seen = (window.scrollY + window.innerHeight) / doc.scrollHeight;
+      if (seen >= 0.75) {
+        fired = true;
+        record(EVENTS.GUIDE_COMPLETE, { guide: guideEl.getAttribute('data-guide') });
+        window.removeEventListener('scroll', onScroll, { passive: true });
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
+
+  // ------------------------------------------------------- capture intent
+  var form = document.querySelector('[data-capture]');
+  if (form) {
+    var input = form.querySelector('input[type=email]');
+    if (input) {
+      input.addEventListener('focus', function () {
+        if (optedOut()) return;
+        record(EVENTS.CAPTURE_INTENT, {
+          form: form.getAttribute('data-capture'),
+          page: location.pathname
+        });
+      }, { once: true });
+    }
+
+    // No provider is wired. Say so plainly rather than pretending to subscribe.
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var s = form.querySelector('.status');
+      if (s) {
+        s.textContent = 'There is no list yet — no address was sent or stored. '
+          + 'This form is here so the intent can be counted. See the Data Room.';
+        s.classList.add('show');
+      }
+    });
+  }
+
+  // --------------------------------------------------------- data room tally
+  var tallyBtn = document.getElementById('cw-show-tally');
+  if (tallyBtn) {
+    tallyBtn.addEventListener('click', function () {
+      var out = document.getElementById('cw-tally-out');
+      var t = window.Counterwise.tally();
+      var keys = Object.keys(t);
+      if (!keys.length) {
+        out.textContent = 'Nothing recorded in this browser yet.';
+        return;
+      }
+      out.textContent = keys.map(function (k) {
+        return k + ': ' + t[k];
+      }).join(' · ');
+    });
+  }
+
+  // --------------------------------------------------------------- opt out
+  var optBtn = document.getElementById('cw-optout');
+  var optInline = document.getElementById('cw-optout-inline');
+  [optBtn, optInline].forEach(function (btn) { if (btn) wireOptOut(btn); });
+
+  function wireOptOut(optBtn) {
+    optBtn.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      try { localStorage.setItem('cw_optout', '1'); } catch (e) {}
+      var toast = document.getElementById('cw-toast');
+      if (toast) {
+        toast.textContent = 'Measurement disabled in this browser.';
+        toast.classList.add('show');
+        setTimeout(function () { toast.classList.remove('show'); }, 3500);
+      }
+      if (optBtn.id === 'cw-optout-inline') {
+        var sib = optBtn.parentNode;
+        if (sib) sib.insertAdjacentHTML('afterend',
+          '<span class="badge green" style="margin-left:.5rem">Off</span>');
+      }
+    });
+  }
+
+  // Expose for the Data Room's live "what this page has recorded" panel.
+  window.Counterwise = {
+    events: EVENTS,
+    tally: function () {
+      try { return JSON.parse(localStorage.getItem('cw_tally') || '{}'); }
+      catch (e) { return {}; }
+    },
+    endpointConfigured: !!ENDPOINT
+  };
 })();

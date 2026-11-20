@@ -1,55 +1,107 @@
-# Counter & Crisp — WinB
+# Counterwise — kitchen gear, chosen by question
 
-A live, source-first Amazon affiliate site for five submitted products (three air fryers, two
-meat thermometers), tracking ID `shopnow047c-20`. The landing page reads like a shop; every
-verification surface sits one click away in the footer.
+A static Amazon Associates publication for five kitchen products: three air fryers and
+two thermometers. Built for the WinB repository and published with GitHub Pages.
 
 **Live site:** https://sassnarep3-star.github.io/WinB/
+**Associate tag:** `shopnow047c-20`
 
-## What's in the box
+---
 
-| Path | What it is |
+## What this is
+
+A shop, not an audit. Five product pages, two category hubs, a comparison table, five
+question-shaped guides, and one RSS feed. The compliance machinery is real but it lives
+under the floor — the front page leads with products, and every register is one click
+away in the footer.
+
+The editorial position is narrow and deliberate: **this desk has not handled any of these
+products.** Every page therefore describes what the manufacturer's listing states, shows
+its arithmetic, and lists what it cannot tell you. No page contains a fabricated test
+result, a borrowed star rating, or a price.
+
+## The rules the build enforces
+
+`node tools/verify.mjs` fails the build unless all ten hold:
+
+| | Rule |
 |---|---|
-| `index.html`, `products.html`, `air-fryers.html`, `thermometers.html`, `compare.html` | The shop: front page, lineup, category pages, comparison |
-| `guides.html`, `guide-*.html` | Five question-shaped buying guides (publication content) |
-| `about.html` | Brand, editorial & verification policy, authorship |
-| `executive-summary.html` + `EXECUTIVE_SUMMARY.md` | The project in one page |
-| `register.html` | Source register, product-intent confirmation record, product register, findings |
-| `workflow.html` | Publishing workflow & compliance gate (disclosure, endorsement context, link validation) |
-| `measurement.html` | Five defined events, privacy-preserving click counter, endpoint contract, campaign ledger |
-| `flagged.html` | Flagged for Review (FLG-001..FLG-008) |
-| `suggestions.html` | Suggestion review queue (SUG-001..SUG-012) — nothing implemented without a decision |
-| `questions.html` | Answered & open questions with discovery paths |
-| `sitemap.xml`, `feed.xml`, `robots.txt` | Findability: one canonical site, RSS 2.0, sitemap protocol |
-| `assets/` | CSS, JS (privacy-preserving counter), editorial imagery |
-| `data/` | Machine-readable exports: `sources.json`, `observations.json`, `products.json` |
-| `tools/build_site.py` | Regenerates every page + sitemap + feed from `tools/content_*.py` |
-| `tools/check_links.py` | Verification gate: links, anchors, disclosures, sponsored marks, tokens |
-| `COORDINATION.md` | Shared task board for parallel sessions (claims, scopes, verification log) |
+| R1 | The Associates statement appears above the masthead **and** in the footer of every page |
+| R2 | Every Amazon product link carries `?tag=shopnow047c-20` and `rel="sponsored nofollow noopener"` |
+| R3 | No price, star rating, rating count or popularity position appears anywhere |
+| R4 | No hands-on testing claim appears anywhere (disclaimers of that claim are allowed) |
+| R5 | Every page has a canonical URL, a title ≥10 chars and a description ≥40 chars |
+| R6 | Every internal `href`/`src` resolves to a real file |
+| R7 | The sitemap is valid, single-host, and lists every indexable page; the RSS feed is valid RFC-822 |
+| R8 | Every product page prints its ASIN and links to the listing with the tag |
+| R9 | No page claims a traffic, click, conversion or revenue figure |
+| R10 | Every affiliate exit page is indexable, disclosed, tagged and `rel="sponsored"` |
 
-## Building
+## Commands
 
 ```bash
-python3 tools/build_site.py   # regenerate all HTML, sitemap.xml, feed.xml, robots.txt, data/
-python3 tools/check_links.py  # must print OK before anything is published
+npm run build    # generate HTML, sitemap, feed, 404, artwork
+npm run verify   # content rules R1-R10
+npm run links    # crawl the built site, validate XML
+npm run smoke    # fetch every URL at /WinB/ over HTTP (needs a local server on :3001)
+npm run check    # build + verify + links
 ```
 
-Content lives in `tools/content_data.py` (verified data), `tools/content_pages.py` /
-`tools/content_desk.py` / `tools/content_guides.py` (page copy), `tools/theme.py` (chrome).
-To add a guide: add its entry to `GUIDES` in `tools/content_pages.py`, a page row in
-`tools/build_site.py`, and its body in `tools/content_guides.py` — the sitemap and RSS feed
-regenerate automatically.
+## Layout
 
-## Rules the build enforces
+```
+_build/            generators (data.mjs is the single source of truth)
+  data.mjs         products, flags, questions, suggestions, sources, events, ledger
+  core.mjs         page shell, disclosure strip, masthead, footer
+  content-shop.mjs front page, categories, product pages, comparison, guides
+  content-oversight.mjs  decision room, data room, flagged, methods, about, privacy
+tools/             verify.mjs · linkcheck.mjs · smoke.mjs
+assets/            css/site.css · js/site.js · generated SVG artwork
+analytics/         deployable collected-worker.js + schema (NOT running)
+reviews/           five product pages (generated)
+guides/            five guides (generated)
+air-fryers/ thermometers/ compare/    category and comparison hubs
+decisions/ data-room/ flagged/        oversight surfaces
+methods/ about/ privacy/ executive-summary/
+```
 
-1. Every register row has an official source link, or the cell is **blank and flagged** — never inferred.
-2. Intended link fields and observed-redirect fields are kept separate (product-intent record).
-3. The disclosure statement appears under the masthead and in the footer of every page.
-4. Every product link is marked sponsored (badge + `rel="sponsored"`).
-5. Prices/ratings are intentionally not published while unverified.
+Generated files are committed so GitHub Pages serves them directly. CI regenerates and
+fails if the committed HTML drifts from `_build/`.
 
-## Verification
+## Read these before changing anything
 
-Sources verified 2026-11-20 against official sites only (FTC, USDA FSIS, CPSC, Amazon Associates,
-Amazon developer docs, sitemaps.org, RSS Advisory Board, GitHub Docs) — full list with URLs on
-`register.html`. Open items are published on `flagged.html`; they do not block publication.
+- `COORDINATION.md` — the shared task board and the verification log
+- `/flagged/` — the nine items that could not be confirmed, with what would close each
+- `/decisions/` — suggestions ranked by priority, open questions, rejected options
+
+## Two things that need the owner
+
+1. **Confirm the short links.** All five `link.amazon` links resolve to live listings but
+   none of the resolved URLs carries a `tag=` parameter. The site publishes tagged
+   canonical links instead. See FLG-001.
+2. **Deploy the analytics endpoint.** The collector is real code; it is not running, so
+   nothing is measured. See `analytics/README.md` and FLG-007.
+
+## Licence and attribution
+
+Body copy and generated artwork are original to this repository. Amazon and the Amazon
+logo are trademarks of Amazon.com, Inc. or its affiliates. This site is not endorsed by
+Amazon. As an Amazon Associate the site owner earns from qualifying purchases.
+
+---
+
+## Preserved alternative build — Counter & Crisp (`alt-site/counter-and-crisp/`)
+
+Session `arena/6fc7de34` (PR #31) contributed an independent, self-contained site build for the
+same five products. It is **not** the canonical site: it ships `noindex,follow` and a disallowing
+`robots.txt`, consistent with the archive convention in `tools/noindex.cjs`, so search engines keep
+indexing only the canonical root build.
+
+- Live at `https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp/` (for review, not ranking).
+- Distinctive pieces worth mining: the product-intent confirmation record with strict
+  intent-vs-observation field separation, the suggestion review queue format (SUG-001..012 with
+  impact/effort/risk and blank decision columns), the open-questions register with discovery paths
+  (Q-01..15), and the five-event privacy-preserving counter design.
+- Rebuild: `python3 tools/build_site.py` · verify: `python3 tools/check_links.py`.
+- Independent cross-check recorded in `COORDINATION.md` §9: this session's fetch of the five
+  supplied short links produced the same five observed ASINs as §3/§8 of the board.

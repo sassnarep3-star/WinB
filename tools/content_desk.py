@@ -111,7 +111,7 @@ def register_body():
     for s in SOURCES:
         src_rows.append("""<tr id="%s">
   <td><strong>%s</strong></td><td>%s</td>
-  <td><a href="%s" rel="noopener">%s</a></td>
+  <td><a href="%s" rel="sponsored nofollow noopener">%s</a></td>
   <td>%s</td><td>%s</td>
 </tr>""" % (s["id"].lower(), s["id"], s["org"], s["url"], s["title"], s["supports"], s["how"]))
 
@@ -132,7 +132,7 @@ def register_body():
             s["submitted_id"], BLANK, BLANK))
         obs_rows.append("""<tr>
   <td><strong>%s</strong></td>
-  <td><a href="%s" rel="noopener">%s</a></td>
+  <td><a href="%s" rel="sponsored nofollow noopener">%s</a></td>
   <td>%s</td>
   <td>%s</td>
   <td>Server-side fetch, %s</td>
@@ -151,7 +151,7 @@ def register_body():
   <td>%s</td>
   <td>%s</td>
   <td>%s</td>
-  <td><a href="%s" rel="noopener">%s</a></td>
+  <td><a href="%s" rel="sponsored nofollow noopener">%s</a></td>
 </tr>""" % (p["id"].lower(), p["id"], p["short_name"], p["format"], p["one_liner"],
             "; ".join(p["claims"]), BLANK, BLANK, o["observed_url"], o["observed_url"]))
 

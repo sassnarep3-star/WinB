@@ -19,8 +19,12 @@ import content_desk as desk
 import content_guides as guides
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# The Counter & Crisp build is a preserved, self-contained variant (noindexed by
+# tools/noindex.cjs so the canonical root build stays the one site search engines index).
+OUT = os.environ.get("CC_OUT", os.path.join(ROOT, "alt-site", "counter-and-crisp"))
 BUILT = SITE["built"]
 RSS_DATE = "Fri, 20 Nov 2026 12:00:00 GMT"
+ROBOTS_META = '<meta name="robots" content="noindex,follow">'
 
 # ---------------------------------------------------------------------------
 # Page registry: file, <title>, meta description, nav key, body fn, page type, og type
@@ -114,6 +118,7 @@ def guide_jsonld(page, title, desc):
 
 
 def build():
+    os.makedirs(OUT, exist_ok=True)
     written = []
     for page, title, desc, nav, body_fn, ptype, og in PAGES:
         if ptype == "guide":
@@ -121,7 +126,8 @@ def build():
         else:
             extra = jsonld_webpage(title, desc, page)
         html = render(title, desc, page, body_fn(), page_type=ptype, og_type=og, jsonld=extra)
-        with open(os.path.join(ROOT, page), "w", encoding="utf-8") as f:
+        html = html.replace("<head>", "<head>\n" + ROBOTS_META, 1)
+        with open(os.path.join(OUT, page), "w", encoding="utf-8") as f:
             f.write(html)
         written.append(page)
 
@@ -135,7 +141,7 @@ def build():
         parts.append("    <lastmod>%s</lastmod>" % BUILT)
         parts.append("  </url>")
     parts.append("</urlset>")
-    with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write("\n".join(parts) + "\n")
 
     # ---- feed.xml (RSS 2.0, SRC-09) ----
@@ -163,24 +169,25 @@ def build():
   </channel>
 </rss>
 """ % (BASE, RSS_DATE, "\n".join(items))
-    with open(os.path.join(ROOT, "feed.xml"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUT, "feed.xml"), "w", encoding="utf-8") as f:
         f.write(feed)
 
-    # ---- robots.txt ----
-    with open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8") as f:
-        f.write("User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % BASE)
+    # ---- robots.txt (archive treatment: the canonical site stays the one indexable site) ----
+    with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:
+        f.write("User-agent: *\nDisallow: /\n\n# Archived or alternate site generation. The canonical site is at "
+                "https://sassnarep3-star.github.io/WinB/\n")
 
     # ---- JSON data exports (machine-readable register) ----
-    os.makedirs(os.path.join(ROOT, "data"), exist_ok=True)
-    with open(os.path.join(ROOT, "data", "observations.json"), "w", encoding="utf-8") as f:
+    os.makedirs(os.path.join(OUT, "data"), exist_ok=True)
+    with open(os.path.join(OUT, "data", "observations.json"), "w", encoding="utf-8") as f:
         json.dump({"schema": "counter-and-crisp/observations-v1",
                    "note": "Observed redirect targets, kept separate from intended identifiers. Observed 2026-11-20 via server-side fetch; mapping not confirmed.",
                    "observations": OBSERVATIONS}, f, indent=2)
-    with open(os.path.join(ROOT, "data", "sources.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUT, "data", "sources.json"), "w", encoding="utf-8") as f:
         json.dump({"schema": "counter-and-crisp/sources-v1",
                    "verified_on": "2026-11-20",
                    "sources": SOURCES}, f, indent=2)
-    with open(os.path.join(ROOT, "data", "products.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUT, "data", "products.json"), "w", encoding="utf-8") as f:
         json.dump({"schema": "counter-and-crisp/products-v1",
                    "policy": "price/rating are null by design (unverified); 'claims' are seller statements from listing titles",
                    "products": PRODUCTS}, f, indent=2)

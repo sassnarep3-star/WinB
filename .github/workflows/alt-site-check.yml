@@ -1,0 +1,32 @@
+name: Alternate site check
+
+on:
+  pull_request:
+    paths:
+      - "alt-site/**"
+      - ".github/workflows/alt-site-check.yml"
+  push:
+    branches: [main]
+    paths:
+      - "alt-site/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alt-site-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build alternate site
+        run: python3 alt-site/build/build.py
+      - name: Compliance gate
+        run: python3 alt-site/scripts/check_site.py

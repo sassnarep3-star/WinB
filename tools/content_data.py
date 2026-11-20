@@ -6,11 +6,12 @@
 #   * Nothing is inferred: values we could not confirm from an official source are "" (blank).
 #
 # Verified 2026-11-20 by session arena/6fc7de34.
+import os
 
 SITE = {
     "name": "Counter & Crisp",
     "tagline": "Air fryers & kitchen thermometers, compared plainly",
-    "base_url": "https://sassnarep3-star.github.io/WinB",
+    "base_url": os.environ.get("CC_BASE", "https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp"),
     "tracking_id": "shopnow047c-20",
     "built": "2026-11-20",
     "disclosure": 'As an Amazon Associate I earn from qualifying purchases.',
