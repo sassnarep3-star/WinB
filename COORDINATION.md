@@ -961,6 +961,46 @@ where it cannot be confirmed, gated by `npm run check` before merge, and publish
 Pages reports `built`. Irregularities do not block the merge; they are published on `/flagged/`
 with source links.
 
+---
+
+## 10. Session `69bfe2b0` — cycle claim (2026-11-20)
+
+**Board read before claiming.** `origin/main` at `2de80b0` (PR #41, merged into this branch
+before claiming — fast-forward, no conflicts). Open PRs at claim time: #42, #39, #35, #34,
+#31, #30, #26, #25, #16, #9. Their file scopes were read with `gh pr view --json files`
+before this claim was written. To keep scopes non-overlapping, this session does **not**
+edit `_build/data.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`,
+`_build/editorial.mjs`, `.github/workflows/pages.yml`, or any tree owned by an open PR —
+its edits are confined to `COORDINATION.md` (append-only, end of file),
+`EXECUTIVE-SUMMARY.md` (append-only), and generated HTML regenerated from `_build/`.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S17 | **Independent line-by-line re-verification of the build at PR #41 state:** run the full gate on the merged state; re-fetch the five Amazon listings and the official policy sources live (own retrieval); check every rendered register row against the generator; fix any rendered defect found; append findings to EXECUTIVE-SUMMARY.md (append-only) and this board. | `69bfe2b0` | `COORDINATION.md` (append-only), `EXECUTIVE-SUMMARY.md` (append-only), generated HTML only if a rendered defect is found (regenerated from `_build/`) | done |
+| S18 | **Integration for this cycle:** build, verify R1–R15, gate, linkcheck, smoke; PR from `arena/69bfe2b0-winb` to `main`; merge `--merge` without waiting; confirm Pages deploy; record result here. | `69bfe2b0` | PR/merge operations, `COORDINATION.md` | in progress |
+
+### S17 completion record (session `69bfe2b0`, 2026-11-20)
+
+Scope of the pass: the merged state of `origin/main` through PR #44 (`1772ab8`) plus this
+session's merge commit. **No rendered defect was found, so no generated file changed** —
+this session's net file changes are `COORDINATION.md` and `EXECUTIVE-SUMMARY.md` (§12) only.
+
+| Check | Result |
+| --- | --- |
+| Five canonical listings re-fetched live (`/dp/` pages) | **5 of 5** ASIN + title match the register exactly (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z). Prices/ratings visible on the listings were deliberately not recorded (R3). |
+| Official policy sources re-fetched live | A1 "Updated: October 15, 2025" — §1 Special Links definition, §5 disclosure sentence **verbatim**, §6 material breach. A2 "Updated: April 14, 2026" — §1 original content; §2(a) Associates ID requirement; §2(b) tag "XXXXX-##, or such other format"; price rule; misleading-claims rule. F1 FTC (Nov 2019) — hard-to-miss, no untried-experience claims. U1 USDA FSIS (Last Updated Apr 14, 2025) — all temperature rows re-read. G1 Google (2025-12-10) — `rel="sponsored"`. |
+| Supplied short-link sample re-check | `link.amazon/B04G1MEwY` landed on **amazon.com home** in this retrieval — matches S16's observation for the same link; recorded as a new data point for FLG-016, not asserted invalid; owner Special Link test remains the resolution path (FLG-001/003). |
+| Rendered-defect sweep | No `[object Object]`, `undefined`, `NaN`, empty `<tbody>`, `1 probes`, `aFrench` anywhere in the canonical pages; all five product pages print the correct ASIN; `/compare/` renders rows. |
+| Full CI generation sequence | `build.mjs → make-images → build.cjs → noindex → consolidate` — **zero drift** against the committed tree. |
+| `node tools/verify.mjs` | **PASS** R1–R11 (31 canonical, 18 preserved, 40 Amazon links, 334 internal) |
+| `node tools/gate.mjs` | **PASS** R11–R15 (43 canonical, 56 social images, 3,739 class usages) |
+| `node tools/check.cjs` | All gates passed (2 pre-existing archived-tree warnings, unchanged) |
+| `node tools/linkcheck.mjs` | **PASS** — 58 files crawled, 0 broken links, XML valid |
+| HTTP smoke at `/WinB/` | **PASS** — 32 pages, 60 linked assets, all 200 |
+| SEO artefacts | sitemap.xml 37 routes, single host; feed.xml 10 items; robots.txt allows the canonical site, disallows the superseded trees. |
+
+Full details and per-source links are in `EXECUTIVE-SUMMARY.md` §12.
+
 ### Integration result (V-4)
 
 | Item | Result |
@@ -1110,6 +1150,29 @@ Standing requirement: every table row needs a source link to an official site. T
 | Brand note (see FLG-012) | The preserved variant carries a third brand label ("Counter & Crisp"), inherited from this session's independent build. It is noindexed and archived; if the owner prefers one brand, delete `alt-site/counter-and-crisp/` or relabel — a one-line decision, logged here rather than acted on. |
 | Requests to file owners | None. Only this board and `README.md` were touched among `done`-scope files, **appended only**, per this board's logging rule. |
 
+### S18 note — `main` CI drift found and fixed on this branch (2026-11-20)
+
+After PR #31 merged, `main`'s `Build, verify and deploy to GitHub Pages` run
+(44688631018) went **failure**: PR #31 committed its `alt-site/counter-and-crisp/` tree
+in its own generator's state (`noindex,follow`, no banner), but the standard CI generation
+sequence runs `tools/consolidate.mjs`, which applies the archive policy to that tree
+(`noindex,nofollow` + visible archive banner) across 36 files. The drift check therefore
+fails on `main` as committed, and the Pages deploy step did not run.
+
+**Fix applied on this branch** (the remedy the drift check itself prints: run the build and
+commit the result): commit `bb4fb26` carries the post-consolidate state of those 36 files.
+This is the same treatment every other preserved parallel generation already has
+(`docs/`, `legacy-docs-site/`, `alt-site/build/`, `archive/` — 44 files previously marked).
+All gates re-run green after the fix: verify R1–R11 (45 Amazon links now), gate R11–R15,
+check.cjs all gates passed, linkcheck 58 files / 0 broken, smoke at `/WinB/` 32 pages +
+60 assets all 200. The site's canonical tree is unchanged; only the parallel alt-site
+tree's robots/banner state moves to the established archive policy.
+
+**Board-level irregularity for the `_build/data.mjs` owner** (this session does not edit
+that file — open PR #42 claims it): the drift above deserves a flag in the site's FLG
+register (suggested next free number, subject to the register owner's check) — "PR #31
+merged a parallel tree in a state the CI generation immediately rewrites; main CI red
+until consolidated state committed." Logged here so the record is not lost.
 ## Appendix: session `3e1be50a` — design-direction suggestions + trend topic engine
 
 **Session ID:** `3e1be50a` · **Branch:** `arena/3e1be50a-winb` · **Base:** `9798831` (= `main` tip at
