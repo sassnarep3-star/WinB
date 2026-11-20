@@ -46,7 +46,9 @@ const MORE = [
   { href: '/reviews/', label: 'All five picks' },
   { href: '/compare/', label: 'Comparison table' },
   { group: 'How this works' },
+  { href: '/suggestions/', label: 'Suggestions' },
   { href: '/decisions/', label: 'Decision Room' },
+  { href: '/decisions/inputs.html', label: 'Decision inputs' },
   { href: '/data-room/', label: 'Data Room' },
   { href: '/flagged/', label: 'Flagged for Review' },
   { href: '/methods/', label: 'How we choose' },
@@ -122,14 +124,17 @@ export function footer() {
           <li><a href="/guides/">All guides</a></li>
           <li><a href="/guides/basket-or-oven.html">Basket or oven</a></li>
           <li><a href="/guides/capacity-checklist.html">Capacity checklist</a></li>
-          <li><a href="/guides/temperature-safety.html">Safe temperatures</a></li>
+          <li><a href="/guides/hosting-season.html">Hosting season</a></li>
+          <li><a href="/guides/gifts-for-the-cook.html">Gifts for the cook</a></li>
           <li><a href="/feed.xml">RSS feed</a></li>
         </ul>
       </div>
       <div>
         <h4>Oversight</h4>
         <ul>
+          <li><a href="/suggestions/">Suggestions</a></li>
           <li><a href="/decisions/">Decision Room</a></li>
+          <li><a href="/decisions/inputs.html">Decision inputs</a></li>
           <li><a href="/data-room/">Data Room</a></li>
           <li><a href="/flagged/">Flagged for Review</a></li>
           <li><a href="/register/">Source register &amp; link audit</a></li>

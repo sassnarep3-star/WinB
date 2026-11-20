@@ -54,7 +54,8 @@ export const SOURCES = {
       'Participation Requirements §2(b): prices and availability may be shown only if Amazon serves the link, or the data comes from Creators API / PA API under the licence.',
       'Participation Requirements §2(b): you must not make inaccurate, overbroad, deceptive or misleading claims about any product, price or policy.',
       'Participation Requirements §3(e): the site must disclose the use of cookies, pixels and other technologies and how visitor data is collected and used.',
-      'IP License §1 and §2(c): Program Content must link only to the relevant Amazon page, and may not be used to train machine-learning models.',
+      'IP License §2(c): each use of Product Advertising Content must link to, and only to, the relevant page of an Amazon Site.',
+      'Participation Requirements §5 and IP License §1: Special Links and Program Content may not be used to develop or improve machine-learning models without Amazon’s written approval.',
     ],
   },
   A3: {
@@ -1062,5 +1063,512 @@ export const GUIDES = [
     ],
     related: ['P04', 'P05'],
     sources: ['U1', 'A2'],
+  },
+  {
+    slug: 'hosting-season',
+    path: 'guides/hosting-season.html',
+    kicker: 'Season',
+    title: 'Hosting season: which machine cooks what on the big day?',
+    summary:
+      'One oven, four side dishes and a guest list. The December problem is oven occupancy, not appliance quality: a job-by-job way to split the cooking across a countertop oven, a dual basket and a big single basket, with the safety numbers that decide when each job is done.',
+    readingTime: '5 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'The problem is oven occupancy, not appliance quality',
+        p: [
+          'On a hosting day the oven is the bottleneck: the bird, the roast, the tray of potatoes and the pudding all want the same cavity at different temperatures. Every machine that adds a second cooking space is worth more on that day than any preset count.',
+          'That is the lens for the rest of this page. Not which of these five units is best — none of them has been handled by this desk — but which job each machine’s stated shape actually fits.',
+        ],
+      },
+      {
+        h: 'Assign by job, not by headline capacity',
+        p: [
+          'The rows below assign each typical job to the machine whose published format matches it. Every statement of what a machine can hold is the listing’s own claim, recorded in the product pages with its source.',
+        ],
+        table: {
+          head: ['Job on the day', 'The machine that fits', 'Why, per the listing'],
+          rows: [
+            [
+              'The big bird or a joint roast',
+              'Emeril Lagasse 26 qt French door',
+              'One large cavity with a French door and racks; the largest stated volume of the five.',
+            ],
+            [
+              'Two side dishes at different temperatures',
+              'Chefman 6 qt dual basket',
+              'Two independent 3 qt baskets that can run separately and, per the listing, finish together.',
+            ],
+            [
+              'One large batch of wings, fries or vegetables',
+              'Chefman 8 qt TurboFry',
+              'A single 8 qt basket — the largest stated single-batch capacity of the three air fryers.',
+            ],
+            [
+              'Knowing when everything is done',
+              'ThermoMaven 1-second thermometer',
+              'Instant-read format: a number in about a stated second, per the listing title.',
+            ],
+            [
+              'Watching a long roast without opening the door',
+              'CHEF iQ Sense Gen3',
+              'Leave-in wireless probes with a stated 1000°F heat limit; the format made for long cooks.',
+            ],
+          ],
+          source: 'A2',
+        },
+      },
+      {
+        h: 'The safety numbers for the day',
+        p: [
+          'The USDA publishes safe minimum internal temperatures, measured with a food thermometer before the food leaves the heat source. These are minimums; personal preference may take you higher. On a multi-dish day these numbers are the schedule.',
+        ],
+        table: {
+          head: ['Food', 'Minimum internal temperature', 'Rest'],
+          rows: [
+            ['All poultry, including giblets and stuffing', '165°F (73.9°C)', '—'],
+            ['Beef, pork, veal and lamb roasts', '145°F (62.8°C)', 'At least 3 minutes'],
+            ['Leftovers and casseroles', '165°F (73.9°C)', '—'],
+            ['Fully cooked ham, reheated', '140°F (60°C) if packaged in a USDA-inspected plant; otherwise 165°F (73.9°C)', '—'],
+          ],
+          source: 'U1',
+        },
+      },
+      {
+        h: 'The second shift: leftovers',
+        p: [
+          'The day after generates its own schedule: everything comes back up to 165°F before it leaves the heat. This is the instant-read’s job, twice an evening, and it is the reason a thermometer is a hosting-season purchase rather than a gadget.',
+          'The same probe that read the bird on the day reads the reheated casserole on the day after. If you own only one tool from this page, that is the argument for the handheld unit.',
+        ],
+      },
+      {
+        h: 'What this plan cannot do',
+        p: [
+          'Nothing on this page is a hands-on verdict. The job assignments follow each listing’s own statements about format and capacity, attributed and recorded in the product pages. Where a listing is silent — usable basket volume, real-world probe response times — the product page says so rather than guessing.',
+          'Capacity figures are stated totals, not serving estimates. The capacity checklist has the method for converting either into portions.',
+        ],
+      },
+    ],
+    related: ['P02', 'P01', 'P03', 'P05'],
+    sources: ['U1', 'A2'],
+  },
+  {
+    slug: 'gifts-for-the-cook',
+    path: 'guides/gifts-for-the-cook.html',
+    kicker: 'Gifting',
+    title: 'Five gifts for the cook who already has an oven: match the person, not the preset count',
+    summary:
+      'A gift guide with no prices and no star ratings — those live on the listing and change too fast to reprint. What stays stable is fit: which of these five units suits which kind of cook, and the three checks to run before wrapping any of them.',
+    readingTime: '5 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'Start with the person, not the product',
+        p: [
+          'The fastest way to buy a kitchen gift badly is to shop by feature count. The useful question is what the person cooks, and which job in their kitchen currently has no tool. Each of the five units on this site covers one job well and one job badly; the table below maps them to people rather than to specifications.',
+          'These are fit judgements drawn from what each listing states about format and use — not reports of how the machines behave in use, which this desk cannot give.',
+        ],
+      },
+      {
+        h: 'Who each unit actually suits',
+        p: [
+          'Read down the middle column as a question about the recipient: which sentence sounds like them?',
+        ],
+        table: {
+          head: ['Who you are buying for', 'The match', 'Why it fits, per the listing'],
+          rows: [
+            [
+              'The cook who makes two-part weeknight meals',
+              'Chefman 6 qt dual basket',
+              'Two independent 3 qt baskets for a protein and a side at the same time.',
+            ],
+            [
+              'The one who batch-cooks for a crowd',
+              'Chefman 8 qt TurboFry',
+              'A single 8 qt basket — one big batch instead of two small ones.',
+            ],
+            [
+              'The one whose kitchen runs on the oven',
+              'Emeril Lagasse 26 qt French door',
+              'A French-door countertop oven with racks and six stated accessories: roast, toast and air-fry in one fixture.',
+            ],
+            [
+              'The one who asks “is it done?” out loud',
+              'ThermoMaven 1-second thermometer',
+              'An instant-read for a fast number, with a stated IP67 rinse-and-go build.',
+            ],
+            [
+              'The long-cook hobbyist: smoking, roasting, Sunday birds',
+              'CHEF iQ Sense Gen3',
+              'Three leave-in probes over WiFi, stated 1000°F heat-safe, for watching a temperature climb from another room.',
+            ],
+          ],
+          source: 'A2',
+        },
+      },
+      {
+        h: 'Three checks before you wrap it',
+        p: [
+          'One: check the price and availability on the listing itself. They change constantly, which is exactly why this site prints neither — and why any number you see quoted elsewhere may be stale.',
+          'Two: measure their counter and their sink. A countertop oven is a fixture and a basket is a dish; the cleanup and counter-space guide has the method.',
+          'Three: ask whether they want a phone in the loop. The wireless probe is a system with an app; the instant-read is a tool. That single question prevents more returns than any specification.',
+        ],
+      },
+      {
+        h: 'What this guide deliberately does not claim',
+        p: [
+          'No unit here has been handled, bought or tested by this desk, so nothing here reports durability, noise, real accuracy or how a coating wears. Certification and performance claims — the NIST and NSF wording, the ±0.5°F figure, the 1000°F limit — appear as the listings state them, not as verified facts.',
+          'That is the honest size of this advice: fit and format from published claims, with the checks above left to you and the listing.',
+        ],
+      },
+    ],
+    related: ['P04', 'P01', 'P05'],
+    sources: ['A2'],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Season clusters — the "seasons and clusters" layer. Entry points into the
+// existing guides, framed by the calendar. No new claims: every card points at
+// a guide that carries its own sources.
+// ---------------------------------------------------------------------------
+export const SEASONS = {
+  kicker: 'Right now',
+  title: 'Start with the season you are in',
+  lede: 'The same five picks, entered from the question the calendar is asking. Each card opens a guide that shows its sources.',
+  cards: [
+    {
+      tag: 'Hosting season',
+      title: 'Which machine cooks what on the big day',
+      desc: 'Oven occupancy, job assignment, and the safety numbers that schedule the meal.',
+      href: '/guides/hosting-season.html',
+    },
+    {
+      tag: 'Gifting',
+      title: 'Five gifts for the cook who already has an oven',
+      desc: 'Match the person, not the preset count — and three checks before you wrap.',
+      href: '/guides/gifts-for-the-cook.html',
+    },
+    {
+      tag: 'Weeknights',
+      title: 'Capacity in portions, not in quarts',
+      desc: 'The five-minute check that turns a stated capacity into your household’s batch count.',
+      href: '/guides/capacity-checklist.html',
+    },
+    {
+      tag: 'Small kitchens',
+      title: 'The cleanup and counter-space trade-offs',
+      desc: 'Sink space, dishwasher geometry, and where the machine lives when it is idle.',
+      href: '/guides/cleanup-counter.html',
+    },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Suggestion board — the dedicated review surface at /suggestions/.
+// Each suggestion is a fork between named paths. Nothing is implemented unless
+// its status says so: the point of the board is to let the owner choose a path
+// before anything changes.
+// ---------------------------------------------------------------------------
+export const SUGGESTION_BOARD = {
+  how: 'Each suggestion below is a fork, not a mandate. Read the paths, pick one per card — or none — and only then does anything change. Status labels: “Shipped in this build” means the recommended path is already live and the alternative stays on the table; “Awaiting choice” means nothing has been done; “Needs owner input” means the paths cannot be compared until a question on the Decision Inputs page is answered.',
+  groups: [
+    {
+      name: 'Reads like a shop, not like a process',
+      items: [
+        {
+          id: 'DS-01',
+          title: 'Front-page voice: lead with the products',
+          problem: 'The first screen of a shop should sell the goods, not describe the audit. Verification belongs where a careful reader looks for it, not where an arriving one lands.',
+          options: [
+            { label: 'Path A — shop-first front page (recommended)', detail: 'Hero leads with the five picks and buyer questions; the honesty band sits below the products and links through to the methods pages. Shipped in this build.', effort: 'Done' },
+            { label: 'Path B — full magazine front page', detail: 'Rotating feature story, larger imagery, issue-style sections. More editorial presence; more to maintain and more image work.', effort: '2–3 days' },
+            { label: 'Path C — product grid only', detail: 'Pure catalogue. Converts the front page into a listing and loses the question-shaped entry points that earn search traffic.', effort: '1 day' },
+          ],
+          recommendation: 'Path A. Path B becomes worth it when there is a named author and an imagery budget (DS-04, DS-05).',
+          status: 'Shipped in this build',
+          needs: 'Nothing.',
+        },
+        {
+          id: 'DS-02',
+          title: 'Seasons and topic clusters',
+          problem: 'A publication reads as alive when its entry points follow the calendar. Clusters also give search engines clear topical neighbourhoods instead of one flat list.',
+          options: [
+            { label: 'Path A — seasonal cards plus two seasonal guides (recommended)', detail: 'A “start with the season” band on the front page pointing at question-shaped guides, two of which ship now: hosting season and gifting.', effort: 'Done' },
+            { label: 'Path B — a full seasonal hub per quarter', detail: 'A dedicated page per season with curated picks. More depth, more upkeep, and a risk of thin pages once the season passes.', effort: '2 days per quarter' },
+          ],
+          recommendation: 'Path A now; Path B only after measured interest — the ledger and the click counter will show which seasons earn readers.',
+          status: 'Shipped in this build',
+          needs: 'Nothing to start; measurement to choose the next season (DI-04).',
+        },
+        {
+          id: 'DS-03',
+          title: 'What to publish next: the topic engine',
+          problem: 'The next topic should come from measured queries, not instinct. Until measurement exists, the safest engine is the hypothesis list the brief already names.',
+          options: [
+            { label: 'Path A — question-shaped long-tail guides (recommended)', detail: 'Continue the editorial hypotheses: comparison questions, checklists, trade-off guides. Each answers one searchable question and links back to the register.', effort: '1 guide per fortnight' },
+            { label: 'Path B — head-to-head comparison pages', detail: 'Higher search volume, harsher competition, and a shape that tempts verdict language this site cannot support without handling the products.', effort: '2 days each' },
+            { label: 'Path C — recipe-led content', detail: 'Traffic-friendly but off-register: recipes would imply use of machines this desk has not handled.', effort: 'Ongoing' },
+          ],
+          recommendation: 'Path A until the campaign ledger shows which topics earn clicks (SUG-06). Path C is rejected outright under the non-testing policy (FLG-004).',
+          status: 'Awaiting choice',
+          needs: 'Analytics live (DI-04) before measuring anything; nothing blocks starting Path A.',
+        },
+      ],
+    },
+    {
+      name: 'Trust: authorship, brand, imagery',
+      items: [
+        {
+          id: 'DS-04',
+          title: 'Authorship: a desk or a person?',
+          problem: 'Google’s site-reputation review weighs stated or implied authorship. A named editor with a short biography is the cheapest trust signal available to a young publication.',
+          options: [
+            { label: 'Path A — keep the Counterwise desk', detail: 'Current state. Consistent and honest about the non-testing policy, but anonymous.', effort: 'Done' },
+            { label: 'Path B — named author and biography page (recommended when decided)', detail: 'A real byline with a two-line biography and a contact route. Materially improves trust and policy posture; requires the owner’s identity decision.', effort: 'Half a day' },
+          ],
+          recommendation: 'Path B as soon as the owner answers DI-06.',
+          status: 'Needs owner input',
+          needs: 'DI-06 (Q-05).',
+        },
+        {
+          id: 'DS-05',
+          title: 'Imagery: abstract art or product photography?',
+          problem: 'Imagery is the difference between published and generated. It is also the easiest place to accidentally use Amazon’s content outside the licence.',
+          options: [
+            { label: 'Path A — original abstract art (recommended for now)', detail: 'Current state: consistent, light, clearly not a product photograph, and containing no third-party content.', effort: 'Done' },
+            { label: 'Path B — commissioned product photography', detail: 'Requires owning or borrowing the units (ties to DI-03). The only imagery that can honestly show a machine in use.', effort: 'Unit cost plus 2–3 days' },
+            { label: 'Path C — listing images taken from Amazon', detail: 'Not recommended: the IP licence limits how Program Content may be reused, and unlicensed listing images are the kind of shortcut this site exists to avoid.', effort: '—' },
+          ],
+          recommendation: 'Path A now, Path B after DI-03 resolves. Path C rejected.',
+          status: 'Awaiting choice',
+          needs: 'DI-03 for Path B.',
+        },
+      ],
+    },
+    {
+      name: 'Audience: capture, distribution, findability',
+      items: [
+        {
+          id: 'DS-06',
+          title: 'Reader capture: what should the form do?',
+          problem: 'A form that silently discards input is worse than no form. The current form is deliberately inert and says so on the page.',
+          options: [
+            { label: 'Path A — honest inert form (current)', detail: 'Fires the capture_intent event, transmits nothing, and tells the reader so.', effort: 'Done' },
+            { label: 'Path B — wire a mailing provider (recommended when chosen)', detail: 'A provider with a documented data story, consent copy, and one endpoint. Then the form collects for real.', effort: 'Half a day' },
+            { label: 'Path C — remove the form', detail: 'Cleanest surface, but loses the intent signal that is already being counted.', effort: '1 hour' },
+          ],
+          recommendation: 'Path B once DI-05 names a provider.',
+          status: 'Needs owner input',
+          needs: 'DI-05 (Q-04).',
+        },
+        {
+          id: 'DS-07',
+          title: 'Search Console and the domain question',
+          problem: 'Query-level data needs a verified Search Console property. The github.io project path works but is a weak brand home.',
+          options: [
+            { label: 'Path A — verify the current URL-prefix property (recommended first)', detail: 'Owner pastes a verification token; the sitemap is already shipped and linked from robots.txt. Fifteen minutes of owner time.', effort: '15 minutes, owner' },
+            { label: 'Path B — move to a custom domain', detail: 'Better brand home and cleaner cookie scope; needs a domain purchase and DNS control.', effort: 'Half a day plus the domain' },
+          ],
+          recommendation: 'Path A immediately; Path B as a later brand step.',
+          status: 'Needs owner input',
+          needs: 'Owner’s Google account (DI-06).',
+        },
+      ],
+    },
+    {
+      name: 'Machinery: measurement and decisions',
+      items: [
+        {
+          id: 'DS-08',
+          title: 'Link strategy before scaling traffic',
+          problem: 'The supplied short links carry no visible tag. Whether they credit the account at click time is unresolved (FLG-001, FLG-003).',
+          options: [
+            { label: 'Path A — tagged canonical listing links (current)', detail: 'Every money link is built from the observed ASIN plus the owner’s tag. Safe, checkable, and enforced by the build gate.', effort: 'Done' },
+            { label: 'Path B — run the dashboard test, then decide (recommended before scaling)', detail: 'Mint one link per product inside the enrolled Associates workflow, click it, and confirm the tracking report. Closes or confirms FLG-001 and FLG-003.', effort: 'Under an hour, owner' },
+          ],
+          recommendation: 'Path A stays the default; do Path B before any paid or scaled distribution.',
+          status: 'Needs owner input',
+          needs: 'DI-01 (Q-01, FLG-003).',
+        },
+        {
+          id: 'DS-09',
+          title: 'How decisions get made from here',
+          problem: 'The project promised evidence-based iteration. That needs a place where options are reviewed before anything ships, and a record of what was chosen.',
+          options: [
+            { label: 'Path A — this board plus the Decision Inputs page (recommended)', detail: 'Every change arrives as a card with named paths; every open question arrives with a discovery suggestion. Shipped in this build.', effort: 'Done' },
+            { label: 'Path B — add a dated decisions log', detail: 'Each chosen path gets a dated entry with the reason and the evidence. Small overhead, permanent record.', effort: '1 hour to start' },
+            { label: 'Path C — generate suggestions from measurement', detail: 'When the ledger has rows, generate review cards from it. Premature until there is data.', effort: 'Later' },
+          ],
+          recommendation: 'Path A now, Path B from the next decision, Path C only after the ledger has real rows.',
+          status: 'Shipped in this build',
+          needs: 'Nothing.',
+        },
+      ],
+    },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Decision inputs — what is known, what is missing, and the cheapest discovery
+// for every decision on the table. Nothing here can be decided until the
+// missing column is filled; every missing item carries a suggestion for how to
+// discover it.
+// ---------------------------------------------------------------------------
+export const DECISION_INPUTS = [
+  {
+    id: 'DI-01',
+    decision: 'Can the five supplied short links be used as money links?',
+    status: 'Blocked — needs owner access',
+    have: [
+      'All five short links resolve to live listings (resolved again 2026-11-20; same targets and listing titles as the register).',
+      'The resolved URLs carry tracking parameters but no tag= parameter (FLG-001).',
+      'Policy requires the Associate ID as a parameter on every link to Amazon (A2 §2(b)).',
+    ],
+    missing: [
+      'Whether the links were minted inside the shopnow047c-20 account with the tag applied at click time.',
+      'A tracking report covering at least one click per product (FLG-003).',
+    ],
+    discover: [
+      'Mint one short link inside Associates Central while signed in to shopnow047c-20, resolve it, and compare its parameters with the supplied set (Q-01).',
+      'Click one link per product through the enrolled workflow and confirm the destination and the tracking report before scaling (the FLG-003 action).',
+    ],
+    blocks: 'FLG-001, FLG-003 — revenue attribution, not publication',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-02',
+    decision: 'Which channel should produce the first 100 sessions?',
+    status: 'Open — needs owner inventory',
+    have: [
+      'No analytics are deployed, so current traffic is unmeasured (FLG-007).',
+      'Search on a new project path will not answer head terms in the first month.',
+    ],
+    missing: [
+      'An inventory of audiences the owner already has: a list, a following, a community.',
+      'Any budget or intent for paid or pinned distribution.',
+    ],
+    discover: [
+      'Owner lists every channel they can reach today, with a rough audience size (Q-02).',
+      'If the answer is none, plan for long-tail queries plus one community the owner already participates in — not a head-term bet.',
+    ],
+    blocks: 'Publishing cadence, topic choice (DS-03)',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-03',
+    decision: 'Should the site buy a review unit to earn hands-on content?',
+    status: 'Open — money decision',
+    have: [
+      'No unit has been handled by this desk; FTC guidance bars describing experience with untried products (FLG-004).',
+      'Specification-and-fit content is fully shipped and internally consistent without it.',
+    ],
+    missing: [
+      'Whether either brand will supply a unit to a project with no traffic history.',
+      'A budget for buying the cheapest of the five and documenting the purchase.',
+    ],
+    discover: [
+      'Ask both brands directly for a review unit and document the ask and the answer (Q-03).',
+      'If the brands decline, buy the cheapest unit with a published receipt — a disclosed purchase is a legitimate basis for a test protocol.',
+    ],
+    blocks: 'DS-05 imagery, hands-on reviews, differentiation',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-04',
+    decision: 'When does measurement go live, and what counts as a baseline?',
+    status: 'Blocked — needs an endpoint',
+    have: [
+      'The five-event counter and click recorder ship with the site and run in the reader’s browser.',
+      'A deployable collector exists at the analytics path but is not running (FLG-007).',
+      'The campaign ledger schema is frozen and deliberately empty.',
+    ],
+    missing: [
+      'A hosted endpoint — the supplied worker or any first-party alternative.',
+      'A decision on where events are stored and for how long.',
+    ],
+    discover: [
+      'Deploy the supplied worker, set the endpoint value in the site script, and confirm one event arrives before trusting any number (SUG-03).',
+      'Treat the first 30 days as a baseline, not a scoreboard; small samples mislead.',
+    ],
+    blocks: 'Ledger rows, topic selection from measured queries, every performance claim',
+    owner: 'Site owner with the desk',
+  },
+  {
+    id: 'DI-05',
+    decision: 'Where should captured readers go, and how is contact handled?',
+    status: 'Open — provider choice',
+    have: [
+      'The capture form is deliberately inert and says so; it counts intent only.',
+      'The repository issue tracker is currently the only corrections route.',
+    ],
+    missing: [
+      'A mailing provider with a documented data story (Q-04).',
+      'A public contact address, or a formalised issue-tracker route (Q-07).',
+    ],
+    discover: [
+      'Pick a provider, then wire the endpoint and the consent copy in one change (DS-06).',
+      'Create one public address, or publish the issue tracker as the official route and say so on the About page.',
+    ],
+    blocks: 'DS-06, audience building, the weekly reader-question idea (SUG-07)',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-06',
+    decision: 'Who is the publication — a desk or a named editor — and on what domain?',
+    status: 'Open — identity decision',
+    have: [
+      'Pages sign as “The Counterwise desk” with a stated non-testing policy.',
+      'The site runs as a GitHub Pages project path with a full sitemap and feed.',
+    ],
+    missing: [
+      'Whether the owner will publish a real byline (Q-05).',
+      'Whether a custom domain will be bought, and who controls DNS (Q-06).',
+      'A Search Console verification token from the owner’s Google account.',
+    ],
+    discover: [
+      'Owner decision on the byline; a named author plus a two-line biography is half a day of work (DS-04).',
+      'Verify the current URL-prefix property first — the sitemap and robots file are already shipped (DS-07).',
+    ],
+    blocks: 'DS-04, DS-07, site-reputation posture',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-07',
+    decision: 'Which front-page and imagery path should the next design iteration take?',
+    status: 'Ready to decide — options drafted',
+    have: [
+      'Path A (shop-first front page, seasonal cards, original art) is shipped in this build.',
+      'The suggestion board holds the full option sets with effort and risk (DS-01, DS-02, DS-05).',
+    ],
+    missing: [
+      'The owner’s pick between the drafted paths.',
+      'For the photography path: a unit in hand (DI-03).',
+    ],
+    discover: [
+      'Read DS-01, DS-02 and DS-05 on the Suggestions board and mark one path per card.',
+      'If unsure, keep Path A and revisit when measurement exists — the cost of waiting is zero.',
+    ],
+    blocks: 'The next design iteration',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-08',
+    decision: 'What is the publishing cadence, and what topic goes next?',
+    status: 'Open — partially decided',
+    have: [
+      'A fortnightly-guide cadence is recommended and drafted (SUG-06); four editorial hypotheses are already published as guides.',
+      'The build regenerates the sitemap and feed from the guide list, so every new guide is indexed automatically.',
+    ],
+    missing: [
+      'Measured query and click data to choose topics from evidence rather than instinct.',
+      'A decision on whether the gifting and hosting guides continue past the season.',
+    ],
+    discover: [
+      'Start the cadence now from the editorial hypothesis list and record each choice in the decisions log (DS-09).',
+      'After 30 days of measurement, rank guides by read-through and outbound clicks, then pick the next topic (DI-04).',
+    ],
+    blocks: 'The editorial calendar',
+    owner: 'Desk with the owner',
   },
 ];

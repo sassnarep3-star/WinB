@@ -1,7 +1,7 @@
 // content-shop.mjs — the reader-facing shop: front page, category hubs,
 // product pages, comparison table, guides.
 
-import { SITE, PRODUCTS, GUIDES, SOURCES, SUGGESTIONS, EVENTS } from './data.mjs';
+import { SITE, PRODUCTS, GUIDES, SOURCES, SUGGESTIONS, EVENTS, SEASONS } from './data.mjs';
 import {
   esc, url, page, pageHead, table, badge, amazonLink, srcLink, blank, crumbs,
 } from './core.mjs';
@@ -69,7 +69,7 @@ export function frontPage() {
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <p class="eyebrow">Five products · two categories · no invented tests</p>
+        <p class="eyebrow">Air fryers · thermometers · chosen by question</p>
         <h1>The kitchen gear worth arguing about.</h1>
         <p class="lede">Three air fryers and two thermometers, compared on the things that survive contact with a real kitchen: where the machine lives, how you get food out of it, and what it costs you in washing up.</p>
         <div class="btn-row">
@@ -92,9 +92,9 @@ export function frontPage() {
       </aside>
     </div>
     <div class="hero-meta">
-      <div><b>3</b>air fryers, structurally different</div>
-      <div><b>2</b>thermometers, different jobs</div>
-      <div><b>0</b>prices printed, ratings borrowed, or test results invented</div>
+      <div><b>3</b>ways to air-fry, structurally different machines</div>
+      <div><b>2</b>ways to read a temperature, two different jobs</div>
+      <div><b>1</b>question per guide — answered, sourced, and free of hype</div>
     </div>
   </div>
 </section>
@@ -151,6 +151,27 @@ export function frontPage() {
       <a class="more" href="/guides/">All guides →</a>
     </div>
     ${guideCards(GUIDES.slice(0, 4))}
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">${esc(SEASONS.kicker)}</p>
+        <h2>${esc(SEASONS.title)}</h2>
+        <p>${esc(SEASONS.lede)}</p>
+      </div>
+      <a class="more" href="/guides/">All guides →</a>
+    </div>
+    <div class="cards c4">
+      ${SEASONS.cards.map((s) => `<a class="card" href="${s.href}">
+        <span class="num">${esc(s.tag)}</span>
+        <h3>${esc(s.title)}</h3>
+        <p>${esc(s.desc)}</p>
+        <div class="foot"><span>Guide</span><span class="read">Open <span class="arw">→</span></span></div>
+      </a>`).join('\n')}
+    </div>
   </div>
 </section>
 

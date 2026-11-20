@@ -2,7 +2,7 @@
 // footer and from a single "More" group in the nav, never from the hero.
 // The front page sells; these pages account for themselves.
 
-import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES } from './data.mjs';
+import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, SUGGESTION_BOARD, DECISION_INPUTS } from './data.mjs';
 import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink } from './core.mjs';
 
 // ------------------------------------------------------------- decision room
@@ -600,6 +600,8 @@ ${pageHead({
 
     <h2>What you can review, in order</h2>
     <ol>
+      <li><a href="/suggestions/">Suggestion board</a> — every proposed change as a choice between named paths, with effort, risk and status. Nothing changes until a path is chosen.</li>
+      <li><a href="/decisions/inputs.html">Decision Inputs</a> — ${DECISION_INPUTS.length} pending decisions with what is known, what is missing, and a discovery suggestion for each missing item.</li>
       <li><a href="/decisions/">Decision Room</a> — ${SUGGESTIONS.length} suggestions ordered by priority, ${QUESTIONS.length} questions split into known and unknown, and the options rejected with sources.</li>
       <li><a href="/flagged/">Flagged for Review</a> — ${FLAGS.length} items that could not be confirmed, each with evidence and the shortest route to closing it.</li>
       <li><a href="/data-room/">Data Room</a> — the product-intent record, the source register, the five events, and the empty ledger with its schema.</li>
@@ -618,6 +620,182 @@ ${pageHead({
     title: 'Executive summary — Counterwise',
     description:
       'What was built, what the five supplied links resolved to, what the site can and cannot claim, and the four decisions that matter most.',
+    body,
+  });
+}
+
+// ------------------------------------------------------- suggestion board
+export function suggestionsPage() {
+  const shipped = SUGGESTION_BOARD.groups.flatMap((g) => g.items).filter((i) => i.status === 'Shipped in this build');
+  const waiting = SUGGESTION_BOARD.groups.flatMap((g) => g.items).filter((i) => i.status !== 'Shipped in this build');
+
+  const item = (s) => `
+<article class="dec" id="${esc(s.id)}">
+  <div class="dh">
+    <span class="pri mono">${esc(s.id)}</span>
+    <h3>${esc(s.title)}</h3>
+    ${badge(s.status, s.status === 'Shipped in this build' ? 'green' : s.status === 'Needs owner input' ? 'amber' : 'plain')}
+  </div>
+  <p class="tiny muted"><b>The problem.</b> ${esc(s.problem)}</p>
+  <div class="sug-options">
+    ${s.options.map((o) => `<div class="sug-opt">
+      <b>${esc(o.label)}</b>
+      <p class="tiny">${esc(o.detail)}</p>
+      <p class="tiny faint">Effort: ${esc(o.effort)}</p>
+    </div>`).join('\n')}
+  </div>
+  <div class="rec"><b>Recommendation</b>${esc(s.recommendation)}</div>
+  <p class="tiny faint">Before this can be chosen: ${esc(s.needs)}</p>
+</article>`;
+
+  const body = `
+${pageHead({
+  trail: [{ href: '/', label: 'Home' }, { label: 'Suggestions' }],
+  kicker: 'Review before anything changes',
+  title: 'The suggestion board',
+  lede: 'Every change this site could make arrives here first, as a choice between named paths. Nothing is implemented until a path is chosen — the statuses below say exactly what is live and what is only proposed.',
+  meta: `<div class="btn-row">
+    ${badge(shipped.length + ' shipped in this build', 'green')}
+    ${badge(waiting.length + ' awaiting a choice', 'amber')}
+  </div>`,
+})}
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout">
+      <h4>How this board works</h4>
+      <p>${esc(SUGGESTION_BOARD.how)}</p>
+      <p class="tiny muted">Programme suggestions (buy a review unit, deploy measurement, publishing cadence) live in <a href="/decisions/">the Decision Room</a>. The information each choice is waiting on lives on <a href="/decisions/inputs.html">the Decision Inputs page</a>.</p>
+    </div>
+    ${SUGGESTION_BOARD.groups.map((g) => `
+    <div class="sec-head mt-4">
+      <div>
+        <p class="eyebrow">Group</p>
+        <h2>${esc(g.name)}</h2>
+      </div>
+    </div>
+    ${g.items.map(item).join('\n')}`).join('\n')}
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Decision-making, improved</p>
+        <h2>What we know, what we do not, and how to find out</h2>
+        <p>Eight decisions are currently on the table. Each lists the information in hand, the information missing, and a suggested way to discover the missing part. No decision is made while its missing column is full.</p>
+      </div>
+      <a class="more" href="/decisions/inputs.html">Open the Decision Inputs →</a>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>${DECISION_INPUTS.length} pending decisions.</b> The full matrix, including discovery suggestions, is on the Decision Inputs page.</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Decision waiting</th><th scope="col">Status</th>
+          <th scope="col">What is missing</th><th scope="col">Blocks</th>
+        </tr></thead>
+        <tbody>${DECISION_INPUTS.map((d) => `<tr>
+          <td class="mono tiny">${esc(d.id)}</td>
+          <td><b>${esc(d.decision)}</b></td>
+          <td>${badge(d.status, d.status.startsWith('Blocked') ? 'red' : d.status.startsWith('Ready') ? 'green' : 'amber')}</td>
+          <td class="tiny">${d.missing.map((x) => esc(x)).join('<br>')}</td>
+          <td class="tiny">${esc(d.blocks)}</td>
+        </tr>`).join('\n')}</tbody>
+      </table>
+    </div>
+  </div>
+</section>`;
+
+  return page({
+    path: '/suggestions/',
+    title: 'Suggestions — choose a path before anything changes | Counterwise',
+    description:
+      'The reviewable suggestion board: every proposed change to the site as a choice between named paths, with effort, risk and status. Nothing is implemented until a path is chosen.',
+    body,
+  });
+}
+
+// --------------------------------------------------------- decision inputs
+export function decisionInputsPage() {
+  const card = (d) => `
+<article class="dec" id="${esc(d.id)}">
+  <div class="dh">
+    <span class="pri mono">${esc(d.id)}</span>
+    <h3>${esc(d.decision)}</h3>
+    ${badge(d.status, d.status.startsWith('Blocked') ? 'red' : d.status.startsWith('Ready') ? 'green' : 'amber')}
+  </div>
+  <div class="split">
+    <div>
+      <h4 class="tiny caps">What we have</h4>
+      <ul class="tiny">${d.have.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+    </div>
+    <div>
+      <h4 class="tiny caps">What is missing</h4>
+      <ul class="tiny">${d.missing.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+    </div>
+  </div>
+  <h4 class="tiny caps mt-2">Suggested ways to discover the missing information</h4>
+  <ol class="tiny">${d.discover.map((x) => `<li>${esc(x)}</li>`).join('')}</ol>
+  <p class="tiny faint">Blocks: ${esc(d.blocks)} · Owner: ${esc(d.owner)}</p>
+</article>`;
+
+  const body = `
+${pageHead({
+  trail: [{ href: '/', label: 'Home' }, { href: '/decisions/', label: 'Decision Room' }, { label: 'Decision inputs' }],
+  kicker: 'The information behind every choice',
+  title: 'What we know, what we do not, and how to find out',
+  lede: 'A decision is only reasonable when its missing column is empty. This page lists every decision currently waiting, the information already in hand, the information still absent, and a suggested way to discover the absent part. The suggestions are routes to evidence — they are not evidence themselves.',
+})}
+
+<section class="section">
+  <div class="wrap">
+    <div class="callout">
+      <h4>The rule this page enforces</h4>
+      <p>Nothing on this page is decided. Rows marked Ready have their option sets drafted on <a href="/suggestions/">the suggestion board</a>; rows marked Blocked cannot be evaluated until someone with the right access runs the check named in the discovery column. Where a value could not be confirmed from an official source, the register leaves it blank and says so — the same discipline applies here.</p>
+    </div>
+    ${DECISION_INPUTS.map(card).join('\n')}
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Index</p>
+        <h2>All eight, in one table</h2>
+        <p>For scanning. Each row links to its full entry above.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>${DECISION_INPUTS.length} decisions.</b> ${DECISION_INPUTS.filter((d) => d.status.startsWith('Blocked')).length} blocked on access, ${DECISION_INPUTS.filter((d) => d.status.startsWith('Ready')).length} ready to choose, the rest open.</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Decision</th><th scope="col">Status</th>
+          <th scope="col">How to find out</th><th scope="col">Owner</th>
+        </tr></thead>
+        <tbody>${DECISION_INPUTS.map((d) => `<tr>
+          <td class="mono tiny"><a href="#${esc(d.id)}">${esc(d.id)}</a></td>
+          <td>${esc(d.decision)}</td>
+          <td>${badge(d.status, d.status.startsWith('Blocked') ? 'red' : d.status.startsWith('Ready') ? 'green' : 'amber')}</td>
+          <td class="tiny">${d.discover.map((x) => esc(x)).join('<br>')}</td>
+          <td class="tiny">${esc(d.owner)}</td>
+        </tr>`).join('\n')}</tbody>
+      </table>
+    </div>
+    <div class="btn-row mt-3">
+      <a class="btn" href="/suggestions/">Suggestion board <span class="arw">→</span></a>
+      <a class="btn ghost" href="/decisions/">Decision Room</a>
+      <a class="btn ghost" href="/flagged/">Flagged for Review</a>
+    </div>
+  </div>
+</section>`;
+
+  return page({
+    path: '/decisions/inputs.html',
+    title: 'Decision inputs — what we know, what is missing, how to find out | Counterwise',
+    description:
+      'Every decision waiting on this project, with the information in hand, the information missing, and a suggested way to discover the missing part before deciding.',
     body,
   });
 }
