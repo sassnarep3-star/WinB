@@ -260,12 +260,14 @@ def page_html(title, description, path, body, depth=0, active=""):
 <header class="masthead">
   <div class="wrap">
     <a class="brand" href="{prefix}index.html">Counterwise<small>Working name · air fryers &amp; thermometers</small></a>
+  </div>
+  <div class="disclosure" role="note">
+    <div class="wrap"><strong>Disclosure:</strong> {esc(DISCLOSURE)} Some links on this site are paid links. <a href="{prefix}disclosure.html">How we disclose</a>.</div>
+  </div>
+  <div class="wrap">
     <nav class="nav" aria-label="Main">{nav}</nav>
   </div>
 </header>
-<div class="disclosure" role="note">
-  <div class="wrap"><strong>Disclosure:</strong> {esc(DISCLOSURE)} Some links on this site are paid links. <a href="{prefix}disclosure.html">How we disclose</a>.</div>
-</div>
 <main class="wrap">
 {body}
 </main>
@@ -646,9 +648,33 @@ def write_sitemap(paths):
 
 
 # ---------------------------------------------------------------- validation
+EXCLUDED_TOP = {"alt-site", "archive", "audit", "data", "scripts", "docs", ".github", ".git"}
+
+
+def generated_html():
+    """HTML pages this generator wrote (excludes other sessions' folders)."""
+    return [p for p in OUT.rglob("*.html") if p.relative_to(OUT).parts[0] not in EXCLUDED_TOP]
+
+
+def mirror_to_docs():
+    """Copy the generated site into docs/ so the audit and older references see the same pages."""
+    docs = ROOT / "docs"
+    if docs.exists():
+        shutil.rmtree(docs)
+    docs.mkdir()
+    for f in generated_html():
+        target = docs / f.relative_to(OUT)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(f, target)
+    for name in ["guides", "assets"]:
+        shutil.copytree(OUT / name, docs / name, dirs_exist_ok=True)
+    for name in ["feed.xml", "sitemap.xml", "robots.txt", ".nojekyll"]:
+        shutil.copyfile(OUT / name, docs / name)
+
+
 def validate(pages, products):
     errors = []
-    html_files = list(OUT.rglob("*.html"))
+    html_files = generated_html()
     link_re = re.compile(r"<a\s+([^>]*)>", re.I)
     href_re = re.compile(r'href=[\'"]([^\'"]+)[\'"]', re.I)
     rel_re = re.compile(r'rel=[\'"]([^\'"]+)[\'"]', re.I)
@@ -704,7 +730,7 @@ def validate(pages, products):
     client = (OUT / "assets" / "counterwise.js").read_text(encoding="utf-8")
     if re.search(r"document\.cookie|localStorage|sessionStorage", client):
         errors.append("counterwise.js writes cookies or browser storage")
-    if re.search(r"COUNTERWISE\s*=\s*\{[^}]*endpoint:\s*'https?", "".join(p.read_text(encoding='utf-8') for p in OUT.rglob('*.html'))):
+    if re.search(r"COUNTERWISE\s*=\s*\{[^}]*endpoint:\s*'https?", "".join(p.read_text(encoding='utf-8') for p in generated_html())):
         errors.append("an analytics endpoint is configured in a page; this must be a reviewed change")
     if len(GUIDES) != 4:
         errors.append("expected four guides")
@@ -716,6 +742,9 @@ def main():
     products = load("products.json")["products"]
     errors = validate(pages, products)
     print(f"Built {len(pages)} pages into the repository root (served by Pages)")
+    if not errors:
+        mirror_to_docs()
+        print("Mirrored to docs/")
     if errors:
         print("VALIDATION FAILED:")
         for e in errors:
