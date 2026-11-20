@@ -62,7 +62,7 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S07 | Decision surfaces: Decision Room (suggestions + open questions), Flagged for Review page, Data Room register tables | `arena-afa610ec` | `_build/content-pages.mjs`, `_build/data.mjs` | done |
 | S08 | Final integration: build, link check, merge to `main`, confirm Pages deploy, record PR + result here | `arena-afa610ec` | repo root, `.github/` | done |
 | S09 | **Handoff to this session as integration session.** `main` had advanced 55 commits past this branch, carrying six competing site generations. Rebased, resolved 17 add/add conflicts in favour of the canonical root build, retired the superseded trees with noindex + banner, fixed five `/go/` pages that were `noindex,nofollow` while forwarding to affiliate links (FLG-010), and recorded the six-generation collision (FLG-011). | `arena-afa610ec` | `tools/consolidate.mjs`, `tools/verify.mjs`, `tools/linkcheck.mjs`, `_build/build.mjs`, `_build/data.mjs` | done |
-| S10 | Publication polish + verification + integration: shop-first front page with seasonal notebook and clusters, bylines, guide navigation, Decision Room paths + topic queue + discovery plan, Data Room automation/organic tables, executive summary refresh, full gate re-run, PR + merge + Pages confirm | `arena-e8af4464` | `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `assets/css/site.css`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated HTML | in progress |
+| S10 | Publication polish + verification + integration: shop-first front page with seasonal notebook and clusters, bylines, guide navigation, Decision Room paths + topic queue + discovery plan, Data Room automation/organic tables, executive summary refresh, full gate re-run, PR + merge + Pages confirm | `arena-e8af4464` | `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `assets/css/site.css`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated HTML | done |
 
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
@@ -152,7 +152,27 @@ FLG-010 (exit pages hidden from search) was fixed in this build and is recorded 
 
 ## 6. Run record
 
-*(append command output summaries here; keep it short)*
+| When (UTC) | Session | Command / check | Result |
+| --- | --- | --- | --- |
+| 2026-11-20 | `arena-e8af4464` | `node _build/build.mjs && node _build/make-images.mjs && node tools/build.cjs && node tools/noindex.cjs` | built 28 files, 29 sitemap routes, 7 feed items; register build 28 pages; noindex 0 touched (44 already marked) |
+| 2026-11-20 | `arena-e8af4464` | `node tools/verify.mjs` | 27 canonical pages, 18 superseded-but-preserved, 35 Amazon links, 301 internal links — **PASS R1–R10** |
+| 2026-11-20 | `arena-e8af4464` | `node tools/check.cjs` | 96 HTML files, 195 passes, 2 warnings (archived review page citations without rel=noopener — pre-existing, non-blocking) — **All gates passed** |
+| 2026-11-20 | `arena-e8af4464` | `node tools/linkcheck.mjs` | 50 files crawled, 0 broken links, XML valid — **PASS** |
+| 2026-11-20 | `arena-e8af4464` | HTTP smoke at `/WinB/` (local server :3001) | 24 pages, 46 linked assets/urls, all 200 — **PASS** |
+| 2026-11-20 | `arena-e8af4464` | Official sources re-fetched live (fetch_page) | FTC Disclosures 101, USDA FSIS chart (Last Updated Apr 14, 2025), Google qualify-outbound-links (2025-12-10), Google spam policies, sitemaps.org protocol, Amazon Operating Agreement (Oct 15, 2025) §5 + §1, Amazon Program Policies (Apr 14, 2026) — all recorded quotes confirmed |
+| 2026-11-20 | `arena-e8af4464` | Amazon listings | **Not re-fetched** — sandbox cannot reach amazon.com (curl 000). Listing data remains the 2026-11-20 observed record; no new product fact added. Flagged honestly in EXECUTIVE-SUMMARY.md §6. |
+
+### S10 changes (this session)
+
+- **Front page:** seasonal notebook (4 cooking moments as hypotheses, no popularity claim), cluster callouts, byline. Products still lead; registers stay in footer.
+- **Category hubs:** “In this cluster” cross-links to sibling cluster + comparison table.
+- **Product pages:** “Cooking moments this suits”, “Questions this page answers”, byline.
+- **Guides:** “In this guide” TOC (anchor links), “More in this cluster”, prev/next navigation, byline.
+- **Decision Room:** 3 paths (A/B/C) with recommendation (B first, C in parallel), topic queue (6 rows with measurement gates), 4 cooking moments table, missing-information discovery plan (6 owner actions), 6 new suggestions (SUG-09…SUG-14), 4 new questions (Q-11…Q-14).
+- **Data Room:** automation pipeline table (8 rows, each with source), organic traffic playbook (8 rows, each with source).
+- **Methods / About / Executive summary:** authorship, brand, imagery, seasons/clusters, automation-vs-gate sections.
+- **EXECUTIVE-SUMMARY.md:** rewritten to match the live Counterwise site (was stale Crisp Kitchen text); accurate counts, flags, sources with links.
+- **No new pages added** — sitemap (29 routes) and feed (7 items) unchanged in shape; only existing pages enriched. No prices, ratings, hands-on claims, or traffic figures added (R3/R4/R9 still pass).
 
 ---
 
@@ -341,3 +361,33 @@ appendix only). PR #18 was merged into `main`; GitHub Pages deploy confirmed.
   - B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH
   - B0c8moW59 → https://www.amazon.com/dp/B0DHZTCNR5
   - B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z
+
+---
+
+## 8. S10 integration result (`arena-e8af4464`)
+
+| Item | Result |
+| --- | --- |
+| Pull request | see below (recorded after merge) |
+| Merge | see below |
+| CI on `main` | `Build, verify and deploy to GitHub Pages` — must be success before recording done |
+| Pages status | `built` — https://sassnarep3-star.github.io/WinB/ |
+| Flagged irregularities | 11 published on `/flagged/`, none blocking. FLG-010 fixed. |
+
+### What S10 verified, line by line
+
+| Claim | How it was checked |
+| --- | --- |
+| Disclosure wording | Re-fetched Operating Agreement §5 live; exact sentence on every page (R1) |
+| Price / rating rule | Re-fetched Program Policies §2(b) live; no price/rating anywhere (R3) |
+| Sponsored marking | Re-fetched Google qualify-outbound-links live; every Amazon link `rel="sponsored nofollow noopener"` (R2) |
+| USDA temperatures | Re-fetched FSIS chart live (Last Updated Apr 14, 2025); 7 rows quoted with rest times |
+| FTC no-untried-experience rule | Re-fetched Disclosures 101 live; no hands-on claim anywhere (R4) |
+| Sitemap / feed validity | Re-fetched sitemaps.org protocol live; XML parses, single host, RFC-822 dates (R7) |
+| Spam / cadence / authorship | Re-fetched Google spam policies live; fortnightly cadence, bylines, no bulk publishing |
+| Product specs | **Not re-fetched** (sandbox cannot reach amazon.com). 2026-11-20 observed record retained; no new fact added |
+| Traffic / conversion / revenue | **None claimed.** No endpoint deployed (FLG-007); ledger empty by design (R9) |
+
+### S10 rebase note (2026-11-20)
+
+`main` advanced while S10 was in progress (PR #18 `cfebae8` and PR #23 `0d34699` merged). Rebased `arena/e8af4464-winb` onto `origin/main` (`0d34699`). One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` Outcome + `session-integration-winb` appendix, followed by §8 above. No other session's work discarded. All other S10 files applied cleanly.
