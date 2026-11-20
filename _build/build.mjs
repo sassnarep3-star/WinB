@@ -80,6 +80,9 @@ routes.push({ loc: '/data-room/', pri: '0.6', freq: 'weekly' });
 
 write('flagged/index.html', flaggedPage());
 routes.push({ loc: '/flagged/', pri: '0.6', freq: 'weekly' });
+// Register-surface landing pages written by session b26a9f95.
+if (existsSync(join(ROOT, 'flags', 'index.html'))) routes.push({ loc: '/flags/', pri: '0.6', freq: 'monthly' });
+if (existsSync(join(ROOT, 'direction', 'brief.html'))) routes.push({ loc: '/direction/brief.html', pri: '0.5', freq: 'monthly' });
 
 write('methods/index.html', methodsPage());
 routes.push({ loc: '/methods/', pri: '0.6', freq: 'monthly' });

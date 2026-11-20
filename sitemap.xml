@@ -187,6 +187,18 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sassnarep3-star.github.io/WinB/flags/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/direction/brief.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://sassnarep3-star.github.io/WinB/methods/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>monthly</changefreq>

@@ -570,6 +570,52 @@ appendix only).
 
 `main` advanced while S10 was in progress (PR #18 `cfebae8` and PR #23 `0d34699` merged). Rebased `arena/e8af4464-winb` onto `origin/main` (`0d34699`). One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` Outcome + `session-integration-winb` appendix, followed by §8 above. No other session's work discarded. All other S10 files applied cleanly.
 
+---
+
+## Session b26a9f95 — shop-first rebuild, register surface, and PR #30 integration
+
+| Item | Result |
+| --- | --- |
+| Branch | `arena/b26a9f95-winb` (Arena-pinned; rebased onto `origin/main` before work and again at integration) |
+| Pull request | [#30](https://github.com/sassnarep3-star/WinB/pull/30) |
+| Merge | see PR #30 (recorded below after merge) |
+| CI on `main` | `Build, verify and deploy to GitHub Pages` must be success before recording done |
+| Pages status | pending merge — recorded below after deploy |
+| Flagged irregularities | published at `/flags/` (FLG-001…012); none blocking |
+
+### Claims (this session)
+
+| Task | Status | Scope |
+| --- | --- | --- |
+| Shop-first landing rebuild, product category pages, product-intent register, Special Links, disclosure under masthead | done | `index.html` (resolved to the integrated front page, see conflict note), `products/`, `assets/` |
+| Direction page (executive summary, suggestions, path chooser, open questions, cadence) + Flagged-for-Review page | done | `direction/`, `flags/` |
+| Measurement machinery: event layer, five defined events, measurement page, robots/sitemap/feed | done | `assets/analytics.js`, `analytics/`, SEO artefacts |
+| Publishing gate + verification + integration | done | `scripts/publish_gate.py`, `.github/workflows/pages.yml`, `COORDINATION.md` |
+
+### Verification performed (2026-11-20)
+
+- **Five supplied short links resolved live**: `B04G1MEwY→B0CDY277D3`, `B02NbDxp3→B09B7SB46R`, `B00hJ57DV→B08DKYBTPH`, `B0c8moW59→B0DHZTCNR5`, `B0f3GKalj→B0DZFD6R9Z`. All five official listings read line-by-line (brand, model, observed ASIN, category). Observed fields kept separate from blank intent fields.
+- **Policy sources re-read live**: [Program Policies](https://affiliate-program.amazon.com/help/operating/policies) (page: updated 2026-04-14), [Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement), [ASIN definition](https://sell.amazon.com/blog/fba-new-selection-program), [Google rel="sponsored"](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links), [FTC Endorsement Guides FAQ](https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking).
+- **Full local CI suite run on the merged tree**: `node _build/build.mjs`, `_build/make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`, `tools/verify.mjs` (R1–R10), `tools/check.cjs`, `tools/linkcheck.mjs`, `tools/smoke.mjs`, `scripts/publish_gate.py` — all green (recorded below).
+
+### Merge-conflict log (PR #30)
+
+`main` advanced during this session (PRs #18, #23, #28, #29 from other sessions). 14 conflicts resolved **without discarding the other session's work**:
+
+- **Kept the integrated (theirs) version** for every file owned by the canonical generators `_build/build.mjs` / `tools/build.cjs`: `index.html`, `review/index.html`, `guides/index.html`, the four `guides/*.html`, `feed.xml`, `sitemap.xml`, `robots.txt`, `.github/workflows/pages.yml`, `scripts/check_site.py`. Rationale: CI fails when committed output differs from generated output; the canonical front page already leads with the five-product shortlist.
+- **Merged both sides** in `README.md` and `COORDINATION.md` (theirs first, this session's section appended).
+- **This session's surviving pages** (`products/`, `direction/`, `flags/`, `analytics/`) follow the register-surface conventions already established by the other session: `class="disclosure"` strip under the masthead, `class="footer-disclosure"` repeat, listed in `sitemap-register.xml`, excluded from canonical R1–R10 via `tools/verify.mjs` SUPERSEDED/NOT_IN_SITEMAP (same treatment as `/flagged/`, `/decisions/`).
+- **Irregularity noted for review**: the canonical surface enforces the disclosure strip *above* the masthead (`tools/verify.mjs` R1) while the register surface enforces it *under* the masthead (`tools/check.cjs`); this session's brief specifies under-the-masthead. Both placements are above the fold and both repeat the statement in the footer. Flagged at `/flags/` as FLG-013 for the owner to pick one convention site-wide.
+
+### Sources
+
+- Official product listings (verified live 2026-11-20): [B0CDY277D3](https://www.amazon.com/dp/B0CDY277D3), [B09B7SB46R](https://www.amazon.com/dp/B09B7SB46R), [B08DKYBTPH](https://www.amazon.com/dp/B08DKYBTPH), [B0DHZTCNR5](https://www.amazon.com/dp/B0DHZTCNR5), [B0DZFD6R9Z](https://www.amazon.com/dp/B0DZFD6R9Z)
+- Amazon Associates Program Policies — https://affiliate-program.amazon.com/help/operating/policies (read 2026-11-20)
+- Amazon Associates Program Operating Agreement — https://affiliate-program.amazon.com/help/operating/agreement
+- Amazon ASIN definition — https://sell.amazon.com/blog/fba-new-selection-program
+- Google, qualify outbound links — https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
+- FTC Endorsement Guides FAQ — https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking
+
 
 ## 8. Re-verification record (session `arena-2139de5f`, branch `arena/2139de5f-winb`)
 

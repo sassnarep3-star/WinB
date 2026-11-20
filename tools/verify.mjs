@@ -30,6 +30,8 @@ const SUPERSEDED = new Set([
   // generation accountable for the canonical-page rules.
   '/register/', '/products/', '/verification/', '/compliance/', '/platform/',
   '/flagged/', '/decisions/', '/about/',
+  // Register-surface pages written by session b26a9f95 (parallel to /flagged/ and /decisions/).
+  '/flags/', '/direction/',
 ]);
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -238,6 +240,8 @@ const NOT_IN_SITEMAP = new Set([
   // generation accountable for the canonical-page rules.
   '/register/', '/products/', '/verification/', '/compliance/', '/platform/',
   '/flagged/', '/decisions/', '/about/',
+  // Register-surface pages written by session b26a9f95 (parallel to /flagged/ and /decisions/).
+  '/flags/', '/direction/',
 ]);
 for (const file of htmlFiles) {
   const rel = '/' + relative(ROOT, file).replace(/\\/g, '/');
