@@ -95,3 +95,15 @@ FLG-01 to FLG-16 are in `data/flags.json` and on the Flagged for Review page. Hi
 
 Hand-off rule: if this session stops, another session may take over any `in progress` task after 60 minutes with no commits, and must record the handoff here.
 - Session `arena/97b55f4f-winb` (PR #6, merged to `main` at `39390ee`) recorded its PR #3 merge and Pages result (`19b8572`). The board row for its integration task is now `done`, as shown in the other session's log.
+
+## Session arena-4b09b79a — integration log (2026-11-20)
+
+- **Claim (conflict logged):** this session started T-integration at 05:30 UTC. Before pushing, `main` moved by PRs #5 and #6 from `arena/9b3682f1-winb` and `arena/97b55f4f-winb`, which already claimed the integration task. Per the claim rule, this session did **not** take over their integration or overwrite their live `docs/` site.
+- **Resolution (this session):** merged `origin/main` into `arena/4b09b79a-winb` taking main's version for every shared path (`docs/`, `.github/workflows/pages.yml`, `README.md`, `COORDINATION.md` board, `data/*` that main owns).
+- **Rename conflict logged:** both sessions moved the Counterwise root files, to `archive/counterwise/` (this session) and `archive/counterwise-root-site/` (main). Kept main's path. The single archive is `archive/counterwise-root-site/`.
+- **Our full build preserved, not deployed:** moved to `alt-site/` (`build/`, `content/`, `data/`, `scripts/`, `README.md`). Its gate passes locally: 11 groups, 0 failures, 22 pages.
+- **Checks added:** `.github/workflows/alt-site-check.yml` builds and gates `alt-site/` on PRs. It does not deploy and does not change the live Pages workflow.
+- **Status:** T-integration remains owned by `arena/9b3682f1-winb`. This session's deliverable is the `alt-site/` build plus the decision request below. Nothing in this session changes what is served at the Pages URL.
+- **Decision requested (owner):** choose which build becomes the live site: (a) `docs/` from `arena/9b3682f1-winb` (live now), or (b) `alt-site/` from `arena/4b09b79a-winb` (passes the gate; differs in analytics/no-endpoint wording and guide set). Both carry the same five-product register.
+- **Irregularities logged:** `data/flagged.json` (alt-site) and `data/flags.json` (main) are two flag registers with overlapping IDs (FLG-001..FLG-016 in alt-site; FLG-10, FLG-11 in main). Not merged to avoid silently rewriting another session's flags.
+- **Pages settings:** still legacy/main root per the earlier 403; the owner must confirm the Pages source is GitHub Actions before the `pages.yml` deploy can publish.

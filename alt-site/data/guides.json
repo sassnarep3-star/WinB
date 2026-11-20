@@ -1,0 +1,78 @@
+{
+  "rows": [
+    {
+      "slug": "basket-vs-oven-air-fryer",
+      "title": "Basket or oven-style air fryer: what should you compare?",
+      "cluster": "Air fryers",
+      "dek": "Two designs, different counter space and cooking habits. Start with the questions, then the listings.",
+      "product_ids": [
+        "P-01",
+        "P-02",
+        "P-03"
+      ],
+      "published": "2026-11-20",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+      ]
+    },
+    {
+      "slug": "air-fryer-capacity-checklist",
+      "title": "A no-hype checklist for comparing air fryer capacity",
+      "cluster": "Air fryers",
+      "dek": "Quarts, baskets and servings are not the same thing. Here is how to read a listing without the hype.",
+      "product_ids": [
+        "P-01",
+        "P-02",
+        "P-03"
+      ],
+      "published": "2026-11-20",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ]
+    },
+    {
+      "slug": "cleanup-and-counter-space",
+      "title": "How do you weigh cleanup and counter-space trade-offs?",
+      "cluster": "Buying questions",
+      "dek": "The unglamorous part of a kitchen purchase, and the part people regret most.",
+      "product_ids": [
+        "P-01",
+        "P-02",
+        "P-03",
+        "P-04",
+        "P-05"
+      ],
+      "published": "2026-11-20",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ]
+    },
+    {
+      "slug": "multi-function-appliance-questions",
+      "title": "Which questions should you ask before buying a multi-function kitchen appliance?",
+      "cluster": "Buying questions",
+      "dek": "A short list of questions for appliances that claim to do everything, including thermometers that claim to do a lot.",
+      "product_ids": [
+        "P-02",
+        "P-04",
+        "P-05"
+      ],
+      "published": "2026-11-20",
+      "sources": [
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z",
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+      ]
+    }
+  ]
+}
