@@ -2021,7 +2021,7 @@ const sitemapRoutes = PAGES.filter(
 /* Hand-written register-surface pages (session b26a9f95) that check.cjs requires in this sitemap. */
 const EXTRA_ROUTES = [
   '/products/index.html', '/products/air-fryers/index.html', '/products/thermometers/index.html',
-  '/direction/index.html', '/flags/index.html', '/analytics/index.html',
+  '/direction/index.html', '/direction/brief.html', '/flags/index.html', '/analytics/index.html',
 ];
 const extraRoutes = EXTRA_ROUTES.filter((r) => !sitemapRoutes.includes(r));
 
@@ -2030,6 +2030,12 @@ const extraRoutes = EXTRA_ROUTES.filter((r) => !sitemapRoutes.includes(r));
    generator owns sitemap-register.xml, and an indexable sibling page that is missing
    from it fails tools/check.cjs. Additive: removing this block breaks only that check. */
 if (!sitemapRoutes.includes('/suggestions/index.html')) sitemapRoutes.push('/suggestions/index.html');
+/* Added 2026-11-20 (session 15e30bda, S13): the three winter seasonal guides are
+   indexable sibling pages too. Same additive pattern as the line above - removing
+   this block breaks only the sitemap-register completeness check in tools/check.cjs. */
+for (const g of ['/guides/holiday-format-check.html', '/guides/smart-probe-questions.html', '/guides/crowd-capacity-math.html']) {
+  if (!sitemapRoutes.includes(g)) sitemapRoutes.push(g);
+}
 const today = '2026-11-20';
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

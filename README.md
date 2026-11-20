@@ -124,3 +124,18 @@ Alongside the canonical site above, this repository carries a hand-written regis
 | `/analytics/` | Five defined events, per-device ledger, endpoint/Search Console/reader-capture status |
 
 These pages are listed in `sitemap-register.xml`, excluded from the canonical R1–R10 walk by `tools/verify.mjs` (same treatment as `/flagged/`, `/decisions/`), and gated by `scripts/publish_gate.py` plus the shared checks in `tools/check.cjs`.
+## Preserved alternative build — Counter & Crisp (`alt-site/counter-and-crisp/`)
+
+Session `arena/6fc7de34` (PR #31) contributed an independent, self-contained site build for the
+same five products. It is **not** the canonical site: it ships `noindex,follow` and a disallowing
+`robots.txt`, consistent with the archive convention in `tools/noindex.cjs`, so search engines keep
+indexing only the canonical root build.
+
+- Live at `https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp/` (for review, not ranking).
+- Distinctive pieces worth mining: the product-intent confirmation record with strict
+  intent-vs-observation field separation, the suggestion review queue format (SUG-001..012 with
+  impact/effort/risk and blank decision columns), the open-questions register with discovery paths
+  (Q-01..15), and the five-event privacy-preserving counter design.
+- Rebuild: `python3 tools/build_site.py` · verify: `python3 tools/check_links.py`.
+- Independent cross-check recorded in `COORDINATION.md` §9: this session's fetch of the five
+  supplied short links produced the same five observed ASINs as §3/§8 of the board.

@@ -6,7 +6,7 @@ tools/linkcheck.mjs and tools/smoke.mjs — those own every generated page.
 This gate owns the hand-written register surface this session added:
 
   products/index.html, products/air-fryers/index.html,
-  products/thermometers/index.html, direction/index.html,
+  products/thermometers/index.html, direction/brief.html,
   flags/index.html, analytics/index.html
 
 Checks (per register page):
@@ -39,7 +39,7 @@ REGISTER_PAGES = [
     "products/index.html",
     "products/air-fryers/index.html",
     "products/thermometers/index.html",
-    "direction/index.html",
+    "direction/brief.html",
     "flags/index.html",
     "analytics/index.html",
 ]
