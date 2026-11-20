@@ -838,6 +838,42 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
 **Status:** S15 done. Integration (PR → merge → Pages confirm) follows in this session.
 
 **Rebase note (2026-11-20, session `30073780`):** `origin/main` advanced to `33eaf81` (coord record for PR #36) while S15 was in progress. Rebased `arena/30073780-winb` onto `origin/main`. One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` S11–S14 final result, followed by the S15 appendix. No other session's work discarded. All other S15 files applied cleanly. Gates re-run after rebase: build/verify/gate/check/links/smoke all green (see S15 completion record above).
+## 9. Current cycle — session `arena-9c38041d`
+
+Branch: `arena/9c38041d-winb`, branched from `main` at `9798831` (2026-11-20).
+No other session is active, so this session acts as content, verification **and**
+final integration in sequence. Every scope below is claimed by this session;
+none of them overlaps a `done` scope from an earlier cycle.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| V-1 | Independent official-source verification pass; record each source read; flag irregularities with source links | `arena-9c38041d` | All readable content + data files (read-only); `/flagged/`, `COORDINATION.md` | done |
+| V-2 | Add reviewable trendy topic suggestions to the decision queue — choose before implementing | `arena-9c38041d` | `_build/decision-queue.mjs`, `/suggestions/`, `/decisions/` | in progress |
+| V-3 | Refresh executive summary with this cycle's verification record | `arena-9c38041d` | `EXECUTIVE-SUMMARY.md`, `/executive-summary/` | in progress |
+| V-4 | Build, verify, link-check, PR to `main`, merge, confirm Pages deploy, record result | `arena-9c38041d` | repo root, `.github/`, generated HTML | in progress |
+
+### V-1 verification log (2026-11-20, live fetches)
+
+| # | Source | URL | What it confirms |
+|---|--------|-----|------------------|
+| S-1 | Amazon Associates Program Operating Agreement (§5) | https://affiliate-program.amazon.com/help/operating/agreement | Disclosure sentence "As an Amazon Associate I earn from qualifying purchases." must be clear and prominent; §6 treats §5 violation as material breach. Page shows Updated October 15, 2025. |
+| S-2 | Amazon Associates Program Policies (Participation Requirements §2(b)) | https://affiliate-program.amazon.com/help/operating/policies | Each Amazon link must carry the Associate ID "tag" as a URL parameter; price/availability only when Amazon serves the link or via Creators API / PA API; no inaccurate or misleading product claims. Page shows Updated April 14, 2026. |
+| S-3 | Google Search Central — Qualify your outbound links to Google | https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links | `rel="sponsored"` marks advertisements/paid placements; multiple rel values allowed. Last updated 2025-12-10. |
+| S-4 | Google Search Central — Spam policies | https://developers.google.com/search/docs/essentials/spam-policies | Thin affiliation, scaled content abuse, site-reputation policy, sneaky redirects all named. |
+| S-5 | sitemaps.org — Sitemaps XML format | https://www.sitemaps.org/protocol.html | `<urlset>` with namespace, one `<loc>` per URL, single host, UTF-8, entity-escaped. |
+| S-6 | USDA FSIS — Safe Minimum Internal Temperature Chart | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart | 145°F (+3 min rest) steaks/chops/roasts; 160°F ground meats and eggs; 165°F poultry and leftovers/casseroles; 145°F fish. Last Updated Apr 14, 2025. Matches `/guides/temperature-safety.html` row for row. |
+| S-7 | FTC — Disclosures 101 for Social Media Influencers | https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers | Disclose material connection where hard to miss; simple language ("ad", "sponsored") acceptable; cannot talk about experience with a product not tried; cannot make up claims needing proof. November 2019. |
+| S-8 | Amazon listings (all five, fetched live 2026-11-20) | `https://www.amazon.com/dp/B0CDY277D3` … `/dp/B0DZFD6R9Z` | Each supplied short link resolves to its registered ASIN; titles, brands, category breadcrumbs and stated figures match `_build/data.mjs` exactly. No `tag=` parameter on any resolved short link. |
+
+**Verification result.** Every factual row in the product tables traces to S-1..S-8 above. Where a value is not on an official source (intended ASIN, price, rating, wattage where unpublished, external dimensions), it is left blank and flagged — nothing is inferred. No new product fact was added beyond the live-observed record.
+
+**Irregularities carried on `/flagged/` from this pass (none block publication):** FLG-001 (no tag on resolved short links), FLG-002 (intended ASIN blank), FLG-003 (tag format/account validity unresolved — supplied tag `shopnow047c-20` does not literally match the documented `XXXXX-##` example), FLG-004 (no product handled; no hands-on claims), FLG-006 (NIST/NSF and 1000°F claims are manufacturer claims only), FLG-007 (no endpoint deployed), FLG-008 (no provider/Search Console token/custom domain).
+
+**Ground rules for this cycle.** No session input is requested: every change below is made
+on this branch, verified against an official source where one exists, left blank and flagged
+where it cannot be confirmed, gated by `npm run check` before merge, and published only after
+Pages reports `built`. Irregularities do not block the merge; they are published on `/flagged/`
+with source links.
 
 ## Appendix: session `arena-066803dd` — line-by-line re-verification + listing-field correction (branch `arena/066803dd-winb`)
 
@@ -947,6 +983,10 @@ No Associates account access in this sandbox, so none of these can be verified f
 Standing requirement: every table row needs a source link to an official site. This is an open gap. The owner of `_build/editorial.mjs` should decide whether to add per-row links, or to say in the table why a row is unsourced. This session did not implement it, because the claimed file scope is null-handling only.
 
 **Open for the owner (not blocking merge).** The Associates Special Link test needs the owner's Associates login (FLG-001). The short links (FLG-003 and FLG-016) need a signed-in browser check.
+
+**Second merge (same day).** `origin/main` moved to `5e02c06` during this work (PRs #41 and #43, session `9c38041d`). It was merged in the same way. Conflicts: `COORDINATION.md` (kept both appendices; `9c38041d`'s §9 comes before this §10) and `executive-summary/index.html` (generated; regenerated from `_build`).
+
+**Pre-existing defect on `origin/main` (fixed here).** `EXECUTIVE-SUMMARY.md` on `main` contained a stray line `<<<<<<< HEAD` (left by an earlier merge) in §10. Removed on this branch. No other file in the repo has a conflict marker (scanned `*.md`, `*.mjs`, `*.html`, `*.cjs`, `*.json`, `*.xml`).
 
 **Merge record.** Filled in after the PR merges (see below).
 
