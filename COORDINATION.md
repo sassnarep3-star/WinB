@@ -221,3 +221,38 @@ open questions, and a register hub at `/register/`.
 and all four report no visible `tag=` parameter. That agreement is the strongest evidence in this
 build, and it is why FLG-003 is stated confidently while its compliance status is still recorded as
 unresolved.
+
+---
+
+## 7. Final integration result (S08/S09)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#19** — https://github.com/sassnarep3-star/WinB/pull/19 |
+| Merge | **Merged** to `main` at 2026-11-20T05:51:42Z, merge commit `ff0f1f1`, method `--merge` |
+| Conflicts on merge | `COORDINATION.md` only (upstream gained 10 lines while this branch was merging). Resolved by keeping both boards; the other sessions' session registry and collision record are preserved verbatim at the bottom of this file. |
+| CI on `main` | `Build, verify and deploy to GitHub Pages` — **success**, every step: Generate site · drift check · Verify content rules R1–R10 · Link check and XML validation · HTTP smoke test at `/WinB/` · Upload artefact · Deploy |
+| Other workflows | `Alternate site check` — success. `pages build and deployment` — success. |
+| Pages status | `built` — https://sassnarep3-star.github.io/WinB/ |
+| Live URL checks | Every canonical page, the 5 `/go/` exit pages, the 4 preserved alias guides and the 3 alias `/about/` pages return 200 (verified locally at the real `/WinB/` path; the sandbox network blocks outbound requests to github.io, so the deployed artefact was confirmed through the Pages API, the Actions step log and the CI smoke test rather than a direct fetch). |
+| Flagged irregularities | 11 published on `/flagged/`, none blocking. FLG-010 is marked *Fixed in this build*. |
+
+### What was verified, line by line
+
+| Claim | How it was checked |
+| --- | --- |
+| Five short links resolve to five distinct live listings | Each fetched once; redirect target recorded verbatim in §3 |
+| Observed ASINs are correct | Read from each resolved listing's canonical `/dp/` URL, and independently matched against PR #4's register from a different session |
+| Intended ASINs | **Blank.** Not inferable from the supplied material, and the field is deliberately separate from the observed redirect (FLG-002) |
+| Listing specifications (capacity, probes, stated limits) | Read from the listing titles; attributed as manufacturer claims, never as measurements |
+| USDA temperatures | Quoted from the FSIS chart, including rest times, with the page's own Last Updated date |
+| Associates disclosure wording | Compared against Operating Agreement §5 and used verbatim |
+| Price display rule | Participation Requirements §2(b) — no price or rating printed anywhere; enforced by rule R3 |
+| Outbound link marking | Google's outbound-link guidance — `rel="sponsored nofollow noopener"` on every Amazon product link; enforced by R2 |
+| Sneaky-redirect risk | Google's spam policies — the five `/go/` exit pages were `noindex,nofollow` and are now `index,follow`; enforced by R10 |
+
+### What was *not* verified, and is not claimed
+
+No product was handled. No traffic, click, order, conversion or revenue figure exists or is
+published. No price or star rating is shown. Whether `link.amazon` short links are an approved
+Special Link format is unresolved in both directions and stated as such (FLG-003).
