@@ -7,6 +7,8 @@
 **Pages:** 27 canonical pages + 5 affiliate exit pages, 29 sitemap routes, 7 feed items
 **Sources:** 11 official sources, all fetched and read (see §6)
 
+**Scope boundary:** this repository currently delivers a static affiliate publication with automated page generation and compliance checks; it is **not yet an AI-powered research or campaign-optimization platform**. There is no deployed AI agent, live trend/commission feed, live analytics endpoint, Search Console data, or verified conversion reporting. Those capabilities need authorized data access, deployment credentials and human approval gates before they can be claimed or switched on.
+
 ---
 
 ## 1. What was asked for, and what state it is in
