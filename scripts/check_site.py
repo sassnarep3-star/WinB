@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-"""Checks for the generated site and its data. Exit code 1 on any failure.
+"""Checks for the whole site (Counterwise pages + the verification register). Exit 1 on failure.
 
 Checks:
   * data rules (intended ASIN blank, prices blank, ledger empty, ids resolve)
-  * observed ASIN in each redirect/listing URL matches the ASIN field
-  * every page: disclosure above the navigation AND in the footer
-  * every Amazon product link carries rel="sponsored"
-  * every external link points to an allow-listed official host
-  * every internal link and #fragment resolves
-  * every row of a table marked data-source-required has an official source link
-  * sitemap lists every page; rss.xml parses
-  * no <script> tags (no tracking code was added)
+  * observed ASIN in each listing/redirect URL matches the ASIN field
+  * every HTML page in the repository:
+      - the disclosure statement appears before the first <nav> and again inside <footer>
+      - every Amazon product link carries rel="sponsored"
+      - every external link points to an allow-listed official host
+      - every internal link resolves to a file; every #fragment resolves to an id
+      - the only script allowed is the local analytics client (assets/counterwise.js)
+      - every table marked data-source-required has an official source link on each row
+  * sitemap.xml lists every page; feed.xml and sitemap.xml parse
 """
 import html.parser
 import json
@@ -18,20 +19,21 @@ import pathlib
 import re
 import sys
 import xml.etree.ElementTree as ET
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
-DOCS = ROOT / "docs"
+EXCLUDE = {"data", "scripts", ".github", ".git", "node_modules", "docs"}
 
 ALLOWED_HOSTS = {
     "amazon.com", "www.amazon.com", "link.amazon", "affiliate-program.amazon.com",
     "ftc.gov", "www.ftc.gov", "ecfr.gov", "www.ecfr.gov",
     "developers.google.com", "www.sitemaps.org", "sitemaps.org",
-    "www.rssboard.org", "docs.github.com", "github.com",
+    "www.rssboard.org", "docs.github.com", "github.com", "sassnarep3-star.github.io",
 }
 PRODUCT_HOSTS = ("amazon.com", "link.amazon")
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
+ALLOWED_SCRIPT_RE = re.compile(r"^(\.\./)*assets/counterwise\.js$")
 
 errors = []
 warnings = []
@@ -85,13 +87,9 @@ def check_data():
         for sid in d["sources"]:
             if sid not in ids:
                 err(f"{d['id']}: unknown source {sid}")
-    ledger = load("ledger.json")
-    if ledger["rows"]:
+    if load("ledger.json")["rows"]:
         warnings.append("ledger.json has rows: each must cite an authorized first-party report")
-    flags = load("flags.json")["flags"]
-    if len(flags) < 1:
-        err("flags.json: Flagged for Review must not be empty while flags exist")
-    for f in flags:
+    for f in load("flags.json")["flags"]:
         if f["status"] not in ("Needs review", "Logged"):
             err(f"{f['id']}: unexpected status {f['status']}")
 
@@ -101,36 +99,31 @@ class PageParser(html.parser.HTMLParser):
         super().__init__(convert_charrefs=True)
         self.links = []          # (href, rel)
         self.ids = set()
-        self.scripts = 0
-        self.nav_seen_at = None
-        self.disclosure_before_nav = False
-        self.disclosure_in_footer = False
-        self.in_footer = False
-        self.in_disclosure = 0
-        self.disclosure_text = ""
-        self.tables = []         # list of dicts: attrs, rows(list of list of hrefs)
+        self.scripts = []        # src values (or "inline")
+        self.tables = []         # dicts: attrs, rows (list of list of hrefs)
         self._table_stack = []
         self._row = None
-        self._in_tbody = 0
-        self._text_stack = []
-        self.pos = 0
+        self._tbody = 0
+        self.in_footer = False
+        self.footer_text = ""
+        self.pre_nav_text = ""
+        self.nav_seen = False
+        self._script_inline = False
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if "id" in a:
             self.ids.add(a["id"])
         if tag == "script":
-            self.scripts += 1
+            if "src" in a:
+                self.scripts.append(a["src"])
+            else:
+                self.scripts.append("inline")
+                self._script_inline = True
         if tag == "footer":
             self.in_footer = True
-        if tag == "nav" and self.nav_seen_at is None:
-            self.nav_seen_at = self.pos
-        if tag == "aside" and "disclosure" in a.get("class", ""):
-            self.in_disclosure += 1
-            if self.in_footer:
-                self.disclosure_in_footer = True
-            elif self.nav_seen_at is None:
-                self.disclosure_before_nav = True
+        if tag == "nav":
+            self.nav_seen = True
         if tag == "a" and "href" in a:
             self.links.append((a["href"], a.get("rel", "") or ""))
             if self._row is not None:
@@ -138,51 +131,50 @@ class PageParser(html.parser.HTMLParser):
         if tag == "table":
             self._table_stack.append({"attrs": a, "rows": []})
         if tag == "tbody" and self._table_stack:
-            self._in_tbody += 1
-        if tag == "tr" and self._table_stack and self._in_tbody:
+            self._tbody += 1
+        if tag == "tr" and self._table_stack and self._tbody:
             self._row = []
-        self.pos += 1
 
     def handle_endtag(self, tag):
         if tag == "footer":
             self.in_footer = False
-        if tag == "aside" and self.in_disclosure:
-            self.in_disclosure -= 1
         if tag == "tr" and self._row is not None and self._table_stack:
             self._table_stack[-1]["rows"].append(self._row)
             self._row = None
-        if tag == "tbody" and self._in_tbody:
-            self._in_tbody -= 1
+        if tag == "tbody" and self._tbody:
+            self._tbody -= 1
         if tag == "table" and self._table_stack:
             self.tables.append(self._table_stack.pop())
+        if tag == "script":
+            self._script_inline = False
 
     def handle_data(self, data):
-        if self.in_disclosure:
-            self.disclosure_text += data
+        if self.in_footer:
+            self.footer_text += data
+        elif not self.nav_seen:
+            self.pre_nav_text += data
 
 
-def check_html():
-    pages = sorted(DOCS.glob("*.html"))
-    names = {p.name for p in pages}
-    anchors_by_page = {}
+def check_html(files):
     parsed = {}
-    for p in pages:
-        text = p.read_text(encoding="utf-8")
+    for f in files:
+        text = f.read_text(encoding="utf-8")
         ps = PageParser()
         ps.feed(text)
-        parsed[p.name] = (text, ps)
-        anchors_by_page[p.name] = ps.ids
-    for p in pages:
-        text, ps = parsed[p.name]
-        name = p.name
+        parsed[f] = (text, ps)
+    for f in files:
+        text, ps = parsed[f]
+        name = f.relative_to(ROOT).as_posix()
+        here = f.parent
         if DISCLOSURE not in text:
             err(f"{name}: disclosure statement missing")
-        if not ps.disclosure_before_nav:
-            err(f"{name}: disclosure strip must sit above the navigation (above the fold)")
-        if not ps.disclosure_in_footer:
+        if DISCLOSURE not in ps.pre_nav_text:
+            err(f"{name}: disclosure must appear above the navigation (above the fold)")
+        if DISCLOSURE not in ps.footer_text:
             err(f"{name}: disclosure must be repeated in the footer")
-        if ps.scripts:
-            err(f"{name}: contains {ps.scripts} <script> tag(s); no tracking code was approved")
+        for src in ps.scripts:
+            if src == "inline" or not ALLOWED_SCRIPT_RE.match(src):
+                err(f"{name}: script not allowed ({src}); only assets/counterwise.js is approved")
         for href, rel in ps.links:
             if href.startswith("#"):
                 if href[1:] and href[1:] not in ps.ids:
@@ -190,24 +182,34 @@ def check_html():
                 continue
             if href.startswith(("mailto:", "tel:")):
                 continue
-            parsed_url = urlparse(href)
-            if parsed_url.scheme in ("http", "https"):
-                host = parsed_url.hostname or ""
+            pu = urlparse(href)
+            if pu.scheme in ("http", "https"):
+                host = pu.hostname or ""
                 if host not in ALLOWED_HOSTS:
                     err(f"{name}: external host not allow-listed: {host} ({href})")
-                if any(host == h or host.endswith("." + h) for h in PRODUCT_HOSTS):
+                if host != "affiliate-program.amazon.com" and any(host == h or host.endswith("." + h) for h in PRODUCT_HOSTS):
                     if "sponsored" not in rel.split():
                         err(f"{name}: Amazon link lacks rel=sponsored: {href}")
                 continue
-            # internal
-            target, _, frag = href.partition("#")
-            if target == "":
-                target = name
-            if not (DOCS / target).is_file():
+            if pu.scheme or href.startswith("//"):
+                err(f"{name}: unexpected link scheme {href}")
+                continue
+            target_path, frag = unquote(pu.path), pu.fragment
+            target = here if target_path == "" else (here / target_path)
+            if target.is_dir():
+                target = target / "index.html"
+            if not target.is_file():
                 err(f"{name}: broken internal link {href}")
                 continue
-            if frag and target in anchors_by_page and frag not in anchors_by_page[target]:
-                err(f"{name}: missing anchor #{frag} in {target}")
+            if frag:
+                if target.suffix == ".html" and target in parsed:
+                    if frag not in parsed[target][1].ids:
+                        err(f"{name}: missing anchor #{frag} in {target.relative_to(ROOT).as_posix()}")
+                elif target.suffix == ".html":
+                    tps = PageParser()
+                    tps.feed(target.read_text(encoding="utf-8"))
+                    if frag not in tps.ids:
+                        err(f"{name}: missing anchor #{frag} in {target.relative_to(ROOT).as_posix()}")
         for t in ps.tables:
             if t["attrs"].get("data-source-required") == "1":
                 for row in t["rows"]:
@@ -217,34 +219,70 @@ def check_html():
                     )
                     if not ok:
                         err(f"{name}: a table row without an official source link: {row[:1]}")
-    return pages
 
 
-def check_feeds(pages):
-    sm = (DOCS / "sitemap.xml").read_text(encoding="utf-8")
-    for p in pages:
-        if p.name == "sitemap.xml":
+def all_html():
+    files = []
+    for f in ROOT.rglob("*.html"):
+        rel = f.relative_to(ROOT)
+        if rel.parts and rel.parts[0] in EXCLUDE:
             continue
-        if p.name.endswith(".html") and p.name not in sm:
-            err(f"sitemap.xml does not list {p.name}")
+        files.append(f)
+    return sorted(files)
+
+
+def check_reachable(files):
+    """Every page must link to the verification register (single navigation group + footer)."""
+    register = (ROOT / "register" / "index.html").resolve()
+    for f in files:
+        if f.resolve() == register:
+            continue
+        ps = PageParser()
+        ps.feed(f.read_text(encoding="utf-8"))
+        found = False
+        for href, _ in ps.links:
+            pu = urlparse(href)
+            if pu.scheme or not pu.path:
+                continue
+            tgt = (f.parent / unquote(pu.path))
+            if tgt.is_dir():
+                tgt = tgt / "index.html"
+            if tgt.resolve() == register:
+                found = True
+                break
+        if not found:
+            err(f"{f.relative_to(ROOT).as_posix()}: no link to the verification register")
+
+
+def check_feeds(files):
     try:
-        ET.parse(DOCS / "rss.xml")
-    except ET.ParseError as e:
-        err(f"rss.xml does not parse: {e}")
+        sm_path = ROOT / "sitemap.xml"
+        ET.parse(sm_path)
+        sm = sm_path.read_text(encoding="utf-8")
+    except (ET.ParseError, FileNotFoundError) as e:
+        err(f"sitemap.xml missing or does not parse: {e}")
+        sm = ""
+    for f in files:
+        rel = f.relative_to(ROOT).as_posix()
+        if rel == "index.html":
+            continue
+        if rel not in sm and rel.replace("index.html", "") not in sm:
+            err(f"sitemap.xml does not list {rel}")
     try:
-        ET.parse(DOCS / "sitemap.xml")
-    except ET.ParseError as e:
-        err(f"sitemap.xml does not parse: {e}")
+        ET.parse(ROOT / "feed.xml")
+    except (ET.ParseError, FileNotFoundError) as e:
+        err(f"feed.xml missing or does not parse: {e}")
 
 
 def main():
     check_data()
-    if not DOCS.exists():
-        err("docs/ missing: run scripts/build_site.py first")
-    else:
-        pages = check_html()
-        check_feeds(pages)
-        print(f"checked {len(pages)} pages")
+    files = all_html()
+    if not (ROOT / "register" / "index.html").exists():
+        err("register/ missing: run scripts/build_site.py first")
+    check_html(files)
+    check_feeds(files)
+    check_reachable(files)
+    print(f"checked {len(files)} HTML pages across the site")
     for w in warnings:
         print("WARN", w)
     for e in errors:

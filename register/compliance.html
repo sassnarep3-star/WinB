@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance gate · Counterwise</title>
+<meta name="description" content="Amazon Associates, FTC and Google rules checked against this site, with official source links.">
+<meta property="og:title" content="Compliance gate">
+<meta property="og:description" content="Amazon Associates, FTC and Google rules checked against this site, with official source links.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index,follow">
+<style>
+:root{--ink:#1d2330;--muted:#5b6475;--paper:#fbfaf7;--line:#e4e1d8;--accent:#8a3b12;--accent-2:#2f5d50;--warn:#8a5a00;--warnbg:#fff4dc;--okbg:#e6f2ea;--ok:#245a3a;--disc:#f3e9dc;}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 Georgia,"Times New Roman",serif;color:var(--ink);background:var(--paper)}
+h1,h2,h3,.brand,.nav,.btn,.kicker,th,.badge{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-999px}.skip:focus{left:10px;top:10px;background:#fff;padding:6px}
+.mast{background:#fff;border-bottom:1px solid var(--line);padding:18px 0 10px}
+.brand{font-size:28px;font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+.tag{margin:2px 0 0;color:var(--muted);font-size:14px;font-family:system-ui,sans-serif}
+.disclosure{background:var(--disc);border-bottom:1px solid #e0cdb4;font:14px/1.45 system-ui,sans-serif;padding:9px 0}
+.disclosure .wrap{padding-top:0;padding-bottom:0}
+.nav{background:var(--ink);font:15px system-ui,sans-serif}
+.nav ul{list-style:none;margin:0 auto;padding:0 12px;max-width:1100px;display:flex;flex-wrap:wrap;gap:4px 4px}
+.nav a{display:block;color:#fff;text-decoration:none;padding:10px 12px;border-radius:4px}
+.nav a:hover,.nav a[aria-current=page]{background:#3c4558}
+main{padding:28px 20px 40px}
+h1{font-size:34px;line-height:1.15;margin:0 0 10px;letter-spacing:-.01em}
+h2{font-size:21px;margin:30px 0 10px}
+h3{font-size:18px;margin:4px 0 8px;line-height:1.3}
+a{color:var(--accent-2)}
+.lede{font-size:18px;color:#333;max-width:72ch}
+.hero{padding:6px 0 10px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.actions{margin-top:16px}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:9px 14px;border-radius:4px;font-size:15px;margin:4px 6px 4px 0}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:10px}
+.grid.one{grid-template-columns:1fr}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.card.wide{padding:20px 22px}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.meta{font:14px system-ui,sans-serif;color:var(--muted);margin:6px 0}
+.small{font-size:13px;color:var(--muted);font-family:system-ui,sans-serif}
+code{font:13px ui-monospace,Menlo,Consolas,monospace;background:#f0eee8;padding:1px 4px;border-radius:3px}
+code.wrapcode{white-space:normal;word-break:break-all;display:inline-block;max-width:340px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:#fff;margin:12px 0 20px}
+table{border-collapse:collapse;width:100%;font:14px/1.45 system-ui,sans-serif}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f4f2ec;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td .small{display:block;margin-top:4px}
+.empty{color:var(--muted);font-style:italic;text-align:center;padding:24px}
+.badge{display:inline-block;font:12px/1.4 system-ui,sans-serif;padding:2px 8px;border-radius:999px;background:#eee;color:#333;white-space:normal}
+.badge.warn{background:var(--warnbg);color:var(--warn)}
+.badge.ok{background:var(--okbg);color:var(--ok)}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0}
+.stats div{background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px 18px;min-width:130px}
+.stats strong{display:block;font:700 26px system-ui,sans-serif}
+.stats span{font:13px system-ui,sans-serif;color:var(--muted)}
+.callout{background:#fff;border-left:4px solid var(--accent-2);padding:10px 16px;margin:14px 0;border-radius:4px}
+.plain{padding-left:20px}
+.plain li{margin:4px 0}
+.foot{background:var(--ink);color:#e7e9ee;padding:26px 0 30px;margin-top:20px;font:14px/1.6 system-ui,sans-serif}
+.foot a{color:#fff}
+.foot-disc{background:#2b3142;border:0;color:#fff;padding:12px 14px;border-radius:4px;margin-bottom:18px}
+.foot-grid{display:grid;grid-template-columns:1fr 2fr;gap:24px}
+.foot h2{color:#fff;font-size:15px;margin:0 0 8px}
+.foot ul{list-style:none;padding:0;margin:0}
+.foot li{margin:3px 0}
+@media (max-width:700px){h1{font-size:26px}.foot-grid{grid-template-columns:1fr}.brand{font-size:24px}}
+</style>
+<link rel="alternate" type="application/rss+xml" title="Counterwise feed" href="../feed.xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="mast"><div class="wrap">
+  <a class="brand" href="index.html">Counterwise</a>
+  <p class="tag">Verification register for the five supplied Amazon links</p>
+</div></header>
+<aside class="disclosure" role="note" aria-label="Affiliate disclosure"><div class="wrap">
+  <strong>Disclosure.</strong> As an Amazon Associate I earn from qualifying purchases. This site contains affiliate links. If you buy through them, we may earn a commission at no extra cost to you.
+</div></aside>
+<nav class="nav" aria-label="Site sections"><ul><li><a href="index.html">Register overview</a></li><li><a href="products.html">All products</a></li><li><a href="air-fryers.html">Air fryer products</a></li><li><a href="thermometers.html">Thermometer products</a></li><li><a href="findings.html">Findings</a></li><li><a href="compliance.html" aria-current="page">Compliance</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="guides.html">Guide ideas</a></li><li><a href="ledger.html">Campaign ledger</a></li><li><a href="sources.html">Sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="executive-summary.html">Executive summary</a></li><li><a href="../index.html">← Counterwise front page</a></li></ul></nav>
+<main id="main" class="wrap">
+
+<h1>Compliance gate</h1>
+<p class="lede">Every rule below is taken from an official Amazon, FTC, Google or GitHub document. The publishing workflow checks the rules that can be checked automatically (see the <code>check_site.py</code> script in the repository).</p>
+<section class="callout"><p><strong>Required statement.</strong> As an Amazon Associate I earn from qualifying purchases. It appears under the masthead of every page and in the footer, as Operating Agreement §5 requires.</p></section>
+<div class="tablewrap"><table class="" data-source-required="1"><thead><tr><th scope="col">ID</th><th scope="col">Rule</th><th scope="col">Official source</th><th scope="col">What the site does</th><th scope="col">Status</th></tr></thead><tbody><tr><td>C01</td><td>Identification statement: state &#x27;As an Amazon Associate I earn from qualifying purchases&#x27; clearly and prominently on the site.</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="external noopener" target="_blank">S-OA</a><br><span class="small">Operating Agreement §5</span></td><td>Disclosure strip under the masthead and in the footer of every page, using the exact statement.</td><td><span class="badge ok">Implemented</span></td></tr><tr><td>C02</td><td>Violating §5 is a material breach (termination and forfeited commissions).</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="external noopener" target="_blank">S-OA</a><br><span class="small">Operating Agreement §6 (last paragraph) and §2</span></td><td>Statement is generated from one template on every page so it cannot drift between pages.</td><td><span class="badge ok">Implemented</span></td></tr><tr><td>C03</td><td>Special Links must include the Associates ID as a parameter in the URL of each link to an Amazon Site.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §2(b)</span></td><td>Supplied short links kept as-is. Observed redirect targets do not show a tag parameter. Not claimed valid. Test pending (FLG-02, FLG-04).</td><td><span class="badge warn">Open — not validated</span></td></tr><tr><td>C04</td><td>Prices and availability may be shown only if Amazon serves the link or the data comes via PA-API / Creators API.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §2(b)</span></td><td>No prices or availability published. Price fields are blank and marked.</td><td><span class="badge ok">Implemented (no prices shown)</span></td></tr><tr><td>C05</td><td>Star ratings and customer reviews may be displayed only via Creators API / PA-API.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §6(t)</span></td><td>No ratings or review counts published.</td><td><span class="badge ok">Implemented (no ratings shown)</span></td></tr><tr><td>C06</td><td>Site must not have price tracking and/or price alerting functionality (unless Amazon agrees).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §6(y)</span></td><td>No price tracking. Brief&#x27;s &#x27;analyzes pricing&#x27; step is listed as a decision (Suggestions D2).</td><td><span class="badge ok">Implemented (no price tracking)</span></td></tr><tr><td>C07</td><td>Do not use a link shortening service in a way that makes it unclear that the link goes to an Amazon Site.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §6(w)</span></td><td>Short links are displayed with the text &#x27;Amazon&#x27; and the product title beside them. Whether the supplied short links meet §6(w) is not determined. Not claimed invalid (FLG-03).</td><td><span class="badge warn">Unresolved (FLG-03)</span></td></tr><tr><td>C08</td><td>Do not cloak, hide, spoof or obscure the Site URL containing Special Links.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §6(v)</span></td><td>No redirect layer, no link cloaking. Outbound links point directly to the supplied URLs.</td><td><span class="badge ok">Implemented</span></td></tr><tr><td>C09</td><td>No incentive for clicks, and no encouragement of artificial clicks.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §6(g) and §6(s)</span></td><td>Copy contains no click prompts, rewards or discounts.</td><td><span class="badge ok">Implemented</span></td></tr><tr><td>C10</td><td>No sub-tag may be tied to a specific end user.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §2(b)</span></td><td>No per-user tracking. Click counting (D3) must be aggregate only.</td><td><span class="badge ok">Implemented (no per-user tags)</span></td></tr><tr><td>C11</td><td>Disclosure must be clear and conspicuous, placed with the endorsement, and not only on an About page.</td><td><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="external noopener" target="_blank">S-FTC-D101</a><br><span class="small">FTC Disclosures 101, &#x27;How to Disclose&#x27;</span></td><td>Disclosure strip sits directly under the masthead on every page (register and Counterwise pages), and the same statement is in the footer.</td><td><span class="badge ok">Implemented</span></td></tr><tr><td>C12</td><td>Material connection (including commission income) must be disclosed (16 CFR 255.5 — section title only verified).</td><td><a href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255" rel="external noopener" target="_blank">S-ECFR-255</a><br><span class="small">16 CFR §255.5 (title only; see FLG-18)</span></td><td>Disclosure states that the site may earn commission on qualifying purchases.</td><td><span class="badge ok">Implemented — legal wording not reviewed by counsel</span></td></tr><tr><td>C13</td><td>Mark paid links with rel=&quot;sponsored&quot;.</td><td><a href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="external noopener" target="_blank">S-GOOG-QOL</a><br><span class="small">Google Search Central — &#x27;rel=&quot;sponsored&quot;&#x27;</span></td><td>Every outbound product link carries rel=&quot;sponsored noopener&quot; (checked by scripts/check_site.py).</td><td><span class="badge ok">Implemented</span></td></tr><tr><td>C14</td><td>Program Content (text, images, widgets) may not be altered except resizing images or truncating text.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §6(a)</span></td><td>No Amazon images were copied or scraped. Product text is limited to the listing title and observed ASIN.</td><td><span class="badge ok">Implemented</span></td></tr><tr><td>C15</td><td>Special Links must link to Products; product-list pages need original content on your site.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §2(b)</span></td><td>Each link goes to one product detail page (dp/ASIN), not a search results or list page.</td><td><span class="badge ok">Implemented</span></td></tr><tr><td>C16</td><td>Special Links may not be used in print, ebooks, mailings or orally; email/SMS only when opted in.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §4</span></td><td>Web-only. No email or print distribution.</td><td><span class="badge ok">Implemented</span></td></tr><tr><td>C17</td><td>Do not display Amazon-marked names in site domains, subdomains, tags or identifiers.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="external noopener" target="_blank">S-PP</a><br><span class="small">Program Policies, Participation Requirements §1 (suitability), item (g)</span></td><td>Site name is &#x27;Counterwise&#x27;. No Amazon mark appears in domain names, subdomains or tags.</td><td><span class="badge ok">Implemented</span></td></tr><tr><td>C18</td><td>Static hosting publishes from a branch and a /docs folder.</td><td><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" rel="external noopener" target="_blank">S-GHP</a><br><span class="small">GitHub Docs — publishing from a branch</span></td><td>Pages source is main branch, /docs folder.</td><td><span class="badge neutral">Set after merge (see COORDINATION.md)</span></td></tr></tbody></table></div>
+
+</main>
+<script src="../assets/counterwise.js"></script>
+<footer class="foot"><div class="wrap">
+  <aside class="disclosure foot-disc" role="note"><strong>Disclosure.</strong> As an Amazon Associate I earn from qualifying purchases. This site contains affiliate links. If you buy through them, we may earn a commission at no extra cost to you.</aside>
+  <div class="foot-grid">
+    <div><h2>Dashboards</h2><ul><li><a href="index.html">Register overview</a></li><li><a href="products.html">All products</a></li><li><a href="air-fryers.html">Air fryer products</a></li><li><a href="thermometers.html">Thermometer products</a></li><li><a href="findings.html">Findings</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="questions.html">Open questions</a></li><li><a href="suggestions.html">Suggestions</a></li><li><a href="guides.html">Guide ideas</a></li><li><a href="ledger.html">Campaign ledger</a></li><li><a href="sources.html">Sources</a></li><li><a href="flagged.html">Flagged for review</a></li><li><a href="executive-summary.html">Executive summary</a></li><li><a href="../index.html">← Counterwise front page</a></li></ul></div>
+    <div><h2>About this site</h2>
+      <p>Author: Editorial team (named author pending — Q7)</p>
+      <p>Data as of 2026-11-20 (UTC). Every value is checked against an official page or policy text listed on the <a href="sources.html">Sources</a> page. Unverified values are left blank and flagged.</p>
+      <p>Not affiliated with Amazon.com, Inc. Product names are trademarks of their owners.</p>
+      <p><a href="https://github.com/sassnarep3-star/WinB" rel="external noopener" target="_blank">Source repository</a> · <a href="../feed.xml">Guides feed (RSS)</a></p>
+    </div>
+  </div>
+</div></footer>
+</body>
+</html>

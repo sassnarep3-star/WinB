@@ -1,6 +1,6 @@
 {
-  "site_name": "Kitchen Picks",
-  "tagline": "Five kitchen products, checked against Amazon's own pages",
+  "site_name": "Counterwise",
+  "tagline": "Verification register for the five supplied Amazon links",
   "base_path": "",
   "site_url": "https://sassnarep3-star.github.io/WinB/",
   "repo_url": "https://github.com/sassnarep3-star/WinB",
@@ -10,18 +10,61 @@
   "disclosure_extra": "This site contains affiliate links. If you buy through them, we may earn a commission at no extra cost to you.",
   "as_of": "2026-11-20",
   "nav": [
-    {"href": "index.html", "label": "Front page"},
-    {"href": "products.html", "label": "All products"},
-    {"href": "air-fryers.html", "label": "Air fryers"},
-    {"href": "thermometers.html", "label": "Thermometers"},
-    {"href": "findings.html", "label": "Findings"},
-    {"href": "compliance.html", "label": "Compliance"},
-    {"href": "questions.html", "label": "Open questions"},
-    {"href": "suggestions.html", "label": "Suggestions"},
-    {"href": "guides.html", "label": "Guide ideas"},
-    {"href": "ledger.html", "label": "Campaign ledger"},
-    {"href": "sources.html", "label": "Sources"},
-    {"href": "flagged.html", "label": "Flagged for review"},
-    {"href": "executive-summary.html", "label": "Executive summary"}
+    {
+      "href": "index.html",
+      "label": "Register overview"
+    },
+    {
+      "href": "products.html",
+      "label": "All products"
+    },
+    {
+      "href": "air-fryers.html",
+      "label": "Air fryer products"
+    },
+    {
+      "href": "thermometers.html",
+      "label": "Thermometer products"
+    },
+    {
+      "href": "findings.html",
+      "label": "Findings"
+    },
+    {
+      "href": "compliance.html",
+      "label": "Compliance"
+    },
+    {
+      "href": "questions.html",
+      "label": "Open questions"
+    },
+    {
+      "href": "suggestions.html",
+      "label": "Suggestions"
+    },
+    {
+      "href": "guides.html",
+      "label": "Guide ideas"
+    },
+    {
+      "href": "ledger.html",
+      "label": "Campaign ledger"
+    },
+    {
+      "href": "sources.html",
+      "label": "Sources"
+    },
+    {
+      "href": "flagged.html",
+      "label": "Flagged for review"
+    },
+    {
+      "href": "executive-summary.html",
+      "label": "Executive summary"
+    },
+    {
+      "href": "../index.html",
+      "label": "← Counterwise front page"
+    }
   ]
 }

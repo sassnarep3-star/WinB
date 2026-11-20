@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Build the static site in docs/ from data/*.json.
+"""Build the verification register in register/ from data/*.json.
+The register is published inside the Counterwise site (repository root).
 
 Only the Python standard library is used. Every page is generated from the
 JSON files in data/, so the tables, sources and flags stay in one place.
-Run:  python3 scripts/build_site.py
+Run:  python3 scripts/build_site.py  (also rewrites sitemap.xml and robots.txt at the root)
 """
 import html
 import json
@@ -13,7 +14,7 @@ from urllib.parse import urlparse
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
-OUT = ROOT / "docs"
+OUT = ROOT / "register"
 
 
 def load(name):
@@ -43,6 +44,8 @@ def esc(text):
 
 def is_product_link(url):
     host = urlparse(url).hostname or ""
+    if host == "affiliate-program.amazon.com":
+        return False  # Associates policy pages are not product links
     return any(host == h or host.endswith("." + h) for h in PRODUCT_HOSTS)
 
 
@@ -112,8 +115,8 @@ def page(filename, title, description, body, active=None):
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:type" content="website">
 <meta name="robots" content="index,follow">
-<link rel="stylesheet" href="assets/style.css">
-<link rel="alternate" type="application/rss+xml" title="{esc(SITE["site_name"])} updates" href="rss.xml">
+<style>{CSS}</style>
+<link rel="alternate" type="application/rss+xml" title="{esc(SITE["site_name"])} feed" href="../feed.xml">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -128,6 +131,7 @@ def page(filename, title, description, body, active=None):
 <main id="main" class="wrap">
 {body}
 </main>
+<script src="../assets/counterwise.js"></script>
 <footer class="foot"><div class="wrap">
   <aside class="disclosure foot-disc" role="note"><strong>Disclosure.</strong> {esc(DISCLOSURE)} {esc(DISCLOSURE_EXTRA)}</aside>
   <div class="foot-grid">
@@ -136,7 +140,7 @@ def page(filename, title, description, body, active=None):
       <p>Author: {esc(SITE["author"])}</p>
       <p>Data as of {esc(AS_OF)} (UTC). Every value is checked against an official page or policy text listed on the <a href="sources.html">Sources</a> page. Unverified values are left blank and flagged.</p>
       <p>Not affiliated with Amazon.com, Inc. Product names are trademarks of their owners.</p>
-      <p><a href="{esc(SITE["repo_url"])}" rel="external noopener" target="_blank">Source repository</a> · <a href="rss.xml">RSS feed</a></p>
+      <p><a href="{esc(SITE["repo_url"])}" rel="external noopener" target="_blank">Source repository</a> · <a href="../feed.xml">Guides feed (RSS)</a></p>
     </div>
   </div>
 </div></footer>
@@ -398,7 +402,7 @@ def page_exec():
 <p class="lede">As of {esc(AS_OF)}. What this site covers, what is verified, and what is not.</p>
 <section>
   {h(2, "What the site is")}
-  <p>A product register for five Amazon products from the links you supplied: three air fryers and two meat thermometers. The site lists each product with its listing title, observed ASIN, link status and source, and records every policy rule that applies.</p>
+  <p>A product register for five Amazon products from the links you supplied: three air fryers and two meat thermometers. It is published inside the Counterwise site under <code>/register/</code> and linked from the navigation and footer of every page. The register lists each product with its listing title, observed ASIN, link status and source, and records every policy rule that applies.</p>
 </section>
 <section>
   {h(2, "What is verified")}
@@ -428,52 +432,44 @@ def page_exec():
   <p>Nothing has been changed on the site to act on these choices. Each one is listed in <a href="suggestions.html">Suggestions</a> with its options.</p>
 </section>
 <section>
-  {h(2, "Irregularities")}
+  {h(2, "Irregularities and integration notes")}
+  <p>The Counterwise 'Evidence &amp; review' page said no product had been matched, because the links had not been resolved. This register resolved them and recorded the Amazon product page each one reaches, with the intended ASIN still blank (FLG-19). The reader sign-up form on the front page has no backend (FLG-20), and the analytics client sends nothing until an endpoint is configured (FLG-21).</p>
   <p>{len(FLAGS)} items are on the <a href="flagged.html">Flagged for review</a> page with source links. None blocks publication, but FLG-01 to FLG-04 should be checked before the links are relied on.</p>
 </section>"""
     page("executive-summary.html", "Executive summary", "What the site covers, what is verified, and what decisions come next.", body)
 
 
 def write_static():
-    (OUT / "assets").mkdir(parents=True, exist_ok=True)
-    (OUT / "assets" / "style.css").write_text(CSS, encoding="utf-8")
-    (OUT / ".nojekyll").write_text("", encoding="utf-8")
+    OUT.mkdir(parents=True, exist_ok=True)
 
 
-def write_sitemap(pages):
+EXCLUDE_DIRS = {"data", "scripts", ".github", "register", ".git", "node_modules", "docs"}
+
+
+def site_html_files():
+    """Every HTML page in the repository (the register and the Counterwise pages)."""
+    files = []
+    for f in ROOT.rglob("*.html"):
+        rel = f.relative_to(ROOT)
+        if rel.parts and rel.parts[0] in EXCLUDE_DIRS - {"register"}:
+            continue
+        files.append(rel.as_posix())
+    return sorted(files)
+
+
+def write_sitemap(files):
     base = SITE["site_url"]
     urls = []
-    for f in pages:
-        pri = "1.0" if f == "index.html" else "0.6"
-        urls.append(f"  <url>\n    <loc>{esc(base + f)}</loc>\n    <lastmod>{AS_OF}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>{pri}</priority>\n  </url>")
+    for f in files:
+        loc = base + f
+        if f == "index.html":
+            loc = base
+        pri = "1.0" if f == "index.html" else ("0.8" if f.startswith(("guides/", "register/")) else "0.6")
+        urls.append(f"  <url>\n    <loc>{esc(loc)}</loc>\n    <lastmod>{AS_OF}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>{pri}</priority>\n  </url>")
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(urls) + "\n</urlset>\n"
-    (OUT / "sitemap.xml").write_text(xml, encoding="utf-8")
-    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {base}sitemap.xml\n", encoding="utf-8")
-
-
-def write_rss():
-    base = SITE["site_url"]
-    pub = datetime.date.fromisoformat(AS_OF).strftime("%a, %d %b %Y 00:00:00 GMT")
-    items = f"""  <item>
-    <title>Verification register updated ({esc(AS_OF)})</title>
-    <link>{esc(base)}flagged.html</link>
-    <guid isPermaLink="false">kitchen-picks-register-{esc(AS_OF)}</guid>
-    <pubDate>{pub}</pubDate>
-    <description>Five product links re-checked against Amazon product pages and policy texts. {len(FLAGS)} items flagged for review. No prices or ratings published.</description>
-  </item>"""
-    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
-<channel>
-  <title>{esc(SITE["site_name"])}</title>
-  <link>{esc(base)}</link>
-  <description>{esc(SITE["tagline"])}</description>
-  <language>en-us</language>
-  <lastBuildDate>{pub}</lastBuildDate>
-{items}
-</channel>
-</rss>
-"""
-    (OUT / "rss.xml").write_text(xml, encoding="utf-8")
+    (ROOT / "sitemap.xml").write_text(xml, encoding="utf-8")
+    robots = f"User-agent: *\nAllow: /\n\nSitemap: {base}sitemap.xml\n"
+    (ROOT / "robots.txt").write_text(robots, encoding="utf-8")
 
 
 CSS = """
@@ -540,14 +536,13 @@ td .small{display:block;margin-top:4px}
 
 
 def main():
-    OUT.mkdir(parents=True, exist_ok=True)
     write_static()
     page_index()
     page_products()
-    page_category("air-fryers.html", "Air fryers", "Air fryers",
-                  "Three air fryers from the supplied links: two basket-style and one oven-style air fryer toaster oven. Each row shows the Amazon listing it resolves to.")
-    page_category("thermometers.html", "Thermometers", "Thermometers",
-                  "Two meat thermometers from the supplied links. Specifications are as printed by Amazon's listing titles; nothing is added from outside sources.")
+    page_category("air-fryers.html", "Air fryer products", "Air fryers",
+                  "Three air fryers from the supplied links: two basket-style units and one oven-style air fryer toaster oven. Each row shows the Amazon listing it resolves to.")
+    page_category("thermometers.html", "Thermometer products", "Thermometers",
+                  "Two meat thermometers from the supplied links. Product details are as printed on Amazon's listing; nothing is added from outside sources.")
     page_findings()
     page_compliance()
     page_questions()
@@ -557,10 +552,8 @@ def main():
     page_sources()
     page_flagged()
     page_exec()
-    pages = sorted(p.name for p in OUT.glob("*.html"))
-    write_sitemap(pages)
-    write_rss()
-    print(f"built {len(pages)} pages into {OUT}")
+    write_sitemap(site_html_files())
+    print(f"built {len(list(OUT.glob('*.html')))} register pages into {OUT}; sitemap lists {len(site_html_files())} pages")
 
 
 if __name__ == "__main__":

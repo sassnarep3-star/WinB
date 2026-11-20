@@ -86,7 +86,7 @@
       "rule": "Disclosure must be clear and conspicuous, placed with the endorsement, and not only on an About page.",
       "source_id": "S-FTC-D101",
       "source_detail": "FTC Disclosures 101, 'How to Disclose'",
-      "site_implementation": "Disclosure strip sits directly under the masthead on each page (above the fold), and the same statement is in the footer.",
+      "site_implementation": "Disclosure strip sits directly under the masthead on every page (register and Counterwise pages), and the same statement is in the footer.",
       "status": "Implemented"
     },
     {
@@ -134,7 +134,7 @@
       "rule": "Do not display Amazon-marked names in site domains, subdomains, tags or identifiers.",
       "source_id": "S-PP",
       "source_detail": "Program Policies, Participation Requirements §1 (suitability), item (g)",
-      "site_implementation": "Site name is 'Kitchen Picks'. Repository name WinB is unchanged.",
+      "site_implementation": "Site name is 'Counterwise'. No Amazon mark appears in domain names, subdomains or tags.",
       "status": "Implemented"
     },
     {

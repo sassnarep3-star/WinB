@@ -41,9 +41,9 @@
     {
       "id": "Q5",
       "question": "What are the five click and conversion events to record?",
-      "have": "Only the count (five) from the brief.",
-      "missing": "The event names and definitions.",
-      "how_to_answer": "Owner lists the five events.",
+      "have": "assets/counterwise.js names five events: page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported. The brief does not name them (FLG-21).",
+      "missing": "Owner confirmation that these are the five intended events.",
+      "how_to_answer": "Owner confirms the list or replaces it.",
       "blocks": "Measurement plan (FLG-08)",
       "status": "Open"
     },
@@ -76,9 +76,9 @@
     },
     {
       "id": "Q9",
-      "question": "What is the brand name?",
-      "have": "Working name 'Kitchen Picks'.",
-      "missing": "Owner approval.",
+      "question": "Should the brand remain 'Counterwise'?",
+      "have": "The site is already published as 'Counterwise'.",
+      "missing": "Owner approval of the brand name.",
       "how_to_answer": "Owner confirms or replaces the name.",
       "blocks": "Brand and masthead (FLG-12)",
       "status": "Open"

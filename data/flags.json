@@ -6,7 +6,13 @@
       "id": "FLG-01",
       "title": "Short-link codes are not 10-character ASINs",
       "detail": "All five codes after link.amazon/ are 9 characters. Each short link resolved to an Amazon product whose /dp/ ASIN is 10 characters and differs from the code. The intended ASIN therefore cannot be read from the supplied links, so the intended ASIN field is blank.",
-      "source_urls": ["https://www.amazon.com/dp/B0CDY277D3", "https://www.amazon.com/dp/B09B7SB46R", "https://www.amazon.com/dp/B08DKYBTPH", "https://www.amazon.com/dp/B0DHZTCNR5", "https://www.amazon.com/dp/B0DZFD6R9Z"],
+      "source_urls": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ],
       "owner_action": "Confirm the intended ASIN for each product (or confirm the observed ones are correct).",
       "status": "Needs review"
     },
@@ -14,7 +20,9 @@
       "id": "FLG-02",
       "title": "Observed redirect targets do not show the Associates tag",
       "detail": "None of the five resolved Amazon URLs contains tag=shopnow047c-20. Program Policies §2(b) says a Special Link must include the Associates ID as a URL parameter. The short link may still attribute clicks by another mechanism, which is not verified here.",
-      "source_urls": ["https://affiliate-program.amazon.com/help/operating/policies"],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
       "owner_action": "Run one test click per product through the Associates workflow and check the tracking report (see D1).",
       "status": "Needs review"
     },
@@ -22,7 +30,9 @@
       "id": "FLG-03",
       "title": "Compliance status of the supplied short links is unresolved",
       "detail": "Program Policies §6(w) prohibits link-shortening used in a way that makes it unclear that a link goes to an Amazon Site. This check was not completed. The brief's FLG-003 and S02 cover the same question. No claim is made that the links are invalid.",
-      "source_urls": ["https://affiliate-program.amazon.com/help/operating/policies"],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
       "owner_action": "Decide whether to keep, replace or validate the short links (D1).",
       "status": "Needs review"
     },
@@ -30,7 +40,9 @@
       "id": "FLG-04",
       "title": "Associates enrollment and the tracking ID could not be verified",
       "detail": "The sandbox has no Associates account login. Nothing confirms that shopnow047c-20 is an active Associates ID, which account it sits under, or that a test click reaches the tracking report. Policy §2(b) describes the ID format as XXXXX-## or 'such other format as we may designate', so the format is not treated as invalid.",
-      "source_urls": ["https://affiliate-program.amazon.com/help/operating/policies"],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
       "owner_action": "Confirm the tracking ID and run the Associates test (Questions Q2, Q3).",
       "status": "Needs review"
     },
@@ -38,7 +50,9 @@
       "id": "FLG-05",
       "title": "Prices and ratings are not published",
       "detail": "Program Policies §2(b) and §6(t) restrict displaying prices and ratings unless Amazon serves them or they come through PA-API / Creators API. The price and rating fields are blank for all five products. They are not inferred.",
-      "source_urls": ["https://affiliate-program.amazon.com/help/operating/policies"],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
       "owner_action": "Decide on API enrollment or a link-only approach (D2).",
       "status": "Needs review"
     },
@@ -46,7 +60,9 @@
       "id": "FLG-06",
       "title": "Brief asks for price analysis, which §6(y) restricts",
       "detail": "The brief asks the platform to analyze pricing over time. Program Policies §6(y) says the site must not have price tracking or price alerting functionality unless Amazon agrees. This conflicts with the brief and cannot be built as described without Amazon's agreement.",
-      "source_urls": ["https://affiliate-program.amazon.com/help/operating/policies"],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
       "owner_action": "Decide whether to seek Amazon's agreement or drop price tracking (D2).",
       "status": "Needs review"
     },
@@ -54,7 +70,9 @@
       "id": "FLG-07",
       "title": "Brief references IDs and documents that are not in the repository",
       "detail": "The brief cites FLG-003, S01, S02, S07, S24, SG-27 to SG-30, Priority 4 and Priority 5, and an 'Operating Agreement' with a 'Schedule 1'. None of these is in the repository. Their content was not reproduced. Where a public Amazon document was found that matches the topic, it is cited instead.",
-      "source_urls": ["https://affiliate-program.amazon.com/help/operating/agreement"],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/agreement"
+      ],
       "owner_action": "Provide the source register or confirm that the public documents above are the intended ones.",
       "status": "Needs review"
     },
@@ -70,7 +88,9 @@
       "id": "FLG-09",
       "title": "Analytics, click counter, and Search Console not implemented",
       "detail": "GitHub Pages is static hosting, so a self-hosted click endpoint cannot run on it. Search Console needs a Google account owned by you. No tracking script was added, to avoid collecting data without a decision on privacy and hosting.",
-      "source_urls": ["https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"],
+      "source_urls": [
+        "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+      ],
       "owner_action": "Choose a measurement approach (D3).",
       "status": "Needs review"
     },
@@ -78,7 +98,9 @@
       "id": "FLG-10",
       "title": "New-account enrollment threshold not confirmed from a primary source",
       "detail": "Secondary guides say an account must make 3 qualifying sales in 180 days to complete enrollment. That claim was not confirmed in Amazon's own text during this session, so it is not stated as fact on the site.",
-      "source_urls": ["https://affiliate-program.amazon.com/help/operating/agreement"],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/agreement"
+      ],
       "owner_action": "Check the current enrollment rule in your Associates account (Q11).",
       "status": "Needs review"
     },
@@ -92,10 +114,10 @@
     },
     {
       "id": "FLG-12",
-      "title": "No author, brand, or contact identity was supplied",
-      "detail": "The publication-style author byline and brand identity cannot be invented. The site uses the placeholder 'Editorial team' and the working name 'Kitchen Picks'.",
+      "title": "No named author supplied; brand decision pending",
+      "detail": "Guides carry the byline 'Counterwise editorial', which is not a named person. This register uses 'Editorial team'. No author name has been invented. The brand 'Counterwise' is the name already published on the site.",
       "source_urls": [],
-      "owner_action": "Provide an author name and brand (Q7, Q9).",
+      "owner_action": "Provide a named author and confirm the brand (Q7, Q9).",
       "status": "Needs review"
     },
     {
@@ -110,7 +132,9 @@
       "id": "FLG-14",
       "title": "No product images used",
       "detail": "Amazon product images were not copied. Program Policies §6(a) restricts changes to Program Content, and images for the site should come from Amazon's official linking tools.",
-      "source_urls": ["https://affiliate-program.amazon.com/help/operating/policies"],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
       "owner_action": "Decide on image sourcing (D8).",
       "status": "Logged"
     },
@@ -118,7 +142,10 @@
       "id": "FLG-15",
       "title": "Product breadcrumbs are observed, not an official taxonomy",
       "detail": "Categories (Air fryers, Thermometers) come from the Amazon breadcrumb shown on each product page. They are the observed Amazon taxonomy, not a category list supplied by you.",
-      "source_urls": ["https://www.amazon.com/dp/B0CDY277D3", "https://www.amazon.com/dp/B0DHZTCNR5"],
+      "source_urls": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B0DHZTCNR5"
+      ],
       "owner_action": "Confirm the category set.",
       "status": "Logged"
     },
@@ -126,7 +153,9 @@
       "id": "FLG-16",
       "title": "Amazon ASIN help page could not be retrieved",
       "detail": "The Amazon ASIN definition page could not be opened in this session, so the ASIN definition is not cited. The ASIN format used here (10 characters) is checked against the /dp/ URLs on Amazon's own product pages.",
-      "source_urls": ["https://www.amazon.com/dp/B0CDY277D3"],
+      "source_urls": [
+        "https://www.amazon.com/dp/B0CDY277D3"
+      ],
       "owner_action": "Confirm the ASIN definition from Amazon's help pages.",
       "status": "Needs review"
     },
@@ -134,7 +163,9 @@
       "id": "FLG-17",
       "title": "Google's rel=\"sponsored\" guidance is not a ranking promise",
       "detail": "Google's page says rel=\"sponsored\" marks paid links and that such links 'will generally not be followed'. It makes no ranking promise, so the site does not claim any SEO benefit from it.",
-      "source_urls": ["https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"],
+      "source_urls": [
+        "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+      ],
       "owner_action": "None.",
       "status": "Logged"
     },
@@ -142,9 +173,55 @@
       "id": "FLG-18",
       "title": "16 CFR 255.5 cited by section title only",
       "detail": "Only the table of contents of 16 CFR Part 255 was read. The text of §255.5 was not read in full, so the site makes no claim about its detail. Legal wording was not reviewed by counsel.",
-      "source_urls": ["https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"],
+      "source_urls": [
+        "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"
+      ],
       "owner_action": "Have counsel review the disclosure wording before scaling (Q15).",
       "status": "Needs review"
+    },
+    {
+      "id": "FLG-19",
+      "title": "Earlier review page said no product was matched; register now records observed listing pages",
+      "detail": "The Counterwise 'Evidence & review' page (merged from main) states that no product has been matched to a listing, because the short links were not resolved. This integration resolved the five links and recorded the Amazon product page each one reaches, with intended ASIN still blank. Both framings are kept on the site. The owner should choose which to lead with.",
+      "source_urls": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ],
+      "owner_action": "Confirm which framing to lead with (Q1).",
+      "status": "Needs review"
+    },
+    {
+      "id": "FLG-20",
+      "title": "Newsletter form has no backend; privacy promise unverified",
+      "detail": "The 'Stay in the loop' form on the Counterwise front page posts to action=\"#\" with method=\"post\" and no endpoint is configured. The page says 'Your email is used only to send you new guide notices. We do not sell or share it.' Nothing in the repository stores or sends those addresses, so the promise cannot be checked. The form was not changed in this integration.",
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "owner_action": "Connect a sender with a stated privacy policy, or remove the form (D3). Program Policies §3(e) requires disclosure of data collection on the site.",
+      "status": "Needs review"
+    },
+    {
+      "id": "FLG-21",
+      "title": "Analytics client sends nothing; event names came from another session and were not in the brief",
+      "detail": "assets/counterwise.js defines five events (page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported). With no endpoint configured it only logs to the console. The brief asked for five events but did not name them, so these names are unconfirmed. The affiliate_conversion_reported event is meant to be entered only from an authorized Associates report.",
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "owner_action": "Confirm the five events (Q5) and choose a hosting option for the endpoint (D3).",
+      "status": "Needs review"
+    },
+    {
+      "id": "FLG-22",
+      "title": "Short-link markup on the Counterwise review page already sponsored",
+      "detail": "Checked: the five short links on the Counterwise review page already carry rel=\"sponsored noopener\". No change was needed. The Associates policy links on that page are not product links and carry no sponsored attribute.",
+      "source_urls": [
+        "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+      ],
+      "owner_action": "None.",
+      "status": "Logged"
     }
   ]
 }
