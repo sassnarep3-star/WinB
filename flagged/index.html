@@ -100,7 +100,7 @@
     </div>
     <dl class="flag__grid">
       <div><dt>Expected</dt><dd>A Special Link carries the Associates tag as a URL parameter (S02 Participation Requirements 2(b), S01 Section 1).</dd></div>
-      <div><dt>Observed</dt><dd>For all five supplied links the resolved URL carried page-context parameters only, with no tag parameter. In all five cases the supplied code and the resolved ASIN differ, for example B04G1MEwY resolved to B0CDY277D3.</dd></div>
+      <div><dt>Observed</dt><dd>For all five supplied links the resolved URL carried page-context parameters only, with no tag parameter. In all five cases the supplied code and the resolved ASIN differ, for example B04G1MEwY resolved to B0CDY277D3. Four separate agent sessions in this repository resolved the same five links independently on 2026-11-20 and reached the same two results: identical ASINs, and no visible tag.</dd></div>
       <div><dt>Why it matters</dt><dd>If untagged, clicks cannot be attributed and no commission accrues. Separately, a code that looks like an ASIN but resolves elsewhere is exactly the failure mode a product-intent record is meant to catch.</dd></div>
       <div><dt>Not claimed</dt><dd>This file does not assert that the links are invalid or that using them breaches the Operating Agreement. Their compliance status is unresolved. The observation is limited to what the redirect did on 2026-11-20.</dd></div>
       <div><dt>How to close it</dt><dd>Run the enrollment test in link-audit.json: generate one SiteStripe link, publish it, click it once, and confirm the click in the tracking report before scaling to the other four.</dd></div>
