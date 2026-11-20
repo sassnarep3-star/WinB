@@ -1,0 +1,164 @@
+{
+  "guides": [
+    {
+      "slug": "basket-or-oven",
+      "title": "Basket or oven-style air fryer: what should you compare?",
+      "dek": "Choose a format by matching it to the way you cook — not by assuming one style is universally better.",
+      "meta_desc": "A decision framework for air fryer format: capacity, access, counter footprint, and the shape of your usual meals. Check the retailer listing before you buy.",
+      "eyebrow": "Format",
+      "cluster": "air-fryers",
+      "date": "2026-11-20",
+      "products": [
+        "slot-1",
+        "slot-2",
+        "slot-3"
+      ],
+      "sources": [
+        "https://www.cpsc.gov/Recalls",
+        "https://chefman.com/pages/document-library-catalog"
+      ],
+      "summary": "Capacity, access, and the shape of your meals matter more than the format label. Verify every model-specific detail at the retailer and maker."
+    },
+    {
+      "slug": "capacity-checklist",
+      "title": "A no-hype checklist for comparing air fryer capacity",
+      "dek": "Measure the food and the space — not just the number printed on a product page.",
+      "meta_desc": "Quarts are a starting point, not an answer. A checklist for comparing air fryer capacity against real portions, basket shape, and counter space.",
+      "eyebrow": "Fit",
+      "cluster": "air-fryers",
+      "date": "2026-11-20",
+      "products": [
+        "slot-1",
+        "slot-3"
+      ],
+      "sources": [
+        "https://www.cpsc.gov/Recalls",
+        "https://chefman.com/pages/document-library-catalog"
+      ],
+      "summary": "Compare usable flat area and single-layer fit against the portions you actually cook, then verify the exact model's specs on its listing."
+    },
+    {
+      "slug": "cleanup-counter",
+      "title": "Cleanup and counter space: the trade-offs to assess",
+      "dek": "The daily friction decides whether the appliance gets used or banished.",
+      "meta_desc": "Questions about parts, storage, ventilation, and maintenance to check before buying an air fryer. Verify care instructions with the maker.",
+      "eyebrow": "Daily use",
+      "cluster": "air-fryers",
+      "date": "2026-11-20",
+      "products": [
+        "slot-1",
+        "slot-2",
+        "slot-3"
+      ],
+      "sources": [
+        "https://chefman.com/pages/document-library-catalog"
+      ],
+      "summary": "Count the parts that touch food, check the care language in the maker's manual, and measure the permanent footprint before you commit."
+    },
+    {
+      "slug": "multifunction",
+      "title": "Questions to ask before buying a multi-function appliance",
+      "dek": "A long mode list is only worth what the modes replace in your routine.",
+      "meta_desc": "How to decide which appliance modes you'll realistically use, what they replace, and how complexity fits your kitchen.",
+      "eyebrow": "Features",
+      "cluster": "air-fryers",
+      "date": "2026-11-20",
+      "products": [
+        "slot-2"
+      ],
+      "sources": [
+        "https://www.cpsc.gov/Recalls",
+        "https://www.amazon.com/dp/B09B7SB46R"
+      ],
+      "summary": "List the appliances a multi-cooker would genuinely retire, then check which modes have real instructions behind them, not just icons."
+    },
+    {
+      "slug": "right-size-family",
+      "title": "What size air fryer does a family of four actually need?",
+      "dek": "The honest answer starts with a plate count, ends with a tape measure, and never takes a quart number at face value.",
+      "meta_desc": "How to size an air fryer for four people: single-layer math, drumstick density, dual baskets vs one big one, and a 10-minute measuring exercise.",
+      "eyebrow": "Sizing",
+      "cluster": "air-fryers",
+      "date": "2026-11-20",
+      "products": [
+        "slot-1",
+        "slot-3"
+      ],
+      "sources": [
+        "https://www.cpsc.gov/Recalls",
+        "https://www.amazon.com/dp/B0CDY277D3"
+      ],
+      "summary": "Size by batches of single-layer servings, not headline quarts; two smaller baskets often beat one large one for weeknight portions."
+    },
+    {
+      "slug": "before-you-click-buy",
+      "title": "Seven things to check before you click Buy",
+      "dek": "A two-minute pass that catches most buyer's remorse while it's still a browser tab.",
+      "meta_desc": "A pre-purchase checklist for appliances: exact model, live price, returns, warranty, dimensions, recalls, and the fine print on 'dishwasher safe'.",
+      "eyebrow": "Checkout",
+      "cluster": "air-fryers",
+      "date": "2026-11-20",
+      "products": [
+        "slot-1",
+        "slot-2",
+        "slot-3",
+        "slot-4",
+        "slot-5"
+      ],
+      "sources": [
+        "https://www.cpsc.gov/Recalls"
+      ],
+      "summary": "Confirm the model, the live price, the return window, the warranty terms, real dimensions, a recall check, and the actual care language."
+    },
+    {
+      "slug": "thermometers-101",
+      "title": "How to use a thermometer so you never guess again",
+      "dek": "Where you probe matters as much as what you probe. The USDA numbers are simple; the placement is where dinner is won.",
+      "meta_desc": "USDA FSIS safe minimum internal temperatures, correct probe placement, and instant-read vs leave-in — a practical thermometer guide for home cooks.",
+      "eyebrow": "Technique",
+      "cluster": "probes",
+      "date": "2026-11-20",
+      "products": [
+        "slot-4"
+      ],
+      "sources": [
+        "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers"
+      ],
+      "summary": "Poultry 165°F; steaks, chops and roasts 145°F with a three-minute rest; ground meats 160°F — measured in the thickest part, away from bone."
+    },
+    {
+      "slug": "smart-probes",
+      "title": "Wired, Bluetooth, WiFi: what each probe tier actually buys you",
+      "dek": "You're not paying for the temperature. You're paying for how far you can walk away from it.",
+      "meta_desc": "Instant-read vs Bluetooth vs WiFi leave-in thermometers explained, with real limits to check in maker docs before buying a smart probe.",
+      "eyebrow": "Formats",
+      "cluster": "probes",
+      "date": "2026-11-20",
+      "products": [
+        "slot-5"
+      ],
+      "sources": [
+        "https://chefiq.com/pages/new-iq-sense-faq",
+        "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers"
+      ],
+      "summary": "Each tier buys range and attention, not accuracy. Check the probe's food-side and ambient limits, and whether an app is required."
+    },
+    {
+      "slug": "first-week-checklist",
+      "title": "The first week with a new air fryer",
+      "dek": "Registration, a recall habit, one throwaway test, and one frozen-dinner win — in that order.",
+      "meta_desc": "A practical first-week checklist for a new air fryer: warranty registration, CPSC recall check, counter placement, and a first cooking test.",
+      "eyebrow": "Ownership",
+      "cluster": "air-fryers",
+      "date": "2026-11-20",
+      "products": [
+        "slot-2"
+      ],
+      "sources": [
+        "https://www.cpsc.gov/Recalls",
+        "https://chefman.com/pages/document-library-catalog"
+      ],
+      "summary": "Register the product, note the model number, check recalls once at delivery, measure your clearance, and start with a forgiving frozen first cook."
+    }
+  ]
+}

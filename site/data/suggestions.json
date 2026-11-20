@@ -1,0 +1,192 @@
+{
+  "_note": "Suggestion board. Nothing here is implemented unless its status says shipped. Each item carries an implementation prompt that can be pasted into a future agent session verbatim. Priority reflects the brief's ordering: shop-first, findable, trustworthy machinery, publication polish, evidence-based iteration, compliance gate.",
+  "suggestions": [
+    {
+      "id": "S-01",
+      "title": "Swap the five placeholder links for Associates-Central Special Links, one product at a time",
+      "problem": "The shop currently points at the submitted short links, whose compliance status is unresolved and whose redirects showed a fallback signature.",
+      "impact": "Direct: monetization starts working and stops depending on an ambiguous URL format.",
+      "effort": "Low per link; needs account access (owner-side minute).",
+      "risk": "None to the site; a wrong destination wastes one click-test.",
+      "options": [
+        "A. Test all five at once in Associates Central and swap the data file in one commit.",
+        "B. Pilot one product end-to-end (link, click, report row), then batch the rest — the brief's stated protocol.",
+        "C. Keep short links and add a 'verification in progress' banner (status quo)."
+      ],
+      "recommended": "B",
+      "status": "proposed",
+      "prompt": "For each product in site/data/products.json, I have created the official Special Link in Associates Central. Paste the special-link URLs here: <list>. Update the data file so shop CTAs use them, keep observed_redirect_target untouched, rerun scripts/build.py and scripts/validate_site.py, and record the confirmation date and source in the intended fields."
+    },
+    {
+      "id": "S-02",
+      "title": "Add a dated price line to every shop tile via an authorized data path",
+      "problem": "Tiles say 'price shown at the retailer' — honest but cold; buyers compare on price.",
+      "impact": "Medium-high: dated price + 'we last checked' line is the single biggest trust conversion lever on a deals page.",
+      "effort": "Depends on path: manual weekly capture (low tech) or Creators API (needs credentials).",
+      "risk": "Publishing stale prices without a date would be misleading — the date stamp is mandatory.",
+      "options": [
+        "A. Weekly manual capture: owner records listed price per ASIN in a dated JSON; build shows it with a last-checked line.",
+        "B. Register for the Creators API (PA-API is deprecated per Amazon's official notice) and store timestamped API responses in data/prices.json.",
+        "C. Keep no cached prices; only deep-link to the listing."
+      ],
+      "recommended": "B, falling back to A while API access is pending",
+      "status": "proposed",
+      "prompt": "Add data/prices.json with fields {asin, price, currency, captured_on, source} and render the last-captured price on shop tiles with a 'Checked <date> · price shown at retailer' caption. Fail the build if any captured price is older than 14 days. Source: PA-API 5 deprecation notice at affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation."
+    },
+    {
+      "id": "S-03",
+      "title": "Ship the comparison-table block inside each buying guide",
+      "problem": "Guides frame questions; a table that maps the five observed products against the questions would close the loop.",
+      "impact": "High: question → framework → table → CTA is the affiliate funnel.",
+      "effort": "Low — the data already lives in products.json; needs one template block.",
+      "risk": "Spec columns beyond what listings/makers confirm would overclaim; keep unconfirmed cells blank.",
+      "options": [
+        "A. Full spec matrix (blocked until Q-06 confirms specs).",
+        "B. Question-matrix: rows = the guide's questions, cells = 'listing shows / maker FAQ states / not confirmed' with links.",
+        "C. Wait for testing (Q-11)."
+      ],
+      "recommended": "B now, A after maker confirmation",
+      "status": "proposed",
+      "prompt": "Render a 'How the shortlist maps to the questions' table at the end of each guide: rows from the guide's question list, columns from the cluster's products, cells containing only source-linked, dated evidence (listing or maker FAQ) — never inferred values."
+    },
+    {
+      "id": "S-04",
+      "title": "Turn on the outbound-click event emitter",
+      "problem": "Five events are defined and the emitter ships inert; there is nowhere to send them.",
+      "impact": "Foundational for every future measurement claim.",
+      "effort": "Low once an endpoint exists; endpoint choice is the real work.",
+      "risk": "A frontend counter alone would look like analytics while measuring nothing — keep it inert until real ingestion exists.",
+      "options": [
+        "A. Self-host a two-line ingestion endpoint (POST to a JSON-lines file) on any small VM; 30-day retention.",
+        "B. Privacy-first hosted analytics (e.g. Plausible-family tooling) with outbound-link events.",
+        "C. Stay inert; measure only via Associates reports."
+      ],
+      "recommended": "A for the pilot, revisit B at scale; add a privacy note either way",
+      "status": "proposed",
+      "prompt": "Provision a POST-only ingestion endpoint that appends {event, path, ts} JSON lines (no cookies, no fingerprinting, no IP logging beyond the server's default), then set the site's analytics endpoint meta tag in the template so assets/js/site.js starts sending the five defined events, and document retention in the privacy section."
+    },
+    {
+      "id": "S-05",
+      "title": "Verify Search Console and schedule the first query review",
+      "problem": "The site is indexable but nobody is watching queries; Priority 4 says the next topic should come from measured queries.",
+      "impact": "High for topic selection; zero cost.",
+      "effort": "Low; owner-side verification.",
+      "risk": "None.",
+      "options": [
+        "A. File-upload verification into the repo root, sitemap submitted, 30-day review scheduled.",
+        "B. DNS verification once a custom domain exists (pairs with S-12).",
+        "C. Defer until traffic exists (not recommended — nothing bootstraps itself)."
+      ],
+      "recommended": "A now, B at domain switch",
+      "status": "proposed",
+      "prompt": "Add the Search Console verification file to the repo root (placeholder committed now, swapped for the real token on owner request), submit /WinB/sitemap.xml, and write the review checkpoint into the desk page: 'first query review due <date +30d>'."
+    },
+    {
+      "id": "S-06",
+      "title": "Reader capture: switch the RSS block into an email list",
+      "problem": "The shop page's 'Friday shortlist' block points to the RSS feed; email is where affiliate audiences actually return.",
+      "impact": "High retention effect if the cadence is kept; meaningless if it isn't.",
+      "effort": "Provider choice + form embed; static site can host the form snippet fine.",
+      "risk": "A dead form is worse than none (the prior session's note stands). Any provider decision must include a privacy line and double opt-in.",
+      "options": [
+        "A. Stay RSS-only until cadence is proven.",
+        "B. No-cookies, self-hosted double opt-in via the same VM as S-04's endpoint.",
+        "C. Third-party newsletter host on the chosen domain."
+      ],
+      "recommended": "A for 60 days, then B if publishing held cadence",
+      "status": "proposed",
+      "prompt": "When the cadence log shows 8+ consecutive weekly posts, replace the RSS-only block with a double-opt-in form (provider TBD), add a privacy line, and gate the change behind scripts/validate_site.py so a form can never ship without a configured action URL."
+    },
+    {
+      "id": "S-07",
+      "title": "Grow the Air Fryer cluster to 12 guides, then stop and measure",
+      "problem": "Nine guides exist; the top-of-funnel needs enough surface for Google to categorize the site, but writing blind wastes effort.",
+      "impact": "Medium-high once Q-10 data exists; speculative before it.",
+      "effort": "One guide per week is sustainable; the scaffold script makes each ~40 minutes.",
+      "risk": "Volume without measurement is exactly the AI-slop failure mode the brief calls out.",
+      "options": [
+        "A. Publish 3 more, pause for query data, continue with evidence.",
+        "B. 12 now (not recommended).",
+        "C. Freeze at 9 and deepen existing pages instead."
+      ],
+      "recommended": "A",
+      "status": "proposed",
+      "prompt": "Using scripts/scaffold_guide.py, draft three additional question-led guides in the air-fryer cluster (topics from the questions register, not keyword tools), each with a maker/listing evidence block, then hold further expansion until the first Search Console review (S-05)."
+    },
+    {
+      "id": "S-08",
+      "title": "Seasonal shelf rotation: 'Holiday kitchen' edition for November-December",
+      "problem": "A publication signals seasons; a register doesn't. The gift angle also fits the two probes naturally.",
+      "impact": "Medium: better return visits and internal linking; supports 'looks published, not generated'.",
+      "effort": "Low: a shelf template plus 2-3 gift-framed intros (no new claims).",
+      "risk": "Seasonal copy must not imply price or stock promises (S-02 feeds it).",
+      "options": [
+        "A. Season banner + re-framed copy on existing pages.",
+        "B. Full seasonal hub page with gift guide cluster.",
+        "C. Skip seasons until Q-10 data exists."
+      ],
+      "recommended": "A now; B if the season survives one review cycle",
+      "status": "proposed",
+      "prompt": "Add a data/seasons.json consumed by the build (label, blurb, date range); render it as the front-page ribbon and shop banner so 'Season 1 · Holiday 2026' comes from data, not hardcoded HTML, and expires on schedule."
+    },
+    {
+      "id": "S-09",
+      "title": "Decide the authorship question (named human vs editorial desk)",
+      "problem": "Bylines currently say 'Counterwise Editorial Desk'. Search quality raters and readers both weigh named, qualified authors — but a name without genuine testing becomes a false claim.",
+      "impact": "High for trust and E-E-A-T; irreversible if faked (never fake).",
+      "effort": "Decision + bio page; testing (if chosen) is the real cost.",
+      "risk": "Manufacturing a persona would be exactly the dishonesty the compliance gate exists to stop.",
+      "options": [
+        "A. Keep desk bylines; publish the method page; claim nothing beyond frameworks.",
+        "B. Recruit a real named editor with real testing photos and an 'How we test' protocol.",
+        "C. Hybrid: desk bylines now, named author per article once someone is contracted."
+      ],
+      "recommended": "A now, C when budget exists",
+      "status": "proposed",
+      "prompt": "If a named editor is chosen: add site/data/team.json (name, role, real bio, contact), render author JSON-LD Person markup from it, and require every product claim they sign to reference a dated evidence row in the register. FTC endorsement guidance applies to any review claims: ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking."
+    },
+    {
+      "id": "S-10",
+      "title": "Build the automation on the Creators API, not the deprecated PA-API",
+      "problem": "The original plan ('AI platform: automated product research, price analysis, article generation') assumed PA-API. Amazon's official notice deprecates PA-API 5 — new integrations receive 403 AccessDenied and are directed to the Creators API.",
+      "impact": "Strategic: prevents building the automation core on an API Amazon is turning off.",
+      "effort": "Read the Creators API docs; register via Associates account (owner-side credentials required — that is the gate).",
+      "risk": "None to the current site; the risk is building on the wrong foundation later.",
+      "options": [
+        "A. Design the pipeline docs + data schemas around Creators API now (done in this build); implement after credentials exist.",
+        "B. Write PA-API code anyway (not recommended).",
+        "C. Manual-only forever."
+      ],
+      "recommended": "A",
+      "status": "shipped-as-plan",
+      "prompt": "Read https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction and implement a fetcher that writes dated snapshots into data/prices.json and data/ratings.json behind a credentials gate in the environment; no secrets in the repo, no fabricated fallback data."
+    },
+    {
+      "id": "S-11",
+      "title": "Keep the publishing workflow gated on four checks",
+      "problem": "Compliance items (disclosure, rel=sponsored, evidence links, blank-unverified) must never regress as volume grows.",
+      "impact": "High as a guardrail; invisible to readers.",
+      "effort": "One CI step — already wired in this build.",
+      "risk": "Gates that are easy to bypass defeat themselves; CI runs them on every push.",
+      "options": [
+        "A. The four checks in scripts/validate_site.py run on every push and on every build-reproducibility diff (shipped).",
+        "B. Add a human sign-off step before merge (recommended when a second contributor joins)."
+      ],
+      "recommended": "A now, B at handoff",
+      "status": "shipped",
+      "prompt": "Extend validate_site.py with: (1) per-page freshness check for any dated evidence, (2) disclosure-text exactness check against the Operating Agreement sentence, (3) a rule that every 'listing shows' bullet must link to a captured observation."
+    },
+    {
+      "id": "S-12",
+      "title": "Move to a custom domain when the pilot is proven",
+      "problem": "A github.io path is fine for a pilot, thin for a shop brand; canonicals and feed URLs must all move together.",
+      "impact": "Medium: click-through and trust on the URL itself; also unlocks S-05-B and S-06-C.",
+      "effort": "Owner buys domain; repo holds CNAME; one build parameter changes every URL.",
+      "risk": "Forgetting a hard-refresh of Google's index post-migration — mitigated by keeping the old path live with canonicals.",
+      "options": ["A. Stay on github.io through the pilot.", "B. Buy a short exact-brand domain before scaling content."],
+      "recommended": "A until S-05 review, then B",
+      "status": "proposed",
+      "prompt": "Set the repo CNAME to <domain>, rebuild with --base https://<domain>, verify every canonical/sitemap/feed entry rewrites, and keep the github.io pages serving the same build for redirects."
+    }
+  ]
+}

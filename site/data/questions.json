@@ -1,0 +1,137 @@
+{
+  "_note": "Decision-readiness register. Every 'known' entry must carry a source that was actually checked; 'how to find out' is the discovery step. Status: open | partially-answered | answered. Rows are ordered by what they block.",
+  "questions": [
+    {
+      "id": "Q-01",
+      "question": "What products are actually behind the five submitted short links?",
+      "known": "Each link redirected to an Amazon listing when fetched on 2026-11-20 (three air fryers, two meat thermometers; names on the shop page). Every observed destination carried a plpRedirect=mhFallback signature, and none matched the token embedded in the short link.",
+      "known_source": "https://www.amazon.com/dp/B0CDY277D3",
+      "known_source_label": "observed destination example",
+      "missing": "Confirmation that these destinations are the intended products and are stable for real visitors, not fallback guesses.",
+      "how_to_find_out": "In the enrolled Associates account (or with the site owner's browser), open each submitted link, record the final /dp/ URL and ASIN, and compare across two sessions. Anything unstable goes on the flagged list.",
+      "blocks": "Product marketing copy, spec tables, price claims, link scaling",
+      "status": "partially-answered"
+    },
+    {
+      "id": "Q-02",
+      "question": "Are the submitted link formats compliant with the Associates Program Operating Agreement?",
+      "known": "The agreement requires links to be made through the program's own tools (Special Links); the agreement text is public.",
+      "known_source": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "known_source_label": "Operating Agreement",
+      "missing": "A ruling on these specific short links. The compliance status of link.amazon-format links remains unresolved (carried over as FLG-003); no claim of invalidity is made here.",
+      "how_to_find_out": "Rebuild each link as a Special Link in Associates Central, test one product end-to-end, and confirm the destination plus a tracked click in the reporting dashboard before scaling.",
+      "blocks": "Every monetized outbound link on the shop and guide pages",
+      "status": "open"
+    },
+    {
+      "id": "Q-03",
+      "question": "Is the tracking ID shopnow047c-20 live on an enrolled, in-good-standing account with these placements registered?",
+      "known": "A tracking ID string was supplied in the brief. Format is consistent with the pattern associates use (lowercase alphanumeric base plus a marketplace suffix); the US suffix is documented as -20.",
+      "known_source": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "known_source_label": "Operating Agreement",
+      "missing": "Account status, site registration for this domain, and whether clicks actually attribute.",
+      "how_to_find_out": "Sign in to Associates Central: check account standing, the site list (add this domain if missing), then take one tagged test link and confirm the click appears in reports.",
+      "blocks": "Attribution and any revenue claim; launch gate for outbound links",
+      "status": "open"
+    },
+    {
+      "id": "Q-04",
+      "question": "What commission do these categories actually pay?",
+      "known": "Nothing. The public Operating Agreement references a Commission Income Statement kept inside the account.",
+      "known_source": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "known_source_label": "Operating Agreement, commission section",
+      "missing": "Current category rates for Small Appliances and Kitchen Utensils & Gadgets, fixed by the program on the account level.",
+      "how_to_find_out": "Read the Commission Income Statement in Associates Central (login required) and record the dated category table in the evidence register. Do not copy rate tables from third-party blogs.",
+      "blocks": "Prioritizing which products to feature, any ROI modeling",
+      "status": "open"
+    },
+    {
+      "id": "Q-05",
+      "question": "What are the current prices, ratings, and availability of the five listings?",
+      "known": "Deliberately not stored. Anonymous fetches showed the listing pages render prices and ratings, but values seen in a bot session are not a trustworthy dated record.",
+      "known_source": "https://www.amazon.com/dp/B09B7SB46R",
+      "known_source_label": "example listing",
+      "missing": "A dated capture path that is permitted: program-provided tools (Special Links preview, Product Advertising credentials via the Creators API, PA-API is deprecated).",
+      "how_to_find_out": "Either display live data from the retailer page (no cached numbers on our side), or register for the Creators API and store timestamped responses. Register on https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction.",
+      "blocks": "Any 'price' or 'rating' row in comparison tables; datestamping deal claims",
+      "status": "open"
+    },
+    {
+      "id": "Q-06",
+      "question": "Do the maker pages back the feature bullets we plan to publish?",
+      "known": "Chefman exposes a public document library at chefman.com; CHEF iQ publishes an iQ Sense FAQ with concrete limits (Gen 3 ambient 1,000°F; probe food-side 212°F; app required).",
+      "known_source": "https://chefiq.com/pages/new-iq-sense-faq",
+      "known_source_label": "CHEF iQ iQ Sense FAQ",
+      "missing": "A confirmed manufacturer domain for the Emeril Lagasse appliance line (search returned several candidate storefronts) and for ThermoMaven; model-specific manuals for each observed ASIN.",
+      "how_to_find_out": "Ask the brand's support page for the authorized domain; find the model number printed on the listing's product details, then match it to the maker's manual page. Until matched, feature bullets must read 'as shown on the listing', not 'the maker says'.",
+      "blocks": "Elevating any claim from 'listing shows' to 'manufacturer confirms'",
+      "status": "partially-answered"
+    },
+    {
+      "id": "Q-07",
+      "question": "Is there any recall or safety history we should disclose or avoid?",
+      "known": "The CPSC maintains a public recalls database with a search UI, including an 'Air Fryer' product category.",
+      "known_source": "https://www.cpsc.gov/Recalls",
+      "known_source_label": "CPSC Recalls",
+      "missing": "A per-product recall search, recorded with date, for each of the five items before they are featured.",
+      "how_to_find_out": "Search cpsc.gov/Recalls by brand and product type; store the dated result (including 'no results') in the evidence register. Repeat quarterly via the checklist in the first-week guide.",
+      "blocks": "Featured status of any product; the safety sections in guides",
+      "status": "open"
+    },
+    {
+      "id": "Q-08",
+      "question": "Will search engines and readers find this site at all?",
+      "known": "The site is live at sassnarep3-star.github.io/WinB/ (GitHub Pages, deployed via Actions; verified through the repository Pages API and Actions run history on 2026-11-20). Sitemap, RSS feed, robots.txt, and per-page canonicals are in place from this build.",
+      "known_source": "https://sassnarep3-star.github.io/WinB/",
+      "known_source_label": "live site",
+      "missing": "A Search Console property (needs DNS or file-verification access on the owner's side), real query data, and — if a custom domain is chosen — its configuration.",
+      "how_to_find_out": "Verify the site in Search Console, submit sitemap.xml, and re-read the queries report after 2-4 weeks of indexing before picking the next topic cluster.",
+      "blocks": "Priority-4 measurement: choosing the next cluster from real queries instead of instinct",
+      "status": "partially-answered"
+    },
+    {
+      "id": "Q-09",
+      "question": "How do clicks and conversions get measured without a server?",
+      "known": "The event plan and client-side emitter exist in this build (assets/js/site.js) and are inert by default: no endpoint configured, no data collected. GitHub Pages is static hosting only.",
+      "known_source": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages",
+      "known_source_label": "GitHub Pages docs",
+      "missing": "A provisioned ingestion endpoint (any consent-friendly self-hosted setup: e.g. a counter service on a small VM or a privacy-first hosted analytics tool) plus a retention policy.",
+      "how_to_find_out": "Owner picks the stack (see S-05 options), then one meta tag enables the emitter; the campaign ledger in /desk/ starts accepting dated, sourced rows only.",
+      "blocks": "Any statement about traffic, click-through, or conversion performance — none is made today",
+      "status": "open"
+    },
+    {
+      "id": "Q-10",
+      "question": "Can we say anything about demand for this niche?",
+      "known": "No demand evidence is present in this project; Google documents Search Console as a source for a site’s search performance data.",
+      "known_source": "https://search.google.com/search-console/performance/search-analytics",
+      "known_source_label": "Google Search Console performance report",
+      "missing": "First-party query data (Q-08) or a licensed keyword tool account.",
+      "how_to_find_out": "After Search Console has data, rank topics by impressions and average position; only then describe any topic as 'popular'. Until then, the site says 'we think this matters' and shows its work.",
+      "blocks": "Any trend or popularity claim in copy; expanding beyond the pilot clusters",
+      "status": "open"
+    },
+    {
+      "id": "Q-11",
+      "question": "Who is the named author, and what qualifies the recommendations?",
+      "known": "FTC guidance addresses endorsement claims and disclosure context; this site has no named human author or hands-on test record.",
+      "known_source": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+      "known_source_label": "FTC Endorsement Guides",
+      "missing": "A decision: recruit a named human editor (with a real bio and genuine testing photos), or stay team-bylined and keep claims at framework level.",
+      "how_to_find_out": "Owner decision (see S-09). FTC guidance on endorsements and reviews applies to whichever path is chosen.",
+      "blocks": "Any 'we tested it' language, E-E-A-T profile, product-sample requests",
+      "status": "open"
+    },
+    {
+      "id": "Q-12",
+      "question": "Does the site own a custom domain, and what is its long-term home?",
+      "known": "Current canonical base is the github.io path above; all canonicals, sitemap, and feed were generated from it (verified against the Pages API on 2026-11-20).",
+      "known_source": "https://docs.github.com/en/pages/configuration-settings/configuring-a-custom-domain-for-your-github-pages-site",
+      "known_source_label": "custom domain docs",
+      "missing": "A domain choice; CNAME config; regenerated canonical/sitemap/feed URLs; redirect check after the move.",
+      "how_to_find_out": "Owner buys or assigns a domain (S-12); the build script takes the base URL as a parameter so the swap is one command.",
+      "blocks": "Brand credibility, cookie/analytics scope, email capture provider setup",
+      "status": "open"
+    }
+  ]
+}

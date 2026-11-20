@@ -1,0 +1,147 @@
+{
+  "_note": "Flagged for review — irregularities found while verifying. Status values: needs-review (blocking a specific action), needs-review-nonblocking (informational), carried-over. None of these block the site going live; they gate the specific decisions listed.",
+  "flags": [
+    {
+      "id": "F-01",
+      "severity": "needs-review",
+      "title": "Observed redirects carry a fallback-redirect signature",
+      "detail": "All five submitted links resolved (2026-11-20, anonymous fetch) to amazon.com /dp/ pages whose final URLs contained lv=shuf and plpRedirect=mhFallback. That pattern suggests the destination may be an Amazon fallback suggestion rather than the originally intended listing, and it may differ per session, region, or time.",
+      "action_needed": "Re-open each submitted link from a normal browser and from the Associates account; treat any destination that changes as unconfirmed. Gate: do not scale monetized links until one product's destination and tracked click are both confirmed (brief §S02).",
+      "source_links": [
+        {
+          "label": "Example observed destination (Chefman dual basket)",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        }
+      ]
+    },
+    {
+      "id": "F-02",
+      "severity": "needs-review",
+      "title": "Submitted link tokens do not match Amazon ASIN length",
+      "detail": "Each submitted link embeds a 9-character token (e.g. B04G1MEwY). Amazon product URLs use 10-character ASINs (e.g. the observed destination B0CDY277D3). Every observed destination therefore differs from the token in the submitted link. The tokens may be truncated or from a different encoding scheme; this page does not claim the links are invalid (FLG-003 remains unresolved).",
+      "action_needed": "Ask the link provider for the full intended ASIN or listing URL for each of the five links; until then, intended-ASIN fields in the register stay blank.",
+      "source_links": [
+        {
+          "label": "ASIN appears as the 10-char segment after /dp/ on every listing URL — observed pattern",
+          "url": "https://www.amazon.com/dp/B08DKYBTPH"
+        }
+      ]
+    },
+    {
+      "id": "F-03",
+      "severity": "needs-review",
+      "title": "The product mix does not match the brief's single-niche framing",
+      "detail": "The brief's editorial hypotheses are air-fryer-centric, but the observed destinations include three air fryers and two meat thermometers (one instant-read, one wireless smart-probe set). This is treated as a feature, not a bug: the store is organized as 'The Counter' and 'The Probe', and the thermometer cluster is where the USDA-sourced safety content earns its keep.",
+      "action_needed": "Confirm with the owner that both clusters are in scope for promotion; adjust if any link was submitted by mistake.",
+      "source_links": [
+        {
+          "label": "Amazon Associates Operating Agreement",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
+      ]
+    },
+    {
+      "id": "F-04",
+      "severity": "needs-review",
+      "title": "No manufacturer site confidently identified for two brands",
+      "detail": "Chefman (chefman.com, with a public manual library) and CHEF iQ (chefiq.com, with a public product FAQ) are confirmed maker domains surfaced by search and consistent across sources. For the Emeril Lagasse appliance line, search returned several candidate storefronts (support.emerileveryday.com, emerillagassestore.com, emerilofficial.shop) with no way to confirm which, if any, is the manufacturer's official domain; for ThermoMaven, no confident official site was found.",
+      "action_needed": "Do not attribute claims to 'the maker' for those two products; cite the listing only, and ask the owner for the brand's authorized support domain.",
+      "source_links": [
+        {
+          "label": "Chefman document library",
+          "url": "https://chefman.com/pages/document-library-catalog"
+        },
+        {
+          "label": "CHEF iQ iQ Sense FAQ",
+          "url": "https://chefiq.com/pages/new-iq-sense-faq"
+        }
+      ]
+    },
+    {
+      "id": "F-05",
+      "severity": "needs-review",
+      "title": "PA-API 5 is deprecated; the original automation plan assumed it",
+      "detail": "Amazon's official documentation page now serves a deprecation notice: PA-API 5 integrations receive HTTP 403 AccessDeniedException and new/updated integrations are directed to the Creators API. Any 'AI platform' code written against PA-API would be stillborn.",
+      "action_needed": "Adopt S-10: design fetchers against the Creators API; keep credentials out of the repo; store only dated, permitted responses.",
+      "source_links": [
+        {
+          "label": "PA-API 5 deprecation notice (official)",
+          "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+        },
+        {
+          "label": "Creators API introduction (official)",
+          "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction"
+        }
+      ]
+    },
+    {
+      "id": "F-06",
+      "severity": "needs-review",
+      "title": "Listing claims (accuracy, certifications) are not independently verified",
+      "detail": "The instant-read thermometer's listing title claims ±0.5°F accuracy and NIST & NSF certification; the wireless probe listing claims 1,000°F heat safety. The maker FAQ confirms the 1,000°F ambient limit, the 212°F probe-side limit, and the app requirement for CHEF iQ Sense Gen 3. No certification registry was checked for any claim; the listing's own words are quoted as 'listing shows', never as established fact.",
+      "action_needed": "If certification claims become a selling point, verify at the certifier (e.g. NSF product listings) and add a dated evidence row first.",
+      "source_links": [
+        {
+          "label": "CHEF iQ FAQ (Gen 3 temperature limits, app requirement)",
+          "url": "https://chefiq.com/pages/new-iq-sense-faq"
+        },
+        {
+          "label": "ThermoMaven listing as observed",
+          "url": "https://www.amazon.com/dp/B0DHZTCNR5"
+        }
+      ]
+    },
+    {
+      "id": "F-07",
+      "severity": "needs-review-nonblocking",
+      "title": "Prices and ratings are intentionally absent everywhere",
+      "detail": "No price or rating number appears on the site. Anonymous-session fetches are not a dated record we trust, and the Operating Agreement's data rules point to program tools for anything cached. Every tile says 'price shown at the retailer' and links out.",
+      "action_needed": "Unblock via S-02 (weekly dated capture or Creators API). Until then, any screenshot or quote of a price must carry its capture date.",
+      "source_links": [
+        {
+          "label": "Amazon Creators API documentation",
+          "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction"
+        }
+      ]
+    },
+    {
+      "id": "F-08",
+      "severity": "needs-review-nonblocking",
+      "title": "The supplied tracking ID is unproven on this placement",
+      "detail": "shopnow047c-20 follows the documented ID pattern (alphanumeric base, marketplace suffix; -20 is the US suffix format Amazon documents for Associates IDs), but nothing in this repo proves the account is enrolled, in good standing, has this domain registered, or that clicks attribute.",
+      "action_needed": "Q-03 steps in the questions register. Gate: treat all outbound links as unpaid until one tracked click is observed in account reports.",
+      "source_links": [
+        {
+          "label": "Operating Agreement (account & linking terms)",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
+      ]
+    },
+    {
+      "id": "F-09",
+      "severity": "carried-over",
+      "title": "FLG-003 (from the brief): compliance status of the supplied short links",
+      "detail": "The prior session left this unresolved and this session does not close it: we record what was observed, not a legal ruling. Whether link.amazon-format links satisfy program linking rules can only be answered from inside the enrolled account.",
+      "action_needed": "Owner: recreate as Special Links (S-01) — that supersedes the question entirely.",
+      "source_links": [
+        {
+          "label": "Amazon Associates Operating Agreement",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
+      ]
+    },
+    {
+      "id": "F-10",
+      "severity": "needs-review-nonblocking",
+      "title": "Deployment notes from prior and current sessions",
+      "detail": "GitHub Pages for this repo serves the repository root of main (Pages API reports html_url https://sassnarep3-star.github.io/WinB/ and a successful Pages build on 2026-11-20). The Actions deploy previously emitted a non-blocking Node 20 deprecation warning from pinned actions; this session's Actions run should be checked for the same after merge.",
+      "action_needed": "Watch the next Actions run summary; bump action versions if the warning turns into an error.",
+      "source_links": [
+        {
+          "label": "GitHub Pages documentation",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages"
+        }
+      ]
+    }
+  ]
+}

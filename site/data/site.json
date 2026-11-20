@@ -1,0 +1,42 @@
+{
+  "brand": {
+    "name": "counterwise",
+    "mark": "counterwise<span>.</span>",
+    "tagline": "Countertop gear and doneness tech, minus the hype.",
+    "season_label": "Season 1 · Holiday 2026",
+    "byline": "Counterwise Editorial Desk",
+    "base_url": "https://sassnarep3-star.github.io/WinB",
+    "language": "en-us",
+    "social_description": "Question-led buying guides for air fryers and food thermometers, with every claim tied to a dated source."
+  },
+  "tracking_id": "shopnow047c-20",
+  "disclosure_text": "As an Amazon Associate I earn from qualifying purchases.",
+  "nav": [
+    {"label": "Shop", "href": "shop/index.html", "desk": false},
+    {"label": "Guides", "href": "guides/index.html", "desk": false},
+    {"label": "How we work", "href": "review/index.html", "desk": false}
+  ],
+  "nav_more": [
+    {"label": "Executive summary", "href": "desk/index.html"},
+    {"label": "Open questions", "href": "desk/questions.html"},
+    {"label": "Suggestion board", "href": "desk/suggestions.html"},
+    {"label": "Flagged for review", "href": "review/index.html"},
+    {"label": "RSS feed", "href": "feed.xml"}
+  ],
+  "clusters": [
+    {
+      "slug": "air-fryers",
+      "name": "The Counter",
+      "subtitle": "Air fryers, dual baskets, oven-style",
+      "lede": "Three formats are on the shortlist: a two-basket unit, one deep XL basket, and a full oven-style cavity. The shelf covers the questions that actually separate them."
+    },
+    {
+      "slug": "probes",
+      "name": "The Probe",
+      "subtitle": "Instant-read and wireless thermometers",
+      "lede": "Two tiers: a pocket instant-read for everyday dinner, and leave-in wireless probes that watch a long roast from your phone. Safe internal temperatures come straight from USDA FSIS."
+    }
+  ],
+  "events": ["page_view", "outbound_click", "guide_engaged", "disclosure_view", "affiliate_conversion_reported"],
+  "analytics_endpoint": ""
+}

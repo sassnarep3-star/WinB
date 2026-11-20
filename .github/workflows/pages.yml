@@ -1,4 +1,4 @@
-name: Deploy static site to GitHub Pages
+name: Build, validate, and deploy Counterwise
 on:
   push:
     branches: [main]
@@ -15,14 +15,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate site files
-        run: |
-          test -f index.html
-          test -f styles.css
-          test -f sitemap.xml
-          test -f feed.xml
-          for file in guides/basket-or-oven.html guides/capacity-checklist.html guides/cleanup-counter.html guides/multifunction.html review/index.html; do test -f "$file"; done
-      - uses: actions/upload-pages-artifact@v3
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Rebuild committed publication
+        run: python3 scripts/build.py
+      - name: Check committed output is current
+        run: python3 scripts/build.py --check
+      - name: Enforce disclosure, links, sources, and data boundaries
+        run: python3 scripts/validate_site.py
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: .
   deploy:

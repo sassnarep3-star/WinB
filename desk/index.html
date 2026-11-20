@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Where the Counterwise affiliate project stands: verification outcomes, the empty-by-design campaign ledger, and the five blocking decisions.">
+<meta name="theme-color" content="#203b31">
+<title>Executive Summary | Counterwise</title>
+<link rel="canonical" href="https://sassnarep3-star.github.io/WinB/desk/">
+<link rel="alternate" type="application/rss+xml" title="counterwise feed" href="../feed.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="counterwise">
+<meta property="og:title" content="Executive Summary | Counterwise">
+<meta property="og:description" content="Where the Counterwise affiliate project stands: verification outcomes, the empty-by-design campaign ledger, and the five blocking decisions.">
+<meta property="og:url" content="https://sassnarep3-star.github.io/WinB/desk/">
+<meta property="og:image" content="https://sassnarep3-star.github.io/WinB/assets/img/og-cover.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="cw-analytics-endpoint" content="">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../styles.css">
+
+</head>
+<body>
+<div class="disclosure" id="disclosure">As an Amazon Associate I earn from qualifying purchases. · <a href="../review/index.html#disclosure">how our links and pay actually work</a></div>
+<header class="masthead">
+<a class="brand" href="../index.html">counterwise<span>.</span></a>
+<div class="season">SEASON 1 OPEN · Season 1 · Holiday 2026</div>
+<nav class="mainnav" aria-label="Primary"><a href="../shop/index.html">Shop</a><a href="../guides/index.html">Guides</a><a href="../review/index.html">How we work</a><details class="more"><summary>Desk ▾</summary><div class="menu"><a href="../desk/index.html">Executive summary</a><a href="../desk/questions.html">Open questions</a><a href="../desk/suggestions.html">Suggestion board</a><a href="../review/index.html">Flagged for review</a><a href="../feed.xml">RSS feed</a></div></details></nav>
+</header>
+<main>
+<section class="page-hero"><div class="eyebrow">THE DESK · WHERE THE PROJECT STANDS</div><h1>Executive summary</h1><p class="lede">One page for the whole operation: what exists, what was verified today, what is blocked, and which decisions move it forward. Reader-facing pages live upstairs; this is the machine room.</p></section>
+<div class="desk-grid">
+  <a class="desk-card" href="questions.html"><b>Open questions</b><span>Twelve questions — what we know, what's missing, how to find out</span></a>
+  <a class="desk-card" href="suggestions.html"><b>Suggestion board</b><span>Twelve paths with options, risk notes, and ready-to-run prompts</span></a>
+  <a class="desk-card" href="../review/index.html"><b>Flagged for review</b><span>Open irregularities, each with sources and an action gate</span></a>
+</div>
+<h2>Status as of 2026-11-20</h2>
+<ol class="exec-list">
+<li><b>The site is a shop now, not an audit.</b> The front page and shop lead with the five products; verification lives one click away in <a href="../review/index.html">the register</a>. Every page carries the disclosure strip above the content and again in the footer — the exact Operating Agreement §5 sentence.</li>
+<li><b>All five submitted links were resolved the same day</b> (anonymous fetch). Destinations: three air fryers (Chefman dual-basket 6 qt, Emeril Lagasse French-door 26 qt, Chefman 8 qt XL) and two thermometers (ThermoMaven instant-read, CHEF iQ Sense Gen 3 probe set). Loud caveat: every redirect carried a fallback signature (<code>plpRedirect=mhFallback</code>) and matched none of the tokens embedded in the submitted links.</li>
+<li><b>No numbers we didn't see are published.</b> Zero prices, ratings, traffic, or commission figures on the site. Maker pages corroborate two of five product families (chefman.com, chefiq.com); the Emeril and ThermoMaven manufacturer domains remain unidentified and are flagged.</li>
+<li><b>Automation is real but gated.</b> <code>scripts/build.py</code> + <code>scripts/validate_site.py</code> run in CI as the publish gate; the click-event emitter ships <i>inert</i> until an ingestion endpoint exists; and per Amazon's official deprecation notice, product-data automation is planned against the <b>Creators API, not the retired PA-API 5</b>.</li>
+<li><b>The compliance spine is structural.</b> Sponsored rels are emitted by the builder (not hand-added), external domains are whitelisted by the validator, and the build-check itself fails if committed HTML ever diverges from sources — “blank means unverified” is enforced against the site, not just promised by it.</li>
+</ol>
+<h2>Campaign ledger</h2>
+<p>Empty by design. Rows enter only from dated, authorized first-party reports. Nothing here is modeled, forecast, or synthetic — the schema exists so the first real row has an honest home.</p>
+<div class="table-wrap"><table class="ledger"><thead><tr><th>Timestamp</th><th>Source / provenance</th><th>Channel</th><th>Eligible sessions</th><th>Clicks</th><th>Reported orders</th></tr></thead><tbody><tr><td class="blank" colspan="6">No entries yet — awaiting first authorized report. <a href="../review/index.html#scope">Why this row exists →</a></td></tr></tbody></table></div>
+<h2>Measurement &amp; automation status</h2>
+<p><b>Defined events:</b> <code>page_view</code>, <code>outbound_click</code>, <code>guide_engaged</code>, <code>disclosure_view</code>, <code>affiliate_conversion_reported</code>. The client emitter (<code>assets/js/site.js</code>) is inert while the endpoint meta tag is blank — no cookies, no fingerprinting, no silent buffering. Provisioning ingestion is <a href="suggestions.html">S-04</a>; conversions only ever arrive from program reports, never inferred from clicks.</p>
+<p><b>Publishing cadence:</b> one guide per week; the build regenerates sitemap + feed, so a new guide is one JSON row, one HTML body, and <code>python3 scripts/build.py</code>.</p>
+<h2>The five decisions that unblock everything</h2>
+<ol>
+<li>Confirm link destinations &amp; rebuild them as Special Links (S-01) — gates monetization.</li>
+<li>Confirm Associates account standing + this domain registered (Q-03) — gates attribution.</li>
+<li>Pick the price/ratings data path (S-02: dated capture or Creators API) — gates comparison tables.</li>
+<li>Provision the analytics endpoint (S-04) — gates measurement; the emitter waits, inert and honest.</li>
+<li>Decide the authorship stance (S-09: desk bylines vs named human) — gates any “we tested” language, permanently.</li>
+</ol>
+</main>
+<footer>
+<div class="foot-brand">counterwise<span>.</span><p>Countertop gear and doneness tech, minus the hype.</p></div>
+<div class="foot-col"><b>The shop</b>
+<a href="../shop/index.html">Full shortlist</a>
+<a href="../shop/air-fryers.html">The Counter — air fryers</a>
+<a href="../shop/probes.html">The Probe — thermometers</a>
+<a href="../guides/index.html">Buyer’s Notebook</a>
+</div>
+<div class="foot-col"><b>The desk</b>
+<a href="../desk/index.html">Executive summary</a>
+<a href="../desk/questions.html">Open questions</a>
+<a href="../desk/suggestions.html">Suggestion board</a>
+<a href="../review/index.html">Evidence &amp; flagged for review</a>
+</div>
+<div class="foot-col foot-disc"><b>Disclosure</b>
+<p>As an Amazon Associate I earn from qualifying purchases. Product names are shown for identification; listings and prices live at the retailer, not on our page.</p>
+<a href="../review/index.html#disclosure">Policy gates &amp; official sources</a>
+<a href="../feed.xml">RSS feed</a>
+</div>
+<small>© 2026 Counterwise Editorial Desk · Verification status is public and dated; blanks are not guesses. Availability and prices change at the retailer at any time.</small>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
