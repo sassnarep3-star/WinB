@@ -204,6 +204,23 @@ export const PRODUCTS = [
       'https://www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-0710b7a4f0d14338&channelId=704&plpRedirect=mhFallback',
     intendedAsin: '',
     confirmationDate: '2026-11-20',
+    // DQ-10: dated reads + change log. Both reads happened on 2026-11-20, by different
+    // sessions — the date matters as much as the diff, and a stale date is a visible failure.
+    lastRead: '2026-11-20',
+    reads: [
+      {
+        date: '2026-11-20',
+        by: 'register build (session arena-afa610ec)',
+        finding:
+          'First register read of the live listing: title, stated figures and the category path recorded exactly as served.',
+      },
+      {
+        date: '2026-11-20',
+        by: 're-verification (session ac3d816c)',
+        finding:
+          'Title, capacity figures and category path re-read; unchanged from the register record. The listing still states two independent 3 qt baskets and 120 Volts / 1700 Watts.',
+      },
+    ],
     source: 'A2',
     listingSourceUrl: 'https://www.amazon.com/dp/B0CDY277D3',
     directory: 'Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers',
@@ -252,6 +269,23 @@ export const PRODUCTS = [
       'https://www.amazon.com/dp/B09B7SB46R?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-77f54b7c4a256532&channelId=704&plpRedirect=mhFallback',
     intendedAsin: '',
     confirmationDate: '2026-11-20',
+    // DQ-10: dated reads + change log. Both reads happened on 2026-11-20, by different
+    // sessions — the date matters as much as the diff, and a stale date is a visible failure.
+    lastRead: '2026-11-20',
+    reads: [
+      {
+        date: '2026-11-20',
+        by: 'register build (session arena-afa610ec)',
+        finding:
+          'First register read of the live listing: title, stated figures and the category path recorded exactly as served.',
+      },
+      {
+        date: '2026-11-20',
+        by: 're-verification (session ac3d816c)',
+        finding:
+          'Title and 26 QT / 24-preset statements re-read; unchanged from the register record. Preset count is still stated as 24 in the title while the review-theme panel refers to 25 — see FLG-013.',
+      },
+    ],
     source: 'A2',
     listingSourceUrl: 'https://www.amazon.com/dp/B09B7SB46R',
     directory: 'Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers',
@@ -298,6 +332,23 @@ export const PRODUCTS = [
       'https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-2189f4dab9032c5f&channelId=704&plpRedirect=mhFallback&th=1',
     intendedAsin: '',
     confirmationDate: '2026-11-20',
+    // DQ-10: dated reads + change log. Both reads happened on 2026-11-20, by different
+    // sessions — the date matters as much as the diff, and a stale date is a visible failure.
+    lastRead: '2026-11-20',
+    reads: [
+      {
+        date: '2026-11-20',
+        by: 'register build (session arena-afa610ec)',
+        finding:
+          'First register read of the live listing: title, stated figures and the category path recorded exactly as served.',
+      },
+      {
+        date: '2026-11-20',
+        by: 're-verification (session ac3d816c)',
+        finding:
+          'Title re-read; matches the register except that the listing renders the mark as “TurboFry®”. The 8 qt capacity, 450°F Hi-Fry figure and 1000-watt statement are unchanged.',
+      },
+    ],
     source: 'A2',
     listingSourceUrl: 'https://www.amazon.com/dp/B08DKYBTPH',
     directory: 'Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers',
@@ -344,6 +395,23 @@ export const PRODUCTS = [
       'https://www.amazon.com/dp/B0DHZTCNR5?lv=shuf&btn_type=ss&gaOptInStatus=true&_encoding=UTF8&sp_csd=d2lkZ2V0TmFtZT1zcF9waG9uZV9ob21lcGFnZV9ibGVuZGVk&language=en_US&content-id=amzn1.sym.4582c56b-139d-4168-9db2-822c68889360&ie=UTF8&btn_ref=srctok-3fc2944d621f80c1&channelId=500&plpRedirect=mhFallback',
     intendedAsin: '',
     confirmationDate: '2026-11-20',
+    // DQ-10: dated reads + change log. Both reads happened on 2026-11-20, by different
+    // sessions — the date matters as much as the diff, and a stale date is a visible failure.
+    lastRead: '2026-11-20',
+    reads: [
+      {
+        date: '2026-11-20',
+        by: 'register build (session arena-afa610ec)',
+        finding:
+          'First register read of the live listing: title, stated figures and the category path recorded exactly as served.',
+      },
+      {
+        date: '2026-11-20',
+        by: 're-verification (session ac3d816c)',
+        finding:
+          'Title has moved since the register read: it now ends “…for Grill BBQ, Stocking Stuffers Gifts for Men, Black” and prints “NIST&NSF” without the spaces the register recorded. Same ASIN, same listing. A seller keyword edit, not a product change — but the reason this line exists.',
+      },
+    ],
     source: 'A2',
     listingSourceUrl: 'https://www.amazon.com/dp/B0DHZTCNR5',
     directory: 'Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat',
@@ -385,6 +453,23 @@ export const PRODUCTS = [
       'https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&btn_type=ss&gaOptInStatus=true&language=en_US&btn_ref=srctok-15c87a8b6e264a7a&channelId=500&plpRedirect=mhFallback&th=1',
     intendedAsin: '',
     confirmationDate: '2026-11-20',
+    // DQ-10: dated reads + change log. Both reads happened on 2026-11-20, by different
+    // sessions — the date matters as much as the diff, and a stale date is a visible failure.
+    lastRead: '2026-11-20',
+    reads: [
+      {
+        date: '2026-11-20',
+        by: 'register build (session arena-afa610ec)',
+        finding:
+          'First register read of the live listing: title, stated figures and the category path recorded exactly as served.',
+      },
+      {
+        date: '2026-11-20',
+        by: 're-verification (session ac3d816c)',
+        finding:
+          'Title re-read; matches the register, including “3 Ultra-Thin Probes”, 1000°F heat-safe tips and five sensors. A sibling listing in the same brand’s family states 2 probes, so the probe count must be read from the ASIN, not the brand.',
+      },
+    ],
     source: 'A2',
     listingSourceUrl: 'https://www.amazon.com/dp/B0DZFD6R9Z',
     directory: 'Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat',

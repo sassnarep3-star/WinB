@@ -809,6 +809,7 @@ export function suggestionsPage() {
     <dt>Choose it if</dt><dd>${esc(d.chooseIf)}</dd>
     <dt>Do not choose it if</dt><dd>${esc(d.notIf)}</dd>
     <dt>Blocked by</dt><dd>${d.dependsOn.length ? d.dependsOn.map((q) => `<a href="#${esc(q)}">${esc(q)}</a>`).join(' · ') : 'Nothing'}</dd>
+    ${d.note ? `<dt>Outcome</dt><dd>${esc(d.note)}</dd>` : ''}
     <dt>How much it costs to be wrong</dt><dd>${d.riskLow ? '<span class="badge green">Low — the change is a revert</span>' : '<span class="badge amber">Not free — money spent, a claim published, or an obligation accepted</span>'}</dd>
   </dl>
 </article>`;

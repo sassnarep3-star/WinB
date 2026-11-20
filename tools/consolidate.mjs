@@ -137,6 +137,113 @@ if (existsSync(goDir)) {
   }
 }
 
+// -------------- 3. one identity, one indexable copy of every topic  (S18)
+// Two problems were visible to a reader and to a crawler at the same time:
+//   (a) eleven indexable pages carried a second brand — “The Crisp Kitchen” —
+//       including the register hub the footer links to and the five /go/ exit
+//       pages that forward shoppers to Amazon;
+//   (b) four /guides/ URLs from the register generation were near-duplicates of
+//       published Counterwise guides, both marked index,follow, so the two
+//       generations competed for the same queries on one host (the doorway and
+//       site-reputation patterns named in Google's spam policies), and the
+//       duplicate pages were listed in sitemap-register.xml while being treated
+//       as superseded by tools/verify.mjs.
+// Nothing is deleted here. The duplicates stay reachable at their old URLs,
+// they simply stop asking to be indexed, and their canonical points at the copy
+// the publication wants to rank.
+const REBRAND = [
+  'register/index.html',
+  'about/editorial-policy.html',
+  'about/how-we-make-money.html',
+  'about/privacy.html',
+  'go/chef-iq-sense-gen3.html',
+  'go/chefman-6-quart-dual-basket.html',
+  'go/chefman-8-quart-turbofry.html',
+  'go/emeril-lagasse-26qt-french-door.html',
+  'go/thermomaven-1-second-thermometer.html',
+];
+
+// Pages the canonical site already answers better, with the URL that answers it.
+const DUPLICATES = {
+  'guides/basket-or-oven-air-fryer.html': '/guides/basket-or-oven.html',
+  'guides/air-fryer-capacity-checklist.html': '/guides/capacity-checklist.html',
+  'guides/cleanup-and-counter-space.html': '/guides/cleanup-counter.html',
+  'guides/multifunction-appliance-questions.html': '/guides/multifunction.html',
+  'about/privacy.html': '/privacy/',
+  'decisions/questions.html': '/suggestions/',
+  'decisions/growth-plan.html': '/data-room/',
+};
+
+const rebranded = [];
+for (const rel of REBRAND) {
+  const abs = join(ROOT, rel);
+  if (!existsSync(abs)) continue;
+  let html = readFileSync(abs, 'utf8');
+  const before = html;
+  html = html
+    .split('The Crisp Kitchen').join('Counterwise')
+    .split('>CK</span>').join('>cw</span>');
+  if (html !== before) {
+    writeFileSync(abs, html, 'utf8');
+    rebranded.push(rel);
+  }
+}
+
+const deindexed = [];
+for (const [rel, to] of Object.entries(DUPLICATES)) {
+  const abs = join(ROOT, rel);
+  if (!existsSync(abs)) continue;
+  let html = readFileSync(abs, 'utf8');
+  const before = html;
+  const robots = '<meta name="robots" content="noindex,follow">';
+  html = /<meta name="robots"[^>]*>/i.test(html)
+    ? html.replace(/<meta name="robots"[^>]*>/i, robots)
+    : html.replace(/<head[^>]*>/i, (m) => `${m}\n${robots}`);
+  const canonical = `<link rel="canonical" href="${SITE}${to}">`;
+  html = /<link rel="canonical"[^>]*>/i.test(html)
+    ? html.replace(/<link rel="canonical"[^>]*>/i, canonical)
+    : html.replace(/<\/title>/i, `</title>\n${canonical}`);
+  // A reader arriving from an old search result deserves to know where they are.
+  if (!html.includes('data-dup-note')) {
+    html = html.replace(/<main\b[^>]*>/i, (m) =>
+      `${m}\n<p class="small" data-dup-note style="margin:0">This topic is answered by the current Counterwise publication — ` +
+      `<a href="${to}">read it here</a>. This URL is kept so older links keep working.</p>`);
+  }
+  if (html !== before) {
+    writeFileSync(abs, html, 'utf8');
+    deindexed.push(`${rel} -> ${to}`);
+  }
+}
+
+// A sitemap must not list a page that tells crawlers not to index it. Both
+// sitemaps are checked against the robots meta actually on the page, so the
+// register sitemap cannot keep advertising trees this file has just retired.
+function noindexed(locPath) {
+  const relPath = locPath.replace(/^\/WinB\/?/, '').replace(/\/$/, '/index.html');
+  const abs = join(ROOT, relPath);
+  if (!existsSync(abs)) return false;
+  return /<meta name="robots" content="[^"]*noindex/i.test(readFileSync(abs, 'utf8'));
+}
+for (const name of ['sitemap-register.xml']) {
+  const file = join(ROOT, name);
+  if (!existsSync(file)) continue;
+  const xml = readFileSync(file, 'utf8');
+  let dropped = 0;
+  const pruned = xml.replace(/<url>(?:(?!<\/url>)[\s\S])*?<\/url>\s*/g, (block) => {
+    const loc = (block.match(/<loc>([^<]+)<\/loc>/) || [])[1] || '';
+    if (loc && noindexed(loc.replace(SITE, ''))) { dropped++; return ''; }
+    return block;
+  });
+  if (pruned !== xml) {
+    writeFileSync(file, pruned, 'utf8');
+    console.log(`consolidate: ${name} pruned of ${dropped} noindex URLs`);
+  }
+}
+
+console.log(`consolidate: ${rebranded.length} surviving pages rebranded to the single publication identity`);
+console.log(`consolidate: ${deindexed.length} duplicate URLs de-indexed with a canonical to their twin`);
+for (const d of deindexed) console.log('   dup: ' + d);
+
 console.log(`consolidate: ${touched.length} archived pages marked noindex + banner`);
 console.log(`consolidate: ${goFixed.length} /go/ redirect pages changed to index,follow`);
 for (const g of goFixed) console.log('   go: ' + g);
