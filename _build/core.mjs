@@ -129,6 +129,7 @@ export function footer() {
         <h4>Review &amp; oversight</h4>
         <ul>
           <li><a href="/suggestions/"><b>Suggestions — what next</b></a></li>
+          <li><a href="/direction/">Design &amp; trend topics</a></li>
           <li><a href="/flagged/">Flagged for review</a></li>
           <li><a href="/decisions/">Decision Room</a></li>
           <li><a href="/decisions/inputs.html">Decision inputs</a></li>

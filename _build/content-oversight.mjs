@@ -26,6 +26,26 @@ export function decisionsPage() {
     <dt>Payoff</dt><dd>${esc(s.payoff)}</dd>
     <dt>Risk</dt><dd>${esc(s.risk)}</dd>
   </dl>
+  ${s.options ? `<div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody>${s.options.map((o) => `<tr${o.letter === s.recommendedOption ? ' class="opt-rec"' : ''}>
+        <td><b>${esc(o.letter)}</b> · ${esc(o.title)}</td>
+        <td class="tiny">${esc(o.what)}</td>
+        <td class="tiny">${esc(o.effort)}</td>
+        <td class="tiny">${esc(o.payoff)}</td>
+        <td class="tiny">${esc(o.risk)}</td>
+        <td>${o.letter === s.recommendedOption ? '<span class="badge green tiny">Recommended</span>' : '—'}</td>
+      </tr>`).join('\n')}</tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> ${esc(s.decisionState || 'Awaiting owner decision')}</p>
+    <p><b>Why this option:</b> ${esc(s.recommendedWhy || s.recommendation)}</p>
+    <p><b>How to record it:</b> ${esc(s.decisionHow || 'Reply with the proposal ID and the option letter, e.g. “SUG-01: A”.')}</p>
+  </div>` : ''}
 </article>`;
 
   const qRow = (q) => `<tr>
@@ -42,7 +62,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Decision Room' }],
   kicker: 'Oversight',
   title: 'Decision Room',
-  lede: 'Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so.',
+  lede: 'Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so. <b>This page is the case file:</b> every proposal carries named options A/B/C, a recommended option and a decision gate. The <a href="/suggestions/">decision board</a> is the same queue reduced to one sortable row per proposal, with cost, reversibility and failure mode.',
   meta: `<div class="btn-row">
     <a class="btn small" href="/suggestions/">Open the suggestions room <span class="arw">→</span></a>
     ${badge(open.length + ' open suggestions', 'amber')}
@@ -59,6 +79,11 @@ ${pageHead({
         <h2>Three paths — pick one before anything is implemented</h2>
         <p>Each path is a coherent bet. Mixing them is how a site ends up with seasonal guides, no measurement and no byline. The desk recommends <b>Path B first, Path C in parallel</b>: the publication polish is already built, and the measurement endpoint is the only thing standing between instinct and data.</p>
       </div>
+    </div>
+    <div class="gate callout">
+      <h4>Choose before anything is implemented</h4>
+      <p>Every proposal below carries named options, a recommended one, and a decision gate. Nothing is acted on because it appears on this page — it is acted on when an option is chosen and recorded. That is the whole protocol: <b>read the options, pick a letter, write it down.</b></p>
+      <p>Record a choice in one line — “SUG-01: A” — in the repository's COORDINATION.md under this session's row, or as a reply to the session. The next build reads the recorded decision, changes the <code>decisionState</code> line for that proposal, and the page reflects it. Two are already recorded: <b>SUG-05: A</b> and <b>SUG-08: A</b>. A decision of “no” is as valid as “yes” and is recorded the same way.</p>
     </div>
     <div class="table-wrap">
       <table>
@@ -757,6 +782,7 @@ ${pageHead({
 
     <h2>What you can review, in order</h2>
     <ol>
+      <li><a href="/direction/">Design &amp; trend topics</a> — the design brief for the next build, fifteen design suggestions with a decision board, and ten catchy working titles each carrying the gate it must pass before it is published.</li>
       <li><a href="/suggestions/">Suggestions and the decision queue</a> — ${DECISION_QUEUE.length} proposals with cost, reversibility and failure mode, the ${BLOCKING_QUESTIONS.length} questions that block them, the design and content paths to choose between, and the five actions only you can take (about fifty minutes total). Start here.</li>
       <li><a href="/decisions/inputs.html">Decision Inputs</a> — ${DECISION_INPUTS.length} pending decisions with what is known, what is missing, and a discovery suggestion for each missing item.</li>
       <li><a href="/decisions/">Decision Room</a> — three paths to choose between, a seasonal topic queue with measurement gates, ${SUGGESTIONS.length} suggestions ordered by priority, ${QUESTIONS.length} questions split into known and unknown, a missing-information discovery plan, and the options rejected with sources.</li>
@@ -895,7 +921,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Suggestions' }],
   kicker: 'Review queue',
   title: 'Suggestions, and what has to be true before each one',
-  lede: `${DECISION_QUEUE.length} proposals, ${BLOCKING_QUESTIONS.length} blocking questions, and the five actions only the account owner can take. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it.`,
+  lede: `${DECISION_QUEUE.length} proposals, ${BLOCKING_QUESTIONS.length} blocking questions, and the five actions only the account owner can take. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it. <b>This page is the decision board:</b> one row per proposal with its cost, reversibility and failure mode. The <a href="/decisions/">Decision Room</a> holds the underlying <code>SUG</code> case files, the named options A/B/C behind each one, and the questions split into known, missing and how-to-find.`,
   meta: `<div class="btn-row">
     ${badge(openItems.length + ' awaiting a decision', 'amber')}
     ${badge(doneItems.length + ' built in this cycle', 'green')}
