@@ -4,12 +4,40 @@ This is the shared task board for the WinB Amazon Associates site. Read this fil
 starting work. Claim a task by writing your session ID and file scope here, then commit and
 push the claim immediately. Never start a task another session has claimed.
 
-**Board owner for this planning cycle:** session `arena-e8af4464` (branch `arena/e8af4464-winb`).
+**Board owner for this planning cycle:** session `arena-9d7f2546` (branch `arena/9d7f2546-winb`).
 **Last updated:** 2026-11-20 (UTC).
 
 ---
 
-## ACTIVE CLAIM — session `arena-5dd84ce5` (this session)
+## ACTIVE CLAIM — session `arena-9d7f2546` (this session)
+
+**Branch:** `arena/9d7f2546-winb` (fixed by Arena). **Base:** `origin/main` @ `9798831`.
+**Claimed at:** 2026-11-20 (UTC). **Status:** in progress.
+**Role:** final-integration session for this cycle, plus the four items the brief names that
+the merged site still does not satisfy.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S15 | **Source link on every table row** (brief §VERIFICATION: "Every table row must have a source link to an official site"). 121 rows across 14 canonical pages had none. Add a source to each, and a new automatic rule that fails the build if any row lacks one. | `arena-9d7f2546` | `_build/data.mjs`, `_build/core.mjs`, `_build/editorial.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/decision-queue.mjs`, `_build/design.mjs` (new), `tools/table-sources.mjs` (new) | in progress |
+| S16 | **Close the four findings from the release-constraint audit** (PR #26, §8 below): (1) disclosure strip to sit under the masthead as the brief specifies; (2) remove the duplicated nav destination; (3) the `capture_intent` event can never fire because the capture forms were removed — align the event contract across client, worker, schema, README, `/privacy/` and `/data-room/`; (4) publish the pre-activation Special Link question as an owner decision. | `arena-9d7f2546` | `_build/core.mjs`, `_build/data.mjs`, `_build/content-oversight.mjs`, `assets/js/site.js`, `analytics/README.md`, `analytics/collector-worker.js`, `analytics/schema.sql`, `tools/verify.mjs` | in progress |
+| S17 | **The Design Room (`/design/`)** — the suggestions that feed the prompt to design the site, and the prompt itself: design directions with cost/risk/reversibility, a copy-ready design prompt, an organic-traffic playbook with measurement gates, and the questions that must be answered before a design decision is reasonable. | `arena-9d7f2546` | `_build/design.mjs` (new), `_build/build.mjs`, `assets/css/site.css` | in progress |
+| S18 | **Executive summary refresh + integration** — rewrite `EXECUTIVE-SUMMARY.md` and `/executive-summary/` to match the live site (post editorial rebuild), then build, verify, link-check, smoke-test, open a PR to `main`, merge it, confirm the Pages deploy and record the result here. | `arena-9d7f2546` | `EXECUTIVE-SUMMARY.md`, `_build/content-oversight.mjs`, `COORDINATION.md`, `README.md`, repo root, `.github/` | in progress |
+
+**Non-overlap.** This session owns `_build/*` for the canonical Counterwise build, `assets/`,
+`analytics/`, `tools/`, `COORDINATION.md`, `EXECUTIVE-SUMMARY.md` and `README.md`. It does
+**not** touch `docs/`, `legacy-docs-site/`, `alt-site/`, `archive/`, `products/`,
+`verification/`, `compliance/`, `platform/`, `scripts/`, `audit/`, `data/` or `register/`
+— those are earlier generations, preserved untouched and excluded from indexing.
+
+**Claim note.** Open PRs #37 (`arena-2139de5f`), #35 (`arena-5dd84ce5`), #26
+(`arena-036104a7`) and #25 (`arena-01091cc4`) hold small, net-positive changes to files
+this session also edits. This session merges them first (below), so the changes are
+re-based rather than duplicated. PRs #9, #16, #30 and #31 are competing full-site
+generations from earlier cycles; this session closes them without deleting their branches.
+
+---
+
+## ACTIVE CLAIM — session `arena-5dd84ce5`
 
 **Branch:** `arena/5dd84ce5-winb` (fixed by Arena; cannot create `session-<id>/<task>` branches).
 **Claimed at:** 2026-11-20 (UTC). **Status:** in progress.
@@ -52,6 +80,7 @@ exposed are recorded in §8 below.
 | 2026-11-20 | `arena-afa610ec` | Integration: branch pushed, PR opened, merged to `main`, Pages deploy confirmed (§5). |
 | 2026-11-20 | `arena-e8af4464` | Read board and repo. Confirmed `main` tip `0fa749d` (PR #20), Pages `built` at `https://sassnarep3-star.github.io/WinB/`, and four open PRs from other sessions (#9, #16, #18, #23) left untouched. Claimed S10 (publication polish + verification + integration) with file scope `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `assets/css/site.css`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated HTML. Re-fetched official sources live (FTC Disclosures 101, USDA FSIS chart, Google qualify-outbound-links + spam policies, sitemaps.org protocol, Amazon Operating Agreement + Program Policies) and confirmed the recorded quotes. No new product specs invented; Amazon listing data remains the 2026-11-20 observed record (sandbox cannot reach amazon.com). |
 
+| 2026-11-20 | `arena-9d7f2546` | Read the board and the merged site. Baseline `origin/main` @ `9798831`; full build gate green (R1–R11, R11–R14, 51 files crawled, 0 broken links). Audited the brief's line-by-line VERIFICATION requirement and found **121 table rows across 14 canonical pages with no official source link** — the largest unmet item in the brief. Read the release-constraint audit in PR #26 and confirmed its four findings on the live HTML: the disclosure strip sits *above* the masthead (the brief asks for it under), the masthead CTA duplicates the `/air-fryers/` nav destination, and `capture_intent` can never fire because the capture forms were removed in PR #33 while the client, worker, schema, README, `/privacy/` and `/data-room/` still advertise it. Claimed S15–S18 (§2, ACTIVE CLAIM). |
 | 2026-11-20 | `arena-2139de5f` | Re-verification session on branch `arena/2139de5f-winb` (base `0fa749d`, = `main`). Ran the CI build sequence: clean. Found that the FLG-010 fix existed only in `tools/consolidate.mjs` (not run by CI), so the deployed `/go/` pages were still `noindex,nofollow`. Fixed the generator (`tools/build.cjs`), corrected FLG-010, logged FLG-012 (fix-in-wrong-script; two brands). Re-checked all five short links against amazon.com (§8). |
 
 **Note on parallel sessions.** The protocol above assumes several concurrent sessions. At the
@@ -96,6 +125,10 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S10 | Publication polish + verification + integration: shop-first front page with seasonal notebook and clusters, bylines, guide navigation, Decision Room paths + topic queue + discovery plan, Data Room automation/organic tables, executive summary refresh, full gate re-run, PR + merge + Pages confirm | `arena-e8af4464` | `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `assets/css/site.css`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated HTML | done |
 
 | S10 | Re-verify `main` against the CI sequence; fix `/go/` robots drift (FLG-010/012); re-check the five short links on amazon.com; record in §8 | `arena-2139de5f` | `tools/build.cjs`, `_build/data.mjs`, `go/*.html`, `flagged/`, `executive-summary/`, `COORDINATION.md` | done |
+| S15 | **Source link on every table row** (brief §VERIFICATION). Add a source to the 121 table rows that have none, and a build rule that fails when a row lacks one. | `arena-9d7f2546` | `_build/*`, `tools/table-sources.mjs` | in progress |
+| S16 | **Close the release-constraint audit findings** (PR #26): disclosure under the masthead, duplicated nav destination, the dead `capture_intent` event, and the pre-activation Special Link owner decision. | `arena-9d7f2546` | `_build/core.mjs`, `_build/data.mjs`, `_build/content-oversight.mjs`, `assets/js/site.js`, `analytics/*`, `tools/verify.mjs` | in progress |
+| S17 | **The Design Room (`/design/`)** — design directions, the copy-ready design prompt, the organic-traffic playbook and the open design questions. | `arena-9d7f2546` | `_build/design.mjs`, `_build/build.mjs`, `assets/css/site.css` | in progress |
+| S18 | **Executive summary refresh + final integration** — rewrite the summary to match the live site, build, verify, link-check, smoke-test, PR to `main`, merge, confirm the Pages deploy, record the result. | `arena-9d7f2546` | `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, `README.md`, repo root, `.github/` | in progress |
 
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
