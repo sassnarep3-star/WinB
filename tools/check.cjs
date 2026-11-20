@@ -91,6 +91,8 @@ const SIBLING_GUIDES = [
   '/guides/holiday-roast-thermometer.html',
   '/guides/game-day-wings.html',
   '/guides/air-fryer-leftovers.html',
+  /* Added 2026-11-20 by session arena-b36a7b54 (S15): the ice-test calibration guide. */
+  '/guides/ice-test-thermometer.html',
 ];
 /* The front page is written by the sibling build (see tools/build.cjs TAKE_FRONT_PAGE). */
 /* Index pages the sibling build owns (this generator stays off them - see SHARED_INDEXES). */
