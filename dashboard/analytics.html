@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measurement and events — Counterwise</title>
+<meta name="description" content="Five defined privacy-preserving events, an empty campaign ledger with provenance rules, and an explicit list of what the data cannot support.">
+<link rel="canonical" href="https://sassnarep3-star.github.io/WinB/dashboard/analytics.html">
+<meta name="theme-color" content="#fbf7f0">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Counterwise">
+<meta property="og:title" content="Measurement and events — Counterwise">
+<meta property="og:description" content="Five defined privacy-preserving events, an empty campaign ledger with provenance rules, and an explicit list of what the data cannot support.">
+<meta property="og:url" content="https://sassnarep3-star.github.io/WinB/dashboard/analytics.html">
+<meta property="og:image" content="https://sassnarep3-star.github.io/WinB/assets/img/hero-countertop.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Counterwise" href="../feed.xml">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="../"><span class="mark" aria-hidden="true"></span>Counterwise<span>.</span></a>
+    <nav class="nav" aria-label="Main">
+      <ul><li><a href="../air-fryers/">Air fryers</a></li><li><a href="../thermometers/">Thermometers</a></li><li><a href="../guides/">Guides</a></li><li><a href="../reviews/">Reviews</a></li><li><a href="../about/">About</a></li></ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Disclosure strip: sits directly under the masthead, above the fold, on every page. -->
+<div class="disclosure-strip" role="note" aria-label="Affiliate disclosure">
+  <div class="wrap">
+    <span><strong>As an Amazon Associate I earn from qualifying purchases.</strong></span>
+    <span class="dot" aria-hidden="true">&middot;</span>
+    <span>Product links on this page are sponsored. We do not display prices.</span>
+    <span class="dot" aria-hidden="true">&middot;</span>
+    <a href="../disclosures/">How this works</a>
+  </div>
+</div>
+
+<main id="main">
+
+<section class="dash">
+  <div class="wrap">
+    <div class="dash-head">
+      <p class="breadcrumb"><a href="../">Home</a> / <a href="../dashboard/">Register</a></p>
+      <h1>Measurement</h1>
+      <p>Five defined events, a privacy-preserving client, and a campaign ledger that starts empty. No conversion score, revenue forecast, or projected traffic figure appears here, because none of those can be produced without data this site does not have.</p>
+    </div>
+
+    <div class="callout callout--flag">
+      <h3>The collector is not connected</h3>
+      <p>The client below is complete and loaded on every page. Its endpoint is a single empty constant, so today it records nothing. That is deliberate: shipping a silent no-op is honest, whereas shipping a fake dashboard would not be. Setting the endpoint is <a href="../dashboard/questions.html#Q-08">Q-08</a>.</p>
+    </div>
+
+    <h2 style="font-family:var(--serif);font-size:24px;margin:32px 0 12px">The five events</h2>
+    <div class="table-scroll">
+      <table>
+        <caption>Payloads are fixed at these fields. No identifier, cookie, fingerprint, or cross-site value is sent.</caption>
+        <thead><tr><th scope="col">Event</th><th scope="col">Fires when</th><th scope="col">Payload</th></tr></thead>
+        <tbody><tr><td><code>page_view</code></td><td>Every page load, once per page per session.</td><td><code>path</code></td></tr><tr><td><code>outbound_click</code></td><td>Any click on a sponsored Amazon link.</td><td><code>path, asin, product</code></td></tr><tr><td><code>product_click</code></td><td>A click on a product card, whether or not it leaves the site.</td><td><code>path, product</code></td></tr><tr><td><code>guide_complete</code></td><td>Scroll past 90% of a guide or review page.</td><td><code>path</code></td></tr><tr><td><code>subscribe</code></td><td>Successful RSS or newsletter signup confirmation.</td><td><code>path, channel</code></td></tr></tbody>
+      </table>
+    </div>
+
+    <h2 style="font-family:var(--serif);font-size:24px;margin:36px 0 12px">Campaign ledger</h2>
+    <div class="table-scroll">
+      <table>
+        <caption>Empty by design. Rows are added only from authorized first-party reports, with a dated provenance note. Nothing is estimated.</caption>
+        <thead><tr><th scope="col">Date</th><th scope="col">Source</th><th scope="col">Channel</th><th scope="col">Eligible sessions</th><th scope="col">Clicks</th><th scope="col">Reported orders</th><th scope="col">Provenance</th></tr></thead>
+        <tbody><tr>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="pill pill--warn">awaiting first-party report</span></td>
+        </tr><tr>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="pill pill--warn">awaiting first-party report</span></td>
+        </tr><tr>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="blank">—</span></td>
+          <td><span class="pill pill--warn">awaiting first-party report</span></td>
+        </tr></tbody>
+      </table>
+    </div>
+
+    <div class="prose" style="margin-top:34px">
+      <h2>What the numbers can and cannot say</h2>
+      <ul>
+        <li><b>A click is not a sale.</b> This site can count an outbound click. Only Amazon's Associates reports can confirm that a purchase was attributed, after the 24-hour session window closes and returns are accounted for.</li>
+        <li><b>No conversion rate is shown.</b> A conversion rate needs orders in the numerator. Until the ledger has a reported-orders column with real values, any rate would be a guess dressed as a metric.</li>
+        <li><b>No revenue forecast.</b> Commission depends on the product category rate, on qualifying revenue after shipping and tax exclusions, and on returns. None of those are known here.</li>
+        <li><b>Attribution to a specific visitor is prohibited.</b> Amazon's Participation Requirements forbid associating a sub-tag or reporting identifier with a specific end user, which is one reason this client sends no identifier at all.</li>
+      </ul>
+
+      <h2>Privacy posture of the counter</h2>
+      <ul>
+        <li>No cookies. No localStorage. No fingerprinting. No third-party script.</li>
+        <li>The event name, the page path, and the ASIN of the product clicked. That is the whole payload.</li>
+        <li>No IP address is stored by the client, and the design intent is that the collector truncates or discards it.</li>
+        <li>Do Not Track and Global Privacy Control are honoured: if either is set, nothing is sent.</li>
+      </ul>
+      <p>See the <a href="../privacy/">privacy notice</a> for the reader-facing version.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="../"><span class="mark" aria-hidden="true"></span>Counterwise<span>.</span></a>
+        <p class="about">Kitchen gear, judged on the trade-offs. An independent kitchen-gear publication that compares published specifications and tells you what it has not verified.</p>
+      </div>
+      <div><h4>Read</h4><ul><li><a href="../">Front page</a></li><li><a href="../air-fryers/">Air fryers</a></li><li><a href="../thermometers/">Thermometers</a></li><li><a href="../guides/">Guides</a></li><li><a href="../reviews/">Reviews</a></li></ul></div><div><h4>The register</h4><ul><li><a href="../dashboard/">Product register</a></li><li><a href="../dashboard/sources.html">Source register</a></li><li><a href="../dashboard/questions.html">Open questions</a></li><li><a href="../suggestions/">Suggestions</a></li><li><a href="../dashboard/flags.html">Flagged for review</a></li></ul></div><div><h4>About</h4><ul><li><a href="../about/">How this site works</a></li><li><a href="../disclosures/">Affiliate disclosure</a></li><li><a href="../privacy/">Privacy notice</a></li><li><a href="../dashboard/analytics.html">Measurement</a></li><li><a href="../feed.xml">RSS feed</a></li></ul></div>
+    </div>
+    <div class="footer-disclosure">
+      <strong>As an Amazon Associate I earn from qualifying purchases.</strong>
+      Counterwise is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.
+      Product links open Amazon listings and are marked sponsored. This site does not display prices, star ratings, or review counts.
+      <a href="../disclosures/">Full disclosure</a>.
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Counterwise. Specification comparisons only — no product on this site has been hands-on tested.</span>
+      <span><a href="../dashboard/flags.html">Flagged for review</a> &middot; <a href="../dashboard/questions.html">Open questions</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/analytics.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Counterwise</title>
+    <link>https://sassnarep3-star.github.io/WinB/</link>
+    <description>Kitchen gear, judged on the trade-offs. Specification comparisons for air fryers and meat thermometers, with sources and open questions published.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Nov 2026 05:41:23 +0000</lastBuildDate>
+    <atom:link href="https://sassnarep3-star.github.io/WinB/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Basket or oven-style air fryer: what should you compare?</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven-air-fryer.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/basket-or-oven-air-fryer.html</guid>
+      <description>Two machines, one word on the box. The differences that decide whether it fits your cooking are almost never the ones printed on the front.</description>
+      <category>Guides</category>
+    </item>
+    <item>
+      <title>A no-hype checklist for comparing air fryer capacity</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</guid>
+      <description>Quarts are a volume. Dinner is an area problem. Here is the twenty-minute check that stops a wrong purchase.</description>
+      <category>Guides</category>
+    </item>
+    <item>
+      <title>How to assess cleanup and counter-space trade-offs</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/cleanup-and-counter-space.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/cleanup-and-counter-space.html</guid>
+      <description>The two costs that show up every single day, and the two that show up once at the till.</description>
+      <category>Guides</category>
+    </item>
+    <item>
+      <title>Questions to ask before buying a multi-function kitchen appliance</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/questions-before-buying.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/questions-before-buying.html</guid>
+      <description>A multi-function machine is a promise that one box replaces three. Here is how to check whether that promise holds for your kitchen.</description>
+      <category>Guides</category>
+    </item>
+    <item>
+      <title>Instant-read or wireless probe: which thermometer do you need?</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/thermometer-buying.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/thermometer-buying.html</guid>
+      <description>One is a checking tool. The other is a monitoring tool. Buying the wrong one is the most common thermometer mistake.</description>
+      <category>Guides</category>
+    </item>
+    <item>
+      <title>CHEFMAN 6 Qt Dual Basket — specifications and trade-offs</title>
+      <link>https://sassnarep3-star.github.io/WinB/reviews/chefman-6qt-dual-basket.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/reviews/chefman-6qt-dual-basket.html</guid>
+      <description>Two independent 3-quart baskets, so a protein and a side can finish on different clocks.</description>
+      <category>Air fryers</category>
+    </item>
+    <item>
+      <title>Emeril Lagasse 26 Qt French Door — specifications and trade-offs</title>
+      <link>https://sassnarep3-star.github.io/WinB/reviews/emeril-26qt-french-door.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/reviews/emeril-26qt-french-door.html</guid>
+      <description>A 26-quart French-door oven with 24 presets and six accessories included, for cooks who want one box to do more than fry.</description>
+      <category>Air fryers</category>
+    </item>
+    <item>
+      <title>CHEFMAN 8 Qt TurboFry — specifications and trade-offs</title>
+      <link>https://sassnarep3-star.github.io/WinB/reviews/chefman-8qt-turbofry.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/reviews/chefman-8qt-turbofry.html</guid>
+      <description>One 8-quart basket with a 450°F top range — the largest single-basket capacity in this set.</description>
+      <category>Air fryers</category>
+    </item>
+    <item>
+      <title>ThermoMaven 1 Sec Thermometer — specifications and trade-offs</title>
+      <link>https://sassnarep3-star.github.io/WinB/reviews/thermomaven-1sec-thermometer.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/reviews/thermomaven-1sec-thermometer.html</guid>
+      <description>A fold-out instant-read probe rated IP67, which matters more than a decimal place of accuracy for most home cooks.</description>
+      <category>Thermometers</category>
+    </item>
+    <item>
+      <title>CHEF iQ Sense Gen3 — specifications and trade-offs</title>
+      <link>https://sassnarep3-star.github.io/WinB/reviews/chef-iq-sense-gen3.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/reviews/chef-iq-sense-gen3.html</guid>
+      <description>Three wireless probes and five sensors, for anyone monitoring more than one piece of meat at a time.</description>
+      <category>Thermometers</category>
+    </item>
+  </channel>
+</rss>
