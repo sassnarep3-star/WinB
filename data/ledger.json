@@ -1,0 +1,14 @@
+{
+  "as_of": "2026-11-20",
+  "note": "Campaign ledger. Starts empty on purpose. A row is added only from an authorized first-party Associates report, with the report name and export date. No conversion score, revenue forecast or projection is shown.",
+  "columns": [
+    {"key": "timestamp_utc", "label": "Timestamp (UTC)"},
+    {"key": "source", "label": "Source (report name)"},
+    {"key": "channel", "label": "Channel"},
+    {"key": "eligible_sessions", "label": "Eligible sessions"},
+    {"key": "clicks", "label": "Clicks"},
+    {"key": "reported_orders", "label": "Reported orders"},
+    {"key": "provenance_note", "label": "Provenance (export date, file, who exported)"}
+  ],
+  "rows": []
+}

@@ -1,0 +1,69 @@
+{
+  "as_of": "2026-11-20",
+  "scope": "Five supplied Amazon links. Findings are limited to what the official pages and policy texts show on 2026-11-20. No conversion, revenue or demand estimates are made.",
+  "findings": [
+    {
+      "id": "F01",
+      "finding": "The five supplied links resolve to five different Amazon products in two categories: three air fryers and two thermometers.",
+      "evidence": "Each short link resolved to a different /dp/ ASIN (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z). Breadcrumbs show Air Fryers and Thermometers & Timers > Meat.",
+      "source_ids": ["S-AMZ-P01", "S-AMZ-P02", "S-AMZ-P03", "S-AMZ-P04", "S-AMZ-P05"],
+      "confidence": "Verified (observed on page)"
+    },
+    {
+      "id": "F02",
+      "finding": "The intended ASIN cannot be read from the supplied links.",
+      "evidence": "Short-link codes are 9 characters. The resolved ASINs are 10 characters and differ from the codes.",
+      "source_ids": ["S-SHORT", "S-AMZ-P01"],
+      "confidence": "Verified (lengths measured; mapping observed)"
+    },
+    {
+      "id": "F03",
+      "finding": "No observed redirect target carries the Associates tag shown in the brief.",
+      "evidence": "None of the five resolved URLs contains tag=shopnow047c-20.",
+      "source_ids": ["S-AMZ-P01", "S-AMZ-P02", "S-AMZ-P03", "S-AMZ-P04", "S-AMZ-P05", "S-PP"],
+      "confidence": "Verified for the observed URLs. Attribution method not verified (FLG-02)."
+    },
+    {
+      "id": "F04",
+      "finding": "Price and rating fields cannot be published under the current data path.",
+      "evidence": "Program Policies §2(b) and §6(t) allow prices and ratings only when Amazon serves them or via PA-API / Creators API.",
+      "source_ids": ["S-PP"],
+      "confidence": "Verified (policy text)"
+    },
+    {
+      "id": "F05",
+      "finding": "Price tracking is restricted, which conflicts with the 'analyzes pricing' goal.",
+      "evidence": "Program Policies §6(y).",
+      "source_ids": ["S-PP"],
+      "confidence": "Verified (policy text)"
+    },
+    {
+      "id": "F06",
+      "finding": "The Associates identification statement is required and is shown on every page.",
+      "evidence": "Operating Agreement §5 requires the statement 'As an Amazon Associate I earn from qualifying purchases' clearly and prominently.",
+      "source_ids": ["S-OA"],
+      "confidence": "Verified (policy text)"
+    },
+    {
+      "id": "F07",
+      "finding": "Short-link compliance is unresolved and must be tested rather than assumed.",
+      "evidence": "Program Policies §6(w) on shortened links; the brief itself says the status is unresolved.",
+      "source_ids": ["S-PP"],
+      "confidence": "Unresolved (FLG-03)"
+    },
+    {
+      "id": "F08",
+      "finding": "Publishing site-wide analytics or a click endpoint needs a hosting decision first.",
+      "evidence": "GitHub Pages publishes static files from a branch or /docs folder.",
+      "source_ids": ["S-GHP"],
+      "confidence": "Verified (GitHub docs)"
+    },
+    {
+      "id": "F09",
+      "finding": "Sitemap and RSS are generated from the site's own data, so a new guide can be added by editing data.",
+      "evidence": "sitemaps.org requires loc with a trailing slash where the server requires it; RSS 2.0 requires channel title, link and description.",
+      "source_ids": ["S-SITEMAP", "S-RSS"],
+      "confidence": "Verified (protocol text)"
+    }
+  ]
+}

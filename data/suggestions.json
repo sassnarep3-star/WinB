@@ -1,0 +1,144 @@
+{
+  "as_of": "2026-11-20",
+  "intro": "Suggestions for you to review. None is implemented. Choose an option for each decision, and the next session will carry it out. Recommendations are marked; the choice is yours.",
+  "decisions": [
+    {
+      "id": "D1",
+      "decision": "How should the five product links be handled?",
+      "options": [
+        "A. Keep the supplied short links, flagged as unvalidated, until the Associates test passes.",
+        "B. Run the Associates test first, then replace links with tagged product URLs (https://www.amazon.com/dp/<ASIN>?tag=<tracking ID>) only for products that pass.",
+        "C. Use only tagged product URLs now, with no short links."
+      ],
+      "recommendation": "B — validate one link per product first (Associates workflow), then scale. This matches the brief's own sequence.",
+      "trade_offs": "A keeps the current links but leaves the compliance question open. B adds one manual test step. C is a guess about the tag format, since the tag was not tested.",
+      "sources": ["S-PP", "S-OA"],
+      "status": "Awaiting your choice"
+    },
+    {
+      "id": "D2",
+      "decision": "How should pricing and reviews be handled, given §2(b), §6(t) and §6(y)?",
+      "options": [
+        "A. Apply for PA-API / Creators API and show prices and ratings with a 'as of' timestamp, under the policy terms.",
+        "B. Link-only: show product title and a link, with no price or rating; the reader sees the price on Amazon.",
+        "C. Drop the price-analysis goal."
+      ],
+      "recommendation": "B now; move to A only after API access is confirmed (Q4).",
+      "trade_offs": "A gives richer pages but needs API access and ongoing data upkeep. B is policy-safe today. C removes a brief goal the policy restricts.",
+      "sources": ["S-PP"],
+      "status": "Awaiting your choice"
+    },
+    {
+      "id": "D3",
+      "decision": "How should clicks and conversions be measured?",
+      "options": [
+        "A. Use only Associates reports (Tracking ID reports). No site-side tracking. Simplest and least data collection.",
+        "B. Add a privacy-preserving click counter on a host you control (for example a small serverless function), counting aggregate outbound clicks with no cookies and no IP storage.",
+        "C. Add a third-party privacy-focused analytics tool."
+      ],
+      "recommendation": "A now, then B once the five events are defined (Q5) and a host is chosen (Q6).",
+      "trade_offs": "A cannot tell which page sent a click. B needs a host outside GitHub Pages and a privacy notice. C adds a third party to the disclosure list.",
+      "sources": ["S-GHP", "S-PP"],
+      "status": "Awaiting your choice"
+    },
+    {
+      "id": "D4",
+      "decision": "What should the front page emphasise?",
+      "options": [
+        "A. Product-first: the five products as cards, with a short 'what it is' note from the listing title.",
+        "B. Category-first: two category pages (Air fryers, Thermometers) with the table on each.",
+        "C. Guide-first: lead with buyer-question guides (requires D6)."
+      ],
+      "recommendation": "A, with category pages behind it. Guides come later once the product pages are verified.",
+      "trade_offs": "A is quick and accurate but has little editorial depth. C is more editorial but depends on content that is not yet written or verified.",
+      "sources": [],
+      "status": "Awaiting your choice"
+    },
+    {
+      "id": "D5",
+      "decision": "What publishing cadence should guides follow?",
+      "options": [
+        "A. Weekly, with one guide each week.",
+        "B. Every two weeks.",
+        "C. Monthly, paired with an Associates-report review."
+      ],
+      "recommendation": "C — a monthly cadence leaves room to check each guide against Associates reports and Amazon's current policy before publishing.",
+      "trade_offs": "A gives more frequent content but multiplies verification work. B is a middle path. C is slower but easier to verify.",
+      "sources": ["S-PP"],
+      "status": "Awaiting your choice"
+    },
+    {
+      "id": "D6",
+      "decision": "Which working titles should become guides?",
+      "options": [
+        "A. 'Basket or oven-style air fryer: what should you compare?'",
+        "B. 'A no-hype checklist for comparing air fryer capacity'",
+        "C. 'How to assess cleanup and counter-space trade-offs'",
+        "D. 'Questions to ask before buying a multi-function kitchen appliance'",
+        "E. None yet."
+      ],
+      "recommendation": "Publish A and D first, because they match the products on the site and need no price or rating claims. Hold B and C until product specifications are verified from official listings.",
+      "trade_offs": "Each guide must cite only verified facts. Without price or rating data, guides rely on structural differences (basket vs oven, capacity, cleanup) that the owner must verify.",
+      "sources": ["S-AMZ-P01", "S-AMZ-P02", "S-AMZ-P03"],
+      "status": "Awaiting your choice"
+    },
+    {
+      "id": "D7",
+      "decision": "Which domain should the site use?",
+      "options": [
+        "A. GitHub Pages address (free, no DNS work).",
+        "B. Custom domain you own (needs DNS access)."
+      ],
+      "recommendation": "A for launch; add B later if you have a domain.",
+      "trade_offs": "A is simplest. B looks more like a publication but needs ownership and DNS.",
+      "sources": ["S-GHP"],
+      "status": "Awaiting your choice"
+    },
+    {
+      "id": "D8",
+      "decision": "How should the site get imagery?",
+      "options": [
+        "A. Text-first design with no product photos.",
+        "B. Product images supplied through Amazon's official linking tools (Program Content), used unaltered except resizing.",
+        "C. Original illustrations or photos made for the site."
+      ],
+      "recommendation": "A now; B when the Associates tools provide images for the five products.",
+      "trade_offs": "A is safest and fastest. B needs Program Content access. C is effort and must avoid implying Amazon endorsement.",
+      "sources": ["S-PP", "S-OA"],
+      "status": "Awaiting your choice"
+    },
+    {
+      "id": "D9",
+      "decision": "What visual direction should the site take?",
+      "options": [
+        "A. Magazine: serif headlines, warm neutrals, generous white space.",
+        "B. Catalog: clean sans-serif, product grid, strong category bar.",
+        "C. Minimal dashboard: the current layout, unchanged."
+      ],
+      "recommendation": "A for the front page, with the dashboard pages (findings, sources, flagged) kept in plain tables. Matches the brief's 'publication' goal.",
+      "trade_offs": "A is more work than C. B fits shopping best but reads more like a store than a publication.",
+      "sources": [],
+      "status": "Awaiting your choice"
+    },
+    {
+      "id": "D10",
+      "decision": "Who should be named as author?",
+      "options": [
+        "A. A named person you supply (recommended for reader trust).",
+        "B. 'Editorial team' with a contact address.",
+        "C. No byline."
+      ],
+      "recommendation": "A, once you supply a real name and role. Do not invent a name.",
+      "trade_offs": "A needs your input. B is honest but less personal. C is the least trust-building.",
+      "sources": [],
+      "status": "Awaiting your choice"
+    }
+  ],
+  "deferred_items": [
+    {
+      "id": "SG-27..SG-30",
+      "item": "Nav labels, RSS feed, Search Console, reader capture",
+      "state": "Partly done: RSS feed of site updates and sitemap.xml are generated. Search Console and reader capture need your account and decisions (D3, D7)."
+    }
+  ]
+}

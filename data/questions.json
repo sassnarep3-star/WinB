@@ -1,0 +1,141 @@
+{
+  "as_of": "2026-11-20",
+  "intro": "Questions that must be answered before any decision can reasonably be made. Each entry says what we already have and what is missing.",
+  "questions": [
+    {
+      "id": "Q1",
+      "question": "What is the intended ASIN for each supplied short link?",
+      "have": "Resolved destinations for all five links (F01).",
+      "missing": "Owner confirmation of intent. The short-link codes are 9 characters, so they cannot be read as ASINs.",
+      "how_to_answer": "Owner confirms the five ASINs, or confirms that the observed ones are correct.",
+      "blocks": "Product confirmation record (FLG-01)",
+      "status": "Open"
+    },
+    {
+      "id": "Q2",
+      "question": "Is shopnow047c-20 an active Associates tracking ID, and under which account?",
+      "have": "The ID as supplied. Program Policies §2(b) names the ID format as XXXXX-## 'or such other format as we may designate'.",
+      "missing": "Confirmation of enrollment and account ownership. Not verifiable from the sandbox.",
+      "how_to_answer": "Owner checks the Associates account (Tools / Reports).",
+      "blocks": "Special Link validation (FLG-04)",
+      "status": "Open"
+    },
+    {
+      "id": "Q3",
+      "question": "Do the supplied short links attribute clicks to the tracking ID?",
+      "have": "Observed redirect targets without a tag parameter (F03).",
+      "missing": "A test click per product and the tracking report result.",
+      "how_to_answer": "Run one test click per product through the Associates workflow; record date, destination and the report line.",
+      "blocks": "Short-link compliance decision (D1, FLG-03)",
+      "status": "Open"
+    },
+    {
+      "id": "Q4",
+      "question": "Will the site be enrolled in PA-API or Creators API so prices and ratings can be shown?",
+      "have": "The policy text (§2(b), §6(t)).",
+      "missing": "Enrollment status and eligibility.",
+      "how_to_answer": "Owner checks API access in the Associates account.",
+      "blocks": "Price and rating fields (FLG-05)",
+      "status": "Open"
+    },
+    {
+      "id": "Q5",
+      "question": "What are the five click and conversion events to record?",
+      "have": "Only the count (five) from the brief.",
+      "missing": "The event names and definitions.",
+      "how_to_answer": "Owner lists the five events.",
+      "blocks": "Measurement plan (FLG-08)",
+      "status": "Open"
+    },
+    {
+      "id": "Q6",
+      "question": "Where should a click counter or analytics endpoint run?",
+      "have": "GitHub Pages is static hosting (S-GHP).",
+      "missing": "A host that can run an endpoint, and a privacy stance.",
+      "how_to_answer": "Owner chooses one option on D3.",
+      "blocks": "Click counter and analytics (T10)",
+      "status": "Open"
+    },
+    {
+      "id": "Q7",
+      "question": "Who is the named author or editor for articles?",
+      "have": "Nothing supplied.",
+      "missing": "Author name, role, and short bio the owner approves.",
+      "how_to_answer": "Owner provides the byline.",
+      "blocks": "Authorship and publication polish (SG-27..SG-30)",
+      "status": "Open"
+    },
+    {
+      "id": "Q8",
+      "question": "Should the site use a custom domain or the GitHub Pages address?",
+      "have": "GitHub Pages can publish from this repository.",
+      "missing": "Domain choice and DNS access.",
+      "how_to_answer": "Owner chooses on D7.",
+      "blocks": "Findability and indexing decisions",
+      "status": "Open"
+    },
+    {
+      "id": "Q9",
+      "question": "What is the brand name?",
+      "have": "Working name 'Kitchen Picks'.",
+      "missing": "Owner approval.",
+      "how_to_answer": "Owner confirms or replaces the name.",
+      "blocks": "Brand and masthead (FLG-12)",
+      "status": "Open"
+    },
+    {
+      "id": "Q10",
+      "question": "What publishing cadence should guides follow?",
+      "have": "The brief asks for a cadence but gives no number.",
+      "missing": "Frequency and the first publication date.",
+      "how_to_answer": "Owner chooses on D5.",
+      "blocks": "Guide publishing",
+      "status": "Open"
+    },
+    {
+      "id": "Q11",
+      "question": "Does the account meet the current enrollment rule?",
+      "have": "A secondary-source claim of 3 qualifying sales in 180 days (FLG-10).",
+      "missing": "Confirmation of the current rule and the account's status.",
+      "how_to_answer": "Owner checks Associates Central.",
+      "blocks": "Program eligibility",
+      "status": "Open"
+    },
+    {
+      "id": "Q12",
+      "question": "Which of the four working titles should become guides?",
+      "have": "Four working titles (guides.json).",
+      "missing": "A choice. Titles are not findings.",
+      "how_to_answer": "Owner picks on D6.",
+      "blocks": "Editorial plan",
+      "status": "Open"
+    },
+    {
+      "id": "Q13",
+      "question": "Do the brief's identifiers (FLG-003, S01, S02, S07, S24, SG-27..SG-30) refer to documents you have?",
+      "have": "Only the references in the brief.",
+      "missing": "The documents themselves.",
+      "how_to_answer": "Owner provides the source register or confirms the public documents used here (FLG-07).",
+      "blocks": "Traceability of internal IDs",
+      "status": "Open"
+    },
+    {
+      "id": "Q14",
+      "question": "Which first-party reports will feed the campaign ledger?",
+      "have": "Ledger schema (ledger.json), empty.",
+      "missing": "Authorized report exports and their dates.",
+      "how_to_answer": "Owner names the report and export schedule.",
+      "blocks": "Campaign ledger rows",
+      "status": "Open"
+    },
+    {
+      "id": "Q15",
+      "question": "Has counsel reviewed the disclosure wording?",
+      "have": "Disclosure text tied to Operating Agreement §5 and FTC guidance.",
+      "missing": "Legal review. Not performed here.",
+      "how_to_answer": "Owner arranges review.",
+      "blocks": "Scaling beyond the five products (FLG-18)",
+      "status": "Open"
+    }
+  ]
+}
