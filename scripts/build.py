@@ -286,6 +286,43 @@ def page_html(title, description, path, body, depth=0, active=""):
 """
 
 
+def load_extra_guides():
+    """Optional extra guides in data/counterwise/guides.json.
+
+    Absent file means the original four guides only. Present means both batches
+    publish, so editorial drafts from a parallel session go live without a
+    second build system. Entries marked publish:false are skipped to avoid
+    duplicate content against guides the site already carries.
+    """
+    path = DATA / "counterwise" / "guides.json"
+    if not path.exists():
+        return []
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    out = []
+    for g in raw.get("guides", []):
+        if g.get("publish") is False:
+            continue
+        sections = []
+        for sec in g.get("sections", []):
+            blocks = list(sec.get("p", []))
+            if sec.get("bullets"):
+                blocks.append(("ul", list(sec["bullets"])))
+            sections.append((sec["h"], blocks))
+        out.append({
+            "slug": g["slug"],
+            "title": g["title"],
+            "deck": g["dek"],
+            "sections": sections,
+            "products": g.get("products", []),
+            "checklist": g.get("checklist", []),
+        })
+    return out
+
+
+BASE_GUIDES = GUIDES
+GUIDES = BASE_GUIDES + load_extra_guides()
+
+
 def product_map(products):
     return {p["id"]: p for p in products}
 
@@ -328,6 +365,15 @@ def register_table(products):
     return f"<div class='table-wrap'><table><thead>{head}</thead><tbody>{''.join(rows)}</tbody></table></div>"
 
 
+def checklist_block(guide):
+    items = guide.get("checklist") or []
+    if not items:
+        return ""
+    lis = "".join("<li>%s</li>" % esc(i) for i in items)
+    return ("<div class='callout checklist'><strong>The checklist.</strong>"
+            "<ul>%s</ul></div>" % lis)
+
+
 def guide_body(guide, pmap):
     parts = [f"<p class='kicker'>Guide · working title · published {BUILD_DATE}</p>",
              f"<h1>{esc(guide['title'])}</h1>",
@@ -343,6 +389,7 @@ def guide_body(guide, pmap):
             else:
                 parts.append(f"<p>{esc(block)}</p>")
     parts.append("</article>")
+    parts.append(checklist_block(guide))
     parts.append("<h2>Products in this guide</h2><div class='grid'>")
     for pid in guide["products"]:
         parts.append(product_card(pmap[pid]))
@@ -732,8 +779,8 @@ def validate(pages, products):
         errors.append("counterwise.js writes cookies or browser storage")
     if re.search(r"COUNTERWISE\s*=\s*\{[^}]*endpoint:\s*'https?", "".join(p.read_text(encoding='utf-8') for p in generated_html())):
         errors.append("an analytics endpoint is configured in a page; this must be a reviewed change")
-    if len(GUIDES) != 4:
-        errors.append("expected four guides")
+    if len(GUIDES) < 4:
+        errors.append("expected at least four guides, found %d" % len(GUIDES))
     return errors
 
 
