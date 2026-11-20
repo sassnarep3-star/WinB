@@ -23,6 +23,8 @@ push the claim immediately. Never start a task another session has claimed.
 | 2026-11-20 | `arena-afa610ec` | Integration: branch pushed, PR opened, merged to `main`, Pages deploy confirmed (§5). |
 | 2026-11-20 06:04 | `arena-0beabda2` | Read board. Branch `arena/0beabda2-winb` from `0fa749d`; merged `origin/main` (through `cfebae8`, PRs #18/#20–#22) before starting. No other open PRs or active claim rows observed. |
 | 2026-11-20 06:04 | `arena-0beabda2` | Claimed scopes S10–S15 (§2): publication-polish pass (shop-first front page, seasons/clusters, two new question-shaped guides), dedicated Suggestions board, decision-inputs page, live re-verification of the five links and every policy source, executive-summary refresh, final integration. File scopes are non-overlapping with the `done` rows above; changes to previously owned files are limited to the generators those rows already own and are logged here. |
+| 2026-11-20 06:25 | `arena-0beabda2` | **S13 second-pass verification complete.** All five `link.amazon` short links re-resolved live: same targets (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z), same listing titles as §3, still no `tag=` parameter in any resolved URL (FLG-001 observation holds; FLG-003 still unresolved in both directions). All ten official sources (A1–A3, F1–F2, G1–G4, U1) re-read line by line; every quoted claim on the site compared against the fetched text — see §4.1. One citation irregularity found and fixed (ML clause attribution). No listing drift. |
+| 2026-11-20 06:35 | `arena-0beabda2` | S10–S14 complete: front page leads with products (honesty band below the products), a seasonal cluster band plus two new sourced guides (hosting season, gifting) added to sitemap and feed, `/suggestions/` suggestion board (9 forks, nothing implemented until chosen), `/decisions/inputs.html` (8 decisions with have/missing/discover), executive summary refreshed. Gates: `npm run check` pass (30 canonical pages, R1–R10, 54 files crawled, 0 broken links, XML valid), HTTP smoke at `/WinB/` pass (24 pages + 47 assets, all 200). |
 
 **Note on parallel sessions.** The protocol above assumes several concurrent sessions. At the
 time of writing there were none: the branch note, `git branch -a`, and `gh pr list` all showed a
@@ -63,11 +65,11 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S07 | Decision surfaces: Decision Room (suggestions + open questions), Flagged for Review page, Data Room register tables | `arena-afa610ec` | `_build/content-pages.mjs`, `_build/data.mjs` | done |
 | S08 | Final integration: build, link check, merge to `main`, confirm Pages deploy, record PR + result here | `arena-afa610ec` | repo root, `.github/` | done |
 | S09 | **Handoff to this session as integration session.** `main` had advanced 55 commits past this branch, carrying six competing site generations. Rebased, resolved 17 add/add conflicts in favour of the canonical root build, retired the superseded trees with noindex + banner, fixed five `/go/` pages that were `noindex,nofollow` while forwarding to affiliate links (FLG-010), and recorded the six-generation collision (FLG-011). | `arena-afa610ec` | `tools/consolidate.mjs`, `tools/verify.mjs`, `tools/linkcheck.mjs`, `_build/build.mjs`, `_build/data.mjs` | done |
-| S10 | Publication polish: shop-first front page (products before process), seasons & topic-cluster layer, two new question-shaped guides (hosting season, gifting) added to sitemap + feed | `arena-0beabda2` | `_build/content-shop.mjs`, `_build/data.mjs`, `assets/css/site.css` | in progress |
-| S11 | Dedicated Suggestions board at `/suggestions/`: reviewable suggestion cards with Path A / Path B options, effort, payoff, risk, status — nothing implemented until a path is chosen | `arena-0beabda2` | `_build/content-oversight.mjs`, `_build/data.mjs`, `_build/core.mjs`, `_build/build.mjs` | in progress |
-| S12 | Decision-inputs page at `/decisions/inputs.html`: every pending decision with what is known, what is missing, and a discovery suggestion for finding the missing information | `arena-0beabda2` | `_build/data.mjs`, `_build/content-oversight.mjs`, `_build/build.mjs` | in progress |
-| S13 | Live re-verification pass: resolve the five supplied short links again, re-read the five Amazon listings and every policy source (A1–A3, F1–F2, G1–G4, U1), compare against the register line by line, flag drift | `arena-0beabda2` | `COORDINATION.md`, `_build/data.mjs` | in progress |
-| S14 | Executive-summary refresh + findability pass (nav labels, RSS feed items for the new guides, Search Console / reader-capture status rows SG-28–SG-30) | `arena-0beabda2` | `EXECUTIVE-SUMMARY.md`, `_build/content-oversight.mjs`, `_build/core.mjs` | in progress |
+| S10 | Publication polish: shop-first front page (products before process), seasons & topic-cluster layer, two new question-shaped guides (hosting season, gifting) added to sitemap + feed | `arena-0beabda2` | `_build/content-shop.mjs`, `_build/data.mjs`, `assets/css/site.css` | done |
+| S11 | Dedicated Suggestions board at `/suggestions/`: reviewable suggestion cards with Path A / Path B options, effort, payoff, risk, status — nothing implemented until a path is chosen | `arena-0beabda2` | `_build/content-oversight.mjs`, `_build/data.mjs`, `_build/core.mjs`, `_build/build.mjs` | done |
+| S12 | Decision-inputs page at `/decisions/inputs.html`: every pending decision with what is known, what is missing, and a discovery suggestion for finding the missing information | `arena-0beabda2` | `_build/data.mjs`, `_build/content-oversight.mjs`, `_build/build.mjs` | done |
+| S13 | Live re-verification pass: resolve the five supplied short links again, re-read the five Amazon listings and every policy source (A1–A3, F1–F2, G1–G4, U1), compare against the register line by line, flag drift | `arena-0beabda2` | `COORDINATION.md`, `_build/data.mjs` | done |
+| S14 | Executive-summary refresh + findability pass (nav labels, RSS feed items for the new guides, Search Console / reader-capture status rows SG-28–SG-30) | `arena-0beabda2` | `EXECUTIVE-SUMMARY.md`, `_build/content-oversight.mjs`, `_build/core.mjs` | done |
 | S15 | Final integration: `npm run check` + smoke, re-read combined data line by line, PR to `main`, merge, confirm Pages deploy, record here | `arena-0beabda2` | repo root, `COORDINATION.md` | in progress |
 
 **Claim format** (append a row when you start):
@@ -116,6 +118,31 @@ been updated, the update date shown on the page is recorded in `_build/data.mjs`
 
 **Irregularities found** (all published on `/flagged/`, none blocking): FLG-001 … FLG-011.
 FLG-010 (exit pages hidden from search) was fixed in this build and is recorded as `Fixed in this build`.
+
+### 4.1 Second-pass re-verification (session `arena-0beabda2`, 2026-11-20)
+
+Every source above was fetched again and read line by line on 2026-11-20 (second pass). Every
+quote printed on the site was compared against the fetched text. Result table:
+
+| Ref | Check | Result |
+| --- | --- | --- |
+| A1 | §5 disclosure wording verbatim; §1 Special Links definition; §6 termination; page date | **Confirmed** — page shows “Updated: October 15, 2025”, as recorded |
+| A2 | §1 original content + unsuitable sites; §2(b) tag-as-URL-parameter rule, price-display rule, misleading-claims rule; §3(e) cookie/pixel disclosure; Participation Requirements §5 + IP License §1 ML clauses; IP License §2(c) link-to-relevant-page; 60-day payment; page date | **Confirmed** — page shows “Updated: April 14, 2026”, as recorded |
+| A3 | “up to 10%” commission wording; eligibility wording; ~60-day payment | **Confirmed** |
+| F1 | “financial, employment, personal, or family relationship”; “hard to miss” placement; “advertisement”, “ad”, “sponsored”; “You can’t talk about your experience with a product you haven’t tried.”; date | **Confirmed** — November 2019, as recorded |
+| F2 | § 255.5(a) “disclosed clearly and conspicuously” + “does not require the complete details … sufficiently for consumers to evaluate its significance” | **Confirmed** — “current as of 11/18/2026”, as recorded |
+| G1 | `rel="sponsored"` for advertisements/paid placements; multiple rel values | **Confirmed** — “Last updated 2025-12-10”, as recorded |
+| G2 | scaled-content definition; “using affiliate links throughout a page, with links treated appropriately” excluded from site-reputation action; “likely to take action” unauthored-affiliate-article example; “stated or implied authorship” and identical-content factors | **Confirmed** |
+| G3 | Google supports the sitemap formats of the sitemaps.org protocol, incl. XML and RSS | **Confirmed** |
+| G4 | `urlset` open/close; namespace; `<url>` + `<loc>` required; one host; UTF-8; entity-escaped | **Confirmed** |
+| U1 | every temperature row and rest time quoted in the guides (145°F + 3-min rest; 160°F ground meats; 165°F poultry/leftovers/casseroles; fish 145°F; ham reheat 140/165°F) | **Confirmed** — “Last Updated: Apr 14, 2025”, as recorded |
+| Listings | the five `link.amazon` links re-resolved; ASIN, listing title and directory path compared against the register | **Confirmed, no drift** — identical to §3, still no `tag=` parameter anywhere |
+
+**Irregularity found in this pass and fixed in this build:** `_build/data.mjs` attributed the
+machine-learning clause to “IP License §1 and §2(c)”. The clause actually sits in **Participation
+Requirements §5** (“Distribution of Special Links Through Software and Devices”) **and** IP
+License §1; IP License §2(c) is the link-to-relevant-page rule. The citation now names both
+places. Substance of the claim unchanged.
 
 ---
 
