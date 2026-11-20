@@ -1864,6 +1864,20 @@ FLG-001/002/003, FLG-007, FLG-012 etc. remain open and published at `/flagged/`;
 
 **Status:** S17 done. Integration (PR → merge → Pages confirm) follows in this session.
 
+### CI-green restore #2 — final result (session `69bfe2b0`, 2026-11-20)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#64** — https://github.com/sassnarep3-star/WinB/pull/64 (sibling registrations + post-merge generator output for `decisions/inputs.html`, `design-brief/index.html`, `guides/gifts-for-the-cook.html`, `guides/hosting-season.html`) |
+| Merge | **Merged** to `main` with `--merge`, merge commit `bdc3bc0` |
+| Collision handled | PR #54 (91306b24) had added `/design-brief/` to the same list; resolved as a **union** — both sessions' entries kept, both boards kept |
+| `main` CI | Run **44691709883** (head `02f3c3c`, containing every fix from this session): `Build and verify` **success** and `Deploy` **success** — drift check · R1–R11 · R11–R15 · register gate · link check · `/WinB/` smoke |
+| Pages | `pages/builds/latest` → **built** at `02f3c3c`; API status `built` — https://sassnarep3-star.github.io/WinB/ |
+| Earlier deploy of the same tree | The dynamic build for `bdc3bc0` itself (run 44691579056) had already succeeded before later sessions merged on top |
+| Net content change | None — gate bookkeeping and generated-byte sync only |
+
+**Session `69bfe2b0` S17/S18: done.** Three PRs merged (#57 verification + drift fix #1,
+#59 board record, #64 CI-green restore #2), `main` green end-to-end, Pages live.
 
 ## 9c. Third merge addendum — session `arena-b36a7b54` (2026-11-20, PR #45 round)
 
@@ -1903,6 +1917,156 @@ build (5-step) drift-free · verify R1–R11 PASS · gate R11–R15 PASS · chec
 **Coordination boundary:** the session registry lists `arena/961560f8-winb` as active on the root shop, `assets/`, tools and `/go/`. Its PR #20 is merged (deployment-path repairs; by its description it leaves the buy buttons unchanged). PRs #9, #16 and #18 remain open and propose competing site implementations. This audit did not modify those scopes. S10 is therefore `needs review`, not a claim that the site brief is fully satisfied. No endpoint was deployed and no Associates Special Link test was run. No server-side events or campaign rows were collected; the client may retain local tallies in browser storage, as disclosed on `/privacy/`.
 
 ---
+
+---
+
+## Appendix: session `arena-c17764af` (branch `arena/c17764af-winb`) — shop-tone pass, source re-verification, and integration record
+
+This session claimed scopes S10–S13 on the board as it stood at its branch point
+(`cfebae88`). **Note on numbering:** later sessions reused the S11–S17 identifiers for
+their own tasks on the evolved board, so the S-numbers below refer to this appendix only.
+
+### Claimed scope and what was done
+
+| Ref | Task | Outcome |
+| --- | --- | --- |
+| S10 (this appendix) | Shop-tone + publication pass | Front page rebuilt to lead with the products; seasonal cluster band with editorial imagery; audit-speak reframed to buyer language across the front page, picks, compare and reviews; bug fixes (“1 probes” pluralisation, “aFrench-door” typo, dangling `og-default.png` reference). **Superseded by the richer editorial redesign that later sessions merged to `main` (`_build/editorial.mjs`, `content-direction.mjs`, new imagery). Where the two collided, the merged `main` version was kept.** |
+| S11 (this appendix) | Decision surfaces: suggestions with decision paths, questions as known/missing/how-to-find | Implemented as SUG option-paths + Q-11/Q-12. **Superseded by the decision-gate model (`_build/decision-queue.mjs`, `options[]` with letters + `decisionState`) that later sessions merged to `main`. Where the two collided, the merged `main` version was kept.** |
+| S12 (this appendix) | Line-by-line source re-verification | **Kept.** All ten official sources (A1–A3, F1–F2, G1–G4, U1) were re-fetched on 2026-11-20 and every quoted claim was compared against the page as served. All matched; all recorded page-update dates correct. Record below. |
+| S13 (this appendix) | Final integration of this branch | This merge. Collision record below. |
+
+### Source re-verification record (2026-11-20)
+
+| Ref | Source (link for manual review) | Result |
+| --- | --- | --- |
+| A1 | https://affiliate-program.amazon.com/help/operating/agreement | §5 disclosure wording exact (“As an Amazon Associate I earn from qualifying purchases.”); Special Links definition (tagged link formats) exact; §6 termination present. Page shows “Updated: October 15, 2025” as recorded. |
+| A2 | https://affiliate-program.amazon.com/help/operating/policies | Participation Requirements §1 (original content), §2(b) (Associate tag parameter), §2(b) (price display only if Amazon serves it or via Creators API / PA API), §2(b) (no misleading claims), §3(e) (cookie/pixel disclosure), §6(t) (no customer reviews or star ratings without API), IP License §1 + §2(c)(iii) (link only to the relevant Amazon page) and the ML-training prohibition (IP License §1 end; also PR §5 and §2(e)) — all match. Page shows “Updated: April 14, 2026” as recorded. |
+| A3 | https://affiliate-program.amazon.com/ | “Earn up to 10% in associate commissions”; “paid approximately 60 days after the end of the month”; eligibility wording — all match. |
+| F1 | https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers | All four quoted bullets match, including “You can’t talk about your experience with a product you haven’t tried.” Dated November 2019 as recorded. |
+| F2 | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5 | §255.5(a) wording matches both register bullets. Title 16 displayed “up to date as of 11/18/2026” as recorded. |
+| G1 | https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links | `rel="sponsored"` for paid placements; multiple rel values space/comma separated. “Last updated 2025-12-10 UTC” as recorded. |
+| G2 | https://developers.google.com/search/docs/essentials/spam-policies | Scaled-content abuse definition; affiliate links acceptable when treated appropriately; site-reputation policy factors (“stated or implied authorship”, identical content on other sites); the “likely to take action: unauthored affiliate article not integrated in publication” example — all match. |
+| G3 | https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap | “Google supports the sitemap formats defined by the sitemaps protocol” (XML, RSS/Atom, text) — matches. |
+| G4 | https://www.sitemaps.org/protocol.html | `urlset` + namespace + `<url>`/`<loc>` requirements, single-host rule, UTF-8 and entity-escaping — all match. |
+| U1 | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart | Every temperature quoted in the guides matches the chart (145°F + 3-minute rest for steaks/chops/roasts; 160°F ground meats and eggs; 165°F all poultry incl. giblets and stuffing, leftovers, casseroles; 145°F fish/shellfish; ham reheat 140/165). “Last Updated: Apr 14, 2025” as recorded. |
+
+New observation (recorded, not blocking): **Participation Requirements §6(w)** forbids using a
+link shortening service “in a manner that makes it unclear that you are linking to an Amazon
+Site”. The supplied `link.amazon` links make the Amazon destination clear by domain, so the
+clause does not condemn them; it equally does not confirm them as approved Special Links.
+FLG-003 therefore remains **unresolved in both directions**, exactly as published on `/flagged/`.
+
+### Collision record (this branch vs the advanced `main`, 2026-11-20)
+
+While this session worked, several parallel sessions merged the same brief to `main`
+(PR #31, #39, #47, #50, #52 and others). At integration time `main` was 137 files ahead of
+this branch’s base, carrying a richer implementation of the same scope (editorial redesign
+and imagery, decision-gate suggestion model, moments + gated trend-topic queue, evidence-
+filled spec cells, 6 additional sibling guides across two sessions, a second gate
+`tools/gate.mjs`). Resolution rule applied: **for every conflicted file, the merged `main`
+version is kept** (it is the other sessions’ integrated, gated work); this session’s
+additions survive only where they are additive:
+
+| Item | Resolution |
+| --- | --- |
+| 35 conflicted files (`_build/*`, generated HTML, `assets/css/site.css`, `tools/check.cjs`, sitemap/feed, README, EXECUTIVE-SUMMARY) | Resolved in favour of `origin/main`. This session’s earlier versions remain in branch history at `57ed625`. |
+| `COORDINATION.md` | Union: `main`’s board kept verbatim; this appendix is this session’s record. |
+| `guides/holiday-hosting.html` + its data entry | **Dropped as superseded** — its topic (hosting capacity, timing, leftovers) is covered more thoroughly by `holiday-format-check`, `crowd-capacity-math` and `air-fryer-leftovers` already on `main`. Publishing it as well would be a near-duplicate burst. Preserved in branch history at `57ed625`. |
+| `guides/gift-guide-thermometers.html` and `guides/air-fryer-worth-it.html` | **Kept and wired into `main`’s GUIDES model** — distinct search intents (gifting; “is an air fryer worth it if you own an oven”) not covered by any merged guide. |
+| `tools/check.cjs` `SIBLING_GUIDES` | Extended with the two kept guides (theirs already lists the 11 sibling guides from the other sessions). |
+| `assets/img/scene-*.jpg`, `og-default.jpg` | Kept as available editorial assets; `scene-gifting.jpg` used as the gift guide’s social image. |
+
+### Post-integration gate run (session `arena-c17764af`, 2026-11-20)
+
+Run on the merged tree (the other sessions' generators and this session's two added guides):
+
+| Gate | Result |
+| --- | --- |
+| `node _build/build.mjs` (+ `make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`, `tools/consolidate.mjs` — the exact CI sequence) | 42 files built, 43 sitemap routes, 15 feed items; **re-run produces byte-identical output — the CI drift check passes** |
+| `node tools/verify.mjs` | PASS — R1–R11, 37 canonical pages, 45 Amazon links, 409 internal links |
+| `node tools/gate.mjs` | PASS — R11–R15, 49 canonical pages, 68 social images, 5,127 class usages |
+| `node tools/check.cjs` | PASS — all gates passed (4 pre-existing warnings inside archived trees) |
+| `node tools/linkcheck.mjs` | PASS — 64 files crawled, 0 broken links, XML valid |
+| HTTP smoke at `/WinB/` | PASS — 32 pages + 66 linked assets, all 200 |
+
+New flag: **FLG-022** (needs review) — `_build/build-editorial.mjs` imports `_build/suggestions.mjs`,
+which exists in no commit on any branch, so the editorial generator cannot currently be re-run.
+The committed editorial pages are unaffected and pass the editorial gate; CI does not run the script.
+Recorded on `/flagged/` with the exact error and the remediation options.
+
+Run record for this appendix:
+`57ed625` shop-tone pass (superseded by the merged editorial redesign) ·
+`8eb83c7` merge of `origin/main` (35 conflicts, resolution rule above) ·
+follow-up commit: two guides wired into GUIDES, `ogImage` passthrough in `guidePage`,
+`SIBLING_GUIDES` extended, FLG-022 added, all gates green.
+
+
+### Second integration round (2026-11-20, later same day)
+
+`main` advanced again (PRs #45, #46, #48, #59–#62) while this branch was under review. A second
+merge was performed with the same resolution rule (merged `main` wins every conflicted file;
+`COORDINATION.md` union). Outcome of the re-evaluation this forced:
+
+| Item | Resolution |
+| --- | --- |
+| `guides/gift-guide-thermometers.html` + its data entry | **Dropped as superseded** — the merged `main` now publishes `gifts-for-the-cook` (gift-fit guide covering all five units) and `ice-test-thermometer` (the calibration ritual). Publishing the gifting guide as well would be a near-duplicate. Preserved in branch history at `0d884f3`. |
+| `guides/air-fryer-worth-it.html` | **Kept** — “Is an air fryer worth it if you already own an oven?” remains an uncovered search intent in the merged guide set. Wired into GUIDES and `SIBLING_GUIDES` again (this round's `main` change overwrote the wiring). |
+| `ogImage` passthrough in `guidePage` | Kept from the auto-merge where it landed cleanly; the dropped gift guide was its only consumer with a custom image, so it is now inert but harmless. |
+| 3 conflicted files this round (`COORDINATION.md`, `data-room/index.html`, `executive-summary/index.html`) | HTML regenerated pages resolved in favour of `origin/main` (generated from the merged data model); this file union-merged. |
+
+The convergence is the protocol working as intended: each integration round, the collective
+guide set absorbs more of the duplicated intent, and this session keeps only what is still
+missing.
+
+**Gate red found and fixed on merged `main`:** `tools/check.cjs` was failing at main HEAD —
+`/decisions/inputs.html`, `/guides/gifts-for-the-cook.html` and `/guides/hosting-season.html`
+were published by parallel sessions that did not extend the gate's sibling allowlist (the
+interlock added in S09). Fixed by adding them to `SHARED_INDEXES` / `SIBLING_GUIDES` with
+comments; logged here because it means PRs #59–#62 merged with this check red.
+
+Post-second-merge gate run (all green):
+
+| Gate | Result |
+| --- | --- |
+| CI sequence (`build.mjs`, `make-images.mjs`, `build.cjs`, `noindex.cjs`, `consolidate.mjs`) | 45 files built, 48 sitemap routes, 17 feed items; **byte-reproducible — no drift** |
+| `node tools/verify.mjs` | PASS — R1–R11, 38 canonical pages, 46 Amazon links, 503 internal links |
+| `node tools/gate.mjs` | PASS — R11–R15, 52 canonical pages, 74 social images, 5,953 class usages |
+| `node tools/check.cjs` | PASS (after the allowlist fix above) |
+| `node tools/linkcheck.mjs` | PASS — 67 files crawled, 0 broken links, XML valid |
+| HTTP smoke at `/WinB/` | PASS — 37 pages + 97 linked assets, all 200 |
+
+
+### Third integration round (2026-11-20, minutes later)
+
+`main` advanced again (PRs #54, #64, #65). Third merge, same resolution rule. Only two files
+conflicted: `COORDINATION.md` (union, as before) and `tools/check.cjs` — where **another
+session (`69bfe2b0`) had independently reached the same fix** for the red register gate
+(`decisions/inputs.html`, `gifts-for-the-cook`, `hosting-season` registrations; their
+comments and their `/design-brief/` registration kept, plus this session's
+`air-fryer-worth-it` row). Everything else auto-merged, including this session's
+`air-fryer-worth-it` data entry and the FLG-022 flag. Gates re-run green after the merge
+(numbers unchanged from the table above: verify 38 canonical pages, gate 52 pages,
+check.cjs PASS, linkcheck 67 files 0 broken, smoke 37 pages + 97 assets 200,
+CI sequence byte-reproducible).
+
+
+### Fourth integration round (2026-11-20)
+
+`main` advanced again (PRs #63–#65 plus churn). Merge conflicts: `COORDINATION.md` (union),
+`_build/data.mjs` (union) and four regenerated HTML pages (kept `origin/main`). Two fixes
+made during the union that future sessions should know about:
+
+1. **Flag numbering repair.** `main` had two entries with id `FLG-021` (the “three spec
+   values not stated” entry and a newer “listing title moved between two reads” entry), and
+   a `FLG-022` (“four trend guides published before measured demand”). This session’s
+   “build-editorial.mjs cannot run” entry also used `FLG-022`. Repaired to a unique
+   sequence: FLG-021 (spec values), **FLG-022** (listing title moved), **FLG-023** (trend
+   guides), **FLG-024** (build-editorial). Prose cross-references to `FLG-021` all mean the
+   spec-values entry and were verified unchanged.
+2. Everything else auto-merged cleanly, including this session’s `air-fryer-worth-it` guide.
+
+Gates re-run green after this merge (verify R1–R11, gate R11–R15, check.cjs, linkcheck,
+CI sequence byte-reproducible).
 
 
 

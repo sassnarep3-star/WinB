@@ -144,7 +144,7 @@ writeFileSync(
       <text x="48" y="150" font-family="Georgia, serif" font-size="52" font-weight="600" fill="${INK}">counterwise.</text>
       <text x="48" y="196" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b6459">Kitchen gear, chosen by question rather than by hype.</text>
       <line x1="48" y1="228" x2="592" y2="228" stroke="#d3c9b8" stroke-width="1.5"/>
-      <text x="48" y="262" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#948b7d">3 air fryers · 2 thermometers · every unverified claim labelled</text>
+      <text x="48" y="262" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#948b7d">3 air fryers · 2 thermometers · every claim linked to its source</text>
       <text x="48" y="292" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#b0501e">As an Amazon Associate I earn from qualifying purchases.</text>
     </g>`,
     640,

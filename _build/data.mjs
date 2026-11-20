@@ -1012,7 +1012,7 @@ export const FLAGS = [
       'Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.',
   },
   {
-    id: 'FLG-021',
+    id: 'FLG-022',
     severity: 'Medium',
     status: 'Mitigated in this build',
     title: 'A listing title moved between two reads on the same day',
@@ -1029,7 +1029,7 @@ export const FLAGS = [
     blocks: 'Nothing. It is the reason the dates on the product pages are printed rather than implied.',
   },
   {
-    id: 'FLG-022',
+    id: 'FLG-023',
     severity: 'Low',
     status: 'Needs review',
     title: 'Four trend guides were published before any measured demand existed',
@@ -1045,12 +1045,28 @@ export const FLAGS = [
       'Owner to review the four pages and either keep them or delete them. If they stay, the next four topics should wait for measured queries — the gate is still in force for anything after this cycle, and DQ-Q10 stays open.',
     blocks: 'Nothing. It is disclosed here rather than presented as an evidence-led editorial win.',
   },
-
   {
-    id: 'FLG-023',
+    id: 'FLG-024',
+    severity: 'Low',
+    status: 'Needs review',
+    title: 'The editorial build script cannot run: _build/build-editorial.mjs imports a module that exists in no commit',
+    detail:
+      'While integrating session arena-c17764af on 2026-11-20, `node _build/build-editorial.mjs` failed with ERR_MODULE_NOT_FOUND: it imports `_build/suggestions.mjs`, and that file is present in no commit on any branch (checked `git ls-tree origin/main` and `git log --all`). The generated editorial pages themselves are committed and pass the editorial gate (R11–R15), and CI never runs this script, so the live site is unaffected — but the generator is currently unrunnable, meaning the editorial surfaces cannot be regenerated as-is.',
+    evidence: [
+      'node _build/build-editorial.mjs → Error [ERR_MODULE_NOT_FOUND]: Cannot find module \'/home/user/WinB/_build/suggestions.mjs\' imported from /home/user/WinB/_build/build-editorial.mjs',
+      'git ls-tree origin/main _build/ shows 12 modules; suggestions.mjs is not among them.',
+      'git log --oneline --all -- _build/suggestions.mjs returns nothing — the module was never committed.',
+    ],
+    sources: [],
+    action:
+      'The session that owns _build/build-editorial.mjs should either commit the missing module or repoint the import at the module that replaced it (the decision-queue/editorial data now lives in _build/data.mjs SUGGESTIONS and _build/decision-queue.mjs). Until then, do not edit the editorial surfaces by hand. Nothing on the live site depends on re-running this script.',
+    blocks: 'Regeneration of the editorial surfaces only. Not publication.',
+  },
+  {
+    id: 'FLG-025',
     severity: 'Medium',
     status: 'Fixed in this build',
-    title: 'A retired generator script rewrote sixteen canonical pages when executed',
+    title: 'A retired generator script rewrote sixteen canonical pages when executed (renumbered from a duplicated FLG-023)',
     detail:
       '_build/build-editorial.mjs is an editorial generator from an earlier cycle. It is not referenced by `npm run build`, by `npm run check` or by any CI step, and it imports _build/suggestions.mjs — a module deleted on 2026-11-20 when two sessions were generating /suggestions/ from two modules and the merged generator was kept. Because module linking happens before the script body runs, the missing import had masked what the top of the script already does: it writes pages. Anyone “fixing the import” would silently replace the published front page, both category hubs, all product pages and seven guides with a superseded generation, and the site would still pass nothing, because the drift check compares committed bytes with the generators the build actually uses.',
     evidence: [
@@ -1062,6 +1078,15 @@ export const FLAGS = [
     action:
       'Fixed in this build: the missing import is replaced by a stub that refuses to run, and the script now exits with a stated reason before it touches any file unless COUNTERWISE_REVIVE_EDITORIAL_BUILD=1 is set deliberately. The file is kept, not deleted, because another session’s work is not this desk’s to remove. If a session wants this generation back, the honest route is a rebuild plus the full gate, not a restored import.',
     blocks: 'Nothing. It is a warning to whoever next finds an “obviously broken” script in _build/ and reaches for the fix.',
+    // Numbering note, recorded because this board has now collided on IDs three times (FLG-012,
+    // FLG-020, this one): this item was written as FLG-023 on a branch, and FLG-023 and FLG-024
+    // were taken on main by another session while it was open — FLG-024 describing the same script
+    // from the outside (its import of a module that exists in no commit). It is FLG-025 here, kept
+    // as a separate row rather than merged into theirs: their record says the generator cannot run,
+    // which was true and is now fixed; this one says what it did to the tree when it appeared to run,
+    // which is the part that should not be lost.
+    // Related content duplicate, kept on purpose: FLG-022 here and FLG-023 on main describe the same
+    // finding (trend guides published ahead of measured demand). Both stay; the site publishes both.
   },
 ];
 
@@ -2406,6 +2431,55 @@ export const GUIDES = [
       },
     ],
     related: ['P01', 'P02', 'P03'],
+    sources: ['A2'],
+  },
+  {
+    slug: 'air-fryer-worth-it',
+    path: 'guides/air-fryer-worth-it.html',
+    kicker: 'Worth it?',
+    title: 'Is an air fryer worth it if you already own an oven?',
+    summary:
+      'An air fryer is a compact convection cooker: a heating element, a fan, and a small cavity that moves air hard. Whether it earns counter space depends on four questions about your kitchen — not on anyone’s sales figures.',
+    readingTime: '5 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'What an air fryer actually is',
+        p: [
+          'Strip away the name and an air fryer is a small convection oven with the fan close to the food. The small cavity heats fast, the fan moves air hard, and food with dry surfaces crisps quickly. That is the entire mechanism — and it is the same mechanism inside the convection setting of a full-size oven, delivered from a much smaller box.',
+          'The difference is not magic; it is scale. A small, hot, fast-moving cavity does certain jobs noticeably better than a large oven: loose crispy foods, small batches, reheating without a soggy microwave middle.',
+        ],
+      },
+      {
+        h: 'Four questions that decide it',
+        p: [
+          'One: how often do you cook food you want crispy — fries, wings, breaded cutlets, roasted vegetables? Weekly is a yes; twice a year is a no. Two: is there a square foot of counter it can live on permanently? These machines are heavy, corded, and used most when they are out.',
+          'Three: who washes what? A basket and a crisper plate are two parts; a countertop oven brings racks and a drip tray. Four: how many people are you cooking for at once? Food crisps in a single layer, so the honest capacity of any unit is well below its stated volume.',
+        ],
+      },
+      {
+        h: 'When the oven you own is already enough',
+        p: [
+          'If your convection setting gets a workout and your counter is full, the answer is no — and that is a good outcome of this question. An appliance that stays in the cupboard does not crisp anything.',
+          'The other honest no: if what you actually want is a second oven for big meals, do not buy a basket air fryer pretending to be one. That is the 26 qt French-door format’s job, not a drawer unit’s.',
+        ],
+      },
+      {
+        h: 'If you buy one, buy the shape that matches your food',
+        p: [
+          'Two-part meals — protein plus a side, at different times or temperatures — are the dual-basket format’s whole reason to exist (the Chefman 6 qt). Big single batches of one thing belong to the large single basket (the Chefman 8 qt TurboFry). Flat things on racks, and anything you would toast or roast, belong to the oven format (the Emeril Lagasse 26 qt).',
+          'The shape decision is the one that decides whether you are still using it in March. The full write-ups are on the pick pages, and the comparison table lays the three formats side by side.',
+        ],
+      },
+      {
+        h: 'One measurement to take before ordering',
+        p: [
+          'Measure the space before the machine: the height under your upper cabinets, the depth from the wall to the counter’s front edge, and the width of your sink. The first two decide what you can own; the third decides what you can wash.',
+          'It is the least glamorous paragraph in this guide and the one that prevents the most returns.',
+        ],
+      },
+    ],
+    related: ['P01', 'P03', 'P02'],
     sources: ['A2'],
   },
 ];
