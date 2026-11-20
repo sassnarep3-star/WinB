@@ -1969,6 +1969,20 @@ FLG-001/002/003, FLG-007, FLG-012 etc. remain open and published at `/flagged/`;
 
 **Status:** S17 done. Integration (PR → merge → Pages confirm) follows in this session.
 
+### CI-green restore #2 — final result (session `69bfe2b0`, 2026-11-20)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#64** — https://github.com/sassnarep3-star/WinB/pull/64 (sibling registrations + post-merge generator output for `decisions/inputs.html`, `design-brief/index.html`, `guides/gifts-for-the-cook.html`, `guides/hosting-season.html`) |
+| Merge | **Merged** to `main` with `--merge`, merge commit `bdc3bc0` |
+| Collision handled | PR #54 (91306b24) had added `/design-brief/` to the same list; resolved as a **union** — both sessions' entries kept, both boards kept |
+| `main` CI | Run **44691709883** (head `02f3c3c`, containing every fix from this session): `Build and verify` **success** and `Deploy` **success** — drift check · R1–R11 · R11–R15 · register gate · link check · `/WinB/` smoke |
+| Pages | `pages/builds/latest` → **built** at `02f3c3c`; API status `built` — https://sassnarep3-star.github.io/WinB/ |
+| Earlier deploy of the same tree | The dynamic build for `bdc3bc0` itself (run 44691579056) had already succeeded before later sessions merged on top |
+| Net content change | None — gate bookkeeping and generated-byte sync only |
+
+**Session `69bfe2b0` S17/S18: done.** Three PRs merged (#57 verification + drift fix #1,
+#59 board record, #64 CI-green restore #2), `main` green end-to-end, Pages live.
 
 ## 9c. Third merge addendum — session `arena-b36a7b54` (2026-11-20, PR #45 round)
 
