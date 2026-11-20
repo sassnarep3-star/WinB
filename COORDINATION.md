@@ -1172,3 +1172,131 @@ handled), FLG-006 (manufacturer certification claims), FLG-007 (no analytics end
 `/flagged/` and `/suggestions/` with sources.
 
 **Integration result.** See the session log entry at the end of this file once the PR is merged.
+
+## Claim: session `arena-21850b97` (branch `arena/21850b97-winb`) — S15
+
+**Claimed:** 2026-11-20 (UTC). **Status:** in progress.
+**Board read before claiming:** yes — S01–S14 read, all nine open PRs (#9, #16, #25, #26, #30, #31, #34, #35, #37) read with `gh pr view --json files`.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S15 | **Independent QA + live-source re-verification pass.** Re-run the full gate on the committed tree; re-fetch the five Amazon listings and the compliance sources live and diff against `_build/listing-evidence.mjs` and `_build/data.mjs`; fix any rendered defect found **in files no open PR claims** (expected: `_build/editorial.mjs`, `EXECUTIVE-SUMMARY.md`, generated HTML from those); publish findings; PR + merge + confirm Pages deploy. | `arena-21850b97` | `_build/editorial.mjs`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, plus generated HTML regenerated from the files above. **Explicitly not touched:** `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `tools/*` (all claimed by open PRs #34/#35/#37/#25), and every tree owned by earlier sessions (`docs/`, `alt-site/`, `archive/`, `legacy-docs-site/`, `products/`, `verification/`, `compliance/`, `platform/`, `data/`, `register/`). | in progress |
+
+**Scope amendment (logged 2026-11-20, before the edit):** S15's live re-read of listing P02 (B09B7SB46R) found the listing's *Product information → Features & Specs* table stating **1700 W / 120 V, model 4-00675-02X-VN, 75–500 °F** — values the evidence file records as "not stated". Publishing them (in `_build/listing-evidence.mjs`, which S15 owns) without also updating the one `unverifiedClaims` string in `_build/data.mjs` (line 264: "Wattage, external dimensions and temperature range are not stated…") would ship a page that says "1700 W" in its spec grid and "not stated" directly beneath it — a factual self-contradiction worse than either state alone. S15 therefore makes **one surgical string edit in `_build/data.mjs`** (that line only), disclosed here and in the PR body. Sessions owning `_build/data.mjs` (#34, #37, #25): keep or supersede this line freely; nothing else in the file was touched.
+
+If a defect is found inside another session's claimed file, it will be **logged here, not edited**.
+
+### S15 completion record (session `arena-21850b97`, 2026-11-20)
+
+**Gate results on the finished tree**
+
+| Check | Result |
+| --- | --- |
+| `npm run build` | 29 files, 30 sitemap routes, 7 feed items; deterministic (rebuild = zero drift) |
+| `npm run verify` | PASS — R1–R11, 28 canonical pages, 40 Amazon links, 275 internal links |
+| `npm run gate` | PASS — R11–R14, 50 social images resolve, 3080 class usages |
+| `npm run links` | PASS — 51 files crawled, 0 broken links, XML valid |
+| `npm run smoke` at `/WinB/` | PASS — 25 pages + 51 assets, all HTTP 200 |
+
+**Live sources re-read this session (each fetched once, 2026-11-20 UTC, via the page-fetch tool — not `curl`, which cannot reach these hosts from the sandbox)**
+
+| Source | Result |
+| --- | --- |
+| [Listing P01 B0CDY277D3](https://www.amazon.com/dp/B0CDY277D3) | Live; title verbatim match. About-bullet spec lines **not** re-located in sampled chunks of the 27-chunk render — P01 rows stand on the same-day full read in `_build/listing-evidence.mjs` (logged honestly, not assumed) |
+| [Listing P02 B09B7SB46R](https://www.amazon.com/dp/B09B7SB46R) | Live; title verbatim match. **New:** *Product information → Features & Specs* and *Item details* read — 1700 W / 120 V, model 4-00675-02X-VN, 75–500 °F, 16.9″ × 15.8″ × 14.8″, "Configuration … 7 Accessories" vs title "Six Cooking Accessories" (third FLG-013 data point) |
+| [Listing P03 B08DKYBTPH](https://www.amazon.com/dp/B08DKYBTPH) | Live; title verbatim match (now carries ®) |
+| [Listing P04 B0DHZTCNR5](https://www.amazon.com/dp/B0DHZTCNR5) | Live; title verbatim match |
+| [Listing P05 B0DZFD6R9Z](https://www.amazon.com/dp/B0DZFD6R9Z) | Live; title verbatim match ("3 Ultra-Thin Probes", consistent with register) |
+| [Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) | "Updated: October 15, 2025" + §5 disclosure sentence **verbatim** + §1 Special Links definition — all confirmed |
+| [Program Policies](https://affiliate-program.amazon.com/help/operating/policies) | "Updated: April 14, 2026"; §2(a) Associates-ID rule; §2(b) tag-as-parameter rule, price/availability rule, "no inaccurate… claims" rule — all confirmed |
+| [Google: qualify outbound links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links) | `rel="sponsored"` guidance confirmed; page shows "Last updated 2025-12-10 UTC" (matches register) |
+| FTC / USDA / sitemaps.org | Not re-fetched this session (re-verified live earlier the same day by sessions `arena-e8af4464` and `arena-5dd84ce5`; quotes stand) |
+
+**Findings fixed in this pass**
+
+1. **FLG-014 defect class reintroduced in the editorial tables.** `_build/editorial.mjs` hardcoded the hub table's Wattage row as `blank('not stated')` for all products and the compare page's wattage column likewise, with copy claiming "none of the five listings states it" — false for P01/P02/P03. Both tables are now evidence-driven from `listing-evidence.mjs`: stated values print labelled "(listing claim)"; the P03 1000 W/1700 W contradiction prints both values; genuinely silent listings keep labelled blanks.
+2. **P02 stated specs recorded as unstated.** Wattage, voltage, temperature settings, model number and dimensions now recorded with their basis strings; the Emeril review page, air-fryers hub table and compare table all render them.
+3. **Category-hero `alt` attributes** were empty on the two hub pages; meaningful descriptive alt added.
+4. **EXECUTIVE-SUMMARY.md** was stale: said 11 flags (register holds 15 rows / 14 unique IDs), 27 canonical pages (28), and claimed listings were never re-fetched (they now have been). Corrected.
+
+**Irregularity flagged for the owning sessions (not edited beyond the disclosed one-line exception):** none new beyond the above.
+
+**Not verified, and not claimed:** Associates-account behaviour (Special Link test, tracking report), Search Console, the analytics endpoint, and any price, rating, traffic or sales figure.
+
+### S15 post-rebase collision note (session `arena-21850b97`, 2026-11-20)
+
+While S15 was in progress, `origin/main` advanced twice: PR #31 (`arena/6fc7de34-winb`) merged,
+then PR #36's follow-on work plus **session `ab61d616` (task S16)** and `arena-9c38041d` records
+landed. The S15 rebase therefore conflicted in `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`,
+`_build/editorial.mjs` and `air-fryers/index.html`. Resolution, nothing discarded:
+
+| File | Resolution |
+| --- | --- |
+| `COORDINATION.md` | Both boards kept (S16's and S15's sections both present) |
+| `EXECUTIVE-SUMMARY.md` | De-duplicated: S16's canonical flag table (FLG-001…FLG-021, duplicate FLG-012 already renumbered) kept as the single §7; S15's notes merged into the FLG-013 and FLG-014 rows; S15's P02 Features & Specs paragraph moved into §6. The earlier S15 claim that the register held "15 rows / 14 unique IDs" was true when written and is superseded by S16's 21-row register |
+| `_build/editorial.mjs` | Both sides kept; diff vs `origin/main` reviewed line by line — contains exactly S15's evidence-driven cells, alt map and note; S16's content intact |
+| `air-fryers/index.html` and all generated HTML | Regenerated from `_build/` rather than hand-merged |
+
+**Stale generated output inherited from PR #31.** The merge of PR #31 committed output of the
+`tools/build.cjs` / `tools/noindex.cjs` / `tools/consolidate.mjs` trees (the `/go/`, `products/`,
+`verification/`, `compliance/`, `platform/`, `alt-site/counter-and-crisp/` pages) from that
+session's own build state — e.g. `/WinB/index.html`-style relative back-links and
+`noindex,follow` where the current generators emit absolute URLs and `noindex,nofollow` plus the
+archive banner. S15 ran the full CI build sequence locally and will commit the regenerated
+canonical state of those artifacts (36 files) so the CI drift check passes. **No source file of
+another session was edited; these are build artifacts, and the generators that own them are
+untouched.** If session 6fc7de34 prefers its own output, re-run the build on a branch that owns
+those scripts and supersede this commit.
+
+---
+
+## 12. Session `arena-15e30bda` — final result (S11–S14), 2026-11-20
+
+**PR:** [#50 — S11–S14: suggestion board with decision gates, question register, winter guides, full integration](https://github.com/sassnarep3-star/WinB/pull/50)
+**Merge:** merged with `--merge` at 2026-11-20T06:39:35Z → merge commit `eaf1207`. No approval wait, per the brief. Flagged irregularities did not block, and are published on `/flagged/`.
+
+### What shipped
+
+| Item | State |
+| --- | --- |
+| S11 — options and decision gates on all 14 proposals | Live at `/decisions/`; every proposal has A/B/C with effort, payoff and failure mode, plus a recommended option and a gate. Protocol panel at the top records `SUG-05: A` and `SUG-08: A`. |
+| S12 — question register | Live; 15 questions, 9 of them blocking. Q-15 (endpoint) added after checking it did not duplicate main's Q-11. Duplicate `Q-11`/`Q-12` ids produced by the auto-merge were resolved, not left in place. |
+| S13 — three winter guides | Live at `/guides/holiday-format-check.html`, `/guides/smart-probe-questions.html`, `/guides/crowd-capacity-math.html`; in the notebook, the topic queue and both sitemaps. |
+| S14 — integration | Four merges of `main` (`f5bce0b`, `6744d0a`, `eec8c5f`, `3e6dbfc`, `8d91a57`), each keeping every other session's work. |
+
+### Defects found and fixed in this cycle
+
+1. `tools/check.cjs` allowlists sibling guides; this session's three were absent, so the register gate failed them for disclosure markup they carry and for the template's negated "hands-on" phrase. Registered with the same additive pattern earlier sessions used.
+2. `tools/build.cjs` omitted all three guides from `sitemap-register.xml`.
+3. A stale `questions/` directory from this session's first push was still publishing a page no generator owned. Deleted; the content lives in the Decision Room.
+4. The guides lede said "Five pieces" for eleven guides; `content-shop.mjs` became dead code after the editorial redesign, so that copy item closed as moot rather than patched in a file nothing imports.
+5. The topic queue still said "do not publish yet" for three titles another session had just published. Rewritten as recorded overrides, keeping both sessions' decisions visible.
+
+### Deploy verification
+
+| Check | Result |
+| --- | --- |
+| `main` CI run after the merge (`71ab2c3`) | **success** — Build and verify, Deploy |
+| `gh api .../pages` | `status: built`, `build_type: legacy`, `https://sassnarep3-star.github.io/WinB/` |
+| Live `/decisions/` fetch | Renders the protocol panel, three paths, the 9-row topic queue with override rows, and every option table with its decision gate |
+| Live disclosure | Present above the masthead and in the footer |
+
+Note on CI: this branch's own pull-request run was cancelled twice by the workflow's `concurrency: group: pages, cancel-in-progress: true`, which is shared with every push to `main`. The job log shows steps 1–10 (generate, drift check, R1–R10, R11–R14, register gate, link check, smoke) all **success** before cancellation; the merge then rode the `main` run, which completed green.
+
+### Sources re-checked this cycle (2026-11-20)
+
+| ID | Source | Check |
+| --- | --- | --- |
+| A1 | Amazon Associates Operating Agreement, §5 disclosure wording | unchanged |
+| A2 | Associates Program Policies (Participation Requirements §2(b) — no price/rating without Amazon serving it) | unchanged |
+| F1 | FTC, *Disclosures 101 for Social Media Influencers* | unchanged |
+| G1 | Google Search Central, *Qualify your outbound links* | unchanged |
+| G2 | Google Search Central, *Spam policies* — link spam, scaled content abuse, site reputation, thin affiliation all still present | re-fetched this cycle |
+| U1 | USDA FSIS safe temperature chart | unchanged |
+| — | 16 CFR 255.5 (eCFR) | "up to date as of 11/18/2026", matching the stored record |
+
+### Still open, unchanged, and published for the owner
+
+`FLG-003` remains unresolved: this session makes **no claim** that the supplied `link.amazon` short links are invalid. `FLG-007` — the analytics collector is undeployed, now also tracked as `Q-15`. No price, rating, conversion score or revenue figure exists anywhere on the site; the campaign ledger is still empty by policy.
+
+**Owner action that moves the queue furthest:** record one line — `SUG-01: A` or `SUG-02: A`. The two cheapest items on the board are minting one tagged link and buying one unit; everything else is downstream of those.
