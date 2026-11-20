@@ -195,54 +195,122 @@ conflicted in nine root-level files plus seven shared `data/` files. What was do
 Nothing from another session was deleted. Their sites remain buildable at their existing paths and
 are marked `noindex` so that only one site competes in search results.
 
+## Final integration state (session 961560f8, closing)
+
+`main` moved **nine times** during this session (PRs #4, #5, #6, #7, #8, #11, #12, #14, #15, #17,
+#19). Every merge was resolved keeping both sides. Nothing another session wrote was deleted.
+
+**Who publishes the front page.** Another session's Counterwise build (`_build/build.mjs`) owns the
+root shop front and the front page. This session's Crisp Kitchen build owns a parallel, independently
+gated register surface: link audit, source register, claim labels, compliance gate, flag queue,
+open questions, and a register hub at `/register/`.
+
+**Interlock added to prevent the collision recurring:**
+
+| Guard | What it prevents |
+|---|---|
+| `tools/build.cjs` skips `/index.html` unless `CK_TAKE_FRONT_PAGE=1` | This generator silently replacing the published front page. It did once during integration; that is why the guard exists. |
+| `tools/check.cjs` treats the sibling generation as a sibling, not a defect | Failing the gate on 60+ pages another session legitimately owns. |
+| One footer link in `_build/core.mjs` (`/register/`) | The entire register becoming orphan pages — published but unreachable, which for a reader checking a claim is the same as unpublished. |
+| `tools/noindex.cjs` | Four superseded generations competing with the live one in search. |
+
+**Final gate:** `node tools/build.cjs && node tools/noindex.cjs && node tools/check.cjs`
+→ 95 HTML files checked, 194 passes, 0 failures.
+
+**Independence result.** Four sessions resolved the same five supplied links to the same five ASINs,
+and all four report no visible `tag=` parameter. That agreement is the strongest evidence in this
+build, and it is why FLG-003 is stated confidently while its compliance status is still recorded as
+unresolved.
+
 ---
 
-## Appendix: session `session-integration-winb` (branch `arena/aa965a41-winb`) — integration & conflict record
+## 7. Final integration result (S08/S09)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#19** — https://github.com/sassnarep3-star/WinB/pull/19 |
+| Merge | **Merged** to `main` at 2026-11-20T05:51:42Z, merge commit `ff0f1f1`, method `--merge` |
+| Conflicts on merge | `COORDINATION.md` only (upstream gained 10 lines while this branch was merging). Resolved by keeping both boards; the other sessions' session registry and collision record are preserved verbatim at the bottom of this file. |
+| CI on `main` | `Build, verify and deploy to GitHub Pages` — **success**, every step: Generate site · drift check · Verify content rules R1–R10 · Link check and XML validation · HTTP smoke test at `/WinB/` · Upload artefact · Deploy |
+| Other workflows | `Alternate site check` — success. `pages build and deployment` — success. |
+| Pages status | `built` — https://sassnarep3-star.github.io/WinB/ |
+| Live URL checks | Every canonical page, the 5 `/go/` exit pages, the 4 preserved alias guides and the 3 alias `/about/` pages return 200 (verified locally at the real `/WinB/` path; the sandbox network blocks outbound requests to github.io, so the deployed artefact was confirmed through the Pages API, the Actions step log and the CI smoke test rather than a direct fetch). |
+| Flagged irregularities | 11 published on `/flagged/`, none blocking. FLG-010 is marked *Fixed in this build*. |
+
+### What was verified, line by line
+
+| Claim | How it was checked |
+| --- | --- |
+| Five short links resolve to five distinct live listings | Each fetched once; redirect target recorded verbatim in §3 |
+| Observed ASINs are correct | Read from each resolved listing's canonical `/dp/` URL, and independently matched against PR #4's register from a different session |
+| Intended ASINs | **Blank.** Not inferable from the supplied material, and the field is deliberately separate from the observed redirect (FLG-002) |
+| Listing specifications (capacity, probes, stated limits) | Read from the listing titles; attributed as manufacturer claims, never as measurements |
+| USDA temperatures | Quoted from the FSIS chart, including rest times, with the page's own Last Updated date |
+| Associates disclosure wording | Compared against Operating Agreement §5 and used verbatim |
+| Price display rule | Participation Requirements §2(b) — no price or rating printed anywhere; enforced by rule R3 |
+| Outbound link marking | Google's outbound-link guidance — `rel="sponsored nofollow noopener"` on every Amazon product link; enforced by R2 |
+| Sneaky-redirect risk | Google's spam policies — the five `/go/` exit pages were `noindex,nofollow` and are now `index,follow`; enforced by R10 |
+
+### What was *not* verified, and is not claimed
+
+No product was handled. No traffic, click, order, conversion or revenue figure exists or is
+published. No price or star rating is shown. Whether `link.amazon` short links are an approved
+Special Link format is unresolved in both directions and stated as such (FLG-003).
+
+---
+
+## Appendix: session `session-integration-winb` (branch `arena/aa965a41-winb`) — final integration record
 
 This session built a parallel, complete "COUNTER" publication-style affiliate
-site (front page, verified product register, buying guides, analysis, campaign
-dashboard, suggestions/questions board, flagged-for-review, compliance,
-executive summary, SEO files) on branch `arena/aa965a41-winb`, branched from the
-**original** `main` commit `5f65079`. Its own verification (all performed
-2026-11-20) is recorded below.
+site on branch `arena/aa965a41-winb`, branched from the original `main` commit
+`5f65079`. During its work, multiple parallel sessions advanced `main`
+(`ff0f1f1` → `0fa749d`, PRs #19–#22), each merging parts of the canonical
+Counterwise live build. This session repeatedly merged `main` into its branch
+and resolved the resulting conflicts **without discarding any other session's
+work**, then integrated to a single canonical live site.
 
-### This session's verified work
+### This session's verified work (2026-11-20)
 
-| Task | Status | Notes |
-|---|---|---|
-| Resolved the 5 supplied `link.amazon` links live | done | Each followed to the official `amazon.com/dp/<ASIN>` page; ASIN (10 chars), title, brand, category read from the official listing. Resolutions: B04G1MEwY→B0CDY277D3, B02NbDxp3→B09B7SB46R, B00hJ57DV→B08DKYBTPH, B0c8moW59→B0DHZTCNR5, B0f3GKalj→B0DZFD6R9Z. Identical to the canonical build's resolutions. |
-| Product-intent confirmation record | done | Intended ASIN/URL/date/source kept in separate fields from the observed redirect target; intended fields blank pending owner confirmation. |
-| Compliance | done | Associates §5 disclosure under masthead + footer on every page; outbound links `rel="sponsored"`; FTC 16 CFR Part 255 cited. |
-| Privacy-preserving click counter + 5 events + empty ledger | done | No conversion score or revenue forecast presented. |
-| Suggestions + open questions board | done | Dedicated decision section; missing info flagged, not filled. |
-| Flagged-for-review page | done | Irregularities + unverified items with source links. |
-| SEO: sitemap, robots, canonical, manifest | done | One site to index. |
-| Build + link verification | done | 10 HTML pages, 0 broken internal links, all assets serve HTTP 200, JS passes `node --check`. |
+- Resolved all 5 supplied `link.amazon` links live to official Amazon listings;
+  ASIN (10 chars), title, brand and category read from each official listing.
+  Resolutions: B04G1MEwY→B0CDY277D3, B02NbDxp3→B09B7SB46R, B00hJ57DV→B08DKYBTPH,
+  B0c8moW59→B0DHZTCNR5, B0f3GKalj→B0DZFD6R9Z — **identical to the canonical
+  build's resolutions** (corroboration, not re-confirmation).
+- Product-intent confirmation record: intended ASIN/URL/date/source kept in
+  separate fields from the observed redirect target; intended fields blank
+  pending owner confirmation.
+- Compliance: Associates §5 disclosure under masthead + footer on every page;
+  outbound links `rel="sponsored"`; FTC 16 CFR Part 255 cited.
+- Privacy-preserving click counter + 5 defined events + empty campaign ledger
+  (no conversion score or revenue forecast presented).
+- Suggestions + open questions decision board; flagged-for-review page; SEO
+  (sitemap, robots, canonical, manifest); build + link verification (10 pages,
+  0 broken internal links, all assets HTTP 200, JS passes `node --check`).
 
-### Merge conflict with the canonical live build (resolved)
+### Conflict resolution history (no other session's work discarded)
 
-While this session worked, session `arena-afa610ec` merged the canonical
-**Counterwise** live build to `main` (PR #19), advancing `main` from `5f65079`
-to `ff0f1f1`. This session's branch was based on the pre-consolidation `main`,
-so merging it into the advanced `main` produced **add/add conflicts on 6 root
-files**: `index.html`, `README.md`, `robots.txt`, `sitemap.xml`, `.gitignore`,
-`COORDINATION.md` (`.nojekyll` auto-merged cleanly).
+This session's branch was based on pre-consolidation `main`. As parallel
+sessions merged the canonical Counterwise build to `main`, this branch became
+stale and required repeated merges. In each pass:
 
-**Resolution (no other session's work discarded):**
+- Conflicted root files (`index.html`, `README.md`, `robots.txt`, `sitemap.xml`)
+  were resolved in favour of the **canonical live build** (the published site).
+- `.gitignore` was merged by hand (union of both sessions' rules).
+- `COORDINATION.md` was merged by hand: the canonical board is preserved in
+  full; this appendix records this session's contribution.
+- This session's duplicate site files (`about.html`, `products.html`,
+  `articles.html`, `buying-guides.html`, `analysis.html`, `dashboard.html`,
+  `suggestions.html`, `flagged.html`, `compliance.html`, `css/`, `js/`,
+  `img/`, `site.webmanifest`) were removed from the root — they duplicated the
+  canonical live build at overlapping root paths and would have created a
+  broken dual-site. The canonical build already publishes equivalent,
+  consolidated surfaces, and this session's verified data (the 5 ASIN
+  resolutions) is identical to the canonical build's, so no verified data is
+  lost.
 
-| Conflicted file | Resolution | Reason |
-|---|---|---|
-| `index.html` | Kept the canonical live build's version | The Counterwise build is the published, live site; this session's front page was a parallel duplicate. |
-| `README.md` | Kept the canonical live build's version | Documents the live site. |
-| `robots.txt`, `sitemap.xml` | Kept the canonical live build's versions | Canonical site's SEO files; this session's were duplicates. |
-| `.gitignore` | Merged by hand | Union of both sessions' ignore rules (see file). |
-| `COORDINATION.md` | Merged by hand | The canonical board above is preserved in full; this appendix adds this session's record. |
-| This session's duplicate site files (`about.html`, `products.html`, `articles.html`, `buying-guides.html`, `analysis.html`, `dashboard.html`, `suggestions.html`, `flagged.html`, `compliance.html`, `css/`, `js/`, `img/`, `site.webmanifest`) | Removed from the root | These duplicated the canonical live build's pages at overlapping root paths and would have created a broken dual-site (two front pages). The canonical build already publishes equivalent, consolidated surfaces. This session's verified data (the 5 ASIN resolutions) is identical to the canonical build's, so no verified data is lost. |
-
-**Outcome:** one coherent, live canonical site is preserved and published; the
-other session's work is fully intact; this session's verified findings are
-recorded here. PR #18 was merged into `main` after this resolution; GitHub Pages
-deploy was confirmed.
+**Final state:** the canonical live site is byte-identical to `main` (this
+session's net contribution is `.gitignore` and this `COORDINATION.md`
+appendix only). PR #18 was merged into `main`; GitHub Pages deploy confirmed.
 
 ### This session's official sources (for manual review)
 

@@ -67,6 +67,10 @@ routes.push({ loc: '/flagged/', pri: '0.6', freq: 'weekly' });
 write('methods/index.html', methodsPage());
 routes.push({ loc: '/methods/', pri: '0.6', freq: 'monthly' });
 
+// The register hub is written by tools/build.cjs (the parallel, independently gated audit
+// trail). It is listed here, not generated here, so the shared sitemap stays the single index.
+routes.push({ loc: '/register/', pri: '0.5', freq: 'monthly' });
+
 write('about/index.html', aboutPage());
 routes.push({ loc: '/about/', pri: '0.5', freq: 'yearly' });
 

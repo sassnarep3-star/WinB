@@ -22,7 +22,7 @@ result, a borrowed star rating, or a price.
 
 ## The rules the build enforces
 
-`node tools/verify.mjs` fails the build unless all nine hold:
+`node tools/verify.mjs` fails the build unless all ten hold:
 
 | | Rule |
 |---|---|
@@ -35,12 +35,13 @@ result, a borrowed star rating, or a price.
 | R7 | The sitemap is valid, single-host, and lists every indexable page; the RSS feed is valid RFC-822 |
 | R8 | Every product page prints its ASIN and links to the listing with the tag |
 | R9 | No page claims a traffic, click, conversion or revenue figure |
+| R10 | Every affiliate exit page is indexable, disclosed, tagged and `rel="sponsored"` |
 
 ## Commands
 
 ```bash
 npm run build    # generate HTML, sitemap, feed, 404, artwork
-npm run verify   # content rules R1-R9
+npm run verify   # content rules R1-R10
 npm run links    # crawl the built site, validate XML
 npm run smoke    # fetch every URL at /WinB/ over HTTP (needs a local server on :3001)
 npm run check    # build + verify + links

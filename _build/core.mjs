@@ -132,6 +132,7 @@ export function footer() {
           <li><a href="/decisions/">Decision Room</a></li>
           <li><a href="/data-room/">Data Room</a></li>
           <li><a href="/flagged/">Flagged for Review</a></li>
+          <li><a href="/register/">Source register &amp; link audit</a></li>
           <li><a href="/methods/">How we choose</a></li>
           <li><a href="/executive-summary/">Executive summary</a></li>
           <li><a href="/about/">About &amp; contact</a></li>

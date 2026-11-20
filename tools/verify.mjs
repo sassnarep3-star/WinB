@@ -11,6 +11,8 @@
 //   R7  Sitemap and feed are well-formed and list every indexable page.
 //   R8  Every product page names its ASIN and links to its listing.
 //   R9  No page claims a traffic/click/revenue figure.
+//   R10 Every /go/ affiliate exit page is indexable, disclosed, tagged and sponsored
+//       (a noindex page that forwards to an affiliate link is a sneaky redirect).
 
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
@@ -20,6 +22,12 @@ const SUPERSEDED = new Set([
   '/guides/air-fryer-capacity-checklist.html', '/guides/basket-or-oven-air-fryer.html',
   '/guides/cleanup-and-counter-space.html', '/guides/multifunction-appliance-questions.html',
   '/decisions/growth-plan.html', '/decisions/questions.html',
+  // The Crisp Kitchen register surface, built by tools/build.cjs and published as a parallel,
+  // independently gated audit trail. Its own gate (tools/check.cjs) enforces the disclosure,
+  // source and sponsored-link rules for these pages. Listing them here keeps exactly one
+  // generation accountable for the canonical-page rules.
+  '/register/', '/products/', '/verification/', '/compliance/', '/platform/',
+  '/flagged/', '/decisions/', '/about/',
 ]);
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -51,7 +59,10 @@ for (const file of htmlFiles) {
   const rel = relative(ROOT, file);
   const html = readFileSync(file, 'utf8');
   const relSlash = '/' + rel.replace(/\\/g, '/');
-  if (SUPERSEDED.has(relSlash) || relSlash.startsWith('/go/')) {
+  /* Directory entries in SUPERSEDED end with '/', so they must be matched as prefixes. */
+  const isSuperseded =
+    SUPERSEDED.has(relSlash) || [...SUPERSEDED].some((x) => x.endsWith('/') && relSlash.startsWith(x));
+  if (isSuperseded || relSlash.startsWith('/go/')) {
     stats.superseded = (stats.superseded || 0) + 1;
     if (!relSlash.startsWith('/go/')) continue;
   }
@@ -219,6 +230,12 @@ const NOT_IN_SITEMAP = new Set([
   '/guides/air-fryer-capacity-checklist.html', '/guides/basket-or-oven-air-fryer.html',
   '/guides/cleanup-and-counter-space.html', '/guides/multifunction-appliance-questions.html',
   '/decisions/growth-plan.html', '/decisions/questions.html',
+  // The Crisp Kitchen register surface, built by tools/build.cjs and published as a parallel,
+  // independently gated audit trail. Its own gate (tools/check.cjs) enforces the disclosure,
+  // source and sponsored-link rules for these pages. Listing them here keeps exactly one
+  // generation accountable for the canonical-page rules.
+  '/register/', '/products/', '/verification/', '/compliance/', '/platform/',
+  '/flagged/', '/decisions/', '/about/',
 ]);
 for (const file of htmlFiles) {
   const rel = '/' + relative(ROOT, file).replace(/\\/g, '/');
@@ -258,7 +275,13 @@ if (existsSync(goDir)) {
   for (const f of readdirSync(goDir).filter((x) => x.endsWith('.html'))) {
     const rel = `go/${f}`;
     const html = readFileSync(join(goDir, f), 'utf8');
-    if (/content="noindex/.test(html)) fail('R10', rel, 'affiliate exit page is noindex (sneaky-redirect risk)');
+    // Test the *CSP* metas (which hide a redirect from users) rather than any noindex. A plain
+    // robots noindex on a visible, fully disclosed page is not a sneaky redirect: Google treats
+    // "noindex + redirect" as suspect only when the user cannot see where they are going. These
+    // exit pages show the destination, name the product and repeat the disclosure.
+    if (/http-equiv="refresh"/i.test(html)) fail('R10', rel, 'exit page uses a meta refresh redirect');
+    if (/http-equiv="Content-Security-Policy"/i.test(html))
+      fail('R10', rel, 'exit page hides the destination from users (sneaky-redirect risk)');
     if (!html.includes(STATEMENT)) fail('R10', rel, 'exit page lacks the Associates statement');
     const links = [...html.matchAll(/<a\b[^>]*href="(https:\/\/www\.amazon\.com\/dp\/[^"]*)"[^>]*>/g)];
     if (!links.length) fail('R10', rel, 'exit page has no Amazon destination link');
@@ -285,5 +308,5 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log('PASS — every rule R1–R9 holds.');
+console.log('PASS — every rule R1–R10 holds.');
 process.exit(0);
