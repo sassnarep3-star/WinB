@@ -227,9 +227,9 @@ else {
 
 /* ---- data integrity ----------------------------------------------------- */
 
-const sources = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/sources.json'), 'utf8')).sources;
-const products = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/products.json'), 'utf8')).products;
-const links = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/link-audit.json'), 'utf8')).records;
+const sources = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/shop/sources.json'), 'utf8')).sources;
+const products = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/shop/products.json'), 'utf8')).products;
+const links = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/shop/link-audit.json'), 'utf8')).records;
 
 for (const p of products) {
   if (!p.asin || !/^B0[0-9A-Z]{8}$/.test(p.asin)) fail.push(`product ${p.id}: ASIN does not match the 10-character B0 pattern -> ${p.asin}`);
@@ -252,7 +252,7 @@ for (const s of sources) {
 }
 
 /* tracking id must not be presented as a verified fact */
-const site = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/site.json'), 'utf8'));
+const site = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/shop/site.json'), 'utf8'));
 if (site.trackingId.verified !== false) fail.push('site.json: trackingId.verified must be false until the account is confirmed');
 
 /* ---- report ------------------------------------------------------------- */

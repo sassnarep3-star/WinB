@@ -19,14 +19,14 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 
-const SITE = read('data/site.json');
-const SOURCES = read('data/sources.json').sources;
-const PRODUCTS = read('data/products.json');
-const LINKS = read('data/link-audit.json');
-const FLAGS = read('data/flags.json').flags;
-const QUESTIONS = read('data/questions.json');
-const SUGGESTIONS = read('data/suggestions.json');
-const LOG = read('data/research-log.json');
+const SITE = read('data/shop/site.json');
+const SOURCES = read('data/shop/sources.json').sources;
+const PRODUCTS = read('data/shop/products.json');
+const LINKS = read('data/shop/link-audit.json');
+const FLAGS = read('data/shop/flags.json').flags;
+const QUESTIONS = read('data/shop/questions.json');
+const SUGGESTIONS = read('data/shop/suggestions.json');
+const LOG = read('data/shop/research-log.json');
 
 const BASE = SITE.brand.baseUrl;
 const SOURCE_BY_ID = new Map(SOURCES.map((s) => [s.id, s]));
