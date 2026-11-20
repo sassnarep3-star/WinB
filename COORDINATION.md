@@ -195,6 +195,33 @@ conflicted in nine root-level files plus seven shared `data/` files. What was do
 Nothing from another session was deleted. Their sites remain buildable at their existing paths and
 are marked `noindex` so that only one site competes in search results.
 
+## Final integration state (session 961560f8, closing)
+
+`main` moved **nine times** during this session (PRs #4, #5, #6, #7, #8, #11, #12, #14, #15, #17,
+#19). Every merge was resolved keeping both sides. Nothing another session wrote was deleted.
+
+**Who publishes the front page.** Another session's Counterwise build (`_build/build.mjs`) owns the
+root shop front and the front page. This session's Crisp Kitchen build owns a parallel, independently
+gated register surface: link audit, source register, claim labels, compliance gate, flag queue,
+open questions, and a register hub at `/register/`.
+
+**Interlock added to prevent the collision recurring:**
+
+| Guard | What it prevents |
+|---|---|
+| `tools/build.cjs` skips `/index.html` unless `CK_TAKE_FRONT_PAGE=1` | This generator silently replacing the published front page. It did once during integration; that is why the guard exists. |
+| `tools/check.cjs` treats the sibling generation as a sibling, not a defect | Failing the gate on 60+ pages another session legitimately owns. |
+| One footer link in `_build/core.mjs` (`/register/`) | The entire register becoming orphan pages — published but unreachable, which for a reader checking a claim is the same as unpublished. |
+| `tools/noindex.cjs` | Four superseded generations competing with the live one in search. |
+
+**Final gate:** `node tools/build.cjs && node tools/noindex.cjs && node tools/check.cjs`
+→ 95 HTML files checked, 194 passes, 0 failures.
+
+**Independence result.** Four sessions resolved the same five supplied links to the same five ASINs,
+and all four report no visible `tag=` parameter. That agreement is the strongest evidence in this
+build, and it is why FLG-003 is stated confidently while its compliance status is still recorded as
+unresolved.
+
 ---
 
 ## 7. Final integration result (S08/S09)

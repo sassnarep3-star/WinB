@@ -596,7 +596,7 @@ const GUIDE_BODIES = {
 
 <h2>3. What does "two zones" actually buy you?</h2>
 <p>Dual-basket units let a protein and a side run on different temperatures and finish together. That is a real capability, and it is the one thing a single large drawer cannot do.</p>
-<p>The trade-off is arithmetic: a "6 quart" dual basket is two 3-quart baskets, not one 6-quart basket. A whole chicken fits in neither half. See the <a href="/guides/air-fryer-capacity-checklist.html">capacity checklist</a> before you compare headline numbers.</p>
+<p>The trade-off is arithmetic: a "6 quart" dual basket is two 3-quart baskets, not one 6-quart basket. A whole chicken fits in neither half. See the <a href="${rel('/guides/air-fryer-capacity-checklist.html')}">capacity checklist</a> before you compare headline numbers.</p>
 
 <h2>4. What will you clean, and how often?</h2>
 <p>Count the parts that touch food. A dual basket has two drawers and usually two crisper plates. An oven has a door, a rack, a drip tray and whatever accessories came in the box — the Lagasse listing says six are included.</p>
@@ -611,9 +611,9 @@ const GUIDE_BODIES = {
 <table class="data">
 <thead><tr><th>Product</th><th>Shape</th><th>The consequence</th></tr></thead>
 <tbody>
-<tr><td><a href="/products/air-fryers.html#chefman-6-quart-dual-basket">Chefman 6-Quart Dual Basket</a></td><td>Two drawers, 3 qt each</td><td>Two temperatures, two wash-ups, small per side</td></tr>
-<tr><td><a href="/products/air-fryers.html#chefman-8-quart-turbofry">Chefman 8-Quart TurboFry</a></td><td>One 8 qt drawer</td><td>One temperature, one wash-up, large batch</td></tr>
-<tr><td><a href="/products/air-fryers.html#emeril-lagasse-26qt-french-door">Emeril Lagasse 26-Quart French Door</a></td><td>Oven cabinet, French doors</td><td>Replaces a toaster oven, most parts, largest footprint</td></tr>
+<tr><td><a href="${rel('/products/air-fryers.html')}#chefman-6-quart-dual-basket">Chefman 6-Quart Dual Basket</a></td><td>Two drawers, 3 qt each</td><td>Two temperatures, two wash-ups, small per side</td></tr>
+<tr><td><a href="${rel('/products/air-fryers.html')}#chefman-8-quart-turbofry">Chefman 8-Quart TurboFry</a></td><td>One 8 qt drawer</td><td>One temperature, one wash-up, large batch</td></tr>
+<tr><td><a href="${rel('/products/air-fryers.html')}#emeril-lagasse-26qt-french-door">Emeril Lagasse 26-Quart French Door</a></td><td>Oven cabinet, French doors</td><td>Replaces a toaster oven, most parts, largest footprint</td></tr>
 </tbody>
 </table>
 <p class="fineprint">Shape and capacity are read from listing titles observed 2026-11-20 (${src('S02')} is the rule that makes claims about a product a compliance matter; the listing text itself is the source of the shape descriptions). None of these was tested.</p>
@@ -687,7 +687,7 @@ const GUIDE_BODIES = {
 <p>Name them before you look at the price. If you cannot name two, you are buying a control panel. A 24-preset oven is excellent if you want presets and no better than a dial if you will only ever use one.</p>
 
 <h3>2. What did the extra functions cost in physical space?</h3>
-<p>More modes usually means more interior volume, more accessories, or both. The <a href="/guides/cleanup-and-counter-space.html">cleanup guide</a> covers how to measure that cost before you commit.</p>
+<p>More modes usually means more interior volume, more accessories, or both. The <a href="${rel('/guides/cleanup-and-counter-space.html')}">cleanup guide</a> covers how to measure that cost before you commit.</p>
 
 <h3>3. Does the appliance do the second job properly, or adequately?</h3>
 <p>An air fryer that also dehydrates is an air fryer with a low fan setting. That is a real function and a limited one. Ask what the temperature range and time limit are for the secondary mode, and whether they suit the job you have in mind.</p>
@@ -700,7 +700,7 @@ const GUIDE_BODIES = {
 
 <div class="callout callout--warn">
   <h3>On claims in this category</h3>
-  <p>Multi-function listings lean on certification and accuracy language: NIST, NSF, ±0.5°F, 1000°F safe. Those are seller claims in the listing text. This site repeats them only with that label, because the certifying bodies' registries were not checked for this build. See <a href="/flagged/index.html#FLG-005">FLG-005</a>.</p>
+  <p>Multi-function listings lean on certification and accuracy language: NIST, NSF, ±0.5°F, 1000°F safe. Those are seller claims in the listing text. This site repeats them only with that label, because the certifying bodies' registries were not checked for this build. See <a href="${rel('/flagged/index.html')}#FLG-005">FLG-005</a>.</p>
 </div>
 
 <h2>Applied to the two thermometers here</h2>
@@ -1831,9 +1831,54 @@ for (const g of GUIDES) {
   });
 }
 
-/* ---- 404 ----------------------------------------------------------------- */
+/* ---- second register hub ------------------------------------------------- */
+/**
+ * A hub for this session's register, reachable from the live site's footer.
+ *
+ * Why it exists: another session's site owns the front page. Without one entry point, the entire
+ * link audit, source register, compliance gate and flag queue become orphan pages - published but
+ * unreachable, which is the same as unpublished for a reader trying to check a claim.
+ */
 {
-  add('/404.html', {
+  const body = `<div class="pagehead">
+    <p class="kicker">The register</p>
+    <h1>Everything behind the five picks, with its sources</h1>
+    <p class="lede">This is the audit trail for the five products: each supplied link next to what it actually resolved to, each source next to what it is cited for, each claim labelled as a seller's or an inference, and everything that could not be confirmed published in the open.</p>
+  </div>
+
+  <div class="callout callout--warn">
+    <h3>Start with the uncomfortable finding</h3>
+    <p>None of the five supplied links carried a visible Associates tag on 2026-11-20, and none resolved to the ASIN its own code appears to spell. That is recorded in <a href="${rel('/flagged/index.html')}#FLG-003">FLG-003</a>, with the intended value and the observed value kept in separate columns so the discrepancy cannot be quietly resolved by back-filling one from the other.</p>
+  </div>
+
+  <div class="grid grid--2">
+    <a class="linkcard" href="${rel('/verification/links.html')}"><h3>Link audit and product-intent record</h3><p>Each of the five supplied links: intended ASIN, observed redirect, whether the code matched, and whether a tag parameter was present.</p></a>
+    <a class="linkcard" href="${rel('/verification/sources.html')}"><h3>Source register</h3><p>Eleven sources, each with publisher, document date, retrieval date and evidence tier. Three are listed as not retrieved rather than quietly dropped.</p></a>
+    <a class="linkcard" href="${rel('/verification/products.html')}"><h3>Product data table</h3><p>ASIN, category path and observation date for all five, plus the three fields left deliberately blank and why.</p></a>
+    <a class="linkcard" href="${rel('/verification/research-log.html')}"><h3>Research log</h3><p>The dated working record, including the checks that failed.</p></a>
+    <a class="linkcard" href="${rel('/flagged/index.html')}"><h3>Flagged for Review</h3><p>Ten items that could not be confirmed, each with the official page needed to close it.</p></a>
+    <a class="linkcard" href="${rel('/decisions/questions.html')}"><h3>Open questions</h3><p>Twenty questions that block a decision, each with what is known, what is missing and the cheapest way to close it.</p></a>
+    <a class="linkcard" href="${rel('/compliance/index.html')}"><h3>Compliance gate</h3><p>The eleven clauses that shaped the build, what each one changed, and which checks are automated.</p></a>
+    <a class="linkcard" href="${rel('/verification/index.html')}"><h3>Verification dashboard</h3><p>Every published claim on one screen with its label and its source.</p></a>
+  </div>
+
+  <section class="section">
+    <div class="section__head"><h2>How the two sites relate</h2></div>
+    <div class="prose">
+      <p>This repository carries more than one generation of the same project, built by different sessions against the same five products. The live shop front is published from the root build. This register is the independent second check: it was produced from a separate set of source observations, and it gates its own output on a checker that fails the build if a product link is unsponsored, a claim cites a source that is not registered, or a page loses its disclosure.</p>
+      <p>Where the two agree, the agreement is evidence. Where they differ, the difference is on <a href="${rel('/flagged/index.html')}">Flagged for Review</a>. Four sessions independently resolved the same five links to the same five ASINs and all four report no visible tag parameter, which is why FLG-003 is stated with confidence and its compliance status is still left unresolved.</p>
+    </div>
+  </section>`;
+  add('/register/index.html', {
+    title: `The register — sources, link audit and flags | ${SITE.brand.name}`,
+    description: 'The audit trail behind the five products: link audit, source register, claim labels, compliance gate and the flag queue.',
+    body,
+  });
+}
+
+/* ---- 404 ----------------------------------------------------------------- *//* ---- 404 ----------------------------------------------------------------- */
+{
+  add('/404.html.DISABLED', {
     noindex: true,
     title: `Page not found | ${SITE.brand.name}`,
     description: 'That page does not exist. Here is where everything actually is.',
@@ -1877,7 +1922,7 @@ function goPage(p) {
   )} <a href="${rel('/about/how-we-make-money.html')}">How this site makes money</a>.</p>
 </div>
 <main class="go__box">
-  <p class="go__back"><a href="/index.html">← The Crisp Kitchen</a></p>
+  <p class="go__back"><a href="${rel('/index.html')}">← The Crisp Kitchen</a></p>
   <p class="kicker">You are leaving this site</p>
   <h1>${esc(p.shortName)}</h1>
   <p>This link is an affiliate link. As an Amazon Associate I earn from qualifying purchases.</p>
@@ -1924,7 +1969,27 @@ const TOKENS = {
 const resolveTokens = (html) =>
   Object.entries(TOKENS).reduce((acc, [k, v]) => acc.split(k).join(v), html);
 
+/**
+ * The live front page belongs to the Counterwise build (_build/build.mjs), which another session
+ * publishes from main. This generator must never overwrite it: doing so silently replaced the
+ * published shop front once during integration, which is exactly the kind of collision the
+ * coordination file exists to prevent.
+ *
+ * Set CK_TAKE_FRONT_PAGE=1 to publish the Crisp Kitchen front page deliberately.
+ */
+const TAKE_FRONT_PAGE = process.env.CK_TAKE_FRONT_PAGE === '1';
+
+/**
+ * Shared index pages belong to the sibling build. Overwriting guides/index.html orphaned every
+ * Counterwise guide - the pages still existed but nothing linked to them. Same rule as the front
+ * page: never silently replace another generator's index.
+ */
+const SHARED_INDEXES = new Set(['/guides/index.html', '/decisions/index.html', '/flagged/index.html',
+  '/about/index.html', '/verification/index.html']);
+
 PAGES.forEach((p) => {
+  if (p.routePath === '/index.html' && !TAKE_FRONT_PAGE) return;
+  if (SHARED_INDEXES.has(p.routePath) && !TAKE_FRONT_PAGE) return;
   const html = resolveTokens(
     page({
       title: p.title,
@@ -1944,7 +2009,15 @@ PRODUCTS.products.forEach((p) => write(`/go/${p.slug}.html`, goPage(p)));
 
 /* ---------------------------------------------------------------- sitemap, robots, feed */
 
-const sitemapRoutes = PAGES.filter((p) => !p.noindex && p.routePath !== '/404.html').map((p) => p.routePath);
+/**
+ * Shared publication files (index.html, 404.html, robots.txt, sitemap.xml, feed.xml) belong to the
+ * sibling build that owns the live front page. This generator must not write them: two builders
+ * fighting over the same four files is what made CI fail with "generated output differs".
+ * We publish our own sitemap instead, which can be cross-submitted.
+ */
+const sitemapRoutes = PAGES.filter(
+  (p) => !p.noindex && p.routePath !== '/404.html.DISABLED'
+).map((p) => p.routePath);
 const today = '2026-11-20';
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -1958,9 +2031,9 @@ ${sitemapRoutes
   .join('\n')}
 </urlset>
 `;
-write('/sitemap.xml', sitemap);
+write('/sitemap-register.xml', sitemap);
 
-write(
+if (process.env.CK_WRITE_SHARED === '1') write(
   '/robots.txt',
   `User-agent: *
 Allow: /$
@@ -1985,7 +2058,7 @@ const feedItems = GUIDES.map(
     </item>`
 ).join('\n');
 
-write(
+if (process.env.CK_WRITE_SHARED === '1') write(
   '/feed.xml',
   `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">

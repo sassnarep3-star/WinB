@@ -28,10 +28,16 @@ jobs:
           node-version: '20'
 
       # Regenerate from source so CI proves the committed HTML matches the data.
+      # Regenerate from source so CI proves the committed HTML matches the data.
+      # Order matters: the Counterwise build owns the shared publication files
+      # (index.html, 404.html, robots.txt, sitemap.xml, feed.xml); the Crisp Kitchen
+      # register build owns only its own trees and never writes those five.
       - name: Generate site
         run: |
           node _build/build.mjs
           node _build/make-images.mjs
+          node tools/build.cjs
+          node tools/noindex.cjs
 
       - name: Fail if generated output differs from what is committed
         run: |
@@ -43,6 +49,9 @@ jobs:
 
       - name: Verify content rules (R1-R9)
         run: node tools/verify.mjs
+
+      - name: Publication gate for the register build
+        run: node tools/check.cjs
 
       - name: Link check and XML validation
         run: node tools/linkcheck.mjs
