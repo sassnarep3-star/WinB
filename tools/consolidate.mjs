@@ -204,10 +204,14 @@ for (const [rel, to] of Object.entries(DUPLICATES)) {
     ? html.replace(/<link rel="canonical"[^>]*>/i, canonical)
     : html.replace(/<\/title>/i, `</title>\n${canonical}`);
   // A reader arriving from an old search result deserves to know where they are.
-  if (!html.includes('data-dup-note')) {
-    html = html.replace(/<main\b[^>]*>/i, (m) =>
-      `${m}\n<p class="small" data-dup-note style="margin:0">This topic is answered by the current Counterwise publication — ` +
-      `<a href="${to}">read it here</a>. This URL is kept so older links keep working.</p>`);
+  // Written idempotently: the note is replaced rather than skipped, so a corrected
+  // destination rewires every page on the next build instead of keeping the first.
+  const note = `<p class="small" data-dup-note style="margin:0">This topic is answered by the current Counterwise publication — ` +
+    `<a href="${SITE}${to}">read it here</a>. This URL is kept so older links keep working.</p>`;
+  if (/<p class="small" data-dup-note[\s\S]*?<\/p>/.test(html)) {
+    html = html.replace(/<p class="small" data-dup-note[\s\S]*?<\/p>/, note);
+  } else if (/<main\b[^>]*>/i.test(html)) {
+    html = html.replace(/<main\b[^>]*>/i, (m) => `${m}\n${note}`);
   }
   if (html !== before) {
     writeFileSync(abs, html, 'utf8');

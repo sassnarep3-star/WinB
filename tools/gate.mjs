@@ -26,6 +26,9 @@
 //        to a reader (unstyled blocks, broken images) and invisible to a link
 //        checker that only follows href.
 //
+//   R16  One identity: no indexable page advertises a second brand, no
+//        sitemap lists a noindex page, and no two indexable pages share an H1.
+//
 //   R15  S15 decision tools: every guide title is question-shaped (ends with
 //        "?"), no page claims popularity/search volume/sales ("most popular",
 //        "best-selling", "trending search", "Google Trends", "search volume"),
@@ -64,6 +67,8 @@ const PRESERVED = new Set([
 
 const problems = [];
 const stats = { pages: 0, images: 0, classes: 0 };
+const indexableH1 = new Map();
+const pagesWithRobots = new Map();
 
 const fail = (rule, file, msg) => problems.push(`${rule}  ${file}: ${msg}`);
 
@@ -185,6 +190,45 @@ for (const file of htmlFiles) {
     if (!html.includes('id="cw-print"')) fail('R15', rel, 'worksheet page is missing its print control');
     if (!html.includes('id="cw-worksheet"')) fail('R15', rel, 'worksheet page is missing its form');
   }
+
+  // ---------------------------------------------------------------- R16
+  // One identity, one indexable copy of every topic (S18). Two failures are
+  // checked as properties of the built tree rather than of a path list, so a
+  // page added tomorrow is covered without anyone remembering to edit a rule:
+  //   * no indexable page may present a second publication brand in its title,
+  //     og:site_name or masthead — a reader who lands from search must land on
+  //     one site, and a brand switch mid-session reads as a template dump;
+  //   * no page may be listed in a sitemap while carrying robots noindex;
+  //   * no two indexable pages may share an H1, which is how the duplicate
+  //     guide generation announced itself.
+  const robotsMeta = (html.match(/<meta name="robots" content="([^"]*)"/i) || [])[1] || '';
+  const indexable = !/noindex/.test(robotsMeta);
+  if (indexable) {
+    const head = html.slice(0, html.indexOf('</head>') > -1 ? html.indexOf('</head>') : 4000);
+    if (/Crisp Kitchen/.test(head)) {
+      fail('R16', rel, 'indexable page carries a second publication brand in its head metadata');
+    }
+    const h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
+    if (h1) {
+      const key = h1[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+      if (indexableH1.has(key)) fail('R16', rel, `duplicate indexable H1, also on ${indexableH1.get(key)}`);
+      else indexableH1.set(key, rel);
+    }
+  }
+  pagesWithRobots.set(rel, indexable);
+}
+
+// Sitemap entries must agree with the robots meta on the page they point at.
+for (const smName of ['sitemap.xml', 'sitemap-register.xml']) {
+  if (!existsSync(join(ROOT, smName))) continue;
+  const sm = readFileSync(join(ROOT, smName), 'utf8');
+  for (const m of sm.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    const relPath = toDisk(m[1]);
+    const rel2 = relPath.replace(ROOT + '/', '');
+    if (pagesWithRobots.has(rel2) && !pagesWithRobots.get(rel2)) {
+      fail('R16', smName, `lists ${rel2}, which is marked noindex`);
+    }
+  }
 }
 
 // ------------------------------------------------------------------ report
@@ -199,5 +243,5 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log('PASS — every rule R11–R15 holds.');
+console.log('PASS — every rule R11–R16 holds.');
 process.exit(0);
