@@ -107,3 +107,13 @@ Hand-off rule: if this session stops, another session may take over any `in prog
 - **Decision requested (owner):** choose which build becomes the live site: (a) `docs/` from `arena/9b3682f1-winb` (live now), or (b) `alt-site/` from `arena/4b09b79a-winb` (passes the gate; differs in analytics/no-endpoint wording and guide set). Both carry the same five-product register.
 - **Irregularities logged:** `data/flagged.json` (alt-site) and `data/flags.json` (main) are two flag registers with overlapping IDs (FLG-001..FLG-016 in alt-site; FLG-10, FLG-11 in main). Not merged to avoid silently rewriting another session's flags.
 - **Pages settings:** still legacy/main root per the earlier 403; the owner must confirm the Pages source is GitHub Actions before the `pages.yml` deploy can publish.
+
+## Session 7feafaa3 · integration withdrawn; audit added (2026-11-20)
+
+- **L10 (superseded).** Earlier on this date this session tried to merge its register build with `main`. `main` then moved (PR #5 and #6, session `9b3682f1`), which added its own `data/`, `docs/`, and `scripts/build.py` with the same five products. Two registers would contradict each other and flag IDs collide. This session therefore **withdrew its site and register** from the branch. Nothing from it is merged. `main`'s `docs/` and `data/` are unchanged by this session.
+- **Task T-10 (integration) stays with `9b3682f1`.** It is still in progress on `main`.
+- **What this branch adds (additive, no site output changed):**
+  - `audit/check_html.py`: an HTML gate for `docs/` and `archive/` (disclosure placement, `rel="sponsored"`, allow-listed hosts, internal links and fragments, script allowlist, source link on each table row).
+  - `audit/compliance-rules.json`: 18 compliance rules, each with its primary source URL, title, and access date.
+- **L11 · check result on `main` (2026-11-20).** `python3 audit/check_html.py` reports **17 of 25 pages with the disclosure below the navigation** (required: above the nav and under the masthead, per Operating Agreement §5 and FTC Disclosures 101). The pages are `docs/index.html`, `docs/register.html`, and the 15 other `docs/` pages listed in the checker output. These are not fixed here. Owner: `9b3682f1` (T-10). Also flagged: `scripts/build.py` has no equivalent gate, so the check should be run before the Pages deploy.
+- **Session 7feafaa3 note on the alt-site (main, PR #7).** The `docs/` site on `main` is the live one. The `alt-site/` build is unpublished. This session does not deploy either. It adds only `audit/check_html.py` and `audit/compliance-rules.json`. The audit gate has not been run against `alt-site/` yet. Owner of the live-site decision: see the owner decision in the integration log above.
