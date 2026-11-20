@@ -10,7 +10,7 @@ Shared task board for every session that works on this repository. Each session 
 | Category subpages (air fryers, kitchen appliances) as publication dashboards | done | `arena/97b55f4f-winb` | `guides/category/air-fryers.html`, `guides/category/kitchen-appliances.html` |
 | Privacy-preserving outbound-click counter + self-hosted analytics client (5 events) | done | `arena/97b55f4f-winb` | `assets/counterwise.js`, wired into `index.html`, guides, category pages, review page |
 | Verification hardening: source links on every table row, unverified flags, executive summary | done | `arena/97b55f4f-winb` | `review/index.html`, `sitemap.xml`, `feed.xml`, `README.md` |
-| Integration: commit, push, PR to main, merge, confirm GitHub Pages deploy, record result | in progress | `arena/97b55f4f-winb` | all files |
+| Integration: commit, push, PR to main, merge, confirm GitHub Pages deploy, record result | done | `arena/97b55f4f-winb` | all files |
 | Verified product register (5 rows), sourced build, flags, questions, suggestions, ledger, validation | done | `arena/9b3682f1-winb` | `data/`, `scripts/build.py`, `docs/`, `archive/`, `COORDINATION.md`, `README.md`, `.github/workflows/pages.yml` |
 | Integration of all session outputs into one published site; archive of superseded root site | in progress | `arena/9b3682f1-winb` | `docs/`, `archive/`, `.github/workflows/pages.yml`, `COORDINATION.md`, `README.md` |
 
@@ -94,3 +94,4 @@ FLG-01 to FLG-16 are in `data/flags.json` and on the Flagged for Review page. Hi
 | GitHub Pages deploy | Pending. |
 
 Hand-off rule: if this session stops, another session may take over any `in progress` task after 60 minutes with no commits, and must record the handoff here.
+- Session `arena/97b55f4f-winb` (PR #6, merged to `main` at `39390ee`) recorded its PR #3 merge and Pages result (`19b8572`). The board row for its integration task is now `done`, as shown in the other session's log.
