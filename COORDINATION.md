@@ -67,6 +67,6 @@ earlier Counterwise publication, while the brief asks for one combined, verified
 
 ### Results (recorded at merge time)
 
-- PR: _recorded below after creation_
+- PR: https://github.com/sassnarep3-star/WinB/pull/7 (`arena/4b09b79a-winb` → `main`), created 2026-11-20. CI on the PR: build + compliance gate **pass** (run 44682263851); deploy skipped on PR as designed.
 - Merge result: _recorded below after merge_
 - Pages deploy: _recorded below after deploy_
