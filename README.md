@@ -1,38 +1,88 @@
-# Counterwise (working name)
+# Counterwise — kitchen gear, chosen by question
 
-A publication-style kitchen buying guide site for five Amazon listings (three air fryers and ovens, two meat thermometers), with an evidence register, an Associates disclosure above the fold on every page, open decision questions, and a Flagged for Review page.
+A static Amazon Associates publication for five kitchen products: three air fryers and
+two thermometers. Built for the WinB repository and published with GitHub Pages.
 
-- **Live site (expected URL, confirm after deploy):** https://sassnarep3-star.github.io/WinB/ (served from the repository root on `main`; Pages source is legacy `main` `/`)
-- **Data (source of truth):** `data/` — `products.json` (register), `sources.json` (S-01…S-10), `flags.json` (FLG-01…FLG-19), `questions.json`, `suggestions.json`, `campaign_ledger.csv` (empty by design).
-- **Build:** `python3 scripts/build.py` regenerates the site at the repository root (`index.html`, `guides/`, `assets/`, `feed.xml`, `sitemap.xml`, `robots.txt`) and validates it. It removes only the files it generates. Exit code 1 means a rule failed; do not publish. CI (`.github/workflows/pages.yml`) runs the same check and fails if committed output differs from the build.
-- **Analytics client:** `scripts/assets/counterwise.js` (copied to `assets/counterwise.js`). Review mode: no endpoint is configured, so it logs to the console and sends nothing.
-- **Archive:** `archive/counterwise-root-site/` holds the superseded root-level site from earlier sessions (kept, not served). See FLG-18.
-- **Coordination:** `COORDINATION.md` — the shared task board, claims, verification log, irregularities, and integration log.
+**Live site:** https://sassnarep3-star.github.io/WinB/
+**Associate tag:** `shopnow047c-20`
 
-## What the build enforces
+---
 
-1. The Associates statement, verbatim from Operating Agreement s.5, sits above the fold and in the footer on every page.
-2. Every Amazon-hosted link carries `rel="sponsored noopener"`.
-3. Every blank value is marked unverified and linked to a flag. Nothing is inferred.
-4. Internal links resolve. The only script allowed is `assets/counterwise.js`. The client must not write cookies or browser storage, and no analytics endpoint may be configured in a page.
+## What this is
 
-## Not built or not verified (see Flagged for Review)
+A shop, not an audit. Five product pages, two category hubs, a comparison table, five
+question-shaped guides, and one RSS feed. The compliance machinery is real but it lives
+under the floor — the front page leads with products, and every register is one click
+away in the footer.
 
-- Analytics endpoint and hosting (FLG-06). Five events to be confirmed (FLG-05).
-- Special Link test in an Associates account (FLG-04). Scaling is blocked until it passes.
-- Commission rates and prices (FLG-07, FLG-08).
-- Intended ASINs and tracking-ID validity (FLG-01, FLG-03). Redirect compliance (FLG-02).
-- Search Console verification (FLG-13).
+The editorial position is narrow and deliberate: **this desk has not handled any of these
+products.** Every page therefore describes what the manufacturer's listing states, shows
+its arithmetic, and lists what it cannot tell you. No page contains a fabricated test
+result, a borrowed star rating, or a price.
 
-## Official sources (accessed 2026-11-20)
+## The rules the build enforces
 
-- Amazon Associates Program Operating Agreement: https://affiliate-program.amazon.com/help/operating/agreement (updated Oct 15, 2025)
-- Amazon Associates Program Policies: https://affiliate-program.amazon.com/help/operating/policies (updated Apr 14, 2026)
-- FTC Disclosures 101 for Social Media Influencers: https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers (Nov 2019)
-- 16 CFR 255.0 (Endorsement Guides): https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.0
-- Google, qualify outbound links (rel="sponsored"): https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
-- GitHub Docs, publishing sources for GitHub Pages: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+`node tools/verify.mjs` fails the build unless all nine hold:
 
-## Publishing
+| | Rule |
+|---|---|
+| R1 | The Associates statement appears above the masthead **and** in the footer of every page |
+| R2 | Every Amazon product link carries `?tag=shopnow047c-20` and `rel="sponsored nofollow noopener"` |
+| R3 | No price, star rating, rating count or popularity position appears anywhere |
+| R4 | No hands-on testing claim appears anywhere (disclaimers of that claim are allowed) |
+| R5 | Every page has a canonical URL, a title ≥10 chars and a description ≥40 chars |
+| R6 | Every internal `href`/`src` resolves to a real file |
+| R7 | The sitemap is valid, single-host, and lists every indexable page; the RSS feed is valid RFC-822 |
+| R8 | Every product page prints its ASIN and links to the listing with the tag |
+| R9 | No page claims a traffic, click, conversion or revenue figure |
 
-Pages serves `main` `/` (legacy). Pushes to `main` run `.github/workflows/pages.yml`, which rebuilds and validates the site. To change content, edit `data/` or `scripts/`, run `python3 scripts/build.py`, and commit the generated files with the change.
+## Commands
+
+```bash
+npm run build    # generate HTML, sitemap, feed, 404, artwork
+npm run verify   # content rules R1-R9
+npm run links    # crawl the built site, validate XML
+npm run smoke    # fetch every URL at /WinB/ over HTTP (needs a local server on :3001)
+npm run check    # build + verify + links
+```
+
+## Layout
+
+```
+_build/            generators (data.mjs is the single source of truth)
+  data.mjs         products, flags, questions, suggestions, sources, events, ledger
+  core.mjs         page shell, disclosure strip, masthead, footer
+  content-shop.mjs front page, categories, product pages, comparison, guides
+  content-oversight.mjs  decision room, data room, flagged, methods, about, privacy
+tools/             verify.mjs · linkcheck.mjs · smoke.mjs
+assets/            css/site.css · js/site.js · generated SVG artwork
+analytics/         deployable collected-worker.js + schema (NOT running)
+reviews/           five product pages (generated)
+guides/            five guides (generated)
+air-fryers/ thermometers/ compare/    category and comparison hubs
+decisions/ data-room/ flagged/        oversight surfaces
+methods/ about/ privacy/ executive-summary/
+```
+
+Generated files are committed so GitHub Pages serves them directly. CI regenerates and
+fails if the committed HTML drifts from `_build/`.
+
+## Read these before changing anything
+
+- `COORDINATION.md` — the shared task board and the verification log
+- `/flagged/` — the nine items that could not be confirmed, with what would close each
+- `/decisions/` — suggestions ranked by priority, open questions, rejected options
+
+## Two things that need the owner
+
+1. **Confirm the short links.** All five `link.amazon` links resolve to live listings but
+   none of the resolved URLs carries a `tag=` parameter. The site publishes tagged
+   canonical links instead. See FLG-001.
+2. **Deploy the analytics endpoint.** The collector is real code; it is not running, so
+   nothing is measured. See `analytics/README.md` and FLG-007.
+
+## Licence and attribution
+
+Body copy and generated artwork are original to this repository. Amazon and the Amazon
+logo are trademarks of Amazon.com, Inc. or its affiliates. This site is not endorsed by
+Amazon. As an Amazon Associate the site owner earns from qualifying purchases.

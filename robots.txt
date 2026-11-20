@@ -1,8 +1,19 @@
+# Counterwise — https://sassnarep3-star.github.io/WinB/
 User-agent: *
-Allow: /$
+Allow: /
 
-# The site is served at a project path (/WinB). A bare "Disallow: /go/" would point at the
-# domain root, which this site does not own, so the project path is spelled out.
-Disallow: /WinB/go/
+# The legacy redirect stub is noindexed; it is listed so crawlers need not fetch it.
+Disallow: /review/index.html
+
+# Superseded generations from parallel sessions. Kept and still reachable, but
+# excluded from indexing so that exactly one site is indexable on this host.
+Disallow: /WinB/docs/
+Disallow: /WinB/legacy-docs-site/
+Disallow: /WinB/alt-site/
+Disallow: /WinB/archive/
+Disallow: /WinB/products/
+Disallow: /WinB/verification/
+Disallow: /WinB/compliance/
+Disallow: /WinB/platform/
 
 Sitemap: https://sassnarep3-star.github.io/WinB/sitemap.xml

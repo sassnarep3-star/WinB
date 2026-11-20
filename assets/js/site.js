@@ -1,71 +1,71 @@
-/**
- * The Crisp Kitchen — reader-side instrumentation.
- *
- * Five events, defined before any content was written:
- *   page_view      a page loaded
- *   guide_read     a guide reached 90% scroll
- *   product_intent a product card, table row or detail was engaged
- *   outbound_click a buy link was clicked
- *   return_visit   this browser has been here on a previous day
- *
- * Privacy posture:
- *   - No cookie. No localStorage identifier. No fingerprint. No sessionStorage.
- *   - The only thing persisted is a single date key, used to detect a return visit.
- *   - Nothing is sent anywhere unless window.CK_CONFIG.endpoint is set to a URL.
- *     If it is set, one small JSON body is POSTed per event with keepalive.
- *
- * Why this is not a third-party analytics snippet: the site ships no external script, so the privacy
- * page can truthfully say that. See /about/privacy.html and /decisions/questions.html#Q-05.
- */
+/* ==========================================================================
+   Counterwise — measurement
+
+   Design rules, in order of importance:
+
+   1. Nothing here talks to a third party. There is no Google Analytics, no
+      pixel, no CDN script. Every event goes to ENDPOINT, which is a host the
+      owner controls.
+   2. Nothing here identifies a reader. No cookie is set by this file, no
+      device fingerprint, no persistent id. A random per-page-load nonce is
+      generated in memory and discarded when the tab closes; it exists only so
+      a server can de-duplicate double-fired events.
+   3. Nothing here blocks the page. If ENDPOINT is unreachable the events queue
+      in memory and are dropped. A broken endpoint must never break reading.
+   4. Nothing here reports a number the desk has not been given.
+
+   Set ENDPOINT to your collector URL. While it is null the site is honest:
+   events are counted in the browser only, and the Data Room says so.
+   ========================================================================== */
 (function () {
   'use strict';
 
-  var CONFIG = window.CK_CONFIG || {};
-  var ENDPOINT = CONFIG.endpoint || null;
-  var SITE = CONFIG.site || 'the-crisp-kitchen';
-  var COUNTER_KEY = 'ck:events';
-  var RETURN_KEY = 'ck:first-seen';
+  // ---------------------------------------------------------------- config
+  var ENDPOINT = null; // e.g. 'https://counterwise-events.example.workers.dev/e'
 
-  function readCounts() {
+  var EVENTS = {
+    PAGE_VIEW: 'page_view',
+    PRODUCT_VIEW: 'product_view',
+    OUTBOUND_CLICK: 'outbound_click',
+    GUIDE_COMPLETE: 'guide_complete',
+    CAPTURE_INTENT: 'capture_intent'
+  };
+
+  // --------------------------------------------------------------- helpers
+  function pageMeta() {
+    var b = document.body;
+    return {
+      path: location.pathname,
+      product: b.getAttribute('data-product') || null,
+      asin: b.getAttribute('data-asin') || null,
+      guide: b.getAttribute('data-guide') || null,
+      category: b.getAttribute('data-category') || null,
+      viewport: window.innerWidth < 640 ? 's'
+        : window.innerWidth < 1024 ? 'm' : 'l'
+    };
+  }
+
+  function nonce() {
     try {
-      return JSON.parse(window.localStorage.getItem(COUNTER_KEY) || '{}');
+      var a = new Uint8Array(8);
+      (window.crypto || window.msCrypto).getRandomValues(a);
+      return Array.prototype.map.call(a, function (n) {
+        return ('0' + n.toString(16)).slice(-2);
+      }).join('');
     } catch (e) {
-      return {};
+      return String(Date.now()).slice(-8);
     }
   }
 
-  function bump(name) {
-    var counts = readCounts();
-    counts[name] = (counts[name] || 0) + 1;
-    try {
-      window.localStorage.setItem(COUNTER_KEY, JSON.stringify(counts));
-    } catch (e) {
-      /* storage disabled — counting is best effort and must never break the page */
-    }
-    return counts[name];
-  }
+  var NONCE = nonce();
+  var queue = [];
 
-  function today() {
-    return new Date().toISOString().slice(0, 10);
-  }
-
-  function track(name, extra) {
-    if (!name) return;
-    var count = bump(name);
+  function record(name, extra) {
     var payload = {
-      site: SITE,
-      event: name,
-      path: window.location.pathname,
-      /* referrer host only — never the full referring URL */
-      ref_host: (function () {
-        try {
-          return document.referrer ? new URL(document.referrer).host : '';
-        } catch (e) {
-          return '';
-        }
-      })(),
-      count_today: count,
-      ts: new Date().toISOString(),
+      e: name,
+      n: NONCE,
+      t: new Date().toISOString(),
+      m: pageMeta()
     };
     if (extra) {
       for (var k in extra) {
@@ -73,128 +73,175 @@
       }
     }
 
-    /* Always dispatch locally so a page can react without a network. */
+    // Keep a local tally so a developer can inspect without a server.
     try {
-      document.dispatchEvent(new CustomEvent('ck:event', { detail: payload }));
-    } catch (e) {
-      /* CustomEvent unsupported — irrelevant for the shipped pages */
+      var key = 'cw_tally';
+      var tally = JSON.parse(localStorage.getItem(key) || '{}');
+      tally[name] = (tally[name] || 0) + 1;
+      localStorage.setItem(key, JSON.stringify(tally));
+    } catch (e) { /* storage may be blocked; not our problem */ }
+
+    if (window.console && console.debug) {
+      console.debug('[counterwise] ' + name, payload);
     }
 
     if (!ENDPOINT) return;
+
+    queue.push(payload);
+    flush();
+  }
+
+  function flush() {
+    if (!ENDPOINT || !queue.length) return;
+    var batch = queue.splice(0, queue.length);
+    var body;
     try {
-      var body = JSON.stringify(payload);
+      body = JSON.stringify({ v: 1, events: batch });
+    } catch (e) { return; }
+
+    // sendBeacon survives the page being navigated away from, which is exactly
+    // the case that matters for an outbound click.
+    try {
       if (navigator.sendBeacon) {
-        navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'application/json' }));
-      } else {
-        fetch(ENDPOINT, {
-          method: 'POST',
-          body: body,
-          headers: { 'Content-Type': 'application/json' },
-          keepalive: true,
-          credentials: 'omit',
-          referrerPolicy: 'origin',
-        }).catch(function () {});
+        var blob = new Blob([body], { type: 'application/json' });
+        if (navigator.sendBeacon(ENDPOINT, blob)) return;
       }
-    } catch (e) {
-      /* never surface a network failure to a reader */
-    }
-  }
+    } catch (e) { /* fall through to fetch */ }
 
-  /* ---- return_visit ------------------------------------------------------ */
-
-  function checkReturn() {
-    var firstSeen = null;
     try {
-      firstSeen = window.localStorage.getItem(RETURN_KEY);
-    } catch (e) {
-      return;
-    }
-    if (!firstSeen) {
-      try {
-        window.localStorage.setItem(RETURN_KEY, today());
-      } catch (e) {}
-      return;
-    }
-    if (firstSeen !== today()) track('return_visit', { first_seen: firstSeen });
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: body,
+        keepalive: true,
+        credentials: 'omit',
+        referrerPolicy: 'no-referrer'
+      }).catch(function () { /* silently drop */ });
+    } catch (e) { /* silently drop */ }
   }
 
-  /* ---- page_view -------------------------------------------------------- */
-
-  function onReady(fn) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', fn, { once: true });
-    } else {
-      fn();
-    }
+  // Give the reader a way out. Honouring this flag is the whole privacy story.
+  function optedOut() {
+    try {
+      return localStorage.getItem('cw_optout') === '1';
+    } catch (e) { return false; }
   }
 
-  onReady(function () {
-    track('page_view');
-    checkReturn();
+  // ------------------------------------------------------------ page view
+  if (!optedOut()) record(EVENTS.PAGE_VIEW);
 
-    /* ---- guide_read: 90% scroll on a guide page ---- */
-    var isGuide = document.body.querySelector('.guide') !== null;
-    if (isGuide) {
-      var fired = false;
-      var onScroll = function () {
-        if (fired) return;
-        var doc = document.documentElement;
-        var max = doc.scrollHeight - window.innerHeight;
-        if (max <= 0) return;
-        if (window.scrollY / max >= 0.9) {
-          fired = true;
-          track('guide_read', { guide: window.location.pathname.split('/').pop() });
-          window.removeEventListener('scroll', onScroll, { passive: true });
-        }
-      };
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
+  // --------------------------------------------------------- product view
+  if (document.body.hasAttribute('data-product') && !optedOut()) {
+    record(EVENTS.PRODUCT_VIEW, {
+      product: document.body.getAttribute('data-product'),
+      asin: document.body.getAttribute('data-asin')
+    });
+  }
+
+  // ------------------------------------------------------- outbound click
+  // Delegated so it survives any future markup change. The link is already
+  // marked rel="sponsored" in the HTML; this only counts the click.
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest ? ev.target.closest('a[data-outbound]') : null;
+    if (!a) return;
+    if (optedOut()) return;
+    record(EVENTS.OUTBOUND_CLICK, {
+      product: a.getAttribute('data-product') || null,
+      asin: a.getAttribute('data-asin') || null,
+      pos: a.getAttribute('data-pos') || 'unknown'
+    });
+  }, { capture: true });
+
+  // ------------------------------------------------------- guide complete
+  var guideEl = document.querySelector('[data-guide]');
+  if (guideEl && !optedOut()) {
+    var fired = false;
+    var onScroll = function () {
+      if (fired) return;
+      var doc = document.documentElement;
+      var seen = (window.scrollY + window.innerHeight) / doc.scrollHeight;
+      if (seen >= 0.75) {
+        fired = true;
+        record(EVENTS.GUIDE_COMPLETE, { guide: guideEl.getAttribute('data-guide') });
+        window.removeEventListener('scroll', onScroll, { passive: true });
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // ------------------------------------------------------- capture intent
+  var form = document.querySelector('[data-capture]');
+  if (form) {
+    var input = form.querySelector('input[type=email]');
+    if (input) {
+      input.addEventListener('focus', function () {
+        if (optedOut()) return;
+        record(EVENTS.CAPTURE_INTENT, {
+          form: form.getAttribute('data-capture'),
+          page: location.pathname
+        });
+      }, { once: true });
     }
 
-    /* ---- product_intent: opening a product detail or leaving the index ---- */
-    var intentFired = {};
-    document.addEventListener(
-      'click',
-      function (ev) {
-        var a = ev.target.closest ? ev.target.closest('a, button') : null;
-        if (!a) return;
+    // No provider is wired. Say so plainly rather than pretending to subscribe.
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var s = form.querySelector('.status');
+      if (s) {
+        s.textContent = 'There is no list yet — no address was sent or stored. '
+          + 'This form is here so the intent can be counted. See the Data Room.';
+        s.classList.add('show');
+      }
+    });
+  }
 
-        var affiliate = a.getAttribute('data-affiliate-product');
-        if (affiliate) {
-          track('outbound_click', {
-            product: affiliate,
-            asin: a.getAttribute('data-affiliate-asin') || '',
-            dest: a.getAttribute('href') || '',
-          });
-          return;
-        }
+  // --------------------------------------------------------- data room tally
+  var tallyBtn = document.getElementById('cw-show-tally');
+  if (tallyBtn) {
+    tallyBtn.addEventListener('click', function () {
+      var out = document.getElementById('cw-tally-out');
+      var t = window.Counterwise.tally();
+      var keys = Object.keys(t);
+      if (!keys.length) {
+        out.textContent = 'Nothing recorded in this browser yet.';
+        return;
+      }
+      out.textContent = keys.map(function (k) {
+        return k + ': ' + t[k];
+      }).join(' · ');
+    });
+  }
 
-        var outbound = a.getAttribute('data-affiliate-out');
-        if (outbound) {
-          track('outbound_click', { product: outbound, stage: 'interstitial' });
-          return;
-        }
+  // --------------------------------------------------------------- opt out
+  var optBtn = document.getElementById('cw-optout');
+  var optInline = document.getElementById('cw-optout-inline');
+  [optBtn, optInline].forEach(function (btn) { if (btn) wireOptOut(btn); });
 
-        /* A product card heading, or a jump to a product detail, is intent — not a departure. */
-        var href = a.getAttribute('href') || '';
-        var productHint = /\/products\//.test(href) || /^#/.test(href);
-        if (productHint && a.closest && a.closest('.productcard, .productdetail, .decide')) {
-          var key = href || a.textContent.trim().slice(0, 40);
-          if (!intentFired[key]) {
-            intentFired[key] = true;
-            track('product_intent', { target: key.slice(0, 120) });
-          }
-        }
-      },
-      { passive: true }
-    );
-  });
+  function wireOptOut(optBtn) {
+    optBtn.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      try { localStorage.setItem('cw_optout', '1'); } catch (e) {}
+      var toast = document.getElementById('cw-toast');
+      if (toast) {
+        toast.textContent = 'Measurement disabled in this browser.';
+        toast.classList.add('show');
+        setTimeout(function () { toast.classList.remove('show'); }, 3500);
+      }
+      if (optBtn.id === 'cw-optout-inline') {
+        var sib = optBtn.parentNode;
+        if (sib) sib.insertAdjacentHTML('afterend',
+          '<span class="badge green" style="margin-left:.5rem">Off</span>');
+      }
+    });
+  }
 
-  /* Expose for the console and for the metrics page's worked example. */
-  window.CK = {
-    track: track,
-    counts: readCounts,
-    events: ['page_view', 'guide_read', 'product_intent', 'outbound_click', 'return_visit'],
-    endpointConfigured: !!ENDPOINT,
+  // Expose for the Data Room's live "what this page has recorded" panel.
+  window.Counterwise = {
+    events: EVENTS,
+    tally: function () {
+      try { return JSON.parse(localStorage.getItem('cw_tally') || '{}'); }
+      catch (e) { return {}; }
+    },
+    endpointConfigured: !!ENDPOINT
   };
 })();

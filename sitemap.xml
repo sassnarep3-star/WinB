@@ -1,107 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/index.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/products/air-fryers.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/air-fryers/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/products/thermometers.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/thermometers/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven-air-fryer.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/reviews/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/guides/air-fryer-capacity-checklist.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/reviews/chefman-6qt-dual-basket.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/guides/cleanup-and-counter-space.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/reviews/emeril-26qt-french-door.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/guides/multifunction-appliance-questions.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/reviews/chefman-8qt-turbofry.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/guides/index.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/reviews/thermomaven-1s-thermometer.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/decisions/index.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/reviews/chef-iq-sense-gen3.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/decisions/questions.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/compare/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/decisions/growth-plan.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/verification/index.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/verification/sources.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/verification/links.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/cleanup-counter.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/verification/products.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/multifunction.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/verification/research-log.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/temperature-safety.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/flagged/index.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/decisions/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/compliance/index.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/data-room/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/about/index.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/flagged/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/about/editorial-policy.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/methods/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/about/how-we-make-money.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/about/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/about/privacy.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/privacy/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/platform/index.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/executive-summary/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/platform/automation.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/go/chef-iq-sense-gen3.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/platform/metrics.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/go/chefman-6-quart-dual-basket.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://sassnarep3-star.github.io/WinB/platform/ledger.html</loc>
+    <loc>https://sassnarep3-star.github.io/WinB/go/chefman-8-quart-turbofry.html</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/go/emeril-lagasse-26qt-french-door.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/go/thermomaven-1-second-thermometer.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>

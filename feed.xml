@@ -1,43 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>The Crisp Kitchen — new guides</title>
-    <link>https://sassnarep3-star.github.io/WinB/guides/index.html</link>
-    <atom:link href="https://sassnarep3-star.github.io/WinB/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>Air fryers and the tools that make them work — tested against what the listing actually says.</description>
+    <title>Counterwise — new guides and picks</title>
+    <link>https://sassnarep3-star.github.io/WinB/</link>
+    <description>Kitchen gear, chosen by question rather than by hype.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Nov 2026 09:00:00 GMT</lastBuildDate>
+    <copyright>© 2026 Counterwise</copyright>
+    <lastBuildDate>Fri, 20 Nov 2026 09:00:00 +0000</lastBuildDate>
+    <atom:link href="https://sassnarep3-star.github.io/WinB/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>Basket or oven-style air fryer: what should you compare?</title>
-      <link>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven-air-fryer.html</link>
-      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/basket-or-oven-air-fryer.html</guid>
-      <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
-      <category>Shape</category>
-      <description>The single biggest fork in the category, and the one the shelf labels hide. Four questions that separate the two shapes before you look at watts.</description>
+      <title>The comparison table, with deliberate blanks</title>
+      <link>https://sassnarep3-star.github.io/WinB/compare/</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/compare/</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate>
+      <category>Shop</category>
+      <description>Five products compared on the fields stable enough to print. Two columns are empty and the reason is written underneath.</description>
+    </item>
+    <item>
+      <title>Five products, and what each one is for</title>
+      <link>https://sassnarep3-star.github.io/WinB/reviews/</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/reviews/</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate>
+      <category>Shop</category>
+      <description>Three air fryers and two thermometers that solve different problems, each with the same page structure.</description>
+    </item>
+    <item>
+      <title>What temperature is actually “done”? A thermometer guide</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/temperature-safety.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/temperature-safety.html</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate>
+      <category>Safety</category>
+      <description>The USDA publishes safe minimum internal temperatures. This page gathers them in one place, explains the rest time, and sets out what a thermometer has to do to be useful for them.</description>
+    </item>
+    <item>
+      <title>Questions to ask before buying a multi-function appliance</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/multifunction.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/multifunction.html</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate>
+      <category>Features</category>
+      <description>Twenty-four presets is not a feature list; it is a menu. The useful question is which three modes you will actually use, and what each one replaces.</description>
+    </item>
+    <item>
+      <title>Cleanup and counter space: the trade-offs to assess</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/cleanup-counter.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/cleanup-counter.html</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate>
+      <category>Daily use</category>
+      <description>The two costs nobody compares when they buy an air fryer: how much of the sink it takes, and how much of the counter it permanently occupies.</description>
     </item>
     <item>
       <title>A no-hype checklist for comparing air fryer capacity</title>
-      <link>https://sassnarep3-star.github.io/WinB/guides/air-fryer-capacity-checklist.html</link>
-      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/air-fryer-capacity-checklist.html</guid>
-      <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
-      <category>Capacity</category>
-      <description>Quarts, litres, baskets, and the difference between &quot;6 quart&quot; meaning one drawer or two. A checklist you can run against any listing in two minutes.</description>
+      <link>https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/capacity-checklist.html</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate>
+      <category>Fit</category>
+      <description>Manufacturers quote quarts. Food occupies space. This is a short method for closing the gap between the two before you buy, using a tape measure and one bag of frozen chips.</description>
     </item>
     <item>
-      <title>How to assess cleanup and counter-space trade-offs</title>
-      <link>https://sassnarep3-star.github.io/WinB/guides/cleanup-and-counter-space.html</link>
-      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/cleanup-and-counter-space.html</guid>
-      <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
-      <category>Ownership</category>
-      <description>The two costs that arrive after the purchase. What to measure on your own counter, and what each shape demands of a sink.</description>
-    </item>
-    <item>
-      <title>Questions to ask before buying a multi-function kitchen appliance</title>
-      <link>https://sassnarep3-star.github.io/WinB/guides/multifunction-appliance-questions.html</link>
-      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/multifunction-appliance-questions.html</guid>
-      <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
-      <category>Buying</category>
-      <description>Every extra function is a promise about a mode you will use twice. Five questions that separate a useful multi-function appliance from a crowded control panel.</description>
+      <title>Basket or oven-style air fryer: what should you compare?</title>
+      <link>https://sassnarep3-star.github.io/WinB/guides/basket-or-oven.html</link>
+      <guid isPermaLink="true">https://sassnarep3-star.github.io/WinB/guides/basket-or-oven.html</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 +0000</pubDate>
+      <category>Format</category>
+      <description>Two machines, both called air fryers, doing different jobs. The comparison that matters is not capacity in quarts — it is how you get food in and out, and where the machine lives when you are not using it.</description>
     </item>
   </channel>
 </rss>
