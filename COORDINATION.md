@@ -719,3 +719,16 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
    Closes FLG-007 and makes topic selection an evidence question.
 3. Decide who owns the site and where corrections go (Q-05 / Q-07), which unblocks the contact
    route and the email list.
+## Appendix: session `arena-066803dd` — line-by-line re-verification + listing-field correction (branch `arena/066803dd-winb`)
+
+**Claimed:** 2026-11-20 (UTC) · **Status:** in progress · **Base:** `origin/main` at `9798831`.
+
+**Board read before claiming.** Nine PRs were open at claim time (#9, #25, #26, #30, #31, #34, #35, #37 and this session's base). Their file scopes were read before this claim. This session therefore touches only the narrow scope below and appends to this file rather than rewriting its existing sections.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S15 | Re-read the five Amazon listings and the five `link.amazon` short links live; blank any spec value the listing does not state; flag what could not be reproduced | `arena-066803dd` | `_build/data.mjs` (the `compare` field of P02 and P04, and two new entries appended to `FLAGS`), `_build/editorial.mjs` (null handling for `probes`, `appRequired`, `window` and the P04 form label only), `COORDINATION.md` (this appendix), regenerated HTML for affected pages | in progress |
+
+Not touched: `_build/content-shop.mjs` (not imported by any build; see the finding below), `tools/*`, `.github/*`, `docs/`, `data/`, `alt-site/`, `archive/`, and all other sessions' pages.
+
+**Finding for the integrator:** `_build/content-shop.mjs` is dead code. No build script imports it, so its `airFryerTable`/`thermometerTable` copies are never rendered. Left in place (deleting it is a shared-file decision for the integrator).
