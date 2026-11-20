@@ -1,14 +1,9 @@
-name: Deploy static site to GitHub Pages
-
-# Publishes the ROOT shop front as the canonical site.
-#
-# History: earlier sessions published a different generation from /docs via an artifact deploy.
-# That left GitHub Pages in "legacy" mode serving the repository root anyway, so the deployed site
-# never matched any build. This workflow makes the root the single published surface and verifies
-# it before it ships.
+name: Build, verify and deploy to GitHub Pages
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -23,42 +18,57 @@ concurrency:
 
 jobs:
   build:
+    name: Build and verify
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '20'
 
-      - name: Build the shop front from the source register
-        run: node tools/build.js
-
-      - name: Mark non-canonical site generations noindex
-        run: node tools/noindex.js
-
-      - name: Publication gate (fails on any broken or non-compliant page)
-        run: node tools/check.js
-
-      - name: Committed output must match a fresh build
+      # Regenerate from source so CI proves the committed HTML matches the data.
+      - name: Generate site
         run: |
-          if [ -n "$(git status --porcelain -- index.html products guides decisions verification flagged compliance about platform go sitemap.xml robots.txt feed.xml)" ]; then
-            echo "Generated files differ from the build. Run node tools/build.js and commit."
-            git status --porcelain
+          node _build/build.mjs
+          node _build/make-images.mjs
+
+      - name: Fail if generated output differs from what is committed
+        run: |
+          if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+            echo "::error::Committed HTML is out of date with _build/. Run 'npm run build' and commit the result."
+            git --no-pager diff --stat
             exit 1
           fi
 
-      - name: Upload the site
+      - name: Verify content rules (R1-R9)
+        run: node tools/verify.mjs
+
+      - name: Link check and XML validation
+        run: node tools/linkcheck.mjs
+
+      # Prove the site works at the real project path (/WinB/), not just on disk.
+      - name: Serve at the project path and smoke-test every URL
+        run: |
+          mkdir -p _serve/WinB
+          rsync -a --exclude _serve --exclude _build --exclude .git ./ _serve/WinB/
+          (cd _serve && python3 -m http.server 3001 &) ; sleep 2
+          BASE=http://localhost:3001/WinB node tools/smoke.mjs
+
+      - name: Upload Pages artefact
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
   deploy:
+    name: Deploy
+    if: github.ref == 'refs/heads/main'
     needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4

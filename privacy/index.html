@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy and measurement — Counterwise</title>
+<meta name="description" content="No cookies, no third-party scripts, five non-identifying events, and a one-click opt-out. What this site records and what it deliberately does not.">
+<link rel="canonical" href="https://sassnarep3-star.github.io/WinB/privacy/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Counterwise">
+<meta property="og:title" content="Privacy and measurement — Counterwise">
+<meta property="og:description" content="No cookies, no third-party scripts, five non-identifying events, and a one-click opt-out. What this site records and what it deliberately does not.">
+<meta property="og:url" content="https://sassnarep3-star.github.io/WinB/privacy/">
+<meta property="og:image" content="https://sassnarep3-star.github.io/WinB/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy and measurement — Counterwise">
+<meta name="twitter:description" content="No cookies, no third-party scripts, five non-identifying events, and a one-click opt-out. What this site records and what it deliberately does not.">
+<meta name="twitter:image" content="https://sassnarep3-star.github.io/WinB/assets/img/og-default.png">
+<meta name="theme-color" content="#1e4034">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Counterwise — new guides" href="https://sassnarep3-star.github.io/WinB/feed.xml">
+<link rel="stylesheet" href="../assets/css/site.css">
+
+</head>
+<body  >
+<a class="skip" href="#main">Skip to content</a>
+<div class="disclosure-strip" role="note" aria-label="Affiliate disclosure">
+  <div class="wrap">
+    <strong>As an Amazon Associate I earn from qualifying purchases.</strong>
+    <span class="dot" aria-hidden="true">·</span>
+    <span>Links to Amazon on this page are affiliate links and are marked <code style="background:none;border:0;color:#cfe0d6;padding:0">rel="sponsored"</code>.</span>
+    <span class="dot" aria-hidden="true">·</span>
+    <span>Nothing here is a hands-on test.</span>
+    <a href="../methods/">How we choose →</a>
+  </div>
+</div>
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href=".././">counterwise<span>.</span><small>kitchen, chosen by question</small></a>
+    <nav class="nav" aria-label="Main">
+      <a href="../air-fryers/">Air fryers</a><a href="../thermometers/">Thermometers</a><a href="../guides/">Guides</a>
+      <details>
+        <summary aria-haspopup="true">More</summary>
+        <div class="menu"><span class="menu-label">The shop</span><a href="../reviews/">All five picks</a><a href="../compare/">Comparison table</a><span class="menu-label">How this works</span><a href="../decisions/">Decision Room</a><a href="../data-room/">Data Room</a><a href="../flagged/">Flagged for Review</a><a href="../methods/">How we choose</a><span class="menu-label">The project</span><a href="../executive-summary/">Executive summary</a><a href="../about/">About &amp; contact</a><a href="../privacy/">Privacy &amp; measurement</a></div>
+      </details>
+      <a class="cta" href="../reviews/">The five picks</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+
+<div class="page-head">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href=".././">Home</a><span class="sp">/</span><span aria-current="page">Privacy &amp; measurement</span></nav>
+    <p class="eyebrow">Legal-ish, in plain words</p>
+    <h1>Privacy and measurement</h1>
+    <p class="lede">What this site records, what it does not, and why there is nothing to consent to yet.</p>
+    
+  </div>
+</div>
+<section class="section">
+  <div class="wrap-narrow prose">
+    <h2>The short version</h2>
+    <ul>
+      <li>This site’s own code sets <b>no cookies</b>.</li>
+      <li>It loads <b>no third-party scripts</b> — no analytics vendor, no advertising network, no font CDN.</li>
+      <li>It records <b>five events</b> (listed below) in your browser, and sends them to an endpoint only if one is configured. At present none is, so nothing leaves your browser.</li>
+      <li>It stores two keys in your browser’s <code>localStorage</code>: a counter of events seen, and your opt-out flag.</li>
+      <li>Clicking an Amazon link takes you to Amazon, which has <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=468496" rel="noopener" target="_blank">its own privacy notice</a> and its own cookies. That is outside this site’s control.</li>
+    </ul>
+
+    <div class="callout red">
+      <h4>FTC/Amazon notice requirement</h4>
+      <p>Amazon’s Program Policies require a site to disclose, accurately and adequately, the use of cookies, pixels and other technologies, and how visitor data is collected, used and disclosed. This page is that disclosure. Amazon and other third parties may set cookies when you visit Amazon after clicking a link here; this site cannot control those cookies and does not receive the data they collect.</p>
+    </div>
+
+    <h2>The five events</h2>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Exactly five event names.</b> None carries an identifier, an IP address or a fingerprint.</caption>
+        <thead><tr><th scope="col">Event</th><th scope="col">Fields</th></tr></thead>
+        <tbody><tr><td class="mono">page_view</td><td class="tiny">path, referrer host (if present), viewport class</td></tr><tr><td class="mono">product_view</td><td class="tiny">product id, ASIN, referring page</td></tr><tr><td class="mono">outbound_click</td><td class="tiny">product id, ASIN, page, position on page</td></tr><tr><td class="mono">guide_complete</td><td class="tiny">guide id, path</td></tr><tr><td class="mono">capture_intent</td><td class="tiny">page, form id</td></tr></tbody>
+      </table>
+    </div>
+
+    <h2>What an event does not contain</h2>
+    <p>No IP address is stored by the recorder. No cookie is created. No device fingerprint is computed. No cross-site identifier is attached. No email address is transmitted — the capture form explicitly does not send one, because no list provider exists yet. Each event carries a random value generated in memory for the current page load, which exists only so a server can discard a duplicate; it is not written to storage and it dies with the tab.</p>
+
+    <h2>Your two controls</h2>
+    <p><b>Turn measurement off.</b> <a href="#" id="cw-optout-inline">Click here</a> or use “Turn off measurement” in the footer. The recorder checks the flag before it does anything and stops. Your browser keeps only the flag.</p>
+    <p><b>Delete what exists.</b> Clearing site data for this domain removes the event counter and the opt-out flag.</p>
+
+    <h2>What this means for the numbers on this site</h2>
+    <p>Because measurement can be switched off and because no endpoint is deployed, this site cannot claim a traffic figure. It does not. The campaign ledger in the <a href="../data-room/#ledger">Data Room</a> is empty and stays empty until an authorised first-party report provides real rows. A conversion rate computed from this site’s own counter would be a guess dressed as a statistic, and is deliberately not computed anywhere.</p>
+
+    <h2>Children</h2>
+    <p>This site is not directed at children and does not knowingly collect information from them. Amazon’s suitability rules also exclude sites directed toward children under 13 from the Associates Program, which this site is not.</p>
+  </div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href=".././">counterwise<span>.</span></a>
+        <p>Kitchen gear, chosen by question rather than by hype. Five products, two categories, no invented test results.</p>
+        <div class="foot-disclosure">
+          <strong>As an Amazon Associate I earn from qualifying purchases.</strong><br>
+          Every Amazon link on this site is an affiliate link and is marked <code style="background:none;border:0;color:#bdb5a9;padding:0">rel="sponsored"</code>. Prices and availability are set by Amazon and are not shown here — check the listing. <a href="../methods/">How this site works</a>.
+        </div>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="../air-fryers/">Air fryers</a></li>
+          <li><a href="../thermometers/">Thermometers</a></li>
+          <li><a href="../reviews/">All five picks</a></li>
+          <li><a href="../compare/">Comparison table</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="../guides/">All guides</a></li>
+          <li><a href="../guides/basket-or-oven.html">Basket or oven</a></li>
+          <li><a href="../guides/capacity-checklist.html">Capacity checklist</a></li>
+          <li><a href="../guides/temperature-safety.html">Safe temperatures</a></li>
+          <li><a href="../feed.xml">RSS feed</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Oversight</h4>
+        <ul>
+          <li><a href="../decisions/">Decision Room</a></li>
+          <li><a href="../data-room/">Data Room</a></li>
+          <li><a href="../flagged/">Flagged for Review</a></li>
+          <li><a href="../register/">Source register &amp; link audit</a></li>
+          <li><a href="../methods/">How we choose</a></li>
+          <li><a href="../executive-summary/">Executive summary</a></li>
+          <li><a href="../about/">About &amp; contact</a></li>
+          <li><a href="../privacy/">Privacy &amp; measurement</a></li>
+          <li><a href="#" id="cw-optout">Turn off measurement</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Counterwise. Build 2026-11-20. No prices, ratings or sales figures are reproduced on this site.</span>
+      <span>Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. This site is not endorsed by Amazon.</span>
+    </div>
+  </div>
+</footer>
+<div class="cw-toast" id="cw-toast" role="status" aria-live="polite"></div>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

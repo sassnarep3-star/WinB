@@ -1,13 +1,19 @@
 {
-  "name": "the-crisp-kitchen",
-  "version": "1.0.0",
+  "name": "counterwise-winb",
   "private": true,
-  "description": "The Crisp Kitchen — a verified-product affiliate shop front. Static HTML generated from a source register.",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Counterwise \u2014 a static Amazon Associates publication for five kitchen products.",
   "scripts": {
-    "build": "node tools/build.js",
-    "check": "node tools/check.js",
-    "verify": "node tools/build.js && node tools/check.js",
-    "serve": "python3 -m http.server 8080 --bind 0.0.0.0"
-  },
-  "engines": { "node": ">=18" }
+    "build": "node _build/build.mjs && node _build/make-images.mjs && node tools/consolidate.mjs",
+    "verify": "node tools/verify.mjs",
+    "links": "node tools/linkcheck.mjs",
+    "smoke": "BASE=http://localhost:3001/WinB node tools/smoke.mjs",
+    "check": "npm run build && npm run verify && npm run links",
+    "serve": "python3 -m http.server 8080 --bind 0.0.0.0",
+    "legacy:build": "node tools/build.cjs",
+    "legacy:check": "node tools/check.cjs",
+    "legacy:noindex": "node tools/noindex.cjs",
+    "crisp:verify": "node tools/build.cjs && node tools/noindex.cjs && node tools/check.cjs"
+  }
 }

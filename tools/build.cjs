@@ -1831,7 +1831,52 @@ for (const g of GUIDES) {
   });
 }
 
-/* ---- 404 ----------------------------------------------------------------- */
+/* ---- second register hub ------------------------------------------------- */
+/**
+ * A hub for this session's register, reachable from the live site's footer.
+ *
+ * Why it exists: another session's site owns the front page. Without one entry point, the entire
+ * link audit, source register, compliance gate and flag queue become orphan pages - published but
+ * unreachable, which is the same as unpublished for a reader trying to check a claim.
+ */
+{
+  const body = `<div class="pagehead">
+    <p class="kicker">The register</p>
+    <h1>Everything behind the five picks, with its sources</h1>
+    <p class="lede">This is the audit trail for the five products: each supplied link next to what it actually resolved to, each source next to what it is cited for, each claim labelled as a seller's or an inference, and everything that could not be confirmed published in the open.</p>
+  </div>
+
+  <div class="callout callout--warn">
+    <h3>Start with the uncomfortable finding</h3>
+    <p>None of the five supplied links carried a visible Associates tag on 2026-11-20, and none resolved to the ASIN its own code appears to spell. That is recorded in <a href="${rel('/flagged/index.html')}#FLG-003">FLG-003</a>, with the intended value and the observed value kept in separate columns so the discrepancy cannot be quietly resolved by back-filling one from the other.</p>
+  </div>
+
+  <div class="grid grid--2">
+    <a class="linkcard" href="${rel('/verification/links.html')}"><h3>Link audit and product-intent record</h3><p>Each of the five supplied links: intended ASIN, observed redirect, whether the code matched, and whether a tag parameter was present.</p></a>
+    <a class="linkcard" href="${rel('/verification/sources.html')}"><h3>Source register</h3><p>Eleven sources, each with publisher, document date, retrieval date and evidence tier. Three are listed as not retrieved rather than quietly dropped.</p></a>
+    <a class="linkcard" href="${rel('/verification/products.html')}"><h3>Product data table</h3><p>ASIN, category path and observation date for all five, plus the three fields left deliberately blank and why.</p></a>
+    <a class="linkcard" href="${rel('/verification/research-log.html')}"><h3>Research log</h3><p>The dated working record, including the checks that failed.</p></a>
+    <a class="linkcard" href="${rel('/flagged/index.html')}"><h3>Flagged for Review</h3><p>Ten items that could not be confirmed, each with the official page needed to close it.</p></a>
+    <a class="linkcard" href="${rel('/decisions/questions.html')}"><h3>Open questions</h3><p>Twenty questions that block a decision, each with what is known, what is missing and the cheapest way to close it.</p></a>
+    <a class="linkcard" href="${rel('/compliance/index.html')}"><h3>Compliance gate</h3><p>The eleven clauses that shaped the build, what each one changed, and which checks are automated.</p></a>
+    <a class="linkcard" href="${rel('/verification/index.html')}"><h3>Verification dashboard</h3><p>Every published claim on one screen with its label and its source.</p></a>
+  </div>
+
+  <section class="section">
+    <div class="section__head"><h2>How the two sites relate</h2></div>
+    <div class="prose">
+      <p>This repository carries more than one generation of the same project, built by different sessions against the same five products. The live shop front is published from the root build. This register is the independent second check: it was produced from a separate set of source observations, and it gates its own output on a checker that fails the build if a product link is unsponsored, a claim cites a source that is not registered, or a page loses its disclosure.</p>
+      <p>Where the two agree, the agreement is evidence. Where they differ, the difference is on <a href="${rel('/flagged/index.html')}">Flagged for Review</a>. Four sessions independently resolved the same five links to the same five ASINs and all four report no visible tag parameter, which is why FLG-003 is stated with confidence and its compliance status is still left unresolved.</p>
+    </div>
+  </section>`;
+  add('/register/index.html', {
+    title: `The register — sources, link audit and flags | ${SITE.brand.name}`,
+    description: 'The audit trail behind the five products: link audit, source register, claim labels, compliance gate and the flag queue.',
+    body,
+  });
+}
+
+/* ---- 404 ----------------------------------------------------------------- *//* ---- 404 ----------------------------------------------------------------- */
 {
   add('/404.html', {
     noindex: true,
@@ -1924,7 +1969,18 @@ const TOKENS = {
 const resolveTokens = (html) =>
   Object.entries(TOKENS).reduce((acc, [k, v]) => acc.split(k).join(v), html);
 
+/**
+ * The live front page belongs to the Counterwise build (_build/build.mjs), which another session
+ * publishes from main. This generator must never overwrite it: doing so silently replaced the
+ * published shop front once during integration, which is exactly the kind of collision the
+ * coordination file exists to prevent.
+ *
+ * Set CK_TAKE_FRONT_PAGE=1 to publish the Crisp Kitchen front page deliberately.
+ */
+const TAKE_FRONT_PAGE = process.env.CK_TAKE_FRONT_PAGE === '1';
+
 PAGES.forEach((p) => {
+  if (p.routePath === '/index.html' && !TAKE_FRONT_PAGE) return;
   const html = resolveTokens(
     page({
       title: p.title,
