@@ -563,3 +563,17 @@ appendix only).
 **Not verified in this session, and not claimed:** Associates account behaviour (Special Link test, tracking report), Search Console verification, the deployed analytics endpoint, and any price, rating or sales figure. These need the owner's account access and remain open (FLG-003, FLG-009, FLG-010 and Q-04..Q-06).
 
 **Irregularities logged:** FLG-010 corrected (the fix was in the wrong script). FLG-012 added: fix in a script CI does not run; the site uses two brands (“Counterwise” and “The Crisp Kitchen”).
+
+
+### §8.1 Integration result (session `arena-2139de5f`)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#24** — https://github.com/sassnarep3-star/WinB/pull/24 (`arena/2139de5f-winb` → `main`, `--merge`) |
+| CI on PR head `225f007` | `Build and verify` success (drift check, R1–R10, publication gate, link check, `/WinB/` smoke test) |
+| Merge | Merged 2026-11-20T06:09:02Z, merge commit `1066a23` |
+| CI runs cancelled | Two `main` runs were cancelled by newer pushes from parallel sessions (shared `pages` concurrency group). Re-run succeeded. |
+| Pages deploy | `built`; deploy success at `e2d3374` (`main` HEAD at time of check) |
+| Live check | `https://sassnarep3-star.github.io/WinB/go/chefman-6-quart-dual-basket.html` serves the disclosure, the tagged destination and `robots` `index,follow` |
+| Open coordination note | PR #25 (`arena/01091cc4-winb`) proposes "run consolidate in CI, unify brand". It touches the same `/go/` brand and FLG-012 question. Not changed here; the owner should decide the brand once. |
+
