@@ -83,7 +83,7 @@ const SIBLING_GUIDES = [
 /* Index pages the sibling build owns (this generator stays off them - see SHARED_INDEXES). */
 const SHARED_INDEXES = [
   '/index.html', '/404.html', '/guides/index.html', '/decisions/index.html',
-  '/flagged/index.html', '/about/index.html', '/verification/index.html',
+  '/suggestions/index.html', '/flagged/index.html', '/about/index.html', '/verification/index.html',
 ];
 const isSibling = (rel) =>
   SHARED_INDEXES.includes(rel) ||

@@ -13,6 +13,8 @@
 //   R9  No page claims a traffic/click/revenue figure.
 //   R10 Every /go/ affiliate exit page is indexable, disclosed, tagged and sponsored
 //       (a noindex page that forwards to an affiliate link is a sneaky redirect).
+//   R11 A specification the listing states twice, differently, is published with
+//       both values. Silently choosing one is a factual error, not an edit.
 
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
@@ -292,6 +294,45 @@ if (existsSync(goDir)) {
   }
 }
 
+// ------------------------------------------- R11: no contradiction left silent
+// If a listing states two different values for the same specification, the site
+// must show both. This rule exists because the failure it prevents — quietly
+// printing one of two conflicting figures — is invisible in a rendered page.
+// It is checked against the evidence file, not against the HTML, so the check
+// happens even if a page forgets to mention the conflict.
+const { LISTING_EVIDENCE } = await import('../_build/listing-evidence.mjs');
+const contradictionKeys = [
+  ['wattageContradiction', 'watt'],
+  ['batteryContradiction', 'hour'],
+  ['presetCountContradiction', 'preset'],
+  ['accessoriesContradiction', 'accessor'],
+];
+for (const [asin, ev] of Object.entries(LISTING_EVIDENCE)) {
+  for (const [key, word] of contradictionKeys) {
+    const c = ev[key];
+    if (!c) continue;
+    const values = Object.values(c).filter((v) => v && typeof v === 'object' && 'value' in v);
+    const numbers = values.map((v) => String(v.value));
+    const titleSays = c.titleSays ?? c.first?.value;
+    const bulletsSay = c.bulletsSay ?? c.second?.value;
+    if (titleSays == null || bulletsSay == null) {
+      if (!numbers.length) continue;
+    }
+    const pair = [titleSays, bulletsSay].filter((x) => x != null);
+    const both = pair.length === 2 ? pair.map(String) : numbers;
+    // find the product page for this ASIN
+    const hits = [...walk(ROOT)].filter((f) => f.endsWith('.html') && readFileSync(f, 'utf8').includes(asin));
+    let mentioned = false;
+    for (const f of hits) {
+      const html = readFileSync(f, 'utf8');
+      if (both.every((v) => html.includes(v)) && /FLG-013|bullets|description|differ/i.test(html)) mentioned = true;
+    }
+    if (!mentioned) {
+      fail('R11', `ASIN ${asin}`, `${key} (${both.join(' vs ')}) is not disclosed with both values on any page`);
+    }
+  }
+}
+
 // ------------------------------------------------------------------ report
 console.log(`\nverify: ${stats.pages} canonical pages, ${stats.superseded || 0} superseded-but-preserved pages, ${stats.amazonLinks} Amazon links, ${stats.internalLinks} internal links checked\n`);
 
@@ -308,5 +349,5 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log('PASS — every rule R1–R10 holds.');
+console.log('PASS — every rule R1–R11 holds.');
 process.exit(0);

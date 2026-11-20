@@ -22,7 +22,7 @@ result, a borrowed star rating, or a price.
 
 ## The rules the build enforces
 
-`node tools/verify.mjs` fails the build unless all ten hold:
+`node tools/verify.mjs` fails the build unless all eleven hold:
 
 | | Rule |
 |---|---|
@@ -36,6 +36,7 @@ result, a borrowed star rating, or a price.
 | R8 | Every product page prints its ASIN and links to the listing with the tag |
 | R9 | No page claims a traffic, click, conversion or revenue figure |
 | R10 | Every affiliate exit page is indexable, disclosed, tagged and `rel="sponsored"` |
+| R11 | A specification a listing states twice, differently, is published with **both** values |
 
 ## Commands
 
@@ -52,6 +53,10 @@ npm run check    # build + verify + links
 ```
 _build/            generators (data.mjs is the single source of truth)
   data.mjs         products, flags, questions, suggestions, sources, events, ledger
+  listing-evidence.mjs  what each listing actually states, transcribed, with the
+                   phrase it came from — wattage, temp range, models, warranty,
+                   and Amazon's own review-theme counts
+  decision-queue.mjs   the 10-proposal queue and the 9 questions blocking it
   core.mjs         page shell, disclosure strip, masthead, footer
   content-shop.mjs front page, categories, product pages, comparison, guides
   content-oversight.mjs  decision room, data room, flagged, methods, about, privacy
@@ -62,6 +67,7 @@ reviews/           five product pages (generated)
 guides/            five guides (generated)
 air-fryers/ thermometers/ compare/    category and comparison hubs
 decisions/ data-room/ flagged/        oversight surfaces
+suggestions/       the decision queue: proposals, blocking questions, owner actions
 methods/ about/ privacy/ executive-summary/
 ```
 
@@ -70,9 +76,12 @@ fails if the committed HTML drifts from `_build/`.
 
 ## Read these before changing anything
 
-- `COORDINATION.md` — the shared task board and the verification log
+- `COORDINATION.md` — the shared task board and the verification log (§8 is the
+  latest live-source verification pass, including the ten defects it fixed)
 - `/flagged/` — the nine items that could not be confirmed, with what would close each
-- `/decisions/` — suggestions ranked by priority, open questions, rejected options
+- `/suggestions/` — the decision queue: ten proposals with cost, reversibility
+  and failure mode, nine blocking questions, five owner-only actions
+- `/decisions/` — earlier suggestions ranked by priority, rejected options
 
 ## Two things that need the owner
 

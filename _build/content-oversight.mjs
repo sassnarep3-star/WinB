@@ -2,26 +2,70 @@
 // footer and from a single "More" group in the nav, never from the hero.
 // The front page sells; these pages account for themselves.
 
-import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES } from './data.mjs';
+import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, MOMENTS, TOPIC_QUEUE, PATHS } from './data.mjs';
 import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink } from './core.mjs';
+import { DECISION_QUEUE, BLOCKING_QUESTIONS, OWNER_ACTIONS } from './decision-queue.mjs';
 
 // ------------------------------------------------------------- decision room
 export function decisionsPage() {
   const open = SUGGESTIONS.filter((s) => s.status !== 'Implemented');
   const done = SUGGESTIONS.filter((s) => s.status === 'Implemented');
 
+  const card = (s) => `
+<article class="dec" id="${esc(s.id)}">
+  <div class="dh">
+    <span class="pri">P${s.priority}</span>
+    <h3>${esc(s.title)}</h3>
+    ${badge(s.status, s.status === 'Implemented' ? 'green' : s.status.startsWith('Blocked') || s.status.includes('access') ? 'amber' : 'plain')}
+  </div>
+  <div class="rec"><b>Recommendation</b>${esc(s.recommendation)}</div>
+  <dl>
+    <dt>Why it matters</dt><dd>${esc(s.why)}</dd>
+    <dt>Effort</dt><dd>${esc(s.effort)}</dd>
+    <dt>Payoff</dt><dd>${esc(s.payoff)}</dd>
+    <dt>Risk</dt><dd>${esc(s.risk)}</dd>
+  </dl>
+  ${s.options ? `<div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody>${s.options.map((o) => `<tr${o.letter === s.recommendedOption ? ' class="opt-rec"' : ''}>
+        <td><b>${esc(o.letter)}</b> · ${esc(o.title)}</td>
+        <td class="tiny">${esc(o.what)}</td>
+        <td class="tiny">${esc(o.effort)}</td>
+        <td class="tiny">${esc(o.payoff)}</td>
+        <td class="tiny">${esc(o.risk)}</td>
+        <td>${o.letter === s.recommendedOption ? '<span class="badge green tiny">Recommended</span>' : '—'}</td>
+      </tr>`).join('\n')}</tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> ${esc(s.decisionState || 'Awaiting owner decision')}</p>
+    <p><b>Why this option:</b> ${esc(s.recommendedWhy || s.recommendation)}</p>
+    <p><b>How to record it:</b> ${esc(s.decisionHow || 'Reply with the proposal ID and the option letter, e.g. “SUG-01: A”.')}</p>
+  </div>` : ''}
+</article>`;
+
+  const qRow = (q) => `<tr>
+    <td class="mono tiny">${esc(q.id)}</td>
+    <td>${badge(q.status, q.status === 'Answered' ? 'green' : q.status === 'Blocked' ? 'red' : 'amber')}</td>
+    <td><b>${esc(q.question)}</b><br><span class="tiny muted">${esc(q.why)}</span></td>
+    <td class="tiny">${esc(q.known)}</td>
+    <td class="tiny">${esc(q.unknown)}</td>
+    <td class="tiny">${esc(q.howToFind)}</td>
+  </tr>`;
+
   const body = `
 ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Decision Room' }],
   kicker: 'Oversight',
   title: 'Decision Room',
-  lede: 'Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so.',
+  lede: 'Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so. <b>This page is the case file:</b> every proposal carries named options A/B/C, a recommended option and a decision gate. The <a href="/suggestions/">decision board</a> is the same queue reduced to one sortable row per proposal, with cost, reversibility and failure mode.',
   meta: `<div class="btn-row">
     ${badge(open.length + ' open suggestions', 'amber')}
     ${badge(done.length + ' already built', 'green')}
     ${badge(QUESTIONS.filter((q) => q.status !== 'Answered').length + ' open questions', 'plain')}
-    <a class="btn small" href="/suggestions/">Open the Suggestion Board <span class="arw">→</span></a>
-    <a class="btn small ghost" href="/questions/">Open the question register <span class="arw">→</span></a>
   </div>`,
 })}
 
@@ -29,30 +73,71 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Part one</p>
-        <h2>Suggestions — review and choose on the Suggestion Board</h2>
-        <p>Every suggestion is now a proposal with named options and a decision gate: compare the paths, choose one, and only then does implementation begin. Priority 1 means “review this before writing another word”. The full option tables live on the <a href="/suggestions/">Suggestion Board</a>; this table is the index.</p>
+        <p class="eyebrow">Choose first</p>
+        <h2>Three paths — pick one before anything is implemented</h2>
+        <p>Each path is a coherent bet. Mixing them is how a site ends up with seasonal guides, no measurement and no byline. The desk recommends <b>Path B first, Path C in parallel</b>: the publication polish is already built, and the measurement endpoint is the only thing standing between instinct and data.</p>
+      </div>
+    </div>
+    <div class="gate callout">
+      <h4>Choose before anything is implemented</h4>
+      <p>Every proposal below carries named options, a recommended one, and a decision gate. Nothing is acted on because it appears on this page — it is acted on when an option is chosen and recorded. That is the whole protocol: <b>read the options, pick a letter, write it down.</b></p>
+      <p>Record a choice in one line — “SUG-01: A” — in the repository's COORDINATION.md under this session's row, or as a reply to the session. The next build reads the recorded decision, changes the <code>decisionState</code> line for that proposal, and the page reflects it. Two are already recorded: <b>SUG-05: A</b> and <b>SUG-08: A</b>. A decision of “no” is as valid as “yes” and is recorded the same way.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Three coherent paths.</b> Choose one; the suggestions below are ordered to serve it.</caption>
+        <thead><tr><th scope="col">Path</th><th scope="col">Promise</th><th scope="col">First steps</th><th scope="col">Cost</th><th scope="col">Best if</th></tr></thead>
+        <tbody>${PATHS.map((p) => `<tr><td><b>${esc(p.name)}</b></td><td>${esc(p.promise)}</td><td>${esc(p.steps)}</td><td>${esc(p.cost)}</td><td>${esc(p.bestIf)}</td></tr>`).join('\n')}</tbody>
+      </table>
+    </div>
+    <p class="tiny faint mt-2">Paths are editorial recommendations, not factual claims. The policy constraints they respect are cited in the suggestions below: disclosure ${srcLink('A1', 'A1 §5')}, tag and price rules ${srcLink('A2', 'A2 §2(b)')}, no untried-experience claims ${srcLink('F1', 'F1')}, sponsored marking ${srcLink('G1', 'G1')}, cadence and authorship ${srcLink('G2', 'G2')}.</p>
+    <div class="callout mt-3">
+      <h4>How to choose</h4>
+      <p>Answer three questions in order: (1) Is the tagging question closed (SUG-02)? If not, stop and close it — no path earns anything until then. (2) Does the owner want a named byline (Q-05)? If yes, Path B. (3) Is the analytics endpoint deployed (SUG-03)? If not, Path C is the next task regardless of the path chosen. Record the choice here with a date; the next session reads it before writing anything.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="queue">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Seasonal notebook</p>
+        <h2>Topic queue — hypotheses, not promises</h2>
+        <p>Working titles only. Nothing here is published until its gate has run and the owner has chosen one title. No title is a claim about search volume, popularity or sales.</p>
       </div>
     </div>
     <div class="table-wrap">
       <table>
-        <caption><b>${SUGGESTIONS.length} proposals.</b> ${open.length} awaiting a decision, ${done.length} decided and recorded.</caption>
-        <thead><tr>
-          <th scope="col">ID</th><th scope="col">Priority</th><th scope="col">Proposal</th>
-          <th scope="col">Recommended path</th><th scope="col">Decision state</th><th scope="col">Board</th>
-        </tr></thead>
-        <tbody>${SUGGESTIONS.map(
-          (s) => `<tr>
-          <td class="mono tiny">${esc(s.id)}</td>
-          <td class="tiny">P${s.priority}</td>
-          <td><b>${esc(s.title)}</b><br><span class="tiny muted">${esc(s.effort)} · payoff: ${esc(s.payoff)}</span></td>
-          <td class="tiny">${esc(s.recommendedOption)} — ${esc((s.options.find((o) => o.letter === s.recommendedOption) || {}).title || '')}</td>
-          <td>${badge(s.decisionState, s.decisionState.startsWith('Decided') ? 'green' : 'amber')}</td>
-          <td class="tiny"><a href="/suggestions/#${esc(s.id)}">Compare options →</a></td>
-        </tr>`
-        ).join('\n')}</tbody>
+        <caption><b>${TOPIC_QUEUE.length} queued topics.</b> Each row states the measurement gate that must pass first.</caption>
+        <thead><tr><th scope="col">Working title</th><th scope="col">Cluster</th><th scope="col">Gate</th><th scope="col">Status</th></tr></thead>
+        <tbody>${TOPIC_QUEUE.map((t) => `<tr><td><b>${esc(t.title)}</b></td><td>${esc(t.cluster)}</td><td class="tiny">${esc(t.gate)}</td><td>${badge(t.status, t.status.startsWith('Published') ? 'green' : 'amber')}</td></tr>`).join('\n')}</tbody>
       </table>
     </div>
+    <div class="table-wrap mt-3">
+      <table>
+        <caption><b>Four cooking moments.</b> Editorial hypotheses that reframe existing guides. See the front page for the reader-facing version.</caption>
+        <thead><tr><th scope="col">Moment</th><th scope="col">Season</th><th scope="col">Question</th><th scope="col">Guides</th><th scope="col">Products</th></tr></thead>
+        <tbody>${MOMENTS.map((m) => `<tr><td><b>${esc(m.title)}</b><br><span class="tiny muted">${esc(m.note)}</span></td><td>${esc(m.season)}</td><td class="tiny">${esc(m.question)}</td><td class="tiny">${m.guides.map((g) => `<a href="/guides/${esc(g)}.html">${esc(g)}</a>`).join(', ')}</td><td class="tiny">${esc(m.products.join(', '))}</td></tr>`).join('\n')}</tbody>
+      </table>
+    </div>
+    <p class="tiny faint mt-2">Moments and queue rows are hypotheses. The guides they reframe cite ${srcLink('A2', 'A2')} and ${srcLink('U1', 'U1')}; the cadence gate cites ${srcLink('G2', 'G2 scaled content')}. No row is a popularity, search-volume or sales claim.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part one</p>
+        <h2>Suggestions, in the order they should be reviewed</h2>
+        <p>Priority 1 means “do this before writing another word”. Every item states its risk, because a recommendation without a failure mode is marketing.</p>
+      </div>
+    </div>
+    ${open.map(card).join('\n')}
+
+    <h3 class="mt-4" style="font-size:1.15rem">Already built in this version</h3>
+    ${done.map(card).join('\n')}
   </div>
 </section>
 
@@ -61,8 +146,8 @@ ${pageHead({
     <div class="sec-head">
       <div>
         <p class="eyebrow">Part two</p>
-        <h2>Open questions — the full register is one click away</h2>
-        <p>Each question separates what is <b>known</b> from what is <b>missing</b>, and names the cheapest way to find out. The complete register, with answered items and their source links and a discovery plan for the rest, is on <a href="/questions/">the question register</a>.</p>
+        <h2>The questions that must be answered before a decision</h2>
+        <p>Each row separates what is <b>known</b> from what is <b>unknown</b>, and names the cheapest way to find out. Rows marked Answered are decisions already made and implemented.</p>
       </div>
     </div>
     <div class="table-wrap">
@@ -70,20 +155,28 @@ ${pageHead({
         <caption><b>${QUESTIONS.length} questions.</b> ${QUESTIONS.filter((q) => q.status === 'Answered').length} answered, ${QUESTIONS.filter((q) => q.status !== 'Answered').length} still need information.</caption>
         <thead><tr>
           <th scope="col">ID</th><th scope="col">Status</th><th scope="col">Question</th>
-          <th scope="col">What is missing</th><th scope="col">Register</th>
+          <th scope="col">What is known</th><th scope="col">What is missing</th><th scope="col">How to find out</th>
         </tr></thead>
-        <tbody>${QUESTIONS.map((q) => `<tr>
-          <td class="mono tiny">${esc(q.id)}</td>
-          <td>${badge(q.status, q.status === 'Answered' ? 'green' : q.status === 'Blocked' ? 'red' : 'amber')}</td>
-          <td><b>${esc(q.question)}</b></td>
-          <td class="tiny">${esc(q.unknown)}</td>
-          <td class="tiny"><a href="/questions/#${esc(q.id)}">Full row →</a></td>
-        </tr>`).join('\n')}</tbody>
+        <tbody>${QUESTIONS.map(qRow).join('\n')}</tbody>
       </table>
     </div>
     <div class="callout mt-3">
       <h4>The pattern in the open questions</h4>
       <p>Most open items need something only the owner has: dashboard access, a decision about identity, or money. That is not a research failure — it is the boundary of what a session without account access can settle. Where the answer is a check anyone with the login could do in ten minutes, the question says so and gives the steps.</p>
+    </div>
+    <div class="table-wrap mt-3">
+      <table>
+        <caption><b>Missing-information discovery plan.</b> What to ask, where to find it, how long it takes, and what it unblocks. Every row is an owner action; nothing here can be answered from the sandbox.</caption>
+        <thead><tr><th scope="col">Ask</th><th scope="col">Where to find it</th><th scope="col">Time</th><th scope="col">Unblocks</th></tr></thead>
+        <tbody>
+          <tr><td>Confirm the five intended ASINs (FLG-002)</td><td>Owner’s Associates dashboard or the order in which the links were minted</td><td>10 minutes</td><td>Closing FLG-001 cleanly</td></tr>
+          <tr><td>Mint one tagged link and compare (SUG-02)</td><td>Associates Central → SiteStripe / Get Links</td><td>Under an hour</td><td>Revenue attribution</td></tr>
+          <tr><td>Deploy the collector (SUG-03)</td><td>analytics/collector-worker.js → any worker host; set ENDPOINT in assets/js/site.js</td><td>Half a day</td><td>All measurement, the ledger, topic choice</td></tr>
+          <tr><td>Submit sitemap + Search Console (SUG-13)</td><td>Search Console → Sitemaps → sitemap.xml</td><td>Under an hour</td><td>Indexing, measured queries</td></tr>
+          <tr><td>Choose byline, contact route, domain (Q-05, Q-07, Q-13)</td><td>Owner decision; then one template change</td><td>One conversation</td><td>Trust, corrections, brand</td></tr>
+          <tr><td>Ask brands for review units + licensed images (SUG-01, Q-14)</td><td>Two brand contact emails; publish the reply either way</td><td>One week of waiting</td><td>Hands-on content, photography</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -120,248 +213,6 @@ ${pageHead({
     title: 'Decision Room — suggestions, questions and rejected options | Counterwise',
     description:
       'Reviewable suggestions ranked by priority, open questions separated into known and unknown, and the options this project rejected with sources.',
-    body,
-  });
-}
-
-// --------------------------------------------------------- suggestion board
-// The dedicated decision section: every suggestion is a proposal with named
-// options, and the rule of the board is that a path is chosen BEFORE anything
-// is implemented. Nothing here ships because it is listed here.
-export function suggestionsBoardPage() {
-  const awaiting = SUGGESTIONS.filter((s) => s.decisionState.startsWith('Awaiting'));
-  const decided = SUGGESTIONS.filter((s) => !s.decisionState.startsWith('Awaiting'));
-
-  const optionRows = (s) =>
-    s.options
-      .map(
-        (o) => `<tr${o.letter === s.recommendedOption ? ' class="opt-rec"' : ''}>
-      <th scope="row" style="font-weight:600;color:var(--ink-2)">${esc(o.letter)}${o.letter === s.recommendedOption ? ' ' + badge('Recommended', 'green') : ''}</th>
-      <td><b>${esc(o.title)}</b><br><span class="tiny muted">${esc(o.what)}</span></td>
-      <td class="tiny">${esc(o.effort)}</td>
-      <td class="tiny">${esc(o.payoff)}</td>
-      <td class="tiny">${esc(o.risk)}</td>
-    </tr>`
-      )
-      .join('\n');
-
-  const proposal = (s) => `
-<article class="dec" id="${esc(s.id)}">
-  <div class="dh">
-    <span class="pri">P${s.priority}</span>
-    <h3>${esc(s.title)}</h3>
-    ${badge(s.decisionState, s.decisionState.startsWith('Decided') ? 'green' : 'amber')}
-  </div>
-  <div class="rec"><b>Why it is on the board</b>${esc(s.why)}</div>
-  <div class="table-wrap">
-    <table>
-      <caption><b>${esc(s.id)} — compare the paths, then choose one.</b> This proposal is not implemented until a choice is recorded.</caption>
-      <thead><tr>
-        <th scope="col">Option</th><th scope="col">What it involves</th>
-        <th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">Risk</th>
-      </tr></thead>
-      <tbody>${optionRows(s)}</tbody>
-    </table>
-  </div>
-  <div class="callout ${s.decisionState.startsWith('Decided') ? 'green' : 'amber'} gate mt-2">
-    <h4>${s.decisionState.startsWith('Decided') ? 'Decision recorded' : 'Decision gate — nothing moves until you choose'}</h4>
-    <p><b>Desk recommendation: ${esc(s.recommendedOption)}.</b> ${esc(s.recommendedWhy)}</p>
-    <p class="small" style="margin:.35rem 0 0"><b>How to record a decision:</b> ${esc(s.decisionHow)}</p>
-  </div>
-</article>`;
-
-  const body = `
-${pageHead({
-  trail: [{ href: '/', label: 'Home' }, { label: 'Suggestion Board' }],
-  kicker: 'Decide before building',
-  title: 'Suggestion Board',
-  lede: 'Every proposed change to this project, with the realistic paths laid side by side. Review the options, choose the best one, and record the choice — implementation starts only after that. Nothing on this page has been built because it appears here.',
-  meta: `<div class="btn-row">
-    ${badge(awaiting.length + ' awaiting a decision', 'amber')}
-    ${badge(decided.length + ' decided and recorded', 'green')}
-  </div>`,
-})}
-
-<section class="section">
-  <div class="wrap">
-    <div class="callout amber">
-      <h4>How this board works</h4>
-      <p><b>One.</b> Read the proposal and why it is on the board. <b>Two.</b> Compare its options on effort, payoff and risk — the recommended path is marked, but it is a recommendation, not a decision. <b>Three.</b> Record a choice with the suggestion ID and option letter (for example, <code>SUG-01: A</code>) in chat or as a repository issue. <b>Four.</b> Only then is the change implemented, and the state on this page is updated in the same build that ships it.</p>
-      <p class="small muted" style="margin:.4rem 0 0">The rule the board exists to enforce: <b>choose the best path before implementing any change.</b> A suggestion without a recorded choice stays a proposal, however loudly it is recommended.</p>
-    </div>
-
-    <div class="table-wrap mt-3">
-      <table>
-        <caption><b>All proposals at a glance.</b> ${awaiting.length} need a decision; ${decided.length} are already decided and recorded below.</caption>
-        <thead><tr>
-          <th scope="col">ID</th><th scope="col">Pri</th><th scope="col">Proposal</th>
-          <th scope="col">Recommended</th><th scope="col">Decision state</th><th scope="col">Jump</th>
-        </tr></thead>
-        <tbody>${SUGGESTIONS.map(
-          (s) => `<tr>
-          <td class="mono tiny">${esc(s.id)}</td>
-          <td class="tiny">P${s.priority}</td>
-          <td><b>${esc(s.title)}</b></td>
-          <td class="tiny">${esc(s.recommendedOption)}</td>
-          <td>${badge(s.decisionState, s.decisionState.startsWith('Decided') ? 'green' : 'amber')}</td>
-          <td class="tiny"><a href="#${esc(s.id)}">Options →</a></td>
-        </tr>`
-        ).join('\n')}</tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section class="section tint">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow">The queue</p>
-        <h2>Proposals awaiting a decision</h2>
-        <p>In review order. Priority 1 means “decide this before the next article is commissioned”.</p>
-      </div>
-    </div>
-    ${awaiting.map(proposal).join('\n')}
-
-    <h3 class="mt-4" style="font-size:1.15rem">Already decided</h3>
-    <p class="small muted" style="margin-top:.2rem">Recorded here so the reasoning survives the decision. Implemented items say so; standing policies stay visible so nobody re-litigates them quietly.</p>
-    ${decided.map(proposal).join('\n')}
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="callout">
-      <h4>What this board deliberately does not do</h4>
-      <p>It does not rank options by revenue potential, because no revenue has been measured (the campaign ledger is empty and says why). It does not score ideas with invented weights, and it does not mark anything implemented to make the list look productive. A proposal here is cheap; a decision is the expensive part, which is why the gate sits before the build and not after it.</p>
-    </div>
-  </div>
-</section>`;
-
-  return page({
-    path: '/suggestions/',
-    title: 'Suggestion Board — choose the path before the build | Counterwise',
-    description:
-      'Every proposed change to this project with named options, effort, payoff and risk. Compare the paths, record a choice, and only then is anything implemented.',
-    body,
-  });
-}
-
-// ------------------------------------------------- open questions register
-// The clear list the brief asks for: what is answered (with official sources),
-// what is missing, and how the missing information would be discovered.
-export function questionsRegisterPage() {
-  const answered = QUESTIONS.filter((q) => q.status === 'Answered');
-  const missing = QUESTIONS.filter((q) => q.status !== 'Answered');
-
-  const answerRow = (q) => `<tr id="${esc(q.id)}">
-    <td class="mono tiny">${esc(q.id)}</td>
-    <td><b>${esc(q.question)}</b></td>
-    <td>${esc(q.known)}</td>
-    <td class="src">${(q.sources || []).map((id) => srcLink(id)).join('<br>') || blank('No source')}</td>
-    <td class="tiny">${esc(q.blocks)}</td>
-  </tr>`;
-
-  const missingRow = (q) => `<tr id="${esc(q.id)}">
-    <td class="mono tiny">${esc(q.id)}</td>
-    <td>${badge(q.status, q.status === 'Blocked' ? 'red' : 'amber')}</td>
-    <td><b>${esc(q.question)}</b><br><span class="tiny muted">${esc(q.why)}</span></td>
-    <td class="tiny">${esc(q.known)}</td>
-    <td class="tiny">${esc(q.unknown)} <span class="badge plain tiny">Unverified — no source exists yet</span></td>
-    <td class="tiny">${esc(q.howToFind)}</td>
-    <td class="tiny">${esc(q.owner)}</td>
-    <td class="tiny">${esc(q.blocks)}</td>
-  </tr>`;
-
-  const body = `
-${pageHead({
-  trail: [{ href: '/', label: 'Home' }, { label: 'Question register' }],
-  kicker: 'Know, unknown, find out',
-  title: 'Open questions &amp; missing information',
-  lede: 'The list a decision should rest on: what this project already knows and can source, what it does not know, and the cheapest suggestion for discovering each missing piece. Answered rows carry their official source. Unanswered rows are labelled unverified rather than filled in.',
-  meta: `<div class="btn-row">
-    ${badge(answered.length + ' answered, with sources', 'green')}
-    ${badge(missing.length + ' open or blocked', 'amber')}
-  </div>`,
-})}
-
-<section class="section">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow">Part one</p>
-        <h2>What is already known — answered, decided and sourced</h2>
-        <p>Each answer is checked against an official document, and the row links that document. These are closed questions; they are kept visible so the reasoning is auditable.</p>
-      </div>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <caption><b>${answered.length} answered questions.</b> Every row carries a link to the official source it was answered from.</caption>
-        <thead><tr>
-          <th scope="col">ID</th><th scope="col">Question</th><th scope="col">The answer</th>
-          <th scope="col">Official source</th><th scope="col">Note</th>
-        </tr></thead>
-        <tbody>${answered.map(answerRow).join('\n')}</tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section class="section tint">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow">Part two</p>
-        <h2>What is missing — open and blocked questions</h2>
-        <p>The three middle columns are the point of this table: <b>what is known</b>, <b>what is missing</b>, and <b>how to find out</b>. Missing values are labelled unverified and left unfilled; nothing here is inferred.</p>
-      </div>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <caption><b>${missing.length} open questions.</b> An unanswered question has no source by definition; each row states the context instead and never invents an answer.</caption>
-        <thead><tr>
-          <th scope="col">ID</th><th scope="col">Status</th><th scope="col">Question</th>
-          <th scope="col">What is known</th><th scope="col">What is missing</th>
-          <th scope="col">How to find out (discovery suggestion)</th>
-          <th scope="col">Who can answer</th><th scope="col">Blocks</th>
-        </tr></thead>
-        <tbody>${missing.map(missingRow).join('\n')}</tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow">Part three</p>
-        <h2>The missing-information discovery plan</h2>
-        <p>Suggestions made specifically to discover the missing information, in the order they should be run. Each one names what it unlocks. None of them requires a purchase.</p>
-      </div>
-    </div>
-    <div class="prose" style="max-width:74ch">
-      <ol>
-        ${missing
-          .map(
-            (q) => `<li style="margin-bottom:.75rem"><b>${esc(q.id)} — ${esc(q.question)}</b><br>${esc(q.howToFind)} <span class="tiny muted">(Owner: ${esc(q.owner)}. Unlocks: ${esc(q.blocks)}.)</span></li>`
-          )
-          .join('\n')}
-      </ol>
-      <div class="callout amber mt-3">
-        <h4>The pattern in the open questions</h4>
-        <p>Most open items need something only the owner has: dashboard access, a decision about identity, or a small budget. That is not a research failure — it is the boundary of what a session without account access can settle. Where the answer is a check anyone with the login could do in ten minutes (Q-01, Q-11, Q-12), the row gives the steps and the time it takes.</p>
-      </div>
-      <p class="small muted" id="missing-note">Context note: rows in the missing table describe absences. There is no official source for information that does not exist yet, so those rows carry no source link and are marked unverified instead. When a question is answered, its row moves to Part one with the source attached — it is never answered from inference.</p>
-    </div>
-  </div>
-</section>`;
-
-  return page({
-    path: '/questions/',
-    title: 'Open questions & missing information — what is known, what is not | Counterwise',
-    description:
-      'The decision register: answered questions with official sources, open questions separated into known and missing, and a discovery plan for every missing piece of information.',
     body,
   });
 }
@@ -522,9 +373,65 @@ ${pageHead({
   </div>
 </section>
 
+<section class="section" id="automation">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register five</p>
+        <h2>Automation pipeline — what is automated, what is gated</h2>
+        <p>The platform automates everything that can be checked by a machine, and puts a human gate in front of everything that cannot. The gate runs on every build and fails the publish on any breach.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Automation vs human gate.</b> Every row states who owns it and what happens on failure.</caption>
+        <thead><tr><th scope="col">Step</th><th scope="col">Automated or gated</th><th scope="col">What it does</th><th scope="col">Source / gate</th></tr></thead>
+        <tbody>
+          <tr><td>Page generation</td><td>Automated</td><td>Writes every page, sitemap and feed from the same data file, so a page cannot ship without being listed.</td><td class="src">${srcLink('G3')} · ${srcLink('G4')}</td></tr>
+          <tr><td>Compliance gate R1–R10</td><td>Automated, fails build</td><td>Checks disclosure, sponsored marking, no prices or ratings, no hands-on claims, canonicals, internal links, sitemap and feed validity.</td><td class="src">${srcLink('A1')} · ${srcLink('A2')} · ${srcLink('F1')} · ${srcLink('G1')}</td></tr>
+          <tr><td>Link check + XML validation</td><td>Automated, fails build</td><td>Crawls every page, validates sitemap and feed XML, fails on any broken internal link.</td><td class="src">${srcLink('G4')}</td></tr>
+          <tr><td>HTTP smoke at /WinB/</td><td>Automated, fails build</td><td>Serves the site at its real project path and fetches every sitemap URL.</td><td class="src">${srcLink('G3')}</td></tr>
+          <tr><td>Product facts</td><td>Human-gated</td><td>Every spec comes from the listing record with a read date. No AI step writes a product fact.</td><td class="src">${srcLink('A2')}</td></tr>
+          <tr><td>Guide prose</td><td>Human-gated</td><td>AI drafting, if ever used, is a suggestion until a human checks it against a source (Q-12).</td><td class="src">${srcLink('F1')} · ${srcLink('G2')}</td></tr>
+          <tr><td>Topic choice</td><td>Human-gated, data-led</td><td>Next guide is chosen from measured queries after 30 days, not from instinct (SUG-03, SUG-13).</td><td class="src">${srcLink('G2')}</td></tr>
+          <tr><td>Ledger rows</td><td>Human-gated</td><td>A row may only be added from an authorised first-party report with provenance. No estimates, no forecasts.</td><td class="src">${srcLink('A2')}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="organic">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register six</p>
+        <h2>Organic traffic playbook — one site, one reason to rank</h2>
+        <p>Search engines are given one site to index and a reason to rank it: original, question-shaped answers in two coherent clusters, with every claim sourced. No keyword stuffing, no bulk publishing, no doorway pages.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Findability levers.</b> Each row states what the build does and the official source behind it.</caption>
+        <thead><tr><th scope="col">Lever</th><th scope="col">What the build does</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr><td>One indexable site</td><td>Superseded generations are marked noindex and excluded in robots.txt, so exactly one site competes on this host.</td><td class="src">${srcLink('G2')}</td></tr>
+          <tr><td>Sitemap</td><td>Generated from the same data as the pages; every indexable page is listed, single-host, UTF-8.</td><td class="src">${srcLink('G3')} · ${srcLink('G4')}</td></tr>
+          <tr><td>RSS feed</td><td>Generated with the sitemap; every new guide appears in both automatically.</td><td class="src">${srcLink('G3')}</td></tr>
+          <tr><td>Canonical + Open Graph</td><td>Every page carries a canonical URL, title, description and social tags.</td><td class="src">${srcLink('G3')}</td></tr>
+          <tr><td>Cluster interlinking</td><td>Air-fryer and thermometer clusters link to each other, to the hubs and to the comparison table.</td><td class="src">${srcLink('G2')}</td></tr>
+          <tr><td>Cadence</td><td>One substantial guide per fortnight. Bursts are treated as scaled content abuse.</td><td class="src">${srcLink('G2')}</td></tr>
+          <tr><td>Outbound marking</td><td>Every Amazon link carries rel="sponsored" so paid placements are qualified.</td><td class="src">${srcLink('G1')}</td></tr>
+          <tr><td>Measurement</td><td>Five events, no cookies, no third-party scripts. Topic choice waits for measured queries.</td><td class="src">${srcLink('A2')}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
-    <div class="sec-head"><div><p class="eyebrow">Register five</p><h2>Content inventory</h2></div></div>
+    <div class="sec-head"><div><p class="eyebrow">Register seven</p><h2>Content inventory</h2></div></div>
     ${table({
       caption: '<b>Everything published.</b> Five product pages, five guides, two category hubs, one comparison table.',
       head: ['Type', 'Title', 'Path', 'Published', 'Sources'],
@@ -625,7 +532,7 @@ ${pageHead({
     path: '/flagged/',
     title: 'Flagged for Review — unverified items and irregularities | Counterwise',
     description:
-      'Nine flagged items with evidence and official sources: untagged short links, unconfirmed intended ASINs, no hands-on testing, withheld prices, and unmeasured traffic.',
+      'Every item that could not be confirmed, each with its evidence, its official source where one exists, and the action that would close it — including two irregularities found and fixed in this cycle.',
     body,
   });
 }
@@ -637,7 +544,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'How we choose' }],
   kicker: 'Standards',
   title: 'How this site works',
-  lede: 'Four rules, applied to every page. If a page breaks one of them, that is a bug — tell us and it gets fixed or the page comes down.',
+  lede: 'Five rules, applied to every page. An earlier version broke one of them by calling published specifications unpublished; that is recorded on the Flagged page and fixed. If a page breaks a rule, it is a bug.',
 })}
 <section class="section">
   <div class="wrap-narrow prose">
@@ -654,8 +561,13 @@ ${pageHead({
     <p>Each product page also offers a plainly-labelled untagged listing link, marked “no commission”, so a reader who does not want to use an affiliate link can still check the product. It is marked the same way for search engines.</p>
 
     <h2>Rule four: what cannot be sourced is blank, and labelled</h2>
-    <p>Wattage is blank. Counter footprint is blank. Probe length is blank. In each case the listing did not state it in the data this desk could read, and guessing a plausible range is the exact failure mode this project was set up to avoid. A blank with “not stated” beside it is a fact; a plausible number would be a fabrication.</p>
-    <p>Every blank is also collected on the <a href="/flagged/">Flagged for Review</a> page with the action that would resolve it.</p>
+    <p>Counter footprint is blank for all three air fryers. External dimensions for the two thermometers are blank. Probe length is blank. In each case the listing did not state it in the data this desk could read, and guessing a plausible range is the exact failure mode this project was set up to avoid. A blank with “not stated” beside it is a fact; a plausible number would be a fabrication.</p>
+    <p>The reverse rule applies too, and an earlier version of this page broke it. Wattage, temperature range, model numbers and warranty terms <em>were</em> published on the listings, and the site was reporting them as “not stated”. That was fixed on 2026-11-20: those values are now printed, transcribed from the listing, with the phrase they came from. See <a href="/flagged/#FLG-014">FLG-014</a>. A specification only counts as missing when the listing is actually silent.</p>
+    <p>Where a single listing states two different values for the same thing, both are printed and the disagreement is flagged rather than quietly resolved — see <a href="/flagged/#FLG-013">FLG-013</a>.</p>
+    <p>Every genuine blank is collected on the <a href="/flagged/">Flagged for Review</a> page with the action that would resolve it.</p>
+
+    <h2>Rule five: report what buyers actually complain about</h2>
+    <p>Amazon publishes, above the reviews, a count of how many reviewers mentioned a given feature and how those mentions split positive and negative. It is the most decision-relevant thing on a product page and most buying guides ignore it. Each product page here reproduces those counts, attributed to Amazon, sorted worst-first, with a source line. They are not this desk’s sample and they are not a rating.</p>
 
     <hr>
     <h2>The disclosure, and why it is where it is</h2>
@@ -668,6 +580,15 @@ ${pageHead({
       <li>It is not impartial in the sense of having no stake. It earns commission if you buy through its links, and says so at the top of every page.</li>
     </ul>
 
+    <h2>Authorship, brand and imagery</h2>
+    <p>Every guide and product page carries a byline — author, date and reading time — and the About page states who writes the site and what the desk will not do. Google’s site-reputation policy weighs stated authorship, and an unauthored affiliate page is its own example of content likely to attract action. The brand is Counterwise: kitchen gear, chosen by question rather than by hype. Imagery is generated editorial illustration, labelled as such. No Amazon product photography is stored, because the IP License forbids storing or caching Product Advertising Content images and a static site is a cache. Licensed brand photography is an open question (Q-14).</p>
+
+    <h2>Seasons and clusters</h2>
+    <p>The site is organised as two clusters — air fryers and thermometers — that link to each other and to the comparison table. A seasonal notebook reframes the existing guides by the meal being cooked (weeknight two-food dinners, big-batch sharing, holiday roasts, summer grilling) as editorial hypotheses, not as popularity claims. New seasonal guides are published one at a time, only after measurement says which one to write. See the <a href="/decisions/#queue">topic queue</a>.</p>
+
+    <h2>Automation and the human gate</h2>
+    <p>The build automates page generation, the sitemap, the feed, link checks and the R1–R10 compliance gate, and fails the publish on any breach. Product facts, guide prose, topic choice and ledger rows are human-gated: no AI step writes a product fact, and no ledger row is added without an authorised first-party report. The full pipeline is tabled in the <a href="/data-room/#automation">Data Room</a>.</p>
+
     <h2>Corrections</h2>
     <p>If something here is wrong, the fastest route is an issue on the repository behind this site. Corrections are logged, and a correction that changes a claim is dated on the page it changes.</p>
   </div>
@@ -677,7 +598,7 @@ ${pageHead({
     path: '/methods/',
     title: 'How we choose — standards and limits | Counterwise',
     description:
-      'The four rules behind every page: no hands-on claim without the product, no prices or ratings, tagged sponsored links, and blanks instead of guesses.',
+      'The five rules behind every page: no hands-on claim without the product, no prices or ratings, tagged sponsored links, blanks instead of guesses, and Amazon’s own review-theme counts reported honestly.',
     body,
   });
 }
@@ -701,8 +622,11 @@ ${pageHead({
     <p>Because the five supplied form a coherent set: three air fryers that are structurally different machines, and two thermometers built for different jobs. Expanding into a twelfth category before the first two convert would produce a directory, not a shop. That decision is written down in the <a href="/decisions/#SUG-08">Decision Room</a> with its reasoning and its downside.</p>
 
     <h2>How the site is built</h2>
-    <p>Static HTML generated from a small data file, served by GitHub Pages. No database, no framework, no third-party script, no cookie set by the site’s own code. The sitemap and RSS feed are regenerated by the same build that writes the pages, so a new guide cannot be published without appearing in both.</p>
-    <p>You can read the registers that drive it: the <a href="/data-room/">Data Room</a> holds the product-intent record, the source register and the measurement schema; the <a href="/flagged/">Flagged for Review</a> page holds everything that could not be confirmed.</p>
+    <p>Static HTML generated from a small data file, served by GitHub Pages. No database, no framework, no third-party script, no cookie set by the site’s own code. The sitemap and RSS feed are regenerated by the same build that writes the pages, so a new guide cannot be published without appearing in both. The build also runs the R1–R10 compliance gate, a link crawl and an HTTP smoke test at the real /WinB/ path, and fails the publish if any of them fails.</p>
+    <p>You can read the registers that drive it: the <a href="/data-room/">Data Room</a> holds the product-intent record, the source register, the automation pipeline, the organic playbook and the measurement schema; the <a href="/flagged/">Flagged for Review</a> page holds everything that could not be confirmed.</p>
+
+    <h2>Brand, seasons and clusters</h2>
+    <p>The brand is Counterwise. The shop is organised as two clusters — <a href="/air-fryers/">air fryers</a> and <a href="/thermometers/">thermometers</a> — that link to each other and to the <a href="/compare/">comparison table</a>. A seasonal notebook on the front page reframes the guides by cooking moment as hypotheses. Imagery is generated editorial illustration; no Amazon product photography is stored, for licence reasons stated in <a href="/methods/">How this site works</a>.</p>
 
     <h2>Contact</h2>
     <div class="callout">
@@ -789,13 +713,14 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Executive summary' }],
   kicker: 'For the owner',
   title: 'Executive summary',
-  lede: 'What was built, what it can and cannot claim, what it needs from you, and the four decisions that carry the most weight.',
-  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 5 guides · 11 official sources</p>`,
+  lede: 'What was built, what it can and cannot claim, what it needs from you, and the decisions that carry the most weight.',
+  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 5 guides · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
 })}
 <section class="section">
   <div class="wrap-narrow prose">
     <h2>In one paragraph</h2>
-    <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure above the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. The site reads as a buyer’s publication rather than an audit, with the registers kept in a separate Data Room and the outstanding items on a Flagged for Review page.</p>
+    <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure above the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. This cycle moved the site from a specification summary to a buying decision: the front page now opens with five buyer situations rather than a methodology statement, the comparison table carries stated wattage, temperature range and the weakest review theme per product, and each product page reports what repeat buyers complain about using the counts Amazon itself publishes.</p>
+    <p>Two things were also fixed that mattered more than any addition. The site had been reporting published specifications as “not stated” — wattage, temperature range and model numbers were all on the listings (FLG-014). And three listings contradict themselves on their own figures; both values are now printed rather than one being quietly chosen (FLG-013).</p>
 
     <h2>What the five supplied links turned out to be</h2>
     ${table({
@@ -815,6 +740,8 @@ ${pageHead({
       <li>The required disclosure appears above the masthead on every page, and again in the footer.</li>
       <li>No price, rating or sales figure is reproduced anywhere — checked by the build, not by eye.</li>
       <li>The USDA safe-temperature table is quoted from the agency’s own chart, with rest times.</li>
+      <li>Every stated wattage, temperature range, model number and warranty term is transcribed from the listing, with the phrase it came from recorded in <code>_build/listing-evidence.mjs</code>.</li>
+      <li>Review-theme counts are Amazon’s own published figures, attributed and dated, sorted worst-first.</li>
       <li>The sitemap and RSS feed are generated by the build, so a new guide cannot ship without being listed in both.</li>
     </ul>
 
@@ -824,6 +751,7 @@ ${pageHead({
       <li><b>No traffic, clicks, orders or revenue.</b> No analytics endpoint is deployed, so nothing has been measured. The campaign ledger is empty by design.</li>
       <li><b>No confirmation that the supplied short links credit your account.</b> The resolved URLs carry no tag; the site uses tagged canonical links instead.</li>
       <li><b>No ranking or price comparison.</b> Five products in two categories is a shop, not a market.</li>
+      <li><b>No claim that an unpublished number was published, or the reverse.</b> Where a listing is silent, the cell is blank. Where it contradicts itself, both figures appear.</li>
     </ul>
 
     <h2>The four decisions that matter most</h2>
@@ -838,11 +766,20 @@ ${pageHead({
       ],
     })}
 
+    <h2>How it reads as a shop</h2>
+    <ul>
+      <li>The front page leads with the five picks, then the two category hubs, then the guides. Registers live in the footer and one “More” group, never in the hero.</li>
+      <li>Two clusters (air fryers, thermometers) link to each other and to the comparison table. A seasonal notebook reframes the guides by cooking moment as hypotheses — no popularity or search-volume claim is made.</li>
+      <li>Every guide and product page carries a byline (author, date, reading time). Imagery is generated editorial illustration, labelled as such; no Amazon photography is stored.</li>
+      <li>The automation pipeline (generation, sitemap, feed, R1–R10 gate, link crawl, smoke test) is tabled in the Data Room. Product facts, prose, topic choice and ledger rows stay human-gated.</li>
+    </ul>
+
     <h2>What you can review, in order</h2>
     <ol>
-      <li><a href="/decisions/">Decision Room</a> — ${SUGGESTIONS.length} suggestions ordered by priority, ${QUESTIONS.length} questions split into known and unknown, and the options rejected with sources.</li>
+      <li><a href="/suggestions/">Suggestions and the decision queue</a> — ${DECISION_QUEUE.length} proposals with cost, reversibility and failure mode, the ${BLOCKING_QUESTIONS.length} questions that block them, and the five actions only you can take (about fifty minutes total). Start here.</li>
+      <li><a href="/decisions/">Decision Room</a> — three paths to choose between, a seasonal topic queue with measurement gates, ${SUGGESTIONS.length} suggestions ordered by priority, ${QUESTIONS.length} questions split into known and unknown, a missing-information discovery plan, and the options rejected with sources.</li>
       <li><a href="/flagged/">Flagged for Review</a> — ${FLAGS.length} items that could not be confirmed, each with evidence and the shortest route to closing it.</li>
-      <li><a href="/data-room/">Data Room</a> — the product-intent record, the source register, the five events, and the empty ledger with its schema.</li>
+      <li><a href="/data-room/">Data Room</a> — the product-intent record, the source register, the automation pipeline, the organic playbook, the five events, and the empty ledger with its schema.</li>
     </ol>
 
     <h2>The honest assessment</h2>
@@ -858,6 +795,164 @@ ${pageHead({
     title: 'Executive summary — Counterwise',
     description:
       'What was built, what the five supplied links resolved to, what the site can and cannot claim, and the four decisions that matter most.',
+    body,
+  });
+}
+
+// ------------------------------------------------------- suggestions review
+// A dedicated surface for reviewing proposals before any is implemented.
+// Three parts, in the order a decision actually gets made:
+//   1. the decisions themselves, with cost, reversibility and failure mode
+//   2. the questions that block them, split into known / missing / how to find
+//   3. the five things only the owner can do, so a stalled queue is visible
+export function suggestionsPage() {
+  const NEWLINE = '\n';
+  const openItems = DECISION_QUEUE.filter((d) => !d.implemented);
+  const doneItems = DECISION_QUEUE.filter((d) => d.implemented);
+
+  const card = (d) => `
+<article class="dec" id="${esc(d.id)}">
+  <div class="dh">
+    <span class="pri">${esc(d.id)}</span>
+    <h3>${esc(d.title)}</h3>
+    ${badge(d.lane, 'plain')}
+    ${d.ownerOnly ? badge('Owner only', 'amber') : badge('Any editor', 'green')}
+    ${d.implemented ? badge('Built in this cycle', 'green') : ''}
+  </div>
+  <div class="rec"><b>Recommendation</b>${esc(d.recommendation)}</div>
+  <dl>
+    <dt>What changes</dt><dd>${esc(d.whatChanges)}</dd>
+    <dt>Why it matters</dt><dd>${esc(d.why)}</dd>
+    <dt>Cost</dt><dd>${esc(d.cost)}</dd>
+    <dt>Reversible</dt><dd>${esc(d.reversible)}</dd>
+    <dt>If it goes wrong</dt><dd>${esc(d.risk)}</dd>
+    <dt>Choose it if</dt><dd>${esc(d.chooseIf)}</dd>
+    <dt>Do not choose it if</dt><dd>${esc(d.notIf)}</dd>
+    <dt>Blocked by</dt><dd>${d.dependsOn.length ? d.dependsOn.map((q) => `<a href="#${esc(q)}">${esc(q)}</a>`).join(' · ') : 'Nothing'}</dd>
+    <dt>How much it costs to be wrong</dt><dd>${d.riskLow ? '<span class="badge green">Low — the change is a revert</span>' : '<span class="badge amber">Not free — money spent, a claim published, or an obligation accepted</span>'}</dd>
+  </dl>
+</article>`;
+
+  const boardRow = (d) => `<tr>
+    <td class="mono tiny">${esc(d.id)}</td>
+    <td><b>${esc(d.title)}</b><br><span class="tiny muted">${esc(d.lane)}</span></td>
+    <td class="tiny">${esc(d.cost)}</td>
+    <td class="tiny">${d.reversible}</td>
+    <td>${d.reversible === 'Yes' || d.reversible.startsWith('Yes') ? '<span class="badge green">Yes</span>' : d.reversible.startsWith('n/a') ? '<span class="badge plain">Information only</span>' : '<span class="badge amber">Hard to undo</span>'}</td>
+    <td class="tiny">${d.dependsOn.length ? d.dependsOn.map((q) => `<a href="#${esc(q)}">${esc(q)}</a>`).join(' ') : '—'}</td>
+    <td>${d.implemented ? '<span class="badge green">Built</span>' : '<span class="badge plain">Awaiting decision</span>'}</td>
+    <td class="tiny"><a href="#${esc(d.id)}">Read the case →</a></td>
+  </tr>`;
+
+  const qCard = (q) => `
+<article class="dec" id="${esc(q.id)}">
+  <div class="dh">
+    <span class="pri">${esc(q.id)}</span>
+    <h3>${esc(q.question)}</h3>
+  </div>
+  <dl>
+    <dt>Unblocks</dt><dd>${esc(q.unblocks)}</dd>
+    <dt>What is known</dt><dd>${esc(q.known)}</dd>
+    <dt>What is missing</dt><dd class="q-missing">${esc(q.missing)}</dd>
+    <dt>How to find out</dt><dd>${esc(q.howToFind)}</dd>
+    <dt>Who can answer</dt><dd>${esc(q.whoCanAnswer)}</dd>
+    <dt>If yes</dt><dd>${esc(q.ifYes)}</dd>
+    <dt>If no</dt><dd>${esc(q.ifNo)}</dd>
+  </dl>
+</article>`;
+
+  const body = `
+${pageHead({
+  trail: [{ href: '/', label: 'Home' }, { label: 'Suggestions' }],
+  kicker: 'Review queue',
+  title: 'Suggestions, and what has to be true before each one',
+  lede: 'Ten proposals, the nine questions blocking them, and the five things only the account owner can do. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it. <b>This page is the decision board</b> — one row per proposal, with its cost, reversibility and failure mode. The <a href="/decisions/">Decision Room</a> holds the underlying <code>SUG</code> case files, the named options A/B/C behind each one, and the fifteen questions split into known, missing and how-to-find.',
+  meta: `<div class="btn-row">
+    ${badge(openItems.length + ' awaiting a decision', 'amber')}
+    ${badge(doneItems.length + ' built in this cycle', 'green')}
+    ${badge(BLOCKING_QUESTIONS.length + ' blocking questions', 'plain')}
+  </div>`,
+})}
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part one</p>
+        <h2>The decision board</h2>
+        <p>One row per proposal. "Reversible" means a change can be undone without loss; "hard to undo" means it spends money, publishes a claim, or closes a door. Decide the reversible ones quickly and the other ones deliberately.</p>
+      </div>
+    </div>
+    ${table({
+      caption: '<b>Ten proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.',
+      head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Risk', 'Blocked by', 'Status', ''],
+      rows: [...openItems, ...doneItems].map(boardRow),
+    })}
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part two</p>
+        <h2>Nine questions that must be answered first</h2>
+        <p>Each is split into what is known — with where it is known from — what is missing, and the cheapest way to find the missing part. If a question cannot be answered from an official source, it says so instead of guessing.</p>
+      </div>
+    </div>
+    ${BLOCKING_QUESTIONS.map(qCard).join(NEWLINE)}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part three</p>
+        <h2>Five things only you can do</h2>
+        <p>Everything else on this page can be done by an editor with the repository. These five cannot, and the queue does not move far without them. Total time: about fifty minutes.</p>
+      </div>
+    </div>
+    ${table({
+      caption: '<b>The owner checklist.</b> Each item names the decision it unblocks and how long it takes.',
+      head: ['Unblocks', 'Action', 'Time'],
+      rows: OWNER_ACTIONS.map(
+        (a) => `<tr><td class="mono tiny"><a href="#${esc(a.id)}">${esc(a.id)}</a></td><td>${esc(a.action)}</td><td class="tiny">${esc(a.time)}</td></tr>`
+      ),
+    })}
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part four</p>
+        <h2>Read the case for each proposal</h2>
+        <p>The board above is a summary. This is the argument — what changes, what it costs, how it fails, and the condition under which you should not do it.</p>
+      </div>
+    </div>
+    ${openItems.map(card).join(NEWLINE)}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-narrow prose">
+    <h2>How to use this page</h2>
+    <p>Pick a row from Part one. If it is marked "Owner only", it needs the account. If it is blocked, follow the question ID in Part two before deciding. If the answer to a question turns out to be "no", the proposal usually stays a proposal — that is a valid outcome and is recorded in its "Do not choose it if" line.</p>
+    <p>Nothing here is a commitment. The site does not implement a proposal because it is on this page; it implements one when somebody reads it, decides, and changes the build. What is already built is labelled "Built", and the previous queue is preserved in the <a href="/decisions/">Decision Room</a> so the reasoning behind an older choice is still readable.</p>
+    <div class="callout">
+      <h4>What this page deliberately does not do</h4>
+      <p>It does not score the proposals. A score would imply that "conversion" and "trust" can be traded on one axis, and they cannot. It also does not predict revenue: no campaign has run, so any number would be invented.</p>
+    </div>
+  </div>
+</section>`;
+
+  return page({
+    path: '/suggestions/',
+    title: 'Suggestions and the decision queue | Counterwise',
+    description:
+      'Ten proposals for improving this site, each with cost, reversibility and failure mode, plus the nine blocking questions and the five actions only the owner can take.',
     body,
   });
 }

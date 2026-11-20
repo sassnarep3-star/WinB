@@ -1,9 +1,13 @@
-# Executive summary
+# Executive summary — Counterwise
 
-**Project:** a working Amazon Associates shop front for five supplied products
-**Site:** The Crisp Kitchen — https://sassnarep3-star.github.io/WinB/
-**Build date:** 2026-11-20
-**Tracking ID supplied:** `shopnow047c-20` — **status unconfirmed** (see §4)
+**Project:** a working Amazon Associates shop front for five supplied kitchen products
+**Site:** Counterwise — https://sassnarep3-star.github.io/WinB/
+**Build date:** 2026-11-20 (UTC)
+**Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
+**Pages:** 27 canonical pages + 5 affiliate exit pages, 29 sitemap routes, 7 feed items
+**Sources:** 11 official sources, all fetched and read (see §6)
+
+**Scope boundary:** this repository currently delivers a static affiliate publication with automated page generation and compliance checks; it is **not yet an AI-powered research or campaign-optimization platform**. There is no deployed AI agent, live trend/commission feed, live analytics endpoint, Search Console data, or verified conversion reporting. Those capabilities need authorized data access, deployment credentials and human approval gates before they can be claimed or switched on.
 
 ---
 
@@ -11,22 +15,31 @@
 
 | Requirement in the brief | Status | Where it lives |
 |---|---|---|
-| Review the repo, line by line, against trusted sources | **Done** — the repo contained no application code (one 6-byte README), which is itself the finding | `FLG-008`, research log R-01 |
-| Marketing for the five supplied links | **Done** — all five resolved and written up as a shop | `/`, `/products/` |
-| Clean landing page + subpages by category | **Done** — 27 pages, five categories of surface, dashboard in the footer | `/index.html` |
-| Simple dashboard-style table of all findings | **Done** — four verification tables plus claim, flag, and question tables | `/verification/` |
-| Every row sourced to an official link; blanks where unconfirmed | **Done** — 3 fields deliberately blank, 10 flags, 20 questions | `/verification/`, `/flagged/` |
-| Live GitHub Pages site | **Done** — published from `main` | PR + deploy record in `COORDINATION.md` |
-| Executive summary | **This document** | `EXECUTIVE-SUMMARY.md` |
-| Read like a shop, not an audit | **Done** — buyer question first, dashboards moved to the footer | `/index.html` |
-| Suggestions section so a human can choose a path | **Done** — 26 suggestions, 3 coherent paths, one recommendation | `/decisions/` |
-| Clear list of questions with answers and gaps | **Done** — 20 questions, each with known/missing/blocks/how-to-close | `/decisions/questions.html` |
+| Review the repo line by line against trusted sources | **Done** — re-verified 2026-11-20 by fetching each official source live | `/data-room/#sources`, `COORDINATION.md` §4 |
+| Marketing for the five supplied links | **Done** — all five resolved and written up as a shop | `/`, `/reviews/` |
+| Clean landing page + subpages by category | **Done** — front page, 2 category hubs, 5 product pages, comparison table | `/index.html`, `/air-fryers/`, `/thermometers/`, `/compare/` |
+| Dashboard-style tables of all findings | **Done** — product-intent record, source register, automation pipeline, organic playbook, events, ledger, inventory | `/data-room/` |
+| Every row sourced; blanks where unconfirmed | **Done** — intended ASIN blank for all five, wattage/footprint blank, 11 flags | `/data-room/#products`, `/flagged/` |
+| Live GitHub Pages site | **Done** — published from `main`, Pages `built` | `COORDINATION.md` §5–§7 |
+| Executive summary | **This document** + `/executive-summary/` | `EXECUTIVE-SUMMARY.md` |
+| Read like a shop, not an audit | **Done** — products first, registers in footer + one “More” group | `/index.html` |
+| Polished publication feel (authorship, brand, imagery, seasons, clusters) | **Done** — bylines, Counterwise brand, generated illustrations, seasonal notebook, 2 clusters | `/`, `/methods/`, `/about/` |
+| Suggestions section to choose a path before implementing | **Done** — 3 paths, 14 suggestions each with named options A/B/C, a recommended option and a decision gate, topic queue with measurement gates | `/decisions/` |
+| Questions / information / answers + discovery plan | **Done** — 15 questions (known / missing / how to find), discovery plan | `/decisions/#questions` |
+| Findable (one site to index) | **Done** — sitemap, RSS, robots, canonicals, OG, JSON-LD, noindex on superseded trees | `/sitemap.xml`, `/feed.xml`, `/robots.txt` |
+| Trustworthy machinery (automate + gate) | **Done** — R1–R10 gate fails the build; human gates for facts, prose, topics, ledger | `/data-room/#automation` |
+| Disclosure above the fold on every page | **Done** — strip under masthead + footer repeat, enforced by R1 | every page |
+| Every outbound product link marked sponsored | **Done** — `rel="sponsored nofollow noopener"` + tag, enforced by R2/R10 | every page |
+| Product-intent confirmation record (separate fields) | **Done** — intended ASIN and observed redirect never merged | `/data-room/#products` |
+| Question-shaped guides + measurement before more writing | **Done** — 8 guides published (5 evergreen + 3 winter seasonal, owner-instructed 2026-11-20); every future title gated on 30 days of data | `/guides/`, `/decisions/#queue` |
+| Click/conversion measurement (5 events) | **Code shipped, not deployed** — no endpoint, no traffic claimed | `/data-room/#events`, FLG-007 |
+| Empty campaign ledger with provenance rule | **Done** — 0 rows, schema + column rules published | `/data-room/#ledger` |
 
 ## 2. The five products, as resolved
 
 Every supplied link was opened once on 2026-11-20. **In all five cases the short code did not match the ASIN the link resolved to** — the codes look like ASINs but are not.
 
-| # | Supplied link | Resolved ASIN | Product | Category |
+| # | Supplied link | Resolved ASIN (observed) | Product | Category |
 |---|---|---|---|---|
 | 1 | link.amazon/B04G1MEwY | `B0CDY277D3` | Chefman 6-Quart Dual Basket Air Fryer | Air fryers |
 | 2 | link.amazon/B02NbDxp3 | `B09B7SB46R` | Emeril Lagasse 26QT French Door Air Fryer Oven | Air fryers |
@@ -34,91 +47,91 @@ Every supplied link was opened once on 2026-11-20. **In all five cases the short
 | 4 | link.amazon/B0c8moW59 | `B0DHZTCNR5` | ThermoMaven 1-Second Meat Thermometer | Thermometers |
 | 5 | link.amazon/B0f3GKalj | `B0DZFD6R9Z` | CHEF iQ Sense Gen3 Wireless Thermometer | Thermometers |
 
-The set is coherent: three air fryers and the two thermometers that tell you when the food is done, which both listings name air-fryer use for. That is the editorial spine the site is built on.
+The set is coherent: three air fryers that are structurally different machines, and the two thermometers that tell you when the food is done. That is the editorial spine the site is built on.
 
-**None of the five links carried a visible `tag` parameter** when resolved.
+**None of the five resolved URLs carried a visible `tag` parameter.** The site therefore publishes tagged canonical Special Links built from each observed ASIN plus `shopnow047c-20`, and does not use the untagged short links as money links (FLG-001, FLG-003).
 
-## 3. The four decisions that determine whether this is a business
+**Intended ASIN is blank for all five** (FLG-002). The ASINs above are *observed* redirect targets, stored in their own field and never merged into the intended field.
 
-Everything else is optimisation in front of these. They are on `/decisions/questions.html` as Q-01, Q-02, Q-05 and Q-13.
+## 3. The decisions that determine whether this is a business
 
-1. **Is the Associates account real and approved?** Only the owner can check this. Nothing earns until it does. → `FLG-001`
-2. **Do the links actually track?** Requires the one-link enrollment test: generate one SiteStripe link, publish it, click it once, confirm the click in the report. Then scale. → `FLG-003`
-3. **Where does event data go?** The site has five defined events and no endpoint. A static host cannot receive them. → `Q-05`
-4. **Can we show prices?** Only from Amazon-served data or the Product Advertising API. No static price may be published. → `FLG-004`
+Ordered by downside if left open. Full reasoning in the Decision Room.
 
-## 4. What is deliberately absent from the site, and why
+1. **Do the supplied short links credit your account?** (Q-01, FLG-001) — Mint one link in Associates Central and compare the parameters. Under an hour. Nothing earns until this is closed.
+2. **Buy and document one review unit** (SUG-01, FLG-004) — The only durable answer to thin-affiliation risk and reader distrust. Pick the cheapest of the five, buy it, publish the receipt.
+3. **Deploy the analytics endpoint** (SUG-03, FLG-007) — Until it exists, the next topic is chosen by instinct. Deploy the supplied worker, set one line in the JS, run 30 days.
+4. **Decide who the site belongs to** (Q-05) — Google’s site-reputation policy weighs stated authorship; an unauthored affiliate page is its own example of a problem. A named byline and a two-line biography.
 
-These are the most important engineering decisions in the build. Each is a place where adding an attractive feature would have breached a rule or published an unverifiable number.
+## 4. What is deliberately absent, and why
 
-| Absent | Reason |
-|---|---|
-| **Prices** | Amazon permits a site to show price and availability only if Amazon serves the data in the link, or it comes from the Creators API / Product Advertising API with a timestamp and a fixed disclaimer. A hand-copied price satisfies neither. |
-| **Star ratings** | Same rule, plus the retrieved page text interleaves the viewed product's data with "customers also viewed" data, so attribution could not be made confidently. |
-| **Product photography** | The Product Advertising Content licence forbids storing or caching images. A static site is a cache. The hero is a generated editorial illustration, labelled as such. |
-| **Any traffic, conversion or revenue number** | No authorised report exists. The campaign ledger ships with defined columns and zero rows rather than a plausible-looking demonstration figure. |
-| **"We tested this"** | Nothing was physically handled. Federal guidance is explicit that you cannot describe experience with a product you have not tried. Every claim is labelled *seller claim*, *editorial inference* or *observed*. |
-| **Commission rates / "high-converting" scores** | None verified. Ranking products by payout would have been an invention; the site ranks by cooking decision instead. |
-
-## 5. What the build enforces mechanically
-
-The site is generated from JSON by `tools/build.js` and gated by `tools/check.js`, which exits non-zero on any breach. **Currently: 32 files checked, 50 passes, 0 warnings, 0 failures.**
-
-The gate fails the build if:
-
-- any product destination lacks `rel="sponsored"`
-- any internal link wrongly carries `rel="sponsored"`
-- any page loses either disclosure (under-masthead strip, footer repeat)
-- any claim cites a source ID that is not in the register
-- any internal link or asset fails to resolve
-- a price or rating is populated in the product data
-- first-hand testing language appears in product copy
-- the sitemap, feed or robots file disagrees with the pages
-
-The build caught four real defects during development, including a link helper that had silently produced 60 dead internal links on the front page.
-
-## 6. Verification posture
-
-**11 sources** in the register. **8 retrieved and quoted** during the build; **3 listed but not retrieved**, each marked, each linked, none used to support a claim:
-
-- Amazon Seller Central ASIN glossary — requires a seller sign-in
-- sitemaps.org protocol — host not reachable from the build sandbox
-- GA4 outbound-click documentation — referenced only, no GA4 claim made
-
-Primary sources actually read and quoted include the Associates Operating Agreement (for the exact disclosure sentence), the Associates Program Policies (price, image-cache, agent and trademark clauses), the Commission Income Statement (attribution window), the FTC's disclosures guidance, and Google's sitemap documentation.
-
-## 7. Flags raised: 10
-
-| ID | Item | Severity |
+| Absent | Reason | Source |
 |---|---|---|
-| FLG-001 | Associates enrollment for the supplied tag unconfirmed | blocking for revenue |
-| FLG-002 | Sales-activity threshold not re-read against the account | informational |
-| FLG-003 | No visible tag on any supplied link; no code matched its ASIN | material |
-| FLG-004 | No price or rating published, by policy | accepted |
-| FLG-005 | NIST/NSF certification claims repeated only as seller claims | material |
-| FLG-006 | Nothing physically tested | material |
-| FLG-007 | Listing data read once, on one date | informational |
-| FLG-008 | Repo contained no code to review | closed |
-| FLG-009 | GitHub Actions disabled; resolver workflow inert | informational |
-| FLG-010 | No conversion measurement possible from this environment | material |
+| **Prices** | Permitted only when Amazon serves the link or data comes via Creators API / PA API. Static page has neither. | [A2 §2(b)](https://affiliate-program.amazon.com/help/operating/policies) |
+| **Star ratings / sales rank** | Same rule; ratings are Amazon’s content, not this site’s judgement. | [A2 §2(b)](https://affiliate-program.amazon.com/help/operating/policies) |
+| **Product photography** | IP License forbids storing/caching Product Advertising Content images; a static site is a cache. Generated illustrations are used and labelled. | [A2 IP License](https://affiliate-program.amazon.com/help/operating/policies) |
+| **Any traffic / conversion / revenue figure** | No authorised report exists. Ledger ships with schema and zero rows. | [A2 Commission Statement](https://affiliate-program.amazon.com/help/operating/policies) |
+| **“We tested this”** | Nothing has been handled. FTC: you cannot talk about your experience with a product you have not tried. | [F1](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) |
+| **Commission rates / “high-converting” scores** | None verified. Products are ranked by cooking decision, not by payout. | [A3](https://affiliate-program.amazon.com/) |
 
-None of these blocks publication. All ten are published with source links at `/flagged/`.
+## 5. How it reads as a shop (and how it ranks)
+
+- **Shop first:** front page leads with the five picks, then the two category hubs, then the guides. Dashboards live in the footer and one “More” group.
+- **Clusters:** air-fryer cluster (format, capacity, cleanup) and thermometer cluster (safe temperatures, checking vs watching) link to each other and to the comparison table.
+- **Seasonal notebook:** four cooking moments (weeknight two-food, big-batch sharing, holiday roasts, summer grilling) reframe existing guides as hypotheses. No search-volume, popularity or sales claim is made.
+- **Publication polish:** byline (author, date, reading time) on every guide and product page; Counterwise brand; generated editorial illustrations labelled as such.
+- **Findability:** one indexable site (superseded trees are noindex + disallowed), sitemap + RSS generated from the same data as the pages, canonicals + Open Graph + JSON-LD on every page, `rel="sponsored"` on every Amazon link, fortnightly cadence (bursts are scaled-content abuse).
+- **Automation + gate:** generation, sitemap, feed, R1–R10 compliance gate, link crawl and HTTP smoke at `/WinB/` all run on every build and fail the publish on breach. Product facts, prose, topic choice and ledger rows stay human-gated.
+
+## 6. Sources (all official, re-fetched 2026-11-20)
+
+| Ref | Source | Used for |
+|---|---|---|
+| A1 | [Associates Program Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) (Updated Oct 15, 2025) | §5 disclosure wording; Special Link definition; §6 material breach |
+| A2 | [Associates Program Policies](https://affiliate-program.amazon.com/help/operating/policies) (Updated Apr 14, 2026) | Tag requirement; price rule; IP License; cookie disclosure; commission session (24h / 89 days) |
+| A3 | [Associates program home](https://affiliate-program.amazon.com/) | Program overview |
+| F1 | [FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) (Nov 2019) | Hard-to-miss disclosure; no experience claims for untried products |
+| F2 | [16 CFR 255.5](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5) | Material-connection disclosure |
+| G1 | [Google: Qualify outbound links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links) | `rel="sponsored"` for paid/affiliate links |
+| G2 | [Google Spam policies](https://developers.google.com/search/docs/essentials/spam-policies) | Scaled content, thin affiliation, site reputation, sneaky redirects |
+| G3 | [Google: Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap) | Sitemap format and submission |
+| G4 | [sitemaps.org protocol](https://www.sitemaps.org/protocol.html) | Sitemap XML schema (single host, UTF-8, entity-escaped) |
+| U1 | [USDA FSIS Safe Temperature Chart](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) (Last Updated Apr 14, 2025) | Safe minimum internal temperatures quoted in thermometer guides |
+
+Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed record in the Data Room. The sandbox cannot reach amazon.com, so listings were not re-fetched this session; no new product fact has been added.
+
+## 7. Flags (11 — none blocks publication)
+
+| ID | Item | Status |
+|---|---|---|
+| FLG-001 | Supplied short links redirect without an Associates tag | Open |
+| FLG-002 | Intended ASIN unconfirmed for all five | Open |
+| FLG-003 | Compliance status of link.amazon short links unresolved | Open |
+| FLG-004 | No product has been handled by this desk | Open |
+| FLG-005 | Prices and ratings deliberately not displayed | Open |
+| FLG-006 | Certification/performance claims are manufacturer claims only | Open |
+| FLG-007 | No analytics endpoint deployed; no traffic figures exist | Open |
+| FLG-008 | No mailing provider, Search Console token, or custom domain | Open |
+| FLG-009 | Earlier sessions published competing versions | Needs review |
+| FLG-010 | Affiliate exit pages were noindex/nofollow while forwarding | **Fixed in this build** (now index,follow; enforced by R10) |
+| FLG-011 | Six competing site generations on one host | Needs review (retired via noindex + banner) |
+
+All 11 are published with evidence and source links at `/flagged/`.
 
 ## 8. Recommendation
 
-**Path B — open the data taps.** In this order:
+**Path B first, Path C in parallel** (see `/decisions/` for all three paths):
 
-1. Confirm the account and the tag (**Q-01**). Nothing else matters until this is done.
-2. Run the one-link enrollment test (**Q-02**).
-3. Configure an event endpoint (**Q-05**).
-4. Apply for Product Advertising API access (**Q-13**).
+1. Close the tagging question (SUG-02). Nothing else earns until then.
+2. Deploy the collector and submit the sitemap (SUG-03, SUG-13). Run 30 days; choose the next topic from measured queries.
+3. Name the byline (Q-05) and publish the capacity worksheet (SUG-04).
+4. Buy one review unit (SUG-01) when the owner approves the spend.
 
-Then publish one guide a week, and stop after four weeks to read the data before writing the fifth. The growth plan pre-registers what "working" would look like so the thresholds cannot be renegotiated once the numbers exist.
+Do not publish the topic queue until its gates pass. Do not add categories until one converts (SUG-08).
 
-## 9. Honest limitations of this document
+## 9. Honest limitations
 
-- No price, rating or sales figure in this summary is estimated. There are none, on purpose.
-- No search-volume claim is made anywhere. The four guide topics are working hypotheses.
-- The site's economics are currently unproven and possibly zero: if the supplied links do not carry a tag, nothing is tracked.
-- Nothing was tested by hand, so the site's authority rests on documentation and reasoning, not on measurement.
-- Compliance conclusions here describe how the build responds to quoted policy text. They are not legal advice.
+- No price, rating, sales, traffic, conversion or revenue figure appears anywhere. There are none, on purpose.
+- No search-volume or popularity claim is made. Seasonal moments and queued topics are labelled hypotheses.
+- The site’s economics are currently unproven and possibly zero: if the supplied links do not carry a tag, nothing is tracked.
+- Nothing was tested by hand, so authority rests on documentation and reasoning, not on measurement.
+- Compliance conclusions describe how the build responds to quoted policy text. They are not legal advice.
