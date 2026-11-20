@@ -510,14 +510,17 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head"><div><p class="eyebrow">Register seven</p><h2>Content inventory</h2></div></div>
     ${table({
-      caption: '<b>Everything published.</b> Five product pages, five guides, two category hubs, one comparison table.',
+      caption: `<b>Everything published.</b> ${PRODUCTS.length} product pages, ${ALL_GUIDES.length} guides, ${WORKSHEETS.length} worksheets, ${new Set(PRODUCTS.map((x) => x.category)).size} category hubs, one comparison table. Counted from the build data rather than typed: this caption used to read “five guides”, which was true of the first build and of nothing since. An inventory that under-reports its own contents is a defect, not a rounding error.`,
       head: ['Type', 'Title', 'Path', 'Published', 'Sources'],
       rows: [
         ...PRODUCTS.map(
-          (p) => `<tr><td>Product</td><td>${esc(p.shortName)}</td><td class="mono tiny">/reviews/${esc(p.slug)}.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr>`
+          (p) => `<tr><td>Product</td><td>${esc(p.shortName)}</td><td class="mono tiny">/reviews/${esc(p.slug)}.html</td><td class="nowrap">${esc(p.confirmationDate)}</td><td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr>`
         ),
-        ...GUIDES.map(
+        ...ALL_GUIDES.map(
           (g) => `<tr><td>Guide</td><td>${esc(g.title)}</td><td class="mono tiny">/${esc(g.path)}</td><td class="nowrap">${esc(g.published)}</td><td class="src">${g.sources.map((s) => srcLink(s)).join(', ')}</td></tr>`
+        ),
+        ...WORKSHEETS.map(
+          (w) => `<tr><td>Worksheet</td><td>${esc(w.title)}</td><td class="mono tiny">/${esc(w.path)}</td><td class="nowrap">${esc(SITE.buildDate)}</td><td class="src">Reader-measured; nothing leaves the browser</td></tr>`
         ),
         `<tr><td>Category</td><td>Air fryers</td><td class="mono tiny">/air-fryers/</td><td class="nowrap">2026-11-20</td><td class="src">${srcLink('A2')}</td></tr>`,
         `<tr><td>Category</td><td>Thermometers</td><td class="mono tiny">/thermometers/</td><td class="nowrap">2026-11-20</td><td class="src">${srcLink('A2')}, ${srcLink('U1')}</td></tr>`,
@@ -912,6 +915,7 @@ export function suggestionsPage() {
     <dt>Choose it if</dt><dd>${esc(d.chooseIf)}</dd>
     <dt>Do not choose it if</dt><dd>${esc(d.notIf)}</dd>
     <dt>Blocked by</dt><dd>${d.dependsOn.length ? d.dependsOn.map((q) => `<a href="#${esc(q)}">${esc(q)}</a>`).join(' · ') : 'Nothing'}</dd>
+    ${d.note ? `<dt>Outcome</dt><dd>${esc(d.note)}</dd>` : ''}
     <dt>How much it costs to be wrong</dt><dd>${d.riskLow ? '<span class="badge green">Low — the change is a revert</span>' : '<span class="badge amber">Not free — money spent, a claim published, or an obligation accepted</span>'}</dd>
   </dl>
 </article>`;
@@ -1015,7 +1019,7 @@ ${pageHead({
     </div>
     ${table({
       caption: `<b>${DECISION_QUEUE.length} proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.`,
-      head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Risk', 'Blocked by', 'Status', ''],
+      head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Cost of being wrong', 'Blocked by', 'Status', ''],
       rows: [...openItems, ...doneItems].map(boardRow),
     })}
   </div>
@@ -1065,6 +1069,19 @@ ${pageHead({
     ${openItems.map(card).join(NEWLINE)}
   </div>
 </section>
+${doneItems.length ? `
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part five</p>
+        <h2>Already decided, and what happened</h2>
+        <p>The same case file, kept readable after the decision, with an <b>Outcome</b> line naming what shipped and where. A queue that only shows open items teaches nobody what the last choice cost.</p>
+      </div>
+    </div>
+    ${doneItems.map(card).join(NEWLINE)}
+  </div>
+</section>` : ''}
 
 ${pathBoard}
 

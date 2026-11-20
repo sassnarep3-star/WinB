@@ -145,8 +145,16 @@ for (const file of htmlFiles) {
   const rel = relRoot(file);
   const html = fs.readFileSync(file, 'utf8');
   const isGo = rel.startsWith('/go/');
-  const legacy = isNonCanonical(rel) || isSibling(rel);
+  let legacy = isNonCanonical(rel) || isSibling(rel);
   const before = fail.length;
+
+  /* A page that carries the canonical publication's disclosure strip belongs to the
+     sibling build (see _build/core.mjs), and is audited by tools/verify.mjs and
+     tools/gate.mjs. Judging it against this register's markup conventions produced
+     eight false failures the day the sibling published four new guides into /guides/;
+     ownership is read from the page so the next page added there cannot be misfiled. */
+  const siblingOwned = /class="disclosure-strip"/.test(html);
+  if (siblingOwned) legacy = true;
 
   /* 1. internal links + assets */
   const linkRe = /(?:href|src)="([^"]+)"/g;
@@ -222,7 +230,10 @@ for (const file of htmlFiles) {
      which belongs to a different site. This caught a live interstitial back-link pointing off-site. */
   const escaped = [...html.matchAll(/(?:href|src)="(\/[^"#][^"]*)"/g)]
     .map((x) => x[1])
-    .filter((p) => !p.startsWith(BASE_PATH + '/') && p !== BASE_PATH);
+    .filter((p) => !p.startsWith(BASE_PATH + '/') && p !== BASE_PATH)
+    /* A fully qualified URL on the same origin is not an escape; it is how the
+       consolidate pass points a de-indexed duplicate at the copy that ranks. */
+    .filter((p) => !p.startsWith('/WinB/'));
   for (const p of escaped) fail.push(`${rel}: path escapes the deployment base (${BASE_PATH}) -> ${p}`);
 
   /* 4b. unresolved build tokens must never reach a reader */
@@ -295,7 +306,18 @@ if (!fs.existsSync(sitemapPath)) {
     const rel = relRoot(file);
     if (rel === '/404.html') continue;
     if (isSibling(rel) || rel.startsWith('/go/') || isNonCanonical(rel)) continue;
-    if (!registerLocs.has(rel)) fail.push(`indexable page missing from sitemap-register.xml: ${rel}`);
+    /* The invariant, in both directions: a page this generation leaves indexable is
+       listed, and a page marked noindex is NOT listed. Ownership is read from the page
+       rather than from a hand-maintained path list — a page carrying the canonical
+       publication's disclosure strip belongs to the sibling build, whose index is
+       sitemap.xml. The hand list is how /suggestions/ and /tools/ were nearly
+       misjudged here, and how tools/consolidate.mjs' de-indexing would fail this gate
+       for a reason that is actually correct. */
+    const pageHtml = fs.readFileSync(file, 'utf8');
+    if (/class="disclosure-strip"/.test(pageHtml)) continue;
+    const noindexed = /<meta name="robots" content="[^"]*noindex/.test(pageHtml);
+    if (!noindexed && !registerLocs.has(rel)) fail.push(`indexable page missing from sitemap-register.xml: ${rel}`);
+    if (noindexed && registerLocs.has(rel)) fail.push(`noindex page listed in sitemap-register.xml: ${rel}`);
   }
   ok.push(`sitemap: ${locs.length} urls, all resolve`);
 }
