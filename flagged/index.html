@@ -55,7 +55,7 @@
     <h1>Flagged for Review</h1>
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
-    <span class="badge red">5 high</span>
+    <span class="badge red">6 high</span>
     <span class="badge amber">8 medium</span>
     <span class="badge plain">1 low</span>
   </div>
@@ -296,6 +296,27 @@
     <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a></dd></div>
     <div><dt>What the owner needs to do</dt><dd>This integration retires the superseded trees rather than deleting them: 56 pages are marked noindex,nofollow and carry a visible “Archived page” banner pointing at the canonical equivalent. The canonical site is the root Counterwise publication. Owner decides whether to delete the archived trees outright — nothing links to them from the live navigation, and they remain readable in git history either way.</dd></div>
     <div><dt>Blocks</dt><dd>Clean indexing of the canonical site until search engines recrawl.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-012" open>
+  <summary>
+    <span class="id">FLG-012</span>
+    <span class="ft">
+      <h3>Every page advertised a social image that did not exist</h3>
+      <span class="meta">
+        <span class="badge red">High severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">Every page on the site declared og:image and twitter:image as .../assets/img/og-default.png. No such file has ever existed on disk: the generated default is og-default.svg. The consequence was silent — the page renders normally, but every share to a social network, chat app or search preview would have shown a card with no image. Found while checking that the rebuilt pages pointed at real photographs.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>grep -r &quot;og-default&quot; — 40+ pages referencing og-default.png.</li><li>ls assets/img/ — og-default.svg present, no .png.</li><li>The rebuild check in _build/build-editorial.mjs now fails the build if og:image does not resolve to a real file.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed in this build. Every page now points at a real 1400px photograph (assets/img/hero-new.jpg, or the relevant product or category image), and tools/gate.mjs rule R11 fails the build if any og:image or twitter:image resolves to a missing file or a file under 2 KB.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing now. It blocked every social preview before the fix.</dd></div>
   </div>
 </details>
 
