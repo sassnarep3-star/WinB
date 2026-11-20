@@ -890,8 +890,30 @@ its edits are confined to `COORDINATION.md` (append-only, end of file),
 
 | ID | Task | Owner | File scope | Status |
 | --- | --- | --- | --- | --- |
-| S17 | **Independent line-by-line re-verification of the build at PR #41 state:** run the full gate on the merged state; re-fetch the five Amazon listings and the official policy sources live (own retrieval); check every rendered register row against the generator; fix any rendered defect found; append findings to EXECUTIVE-SUMMARY.md (append-only) and this board. | `69bfe2b0` | `COORDINATION.md` (append-only), `EXECUTIVE-SUMMARY.md` (append-only), generated HTML only if a rendered defect is found (regenerated from `_build/`) | in progress |
+| S17 | **Independent line-by-line re-verification of the build at PR #41 state:** run the full gate on the merged state; re-fetch the five Amazon listings and the official policy sources live (own retrieval); check every rendered register row against the generator; fix any rendered defect found; append findings to EXECUTIVE-SUMMARY.md (append-only) and this board. | `69bfe2b0` | `COORDINATION.md` (append-only), `EXECUTIVE-SUMMARY.md` (append-only), generated HTML only if a rendered defect is found (regenerated from `_build/`) | done |
 | S18 | **Integration for this cycle:** build, verify R1–R15, gate, linkcheck, smoke; PR from `arena/69bfe2b0-winb` to `main`; merge `--merge` without waiting; confirm Pages deploy; record result here. | `69bfe2b0` | PR/merge operations, `COORDINATION.md` | in progress |
+
+### S17 completion record (session `69bfe2b0`, 2026-11-20)
+
+Scope of the pass: the merged state of `origin/main` through PR #44 (`1772ab8`) plus this
+session's merge commit. **No rendered defect was found, so no generated file changed** —
+this session's net file changes are `COORDINATION.md` and `EXECUTIVE-SUMMARY.md` (§12) only.
+
+| Check | Result |
+| --- | --- |
+| Five canonical listings re-fetched live (`/dp/` pages) | **5 of 5** ASIN + title match the register exactly (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z). Prices/ratings visible on the listings were deliberately not recorded (R3). |
+| Official policy sources re-fetched live | A1 "Updated: October 15, 2025" — §1 Special Links definition, §5 disclosure sentence **verbatim**, §6 material breach. A2 "Updated: April 14, 2026" — §1 original content; §2(a) Associates ID requirement; §2(b) tag "XXXXX-##, or such other format"; price rule; misleading-claims rule. F1 FTC (Nov 2019) — hard-to-miss, no untried-experience claims. U1 USDA FSIS (Last Updated Apr 14, 2025) — all temperature rows re-read. G1 Google (2025-12-10) — `rel="sponsored"`. |
+| Supplied short-link sample re-check | `link.amazon/B04G1MEwY` landed on **amazon.com home** in this retrieval — matches S16's observation for the same link; recorded as a new data point for FLG-016, not asserted invalid; owner Special Link test remains the resolution path (FLG-001/003). |
+| Rendered-defect sweep | No `[object Object]`, `undefined`, `NaN`, empty `<tbody>`, `1 probes`, `aFrench` anywhere in the canonical pages; all five product pages print the correct ASIN; `/compare/` renders rows. |
+| Full CI generation sequence | `build.mjs → make-images → build.cjs → noindex → consolidate` — **zero drift** against the committed tree. |
+| `node tools/verify.mjs` | **PASS** R1–R11 (31 canonical, 18 preserved, 40 Amazon links, 334 internal) |
+| `node tools/gate.mjs` | **PASS** R11–R15 (43 canonical, 56 social images, 3,739 class usages) |
+| `node tools/check.cjs` | All gates passed (2 pre-existing archived-tree warnings, unchanged) |
+| `node tools/linkcheck.mjs` | **PASS** — 58 files crawled, 0 broken links, XML valid |
+| HTTP smoke at `/WinB/` | **PASS** — 32 pages, 60 linked assets, all 200 |
+| SEO artefacts | sitemap.xml 37 routes, single host; feed.xml 10 items; robots.txt allows the canonical site, disallows the superseded trees. |
+
+Full details and per-source links are in `EXECUTIVE-SUMMARY.md` §12.
 
 ### Integration result (V-4)
 
