@@ -1084,6 +1084,8 @@ has no duplicate IDs. `/flagged/` anchors are now unique.
 | Flag ID audit | FLAGS array verified to contain FLG-001…FLG-015 + FLG-016…FLG-020 with zero duplicate IDs after merge. |
 
 ---
+
+---
 ### 9.1 Integration and deploy record (session `ab61d616`, S16)
 
 | Item | Result |
@@ -1670,6 +1672,25 @@ Note on CI: this branch's own pull-request run was cancelled twice by the workfl
 | Gates after fix | `tools/verify.mjs` R1–R11 pass · `tools/gate.mjs` R11–R15 pass · `tools/check.cjs` all gates pass · `tools/linkcheck.mjs` 58 files, 0 broken links, XML valid · CI smoke sequence (serve at `/WinB/`) 32 pages + 60 assets all HTTP 200 · variant checker 20 pages, 737 links clean |
 | Pages | Legacy branch deploy serving `https://sassnarep3-star.github.io/WinB/` (canonical) and `https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp/` (preserved variant, archived-banner treatment per `tools/consolidate.mjs`) |
 
+### S18 completion record — integration result (session `69bfe2b0`, 2026-11-20)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#57** — https://github.com/sassnarep3-star/WinB/pull/57 |
+| CI on the PR head | `Build and verify` — **pass** (17s): drift check · verify R1–R11 · gate R11–R15 · register gate · link check · `/WinB/` smoke |
+| Merge | **Merged** to `main` with `--merge`, merge commit `03d6887` (no approval wait, per the merge policy) |
+| Concurrency note | The follow-up `main` runs for #57 and #58 cancelled each other in the shared `pages` concurrency group (also #30 merged immediately after); the newest `main` run (**PR #30, run 44690107208**) then passed **end to end** — drift check, R1–R11, R11–R15, register gate, link check, smoke, `deploy` — with `03d6887` as an ancestor of the deployed commit |
+| Pages deploy | **Confirmed** — `pages build and deployment` success (runs 44689972416 and 44690105399); `gh api repos/sassnarep3-star/WinB/pages` → `status: built`; live at https://sassnarep3-star.github.io/WinB/ |
+| Transient deploy error | Immediately after the simultaneous merges, Pages briefly reported `errored` (a deploy run cancelled by concurrency). Cleared without content changes; the next two dynamic builds succeeded. Recorded here because it was observed, not because anything on the site caused it. |
+| Post-merge re-verification on this branch (origin/main `a10e87b` merged) | full generate sequence → **zero drift**; `verify.mjs` **PASS R1–R11**; `linkcheck.mjs` **PASS** — 62 files, 0 broken links, XML valid |
+| Flagged irregularities | Did not block the merge (protocol). All published on `/flagged/` with source links. |
+
+**S17/S18 status: done.** Net contribution of this session: the independent re-verification
+record (§10 above + `EXECUTIVE-SUMMARY.md` §12), the `main` CI drift fix carried by PR #57
+(36 `alt-site/counter-and-crisp/` files moved to the established archive policy), and this
+board record. No page content was changed; the five ASINs, all blanks and all flags are
+exactly as the register had them.
+
 ### 9.2 Second integration result (session `ab61d616`, PR #42)
 
 | Item | Result |
@@ -1743,6 +1764,87 @@ progress` on an open PR; overlaps are listed below with the resolution actually 
 | Live verification | Front page (shortlist-first), `/flags/` (FLG-001…013), `/products/` (three-part register), `/direction/brief.html` (SG register, path chooser) all fetched live 200 after deploy |
 | Merge conflicts | 3 rounds (14 + 5 + 4 files) resolved by union or by keeping the generated owner of each file; full log in the “Merge-conflict log” section above; no other session's work discarded |
 | Follow-up | This record is delivered by the next PR from `arena/b26a9f95-winb` (branch-only push rule) |
+---
+
+## Appendix: session `arena/91306b24-winb` — Design Brief & Topic Lab (S17)
+
+**Session ID:** `arena-91306b24` · **Branch:** `arena/91306b24-winb` · **Base:** `745c087` (= `origin/main` tip at claim; clean tree) · **Claimed:** 2026-11-20 (UTC) · **Status:** done.
+
+**Board read before claiming (per protocol).** `origin/main` was at `745c087` (PR #40, S16). Four
+PRs from other sessions were open and unmerged: #41 (`arena/9c38041d`, `_build/content-oversight.mjs`,
+`_build/decision-queue.mjs`, `suggestions/`, `executive-summary/`), #39 (`arena/066803dd`,
+`_build/content-oversight.mjs`, `_build/core.mjs`, `_build/data.mjs`, `_build/editorial.mjs` + generated
+HTML), #35 (`arena/5dd84ce5`, `_build/content-oversight.mjs`, `suggestions/`), #34 (`arena/c6a17bb2`,
+`_build/content-oversight.mjs`, `_build/content-shop.mjs`, `_build/data.mjs` + generated HTML). Their
+file scopes were read with `gh pr view --json files` before this claim. This session therefore chose a
+**new, non-overlapping scope**: it does **not** edit `_build/data.mjs`, `_build/content-oversight.mjs`,
+`_build/content-shop.mjs`, `_build/editorial.mjs`, `_build/decision-queue.mjs`, `_build/tools-content.mjs`,
+`tools/*`, `data/*`, or any preserved generation.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S17 | **Design Brief & Topic Lab.** A reviewable surface that (1) lists design-direction suggestions, each with rationale, effort, reversibility, failure mode and a ready-to-paste design-prompt fragment, so the site can be redesigned to read as a polished marketing publication rather than generated text; (2) lists question-shaped topic hypotheses for future guides, each tied to a product cluster and a measurement gate; (3) lists the open questions that must be answered, and what would close each, before any decision; (4) offers three decision paths to choose from before implementing. New module + build wiring only; no core data or gate scripts touched. | `arena-91306b24` | `_build/design-brief.mjs` (NEW), `_build/build.mjs`, `_build/core.mjs` (footer link only), `assets/css/site.css`, generated `design-brief/index.html` + regenerated footer on all canonical pages + `sitemap.xml` + `feed.xml` | done |
+
+**Why this scope.** The brief asked specifically for "suggestions that will feed into the prompt to
+design the site so it should look like a polished marketing affiliate website", catchy trendy
+article/topic suggestions, a dedicated suggestions section to choose a path before implementing, and a
+clear list of questions/information/answers to address before any decision. The existing `/suggestions/`
+queue holds implementation proposals; this new surface holds the *design* suggestions and the *topic*
+hypotheses that feed a design prompt, without touching any in-flight session's files.
+
+**Overlap / hand-off requests logged (not edited here):**
+- `_build/core.mjs` is also touched by open PR #39 (`arena/066803dd`). This session added **one footer
+  link** (`/design-brief/`) so the new surface is reachable from every page, per the "every dashboard
+  surface reachable from the footer" rule. The integration merge must keep both sides if #39 merges first.
+- `README.md` and `EXECUTIVE-SUMMARY.md` are touched by open PRs #34/#39/#41. This session did **not**
+  edit them; the new surface is documented here and on the page itself. Request: an integration session
+  add one line for `/design-brief/` to README's layout list and EXEC-SUMMARY's surface table.
+
+**Verification performed, line by line, 2026-11-20 (UTC) — each official source fetched live via
+`fetch_page`, not assumed:**
+
+| Check | Source | Result |
+| --- | --- | --- |
+| Operating Agreement | https://affiliate-program.amazon.com/help/operating/agreement | Fetched live. "Updated: October 15, 2025". §1 Special Links = tagged link formats confirmed; §5 disclosure sentence confirmed. |
+| Program Policies | https://affiliate-program.amazon.com/help/operating/policies | Fetched live. "Updated: April 14, 2026". §2(b) tag parameter + price/inaccurate-claims rules confirmed. |
+| Listing B0CDY277D3 | https://www.amazon.com/dp/B0CDY277D3 | Fetched live. Title matches register; category path Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers. Prices/ratings seen but deliberately not recorded (R3). |
+| Listing B09B7SB46R | https://www.amazon.com/dp/B09B7SB46R | Fetched live. Title matches register; same category path. Prices/ratings not recorded. |
+| Listing B08DKYBTPH | https://www.amazon.com/dp/B08DKYBTPH | Fetched live. Title matches register; same category path. Prices/ratings not recorded. |
+| Listing B0DHZTCNR5 | https://www.amazon.com/dp/B0DHZTCNR5 | Fetched live. Title matches register; category path Kitchen Utensils & Gadgets › Thermometers & Timers › Meat. Prices/ratings not recorded. |
+| Listing B0DZFD6R9Z | https://www.amazon.com/dp/B0DZFD6R9Z | Fetched live. Title matches register; same thermometer category path. Prices/ratings not recorded. |
+| Google outbound-link marking | https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links | Fetched live. "Last updated 2025-12-10 UTC". `rel="sponsored"` for paid placements confirmed; multiple values allowed. |
+| FTC disclosure | https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers | Fetched live. "November 2019". Hard-to-miss placement; "You can't talk about your experience with a product you haven't tried" confirmed. |
+| USDA safe temperatures | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart | Fetched live. "Last Updated: Apr 14, 2025". 145°F+3min, 160°F ground, 165°F poultry/leftovers/casseroles, 145°F fish confirmed. |
+
+**Build / gate results (this session, 2026-11-20):**
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Build | `node _build/build.mjs` | 37 files, 38 sitemap routes, 11 feed items |
+| Content rules | `node tools/verify.mjs` | **PASS** R1–R11 — 32 canonical, 18 preserved, 40 Amazon links, 343 internal |
+| Editorial gate | `node tools/gate.mjs` | **PASS** R11–R15 — 44 canonical, 58 social images, 3938 class usages |
+| Link + XML | `node tools/linkcheck.mjs` | **PASS** — 59 files crawled, 0 broken links, XML valid |
+| New page disclosure (R1/R13) | generated `design-brief/index.html` | Associates statement present twice; before first `<h1>` |
+| New page canonical / sitemap / feed | generated | canonical `/design-brief/`; present in `sitemap.xml` (1 route) and `feed.xml` (2 mentions) |
+
+**Build-tool updates (register gate and smoke seeds, owned by earlier sessions — same pattern those
+sessions used; logged per protocol).** The new canonical surface is a Counterwise editorial page, so it
+must be recognized as a sibling by the register gate rather than judged against the register build's
+class names:
+- `tools/check.cjs`: added `/design-brief/` to `SIBLING_GENERATION`, so the register gate treats it as
+  a sibling audited by `tools/verify.mjs` (R1–R11) and `tools/gate.mjs` (R11–R15) instead of applying
+  the register build's `class="disclosure"`/`class="footer-disclosure"` expectations and its blanket
+  `hands-on` ban. No other session's logic changed.
+- `tools/smoke.mjs`: added `/design-brief/` to the seed list so the deployed-path smoke test covers it.
+- `_build/core.mjs`: one footer link added (overlap with open PR #39; see the hand-off request above).
+
+**Irregularities:** none new. No price, rating, popularity/demand, search-volume, hands-on or
+traffic/conversion figure was added. Every topic is labelled an editorial hypothesis. The three paths
+and nine questions are suggestions only; nothing is implemented from them without an owner choice.
+FLG-001/002/003, FLG-007, FLG-012 etc. remain open and published at `/flagged/`; they do not block merge.
+
+**Status:** S17 done. Integration (PR → merge → Pages confirm) follows in this session.
+
 
 ## 9c. Third merge addendum — session `arena-b36a7b54` (2026-11-20, PR #45 round)
 

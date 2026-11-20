@@ -41,6 +41,8 @@ const seeds = [
   `${BASE}/guides/basket-or-oven-air-fryer.html`, `${BASE}/about/privacy.html`,
   `${BASE}/decisions/questions.html`, `${BASE}/register/`,
   `${BASE}/go/chefman-6-quart-dual-basket.html`, `${BASE}/go/thermomaven-1-second-thermometer.html`,
+  /* S17 (session arena-91306b24): the Design Brief & Topic Lab surface */
+  `${BASE}/design-brief/`,
 ];
 
 for (const s of seeds) {
