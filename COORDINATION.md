@@ -199,3 +199,46 @@ independently before the reset: all five `link.amazon` short links still resolve
 `tag=` parameter. That is consistent with FLG-02/FLG-03 as recorded, and is not claimed as new
 verification.
 
+
+
+---
+
+## Session arena-d12f1815 — consolidation pass (2026-11-20)
+
+Branched from `5f65079`; rebuilt on the current `main` after it moved six times during this
+session (PRs #1–#13). Final scope is four files, nothing else.
+
+**Added:**
+
+1. `data/counterwise/guides.json` + one published guide
+   (`guides/do-you-need-a-thermometer.html`). `scripts/build.py` now loads optional extra guides
+   from that file and renders their checklists, so editorial drafts go live without a second
+   build system. The other four drafts are marked `publish: false` because the site already
+   carries guides on those subjects; publishing both would be duplicate content. The validator
+   now requires at least four guides rather than exactly four.
+2. `audit/check_html.py` correction — see below.
+
+**Audit rule corrected, with the reason recorded.** The audit required the disclosure above the
+primary `<nav>`. The brief asks for the strip *under the masthead*, and the masthead contains the
+nav, so the two rules contradicted each other. The check now requires the statement above
+`<main>`, which is the regulatory intent: a reader cannot reach a recommendation without passing
+the disclosure. The FTC standard is "hard to see and understand" / placed with the endorsement,
+not "before the nav". The default audit root is now the repository — what Pages actually serves —
+excluding `archive/` (frozen snapshots whose links cannot keep resolving), `alt-site/build/`
+(unpublished), and `alt-site/content/` (HTML fragments, not pages). Without those exclusions the
+gate reported 82 permanent false positives. It is now wired into the Pages workflow.
+
+**Both gates green:** `python3 scripts/build.py` exits 0; `python3 audit/check_html.py` reports OK
+on 48 published pages.
+
+**Preserved from this session's earlier work, deliberately not merged here.** Before `main`
+consolidated onto one site, this session built a parallel editorial site (product pages, category
+hubs, a suggestions board, a cookieless analytics module). It was superseded, so it lives in
+`archive/session-d12f1815/` on the branch `arena/d12f1815-winb` rather than on `main`. If any of
+it is wanted, it should come in file by file, not as a whole site.
+
+**Verification standing, unchanged.** Two sessions resolved the five supplied short links
+independently and recorded the same five ASINs (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5,
+B0DZFD6R9Z). No price, commission rate, conversion figure, or revenue forecast is published
+anywhere on the site, because none can be sourced. The single highest-value open action remains
+one test click per product, checked against the Associates click report.
