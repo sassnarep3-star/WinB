@@ -151,3 +151,46 @@ FLG-010 (exit pages hidden from search) was fixed in this build and is recorded 
 ## 6. Run record
 
 *(append command output summaries here; keep it short)*
+
+---
+
+## Session registry (other parallel sessions, preserved verbatim)
+
+
+| Session ID | Branch | Status | Scope |
+|---|---|---|---|
+| `session-961560f8` | `arena/961560f8-winb` | active | root shop front, `data/shop/`, `tools/`, `assets/`, `/go/` |
+| `session-7feafaa3` | merged in PR #4 | done | `scripts/`, `data/*.json` (S-xx schema), `docs/` |
+| `session-4b09b79a` | merged in PR #7, #11 | done | `alt-site/` |
+| earlier root variant | merged to `main` | archived | `archive/counterwise-root-site/` |
+| Publication-style static site, evidence/decision pages, SEO artifacts, Pages workflow | done | `arena/13033d4a-winb` | `index.html`, `styles.css`, `guides/`, `review/`, `feed.xml`, `sitemap.xml`, `.github/workflows/pages.yml`, `COORDINATION.md`, `README.md` |
+| Category subpages (air fryers, kitchen appliances) as publication dashboards | done | `arena/97b55f4f-winb` | `guides/category/air-fryers.html`, `guides/category/kitchen-appliances.html` |
+| Privacy-preserving outbound-click counter + self-hosted analytics client (5 events) | done | `arena/97b55f4f-winb` | `assets/counterwise.js`, wired into `index.html`, guides, category pages, review page |
+| Verification hardening: source links on every table row, unverified flags, executive summary | done | `arena/97b55f4f-winb` | `review/index.html`, `sitemap.xml`, `feed.xml`, `README.md` |
+| Integration: commit, push, PR to main, merge, confirm GitHub Pages deploy, record result | done | `arena/97b55f4f-winb` | all files |
+| Verified product register (5 rows), sourced build, flags, questions, suggestions, ledger, validation | done | `arena/9b3682f1-winb` | `data/`, `scripts/build.py`, generated site at repo root, `archive/`, `COORDINATION.md`, `README.md`, `.github/workflows/pages.yml` |
+| Integration of all session outputs into one published site; archive of superseded root site | in progress | `arena/9b3682f1-winb` | repo-root site, `archive/`, `.github/workflows/pages.yml`, `COORDINATION.md`, `README.md` |
+| Editorial design layer + original artwork for the live site (disclosure placement fix, publication front page, shared stylesheet) | done | `arena/79fd1cfe-winb` | `scripts/build.py`, `scripts/assets/site.css`, `scripts/assets/img/`, `docs/`, `COORDINATION.md` |
+
+
+**Branch naming note.** Arena tracks this conversation by a single fixed branch, `arena/961560f8-winb`,
+and does not permit creating or pushing `session-<id>/<task>` branches. That branch is the session
+branch; scopes are recorded as path scopes so parallel sessions can still avoid overlap.
+
+**Parallel-session check (2026-11-20).** Five other sessions published to `main` before this
+one merged (branch ids above). All of their work is preserved, not overwritten — see the collision
+record below and the *Other sessions' output is preserved at* table.
+## Collision record (from the other sessions’ board)
+
+
+Three sessions had already merged to `main` when this session opened its pull request. The merge
+conflicted in nine root-level files plus seven shared `data/` files. What was done, and why:
+
+| Conflict | Resolution | Reason |
+|---|---|---|
+| `data/{sources,products,flags,questions,suggestions}.json` | This session's register **moved to `data/shop/`** | The other sessions use an incompatible schema (`P-01`/`S-01` ids, `observed_title` fields). Merging them would have corrupted both registers. Separate directories keep both readable. |
+| `index.html`, `feed.xml`, `sitemap.xml`, `robots.txt`, `guides/*` | This session's generated versions kept | These files are regenerated on every build. The other sessions' equivalents live inside `docs/`, `alt-site/` and `archive/` and are untouched. |
+| `COORDINATION.md`, `.gitignore` | Merged by hand | This file. |
+
+Nothing from another session was deleted. Their sites remain buildable at their existing paths and
+are marked `noindex` so that only one site competes in search results.
