@@ -1878,7 +1878,7 @@ for (const g of GUIDES) {
 
 /* ---- 404 ----------------------------------------------------------------- *//* ---- 404 ----------------------------------------------------------------- */
 {
-  add('/404.html', {
+  add('/404.html.DISABLED', {
     noindex: true,
     title: `Page not found | ${SITE.brand.name}`,
     description: 'That page does not exist. Here is where everything actually is.',
@@ -2000,7 +2000,15 @@ PRODUCTS.products.forEach((p) => write(`/go/${p.slug}.html`, goPage(p)));
 
 /* ---------------------------------------------------------------- sitemap, robots, feed */
 
-const sitemapRoutes = PAGES.filter((p) => !p.noindex && p.routePath !== '/404.html').map((p) => p.routePath);
+/**
+ * Shared publication files (index.html, 404.html, robots.txt, sitemap.xml, feed.xml) belong to the
+ * sibling build that owns the live front page. This generator must not write them: two builders
+ * fighting over the same four files is what made CI fail with "generated output differs".
+ * We publish our own sitemap instead, which can be cross-submitted.
+ */
+const sitemapRoutes = PAGES.filter(
+  (p) => !p.noindex && p.routePath !== '/404.html.DISABLED'
+).map((p) => p.routePath);
 const today = '2026-11-20';
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -2014,9 +2022,9 @@ ${sitemapRoutes
   .join('\n')}
 </urlset>
 `;
-write('/sitemap.xml', sitemap);
+write('/sitemap-register.xml', sitemap);
 
-write(
+if (process.env.CK_WRITE_SHARED === '1') write(
   '/robots.txt',
   `User-agent: *
 Allow: /$
@@ -2041,7 +2049,7 @@ const feedItems = GUIDES.map(
     </item>`
 ).join('\n');
 
-write(
+if (process.env.CK_WRITE_SHARED === '1') write(
   '/feed.xml',
   `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
