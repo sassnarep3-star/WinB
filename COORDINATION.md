@@ -82,7 +82,7 @@ exposed are recorded in §8 below.
 
 | 2026-11-20 | `arena-9d7f2546` | Read the board and the merged site. Baseline `origin/main` @ `9798831`; full build gate green (R1–R11, R11–R14, 51 files crawled, 0 broken links). Audited the brief's line-by-line VERIFICATION requirement and found **121 table rows across 14 canonical pages with no official source link** — the largest unmet item in the brief. Read the release-constraint audit in PR #26 and confirmed its four findings on the live HTML: the disclosure strip sits *above* the masthead (the brief asks for it under), the masthead CTA duplicates the `/air-fryers/` nav destination, and `capture_intent` can never fire because the capture forms were removed in PR #33 while the client, worker, schema, README, `/privacy/` and `/data-room/` still advertise it. Claimed S15–S18 (§2, ACTIVE CLAIM). |
 | 2026-11-20 | `arena-2139de5f` | Re-verification session on branch `arena/2139de5f-winb` (base `0fa749d`, = `main`). Ran the CI build sequence: clean. Found that the FLG-010 fix existed only in `tools/consolidate.mjs` (not run by CI), so the deployed `/go/` pages were still `noindex,nofollow`. Fixed the generator (`tools/build.cjs`), corrected FLG-010, logged FLG-012 (fix-in-wrong-script; two brands). Re-checked all five short links against amazon.com (§8). |
-
+| 2026-11-20 | `arena-2139de5f` | Re-verification session on branch `arena/2139de5f-winb` (base `0fa749d`, = `main`). Ran the CI build sequence: clean. Found that the FLG-010 fix existed only in `tools/consolidate.mjs` (not run by CI), so the deployed `/go/` pages were still `noindex,nofollow`. Fixed the generator (`tools/build.cjs`), corrected FLG-010, logged FLG-015 (fix-in-wrong-script; two brands). Re-checked all five short links against amazon.com (§8). |
 **Note on parallel sessions.** The protocol above assumes several concurrent sessions. At the
 time of writing there were none: the branch note, `git branch -a`, and `gh pr list` all showed a
 single working branch and no collaborators. This board therefore records one session claiming
@@ -129,7 +129,7 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S16 | **Close the release-constraint audit findings** (PR #26): disclosure under the masthead, duplicated nav destination, the dead `capture_intent` event, and the pre-activation Special Link owner decision. | `arena-9d7f2546` | `_build/core.mjs`, `_build/data.mjs`, `_build/content-oversight.mjs`, `assets/js/site.js`, `analytics/*`, `tools/verify.mjs` | in progress |
 | S17 | **The Design Room (`/design/`)** — design directions, the copy-ready design prompt, the organic-traffic playbook and the open design questions. | `arena-9d7f2546` | `_build/design.mjs`, `_build/build.mjs`, `assets/css/site.css` | in progress |
 | S18 | **Executive summary refresh + final integration** — rewrite the summary to match the live site, build, verify, link-check, smoke-test, PR to `main`, merge, confirm the Pages deploy, record the result. | `arena-9d7f2546` | `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, `README.md`, repo root, `.github/` | in progress |
-
+| S10 | Re-verify `main` against the CI sequence; fix `/go/` robots drift (FLG-010/015); re-check the five short links on amazon.com; record in §8 | `arena-2139de5f` | `tools/build.cjs`, `_build/data.mjs`, `go/*.html`, `flagged/`, `executive-summary/`, `COORDINATION.md` | done |
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
 
@@ -580,7 +580,7 @@ appendix only).
 | --- | --- |
 | Base | `0fa749d` = `origin/main`, clean tree before work |
 | CI sequence (`_build/build.mjs`, `_build/make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`) then `tools/verify.mjs` and `tools/linkcheck.mjs` | Passes. Output is deterministic; the diff after this session's change is limited to the files listed in S10. |
-| `npm run build` (includes `tools/consolidate.mjs`, which CI does not run) | Produces drift that CI never sees. Not committed. Logged as FLG-012. |
+| `npm run build` (includes `tools/consolidate.mjs`, which CI does not run) | Produces drift that CI never sees. Not committed. Logged as FLG-015. |
 | `/go/` robots on `main` before this session | `noindex,nofollow` (5 of 5 pages). Contradicted FLG-010 "Fixed". |
 | `/go/` robots after this session | `index,follow` (5 of 5 pages), via `tools/build.cjs`. |
 | Short-link re-check on amazon.com (fetch, 2026-11-20 UTC) | All five resolve to listings whose ASIN equals the register's observed ASIN. Intended ASIN is not set by this check and stays as recorded in §3. |
@@ -595,7 +595,7 @@ appendix only).
 
 **Not verified in this session, and not claimed:** Associates account behaviour (Special Link test, tracking report), Search Console verification, the deployed analytics endpoint, and any price, rating or sales figure. These need the owner's account access and remain open (FLG-003, FLG-009, FLG-010 and Q-04..Q-06).
 
-**Irregularities logged:** FLG-010 corrected (the fix was in the wrong script). FLG-012 added: fix in a script CI does not run; the site uses two brands (“Counterwise” and “The Crisp Kitchen”).
+**Irregularities logged:** FLG-010 corrected (the fix was in the wrong script). FLG-015 added: fix in a script CI does not run; the site uses two brands (“Counterwise” and “The Crisp Kitchen”).
 
 
 ### §8.1 Integration result (session `arena-2139de5f`)
@@ -608,7 +608,7 @@ appendix only).
 | CI runs cancelled | Two `main` runs were cancelled by newer pushes from parallel sessions (shared `pages` concurrency group). Re-run succeeded. |
 | Pages deploy | `built`; deploy success at `e2d3374` (`main` HEAD at time of check) |
 | Live check | `https://sassnarep3-star.github.io/WinB/go/chefman-6-quart-dual-basket.html` serves the disclosure, the tagged destination and `robots` `index,follow` |
-| Open coordination note | PR #25 (`arena/01091cc4-winb`) proposes "run consolidate in CI, unify brand". It touches the same `/go/` brand and FLG-012 question. Not changed here; the owner should decide the brand once. |
+| Open coordination note | PR #25 (`arena/01091cc4-winb`) proposes "run consolidate in CI, unify brand". It touches the same `/go/` brand question logged as FLG-015. Not changed here; the owner should decide the brand once. |
 ## Appendix: session `arena/27fcc0b2-winb` — editorial rebuild + suggestions review room
 
 **Session ID:** `27fcc0b2` · **Branch:** `arena/27fcc0b2-winb` · **Claimed:** 2026-11-20 (UTC)
