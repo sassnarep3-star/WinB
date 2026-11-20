@@ -97,6 +97,8 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 
 | S10 | Re-verify `main` against the CI sequence; fix `/go/` robots drift (FLG-010/015); re-check the five short links on amazon.com; record in §8 | `arena-2139de5f` | `tools/build.cjs`, `_build/data.mjs`, `go/*.html`, `flagged/`, `executive-summary/`, `COORDINATION.md` | done |
 
+| S16 | **Independent re-check of the five listings and the five supplied short links on 2026-11-20 through a second retrieval path** (`fetch_page`, not the earlier session's client). Record observed ASIN, title and redirect target per row in a separate field; log every mismatch as a flag (no value inferred, no link called invalid); log the live-root build inconsistency; append the findings to `_build/data.mjs` `FLAGS` (FLG-016+) and to the executive summary. Gate, PR, merge, Pages confirm. | `arena/ab61d616-winb` session `ab61d616` | `data/shop/recheck-2026-11-20.json` (new), `_build/data.mjs` (FLAGS array, append-only), `EXECUTIVE-SUMMARY.md` (append-only section), `COORDINATION.md` | done |
+
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
 
@@ -194,6 +196,7 @@ FLG-010 (exit pages hidden from search) was fixed in this build and is recorded 
 | 2026-11-20 | `arena-e8af4464` | HTTP smoke at `/WinB/` (local server :3001) | 24 pages, 46 linked assets/urls, all 200 — **PASS** |
 | 2026-11-20 | `arena-e8af4464` | Official sources re-fetched live (fetch_page) | FTC Disclosures 101, USDA FSIS chart (Last Updated Apr 14, 2025), Google qualify-outbound-links (2025-12-10), Google spam policies, sitemaps.org protocol, Amazon Operating Agreement (Oct 15, 2025) §5 + §1, Amazon Program Policies (Apr 14, 2026) — all recorded quotes confirmed |
 | 2026-11-20 | `arena-e8af4464` | Amazon listings | **Not re-fetched** — sandbox cannot reach amazon.com (curl 000). Listing data remains the 2026-11-20 observed record; no new product fact added. Flagged honestly in EXECUTIVE-SUMMARY.md §6. |
+| 2026-11-20 | `ab61d616` | Claimed S16 (independent re-check, branch `arena/ab61d616-winb`). Re-checked the five listing pages and five short links via `fetch_page` (bash cannot reach amazon.com). Found: 5/5 listing ASIN and titles match; short links 2/5 match, 2/5 reached amazon.com home, 1/5 HTTP 500; live root served two builds on one day. Added FLG-016..020, a one-sentence privacy disclosure of GitHub Pages IP logging (FLG-018, fixed), `data/shop/recheck-2026-11-20.json`, and an executive-summary §10. Gate: verify R1–R11 PASS, gate R11–R14 PASS, check.cjs all gates passed, linkcheck 0 broken, smoke at `/WinB/` 25 pages 200. **ID collision:** open PR #38 (`arena/30073780-winb`) is labelled "S15" and edits several of the same generated files plus `_build/content-oversight.mjs`; this session therefore used S16 and did not touch PR #38's branch. |
 
 ### S10 changes (this session)
 
@@ -719,6 +722,54 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
    Closes FLG-007 and makes topic selection an evidence question.
 3. Decide who owns the site and where corrections go (Q-05 / Q-07), which unblocks the contact
    route and the email list.
+
+
+---
+
+## 9. Session `ab61d616` — S16 independent re-check (completion record)
+
+**Branch:** `arena/ab61d616-winb` · **Base:** `979883165f5430b6f81684584f5678e4189456cd` (`main`) · **Status:** done.
+
+**Sources (all re-read 2026-11-20, UTC):**
+
+| Ref | URL | Used for |
+| --- | --- | --- |
+| L1 | https://www.amazon.com/dp/B0CDY277D3 | P01 ASIN and title |
+| L2 | https://www.amazon.com/dp/B09B7SB46R | P02 ASIN and title |
+| L3 | https://www.amazon.com/dp/B08DKYBTPH | P03 ASIN and title |
+| L4 | https://www.amazon.com/dp/B0DHZTCNR5 | P04 ASIN and title |
+| L5 | https://www.amazon.com/dp/B0DZFD6R9Z | P05 ASIN and title |
+| A2 | https://affiliate-program.amazon.com/help/operating/policies | Special Link and tag rules (FLG-001, FLG-016) |
+| D1 | https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages | Hosting, visitor-IP logging (FLG-017, FLG-018) |
+
+**Verification performed:**
+
+| Check | Result |
+| --- | --- |
+| Five canonical listing pages: ASIN in URL, title vs. `_build/data.mjs` | 5 of 5 match |
+| Five supplied short links, redirect target stored in its own field | 2 reached the recorded ASIN (B00hJ57DV, B0f3GKalj); 2 reached amazon.com home (B04G1MEwY, B0c8moW59); 1 HTTP 500 (B02NbDxp3). No observed target contains `tag=`. **Not called invalid.** |
+| `intended_asin` | Left blank for all five, as before. Not inferred. |
+| Live root, two retrievals | Two different builds for the same URL family (FLG-017). Repo source has neither defect. |
+| `node _build/build.mjs` + make-images + build.cjs + noindex + consolidate | clean; no drift on a second run |
+| `node tools/verify.mjs` | PASS R1–R11 |
+| `node tools/gate.mjs` | PASS R11–R14 |
+| `node tools/check.cjs` | All gates passed (2 pre-existing warnings in archived tree) |
+| `node tools/linkcheck.mjs` | 51 files, 0 broken links, XML valid |
+| `tools/smoke.mjs` at `/WinB/` (local, CI method) | 25 pages, 52 assets, all 200 |
+
+**Irregularities (all on `/flagged/`, none blocking):**
+
+| Flag | Summary | Status |
+| --- | --- | --- |
+| FLG-016 | Short links: 3 of 5 did not reproduce the §3 record on this check; cause unknown | Open |
+| FLG-017 | Live root served an older build to one URL form on the same day | Open |
+| FLG-018 | Privacy page omitted GitHub Pages' visitor-IP logging | **Fixed in this build** |
+| FLG-019 | `data/shop/flags.json` and `_build/data.mjs` use the same IDs for different items; the older register says Actions is disabled, which is not true | Open |
+| FLG-020 | `FLG-012` was used twice in `FLAGS`; PR #37 renamed the duplicate to FLG-015 (merged) | Fixed |
+
+**Not done, and why:** the Associates Special Link test (requires the owner's Associates Central login); Search Console and the analytics endpoint (require owner accounts; FLG-007/008); any AI or trend-research component (no data source is connected here, and no value is invented).
+
+**Collision with another open PR:** PR #38 (`arena/30073780-winb`) carries the label "S15" and changes several generated files that this branch also regenerates, plus `_build/content-oversight.mjs`. This session did not edit that branch. Whichever of #38 or this branch merges second needs a rebase and a rebuild; the generated HTML is reproducible from `_build/`.
 ## Appendix: session `arena/30073780-winb` — polished shop, decision tools, trendy guides, executive refresh (S15)
 
 **Session ID:** `30073780` · **Branch:** `arena/30073780-winb` · **Claimed:** 2026-11-20 (UTC) · **Status:** in progress
