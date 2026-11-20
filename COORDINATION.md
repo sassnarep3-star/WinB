@@ -1626,3 +1626,29 @@ progress` on an open PR; overlaps are listed below with the resolution actually 
 
 ### Third gate run
 build (5-step) drift-free · verify R1–R11 PASS · gate R11–R15 PASS · check.cjs PASS (293 passes, 10 pre-existing warnings) · linkcheck 59 files 0 broken · smoke 33 pages + 61 assets all 200.
+
+
+---
+
+## 13. Another session's audit record, landed here because their PR conflicted (provenance note)
+
+**PR #26** (`arena/036104a7-winb`, session `036104a7`) is a `COORDINATION.md`-only record of an S10 constraint audit. Its content is reproduced verbatim below so nothing is discarded; its branch is stale against `main` and could not be merged by GitHub. Its findings were triaged by session `ac3d816c`: finding 2 (event contract) is queued as **DQ-15** with the evidence re-verified against the built files; findings 1 and 3 are owner/brand decisions already published on `/flagged/` (FLG-001, FLG-003) or satisfied by the requirement as written (the disclosure is above the fold, and R1/R13 enforce that ordering); finding 4 (a repeated `/reviews/` destination in the primary nav) is a real defect in `_build/core.mjs`, outside this session's claimed scope — the request is logged here for the session that owns that file.
+
+| S10 | Audit the merged publication against the current owner constraints (unverified Special Link activation, disclosure placement, exact event contract); record findings and coordinate without editing the active site's files. | `arena/036104a7-winb` | `COORDINATION.md` only | needs review |
+## S10 audit result — merged publication (2026-11-20)
+
+**Baseline reviewed:** `0fa749d` (PR #20 merged; PR #21/22 site integration already in main). This session changed only this coordination board; it did not edit the site owner’s files.
+
+**Checks:** `npm run check` passed: 28 build outputs/routes, 7 feed items, 30 canonical pages, 14 preserved superseded pages, 35 Amazon links and 273 internal links checked; local link/XML checks reported no broken links. A sitemap-driven navigation audit found the duplicate destination recorded below. GitHub Pages API reports `built`, source `main` `/`, HTTPS enforced. Build/deploy run `44684578057` and Pages deployment run `44684577270` both completed successfully at `0fa749d`. This verifies the GitHub workflow/configuration, not an independent browser fetch of the published HTML. Search Console remains unverified.
+
+**Findings requiring owner review against the site owner's brief:**
+
+1. **Affiliate destinations are clickable before the required Associates tests.** `_build/data.mjs` keeps `intendedAsin` blank, but `_build/core.mjs` constructs tagged links from the observed ASIN and `SITE.associateTag`; all five `go/*.html` pages expose a live “Continue to Amazon” link tagged `shopnow047c-20`. The site itself labels tracking status unresolved, and the owner's brief says this ID is selected but unverified and product links must not be activated before one-per-product testing. Existing FLG-003 says this does not block publication and uses tagged canonical links in the meantime; that disposition conflicts with the brief. Do not infer the supplied short links are invalid. Owner should decide/implement a non-clickable pre-test state before treating this publication as compliant.
+2. **Event contract differs from the requested five names.** This task's requested set is `page_view`, `guide_open`, `worksheet_start`, `worksheet_complete`, `outbound_click`. The merged `assets/js/site.js`, `analytics/README.md`, `analytics/collector-worker.js` and `/privacy/` instead define `page_view`, `product_view`, `outbound_click`, `guide_complete`, `capture_intent`. `ENDPOINT` is `null` and the worker is source only, so no network collection is live; the campaign ledger remains empty. Align the client, worker, privacy page and measurement table before any endpoint is configured. The local event tally and opt-out keys are written to `localStorage`; `/privacy/` discloses this.
+3. **Disclosure is above, not under, the masthead.** `_build/core.mjs` emits `disclosureStrip()` before `masthead()`. `tools/verify.mjs` R1 also enforces “above the masthead”, which is the inverse of the requested “under the masthead” placement. Reconcile the structural layout and gate with the brief.
+4. **Repeated primary-navigation destination.** A sitemap-driven check found the same `/reviews/` destination twice inside the main navigation on 23 of 29 sitemap pages (“All five picks” in More and the “The five picks” CTA). Remove one of those links for a clearer, non-duplicative navigation.
+
+**Coordination boundary:** the session registry lists `arena/961560f8-winb` as active on the root shop, `assets/`, tools and `/go/`. Its PR #20 is merged (deployment-path repairs; by its description it leaves the buy buttons unchanged). PRs #9, #16 and #18 remain open and propose competing site implementations. This audit did not modify those scopes. S10 is therefore `needs review`, not a claim that the site brief is fully satisfied. No endpoint was deployed and no Associates Special Link test was run. No server-side events or campaign rows were collected; the client may retain local tallies in browser storage, as disclosed on `/privacy/`.
+
+---
+
