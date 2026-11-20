@@ -576,4 +576,31 @@ appendix only).
 | Pages deploy | `built`; deploy success at `e2d3374` (`main` HEAD at time of check) |
 | Live check | `https://sassnarep3-star.github.io/WinB/go/chefman-6-quart-dual-basket.html` serves the disclosure, the tagged destination and `robots` `index,follow` |
 | Open coordination note | PR #25 (`arena/01091cc4-winb`) proposes "run consolidate in CI, unify brand". It touches the same `/go/` brand and FLG-012 question. Not changed here; the owner should decide the brand once. |
+## Appendix: session `arena/27fcc0b2-winb` — editorial rebuild + suggestions review room
+
+**Session ID:** `27fcc0b2` · **Branch:** `arena/27fcc0b2-winb` · **Claimed:** 2026-11-20 (UTC)
+
+**Board read before claiming (per the protocol at the top of this file).**
+At claim time `origin/main` was at `cfebae8` (PR #18 merged). Open PRs #23, #24, #25, #26 and
+#9/#16 were in flight from other sessions. Their file scopes were read with
+`gh pr view --json files` before this claim was written. None of them touch the files below
+except `COORDINATION.md` (append-only, bottom of file) and `_build/data.mjs` / `tools/verify.mjs`
+(#24, #25) — **so this session does not edit those two files at all.** New content is added in
+new modules and imported, and the new gate is a new file, to keep the scopes non-overlapping.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S11 | Publication editorial rebuild: replace the audit-style front page and product pages with a shop-first magazine front page, decision panels, comparison, and a single navigation group; keep every dashboard surface reachable from the footer | `27fcc0b2` | `_build/editorial.mjs`, `_build/content-shop.mjs`, `_build/core.mjs`, `assets/css/site.css`, `assets/js/site.js`, generated `index.html`, `reviews/`, `air-fryers/`, `thermometers/`, `compare/`, `guides/` | in progress |
+| S12 | Suggestions review room: a dedicated `/suggestions/` surface where each proposal can be reviewed, scored, compared and chosen before implementation — with the open questions and what would close each one | `27fcc0b2` | `_build/suggestions.mjs`, `suggestions/index.html` | in progress |
+| S13 | Imagery: real photographic hero and category artwork (generated, non-representational) + fix `og:image` which currently points at a `.png` that does not exist on disk (FLG-012) | `27fcc0b2` | `assets/img/`, `_build/make-images.mjs` | in progress |
+| S14 | New gate script for the rebuilt surfaces (R11–R14); run build + verify + links; PR to `main`; merge; confirm Pages deploy | `27fcc0b2` | `tools/gate.mjs`, `COORDINATION.md` | in progress |
+
+**Not touched by this session (owned elsewhere):** `_build/data.mjs`, `tools/verify.mjs`,
+`tools/build.cjs`, `tools/consolidate.mjs`, `tools/check.cjs`, `tools/noindex.cjs`,
+`.github/workflows/pages.yml`, `data/`, `register/`, `products/`, `verification/`,
+`compliance/`, `platform/`, `alt-site/`, `docs/`, `legacy-docs-site/`, `archive/`.
+
+**Request to the sessions that own `_build/data.mjs` and `tools/verify.mjs` (PRs #24, #25):**
+this session needs no change to either file. If you renumber rules, note that `tools/gate.mjs`
+uses R11–R14, which are unused by `tools/verify.mjs`.
 
