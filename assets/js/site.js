@@ -245,3 +245,70 @@
     endpointConfigured: !!ENDPOINT
   };
 })();
+
+/* ==========================================================================
+   S15 decision tools (session 30073780). Privacy: no network, no cookie,
+   no storage. The chooser and worksheets run entirely in the browser tab.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  // ------------------------------------------------------------ chooser
+  var chooser = document.getElementById('cw-chooser');
+  if (chooser) {
+    var RESULTS = {
+      two: { id: 'P01', slug: 'chefman-6qt-dual-basket', asin: 'B0CDY277D3', name: 'Chefman 6 qt dual basket', why: 'Two independent baskets at two temperatures, finishing together — the only unit here built for that job.' },
+      big: { id: 'P03', slug: 'chefman-8qt-turbofry', asin: 'B08DKYBTPH', name: 'Chefman 8 qt TurboFry', why: 'One deep 8 qt basket for a single big batch, without splitting it across two small ones.' },
+      flat: { id: 'P02', slug: 'emeril-26qt-french-door', asin: 'B09B7SB46R', name: 'Emeril Lagasse 26 qt French door', why: 'A French-door oven cavity with racks for flat things, toast and roasting — a fixture, not a drawer.' },
+      long: { id: 'P05', slug: 'chef-iq-sense-gen3', asin: 'B0DZFD6R9Z', name: 'CHEF iQ Sense Gen3', why: 'A leave-in wireless probe that watches the climb while you walk away. Needs an app and WiFi.' },
+      quick: { id: 'P04', slug: 'thermomaven-1s-thermometer', asin: 'B0DHZTCNR5', name: 'ThermoMaven 1-second thermometer', why: 'A handheld instant-read for a fast number and a rinse under the tap. No app, lives in a drawer.' }
+    };
+    var go = document.getElementById('cw-chooser-go');
+    var reset = document.getElementById('cw-chooser-reset');
+    var out = document.getElementById('cw-chooser-result');
+
+    function selected(name) {
+      var el = chooser.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : null;
+    }
+
+    if (go) go.addEventListener('click', function () {
+      var cook = selected('cw-cook');
+      if (!cook || !RESULTS[cook]) {
+        if (out) {
+          out.hidden = false;
+          out.innerHTML = '<h3>Pick the first answer to start</h3><p>What do you cook most often? The other two questions refine the fit, but the first one does most of the work.</p>';
+        }
+        return;
+      }
+      var r = RESULTS[cook];
+      var amazon = 'https://www.amazon.com/dp/' + r.asin + '/?tag=shopnow047c-20';
+      if (out) {
+        out.hidden = false;
+        out.innerHTML =
+          '<h3>Start with: ' + r.name + '</h3>' +
+          '<p>' + r.why + '</p>' +
+          '<div class="btn-row">' +
+          '<a class="btn small" href="/reviews/' + r.slug + '.html">Read the pick <span class="arw">→</span></a>' +
+          '<a class="btn small ghost" href="' + amazon + '" rel="sponsored nofollow noopener" target="_blank" data-outbound data-product="' + r.id + '" data-asin="' + r.asin + '" data-pos="chooser">Check on Amazon <span class="arw">→</span></a>' +
+          '</div>' +
+          '<p class="tiny faint" style="margin:.6rem 0 0">Affiliate link — this site earns from qualifying purchases. Price and availability are set by Amazon. ASIN ' + r.asin + '.</p>';
+        out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+
+    if (reset) reset.addEventListener('click', function () {
+      chooser.querySelectorAll('input[type=radio]').forEach(function (i) { i.checked = false; });
+      if (out) { out.hidden = true; out.innerHTML = ''; }
+    });
+  }
+
+  // ---------------------------------------------------------- worksheets
+  var printBtn = document.getElementById('cw-print');
+  if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
+  var clearBtn = document.getElementById('cw-clear');
+  if (clearBtn) clearBtn.addEventListener('click', function () {
+    var form = document.getElementById('cw-worksheet');
+    if (form) form.reset();
+  });
+})();

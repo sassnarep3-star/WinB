@@ -145,6 +145,18 @@ export const SOURCES = {
       'The file must be UTF-8 encoded and entity-escaped.',
     ],
   },
+  D1: {
+    id: 'D1',
+    title: 'What is GitHub Pages? (GitHub Docs)',
+    publisher: 'GitHub Docs',
+    url: 'https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages',
+    updated: null,
+    checked: '2026-11-20',
+    supports: [
+      'GitHub Pages takes HTML, CSS and JavaScript files straight from a repository on GitHub and publishes them as a website.',
+      'When a GitHub Pages site is visited, the visitor’s IP address is logged and stored for security purposes, whether or not the visitor has signed in to GitHub.',
+    ],
+  },
   U1: {
     id: 'U1',
     title: 'Safe Minimum Internal Temperature Chart',
@@ -157,6 +169,60 @@ export const SOURCES = {
       'Ground meats: 160°F (71.1°C).',
       'All poultry, including ground poultry, stuffing and giblets: 165°F (73.9°C).',
       'Fish and shellfish: 145°F (62.8°C). Leftovers and casseroles: 165°F (73.9°C).',
+    ],
+  },
+  // Amazon listing pages, re-read in full on 2026-11-20 (UTC) by session arena-066803dd.
+  // Each row records only what the page's title / “About this item” / product-details table states.
+  L1: {
+    id: 'L1',
+    title: 'Amazon listing B0CDY277D3 (CHEFMAN 6 Quart Dual Basket Air Fryer Oven)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B0CDY277D3?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states 6 Quart, 2 Independent 3Qt baskets and “Easy View Windows”. The product-details table was not re-read this session; wattage for this listing is recorded from the earlier 2026-11-20 read (FLG-014).',
+    ],
+  },
+  L2: {
+    id: 'L2',
+    title: 'Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B09B7SB46R?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states 26QT, “24 One-Touch Preset Options”, “Extra Large Interior” and “Six Cooking Accessories Included”.',
+      'About this item states “25 COOKING PRE-SETS” and “26-QUART CAPACITY”, and that the interior light lets you “monitor food”. No viewing window is stated in the sections read.',
+    ],
+  },
+  L3: {
+    id: 'L3',
+    title: 'Amazon listing B08DKYBTPH (Chefman Air Fryer 8 Qt TurboFry)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B08DKYBTPH?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states 8 Qt, “450°F Hi-Fry Option”, “4-in-1” and “XL Nonstick Dishwasher-Safe Basket”.',
+    ],
+  },
+  L4: {
+    id: 'L4',
+    title: 'Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B0DHZTCNR5?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states “1 Sec”, “±0.5℉ Accuracy”, “NIST&NSF Certified”, “IP67 Waterproof” and “Black”.',
+      'About this item: “instant-read” thermocouple sensor, 1 second. Product-details table: Included Components “1*Meat Thermometer, 1*AAA Battery, 1*User Manual, 1*Calibration Certificate”. No probe count and no app requirement stated.',
+    ],
+  },
+  L5: {
+    id: 'L5',
+    title: 'Amazon listing B0DZFD6R9Z (CHEF iQ Sense Gen3 Smart Wireless Meat Thermometer)',
+    publisher: 'Amazon.com',
+    url: `https://www.amazon.com/dp/B0DZFD6R9Z?tag=${SITE.associateTag}`,
+    checked: '2026-11-20',
+    supports: [
+      'Title states “3 Ultra-Thin Probes”, “WiFi Unlimited Range”, “1000°F Heat Safe”, “5 Sensors” and “Gen3”.',
     ],
   },
 };
@@ -215,12 +281,14 @@ export const PRODUCTS = [
     ],
     unverifiedClaims: [
       '“Sync Finish”, “Hi-Fry” and “Auto Shutoff” are listed as features; the timing behaviour of these modes is not documented in the data available to this desk.',
-      'Actual usable basket volume, power draw in watts, and oven-safe accessory limits are not stated in the data available to this desk.',
+      'Actual usable basket volume, external dimensions and oven-safe accessory limits are not stated on the listing as read.',
     ],
     bestFor:
       'A household that regularly cooks two different things at once — protein in one basket, vegetables in the other — and wants to finish them together.',
     thinkTwiceIf:
-      'You mostly cook one large item. Two smaller baskets split a single batch rather than accommodating it.',
+      'You mostly cook one large item, or you want the appliance to still be working in three years. Two smaller baskets split a single batch, and durability is the single worst-rated theme on its own listing.',
+    verdict:
+      'Buy it for the two-basket idea. Check the warranty and the return window before you rely on it, because the reviews are unusually blunt about failure.',
     compare: { format: 'basket', capacityQt: 6, baskets: 2, window: true, style: 'Dual basket' },
   },
   {
@@ -258,14 +326,18 @@ export const PRODUCTS = [
       },
     ],
     unverifiedClaims: [
-      'The specific 24 preset names, wattage, and external dimensions are not stated in the data available to this desk.',
-      'The accessory list behind “six cooking accessories” is not itemised in the data available to this desk.',
+      'The specific preset names are published in the listing bullets, but the title says 24 presets and the bullets say 25 — see FLG-013. This desk has not resolved which is correct.',
+      'Wattage, external dimensions and temperature range are not stated on the listing as read.',
     ],
     bestFor:
-      'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for aFrench-door oven rather than a tall basket unit.',
+      'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for a French-door oven rather than a tall basket unit.',
     thinkTwiceIf:
-      'Your counter is shallow, or you want something you can lift out and wash in a standard sink. An oven this size is a fixture, not a gadget.',
-    compare: { format: 'oven', capacityQt: 26, baskets: 0, window: true, style: 'French-door oven' },
+      'Your counter is shallow, you want something you can lift out and wash in a standard sink, or you expect a countertop oven to survive several years. Reviews of this listing are dominated by complaints about the heating element failing.',
+    verdict:
+      'The most versatile unit here by stated use — rotisserie, 12-inch pizza, 4–6 people — and the one with the heaviest durability caveat. Treat it as a fixture with a warranty, not a gadget.',
+    // window: null — the listing's About-this-item bullets (re-read 2026-11-20) say the
+    // interior light lets you “monitor food” but do not state a viewing window. Blank, not inferred. See FLG-021.
+    compare: { format: 'oven', capacityQt: 26, baskets: 0, window: null, style: 'French-door oven' },
   },
   {
     id: 'P03',
@@ -302,13 +374,15 @@ export const PRODUCTS = [
       },
     ],
     unverifiedClaims: [
-      'Whether “450°F” is a sustained set temperature or a peak is not stated in the data available to this desk.',
-      'Wattage and external dimensions are not stated in the data available to this desk.',
+      'Whether “450°F” is a sustained set temperature or a short Hi-Fry boost is not resolved: the Hi-Fry text says the last two minutes of cooking, while the base range is 200–400°F.',
+      'External dimensions are not stated on the listing as read.',
     ],
     bestFor:
       'Big single batches — a whole chicken’s worth of wings, a full tray of fries — where splitting across two baskets would be a nuisance.',
     thinkTwiceIf:
-      'You regularly cook two foods that need different temperatures at the same time.',
+      'You regularly cook two foods that need different temperatures at the same time, or your kitchen circuit is already busy — this is the only unit here whose listing states a wattage at 120 V, and it states two different ones.',
+    verdict:
+      'The simplest machine here: one basket, four modes, a stated wattage and a stated temperature range. Check the rating plate on the unit against the listing when it arrives, because the listing gives two different wattages.',
     compare: { format: 'basket', capacityQt: 8, baskets: 1, window: false, style: 'Single XL basket' },
   },
   {
@@ -337,18 +411,24 @@ export const PRODUCTS = [
       { label: 'Display', value: 'Auto-rotating bright LED', basis: 'listing title' },
       { label: 'Water resistance', value: 'IP67', basis: 'listing title' },
       { label: 'Colour', value: 'Black', basis: 'listing title' },
-      { label: 'Form', value: 'Handheld instant-read', basis: 'listing title' },
+      { label: 'Form', value: 'Instant-read', basis: 'About this item (“instant-read thermometer”)' },
     ],
     arithmetic: [],
     unverifiedClaims: [
       'The NIST and NSF certification claims appear in the listing title. This desk has not located a certificate to check them against, so they are recorded as manufacturer claims, not verified facts (FLG-006).',
-      'Probe length, battery type, calibration method and warranty term are not stated in the data available to this desk.',
+      'Probe length, calibration method and warranty term are not stated on the listing as read.',
+      'Probe count and app requirement are not stated on the listing as read (FLG-021).',
     ],
     bestFor:
       'Everyday cooking where you want a fast number and a rinse under the tap, and you would rather not manage an app.',
     thinkTwiceIf:
       'You want continuous monitoring of a long cook without opening the oven door. That is a leave-in probe’s job, not an instant-read’s.',
-    compare: { wireless: false, probes: 1, appRequired: false, heatRatingF: null },
+    verdict:
+      'The low-risk purchase here: no app, no pairing, no battery to charge in a hub. Its own listing’s mixed theme is durability, so treat the warranty as the deciding detail.',
+    // probes / appRequired: null — neither the title, the About-this-item bullets nor the
+    // product-details table (re-read 2026-11-20) states a probe count or an app requirement.
+    // Blank rather than inferred from “instant-read”. See FLG-021.
+    compare: { wireless: false, probes: null, appRequired: null, heatRatingF: null },
   },
   {
     id: 'P05',
@@ -387,12 +467,17 @@ export const PRODUCTS = [
     ],
     unverifiedClaims: [
       '“Unlimited range” cannot be verified here: WiFi range depends on your router and home. Treat it as “not limited by probe length”, not as a measured distance.',
-      'App platform support, subscription requirements, battery life and warranty term are not stated in the data available to this desk.',
+      'Which phone platforms the CHEF iQ App supports, any subscription requirement, external dimensions and the exact hub charging time are not stated on the listing as read. The app itself is stated (see compare).',
+      'Battery life is stated twice with different figures — 50 hours in the bullets, 70 hours in the description. See FLG-013.',
     ],
     bestFor:
       'Long cooks — smoking, roasting, an air-fried chicken — where you want to watch a temperature climb without standing over it.',
     thinkTwiceIf:
-      'You do not want a phone in the loop. A wireless probe with an app is more machinery than an instant-read, and more to go wrong.',
+      'You do not want a phone in the loop, or you want the connection to be the least interesting thing about a thermometer. Connectivity is the most negative theme on its own listing.',
+    verdict:
+      'The only leave-in system here, and the only one whose listing is candid about a weak point: reviewers complain far more about connectivity than about accuracy. Buy it for the guided cooks, not for the radio.',
+    // appRequired: true is stated on the listing (re-read 2026-11-20, B0DZFD6R9Z): product-details
+    // table “Display Type | App”; About this item “Pair your digital Bluetooth food thermometer with the CHEF iQ App”.
     compare: { wireless: true, probes: 3, appRequired: true, heatRatingF: 1000 },
   },
 ];
@@ -578,8 +663,25 @@ export const FLAGS = [
     ],
     sources: ['G2', 'A2'],
     action:
-      'Fixed by tools/consolidate.mjs and enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
+      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-015). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
     blocks: 'Nothing now. Was a real search-policy risk.',
+  },
+  {
+    id: 'FLG-015',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Fix recorded in a script CI does not run; two brands on the live site',
+    detail:
+      'Two problems found on re-verification. (1) The FLG-010 fix lived in tools/consolidate.mjs, which is part of npm run build but not of the CI pipeline in .github/workflows/pages.yml, so the deployed /go/ pages still carried noindex,nofollow. (2) The /go/ pages are titled and branded “The Crisp Kitchen” while the rest of the site, the README and the sitemap use “Counterwise”. Two names on one publication is an unresolved identity question for the owner.',
+    evidence: [
+      'Before this build: go/*.html on main contained content="noindex,nofollow".',
+      'After this build: tools/build.cjs writes content="index,follow" and CI regenerates the same bytes (drift check passes).',
+      'Brand split: go/chefman-6-quart-dual-basket.html <title> reads “Leaving for Amazon — Chefman 6-Quart Dual Basket | The Crisp Kitchen”; index.html <title> reads “Counterwise — kitchen gear chosen by question, not by hype”.',
+    ],
+    sources: ['G2'],
+    action:
+      'Fixed: /go/ generator corrected. Open for owner: choose one brand name, then the build will be changed to match (not decided in this session).',
+    blocks: 'Brand decision blocks a single consistent identity; not blocking publication.',
   },
   {
     id: 'FLG-011',
@@ -599,6 +701,23 @@ export const FLAGS = [
     blocks: 'Clean indexing of the canonical site until search engines recrawl.',
   },
   {
+    id: 'FLG-012',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Every page advertised a social image that did not exist',
+    detail:
+      'Every page on the site declared og:image and twitter:image as .../assets/img/og-default.png. No such file has ever existed on disk: the generated default is og-default.svg. The consequence was silent — the page renders normally, but every share to a social network, chat app or search preview would have shown a card with no image. Found while checking that the rebuilt pages pointed at real photographs.',
+    evidence: [
+      'grep -r "og-default" — 40+ pages referencing og-default.png.',
+      'ls assets/img/ — og-default.svg present, no .png.',
+      'The rebuild check in _build/build-editorial.mjs now fails the build if og:image does not resolve to a real file.',
+    ],
+    sources: ['G2'],
+    action:
+      'Fixed in this build. Every page now points at a real 1400px photograph (assets/img/hero-new.jpg, or the relevant product or category image), and tools/gate.mjs rule R11 fails the build if any og:image or twitter:image resolves to a missing file or a file under 2 KB.',
+    blocks: 'Nothing now. It blocked every social preview before the fix.',
+  },
+  {
     id: 'FLG-009',
     severity: 'Medium',
     status: 'Needs review',
@@ -614,6 +733,144 @@ export const FLAGS = [
     action:
       'Owner decides which version is canonical. This session’s version is the one merged to main; the other branches are left untouched and unmerged.',
     blocks: 'Nothing.',
+  },
+  {
+    id: 'FLG-014',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Three product pages reported stated specifications as "not stated"',
+    detail:
+      'The build as previously published listed wattage as “not stated” for both air fryers and described temperature range, model numbers and warranty terms as unavailable. All four of those were published on the listings themselves, in the “About this Item” bullets and the Product Description block. Reporting a published specification as unpublished is a factual error against the reader, and it made the comparison table less useful than the data allowed. It is also the kind of inaccurate claim about a product that the Participation Requirements prohibit, which is why it is rated High rather than cosmetic.',
+    evidence: [
+      'P01 / B0CDY277D3: “RESOURCES … 120 Volts/1700 Watts”, and “temperature settings from 200-450°F”.',
+      'P03 / B08DKYBTPH: “RESOURCES … 1000 Watts/120 Volts – RJ38-SQSS-8T”, and “a temperature range from 200-400°F”.',
+      'P04 / B0DHZTCNR5: “Runs on a AA battery” per the published review summary.',
+      'P05 / B0DZFD6R9Z: “built to endure 1000°F heat”, “accurate within 1°F”, two-year assurance.',
+    ],
+    sources: ['A2'],
+    action:
+      'Fixed: /_build/listing-evidence.mjs holds the transcribed evidence, and the wattage, temperature-range and review-theme rows are populated from it on the comparison table, both category tables and every product page. Values that genuinely are unpublished (external dimensions) remain blank and labelled.',
+    blocks: 'Nothing. Published on /flagged/ for review.',
+  },
+  {
+    id: 'FLG-013',
+    severity: 'Medium',
+    status: 'Needs review',
+    title: 'Three listings contradict themselves on their own stated figures',
+    detail:
+      'Where a single listing states two different values for the same specification, this site prints both and flags the conflict rather than choosing one. None of these can be resolved from the listing alone; the rating plate or the manual is the tiebreaker.',
+    evidence: [
+      'P02 / B09B7SB46R: title says “24 One-Touch Preset Options”; the bullets say “25 COOKING PRE-SETS”. The description returns to 24. Separately, the title says “Six Cooking Accessories Included” while the description says “7 premium accessories”.',
+      'P03 / B08DKYBTPH: “About this Item” states “1000 Watts/120 Volts”; the Product Description states “1700W/120V” for the same model, RJ38-SQSS-8T.',
+      'P05 / B0DZFD6R9Z: bullets state “up to 50 hours on a full charge”; the description states “up to 70 hours of usage on a full charge”.',
+    ],
+    sources: [],
+    action:
+      'Owner or a future session reads the linked user-guide PDF for each and records the authoritative figure with its page number. Until then the site shows both values and says they disagree.',
+    blocks: 'Nothing. Each affected page states the conflict inline.',
+  },
+  {
+    id: 'FLG-016',
+    severity: 'Medium',
+    status: 'Open',
+    title: 'On a second check, two of the five supplied short links did not reproduce their recorded redirect, and one returned an error',
+    detail:
+      'On 2026-11-20 (UTC) the five supplied link.amazon short links were fetched again through a second retrieval path. Two of them (B04G1MEwY and B0c8moW59) reached the amazon.com home page instead of the product page recorded in the link resolution record. One (B02NbDxp3) returned HTTP 500 from the retrieval tool. Two (B00hJ57DV and B0f3GKalj) reached the ASINs recorded in the register. The cause is not known. It could be the retrieval client, a session or region effect, or a change in Amazon’s routing. This is an observation about how the links behaved on one check. It is not a finding that any link is invalid. The sandbox cannot reach amazon.com directly, so this check depended on a single tool.',
+    evidence: [
+      'link.amazon/B04G1MEwY → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0CDY277D3)',
+      'link.amazon/B0c8moW59 → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0DHZTCNR5)',
+      'link.amazon/B02NbDxp3 → HTTP 500 from the retrieval tool (the earlier record says https://www.amazon.com/dp/B09B7SB46R)',
+      'link.amazon/B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-5756d38428f77669&channelId=704&plpRedirect=mhFallback&th=1 (ASIN matches)',
+      'link.amazon/B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=…&btn_ref=srctok-5ed90c5aacfa7a7e&channelId=500&plpRedirect=mhFallback&th=1 (ASIN matches)',
+      'No redirect observed on this check contains a tag= parameter.',
+      'Third retrieval, session arena-066803dd (2026-11-20, UTC): B04G1MEwY and B0c8moW59 again resolved to https://www.amazon.com/ (homepage); B02NbDxp3 resolved to https://www.amazon.com/dp/B09B7SB46R on this retrieval (no error). B00hJ57DV and B0f3GKalj resolved to their recorded ASINs. The two homepage results repeat across independent retrievals; the B02NbDxp3 result differs between retrievals. Cause unknown.',
+    ],
+    sources: ['A2'],
+    action:
+      'Owner: open each of the five short links in a normal, signed-out browser and in the Associates link builder. Record where each lands, and whether each link is an enrolled Special Link (see FLG-001 and FLG-003). Until then the site publishes only the tagged /dp/ links built from the ASINs, and the short links are not used as money links.',
+    blocks: 'Nothing on the site. Attribution for the short links stays unknown.',
+  },
+  {
+    id: 'FLG-017',
+    severity: 'Medium',
+    status: 'Open',
+    title: 'The live site root served two different builds to two requests on the same day',
+    detail:
+      'On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises.',
+    evidence: [
+      'Repository check (2026-11-20): “1 probes” and “aFrench” do not appear in the generated HTML of this branch.',
+      'GitHub Pages API (2026-11-20): latest build status “built”, source main, path /.',
+      'Two retrievals of the same page, different content. Recorded in COORDINATION.md under S16.',
+    ],
+    sources: ['D1'],
+    action:
+      'After the next deployment, fetch the site root with and without a query string and compare the title line. If an older build persists, re-run the Pages build or raise it with GitHub Support. Record the result in COORDINATION.md.',
+    blocks: 'Nothing on the content. It affects what a first-time visitor sees.',
+  },
+  {
+    id: 'FLG-018',
+    severity: 'Medium',
+    status: 'Fixed in this build',
+    title: 'The privacy page did not say that the hosting provider logs visitor IP addresses',
+    detail:
+      'The privacy page states that the site’s own recorder stores no IP address, which matches the event code. It did not disclose that the site is hosted on GitHub Pages. GitHub’s documentation says a visitor’s IP address is logged and stored for security purposes whenever a Pages site is visited, whether or not the visitor has signed in. This build adds one sentence to the privacy page that says so.',
+    evidence: [
+      'GitHub Docs, “What is GitHub Pages?”, Data collection section.',
+      'Fixed in _build/content-oversight.mjs (privacyPage), generated to privacy/index.html.',
+    ],
+    sources: ['D1'],
+    action:
+      'Fixed in this build. If a formal privacy notice is needed, the owner should have it reviewed; this is not legal advice.',
+    blocks: 'Nothing now.',
+  },
+  {
+    id: 'FLG-019',
+    severity: 'Low',
+    status: 'Open',
+    title: 'Two flag registers disagree, and one entry in the older register is out of date',
+    detail:
+      'data/shop/flags.json (FLG-001 to FLG-010) and the Flagged for Review page, which is built from FLAGS in _build/data.mjs, use the same IDs for different items. For example, FLG-003 reads “None of the five supplied short links carried a visible Associates tag” in the first and “Compliance status of link.amazon short links is unresolved” in the second. The older register also says that GitHub Actions is disabled on this repository. GitHub reports successful workflow runs on main, so that statement is out of date. The site publishes only the second register. Nothing has been merged to reconcile them.',
+    evidence: [
+      'data/shop/flags.json, FLG-009: “GitHub Actions is disabled on this repository, so the link resolver workflow cannot run”.',
+      'GitHub Actions on this repository (2026-11-20): “Build, verify and deploy to GitHub Pages” completed with success on main.',
+      '_build/data.mjs FLAGS, FLG-003: “Compliance status of link.amazon short links is unresolved”.',
+    ],
+    sources: [],
+    action:
+      'Owner or integration session: treat the Flagged for Review register as canonical and mark data/shop/flags.json as superseded. Do not renumber published IDs without a note that maps the old ID to the new one.',
+    blocks: 'Nothing.',
+  },
+  {
+    id: 'FLG-020',
+    severity: 'Low',
+    status: 'Fixed in this build',
+    title: 'Flag ID FLG-012 was used twice in the FLAGS list',
+    detail:
+      'Two entries in _build/data.mjs carried the ID FLG-012. Pull request #37 renumbered the second to FLG-015 and merged to main. FLG-012 now appears once. Anchors such as /flagged/#FLG-012 resolve to the single remaining entry.',
+    evidence: [
+      '_build/data.mjs: two objects with id \'FLG-012\' (title: “Every page advertised a social image that did not exist” and title: “Fix recorded in a script CI does not run; two brands on the live site”).',
+      'PR #37 (merged into main at a83236f): “Renumber FLG-012 duplicate to FLG-015; record PR #32”.',
+    ],
+    sources: [],
+    action:
+      'Resolved by PR #37 (merged). No further action.',
+    blocks: 'Nothing.',
+  },
+  {
+    id: 'FLG-021',
+    severity: 'Medium',
+    status: 'Fixed in this build',
+    title: 'Three specification values were shown that the listing text re-read on 2026-11-20 does not state',
+    detail:
+      'Re-reading the listings line by line found three values that had been presented as stated but cannot be matched to listing text in this session. (1) P02 Emeril: “Viewing window — Stated”. The About-this-item bullets say the interior light lets you “monitor food”; they do not state a viewing window. (2) P04 ThermoMaven: “Probes — 1”. Neither the title, the bullets nor the product-details table states a probe count; the figure came from the word “instant-read”. (3) P04 ThermoMaven: “Needs an app — No”. No app requirement is stated either way. The value has been blanked to “not stated” and the site no longer infers it. Also noted: the product-details table lists “1*AAA Battery” for P04, while the review-theme summary cited under FLG-014 says “AA battery”. The two are not reconciled and both are recorded.',
+    evidence: [
+      'P02 / B09B7SB46R About this item: “Elegant French doors open with a single pull – interior light allows you to monitor food.” No viewing-window wording found in the bullets read.',
+      'P04 / B0DHZTCNR5 product-details table: “Included Components: 1*Meat Thermometer, 1*AAA Battery, 1*User Manual, 1*Calibration Certificate”. About this item: “instant-read thermometer … accurate temperature readings in just 1 second”.',
+      'Not checked this session: the full Product Description block for P02 and P04 (the chunks read did not reach it). If the owner or a later session finds a stated figure there, the blank can be filled with its quote and page reference.',
+    ],
+    sources: ['L2', 'L4'],
+    action:
+      'Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.',
   },
 ];
 
@@ -1278,8 +1535,8 @@ export const GUIDES = [
       {
         h: 'The two supplied units, against those jobs',
         p: [
-          'The ThermoMaven is a handheld instant-read: a one-second read, a stated ±0.5°F accuracy, and IP67 water resistance for washing. It is the drawer tool.',
-          'The CHEF iQ Sense is a wireless leave-in system: three probes, WiFi, and a stated 1000°F heat limit. It is the long-cook tool, and it depends on an app.',
+          'The ThermoMaven is an instant-read thermometer: a one-second read, a stated ±0.5°F accuracy, and IP67 water resistance for washing. It is the drawer tool.',
+          'The CHEF iQ Sense is a wireless leave-in system: three probes, WiFi, and a stated 1000°F heat limit. It is the long-cook tool. Review summaries on the listing mention an app; the listing text read on 2026-11-20 does not spell out its requirement.',
           'If you cook both ways, a cheap instant-read plus a leave-in is usually a better spend than one expensive compromise. Neither of these listings tells you the probe’s response time when it is cold, which is the number that matters for a fast sear.',
         ],
       },
