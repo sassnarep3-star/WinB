@@ -23,6 +23,13 @@
 // policy decision, not an oversight.
 //
 // Re-check before republishing. Prices move; wattage and capacity rarely do.
+//
+// S15 PARTIAL RE-READ, 2026-11-20 (session arena-21850b97). All five /dp/ URLs were
+// fetched live again and every title re-confirmed verbatim. The P02 (B09B7SB46R)
+// Features & Specs and Item details tables were read and are now recorded above;
+// the P01 About-bullet lines (RESOURCES wattage, 200–450 °F) were NOT re-located
+// in the sampled chunks of the 27-chunk fallback render, so P01's rows stand on
+// the same-day full read recorded below. Nothing else was changed.
 
 export const EVIDENCE_CHECKED = '2026-11-20';
 
@@ -89,13 +96,18 @@ export const LISTING_EVIDENCE = {
   },
 
   // ---------------------------------------------------------------- P02
+  // 2026-11-20 S15 re-read: the *Product information → Features & Specs* table and
+  // the *Item details* table were read live this session (they are served in the
+  // `?lv=shuf` fallback variant of the page). Wattage, voltage, temperature
+  // settings and the model number below come from those tables and supersede the
+  // earlier "not stated" record for those fields.
   B09B7SB46R: {
     checked: '2026-11-20',
     readUrl: 'https://www.amazon.com/dp/B09B7SB46R',
-    model: { code: '', basis: 'not stated on the listing page as read' },
-    wattage: { value: null, unit: 'W', basis: 'not stated on the listing page as read' },
-    volt: { value: null, unit: 'V', basis: 'not stated' },
-    tempRangeF: { min: null, max: null, basis: 'not stated on the listing page as read' },
+    model: { code: '4-00675-02X-VN', basis: 'Product information → Item details → “Model Number” and “Part Number”, both 4-00675-02X-VN; “Model Name” reads “Extra Large 26 QT French Door Air Fryer Oven”' },
+    wattage: { value: 1700, unit: 'W', basis: 'Product information → Features & Specs → “Output Wattage | 1700 watts” and “Wattage | 1700 watts”' },
+    volt: { value: 120, unit: 'V', basis: 'Product information → Features & Specs → “Voltage | 120 volts”' },
+    tempRangeF: { min: 75, max: 500, basis: 'Product information → Features & Specs → “Min Temperature Setting | 75 °F”, “Max Temperature Setting | 500 °F”. These are control settings, not a stated cooking-performance range; the 75 °F floor is a keep-warm-style low setting.' },
     safetyListed: '',
     warrantyClaim: 'not stated on the listing page as read',
     presetCountContradiction: {
@@ -109,6 +121,11 @@ export const LISTING_EVIDENCE = {
       titleSays: 6,
       descriptionSays: 7,
       flag: 'FLG-013',
+      thirdDataPoint: 'Item details → “Configuration: Air Fryer Toaster Oven Combo with 24 Functions and 7 Accessories” and the Product Description both say 7; the title and the same Item details’ “Included Components” enumerate exactly six (Rack, Bake Pan, Drip Tray, Crisper Basket, Rotisserie Spit, Fetch Tool). Recorded 2026-11-20; still unresolved, still published with both values.',
+    },
+    dimensions: {
+      value: '16.9″ D × 15.8″ W × 14.8″ H',
+      basis: 'Product information → Measurements → “Item Dimensions D x W x H | 16.9"D x 15.8"W x 14.8"H”. Outer dimensions of the oven body; recorded 2026-11-20 (S15).',
     },
     statedUses: [
       'Rotisserie a 6-lb chicken (listing claim)',

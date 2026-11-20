@@ -887,7 +887,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Guides' }],
   kicker: 'The notebook',
   title: 'Guides',
-  lede: `${GUIDES.length} pieces written to answer a question, not to rank for a product name. Two are about choosing a machine; ${GUIDES.length - 2} are about using one safely and sanely.`,
+  lede: `${GUIDES.length} pieces written to answer a question, not to rank for a product name. Some are about choosing a machine; the rest are about using one safely, sanely and in season.`,
 })}
 <section class="section">
   <div class="wrap">

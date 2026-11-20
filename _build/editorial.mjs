@@ -23,6 +23,32 @@ import { NEW_GUIDES, WORKSHEETS, CHOOSER, FAQ, NOVEMBER_PICKS } from './tools-co
 
 export const ALL_GUIDES = [...GUIDES, ...NEW_GUIDES];
 
+import { LISTING_EVIDENCE, wattageLabel } from './listing-evidence.mjs';
+
+// Evidence-driven cells for the hub and comparison tables. A listing-stated value
+// is printed and labelled; a silent listing prints a labelled blank. Nothing is
+// estimated. (The pre-S15 build hardcoded these cells as "not stated", which
+// reported published specifications as unpublished — the FLG-014 defect class.)
+function wattageCell(p) {
+  const e = LISTING_EVIDENCE[p.asin] || {};
+  const w = wattageLabel(p.asin);
+  if (w && e.wattageContradiction) {
+    return `${e.wattageContradiction.first.value} W in the bullets, ${e.wattageContradiction.second.value} W in the description — unresolved`;
+  }
+  return w ? `${esc(w)} <span class="faint tiny">(listing claim)</span>` : blank('not stated');
+}
+function topTempCell(p) {
+  const e = LISTING_EVIDENCE[p.asin] || {};
+  const top = (e.hiFryF && e.hiFryF.value) || (e.tempRangeF && e.tempRangeF.max != null ? e.tempRangeF.max : null);
+  return top ? `${top}°F <span class="faint tiny">(listing claim)</span>` : blank('not stated');
+}
+function footprintCell(p) {
+  const e = LISTING_EVIDENCE[p.asin] || {};
+  return e.dimensions && e.dimensions.value
+    ? `${esc(e.dimensions.value)} <span class="faint tiny">(listing spec table)</span>`
+    : blank('not stated');
+}
+
 // ------------------------------------------------------------------- imagery
 // Every photograph is generated for this site and is deliberately
 // non-representational: it shows the *category*, lit like an editorial
@@ -38,6 +64,13 @@ export const ART = {
   thermometers: '/assets/img/cat-thermometers-new.jpg',
   hero: '/assets/img/hero-new.jpg',
   guides: '/assets/img/guides-new.jpg',
+};
+
+// Alt text for the two category-hero photographs. Both are generated editorial
+// still lifes, not photographs of the reviewed units, and the alt says so.
+const CAT_IMG_ALT = {
+  'Air fryers': 'Generated editorial photograph of two air-fryer formats side by side — a tall basket unit and a wide French-door countertop oven — representative of the category, not of a specific reviewed listing',
+  Thermometers: 'Generated editorial photograph of an instant-read thermometer resting on a cloth beside a prepared dish — representative of the category, not of a specific reviewed listing',
 };
 
 const P = (id) => PRODUCTS.find((p) => p.id === id);
@@ -436,7 +469,7 @@ export function categoryPage(slug) {
     ogImage: c.img,
     body: `
 <section class="cat-hero">
-  <img class="cat-img" src="${c.img}" alt="" width="1400" height="788" fetchpriority="high" decoding="async">
+  <img class="cat-img" src="${c.img}" alt="${esc(CAT_IMG_ALT[c.name] || `${c.name} — editorial photograph, representative of the category`)}" width="1400" height="788" fetchpriority="high" decoding="async">
   <div class="wrap">
     <div class="inner">
       ${crumbs([{ href: '/', label: 'Home' }, { label: c.name }])}
@@ -513,16 +546,16 @@ function airFryerTable() {
       row('Baskets', (p) => (p.compare.baskets === 2 ? '2 independent, 3 qt each' : p.compare.baskets === 1 ? '1 XL basket' : 'One oven cavity')),
       row('Viewing window', (p) => (p.compare.window ? 'Stated' : blank('not stated'))),
       row('Presets stated', (p) => (p.id === 'P02' ? '24 one-touch' : blank('not stated'))),
-      row('Stated top temperature', (p) => (p.id === 'P03' ? '450°F (listing claim)' : blank('not stated'))),
-      row('Counter footprint', () => blank('not stated')),
-      row('Wattage', () => blank('not stated')),
+      row('Stated top temperature', (p) => topTempCell(p)),
+      row('Counter footprint', (p) => footprintCell(p)),
+      row('Wattage', (p) => wattageCell(p)),
       row('Best for', (p) => esc(p.bestFor)),
       row('Skip it if', (p) => esc(p.thinkTwiceIf)),
       row('Full page', (p) => `<a href="/reviews/${p.slug}.html">Read the pick →</a>`),
       row('Listing', (p) => `<a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon · ${esc(p.asin)}</a>`),
     ],
     note:
-      'Footprint and wattage are the two figures most likely to change a decision, and the two the listings do not state in the data this desk could read. They are blank on purpose rather than estimated — check the product manual before ordering.',
+      'Top temperature, footprint and wattage quote the listing wherever the listing states a value; where it states two different wattages (Chefman 8 qt), both are shown rather than averaged. Cells marked “not stated” are listings that are genuinely silent — blank on purpose, never estimated. Check the product manual before ordering.',
   });
 }
 
@@ -706,7 +739,7 @@ export function comparePage() {
       <td>${esc(formatOf(p))}</td>
       <td class="num">${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt') : esc(probeWord(p))}</td>
       <td>${esc(ROLE[p.id] || p.editorialName)}</td>
-      <td>${blank('not stated')}</td>
+      <td>${wattageCell(p)}</td>
       <td>${blank('by policy')}</td>
       <td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Listing</a></td>
     </tr>`
@@ -718,7 +751,7 @@ export function comparePage() {
     ${crumbs([{ href: '/', label: 'Home' }, { label: 'Compare' }])}
     <p class="kicker">All five, one table</p>
     <h1>The comparison table</h1>
-    <p class="lede">Five products on the fields that are stable enough to print. Two columns are deliberately empty, and the reason is written directly underneath.</p>
+    <p class="lede">Five products on the fields that are stable enough to print. One column is empty by policy, and individual cells stay empty wherever a listing is silent — every empty cell is labelled, and the reasons are written directly underneath.</p>
   </div>
 </section>
 
@@ -737,8 +770,8 @@ export function comparePage() {
         <p>Amazon’s Program Policies permit a site to show prices only when Amazon serves the link carrying that data, or when the data comes from the Creators API under the licence. This is a static page with no API credentials, so a price printed here would be both stale and out of policy. Use the listing. <a href="/methods/#price">Full explanation</a>.</p>
       </div>
       <div class="callout">
-        <h4>Why wattage is blank</h4>
-        <p>It is the number that decides whether the machine trips a circuit alongside a kettle, and none of the five listings states it in the data this desk could read. Rather than guess a range, the cell is empty. Check the manual before ordering. <a href="/flagged/">Flagged for review</a>.</p>
+        <h4>How the wattage column is filled</h4>
+        <p>It is the number that decides whether the machine trips a circuit alongside a kettle, so it is printed only where the listing itself states one — here, for all three air fryers. The two thermometers are battery-powered and their listings state no wattage, so those cells stay empty. Where one listing states two different figures (Chefman 8 qt: 1000 W in its specification bullets, 1700 W in its description), both are shown rather than averaged. <a href="/flagged/">Flagged for review</a>.</p>
       </div>
     </div>
   </div>

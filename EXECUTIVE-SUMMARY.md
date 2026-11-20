@@ -4,8 +4,13 @@
 **Site:** Counterwise — https://sassnarep3-star.github.io/WinB/
 **Build date:** 2026-11-20 (UTC) — S15 refresh (session `30073780`)
 **Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
-**Pages:** 32 canonical pages + 5 affiliate exit pages, 38 sitemap routes, 11 feed items (9 guides + 2 shop items)
-**Sources:** 12 official sources, all re-fetched live 2026-11-20 via fetch_page (see §6)
+**Pages:** 32 indexed pages (incl. 5 affiliate exit pages), 38 sitemap routes, 11 feed items
+**Sources:** 12 official policy/agency sources + 5 per-listing source rows (L1–L5), all re-fetched live 2026-11-20 via fetch_page (see §6)
+
+**Build date:** 2026-11-20 (UTC) — re-verified same day by QA session `arena-21850b97` (S15)
+**Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
+**Pages:** 28 canonical pages + 5 affiliate exit pages, 30 sitemap routes, 7 feed items
+**Sources:** 10 documented official sources (§6) plus the five product listings, all fetched and read on 2026-11-20
 
 **Scope boundary — read this first.** This repository delivers a static affiliate publication with automated page generation and a compliance gate that fails the build on breach. It is **not yet an AI-powered research or campaign-optimization platform**, and this summary does not claim otherwise. There is no deployed AI agent, no live trend/commission feed, no live analytics endpoint, no Search Console data, and no verified conversion reporting. What *is* automated today: page/sitemap/feed generation from a single data file, the R1–R15 compliance gate, link crawling, and an HTTP smoke test at the real `/WinB/` path. What stays human-gated by design: every product fact, every word of guide prose, every topic choice, and every ledger row. Any future AI drafting would be treated as a suggestion until a human checks it against a source (Q-12). Those capabilities need authorized data access (Creators API / PA API, Associates Central, Search Console), deployment credentials, and human approval gates before they can be claimed or switched on.
 
@@ -24,15 +29,16 @@
 | Executive summary | **This document** + `/executive-summary/` | `EXECUTIVE-SUMMARY.md` |
 | Read like a shop, not an audit | **Done** — products first, registers in footer + one navigation group | `/index.html` |
 | Polished publication feel (authorship, brand, imagery, seasons, clusters) | **Done** — bylines, Counterwise brand, generated illustrations, seasonal notebook, 2 clusters | `/`, `/methods/`, `/about/` |
-| Polished marketing feel + trendy, timely topics + organic traffic | **Done (S15)** — November editorial picks, 30-second chooser, 3 printable worksheets, FAQ matrix; all timely framing is labelled hypothesis, never a demand claim | `/`, `/tools/`, `/guides/` |
-| Suggestions section to choose a path before implementing | **Done** — 3 paths, decision queue with cost/reversibility/failure mode, blocking questions, owner actions, and a decision-record box | `/suggestions/`, `/decisions/#decision-record` |
-| Questions / information / answers + discovery plan | **Done** — 14 questions (known / missing / how to find), a 10-row information-gaps register, discovery plan, FAQ matrix | `/decisions/#questions`, `/decisions/#gaps`, `/` (FAQ) |
+| Polished marketing feel + trendy, timely topics + organic traffic | **Done** — November editorial picks, 30-second chooser, 3 printable worksheets, FAQ matrix; all timely framing is labelled hypothesis, never a demand claim | `/`, `/tools/`, `/guides/` |
+| Suggestions section to choose a path before implementing | **Done** — 3 paths, a 10-row decision board, all 14 proposals carrying named options A/B/C with a recommended option and a decision gate, plus a decision-record box; nothing is implemented until an option is recorded | `/suggestions/`, `/decisions/#decision-record` |
+| Design suggestions feeding the build prompt, + catchy trend topic engine | **Done** — 15 design suggestions, 10 gated working titles, design brief | `/direction/` |
+| Questions / information / answers + discovery plan | **Done** — 15 questions (known / missing / how to find), a 10-row information-gaps register, 9 blocking questions, discovery plan, owner-action checklist, FAQ matrix | `/decisions/#questions`, `/decisions/#gaps`, `/suggestions/`, `/` (FAQ) |
 | Findable (one site to index) | **Done** — sitemap, RSS, robots, canonicals, OG, JSON-LD, noindex on superseded trees | `/sitemap.xml`, `/feed.xml`, `/robots.txt` |
 | Trustworthy machinery (automate + gate) | **Done** — R1–R15 gate fails the build; human gates for facts, prose, topics, ledger | `/data-room/#automation` |
 | Disclosure above the fold on every page | **Done** — strip under masthead + footer repeat, enforced by R1/R13 | every page |
 | Every outbound product link marked sponsored | **Done** — `rel="sponsored nofollow noopener"` + tag, enforced by R2/R10 | every page |
 | Product-intent confirmation record (separate fields) | **Done** — intended ASIN and observed redirect never merged | `/data-room/#products` |
-| Question-shaped guides + measurement before more writing | **Done** — 9 guides published (5 original, the ice-test calibration guide, 3 S15 guides); next title gated on 30 days of data | `/guides/`, `/decisions/#queue` |
+| Question-shaped guides + measurement before more writing | **Done** — 12 guides published (5 evergreen + the ice-test calibration guide + 3 winter seasonal + 3 S15); every future title gated on 30 days of data | `/guides/`, `/decisions/#queue` |
 | Click/conversion measurement (5 events) | **Code shipped, not deployed** — no endpoint, no traffic claimed | `/data-room/#events`, FLG-007 |
 | Empty campaign ledger with provenance rule | **Done** — 0 rows, schema + column rules published | `/data-room/#ledger` |
 | AI platform (research, trends, pricing, reviews, competition, commissions, SEO content, optimization) | **Not built — honestly scoped.** Automation today is generation + gating. Pricing/reviews/commission data would require Creators/PA API access and are deliberately absent (FLG-005). See §4 and Q-12. | `/data-room/#automation`, `/decisions/` Q-12 |
@@ -52,6 +58,10 @@ Every supplied link was opened on 2026-11-20 and re-checked this session. **In a
 The set is coherent: three air fryers that are structurally different machines, and the two thermometers that tell you when the food is done. That is the editorial spine the site is built on.
 
 **None of the five resolved URLs carried a visible `tag` parameter.** The site therefore publishes tagged canonical Special Links built from each observed ASIN plus `shopnow047c-20`, and does not use the untagged short links as money links (FLG-001, FLG-003). Do not claim the supplied short links are invalid — their exact compliance status is unresolved (FLG-003).
+
+**S15 re-read, 2026-11-20 (session `arena-21850b97`).** All five `/dp/` URLs were fetched live again and every listing title was confirmed verbatim against the register. The P02 (Emeril Lagasse) page's *Features & Specs* and *Item details* tables were read for the first time this cycle: they state **1700 W / 120 V**, model **4-00675-02X-VN**, **75–500 °F** control settings, and **16.9″ × 15.8″ × 14.8″** outer dimensions — values previously recorded as "not stated". They are now published (evidence file `_build/listing-evidence.mjs`; category and comparison tables). The same tables add a third data point to the accessories contradiction (FLG-013): the title and the *Included Components* enumeration say six, the *Configuration* row and the Product Description say seven. Still unresolved; both values still published. The P01 About-bullet lines were **not** re-located in the sampled chunks of that page's 27-chunk render, so P01's rows stand on the same-day full read recorded in the evidence file — no new fact was added for P01.
+
+**None of the five resolved URLs carried a visible `tag` parameter.** The site therefore publishes tagged canonical Special Links built from each observed ASIN plus `shopnow047c-20`, and does not use the untagged short links as money links (FLG-001, FLG-003).
 
 **Intended ASIN is blank for all five** (FLG-002). The ASINs above are *observed* redirect targets, stored in their own field and never merged into the intended field. Rationale: an ASIN is a 10-character Amazon Standard Identification Number, unique per listing/region — a checkable identifier, but only if the intended value is confirmed by the owner rather than inferred from a short-link code.
 
@@ -86,6 +96,7 @@ Ordered by downside if left open. Full reasoning in the Decision Room. **Nothing
 - **Clusters:** air-fryer cluster (format, capacity, cleanup, wings, leftovers) and thermometer cluster (safe temperatures, checking vs watching, the two-minute ice test, holiday roast) link to each other and to the comparison table.
 - **Seasonal notebook:** four cooking moments (weeknight two-food, big-batch sharing, holiday roasts, summer grilling) reframe guides as hypotheses.
 - **Publication polish:** byline (author, date, reading time) on every guide, worksheet and product page; Counterwise brand; generated editorial illustrations labelled as such.
+- **Design direction & topics:** a reviewable `/direction/` surface carries the design brief that feeds the next build (15 suggestions) and a gated trend-topic engine (10 catchy working titles) so the next article is chosen by measurement, not instinct.
 - **Findability:** one indexable site (superseded trees are noindex + disallowed), sitemap + RSS generated from the same data as the pages (new guides/worksheets cannot ship unlisted), canonicals + Open Graph + JSON-LD on every page, `rel="sponsored"` on every Amazon link, fortnightly cadence (bursts are scaled-content abuse per G2).
 - **Automation + gate:** generation, sitemap, feed, R1–R15 compliance gate, link crawl and HTTP smoke at `/WinB/` all run on every build and fail the publish on breach. Product facts, prose, topic choice and ledger rows stay human-gated.
 
@@ -106,6 +117,8 @@ Ordered by downside if left open. Full reasoning in the Decision Room. **Nothing
 | U2 | [USDA FSIS Food Thermometers factsheet](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers) | Ice-water and boiling-water calibration methods quoted on the ice-test guide |
 
 Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed record in the Data Room — and was **independently re-verified the same day by session `arena-b36a7b54`** (first re-check since the original resolution): all five listings fetched live, titles matching word for word, category paths matching. Prices and ratings visible during those fetches were deliberately not copied (R3). The dated log sits in the Data Room (`/data-room/#verification-log`).
+
+The P02 (Emeril Lagasse) page's *Features & Specs*, *Measurements* and *Item details* tables were read live during the S15 QA pass and are now recorded in `_build/listing-evidence.mjs`: 1700 W / 120 V, model 4-00675-02X-VN, 75–500 °F control settings, 16.9″ × 15.8″ × 14.8″ outer dimensions. The same tables add a third data point to the accessories contradiction (FLG-013): the title and the *Included Components* enumeration say six, the *Configuration* row and the Product Description say seven. Both values are published; nothing was resolved by inference. The P01 About-bullet spec lines were not re-located in the sampled chunks of that page's 27-chunk render, so P01's rows stand on the same-day full read recorded in the evidence file.
 
 ## 7. Flags (21 — none blocks publication)
 
@@ -132,8 +145,8 @@ Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed r
 | FLG-011 | Six competing site generations had accumulated on one host | Needs review |
 | FLG-012 | Every page advertised a social image that did not exist | **Fixed in this build** (real image; gate R11 now guards it) |
 | FLG-009 | Several earlier sessions published competing versions of this site | Needs review |
-| FLG-014 | Three product pages reported stated specifications as "not stated" | Fixed in this build |
-| FLG-013 | Three listings contradict themselves on their own stated figures | Needs review |
+| FLG-014 | Three product pages reported stated specifications as "not stated" | **Fixed** — and re-found in the editorial hub/compare tables during S15, where wattage was hardcoded "not stated" despite three listings stating it; fixed in the same pass |
+| FLG-013 | Three listings contradict themselves on their own stated figures | Needs review — both values printed; P02 accessories contradiction gained a third data point on 2026-11-20 (S15) |
 | FLG-016 | On a second check, two of the five supplied short links did not reproduce their recorded redirect, and one returned an error | Open |
 | FLG-017 | The live site root served two different builds to two requests on the same day | Open |
 | FLG-018 | The privacy page did not say that the hosting provider logs visitor IP addresses | Fixed in this build |
