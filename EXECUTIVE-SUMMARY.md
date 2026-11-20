@@ -6,7 +6,7 @@
 
 **Build date:** 2026-11-20 (UTC) — S17 refresh (session `ac3d816c`), following S15/S16 and the trend-topic cycle
 **Associate tag supplied:** `shopnow047c-20` — **status unconfirmed** (see §3, FLG-001)
-**Pages:** 37 canonical pages (incl. 5 affiliate exit pages), 47 sitemap routes, 16 feed items (recounted at each merge round)
+**Pages:** 43 canonical pages verified, 57 pages audited by the publication gate, 22 superseded-but-preserved pages kept reachable, 5 affiliate exit pages, 53 sitemap routes, 22 feed items; 19 canonical guides, 3 printable worksheets, 5 product pages, 2 category hubs. Every number here is read from the gate output at this merge rather than copied from an earlier cycle: `tools/verify.mjs` and `tools/gate.mjs` print them, and the CI drift check re-derives the pages from `_build/` on every push.
 **Sources:** 12 official policy/agency sources + 5 per-listing source rows (L1–L5), all re-fetched live 2026-11-20 (see §6, §11–§13)
 
 **Build date:** 2026-11-20 (UTC) — re-verified same day by QA session `arena-21850b97` (S15)
@@ -14,7 +14,7 @@
 **Pages:** 28 canonical pages + 5 affiliate exit pages, 30 sitemap routes, 7 feed items
 **Sources:** 10 documented official sources (§6) plus the five product listings, all fetched and read on 2026-11-20
 
-**Pages:** 41 canonical pages + 5 affiliate exit pages, 51 sitemap routes, 20 feed items, 55 pages audited by the publication gate. 18 canonical guides, 3 printable worksheets, 5 product pages, 2 category hubs (counts are read from the build output at this merge, not copied from an earlier cycle)
+**Pages:** 41 canonical pages + 5 affiliate exit pages, 51 sitemap routes, 20 feed items, 55 pages audited by the publication gate. 19 canonical guides, 3 printable worksheets, 5 product pages, 2 category hubs (counts are read from the build output at this merge, not copied from an earlier cycle)
 **Sources:** 17 registered official sources, each with a retrieval date; re-fetched live on 2026-11-20 (see §6, §10–§12). No value is published that an official page has not been read for.
 
 **Scope boundary — read this first.** This repository delivers a static affiliate publication with automated page generation and a compliance gate that fails the build on breach. It is **not yet an AI-powered research or campaign-optimization platform**, and this summary does not claim otherwise. There is no deployed AI agent, no live trend/commission feed, no live analytics endpoint, no Search Console data, and no verified conversion reporting. What *is* automated today: page/sitemap/feed generation from a single data file, the R1–R16 compliance gate (verify + publication gate + the register gate), link crawling, and an HTTP smoke test at the real `/WinB/` path. What stays human-gated by design: every product fact, every word of guide prose, every topic choice, and every ledger row. Any future AI drafting would be treated as a suggestion until a human checks it against a source (Q-12). Those capabilities need authorized data access (Creators API / PA API, Associates Central, Search Console), deployment credentials, and human approval gates before they can be claimed or switched on.
