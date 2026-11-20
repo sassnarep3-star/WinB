@@ -256,3 +256,19 @@ unresolved.
 No product was handled. No traffic, click, order, conversion or revenue figure exists or is
 published. No price or star rating is shown. Whether `link.amazon` short links are an approved
 Special Link format is unresolved in both directions and stated as such (FLG-003).
+
+## Outcome
+
+| Item | Result |
+|---|---|
+| PR #12 (main build) | merged to `main` |
+| PR #20 (integration + live-link fixes) | merged to `main` |
+| Deploy | success — run 44684578057, Pages `built` at `0fa749d` |
+| Live shop front | https://sassnarep3-star.github.io/WinB/ |
+| Live register hub | https://sassnarep3-star.github.io/WinB/register/ |
+| Live flag queue | https://sassnarep3-star.github.io/WinB/flagged/ |
+| Live link audit | https://sassnarep3-star.github.io/WinB/verification/links.html |
+
+Both gates green at merge time:
+- `node tools/verify.mjs` → PASS, rules R1–R10, 27 canonical pages, 262 internal links
+- `node tools/check.cjs` → 95 HTML files, 194 passes, 0 failures
