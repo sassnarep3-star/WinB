@@ -145,6 +145,18 @@ export const SOURCES = {
       'The file must be UTF-8 encoded and entity-escaped.',
     ],
   },
+  D1: {
+    id: 'D1',
+    title: 'What is GitHub Pages? (GitHub Docs)',
+    publisher: 'GitHub Docs',
+    url: 'https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages',
+    updated: null,
+    checked: '2026-11-20',
+    supports: [
+      'GitHub Pages takes HTML, CSS and JavaScript files straight from a repository on GitHub and publishes them as a website.',
+      'When a GitHub Pages site is visited, the visitor’s IP address is logged and stored for security purposes, whether or not the visitor has signed in to GitHub.',
+    ],
+  },
   U1: {
     id: 'U1',
     title: 'Safe Minimum Internal Temperature Chart',
@@ -324,7 +336,7 @@ export const PRODUCTS = [
     verdict:
       'The most versatile unit here by stated use — rotisserie, 12-inch pizza, 4–6 people — and the one with the heaviest durability caveat. Treat it as a fixture with a warranty, not a gadget.',
     // window: null — the listing's About-this-item bullets (re-read 2026-11-20) say the
-    // interior light lets you “monitor food” but do not state a viewing window. Blank, not inferred. See FLG-017.
+    // interior light lets you “monitor food” but do not state a viewing window. Blank, not inferred. See FLG-021.
     compare: { format: 'oven', capacityQt: 26, baskets: 0, window: null, style: 'French-door oven' },
   },
   {
@@ -405,7 +417,7 @@ export const PRODUCTS = [
     unverifiedClaims: [
       'The NIST and NSF certification claims appear in the listing title. This desk has not located a certificate to check them against, so they are recorded as manufacturer claims, not verified facts (FLG-006).',
       'Probe length, calibration method and warranty term are not stated on the listing as read.',
-      'Probe count and app requirement are not stated on the listing as read (FLG-017).',
+      'Probe count and app requirement are not stated on the listing as read (FLG-021).',
     ],
     bestFor:
       'Everyday cooking where you want a fast number and a rinse under the tap, and you would rather not manage an app.',
@@ -415,7 +427,7 @@ export const PRODUCTS = [
       'The low-risk purchase here: no app, no pairing, no battery to charge in a hub. Its own listing’s mixed theme is durability, so treat the warranty as the deciding detail.',
     // probes / appRequired: null — neither the title, the About-this-item bullets nor the
     // product-details table (re-read 2026-11-20) states a probe count or an app requirement.
-    // Blank rather than inferred from “instant-read”. See FLG-017.
+    // Blank rather than inferred from “instant-read”. See FLG-021.
     compare: { wireless: false, probes: null, appRequired: null, heatRatingF: null },
   },
   {
@@ -455,7 +467,7 @@ export const PRODUCTS = [
     ],
     unverifiedClaims: [
       '“Unlimited range” cannot be verified here: WiFi range depends on your router and home. Treat it as “not limited by probe length”, not as a measured distance.',
-      'App platform support, subscription requirements, external dimensions and the exact hub charging time are not stated on the listing as read.',
+      'Which phone platforms the CHEF iQ App supports, any subscription requirement, external dimensions and the exact hub charging time are not stated on the listing as read. The app itself is stated (see compare).',
       'Battery life is stated twice with different figures — 50 hours in the bullets, 70 hours in the description. See FLG-013.',
     ],
     bestFor:
@@ -464,6 +476,8 @@ export const PRODUCTS = [
       'You do not want a phone in the loop, or you want the connection to be the least interesting thing about a thermometer. Connectivity is the most negative theme on its own listing.',
     verdict:
       'The only leave-in system here, and the only one whose listing is candid about a weak point: reviewers complain far more about connectivity than about accuracy. Buy it for the guided cooks, not for the radio.',
+    // appRequired: true is stated on the listing (re-read 2026-11-20, B0DZFD6R9Z): product-details
+    // table “Display Type | App”; About this item “Pair your digital Bluetooth food thermometer with the CHEF iQ App”.
     compare: { wireless: true, probes: 3, appRequired: true, heatRatingF: 1000 },
   },
 ];
@@ -649,11 +663,11 @@ export const FLAGS = [
     ],
     sources: ['G2', 'A2'],
     action:
-      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-012). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
+      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-015). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
     blocks: 'Nothing now. Was a real search-policy risk.',
   },
   {
-    id: 'FLG-012',
+    id: 'FLG-015',
     severity: 'High',
     status: 'Fixed in this build',
     title: 'Fix recorded in a script CI does not run; two brands on the live site',
@@ -758,22 +772,92 @@ export const FLAGS = [
   {
     id: 'FLG-016',
     severity: 'Medium',
-    status: 'Needs review',
-    title: 'Two of the five supplied short links did not reproduce their recorded redirect on re-check',
+    status: 'Open',
+    title: 'On a second check, two of the five supplied short links did not reproduce their recorded redirect, and one returned an error',
     detail:
-      'On 2026-11-20 (UTC) this session fetched each supplied short link once more. Three resolved to the product page recorded in the register: B02NbDxp3 → B09B7SB46R, B00hJ57DV → B08DKYBTPH and B0f3GKalj → B0DZFD6R9Z. Two returned the Amazon homepage (https://www.amazon.com/) instead: B04G1MEwY and B0c8moW59. Their recorded redirects (B0CDY277D3 and B0DHZTCNR5) were not reproduced in this session. Each of those two ASINs was confirmed separately by fetching its product page directly, so the listings themselves are confirmed; only the short-link step is in question. The homepage response may be a regional or session effect of the fetcher, and this desk cannot tell which. The site publishes the direct /dp/ URLs, never the short links, so no visitor is sent to the homepage.',
+      'On 2026-11-20 (UTC) the five supplied link.amazon short links were fetched again through a second retrieval path. Two of them (B04G1MEwY and B0c8moW59) reached the amazon.com home page instead of the product page recorded in the link resolution record. One (B02NbDxp3) returned HTTP 500 from the retrieval tool. Two (B00hJ57DV and B0f3GKalj) reached the ASINs recorded in the register. The cause is not known. It could be the retrieval client, a session or region effect, or a change in Amazon’s routing. This is an observation about how the links behaved on one check. It is not a finding that any link is invalid. The sandbox cannot reach amazon.com directly, so this check depended on a single tool.',
     evidence: [
-      'Re-check B04G1MEwY: fetched https://link.amazon/B04G1MEwY → https://www.amazon.com/ (homepage). Direct https://www.amazon.com/dp/B0CDY277D3 → “CHEFMAN 6 Quart Dual Basket Air Fryer Oven …”.',
-      'Re-check B0c8moW59: fetched https://link.amazon/B0c8moW59 → https://www.amazon.com/ (homepage). Direct https://www.amazon.com/dp/B0DHZTCNR5 → “ThermoMaven 1 Sec Professional Digital Meat Thermometer …”.',
-      'Re-check B02NbDxp3 → https://www.amazon.com/dp/B09B7SB46R (“Emeril Lagasse 26QT …”). B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH (“Chefman Air Fryer 8 Qt …”). B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z (“CHEF iQ Sense … Gen3”).',
+      'link.amazon/B04G1MEwY → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0CDY277D3)',
+      'link.amazon/B0c8moW59 → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0DHZTCNR5)',
+      'link.amazon/B02NbDxp3 → HTTP 500 from the retrieval tool (the earlier record says https://www.amazon.com/dp/B09B7SB46R)',
+      'link.amazon/B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-5756d38428f77669&channelId=704&plpRedirect=mhFallback&th=1 (ASIN matches)',
+      'link.amazon/B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=…&btn_ref=srctok-5ed90c5aacfa7a7e&channelId=500&plpRedirect=mhFallback&th=1 (ASIN matches)',
+      'No redirect observed on this check contains a tag= parameter.',
+      'Third retrieval, session arena-066803dd (2026-11-20, UTC): B04G1MEwY and B0c8moW59 again resolved to https://www.amazon.com/ (homepage); B02NbDxp3 resolved to https://www.amazon.com/dp/B09B7SB46R on this retrieval (no error). B00hJ57DV and B0f3GKalj resolved to their recorded ASINs. The two homepage results repeat across independent retrievals; the B02NbDxp3 result differs between retrievals. Cause unknown.',
     ],
-    sources: ['L1', 'L3', 'L4', 'L5'],
+    sources: ['A2'],
     action:
-      'Owner opens each of the five short links in a signed-in browser and records the final URL. If a link resolves to the homepage for the owner, it is not a usable Special Link and must not be published. The publishing gate does not use short links, so this does not change any published page.',
-    blocks: 'Nothing. The site does not use the short links as money links (FLG-003).',
+      'Owner: open each of the five short links in a normal, signed-out browser and in the Associates link builder. Record where each lands, and whether each link is an enrolled Special Link (see FLG-001 and FLG-003). Until then the site publishes only the tagged /dp/ links built from the ASINs, and the short links are not used as money links.',
+    blocks: 'Nothing on the site. Attribution for the short links stays unknown.',
   },
   {
     id: 'FLG-017',
+    severity: 'Medium',
+    status: 'Open',
+    title: 'The live site root served two different builds to two requests on the same day',
+    detail:
+      'On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises.',
+    evidence: [
+      'Repository check (2026-11-20): “1 probes” and “aFrench” do not appear in the generated HTML of this branch.',
+      'GitHub Pages API (2026-11-20): latest build status “built”, source main, path /.',
+      'Two retrievals of the same page, different content. Recorded in COORDINATION.md under S16.',
+    ],
+    sources: ['D1'],
+    action:
+      'After the next deployment, fetch the site root with and without a query string and compare the title line. If an older build persists, re-run the Pages build or raise it with GitHub Support. Record the result in COORDINATION.md.',
+    blocks: 'Nothing on the content. It affects what a first-time visitor sees.',
+  },
+  {
+    id: 'FLG-018',
+    severity: 'Medium',
+    status: 'Fixed in this build',
+    title: 'The privacy page did not say that the hosting provider logs visitor IP addresses',
+    detail:
+      'The privacy page states that the site’s own recorder stores no IP address, which matches the event code. It did not disclose that the site is hosted on GitHub Pages. GitHub’s documentation says a visitor’s IP address is logged and stored for security purposes whenever a Pages site is visited, whether or not the visitor has signed in. This build adds one sentence to the privacy page that says so.',
+    evidence: [
+      'GitHub Docs, “What is GitHub Pages?”, Data collection section.',
+      'Fixed in _build/content-oversight.mjs (privacyPage), generated to privacy/index.html.',
+    ],
+    sources: ['D1'],
+    action:
+      'Fixed in this build. If a formal privacy notice is needed, the owner should have it reviewed; this is not legal advice.',
+    blocks: 'Nothing now.',
+  },
+  {
+    id: 'FLG-019',
+    severity: 'Low',
+    status: 'Open',
+    title: 'Two flag registers disagree, and one entry in the older register is out of date',
+    detail:
+      'data/shop/flags.json (FLG-001 to FLG-010) and the Flagged for Review page, which is built from FLAGS in _build/data.mjs, use the same IDs for different items. For example, FLG-003 reads “None of the five supplied short links carried a visible Associates tag” in the first and “Compliance status of link.amazon short links is unresolved” in the second. The older register also says that GitHub Actions is disabled on this repository. GitHub reports successful workflow runs on main, so that statement is out of date. The site publishes only the second register. Nothing has been merged to reconcile them.',
+    evidence: [
+      'data/shop/flags.json, FLG-009: “GitHub Actions is disabled on this repository, so the link resolver workflow cannot run”.',
+      'GitHub Actions on this repository (2026-11-20): “Build, verify and deploy to GitHub Pages” completed with success on main.',
+      '_build/data.mjs FLAGS, FLG-003: “Compliance status of link.amazon short links is unresolved”.',
+    ],
+    sources: [],
+    action:
+      'Owner or integration session: treat the Flagged for Review register as canonical and mark data/shop/flags.json as superseded. Do not renumber published IDs without a note that maps the old ID to the new one.',
+    blocks: 'Nothing.',
+  },
+  {
+    id: 'FLG-020',
+    severity: 'Low',
+    status: 'Fixed in this build',
+    title: 'Flag ID FLG-012 was used twice in the FLAGS list',
+    detail:
+      'Two entries in _build/data.mjs carried the ID FLG-012. Pull request #37 renumbered the second to FLG-015 and merged to main. FLG-012 now appears once. Anchors such as /flagged/#FLG-012 resolve to the single remaining entry.',
+    evidence: [
+      '_build/data.mjs: two objects with id \'FLG-012\' (title: “Every page advertised a social image that did not exist” and title: “Fix recorded in a script CI does not run; two brands on the live site”).',
+      'PR #37 (merged into main at a83236f): “Renumber FLG-012 duplicate to FLG-015; record PR #32”.',
+    ],
+    sources: [],
+    action:
+      'Resolved by PR #37 (merged). No further action.',
+    blocks: 'Nothing.',
+  },
+  {
+    id: 'FLG-021',
     severity: 'Medium',
     status: 'Fixed in this build',
     title: 'Three specification values were shown that the listing text re-read on 2026-11-20 does not state',
@@ -787,7 +871,6 @@ export const FLAGS = [
     sources: ['L2', 'L4'],
     action:
       'Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.',
-    blocks: 'Nothing.',
   },
 ];
 
