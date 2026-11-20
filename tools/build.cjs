@@ -2018,6 +2018,12 @@ PRODUCTS.products.forEach((p) => write(`/go/${p.slug}.html`, goPage(p)));
 const sitemapRoutes = PAGES.filter(
   (p) => !p.noindex && p.routePath !== '/404.html.DISABLED'
 ).map((p) => p.routePath);
+/* Hand-written register-surface pages (session b26a9f95) that check.cjs requires in this sitemap. */
+const EXTRA_ROUTES = [
+  '/products/index.html', '/products/air-fryers/index.html', '/products/thermometers/index.html',
+  '/direction/index.html', '/direction/brief.html', '/flags/index.html', '/analytics/index.html',
+];
+const extraRoutes = EXTRA_ROUTES.filter((r) => !sitemapRoutes.includes(r));
 
 /* Added 2026-11-20 (session 27fcc0b2): the reader-facing review room published by the
    editorial build. It is a sibling page, so it is not in PAGES above - but this
@@ -2033,7 +2039,7 @@ for (const g of ['/guides/holiday-format-check.html', '/guides/smart-probe-quest
 const today = '2026-11-20';
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemapRoutes
+${[...sitemapRoutes, ...extraRoutes]
   .map(
     (r) => `  <url>
     <loc>${BASE}${r}</loc>
