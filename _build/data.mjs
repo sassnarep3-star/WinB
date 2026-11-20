@@ -589,11 +589,11 @@ export const FLAGS = [
     ],
     sources: ['G2', 'A2'],
     action:
-      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-012). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
+      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-015). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
     blocks: 'Nothing now. Was a real search-policy risk.',
   },
   {
-    id: 'FLG-012',
+    id: 'FLG-015',
     severity: 'High',
     status: 'Fixed in this build',
     title: 'Fix recorded in a script CI does not run; two brands on the live site',
@@ -625,6 +625,23 @@ export const FLAGS = [
     action:
       'This integration retires the superseded trees rather than deleting them: 56 pages are marked noindex,nofollow and carry a visible “Archived page” banner pointing at the canonical equivalent. The canonical site is the root Counterwise publication. Owner decides whether to delete the archived trees outright — nothing links to them from the live navigation, and they remain readable in git history either way.',
     blocks: 'Clean indexing of the canonical site until search engines recrawl.',
+  },
+  {
+    id: 'FLG-012',
+    severity: 'High',
+    status: 'Fixed in this build',
+    title: 'Every page advertised a social image that did not exist',
+    detail:
+      'Every page on the site declared og:image and twitter:image as .../assets/img/og-default.png. No such file has ever existed on disk: the generated default is og-default.svg. The consequence was silent — the page renders normally, but every share to a social network, chat app or search preview would have shown a card with no image. Found while checking that the rebuilt pages pointed at real photographs.',
+    evidence: [
+      'grep -r "og-default" — 40+ pages referencing og-default.png.',
+      'ls assets/img/ — og-default.svg present, no .png.',
+      'The rebuild check in _build/build-editorial.mjs now fails the build if og:image does not resolve to a real file.',
+    ],
+    sources: ['G2'],
+    action:
+      'Fixed in this build. Every page now points at a real 1400px photograph (assets/img/hero-new.jpg, or the relevant product or category image), and tools/gate.mjs rule R11 fails the build if any og:image or twitter:image resolves to a missing file or a file under 2 KB.',
+    blocks: 'Nothing now. It blocked every social preview before the fix.',
   },
   {
     id: 'FLG-009',
@@ -1201,20 +1218,20 @@ export const TOPIC_QUEUE = [
   {
     title: 'Game-day wings: one big basket or two small ones?',
     cluster: 'Air fryers',
-    gate: 'Publish only after 30 days of page_view data ranks capacity-checklist above the other guides.',
-    status: 'Hypothesis — do not publish yet',
+    gate: 'Published 2026-11-20 as game-day-wings by the parallel S15 pass, ahead of this queue’s measurement gate. The override is recorded rather than reversed; the open question is now whether measured queries justify keeping it.',
+    status: 'Published — gate recorded as overridden',
   },
   {
     title: 'Holiday roast thermometer: instant-read or leave-in?',
     cluster: 'Thermometers',
-    gate: 'Publish only after temperature-safety shows guide_complete above 25% of its readers.',
-    status: 'Hypothesis — do not publish yet',
+    gate: 'Published 2026-11-20 as holiday-roast-thermometer by the parallel S15 pass, ahead of this queue’s measurement gate. Override recorded; review against measured traffic before writing the next thermometer piece.',
+    status: 'Published — gate recorded as overridden',
   },
   {
     title: 'Air-fryer leftovers: what reheats safely?',
     cluster: 'Air fryers + safety',
-    gate: 'Publish only after the USDA table is the most-read section of temperature-safety.',
-    status: 'Hypothesis — do not publish yet',
+    gate: 'Published 2026-11-20 as air-fryer-leftovers by the parallel S15 pass, ahead of this queue’s measurement gate. Override recorded; the USDA table still needs the reader data the gate asked for.',
+    status: 'Published — gate recorded as overridden',
   },
   {
     title: 'How to assess cleanup and counter-space trade-offs',

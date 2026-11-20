@@ -2018,6 +2018,18 @@ PRODUCTS.products.forEach((p) => write(`/go/${p.slug}.html`, goPage(p)));
 const sitemapRoutes = PAGES.filter(
   (p) => !p.noindex && p.routePath !== '/404.html.DISABLED'
 ).map((p) => p.routePath);
+
+/* Added 2026-11-20 (session 27fcc0b2): the reader-facing review room published by the
+   editorial build. It is a sibling page, so it is not in PAGES above - but this
+   generator owns sitemap-register.xml, and an indexable sibling page that is missing
+   from it fails tools/check.cjs. Additive: removing this block breaks only that check. */
+if (!sitemapRoutes.includes('/suggestions/index.html')) sitemapRoutes.push('/suggestions/index.html');
+/* Added 2026-11-20 (session 15e30bda, S13): the three winter seasonal guides are
+   indexable sibling pages too. Same additive pattern as the line above - removing
+   this block breaks only the sitemap-register completeness check in tools/check.cjs. */
+for (const g of ['/guides/holiday-format-check.html', '/guides/smart-probe-questions.html', '/guides/crowd-capacity-math.html']) {
+  if (!sitemapRoutes.includes(g)) sitemapRoutes.push(g);
+}
 const today = '2026-11-20';
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

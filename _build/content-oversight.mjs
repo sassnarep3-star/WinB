@@ -63,6 +63,7 @@ ${pageHead({
   title: 'Decision Room',
   lede: 'Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so. <b>This page is the case file:</b> every proposal carries named options A/B/C, a recommended option and a decision gate. The <a href="/suggestions/">decision board</a> is the same queue reduced to one sortable row per proposal, with cost, reversibility and failure mode.',
   meta: `<div class="btn-row">
+    <a class="btn small" href="/suggestions/">Open the suggestions room <span class="arw">→</span></a>
     ${badge(open.length + ' open suggestions', 'amber')}
     ${badge(done.length + ' already built', 'green')}
     ${badge(QUESTIONS.filter((q) => q.status !== 'Answered').length + ' open questions', 'plain')}
@@ -145,7 +146,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Part two</p>
+        <p class="kicker">Part two</p>
         <h2>The questions that must be answered before a decision</h2>
         <p>Each row separates what is <b>known</b> from what is <b>unknown</b>, and names the cheapest way to find out. Rows marked Answered are decisions already made and implemented.</p>
       </div>
@@ -185,7 +186,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Part three</p>
+        <p class="kicker">Part three</p>
         <h2>What was considered and rejected</h2>
         <p>Recorded so the next session does not re-litigate it.</p>
       </div>
@@ -265,7 +266,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Register one</p>
+        <p class="kicker">Register one</p>
         <h2>Product intent record</h2>
         <p>The intended ASIN and the observed redirect are two different facts and live in two different columns. They are never merged. The blank column is the owner’s to fill.</p>
       </div>
@@ -298,7 +299,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Register two</p>
+        <p class="kicker">Register two</p>
         <h2>Source register</h2>
         <p>Every official page used to build this site, with the date Amazon or the agency last updated it and the date this desk read it. Re-check before republishing; policies change.</p>
       </div>
@@ -317,7 +318,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Register three</p>
+        <p class="kicker">Register three</p>
         <h2>The five measured events</h2>
         <p>Names are frozen. The collector shipped with the site accepts exactly these and nothing else.</p>
       </div>
@@ -344,7 +345,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Register four</p>
+        <p class="kicker">Register four</p>
         <h2>Campaign ledger</h2>
         <p>Deliberately empty. A row may only be added from an authorised first-party report, with its provenance recorded.</p>
       </div>
@@ -511,7 +512,7 @@ ${pageHead({
 
 <section class="section tint">
   <div class="wrap">
-    <div class="sec-head"><div><p class="eyebrow">Spot-check</p><h2>What verification actually meant here</h2></div></div>
+    <div class="sec-head"><div><p class="kicker">Spot-check</p><h2>What verification actually meant here</h2></div></div>
     ${table({
       caption: '<b>Method.</b> What was checked, how, and with what result.',
       head: ['Check', 'Method', 'Result'],
@@ -522,8 +523,8 @@ ${pageHead({
         ['Price and rating policy', 'Compared against Participation Requirements §2(b).', 'No price or rating printed anywhere. Enforced by the build, not by memory.'],
         ['Outbound link marking', 'Compared against Google’s outbound-link documentation.', 'All Amazon links carry rel="sponsored nofollow noopener".'],
         ['Temperature figures', 'Compared against the USDA FSIS safe minimum internal temperature chart.', 'Seven rows quoted, each with the chart’s own figures and rest times.'],
-        ['Sitemap and feed', 'Built and validated against the sitemaps.org protocol and RFC-822 dates for RSS.', 'XML parses; every <loc> is on one host; every URL returns 200 in the local link check.'],
-      ],
+        ['Sitemap and feed', 'Built and validated against the sitemaps.org protocol and RFC-822 dates for RSS.', 'XML parses; every loc element sits on one host; every URL returns 200 in the local link check.'],
+      ].map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join('')}</tr>`),
     })}
   </div>
 </section>`;
@@ -714,13 +715,16 @@ ${pageHead({
   kicker: 'For the owner',
   title: 'Executive summary',
   lede: 'What was built, what it can and cannot claim, what it needs from you, and the decisions that carry the most weight.',
-  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 5 guides · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
+  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 8 guides · 3 worksheets · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
 })}
 <section class="section">
   <div class="wrap-narrow prose">
     <h2>In one paragraph</h2>
     <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure above the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. This cycle moved the site from a specification summary to a buying decision: the front page now opens with five buyer situations rather than a methodology statement, the comparison table carries stated wattage, temperature range and the weakest review theme per product, and each product page reports what repeat buyers complain about using the counts Amazon itself publishes.</p>
     <p>Two things were also fixed that mattered more than any addition. The site had been reporting published specifications as “not stated” — wattage, temperature range and model numbers were all on the listings (FLG-014). And three listings contradict themselves on their own figures; both values are now printed rather than one being quietly chosen (FLG-013).</p>
+
+    <h2>November 2026 refresh (S15)</h2>
+    <p>This cycle added decision tools rather than more product copy: a 30-second chooser on the front page (“Which one fits your kitchen?”), three printable worksheets (capacity, cleanup/counter-space, thermometer calibration), three new question-shaped guides (holiday roast thermometer, game-day wings, air-fryer leftovers), and a buyer-questions FAQ matrix on the front page and both category hubs. All new guides are timely framing of existing, sourced material — editorial hypotheses for November, not popularity or demand claims. The chooser and worksheets run entirely in the browser: no account, no cookie, nothing sent anywhere. The build now enforces R15 (question-shaped new guides, no invented demand, chooser present, worksheets printable) in addition to R1–R14.</p>
 
     <h2>What the five supplied links turned out to be</h2>
     ${table({
