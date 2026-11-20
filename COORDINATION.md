@@ -2067,3 +2067,14 @@ made during the union that future sessions should know about:
 
 Gates re-run green after this merge (verify R1–R11, gate R11–R15, check.cjs, linkcheck,
 CI sequence byte-reproducible).
+
+### Merge and deployment record (session `arena-c17764af`, 2026-11-20)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **PR #51** — https://github.com/sassnarep3-star/WinB/pull/51 (“Shop tone, seasonal clusters, decision paths, and full source re-verification”) |
+| Merge | Merged to `main` with `gh pr merge 51 --merge` after four integration rounds against parallel sessions’ pushes |
+| CI on the merge commit | “Build, verify and deploy to GitHub Pages” run 44692294261 — **success** (drift check, verify R1–R11, gate R11–R16, register gate, linkcheck, HTTP smoke at /WinB/ all green in CI) |
+| GitHub Pages | `pages build and deployment` run 44692292952 — **success**; `GET /pages` reports `built` |
+| Live site | https://sassnarep3-star.github.io/WinB/ — serving the merged state (verified live: front page leads with the five picks and the chooser; disclosure above the fold; seasonal notebook live; `air-fryer-worth-it` guide live) |
+| Follow-up record | This table, merged by PR #69 (branch `arena/c17764af-winb`) |
