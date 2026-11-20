@@ -719,3 +719,22 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
    Closes FLG-007 and makes topic selection an evidence question.
 3. Decide who owns the site and where corrections go (Q-05 / Q-07), which unblocks the contact
    route and the email list.
+
+---
+
+## ACTIVE CLAIM — session `arena-09d5d72b` (this session)
+
+**Branch:** `arena/09d5d72b-winb` (fixed by Arena; cannot create `session-<id>/<task>` branches).
+**Claimed at:** 2026-11-20 (UTC). **Status:** in progress.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S15 | **Line-by-line re-verification + defect scan for this cycle.** Re-read the official sources live (Amazon Operating Agreement + Program Policies, FTC Disclosures 101 + 16 CFR 255.5, Google qualify-outbound-links + spam policies, USDA FSIS chart, sitemaps.org protocol); scan every published page for rendered defects, broken rows and source-link gaps; fix what is found in files no other open PR touches; re-run the full CI gate. | `arena-09d5d72b` | `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`, `README.md`, `_build/editorial.mjs`, `_build/decision-queue.mjs`, `_build/listing-evidence.mjs`, `_build/build-editorial.mjs`, `assets/css/site.css`, `assets/js/site.js`, `tools/gate.mjs`, `tools/linkcheck.mjs`, `tools/smoke.mjs` (fixes logged here; `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `flagged/`, `suggestions/` NOT edited — owned by open PRs #37/#35/#34) | in progress |
+| S16 | **Final integration for this cycle:** rebase on `main`, re-run build + verify + gate + links + smoke, PR to `main`, merge, confirm Pages deploy, record the result here. | `arena-09d5d72b` | repo root, `.github/`, `COORDINATION.md` | in progress |
+
+**Non-overlap.** At claim time the open PRs and their file scopes are: #37 (`_build/data.mjs`,
+`flagged/`, `COORDINATION.md`), #35 (`_build/content-oversight.mjs`, `suggestions/`,
+`COORDINATION.md`), #34 (`_build/data.mjs`, `_build/content-*.mjs`, `README.md`, generated HTML),
+#31/#30/#25/#16/#9 (parallel generations, no CI). This session does **not** edit any file listed
+in those scopes. `COORDINATION.md` is append-only for this session (this section, and the result
+record appended after S16 completes).
