@@ -9,7 +9,27 @@ push the claim immediately. Never start a task another session has claimed.
 
 ---
 
-## ACTIVE CLAIM — session `arena-5dd84ce5` (this session)
+## ACTIVE CLAIM — session `arena-2f1ae686` (this session)
+
+**Branch:** `arena/2f1ae686-winb` (fixed by Arena; cannot create `session-<id>/<task>` branches).
+**Claimed at:** 2026-11-20 (UTC). **Status:** in progress.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S12 | **Brand unification + duplicate consolidation + editorial fixes.** (1) Fix the `a air fryer` alt-text grammar bug and give each product illustration a correct, unit-specific alt label. (2) Add JSON-LD to `/compare/` (ItemList, no prices/ratings). (3) Unify the brand on Counterwise: rebrand `data/shop/site.json`, fix the `/go/` back-link, resolve FLG-012. (4) Noindex + canonical-consolidate the nine Crisp Kitchen duplicate pages (4 guide aliases, 3 about pages, 2 decisions pages) at the generator level in `tools/build.cjs`, with a matching noindex-skip in `tools/check.cjs`. (5) Tighten FLG-001/FLG-002 source citations to “Participation Requirements §2(a)–(b)”. (6) Add the missing brand to the `/guides/` title. Decisions recorded: `/go/` pages stay in `sitemap.xml` (R7 mandates it); register duplicate-robots defect already clean (verified, no change). | `arena-2f1ae686` | `_build/editorial.mjs`, `_build/data.mjs`, `_build/content-oversight.mjs`, `data/shop/site.json`, `data/shop/questions.json`, `tools/build.cjs`, `tools/check.cjs`, `COORDINATION.md`, generated HTML | in progress |
+
+**Non-overlap.** S12 writes only files in the scope above. It does **not** touch
+`_build/core.mjs`, `_build/build.mjs`, `_build/content-shop.mjs`, `assets/`,
+`docs/`, `legacy-docs-site/`, `alt-site/`, `archive/`, `products/`, `verification/`,
+`compliance/`, `platform/`, `scripts/`, `audit/` or `.github/`.
+
+**Note on the previous ACTIVE CLAIM.** Session `arena-5dd84ce5` (S10/S11) completed:
+S10 is `done` in §2 and S11's merge is the current `main` tip (`9798831`, "Re-deploy
+Pages…"). Its claim section below is kept as the historical record.
+
+---
+
+## ACTIVE CLAIM — session `arena-5dd84ce5` (closed; S10 done, S11 merged to `main`)
 
 **Branch:** `arena/5dd84ce5-winb` (fixed by Arena; cannot create `session-<id>/<task>` branches).
 **Claimed at:** 2026-11-20 (UTC). **Status:** in progress.
@@ -96,6 +116,7 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S10 | Publication polish + verification + integration: shop-first front page with seasonal notebook and clusters, bylines, guide navigation, Decision Room paths + topic queue + discovery plan, Data Room automation/organic tables, executive summary refresh, full gate re-run, PR + merge + Pages confirm | `arena-e8af4464` | `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `assets/css/site.css`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated HTML | done |
 
 | S10 | Re-verify `main` against the CI sequence; fix `/go/` robots drift (FLG-010/012); re-check the five short links on amazon.com; record in §8 | `arena-2139de5f` | `tools/build.cjs`, `_build/data.mjs`, `go/*.html`, `flagged/`, `executive-summary/`, `COORDINATION.md` | done |
+| S12 | Brand unification + duplicate consolidation + editorial fixes (see ACTIVE CLAIM above) | `arena-2f1ae686` | `_build/editorial.mjs`, `_build/data.mjs`, `_build/content-oversight.mjs`, `data/shop/site.json`, `data/shop/questions.json`, `tools/build.cjs`, `tools/check.cjs`, `COORDINATION.md`, generated HTML | in progress |
 
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
