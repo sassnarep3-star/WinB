@@ -1102,3 +1102,14 @@ handled), FLG-006 (manufacturer certification claims), FLG-007 (no analytics end
 `/flagged/` and `/suggestions/` with sources.
 
 **Integration result.** See the session log entry at the end of this file once the PR is merged.
+
+## Claim: session `arena-21850b97` (branch `arena/21850b97-winb`) — S15
+
+**Claimed:** 2026-11-20 (UTC). **Status:** in progress.
+**Board read before claiming:** yes — S01–S14 read, all nine open PRs (#9, #16, #25, #26, #30, #31, #34, #35, #37) read with `gh pr view --json files`.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S15 | **Independent QA + live-source re-verification pass.** Re-run the full gate on the committed tree; re-fetch the five Amazon listings and the compliance sources live and diff against `_build/listing-evidence.mjs` and `_build/data.mjs`; fix any rendered defect found **in files no open PR claims** (expected: `_build/editorial.mjs`, `EXECUTIVE-SUMMARY.md`, generated HTML from those); publish findings; PR + merge + confirm Pages deploy. | `arena-21850b97` | `_build/editorial.mjs`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, plus generated HTML regenerated from the files above. **Explicitly not touched:** `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `tools/*` (all claimed by open PRs #34/#35/#37/#25), and every tree owned by earlier sessions (`docs/`, `alt-site/`, `archive/`, `legacy-docs-site/`, `products/`, `verification/`, `compliance/`, `platform/`, `data/`, `register/`). | in progress |
+
+If a defect is found inside another session's claimed file, it will be **logged here, not edited**.
