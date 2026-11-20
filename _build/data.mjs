@@ -1088,6 +1088,87 @@ export const FLAGS = [
     // Related content duplicate, kept on purpose: FLG-022 here and FLG-023 on main describe the same
     // finding (trend guides published ahead of measured demand). Both stay; the site publishes both.
   },
+
+  {
+    id: 'FLG-026',
+    severity: 'Medium',
+    status: 'Fixed in this build',
+    title: 'The register’s suggestion ledger and path chooser were built but never published',
+    detail:
+      'tools/build.cjs (the register generator) renders data/shop/suggestions.json — 28 rows in seven groups, plus the Path A/B/C chooser — into /decisions/index.html, but that route is in the generator’s SHARED_INDEXES guard, which reserves it for the Decision Room. The guard is correct (it protects the live Decision Room), yet it meant the register’s dedicated review-and-choose surface had no route: the content existed in the source data and in the generator template, and appeared on no canonical page. The brief requires a dedicated suggestions section with the parallel-pass rows SG-27 to SG-30 present.',
+    evidence: [
+      'grep for “SG-01” / “The honest shop” across committed canonical HTML before this build: zero hits outside the archived alt-site/, docs/ and legacy-docs-site/ trees.',
+      'tools/build.cjs: SHARED_INDEXES includes /decisions/index.html; the suggestions template is add()ed to that route and skipped.',
+      'data/shop/suggestions.json contains 28 items including SG-27, SG-28, SG-29 and SG-30; SG-25 and SG-26 are absent (FLG-027).',
+    ],
+    sources: [],
+    action:
+      'Done in this build: /suggestions/ledger.html renders the same JSON (read-only) with the path chooser and the choice log, so the ledger is published without editing the register generator. The register session may later retire its orphaned template or point it at the ledger — request logged in COORDINATION.md.',
+    blocks: 'Nothing now. Until this build, the brief’s SG-27..SG-30 rows were unpublished on the canonical site.',
+  },
+  {
+    id: 'FLG-027',
+    severity: 'Low',
+    status: 'Needs review',
+    title: 'Register suggestion IDs SG-25 and SG-26 do not exist',
+    detail:
+      'The register’s suggestion ledger runs SG-01 to SG-24, then jumps to SG-27. IDs SG-25 and SG-26 are absent from data/shop/suggestions.json. The gap was not filled: no content was invented to make the sequence continuous, because inventing register rows would falsify the register. The published ledger shows the gap exactly as the source has it.',
+    evidence: ['grep "SG-2[4567]" data/shop/suggestions.json: SG-24 and SG-27 present; SG-25 and SG-26 absent.'],
+    sources: [],
+    action: 'Register owner confirms whether SG-25/SG-26 were removed deliberately or lost in a merge; either way the published table shows the gap as it is.',
+    blocks: 'Nothing. The rows that exist are published.',
+  },
+  {
+    id: 'FLG-028',
+    severity: 'Medium',
+    status: 'Needs review',
+    title: 'Question IDs collide across the two registers, and the register flag queue has no published route',
+    detail:
+      'FLG-019 records that the two flag registers disagree. Two related problems remain. (1) Question IDs collide: /decisions/questions.html (register, 20 questions) and the Decision Room’s inline list (Counterwise, 10 questions) both number items Q-01 onward with different meanings — register Q-01 asks whether the storefront is approved; Decision Room Q-01 asks whether the supplied links came from the account. A reader quoting “Q-01” without naming the register can be understood backwards. (2) The register’s flag queue in data/shop/flags.json (19 rows, FLG-01..FLG-19) has no canonical route because its generator writes to the guarded /flagged/index.html, while /register/ still promises readers “Ten items that could not be confirmed” on Flagged for Review — which resolves to the Counterwise queue with different IDs under overlapping numbers.',
+    evidence: [
+      'data/shop/questions.json Q-01 = “Is shopnow047c-20 an approved Associates storefront…”; _build/data.mjs Q-01 = “Did the five supplied short links come out of the shopnow047c-20 Associates account?”.',
+      'register/index.html linkcard: “Flagged for Review — Ten items that could not be confirmed…” while /flagged/ publishes the Counterwise queue (FLG-001..FLG-025).',
+      'tools/build.cjs SHARED_INDEXES includes /flagged/index.html, so the register’s 19-row queue renders nowhere.',
+    ],
+    sources: ['A2'],
+    action:
+      'Owner picks a resolution: namespace the registers (e.g. CK-… vs REG-…), merge them into one queue with a source column, or publish the register queue at its own route. Until then, every citation on this site should name which register it means.',
+    blocks: 'Nothing publication-critical; it blocks unambiguous citation of a question or flag ID across the two registers.',
+  },
+  {
+    id: 'FLG-029',
+    severity: 'Medium',
+    status: 'Needs review',
+    title: '“The five defined events” are defined three different ways across generations',
+    detail:
+      'The brief asks that five defined events be recorded, but no owner-written definition exists in the repository; three sessions each defined their own five. Counterwise (_build/data.mjs and assets/js/site.js): page_view, product_view, outbound_click, guide_complete, capture_intent. Register (data/shop/suggestions.json SG-18): page view, guide read, product intent, outbound click, return visit. Docs generation (data/flags.json FLG-05): page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported. The collector ships with ENDPOINT = null, so none of the sets is being recorded yet — but the first deploy must not start with three incompatible schemas.',
+    evidence: [
+      '_build/data.mjs EVENTS and assets/js/site.js MAP: page_view, product_view, outbound_click, guide_complete, capture_intent.',
+      'data/shop/suggestions.json SG-18: “page view, guide read, product intent, outbound click, return visit”.',
+      'data/flags.json FLG-05: “The five analytics events are defined in the client, but not confirmed by the requester” — names the third set.',
+    ],
+    sources: [],
+    action:
+      'Owner ratifies one five-event set (recommendation: the Counterwise set, because the live collector is coded against it) before the endpoint is deployed; the other two registers are then updated or marked historical.',
+    blocks: 'Deployment of the analytics endpoint (SUG-03 / DQ-02) until one set is ratified.',
+  },
+  {
+    id: 'FLG-030',
+    severity: 'Low',
+    status: 'Needs review',
+    title: 'Two live pages still state different publishing cadences',
+    detail:
+      'The growth plan page pre-registers “one guide per week for eight weeks, then stop”. The Decision Room’s cadence suggestion recommends a fixed fortnightly cadence (its option A), and /direction/ Path A instructs “publish on the fortnightly cadence”. Both cadences are live and both are framed as the plan. The contradiction is small but it is exactly the kind of thing a pre-registration is supposed to prevent: the standard cannot be renegotiated after the data arrives if it was never single-valued to begin with.',
+    evidence: [
+      'decisions/growth-plan.html: “one guide per week for eight weeks, then stop and read the data before writing a ninth”.',
+      '_build/data.mjs cadence suggestion: option A = “One substantial guide every two weeks”, recommendedWhy = “Two weeks is achievable and sustainable”.',
+      'direction/index.html Path A: “publish on the fortnightly cadence”.',
+    ],
+    sources: ['G2'],
+    action:
+      'Owner picks one cadence; the losing page is edited to match. Until then both statements remain visible rather than one being silently chosen.',
+    blocks: 'Nothing; it blocks a single authoritative cadence claim.',
+  },
 ];
 
 // ---------------------------------------------------------------------------

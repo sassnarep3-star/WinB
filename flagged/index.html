@@ -56,8 +56,8 @@
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
     <span class="badge red">6 high</span>
-    <span class="badge amber">14 medium</span>
-    <span class="badge plain">5 low</span>
+    <span class="badge amber">17 medium</span>
+    <span class="badge plain">7 low</span>
   </div>
   </div>
 </div>
@@ -590,6 +590,111 @@
     <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a></dd></div>
     <div><dt>What the owner needs to do</dt><dd>Fixed in this build: the missing import is replaced by a stub that refuses to run, and the script now exits with a stated reason before it touches any file unless COUNTERWISE_REVIVE_EDITORIAL_BUILD=1 is set deliberately. The file is kept, not deleted, because another session’s work is not this desk’s to remove. If a session wants this generation back, the honest route is a rebuild plus the full gate, not a restored import.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing. It is a warning to whoever next finds an “obviously broken” script in _build/ and reaches for the fix.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-026" >
+  <summary>
+    <span class="id">FLG-026</span>
+    <span class="ft">
+      <h3>The register’s suggestion ledger and path chooser were built but never published</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">tools/build.cjs (the register generator) renders data/shop/suggestions.json — 28 rows in seven groups, plus the Path A/B/C chooser — into /decisions/index.html, but that route is in the generator’s SHARED_INDEXES guard, which reserves it for the Decision Room. The guard is correct (it protects the live Decision Room), yet it meant the register’s dedicated review-and-choose surface had no route: the content existed in the source data and in the generator template, and appeared on no canonical page. The brief requires a dedicated suggestions section with the parallel-pass rows SG-27 to SG-30 present.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>grep for “SG-01” / “The honest shop” across committed canonical HTML before this build: zero hits outside the archived alt-site/, docs/ and legacy-docs-site/ trees.</li><li>tools/build.cjs: SHARED_INDEXES includes /decisions/index.html; the suggestions template is add()ed to that route and skipped.</li><li>data/shop/suggestions.json contains 28 items including SG-27, SG-28, SG-29 and SG-30; SG-25 and SG-26 are absent (FLG-027).</li></ul></dd></div>
+    
+    <div><dt>What the owner needs to do</dt><dd>Done in this build: /suggestions/ledger.html renders the same JSON (read-only) with the path chooser and the choice log, so the ledger is published without editing the register generator. The register session may later retire its orphaned template or point it at the ledger — request logged in COORDINATION.md.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing now. Until this build, the brief’s SG-27..SG-30 rows were unpublished on the canonical site.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-027" >
+  <summary>
+    <span class="id">FLG-027</span>
+    <span class="ft">
+      <h3>Register suggestion IDs SG-25 and SG-26 do not exist</h3>
+      <span class="meta">
+        <span class="badge plain">Low severity</span>
+        <span class="badge plain">Needs review</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">The register’s suggestion ledger runs SG-01 to SG-24, then jumps to SG-27. IDs SG-25 and SG-26 are absent from data/shop/suggestions.json. The gap was not filled: no content was invented to make the sequence continuous, because inventing register rows would falsify the register. The published ledger shows the gap exactly as the source has it.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>grep &quot;SG-2[4567]&quot; data/shop/suggestions.json: SG-24 and SG-27 present; SG-25 and SG-26 absent.</li></ul></dd></div>
+    
+    <div><dt>What the owner needs to do</dt><dd>Register owner confirms whether SG-25/SG-26 were removed deliberately or lost in a merge; either way the published table shows the gap as it is.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing. The rows that exist are published.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-028" >
+  <summary>
+    <span class="id">FLG-028</span>
+    <span class="ft">
+      <h3>Question IDs collide across the two registers, and the register flag queue has no published route</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Needs review</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">FLG-019 records that the two flag registers disagree. Two related problems remain. (1) Question IDs collide: /decisions/questions.html (register, 20 questions) and the Decision Room’s inline list (Counterwise, 10 questions) both number items Q-01 onward with different meanings — register Q-01 asks whether the storefront is approved; Decision Room Q-01 asks whether the supplied links came from the account. A reader quoting “Q-01” without naming the register can be understood backwards. (2) The register’s flag queue in data/shop/flags.json (19 rows, FLG-01..FLG-19) has no canonical route because its generator writes to the guarded /flagged/index.html, while /register/ still promises readers “Ten items that could not be confirmed” on Flagged for Review — which resolves to the Counterwise queue with different IDs under overlapping numbers.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>data/shop/questions.json Q-01 = “Is shopnow047c-20 an approved Associates storefront…”; _build/data.mjs Q-01 = “Did the five supplied short links come out of the shopnow047c-20 Associates account?”.</li><li>register/index.html linkcard: “Flagged for Review — Ten items that could not be confirmed…” while /flagged/ publishes the Counterwise queue (FLG-001..FLG-025).</li><li>tools/build.cjs SHARED_INDEXES includes /flagged/index.html, so the register’s 19-row queue renders nowhere.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Owner picks a resolution: namespace the registers (e.g. CK-… vs REG-…), merge them into one queue with a source column, or publish the register queue at its own route. Until then, every citation on this site should name which register it means.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing publication-critical; it blocks unambiguous citation of a question or flag ID across the two registers.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-029" >
+  <summary>
+    <span class="id">FLG-029</span>
+    <span class="ft">
+      <h3>“The five defined events” are defined three different ways across generations</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Needs review</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">The brief asks that five defined events be recorded, but no owner-written definition exists in the repository; three sessions each defined their own five. Counterwise (_build/data.mjs and assets/js/site.js): page_view, product_view, outbound_click, guide_complete, capture_intent. Register (data/shop/suggestions.json SG-18): page view, guide read, product intent, outbound click, return visit. Docs generation (data/flags.json FLG-05): page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported. The collector ships with ENDPOINT = null, so none of the sets is being recorded yet — but the first deploy must not start with three incompatible schemas.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>_build/data.mjs EVENTS and assets/js/site.js MAP: page_view, product_view, outbound_click, guide_complete, capture_intent.</li><li>data/shop/suggestions.json SG-18: “page view, guide read, product intent, outbound click, return visit”.</li><li>data/flags.json FLG-05: “The five analytics events are defined in the client, but not confirmed by the requester” — names the third set.</li></ul></dd></div>
+    
+    <div><dt>What the owner needs to do</dt><dd>Owner ratifies one five-event set (recommendation: the Counterwise set, because the live collector is coded against it) before the endpoint is deployed; the other two registers are then updated or marked historical.</dd></div>
+    <div><dt>Blocks</dt><dd>Deployment of the analytics endpoint (SUG-03 / DQ-02) until one set is ratified.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-030" >
+  <summary>
+    <span class="id">FLG-030</span>
+    <span class="ft">
+      <h3>Two live pages still state different publishing cadences</h3>
+      <span class="meta">
+        <span class="badge plain">Low severity</span>
+        <span class="badge plain">Needs review</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">The growth plan page pre-registers “one guide per week for eight weeks, then stop”. The Decision Room’s cadence suggestion recommends a fixed fortnightly cadence (its option A), and /direction/ Path A instructs “publish on the fortnightly cadence”. Both cadences are live and both are framed as the plan. The contradiction is small but it is exactly the kind of thing a pre-registration is supposed to prevent: the standard cannot be renegotiated after the data arrives if it was never single-valued to begin with.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>decisions/growth-plan.html: “one guide per week for eight weeks, then stop and read the data before writing a ninth”.</li><li>_build/data.mjs cadence suggestion: option A = “One substantial guide every two weeks”, recommendedWhy = “Two weeks is achievable and sustainable”.</li><li>direction/index.html Path A: “publish on the fortnightly cadence”.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Owner picks one cadence; the losing page is edited to match. Until then both statements remain visible rather than one being silently chosen.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing; it blocks a single authoritative cadence claim.</dd></div>
   </div>
 </details>
     <div class="callout mt-3">
