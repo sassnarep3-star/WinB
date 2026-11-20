@@ -54,7 +54,8 @@ export const SOURCES = {
       'Participation Requirements §2(b): prices and availability may be shown only if Amazon serves the link, or the data comes from Creators API / PA API under the licence.',
       'Participation Requirements §2(b): you must not make inaccurate, overbroad, deceptive or misleading claims about any product, price or policy.',
       'Participation Requirements §3(e): the site must disclose the use of cookies, pixels and other technologies and how visitor data is collected and used.',
-      'IP License §1 and §2(c): Program Content must link only to the relevant Amazon page, and may not be used to train machine-learning models.',
+      'IP License §2(c): each use of Product Advertising Content must link to, and only to, the relevant page of an Amazon Site.',
+      'Participation Requirements §5 and IP License §1: Special Links and Program Content may not be used to develop or improve machine-learning models without Amazon’s written approval.',
     ],
   },
   A3: {
@@ -225,6 +226,22 @@ export const SOURCES = {
       'Title states “3 Ultra-Thin Probes”, “WiFi Unlimited Range”, “1000°F Heat Safe”, “5 Sensors” and “Gen3”.',
     ],
   },
+  U2: {
+    id: 'U2',
+    title: 'Food Thermometers (factsheet, incl. Calibration: ice-water and boiling-water methods)',
+    publisher: 'USDA Food Safety and Inspection Service',
+    url: 'https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers',
+    updated: null,
+    checked: '2026-11-20',
+    supports: [
+      'Ice-water calibration: fill a large glass with ice cubes, add drinking water, stir well; immerse the stem at least 2 inches without touching the sides or bottom; wait at least 30 seconds and read without removing the stem. It should read 32°F.',
+      'Boiling-water calibration: the thermometer should read 212°F at sea level; at high altitude water boils lower — by at least 2°F and perhaps as much as 5°F; check the local Cooperative Extension System office or health department for the exact figure.',
+      'If a thermometer does not allow manual calibration, it may need to be replaced.',
+      'Most food thermometers give an accurate reading within 2 to 4°F; many dial thermometers have a calibration nut under the dial.',
+      'Wireless and smart thermometers: the probe stays in the food while cooking and displays on a connected device; smart thermometers can be calibrated.',
+      'Thermometer care: wash with hot, soapy water; most thermometers should not be immersed in water.',
+    ],
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -253,6 +270,11 @@ export const PRODUCTS = [
     listingTitle:
       'CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black',
     asin: 'B0CDY277D3',
+    recheck: {
+      date: '2026-11-20',
+      method: 'Listing URL fetched live and read (platform page reader), session arena-b36a7b54.',
+      result: 'Live. Page title as served matches the recorded listing title word for word. Category path as served: Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers. No spec, price or rating value was copied into this site from the re-check.',
+    },
     suppliedLink: 'https://link.amazon/B04G1MEwY',
     observedRedirect:
       'https://www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-0710b7a4f0d14338&channelId=704&plpRedirect=mhFallback',
@@ -301,6 +323,11 @@ export const PRODUCTS = [
     listingTitle:
       'Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included',
     asin: 'B09B7SB46R',
+    recheck: {
+      date: '2026-11-20',
+      method: 'Listing URL fetched live and read (platform page reader), session arena-b36a7b54.',
+      result: 'Live. Page title as served matches the recorded listing title word for word. Category path as served: Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers. No spec, price or rating value was copied into this site from the re-check.',
+    },
     suppliedLink: 'https://link.amazon/B02NbDxp3',
     observedRedirect:
       'https://www.amazon.com/dp/B09B7SB46R?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-77f54b7c4a256532&channelId=704&plpRedirect=mhFallback',
@@ -349,6 +376,11 @@ export const PRODUCTS = [
     listingTitle:
       'Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel',
     asin: 'B08DKYBTPH',
+    recheck: {
+      date: '2026-11-20',
+      method: 'Listing URL fetched live and read (platform page reader), session arena-b36a7b54.',
+      result: 'Live. Page title as served matches the recorded listing title word for word, including the 450°F Hi-Fry and TurboFry claims. Category path as served: Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers. No spec, price or rating value was copied into this site from the re-check.',
+    },
     suppliedLink: 'https://link.amazon/B00hJ57DV',
     observedRedirect:
       'https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-2189f4dab9032c5f&channelId=704&plpRedirect=mhFallback&th=1',
@@ -395,6 +427,11 @@ export const PRODUCTS = [
     listingTitle:
       'ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black',
     asin: 'B0DHZTCNR5',
+    recheck: {
+      date: '2026-11-20',
+      method: 'Listing URL fetched live and read (platform page reader), session arena-b36a7b54.',
+      result: 'Live. Page title as served matches the recorded listing title word for word, including the NIST&NSF claim (still a listing claim, still FLG-006). Category path as served: Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat. Availability at fetch time: In Stock. No spec, price or rating value was copied into this site from the re-check.',
+    },
     suppliedLink: 'https://link.amazon/B0c8moW59',
     observedRedirect:
       'https://www.amazon.com/dp/B0DHZTCNR5?lv=shuf&btn_type=ss&gaOptInStatus=true&_encoding=UTF8&sp_csd=d2lkZ2V0TmFtZT1zcF9waG9uZV9ob21lcGFnZV9ibGVuZGVk&language=en_US&content-id=amzn1.sym.4582c56b-139d-4168-9db2-822c68889360&ie=UTF8&btn_ref=srctok-3fc2944d621f80c1&channelId=500&plpRedirect=mhFallback',
@@ -440,6 +477,11 @@ export const PRODUCTS = [
     listingTitle:
       'CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3',
     asin: 'B0DZFD6R9Z',
+    recheck: {
+      date: '2026-11-20',
+      method: 'Listing URL fetched live and read (platform page reader), session arena-b36a7b54.',
+      result: 'Live. Page title as served matches the recorded listing title word for word (3 Ultra-Thin Probes, WiFi Unlimited Range, 1000°F Heat Safe, Gen3 — all still listing claims, still attributed). Category path as served: Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat. No spec, price or rating value was copied into this site from the re-check.',
+    },
     suppliedLink: 'https://link.amazon/B0f3GKalj',
     observedRedirect:
       'https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&btn_type=ss&gaOptInStatus=true&language=en_US&btn_ref=srctok-15c87a8b6e264a7a&channelId=500&plpRedirect=mhFallback&th=1',
@@ -663,14 +705,14 @@ export const FLAGS = [
     ],
     sources: ['G2', 'A2'],
     action:
-      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-015). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
+      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-015); session arena-b36a7b54 independently found the same discrepancy while replicating the CI sequence on 2026-11-20 and corroborates this record. Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
     blocks: 'Nothing now. Was a real search-policy risk.',
   },
   {
     id: 'FLG-015',
     severity: 'High',
     status: 'Fixed in this build',
-    title: 'Fix recorded in a script CI does not run; two brands on the live site',
+    title: 'Fix recorded in a script CI does not run; two brands on the live site (renumbered from a duplicated FLG-012)',
     detail:
       'Two problems found on re-verification. (1) The FLG-010 fix lived in tools/consolidate.mjs, which is part of npm run build but not of the CI pipeline in .github/workflows/pages.yml, so the deployed /go/ pages still carried noindex,nofollow. (2) The /go/ pages are titled and branded “The Crisp Kitchen” while the rest of the site, the README and the sitemap use “Counterwise”. Two names on one publication is an unresolved identity question for the owner.',
     evidence: [
@@ -796,7 +838,7 @@ export const FLAGS = [
     status: 'Open',
     title: 'The live site root served two different builds to two requests on the same day',
     detail:
-      'On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises.',
+      'On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises. Re-check after the deploy of commit 745c087 (PR #40, merged 2026-11-20 06:26 UTC): the same root URL, without a query string, returned the current build with the chooser and November picks from PR #38, and neither defect appeared. One clean retrieval does not prove the stale copy is gone everywhere, so this flag stays open until a second check after a later deploy.',
     evidence: [
       'Repository check (2026-11-20): “1 probes” and “aFrench” do not appear in the generated HTML of this branch.',
       'GitHub Pages API (2026-11-20): latest build status “built”, source main, path /.',
@@ -1479,11 +1521,133 @@ export const PATHS = [
 ];
 
 // ---------------------------------------------------------------------------
-// Guides. `path` keeps the already-published URL for the four live guides.
+// Information gaps — what this project HAS, what it DOES NOT HAVE, and the
+// cheapest way to discover each missing item. The user-facing rule: no decision
+// is made on a gap. Each row names the decision it blocks.
+// ---------------------------------------------------------------------------
+export const GAPS = [
+  {
+    id: 'GAP-01',
+    item: 'Whether the supplied short links credit the shopnow047c-20 account',
+    have: 'No',
+    detail: 'All five resolved listings carry tracking parameters but no tag= (FLG-001). Compliance status of link.amazon itself is unresolved either way (FLG-003).',
+    discover: 'One check in Associates Central: mint one link while signed in, resolve it, compare parameters. Under an hour (Q-01).',
+    blocks: 'Revenue attribution; the tagging question in SUG-02.',
+  },
+  {
+    id: 'GAP-02',
+    item: 'The intended ASIN for each product',
+    have: 'No',
+    detail: 'The owner never stated which listing each short link was meant to point at. The observed ASINs are recorded in a separate field and never merged (FLG-002).',
+    discover: 'Owner confirms each row in the Data Room product-intent record, or confirms the observed ASIN is the intended one.',
+    blocks: 'Closing FLG-001/FLG-002 cleanly.',
+  },
+  {
+    id: 'GAP-03',
+    item: 'Any traffic, click or conversion figure',
+    have: 'No',
+    detail: 'No analytics endpoint is deployed; the collector ships with the site but nothing receives it (FLG-007). The ledger is empty by design.',
+    discover: 'Deploy the collector (SUG-03), confirm one event arrives, then run 30 days before ranking anything.',
+    blocks: 'Topic selection, cadence gates, every measurement claim.',
+  },
+  {
+    id: 'GAP-04',
+    item: 'Current commission rates for these two categories',
+    have: 'No',
+    detail: 'Amazon publishes commission rates in Associates Central; they vary by category and change over time. No rate is printed on this site because none has been read from an authorised report.',
+    discover: 'Owner reads the commission income statement in Associates Central and records the rate and read date in the ledger provenance column.',
+    blocks: 'Revenue modelling. Deliberately absent until a dated first-party source exists.',
+  },
+  {
+    id: 'GAP-05',
+    item: 'Hands-on experience with any of the five products',
+    have: 'No',
+    detail: 'No unit has been handled, so FTC guidance bars experience claims (FLG-004). Every page states the specification-judgement position.',
+    discover: 'Buy the cheapest unit and document the purchase, or ask the brands for a review unit (Q-03, SUG-01).',
+    blocks: 'Review-style content; the single biggest differentiation available.',
+  },
+  {
+    id: 'GAP-06',
+    item: 'Footprints, wattages and other unstated specifications',
+    have: 'No',
+    detail: 'The five listing titles do not state external dimensions or wattage in the data this desk could read. Those cells are blank, not estimated.',
+    discover: 'Read the manufacturer manuals or spec sheets; record values with a per-model source before any table cell is filled.',
+    blocks: 'The blank comparison cells. They stay blank until then.',
+  },
+  {
+    id: 'GAP-07',
+    item: 'Whether the NIST/NSF certification claim (P04) is documented',
+    have: 'No',
+    detail: 'The claim appears in the listing title only. No certificate has been located (FLG-006).',
+    discover: 'Request the certificate from the brand, or keep the claim attributed. Attribution is the safe default and is what the site does.',
+    blocks: 'Upgrading the claim from attributed to verified.',
+  },
+  {
+    id: 'GAP-08',
+    item: 'Search Console data (queries, impressions)',
+    have: 'No',
+    detail: 'Verification needs a token only the owner can place (FLG-008). Until then, topic gates run on site-side events alone.',
+    discover: 'Owner verifies the github.io property, submits sitemap.xml, and grants the desk read access or screenshots.',
+    blocks: 'Measured query choice for the topic queue.',
+  },
+  {
+    id: 'GAP-09',
+    item: 'The owner’s existing audience (list, social, community)',
+    have: 'No',
+    detail: 'Nothing in the supplied material describes any channel the owner can already reach (Q-02).',
+    discover: 'Owner inventory of reachable channels; if none, plan for long-tail search plus one distribution channel.',
+    blocks: 'The first-traction plan.',
+  },
+  {
+    id: 'GAP-10',
+    item: 'A named author and a contact route',
+    have: 'Partly',
+    detail: 'Pages sign as “The Counterwise desk” with a stated non-testing policy, but no human byline or public email exists (Q-05, Q-07).',
+    discover: 'Owner decision: publish a named byline and one public contact address, or formalise the issue tracker as the route.',
+    blocks: 'Authorship trust signals; the reader-question suggestion (SUG-07).',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Verification log — dated record of re-verification attempts made by later
+// sessions against the original records. Every row states the method used and
+// what was NOT copied. Append-only; never edit a past row.
+// ---------------------------------------------------------------------------
+export const VERIFICATION_LOG = [
+  {
+    date: '2026-11-20',
+    who: 'arena-b36a7b54',
+    item: 'All five Amazon listings (P01–P05), canonical /dp/ URLs',
+    method: 'Each listing URL fetched live and read with the platform page reader; title and category path compared against the recorded register.',
+    result: 'PASS — all five live; titles match the recorded listing titles word for word; category paths match. Prices and ratings visible on the pages were deliberately not copied into this site (R3).',
+    link: 'https://www.amazon.com/dp/B0CDY277D3',
+  },
+  {
+    date: '2026-11-20',
+    who: 'arena-b36a7b54',
+    item: 'USDA FSIS “Food Thermometers” factsheet (new source U2)',
+    method: 'Fetched live and read; the ice-water and boiling-water calibration methods quoted on the new guide are the agency’s own wording.',
+    result: 'PASS — page live at the canonical food-thermometers URL; the kitchen-thermometers URL redirects there. Quoted steps: ice-water 32°F, boiling 212°F at sea level, high-altitude caveat, care instructions.',
+    link: 'https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers',
+  },
+  {
+    date: '2026-11-20',
+    who: 'arena-e8af4464',
+    item: 'Official policy sources (A1, A2, F1, F2, G1, G2, G3, G4, U1)',
+    method: 'Re-fetched live per the S10 record in this board.',
+    result: 'PASS per S10 — recorded quotes confirmed. Amazon listings were not re-fetched in that session (recorded honestly there; re-done here, row 1).',
+    link: 'https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Guides. `path` keeps the already-published URLs. New guides append below;
+// the build adds each to the sitemap and feed automatically.
 // ---------------------------------------------------------------------------
 export const GUIDES = [
   {
     slug: 'basket-or-oven',
+    card: "Drawer or door? The comparison that decides daily use before capacity ever matters.",
     path: 'guides/basket-or-oven.html',
     kicker: 'Format',
     title: 'Basket or oven-style air fryer: what should you compare?',
@@ -1526,6 +1690,7 @@ export const GUIDES = [
   },
   {
     slug: 'capacity-checklist',
+    card: "Quarts are a marketing unit; food is a physical object. Close the gap with a tape measure and one bag of frozen chips.",
     path: 'guides/capacity-checklist.html',
     kicker: 'Fit',
     title: 'A no-hype checklist for comparing air fryer capacity',
@@ -1567,6 +1732,7 @@ export const GUIDES = [
   },
   {
     slug: 'cleanup-counter',
+    card: "The two costs nobody compares: how much of the sink it takes, and how much of the counter it keeps forever.",
     path: 'guides/cleanup-counter.html',
     kicker: 'Daily use',
     title: 'Cleanup and counter space: the trade-offs to assess',
@@ -1609,6 +1775,7 @@ export const GUIDES = [
   },
   {
     slug: 'multifunction',
+    card: "Twenty-four presets is a menu, not a feature list. Ask what each mode replaces before it earns counter space.",
     path: 'guides/multifunction.html',
     kicker: 'Features',
     title: 'Questions to ask before buying a multi-function appliance',
@@ -1651,6 +1818,7 @@ export const GUIDES = [
   },
   {
     slug: 'temperature-safety',
+    card: "The USDA safe minimum temperatures in one table, with the rest time most people skip.",
     path: 'guides/temperature-safety.html',
     kicker: 'Safety',
     title: 'What temperature is actually “done”? A thermometer guide',
@@ -1710,6 +1878,225 @@ export const GUIDES = [
     ],
     related: ['P04', 'P05'],
     sources: ['U1', 'A2'],
+  },
+  {
+    slug: 'hosting-season',
+    path: 'guides/hosting-season.html',
+    kicker: 'Season',
+    title: 'Hosting season: which machine cooks what on the big day?',
+    summary:
+      'One oven, four side dishes and a guest list. The December problem is oven occupancy, not appliance quality: a job-by-job way to split the cooking across a countertop oven, a dual basket and a big single basket, with the safety numbers that decide when each job is done.',
+    readingTime: '5 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'The problem is oven occupancy, not appliance quality',
+        p: [
+          'On a hosting day the oven is the bottleneck: the bird, the roast, the tray of potatoes and the pudding all want the same cavity at different temperatures. Every machine that adds a second cooking space is worth more on that day than any preset count.',
+          'That is the lens for the rest of this page. Not which of these five units is best — none of them has been handled by this desk — but which job each machine’s stated shape actually fits.',
+        ],
+      },
+      {
+        h: 'Assign by job, not by headline capacity',
+        p: [
+          'The rows below assign each typical job to the machine whose published format matches it. Every statement of what a machine can hold is the listing’s own claim, recorded in the product pages with its source.',
+        ],
+        table: {
+          head: ['Job on the day', 'The machine that fits', 'Why, per the listing'],
+          rows: [
+            [
+              'The big bird or a joint roast',
+              'Emeril Lagasse 26 qt French door',
+              'One large cavity with a French door and racks; the largest stated volume of the five.',
+            ],
+            [
+              'Two side dishes at different temperatures',
+              'Chefman 6 qt dual basket',
+              'Two independent 3 qt baskets that can run separately and, per the listing, finish together.',
+            ],
+            [
+              'One large batch of wings, fries or vegetables',
+              'Chefman 8 qt TurboFry',
+              'A single 8 qt basket — the largest stated single-batch capacity of the three air fryers.',
+            ],
+            [
+              'Knowing when everything is done',
+              'ThermoMaven 1-second thermometer',
+              'Instant-read format: a number in about a stated second, per the listing title.',
+            ],
+            [
+              'Watching a long roast without opening the door',
+              'CHEF iQ Sense Gen3',
+              'Leave-in wireless probes with a stated 1000°F heat limit; the format made for long cooks.',
+            ],
+          ],
+          source: 'A2',
+        },
+      },
+      {
+        h: 'The safety numbers for the day',
+        p: [
+          'The USDA publishes safe minimum internal temperatures, measured with a food thermometer before the food leaves the heat source. These are minimums; personal preference may take you higher. On a multi-dish day these numbers are the schedule.',
+        ],
+        table: {
+          head: ['Food', 'Minimum internal temperature', 'Rest'],
+          rows: [
+            ['All poultry, including giblets and stuffing', '165°F (73.9°C)', '—'],
+            ['Beef, pork, veal and lamb roasts', '145°F (62.8°C)', 'At least 3 minutes'],
+            ['Leftovers and casseroles', '165°F (73.9°C)', '—'],
+            ['Fully cooked ham, reheated', '140°F (60°C) if packaged in a USDA-inspected plant; otherwise 165°F (73.9°C)', '—'],
+          ],
+          source: 'U1',
+        },
+      },
+      {
+        h: 'The second shift: leftovers',
+        p: [
+          'The day after generates its own schedule: everything comes back up to 165°F before it leaves the heat. This is the instant-read’s job, twice an evening, and it is the reason a thermometer is a hosting-season purchase rather than a gadget.',
+          'The same probe that read the bird on the day reads the reheated casserole on the day after. If you own only one tool from this page, that is the argument for the handheld unit.',
+        ],
+      },
+      {
+        h: 'What this plan cannot do',
+        p: [
+          'Nothing on this page is a hands-on verdict. The job assignments follow each listing’s own statements about format and capacity, attributed and recorded in the product pages. Where a listing is silent — usable basket volume, real-world probe response times — the product page says so rather than guessing.',
+          'Capacity figures are stated totals, not serving estimates. The capacity checklist has the method for converting either into portions.',
+        ],
+      },
+    ],
+    related: ['P02', 'P01', 'P03', 'P05'],
+    sources: ['U1', 'A2'],
+  },
+  {
+    slug: 'gifts-for-the-cook',
+    path: 'guides/gifts-for-the-cook.html',
+    kicker: 'Gifting',
+    title: 'Five gifts for the cook who already has an oven: match the person, not the preset count',
+    summary:
+      'A gift guide with no prices and no star ratings — those live on the listing and change too fast to reprint. What stays stable is fit: which of these five units suits which kind of cook, and the three checks to run before wrapping any of them.',
+    readingTime: '5 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'Start with the person, not the product',
+        p: [
+          'The fastest way to buy a kitchen gift badly is to shop by feature count. The useful question is what the person cooks, and which job in their kitchen currently has no tool. Each of the five units on this site covers one job well and one job badly; the table below maps them to people rather than to specifications.',
+          'These are fit judgements drawn from what each listing states about format and use — not reports of how the machines behave in use, which this desk cannot give.',
+        ],
+      },
+      {
+        h: 'Who each unit actually suits',
+        p: [
+          'Read down the middle column as a question about the recipient: which sentence sounds like them?',
+        ],
+        table: {
+          head: ['Who you are buying for', 'The match', 'Why it fits, per the listing'],
+          rows: [
+            [
+              'The cook who makes two-part weeknight meals',
+              'Chefman 6 qt dual basket',
+              'Two independent 3 qt baskets for a protein and a side at the same time.',
+            ],
+            [
+              'The one who batch-cooks for a crowd',
+              'Chefman 8 qt TurboFry',
+              'A single 8 qt basket — one big batch instead of two small ones.',
+            ],
+            [
+              'The one whose kitchen runs on the oven',
+              'Emeril Lagasse 26 qt French door',
+              'A French-door countertop oven with racks and six stated accessories: roast, toast and air-fry in one fixture.',
+            ],
+            [
+              'The one who asks “is it done?” out loud',
+              'ThermoMaven 1-second thermometer',
+              'An instant-read for a fast number, with a stated IP67 rinse-and-go build.',
+            ],
+            [
+              'The long-cook hobbyist: smoking, roasting, Sunday birds',
+              'CHEF iQ Sense Gen3',
+              'Three leave-in probes over WiFi, stated 1000°F heat-safe, for watching a temperature climb from another room.',
+            ],
+          ],
+          source: 'A2',
+        },
+      },
+      {
+        h: 'Three checks before you wrap it',
+        p: [
+          'One: check the price and availability on the listing itself. They change constantly, which is exactly why this site prints neither — and why any number you see quoted elsewhere may be stale.',
+          'Two: measure their counter and their sink. A countertop oven is a fixture and a basket is a dish; the cleanup and counter-space guide has the method.',
+          'Three: ask whether they want a phone in the loop. The wireless probe is a system with an app; the instant-read is a tool. That single question prevents more returns than any specification.',
+        ],
+      },
+      {
+        h: 'What this guide deliberately does not claim',
+        p: [
+          'No unit here has been handled, bought or tested by this desk, so nothing here reports durability, noise, real accuracy or how a coating wears. Certification and performance claims — the NIST and NSF wording, the ±0.5°F figure, the 1000°F limit — appear as the listings state them, not as verified facts.',
+          'That is the honest size of this advice: fit and format from published claims, with the checks above left to you and the listing.',
+        ],
+      },
+    ],
+    related: ['P04', 'P01', 'P05'],
+    sources: ['A2'],
+  },  {
+    slug: 'ice-test-thermometer',
+    path: 'guides/ice-test-thermometer.html',
+    card: "A thermometer that drifts lies confidently. The agency's own two-minute ice test catches it before dinner does.",
+    kicker: 'Calibration',
+    title: 'Is your thermometer telling the truth? The two-minute ice test',
+    summary:
+      'A thermometer can be fast, waterproof and beautifully made and still read wrong. The USDA food-safety agency publishes a two-minute check that catches a drifting thermometer before it ruins a roast — this page walks through it, and through what a failure means.',
+    readingTime: '4 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'Why a thermometer drifts, and why the number it shows is a promise',
+        p: [
+          'Every safe-temperature figure worth trusting — the USDA minimums, the rest times — assumes the thermometer measuring them is honest. The agency’s own factsheet notes that most food thermometers read within about 2 to 4°F of true, which is fine for safety margins, but a thermometer that has been dropped, soaked or overheated can sit further out than that and still look completely normal.',
+          'There is no visible sign of drift. The screen shows a number with the same confidence as always. That is the case for checking it against a fixed physical reference — and the two most reliable references in a kitchen are the freezing point and the boiling point of water.',
+        ],
+      },
+      {
+        h: 'The ice test, as the agency describes it',
+        p: [
+          'Fill a large glass with ice cubes, add drinking water, and stir well. Immerse the thermometer stem at least two inches into the mixture, touching neither the sides nor the bottom of the glass. Wait at least thirty seconds and read without removing the stem from the water.',
+          'It should read 32°F (0°C). If it does, the thermometer is calibrated. If it does not, adjust it according to the manufacturer’s instructions — some have a calibration nut or dial — and if it cannot be adjusted, the agency’s guidance is blunt: it may need to be replaced.',
+          'The whole test costs two minutes, one glass of ice, and no equipment. Doing it the day the thermometer arrives, while it can still be returned, is the cheapest quality control there is.',
+        ],
+        table: {
+          head: ['Method', 'Reference', 'Watch for'],
+          rows: [
+            ['Ice water (best for most thermometers)', 'Should read 32°F (0°C)', 'Stem must sit at least 2 inches deep, not touching the glass; wait at least 30 seconds'],
+            ['Boiling water (for higher temperatures)', 'Should read 212°F at sea level', 'Water boils lower at altitude — at least 2°F lower, perhaps up to 5°F; ask the local Cooperative Extension office or health department for the exact figure'],
+          ],
+          source: 'U2',
+        },
+      },
+      {
+        h: 'What a failure means, and what it does not',
+        p: [
+          'A fail does not mean the thermometer is cheap or bad; it means it has drifted, and drift is correctable on many models and fatal on the rest. The agency’s factsheet is explicit that a thermometer which cannot be manually calibrated may need to be replaced — which is a reason to check calibration early, inside the return window.',
+          'A pass does not mean the thermometer is accurate everywhere on its scale; it means it is honest at 32°F, which is the reference kitchen checks can rely on. For cooking-range confidence, the boiling check adds a second point, with the altitude caveat above.',
+        ],
+      },
+      {
+        h: 'Which of the two units on this site this applies to',
+        p: [
+          'Both. The ThermoMaven instant-read has a fast read and a stated ±0.5°F accuracy claim — the kind of claim worth checking on day one, because an instant-read that sits 3°F out quietly undercooks chicken. The CHEF iQ Sense is a wireless system with leave-in probes; the agency’s factsheet notes that smart thermometers can be calibrated, and this desk could not read from the listing how (or whether) the Sense exposes calibration — it is not stated in the data available here.',
+          'That sentence is deliberately careful: this desk has handled neither unit. The ice test above is the reader’s action, taken from the agency’s own method. The only claim being made about the two products is about what their listings do and do not state.',
+        ],
+      },
+      {
+        h: 'The care half of accuracy',
+        p: [
+          'Calibration holds only if the thermometer survives. The agency’s care guidance: wash with hot, soapy water — most thermometers should not be immersed — store probes in their sheaths, and keep plastic-faced units away from heat that can melt them.',
+          'An instant-read that rides in a drawer with metal tongs, or a probe that goes through the dishwasher against instructions, can lose its calibration between checks. The test is free, so the practical habit is: test on arrival, and re-test after any drop or soak.',
+        ],
+      },
+    ],
+    related: ['P04', 'P05'],
+    sources: ['U2', 'U1'],
   },
   {
     slug: 'holiday-format-check',
@@ -1871,5 +2258,351 @@ export const GUIDES = [
     ],
     related: ['P01', 'P02', 'P03'],
     sources: ['A2'],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Season clusters — the "seasons and clusters" layer. Entry points into the
+// existing guides, framed by the calendar. No new claims: every card points at
+// a guide that carries its own sources.
+// ---------------------------------------------------------------------------
+export const SEASONS = {
+  kicker: 'Right now',
+  title: 'Start with the season you are in',
+  lede: 'The same five picks, entered from the question the calendar is asking. Each card opens a guide that shows its sources.',
+  cards: [
+    {
+      tag: 'Hosting season',
+      title: 'Which machine cooks what on the big day',
+      desc: 'Oven occupancy, job assignment, and the safety numbers that schedule the meal.',
+      href: '/guides/hosting-season.html',
+    },
+    {
+      tag: 'Gifting',
+      title: 'Five gifts for the cook who already has an oven',
+      desc: 'Match the person, not the preset count — and three checks before you wrap.',
+      href: '/guides/gifts-for-the-cook.html',
+    },
+    {
+      tag: 'Weeknights',
+      title: 'Capacity in portions, not in quarts',
+      desc: 'The five-minute check that turns a stated capacity into your household’s batch count.',
+      href: '/guides/capacity-checklist.html',
+    },
+    {
+      tag: 'Small kitchens',
+      title: 'The cleanup and counter-space trade-offs',
+      desc: 'Sink space, dishwasher geometry, and where the machine lives when it is idle.',
+      href: '/guides/cleanup-counter.html',
+    },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Suggestion board — the dedicated review surface at /suggestions/.
+// Each suggestion is a fork between named paths. Nothing is implemented unless
+// its status says so: the point of the board is to let the owner choose a path
+// before anything changes.
+// ---------------------------------------------------------------------------
+export const SUGGESTION_BOARD = {
+  how: 'Each suggestion below is a fork, not a mandate. Read the paths, pick one per card — or none — and only then does anything change. Status labels: “Shipped in this build” means the recommended path is already live and the alternative stays on the table; “Awaiting choice” means nothing has been done; “Needs owner input” means the paths cannot be compared until a question on the Decision Inputs page is answered.',
+  groups: [
+    {
+      name: 'Reads like a shop, not like a process',
+      items: [
+        {
+          id: 'DS-01',
+          title: 'Front-page voice: lead with the products',
+          problem: 'The first screen of a shop should sell the goods, not describe the audit. Verification belongs where a careful reader looks for it, not where an arriving one lands.',
+          options: [
+            { label: 'Path A — shop-first front page (recommended)', detail: 'Hero leads with the five picks and buyer questions; the honesty band sits below the products and links through to the methods pages. Shipped in this build.', effort: 'Done' },
+            { label: 'Path B — full magazine front page', detail: 'Rotating feature story, larger imagery, issue-style sections. More editorial presence; more to maintain and more image work.', effort: '2–3 days' },
+            { label: 'Path C — product grid only', detail: 'Pure catalogue. Converts the front page into a listing and loses the question-shaped entry points that earn search traffic.', effort: '1 day' },
+          ],
+          recommendation: 'Path A. Path B becomes worth it when there is a named author and an imagery budget (DS-04, DS-05).',
+          status: 'Shipped in this build',
+          needs: 'Nothing.',
+        },
+        {
+          id: 'DS-02',
+          title: 'Seasons and topic clusters',
+          problem: 'A publication reads as alive when its entry points follow the calendar. Clusters also give search engines clear topical neighbourhoods instead of one flat list.',
+          options: [
+            { label: 'Path A — seasonal cards plus two seasonal guides (recommended)', detail: 'A “start with the season” band on the front page pointing at question-shaped guides, two of which ship now: hosting season and gifting.', effort: 'Done' },
+            { label: 'Path B — a full seasonal hub per quarter', detail: 'A dedicated page per season with curated picks. More depth, more upkeep, and a risk of thin pages once the season passes.', effort: '2 days per quarter' },
+          ],
+          recommendation: 'Path A now; Path B only after measured interest — the ledger and the click counter will show which seasons earn readers.',
+          status: 'Shipped in this build',
+          needs: 'Nothing to start; measurement to choose the next season (DI-04).',
+        },
+        {
+          id: 'DS-03',
+          title: 'What to publish next: the topic engine',
+          problem: 'The next topic should come from measured queries, not instinct. Until measurement exists, the safest engine is the hypothesis list the brief already names.',
+          options: [
+            { label: 'Path A — question-shaped long-tail guides (recommended)', detail: 'Continue the editorial hypotheses: comparison questions, checklists, trade-off guides. Each answers one searchable question and links back to the register.', effort: '1 guide per fortnight' },
+            { label: 'Path B — head-to-head comparison pages', detail: 'Higher search volume, harsher competition, and a shape that tempts verdict language this site cannot support without handling the products.', effort: '2 days each' },
+            { label: 'Path C — recipe-led content', detail: 'Traffic-friendly but off-register: recipes would imply use of machines this desk has not handled.', effort: 'Ongoing' },
+          ],
+          recommendation: 'Path A until the campaign ledger shows which topics earn clicks (SUG-06). Path C is rejected outright under the non-testing policy (FLG-004).',
+          status: 'Awaiting choice',
+          needs: 'Analytics live (DI-04) before measuring anything; nothing blocks starting Path A.',
+        },
+      ],
+    },
+    {
+      name: 'Trust: authorship, brand, imagery',
+      items: [
+        {
+          id: 'DS-04',
+          title: 'Authorship: a desk or a person?',
+          problem: 'Google’s site-reputation review weighs stated or implied authorship. A named editor with a short biography is the cheapest trust signal available to a young publication.',
+          options: [
+            { label: 'Path A — keep the Counterwise desk', detail: 'Current state. Consistent and honest about the non-testing policy, but anonymous.', effort: 'Done' },
+            { label: 'Path B — named author and biography page (recommended when decided)', detail: 'A real byline with a two-line biography and a contact route. Materially improves trust and policy posture; requires the owner’s identity decision.', effort: 'Half a day' },
+          ],
+          recommendation: 'Path B as soon as the owner answers DI-06.',
+          status: 'Needs owner input',
+          needs: 'DI-06 (Q-05).',
+        },
+        {
+          id: 'DS-05',
+          title: 'Imagery: abstract art or product photography?',
+          problem: 'Imagery is the difference between published and generated. It is also the easiest place to accidentally use Amazon’s content outside the licence.',
+          options: [
+            { label: 'Path A — original abstract art (recommended for now)', detail: 'Current state: consistent, light, clearly not a product photograph, and containing no third-party content.', effort: 'Done' },
+            { label: 'Path B — commissioned product photography', detail: 'Requires owning or borrowing the units (ties to DI-03). The only imagery that can honestly show a machine in use.', effort: 'Unit cost plus 2–3 days' },
+            { label: 'Path C — listing images taken from Amazon', detail: 'Not recommended: the IP licence limits how Program Content may be reused, and unlicensed listing images are the kind of shortcut this site exists to avoid.', effort: '—' },
+          ],
+          recommendation: 'Path A now, Path B after DI-03 resolves. Path C rejected.',
+          status: 'Awaiting choice',
+          needs: 'DI-03 for Path B.',
+        },
+      ],
+    },
+    {
+      name: 'Audience: capture, distribution, findability',
+      items: [
+        {
+          id: 'DS-06',
+          title: 'Reader capture: what should the form do?',
+          problem: 'A form that silently discards input is worse than no form. The current form is deliberately inert and says so on the page.',
+          options: [
+            { label: 'Path A — honest inert form (current)', detail: 'Fires the capture_intent event, transmits nothing, and tells the reader so.', effort: 'Done' },
+            { label: 'Path B — wire a mailing provider (recommended when chosen)', detail: 'A provider with a documented data story, consent copy, and one endpoint. Then the form collects for real.', effort: 'Half a day' },
+            { label: 'Path C — remove the form', detail: 'Cleanest surface, but loses the intent signal that is already being counted.', effort: '1 hour' },
+          ],
+          recommendation: 'Path B once DI-05 names a provider.',
+          status: 'Needs owner input',
+          needs: 'DI-05 (Q-04).',
+        },
+        {
+          id: 'DS-07',
+          title: 'Search Console and the domain question',
+          problem: 'Query-level data needs a verified Search Console property. The github.io project path works but is a weak brand home.',
+          options: [
+            { label: 'Path A — verify the current URL-prefix property (recommended first)', detail: 'Owner pastes a verification token; the sitemap is already shipped and linked from robots.txt. Fifteen minutes of owner time.', effort: '15 minutes, owner' },
+            { label: 'Path B — move to a custom domain', detail: 'Better brand home and cleaner cookie scope; needs a domain purchase and DNS control.', effort: 'Half a day plus the domain' },
+          ],
+          recommendation: 'Path A immediately; Path B as a later brand step.',
+          status: 'Needs owner input',
+          needs: 'Owner’s Google account (DI-06).',
+        },
+      ],
+    },
+    {
+      name: 'Machinery: measurement and decisions',
+      items: [
+        {
+          id: 'DS-08',
+          title: 'Link strategy before scaling traffic',
+          problem: 'The supplied short links carry no visible tag. Whether they credit the account at click time is unresolved (FLG-001, FLG-003).',
+          options: [
+            { label: 'Path A — tagged canonical listing links (current)', detail: 'Every money link is built from the observed ASIN plus the owner’s tag. Safe, checkable, and enforced by the build gate.', effort: 'Done' },
+            { label: 'Path B — run the dashboard test, then decide (recommended before scaling)', detail: 'Mint one link per product inside the enrolled Associates workflow, click it, and confirm the tracking report. Closes or confirms FLG-001 and FLG-003.', effort: 'Under an hour, owner' },
+          ],
+          recommendation: 'Path A stays the default; do Path B before any paid or scaled distribution.',
+          status: 'Needs owner input',
+          needs: 'DI-01 (Q-01, FLG-003).',
+        },
+        {
+          id: 'DS-09',
+          title: 'How decisions get made from here',
+          problem: 'The project promised evidence-based iteration. That needs a place where options are reviewed before anything ships, and a record of what was chosen.',
+          options: [
+            { label: 'Path A — this board plus the Decision Inputs page (recommended)', detail: 'Every change arrives as a card with named paths; every open question arrives with a discovery suggestion. Shipped in this build.', effort: 'Done' },
+            { label: 'Path B — add a dated decisions log', detail: 'Each chosen path gets a dated entry with the reason and the evidence. Small overhead, permanent record.', effort: '1 hour to start' },
+            { label: 'Path C — generate suggestions from measurement', detail: 'When the ledger has rows, generate review cards from it. Premature until there is data.', effort: 'Later' },
+          ],
+          recommendation: 'Path A now, Path B from the next decision, Path C only after the ledger has real rows.',
+          status: 'Shipped in this build',
+          needs: 'Nothing.',
+        },
+      ],
+    },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Decision inputs — what is known, what is missing, and the cheapest discovery
+// for every decision on the table. Nothing here can be decided until the
+// missing column is filled; every missing item carries a suggestion for how to
+// discover it.
+// ---------------------------------------------------------------------------
+export const DECISION_INPUTS = [
+  {
+    id: 'DI-01',
+    decision: 'Can the five supplied short links be used as money links?',
+    status: 'Blocked — needs owner access',
+    have: [
+      'All five short links resolve to live listings (resolved again 2026-11-20; same targets and listing titles as the register).',
+      'The resolved URLs carry tracking parameters but no tag= parameter (FLG-001).',
+      'Policy requires the Associate ID as a parameter on every link to Amazon (A2 §2(b)).',
+    ],
+    missing: [
+      'Whether the links were minted inside the shopnow047c-20 account with the tag applied at click time.',
+      'A tracking report covering at least one click per product (FLG-003).',
+    ],
+    discover: [
+      'Mint one short link inside Associates Central while signed in to shopnow047c-20, resolve it, and compare its parameters with the supplied set (Q-01).',
+      'Click one link per product through the enrolled workflow and confirm the destination and the tracking report before scaling (the FLG-003 action).',
+    ],
+    blocks: 'FLG-001, FLG-003 — revenue attribution, not publication',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-02',
+    decision: 'Which channel should produce the first 100 sessions?',
+    status: 'Open — needs owner inventory',
+    have: [
+      'No analytics are deployed, so current traffic is unmeasured (FLG-007).',
+      'Search on a new project path will not answer head terms in the first month.',
+    ],
+    missing: [
+      'An inventory of audiences the owner already has: a list, a following, a community.',
+      'Any budget or intent for paid or pinned distribution.',
+    ],
+    discover: [
+      'Owner lists every channel they can reach today, with a rough audience size (Q-02).',
+      'If the answer is none, plan for long-tail queries plus one community the owner already participates in — not a head-term bet.',
+    ],
+    blocks: 'Publishing cadence, topic choice (DS-03)',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-03',
+    decision: 'Should the site buy a review unit to earn hands-on content?',
+    status: 'Open — money decision',
+    have: [
+      'No unit has been handled by this desk; FTC guidance bars describing experience with untried products (FLG-004).',
+      'Specification-and-fit content is fully shipped and internally consistent without it.',
+    ],
+    missing: [
+      'Whether either brand will supply a unit to a project with no traffic history.',
+      'A budget for buying the cheapest of the five and documenting the purchase.',
+    ],
+    discover: [
+      'Ask both brands directly for a review unit and document the ask and the answer (Q-03).',
+      'If the brands decline, buy the cheapest unit with a published receipt — a disclosed purchase is a legitimate basis for a test protocol.',
+    ],
+    blocks: 'DS-05 imagery, hands-on reviews, differentiation',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-04',
+    decision: 'When does measurement go live, and what counts as a baseline?',
+    status: 'Blocked — needs an endpoint',
+    have: [
+      'The five-event counter and click recorder ship with the site and run in the reader’s browser.',
+      'A deployable collector exists at the analytics path but is not running (FLG-007).',
+      'The campaign ledger schema is frozen and deliberately empty.',
+    ],
+    missing: [
+      'A hosted endpoint — the supplied worker or any first-party alternative.',
+      'A decision on where events are stored and for how long.',
+    ],
+    discover: [
+      'Deploy the supplied worker, set the endpoint value in the site script, and confirm one event arrives before trusting any number (SUG-03).',
+      'Treat the first 30 days as a baseline, not a scoreboard; small samples mislead.',
+    ],
+    blocks: 'Ledger rows, topic selection from measured queries, every performance claim',
+    owner: 'Site owner with the desk',
+  },
+  {
+    id: 'DI-05',
+    decision: 'Where should captured readers go, and how is contact handled?',
+    status: 'Open — provider choice',
+    have: [
+      'The capture form is deliberately inert and says so; it counts intent only.',
+      'The repository issue tracker is currently the only corrections route.',
+    ],
+    missing: [
+      'A mailing provider with a documented data story (Q-04).',
+      'A public contact address, or a formalised issue-tracker route (Q-07).',
+    ],
+    discover: [
+      'Pick a provider, then wire the endpoint and the consent copy in one change (DS-06).',
+      'Create one public address, or publish the issue tracker as the official route and say so on the About page.',
+    ],
+    blocks: 'DS-06, audience building, the weekly reader-question idea (SUG-07)',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-06',
+    decision: 'Who is the publication — a desk or a named editor — and on what domain?',
+    status: 'Open — identity decision',
+    have: [
+      'Pages sign as “The Counterwise desk” with a stated non-testing policy.',
+      'The site runs as a GitHub Pages project path with a full sitemap and feed.',
+    ],
+    missing: [
+      'Whether the owner will publish a real byline (Q-05).',
+      'Whether a custom domain will be bought, and who controls DNS (Q-06).',
+      'A Search Console verification token from the owner’s Google account.',
+    ],
+    discover: [
+      'Owner decision on the byline; a named author plus a two-line biography is half a day of work (DS-04).',
+      'Verify the current URL-prefix property first — the sitemap and robots file are already shipped (DS-07).',
+    ],
+    blocks: 'DS-04, DS-07, site-reputation posture',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-07',
+    decision: 'Which front-page and imagery path should the next design iteration take?',
+    status: 'Ready to decide — options drafted',
+    have: [
+      'Path A (shop-first front page, seasonal cards, original art) is shipped in this build.',
+      'The suggestion board holds the full option sets with effort and risk (DS-01, DS-02, DS-05).',
+    ],
+    missing: [
+      'The owner’s pick between the drafted paths.',
+      'For the photography path: a unit in hand (DI-03).',
+    ],
+    discover: [
+      'Read DS-01, DS-02 and DS-05 on the Suggestions board and mark one path per card.',
+      'If unsure, keep Path A and revisit when measurement exists — the cost of waiting is zero.',
+    ],
+    blocks: 'The next design iteration',
+    owner: 'Site owner',
+  },
+  {
+    id: 'DI-08',
+    decision: 'What is the publishing cadence, and what topic goes next?',
+    status: 'Open — partially decided',
+    have: [
+      'A fortnightly-guide cadence is recommended and drafted (SUG-06); four editorial hypotheses are already published as guides.',
+      'The build regenerates the sitemap and feed from the guide list, so every new guide is indexed automatically.',
+    ],
+    missing: [
+      'Measured query and click data to choose topics from evidence rather than instinct.',
+      'A decision on whether the gifting and hosting guides continue past the season.',
+    ],
+    discover: [
+      'Start the cadence now from the editorial hypothesis list and record each choice in the decisions log (DS-09).',
+      'After 30 days of measurement, rank guides by read-through and outbound clicks, then pick the next topic (DI-04).',
+    ],
+    blocks: 'The editorial calendar',
+    owner: 'Desk with the owner',
   },
 ];

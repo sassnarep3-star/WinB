@@ -893,6 +893,30 @@ td a { text-decoration-thickness: 1px; }
   .lead-art, .product-hero .art { display: none; }
 }
 
+/* ---- suggestion board + decision inputs (2026-11-20 polish pass) ---- */
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2.25rem; }
+.caps { text-transform: uppercase; letter-spacing: .12em; font-weight: 700; }
+h4.tiny.caps { color: var(--muted); margin-bottom: .3rem; }
+.sug-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: .8rem;
+  margin: .8rem 0;
+}
+.sug-opt {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: .85rem 1rem;
+  background: var(--paper);
+}
+.sug-opt b { display: block; font-size: .88rem; color: var(--ink); margin-bottom: .25rem; }
+.sug-opt p { margin: 0 0 .3rem; color: var(--ink-2); }
+.sug-opt p.faint { margin: 0; }
+.dec ul.tiny, .dec ol.tiny { margin: .2rem 0 0; padding-left: 1.1rem; }
+.dec ul.tiny li, .dec ol.tiny li { margin-bottom: .25rem; color: var(--ink-2); }
+.dec .split { gap: 1.25rem; }
+
 /* ==========================================================================
    11. Components added with the editorial rebuild.
    These classes were already being emitted by the oversight generator and by

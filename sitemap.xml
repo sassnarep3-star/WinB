@@ -97,6 +97,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/hosting-season.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/gifts-for-the-cook.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/guides/ice-test-thermometer.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sassnarep3-star.github.io/WinB/guides/holiday-format-check.html</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -163,6 +181,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sassnarep3-star.github.io/WinB/decisions/inputs.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sassnarep3-star.github.io/WinB/suggestions/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -185,6 +209,18 @@
     <lastmod>2026-11-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/flags/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sassnarep3-star.github.io/WinB/direction/brief.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sassnarep3-star.github.io/WinB/methods/</loc>

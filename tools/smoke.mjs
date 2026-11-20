@@ -20,6 +20,7 @@ const seeds = [
   `${BASE}/compare/`, `${BASE}/guides/`, `${BASE}/decisions/`, `${BASE}/data-room/`,
   `${BASE}/flagged/`, `${BASE}/methods/`, `${BASE}/about/`, `${BASE}/privacy/`,
   `${BASE}/executive-summary/`, `${BASE}/review/`, `${BASE}/suggestions/`,
+  `${BASE}/products/`, `${BASE}/direction/`, `${BASE}/flags/`, `${BASE}/analytics/`,
   `${BASE}/reviews/chefman-6qt-dual-basket.html`,
   `${BASE}/reviews/chefman-8qt-turbofry.html`,
   `${BASE}/reviews/emeril-26qt-french-door.html`,
@@ -27,7 +28,7 @@ const seeds = [
   `${BASE}/reviews/chef-iq-sense-gen3.html`,
   `${BASE}/guides/basket-or-oven.html`, `${BASE}/guides/capacity-checklist.html`,
   `${BASE}/guides/cleanup-counter.html`, `${BASE}/guides/multifunction.html`,
-  `${BASE}/guides/temperature-safety.html`,
+  `${BASE}/guides/temperature-safety.html`, `${BASE}/guides/ice-test-thermometer.html`,
   /* S15 (session 30073780): new guides + worksheets */
   `${BASE}/guides/holiday-roast-thermometer.html`, `${BASE}/guides/game-day-wings.html`,
   `${BASE}/guides/air-fryer-leftovers.html`,

@@ -59,6 +59,12 @@ for (const { dir, to, why } of RETIRED) {
   if (!existsSync(abs)) continue;
   for (const file of walk(abs)) {
     if (!file.endsWith('.html')) continue;
+    // Session b26a9f95's register surface lives at products/<slug>/index.html
+    // (directory-form pages). It is not an old generation: it is the live
+    // intent/observed register linked from /direction/ and /flags/. robots.txt
+    // already excludes /WinB/products/ from indexing, so it does not compete
+    // in search either way — do not put an "Archived page" banner on it.
+    if (dir === 'products' && file.endsWith('/index.html')) continue;
     let html = readFileSync(file, 'utf8');
     if (html.includes('id="archive-notice"')) continue;
 
