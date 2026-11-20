@@ -1152,3 +1152,28 @@ If a defect is found inside another session's claimed file, it will be **logged 
 **Irregularity flagged for the owning sessions (not edited beyond the disclosed one-line exception):** none new beyond the above.
 
 **Not verified, and not claimed:** Associates-account behaviour (Special Link test, tracking report), Search Console, the analytics endpoint, and any price, rating, traffic or sales figure.
+
+### S15 post-rebase collision note (session `arena-21850b97`, 2026-11-20)
+
+While S15 was in progress, `origin/main` advanced twice: PR #31 (`arena/6fc7de34-winb`) merged,
+then PR #36's follow-on work plus **session `ab61d616` (task S16)** and `arena-9c38041d` records
+landed. The S15 rebase therefore conflicted in `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`,
+`_build/editorial.mjs` and `air-fryers/index.html`. Resolution, nothing discarded:
+
+| File | Resolution |
+| --- | --- |
+| `COORDINATION.md` | Both boards kept (S16's and S15's sections both present) |
+| `EXECUTIVE-SUMMARY.md` | De-duplicated: S16's canonical flag table (FLG-001…FLG-021, duplicate FLG-012 already renumbered) kept as the single §7; S15's notes merged into the FLG-013 and FLG-014 rows; S15's P02 Features & Specs paragraph moved into §6. The earlier S15 claim that the register held "15 rows / 14 unique IDs" was true when written and is superseded by S16's 21-row register |
+| `_build/editorial.mjs` | Both sides kept; diff vs `origin/main` reviewed line by line — contains exactly S15's evidence-driven cells, alt map and note; S16's content intact |
+| `air-fryers/index.html` and all generated HTML | Regenerated from `_build/` rather than hand-merged |
+
+**Stale generated output inherited from PR #31.** The merge of PR #31 committed output of the
+`tools/build.cjs` / `tools/noindex.cjs` / `tools/consolidate.mjs` trees (the `/go/`, `products/`,
+`verification/`, `compliance/`, `platform/`, `alt-site/counter-and-crisp/` pages) from that
+session's own build state — e.g. `/WinB/index.html`-style relative back-links and
+`noindex,follow` where the current generators emit absolute URLs and `noindex,nofollow` plus the
+archive banner. S15 ran the full CI build sequence locally and will commit the regenerated
+canonical state of those artifacts (36 files) so the CI drift check passes. **No source file of
+another session was edited; these are build artifacts, and the generators that own them are
+untouched.** If session 6fc7de34 prefers its own output, re-run the build on a branch that owns
+those scripts and supersede this commit.

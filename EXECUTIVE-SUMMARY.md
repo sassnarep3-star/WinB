@@ -117,11 +117,9 @@ Ordered by downside if left open. Full reasoning in the Decision Room. **Nothing
 
 Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed record, re-confirmed live this session for all five ASINs (see §2 source links). Prices and ratings visible on those pages were not recorded. ASIN definition (10-character Amazon Standard Identification Number, unique per listing/region) is corroborated by secondary sources; Amazon publishes no standalone ASIN glossary page, so it is recorded as corroboration, not official confirmation.
 
-## 7. Flags (none blocks publication — all published at `/flagged/`)
+The P02 (Emeril Lagasse) page's *Features & Specs*, *Measurements* and *Item details* tables were read live during the S15 QA pass and are now recorded in `_build/listing-evidence.mjs`: 1700 W / 120 V, model 4-00675-02X-VN, 75–500 °F control settings, 16.9″ × 15.8″ × 14.8″ outer dimensions. The same tables add a third data point to the accessories contradiction (FLG-013): the title and the *Included Components* enumeration say six, the *Configuration* row and the Product Description say seven. Both values are published; nothing was resolved by inference. The P01 About-bullet spec lines were not re-located in the sampled chunks of that page's 27-chunk render, so P01's rows stand on the same-day full read recorded in the evidence file.
 
-Amazon listing data (titles, ASINs, category paths, and — for P02 — the Features & Specs / Item details tables) is the 2026-11-20 observed record in the Data Room and `_build/listing-evidence.mjs`. All five listing pages were re-fetched live on 2026-11-20 during the S15 QA pass (titles confirmed verbatim; see §2). Prices and star ratings seen on those pages are deliberately absent from this site (§4).
-
-## 7. Flags (15 rows, 14 unique IDs — none blocks publication)
+## 7. Flags (21 rows — none blocks publication)
 
 | ID | Item | Status |
 |---|---|---|
@@ -137,8 +135,8 @@ Amazon listing data (titles, ASINs, category paths, and — for P02 — the Feat
 | FLG-010 | Affiliate exit pages were noindex/nofollow while forwarding | **Fixed** (now index,follow; enforced by R10) |
 | FLG-011 | Six competing site generations on one host | Needs review |
 | FLG-012 | Every page advertised a social image that did not exist | **Fixed in this build** |
-| FLG-013 | Three listings contradict themselves on their own stated figures | Needs review — both values printed |
-| FLG-014 | Published specs previously reported as “not stated” | **Fixed** |
+| FLG-013 | Three listings contradict themselves on their own stated figures | Needs review — both values printed; P02 accessories contradiction gained a third data point on 2026-11-20 (S15) |
+| FLG-014 | Published specs previously reported as “not stated” | **Fixed** — and re-found in the editorial hub/compare tables during S15, where wattage was hardcoded “not stated” despite three listings stating it; fixed in the same pass |
 | FLG-015 | A fix was recorded in a script CI does not run; two brands on the live site | **Fixed in this build** |
 | FLG-016 | Two of five supplied short links did not reproduce their recorded redirect on re-check | Open — cause unknown |
 | FLG-017 | Live site root served two different builds to two requests on one day | Open |
@@ -146,15 +144,6 @@ Amazon listing data (titles, ASINs, category paths, and — for P02 — the Feat
 | FLG-019 | Two flag registers disagree; one older entry is out of date | Open |
 | FLG-020 | FLG-012 was used twice in the flag list | **Fixed** (duplicate renumbered to FLG-015) |
 | FLG-021 | Three spec values shown that the listing text does not state (P02 viewing window; P04 probe count and app requirement) | **Fixed in this build** (blanked, not inferred) |
-
-
-| FLG-009 | Earlier sessions published competing versions | Needs review |
-| FLG-010 | Affiliate exit pages were noindex/nofollow while forwarding | **Fixed in this build** (now index,follow; enforced by R10) |
-| FLG-011 | Six competing site generations on one host | Needs review (retired via noindex + banner) |
-| FLG-012 | Fix recorded in a script CI does not run; two brands on the live site | Fixed in this build; brand decision open (see PR #25) |
-| FLG-012 (duplicate ID) | Every page advertised a social image that did not exist | **Fixed** (og:image now resolves; R11/R12 gate added). Renumber to FLG-015 proposed in open PR #37 |
-| FLG-013 | Three listings contradict themselves on their own stated figures | Open — published with both values; P02 accessories contradiction gained a third data point on 2026-11-20 (S15) |
-| FLG-014 | Product pages reported stated specifications as "not stated" | **Fixed** — and re-found in the editorial hub/compare tables during S15, where wattage was hardcoded "not stated" despite P01/P02/P03 listings stating it; fixed in the same pass |
 
 All flags are published with evidence and source links at `/flagged/`.
 
