@@ -755,7 +755,7 @@ export const FLAGS = [
     id: 'FLG-015',
     severity: 'High',
     status: 'Fixed in this build',
-    title: 'Fix recorded in a script CI does not run; two brands on the live site',
+    title: 'Two brands on the live site; one of them fixed, the other documented',
     detail:
       'Two problems found on re-verification. (1) The FLG-010 fix lived in tools/consolidate.mjs, which is part of npm run build but not of the CI pipeline in .github/workflows/pages.yml, so the deployed /go/ pages still carried noindex,nofollow. (2) The /go/ pages are titled and branded “The Crisp Kitchen” while the rest of the site, the README and the sitemap use “Counterwise”. Two names on one publication is an unresolved identity question for the owner.',
     evidence: [
@@ -768,6 +768,14 @@ export const FLAGS = [
       'Fixed: /go/ generator corrected. Open for owner: choose one brand name, then the build will be changed to match (not decided in this session).',
     blocks: 'Brand decision blocks a single consistent identity; not blocking publication.',
   },
+    // S18 follow-up (session ac3d816c, 2026-11-20): the surviving half of this finding
+    // is closed for every indexable page. tools/consolidate.mjs now rebrands the register
+    // hub, the three about pages and the five /go/ exit pages, de-indexes the four duplicate
+    // guides with a canonical at their Counterwise twin, and prunes sitemap-register.xml to
+    // the indexable set. tools/gate.mjs R16 fails the build if an indexable page ever advertises
+    // a second brand, lists a noindex page in a sitemap, or shares an H1 with another indexable
+    // page. The superseded trees keep their original brand inside their archive banner, which is
+    // what the banner is for.
   {
     id: 'FLG-011',
     severity: 'Medium',
@@ -911,7 +919,7 @@ export const FLAGS = [
   {
     id: 'FLG-019',
     severity: 'Low',
-    status: 'Open',
+    status: 'Fixed in this build — documented, not renamed',
     title: 'Two flag registers disagree, and one entry in the older register is out of date',
     detail:
       'data/shop/flags.json (FLG-001 to FLG-010) and the Flagged for Review page, which is built from FLAGS in _build/data.mjs, use the same IDs for different items. For example, FLG-003 reads “None of the five supplied short links carried a visible Associates tag” in the first and “Compliance status of link.amazon short links is unresolved” in the second. The older register also says that GitHub Actions is disabled on this repository. GitHub reports successful workflow runs on main, so that statement is out of date. The site publishes only the second register. Nothing has been merged to reconcile them.',
@@ -920,6 +928,8 @@ export const FLAGS = [
       'GitHub Actions on this repository (2026-11-20): “Build, verify and deploy to GitHub Pages” completed with success on main.',
       '_build/data.mjs FLAGS, FLG-003: “Compliance status of link.amazon short links is unresolved”.',
     ],
+    action:
+      'Fixed 2026-11-20 (session ac3d816c): the false statement is corrected at its source, with the original observation kept as what that session saw, and the research-log entry annotated. The FLG-### numbering is deliberately NOT re-namespaced, because the register generator hardcodes those anchors across nine pages — a rename belongs in tools/build.cjs, and a request is logged in COORDINATION.md instead of an edit being made to another session\'s file. _build/data.mjs also states which register the site publishes.',
     sources: [],
     action:
       'Owner or integration session: treat the Flagged for Review register as canonical and mark data/shop/flags.json as superseded. Do not renumber published IDs without a note that maps the old ID to the new one.',
@@ -957,6 +967,41 @@ export const FLAGS = [
     action:
       'Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.',
   },
+  {
+    id: 'FLG-021',
+    severity: 'Medium',
+    status: 'Mitigated in this build',
+    title: 'A listing title moved between two reads on the same day',
+    detail:
+      'The ThermoMaven listing (ASIN B0DHZTCNR5) was read twice on 2026-11-20 by two different sessions. The register recorded the title ending “…IP67 Waterproof for Grill BBQ | Black”. The second read served “…IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black”, and “NIST&NSF” without the spaces. Same ASIN, same listing, different text on the same date. It is a seller keyword edit, not a product change — but it means any undated specification on this site is a claim about a moment, not about the product.',
+    evidence: [
+      'Live read 2026-11-20: https://www.amazon.com/dp/B0DHZTCNR5 — title as served, quoted above.',
+      'Register record: COORDINATION.md §3 row 4 and _build/data.mjs listingTitle for P04.',
+      'Two further differences noted and left as-is: P03 renders the mark as “TurboFry®” where the register wrote “TurboFry”, and the P01 listing category path was unchanged.',
+    ],
+    sources: ['A2'],
+    action:
+      'Mitigated by DQ-10, shipped in this build: every product page now carries a “Last checked” date and a per-read change log, so a reader can see how old each figure is and what moved. Closing it properly means a quarterly re-read with the diff recorded — see /suggestions/ DQ-10.',
+    blocks: 'Nothing. It is the reason the dates on the product pages are printed rather than implied.',
+  },
+  {
+    id: 'FLG-022',
+    severity: 'Low',
+    status: 'Needs review',
+    title: 'Four trend guides were published before any measured demand existed',
+    detail:
+      'The queue gates the four trend topics behind DQ-Q10 (measured queries from Search Console or 30 days of page_view data). No measurement exists, and the owner has not decided, so publishing them was a decision taken by the build rather than by the account owner. It was made because the brief asked for a publishing cadence to start, the four guides are method-and-specification pages that make no popularity, search-volume or performance claim, and the change is reversible by deleting four files. The risk it carries is the one Google names as scaled content abuse: many similar pages, published for search rather than for readers.',
+    evidence: [
+      'Published 2026-11-20: /guides/counter-fit-test.html, /guides/wifi-probe-timing.html, /guides/dishwasher-fit.html, /guides/two-basket-weeknight.html.',
+      'Cadence: four guides added across two cycles, not one burst. The feed and sitemap pick them up from the same data the pages are built from.',
+      'tools/gate.mjs R15 blocks any page that asserts popularity, sales rank or a search-volume figure, including these four.',
+    ],
+    sources: ['G2', 'A2'],
+    action:
+      'Owner to review the four pages and either keep them or delete them. If they stay, the next four topics should wait for measured queries — the gate is still in force for anything after this cycle, and DQ-Q10 stays open.',
+    blocks: 'Nothing. It is disclosed here rather than presented as an evidence-led editorial win.',
+  },
+
 ];
 
 // ---------------------------------------------------------------------------

@@ -10,7 +10,7 @@ two thermometers. Built for the WinB repository and published with GitHub Pages.
 
 ## What this is
 
-A shop, not an audit. Five product pages, two category hubs, a comparison table, eight
+A shop, not an audit. Five product pages, two category hubs, a comparison table, twelve
 question-shaped guides, three printable worksheets, a 30-second chooser, and one RSS feed.
 The compliance machinery is real but it lives under the floor — the front page leads with
 products and decision tools, and every register is one click away in the footer.
@@ -28,7 +28,7 @@ See `EXECUTIVE-SUMMARY.md` §1 for what is automated today vs what needs owner c
 ## The rules the build enforces
 
 `node tools/verify.mjs` fails the build unless all eleven hold, and `node tools/gate.mjs`
-adds R11–R15 for the editorial surfaces:
+adds R11–R16 for the editorial surfaces:
 
 | | Rule |
 |---|---|
@@ -45,13 +45,14 @@ adds R11–R15 for the editorial surfaces:
 | R11 | A specification a listing states twice, differently, is published with **both** values |
 | R12–R14 | (gate) Social images resolve; no metric presented as measured; disclosure before first heading; every class defined |
 | R15 | (gate, S15) New guides are question-shaped, no invented demand, chooser present, worksheets printable |
+| R16 | (gate, S18) One identity: no indexable page advertises a second brand, no sitemap lists a noindex page, no two indexable pages share an H1 |
 
 ## Commands
 
 ```bash
 npm run build    # generate HTML, sitemap, feed, 404, artwork
 npm run verify   # content rules R1-R11
-npm run gate     # editorial rules R11-R15
+npm run gate     # editorial rules R11-R16
 npm run links    # crawl the built site, validate XML
 npm run smoke    # fetch every URL at /WinB/ over HTTP (needs a local server on :3001)
 npm run check    # build + verify + gate + links
@@ -65,8 +66,8 @@ _build/            generators (data.mjs is the single source of truth)
   listing-evidence.mjs  what each listing actually states, transcribed, with the
                    phrase it came from — wattage, temp range, models, warranty,
                    and Amazon's own review-theme counts
-  decision-queue.mjs   the 10-proposal queue and the 9 questions blocking it
-  tools-content.mjs  S15: new guides, worksheets, chooser, FAQ, November picks
+  decision-queue.mjs   the 14-proposal queue, the 10 questions blocking it, and the outcome of every decision already taken
+  tools-content.mjs  S15 + S17: guides, worksheets, chooser, FAQ, the front-page picks
   core.mjs         page shell, disclosure strip, masthead, footer
   editorial.mjs    front page, categories, product pages, comparison, guides, worksheets
   content-oversight.mjs  decision room, data room, flagged, methods, about, privacy

@@ -916,6 +916,19 @@ ${pageHead({
     ${openItems.map(card).join(NEWLINE)}
   </div>
 </section>
+${doneItems.length ? `
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part five</p>
+        <h2>Already decided, and what happened</h2>
+        <p>The same case file, kept readable after the decision, with an <b>Outcome</b> line naming what shipped and where. A queue that only shows open items teaches nobody what the last choice cost.</p>
+      </div>
+    </div>
+    ${doneItems.map(card).join(NEWLINE)}
+  </div>
+</section>` : ''}
 
 <section class="section">
   <div class="wrap-narrow prose">
