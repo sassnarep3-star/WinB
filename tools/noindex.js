@@ -14,7 +14,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const ROOTS = ['docs', 'alt-site', 'archive'];
+const ROOTS = ['docs', 'alt-site', 'archive', 'legacy-docs-site'];
 const ROBOTS = '<meta name="robots" content="noindex,follow">';
 
 let touched = 0;

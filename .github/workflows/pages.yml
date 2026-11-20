@@ -1,0 +1,64 @@
+name: Deploy static site to GitHub Pages
+
+# Publishes the ROOT shop front as the canonical site.
+#
+# History: earlier sessions published a different generation from /docs via an artifact deploy.
+# That left GitHub Pages in "legacy" mode serving the repository root anyway, so the deployed site
+# never matched any build. This workflow makes the root the single published surface and verifies
+# it before it ships.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build the shop front from the source register
+        run: node tools/build.js
+
+      - name: Mark non-canonical site generations noindex
+        run: node tools/noindex.js
+
+      - name: Publication gate (fails on any broken or non-compliant page)
+        run: node tools/check.js
+
+      - name: Committed output must match a fresh build
+        run: |
+          if [ -n "$(git status --porcelain -- index.html products guides decisions verification flagged compliance about platform go sitemap.xml robots.txt feed.xml)" ]; then
+            echo "Generated files differ from the build. Run node tools/build.js and commit."
+            git status --porcelain
+            exit 1
+          fi
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

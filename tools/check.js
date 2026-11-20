@@ -54,12 +54,21 @@ const exists = (relPath) => {
 
 const BASE = 'https://sassnarep3-star.github.io/WinB';
 
+/**
+ * This repository carries four site generations. Only the root one is canonical.
+ * The others are kept for review and are noindex, so they are exempt from the disclosure
+ * and metadata gates — but never from the broken-link check, which runs on every file.
+ */
+const NON_CANONICAL = ['/docs/', '/alt-site/', '/archive/', '/legacy-docs-site/'];
+const isNonCanonical = (rel) => NON_CANONICAL.some((p) => rel.startsWith(p));
+
 /* ---- per page ------------------------------------------------------------ */
 
 for (const file of htmlFiles) {
   const rel = relRoot(file);
   const html = fs.readFileSync(file, 'utf8');
   const isGo = rel.startsWith('/go/');
+  const legacy = isNonCanonical(rel);
   const before = fail.length;
 
   /* 1. internal links + assets */
@@ -122,19 +131,21 @@ for (const file of htmlFiles) {
     }
   }
 
-  /* 4. both disclosures */
+  /* 4. both disclosures — canonical pages only */
+  if (!legacy) {
   if (!html.includes('As an Amazon Associate I earn from qualifying purchases.')) {
     fail.push(`${rel}: missing the required Associates disclosure sentence`);
   }
   if (!html.includes('class="disclosure"')) fail.push(`${rel}: missing the under-masthead disclosure strip`);
   if (!html.includes('class="footer-disclosure"')) fail.push(`${rel}: missing the footer disclosure`);
+  }
 
   /* 4b. unresolved build tokens must never reach a reader */
   const token = html.match(/\{\{[A-Z_]+\}\}/);
   if (token) fail.push(`${rel}: unresolved build token ${token[0]}`);
 
   /* 5. metadata */
-  if (!isGo) {
+  if (!isGo && !legacy) {
     if (!/<link rel="canonical" href="https:\/\/[^"]+"/.test(html)) fail.push(`${rel}: missing canonical`);
     if (!/<title>[^<]{10,}<\/title>/.test(html)) fail.push(`${rel}: missing or too-short title`);
     if (!/<meta name="description" content="[^"]{40,}"/.test(html)) fail.push(`${rel}: missing or too-short meta description`);
@@ -162,7 +173,7 @@ for (const file of htmlFiles) {
     /\bwe measured\b/i,
   ];
   for (const re of banned) {
-    if (re.test(textOnly)) {
+    if (!legacy && re.test(textOnly)) {
       /* The editorial policy page quotes these as words it does not use. That is the only exception. */
       if (rel === '/about/editorial-policy.html') continue;
       if (rel === '/platform/automation.html') continue;
@@ -187,9 +198,15 @@ if (!fs.existsSync(sitemapPath)) {
   }
   /* every indexable page must appear */
   const sitemapSet = new Set(locs.map((l) => l.replace(BASE, '')));
+  /* Every other site generation in this repository is noindex and must NOT be in the sitemap.
+     Only the canonical root surface belongs in it. */
   for (const file of htmlFiles) {
     const rel = relRoot(file);
-    if (rel.startsWith('/go/') || rel === '/404.html') continue;
+    if (rel === '/404.html') continue;
+    if (rel.startsWith('/go/') || isNonCanonical(rel)) {
+      if (sitemapSet.has(rel)) fail.push(`non-canonical page must not be in the sitemap: ${rel}`);
+      continue;
+    }
     if (!sitemapSet.has(rel)) fail.push(`indexable page missing from sitemap: ${rel}`);
   }
   ok.push(`sitemap: ${locs.length} urls, all resolve`);
