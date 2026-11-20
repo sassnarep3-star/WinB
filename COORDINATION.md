@@ -66,7 +66,7 @@ FLG-01 to FLG-16 are in `data/flags.json` and on the Flagged for Review page. Hi
 |---|---|
 | Combined data re-verified line by line | Done: five redirects re-observed; ASINs and titles match `data/products.json`. |
 | Site builds with no broken links | Done: `python3 scripts/build.py` exit 0. Checks: disclosure ×2 on every page, rel="sponsored" on every Amazon link, internal links resolve, no script tags, sources present, blanks flagged. |
-| Pull request | Pending (see below). |
+| Pull request | https://github.com/sassnarep3-star/WinB/pull/5 (branch `arena/9b3682f1-winb` → `main`). |
 | Merge | Pending. |
 | GitHub Pages deploy | Pending. |
 
