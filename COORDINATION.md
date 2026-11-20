@@ -713,3 +713,37 @@ than silently renumbered, because `tools/verify.mjs` is owned by another session
 links are the enrolled Special Links — an owner check in Associates Central, ten minutes),
 FLG-007 (analytics endpoint not deployed, so nothing is measured), Q-05/Q-07 (who owns the site
 and where corrections go). These are published on `/flagged/` and do not block the merge.
+**Irregularities logged:** FLG-010 corrected (the fix was in the wrong script). FLG-012 added: fix in a script CI does not run; the site uses two brands (“Counterwise” and “The Crisp Kitchen”).
+
+---
+
+## 9. Final integration result (S11) — session `arena-5dd84ce5`
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#33** — https://github.com/sassnarep3-star/WinB/pull/33 |
+| Merge | **Merged** to `main` at 2026-11-20T06:12:44Z, merge commit `ab2d166`, method `--merge` |
+| Conflicts on merge | Three rounds: `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `COORDINATION.md`, plus regenerated `index.html` / `executive-summary/` / `flagged/`. All resolved keeping **both** sessions' content (§8.3a, §8.3b). Nothing deleted. |
+| Flag ID collision | Fixed — this session's finding renumbered **FLG-012 → FLG-014** (§8.3b) |
+| CI on the PR | `Build and verify` — **success** in 19s, including the drift check |
+| CI on `main` | `pages build and deployment` — **success**; Pages API reports `built` |
+| Live verification | `https://sassnarep3-star.github.io/WinB/suggestions/` renders the decision board. `/` renders the byline and the RSS follow box on a cache-busted fetch. `og:image` now resolves to `og-default.svg` (was a 404 `og-default.png`). |
+| Stale-cache note | The first fetch of `/` after the merge still served the previous build; re-running `pages.yml` on `main` corrected it. Recorded because a deferred CDN is not a deploy failure, but it looks like one. |
+| Flagged irregularities | Published on `/flagged/`, none blocking. **FLG-014** and **FLG-013** added this cycle; FLG-014 marked *Fixed in this build*. |
+
+### 9.1 Remaining owner actions (about 50 minutes total)
+
+These are the five items in `/suggestions/` Part three. Nothing else on the site is waiting on anyone.
+
+1. Compare one link minted inside Associates Central against a supplied short link (DQ-01).
+2. Open a support ticket asking whether `link.amazon` short links are an approved format (DQ-08).
+3. Create the collector endpoint host (DQ-02).
+4. Verify the site in Search Console and submit `sitemap.xml` (DQ-05).
+5. Approve or decline the spend on one review unit (DQ-03).
+
+### 9.2 What is still not true, and is not claimed anywhere
+
+No product was handled. No traffic, click, order, conversion or revenue figure exists. No price or
+star rating is published, although all five listings displayed both. Whether the supplied short links
+credit this account is **unresolved in both directions**. Intended ASINs remain blank until the owner
+supplies them.
