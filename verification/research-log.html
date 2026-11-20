@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research log | The Crisp Kitchen</title>
+<meta name="description" content="A dated working record of what was retrieved, what failed, and what changed as a result.">
+<link rel="canonical" href="https://sassnarep3-star.github.io/WinB/verification/research-log.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:site_name" content="The Crisp Kitchen">
+<meta property="og:title" content="Research log | The Crisp Kitchen">
+<meta property="og:description" content="A dated working record of what was retrieved, what failed, and what changed as a result.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sassnarep3-star.github.io/WinB/verification/research-log.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f1b17">
+<link rel="icon" href="/WinB/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/WinB/assets/css/site.css">
+<link rel="alternate" type="application/rss+xml" title="The Crisp Kitchen — new guides" href="/WinB/feed.xml">
+
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="/WinB/index.html">
+      <span class="brand__mark" aria-hidden="true">CK</span>
+      <span class="brand__text"><strong>The Crisp Kitchen</strong><em>Air fryers and the tools that make them work</em></span>
+    </a>
+    <nav class="mainnav" aria-label="Primary">
+      <ul>
+        <li><a href="/WinB/index.html">Shop</a></li>
+        <li><a href="/WinB/guides/index.html">Guides</a></li>
+        <li><a href="/WinB/decisions/index.html">Suggestions</a></li>
+        <li><a href="/WinB/verification/index.html">Verification</a></li>
+        <li><a href="/WinB/flagged/index.html">Flagged for Review</a></li>
+        <li><a href="/WinB/about/index.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="disclosure" role="note">
+  <p><strong>Affiliate disclosure.</strong> As an Amazon Associate I earn from qualifying purchases. If you buy through a link on this page, this site may earn a commission. It does not change the price you pay. <a href="/WinB/about/how-we-make-money.html">How this site makes money</a>.</p>
+</div><main id="main" class="wrap"><div class="pagehead">
+    <p class="kicker">Verification · Log</p>
+    <h1>Research log</h1>
+    <p class="lede">The working record, in order. It includes the things that failed — a blocked host, a disabled workflow, a page that would not give up a reliable number — because a log that only records successes is a marketing document.</p>
+  </div>
+  <div class="tablewrap"><table class="data ">
+  <thead><tr><th scope="col">#</th><th scope="col">Time (UTC)</th><th scope="col">Action</th><th scope="col">Result</th><th scope="col">Source</th></tr></thead>
+  <tbody>
+  <tr><td><code>R-01</code></td><td>05:28</td><td><strong>Inspected the repository state</strong><br><span class="muted">git log showed one commit (5f65079, 'Initial commit'). The working tree contained README.md only, six bytes, no trailing newline. No branches other than main and the session branch.</span></td><td>Nothing to review and nothing to delete. Recorded as FLG-008.</td><td><span class="muted">—</span></td></tr>
+  <tr><td><code>R-02</code></td><td>05:31</td><td><strong>Tested direct HTTPS access to the retailer</strong><br><span class="muted">curl to amazon.com, affiliate-program.amazon.com and link.amazon all returned code 000 — egress is restricted in the build sandbox to the package registries and GitHub.</span></td><td>A browser-style page fetch was used instead, which did reach the host. Recorded so the method is not overstated as an automated check.</td><td><span class="muted">—</span></td></tr>
+  <tr><td><code>R-03</code></td><td>05:33</td><td><strong>Confirmed the publication target</strong><br><span class="muted">The GitHub Pages API reported the site already built from main at sassnarep3-star.github.io/WinB.</span></td><td>Live target confirmed, and served from main, which matches the repository's existing configuration.</td><td><span class="muted">—</span></td></tr>
+  <tr><td><code>R-04</code></td><td>05:36</td><td><strong>Attempted an automated link resolver on a GitHub runner</strong><br><span class="muted">A workflow printing the redirect chain for all five links was committed and dispatch was attempted.</span></td><td>Failed. GitHub Actions is disabled for this repository: dispatch returned HTTP 404 and the permissions endpoint returned 403. The workflow file is present but inert. Recorded as FLG-009.</td><td><span class="muted">—</span></td></tr>
+  <tr><td><code>R-05</code></td><td>05:40</td><td><strong>Resolved all five supplied short links</strong><br><span class="muted">Each link was opened once and the redirect target recorded. Results: B04G1MEwY to B0CDY277D3, B02NbDxp3 to B09B7SB46R, B00hJ57DV to B08DKYBTPH, B0c8moW59 to B0DHZTCNR5, B0f3GKalj to B0DZFD6R9Z.</span></td><td>None of the five codes matched the ASIN it resolved to, and none of the five carried a visible tag parameter. Recorded as FLG-003 with intended and observed values in separate columns.</td><td><span class="muted">—</span></td></tr>
+  <tr><td><code>R-06</code></td><td>05:44</td><td><strong>Read the Associates Program Policies</strong><br><span class="muted">Sections inspected: Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License and Usage Requirements, and the Agent Terms inside the IP License.</span></td><td>Three clauses changed the build: price display is restricted to Amazon-served or API data, images may not be cached, and agents must identify themselves in the user agent string.</td><td><a class="src src--ok" href="https://affiliate-program.amazon.com/help/operating/policies" title="Associates Program Policies — Amazon.com, Inc." target="_blank" rel="noopener">S02</a></td></tr>
+  <tr><td><code>R-07</code></td><td>05:47</td><td><strong>Read the Associates Program Operating Agreement</strong><br><span class="muted">Section 5 was read in full for the exact disclosure sentence, and Section 6 for the termination terms.</span></td><td>The required sentence was copied verbatim and is now injected into every page twice, once under the masthead and once in the footer.</td><td><a class="src src--ok" href="https://affiliate-program.amazon.com/help/operating/agreement" title="Associates Program Operating Agreement — Amazon.com, Inc." target="_blank" rel="noopener">S01</a></td></tr>
+  <tr><td><code>R-08</code></td><td>05:50</td><td><strong>Read the FTC disclosures guidance for endorsers</strong><br><span class="muted">The page was retrieved in full.</span></td><td>Two rules are now enforced editorially: a disclosure placed only at the end of a page is likely to be missed, and no claim of experience may be made for a product the publisher has not tried. The second rule is why the site never says tested.</td><td><a class="src src--ok" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="Disclosures 101 for Social Media Influencers — U.S. Federal Trade Commission" target="_blank" rel="noopener">S05</a></td></tr>
+  <tr><td><code>R-09</code></td><td>05:53</td><td><strong>Attempted to read the Seller Central ASIN glossary</strong><br><span class="muted">The glossary requires a signed-in seller account.</span></td><td>Not retrieved. The source is listed in the register as unverified with no quoted definition, rather than paraphrased from memory. The link is offered for manual review.</td><td><a class="src src--warn" href="https://sellercentral.amazon.com/help/hub/reference/external/G200390640" title="Amazon Standard Identification Number (ASIN) — Amazon Seller Central glossary (not retrieved / not verified)" target="_blank" rel="noopener" data-unverified-source="1">S03</a></td></tr>
+  <tr><td><code>R-10</code></td><td>05:56</td><td><strong>Read Google's sitemap documentation</strong><br><span class="muted">Checked which sitemap formats Google accepts and whether it states a preference.</span></td><td>Google states no preference among supported formats. The site therefore ships an XML sitemap for crawlers and an RSS feed for readers, both generated from the same data.</td><td><a class="src src--ok" href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" title="Build and submit a sitemap — Google Search Central" target="_blank" rel="noopener">S07</a></td></tr>
+  <tr><td><code>R-11</code></td><td>06:00</td><td><strong>Tried to attribute a price and a star rating to each product</strong><br><span class="muted">The retrieved page text interleaves the viewed product with 'customers who viewed this item also viewed' entries, and prices in both blocks render identically.</span></td><td>Attribution could not be made with confidence, and the policy clause independently forbids static price display. Both fields are left blank on the site and explained on the product table page. Recorded as FLG-004.</td><td><a class="src src--ok" href="https://affiliate-program.amazon.com/help/operating/policies" title="Associates Program Policies — Amazon.com, Inc." target="_blank" rel="noopener">S02</a></td></tr>
+  <tr><td><code>R-12</code></td><td>06:05</td><td><strong>Read the listed certification claims in the two thermometer listings</strong><br><span class="muted">NIST and NSF certification, ±0.5°F accuracy, and 1000°F heat safety appear in seller listing text.</span></td><td>Reproduced only as seller claims. The certifying bodies' registries were not consulted, so no certification is asserted as verified. Recorded as FLG-005.</td><td><a class="src src--ok" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="Disclosures 101 for Social Media Influencers — U.S. Federal Trade Commission" target="_blank" rel="noopener">S05</a></td></tr>
+  <tr><td><code>R-13</code></td><td>06:20</td><td><strong>Built the static site generator and the compliance checker</strong><br><span class="muted">Pages are generated from JSON data. The generator injects both disclosures, and the checker fails the build on a missing source id, an unmarked product link or a broken internal link.</span></td><td>Build passes. See the verification dashboard for the generated counts.</td><td><span class="muted">—</span></td></tr>
+  <tr><td><code>R-14</code></td><td>06:35</td><td><strong>Ran the link and disclosure checker across the generated site</strong><br><span class="muted">Every generated page was parsed for internal links, asset references, product anchors and both disclosures.</span></td><td>Recorded in the build output and in COORDINATION.md. Any failure would have blocked publication.</td><td><span class="muted">—</span></td></tr>
+  </tbody>
+</table></div>
+  <section class="section">
+    <div class="callout">
+      <h3>Why this page is public</h3>
+      <p>Because the useful question about a site like this is not "did it find an answer" but "how would I know if it did". A dated log with the failures left in is the cheapest honest answer.</p>
+    </div>
+  </section></main><footer class="sitefooter">
+  <div class="sitefooter__inner">
+    <div class="footergrid">
+      <div class="footergroup">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="/WinB/index.html">All products</a></li>
+          <li><a href="/WinB/products/air-fryers.html">Air fryers</a> <span class="footernote">3 products</span></li>
+          <li><a href="/WinB/products/thermometers.html">Wireless thermometers</a> <span class="footernote">2 products</span></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Guides</h3>
+        <ul>
+          <li><a href="/WinB/guides/index.html">All guides</a></li>
+          <li><a href="/WinB/guides/basket-or-oven-air-fryer.html">Basket or oven-style air fryer?</a></li>
+          <li><a href="/WinB/guides/air-fryer-capacity-checklist.html">Capacity without the hype</a></li>
+          <li><a href="/WinB/guides/cleanup-and-counter-space.html">Cleanup and counter space</a></li>
+          <li><a href="/WinB/guides/multifunction-appliance-questions.html">Multi-function appliance questions</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Decide</h3>
+        <ul>
+          <li><a href="/WinB/decisions/index.html">Suggestions register</a></li>
+          <li><a href="/WinB/decisions/questions.html">Open questions</a></li>
+          <li><a href="/WinB/decisions/growth-plan.html">Growth plan (SEO + measurement)</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Trust</h3>
+        <ul>
+          <li><a href="/WinB/verification/index.html">Verification dashboard</a></li>
+          <li><a href="/WinB/verification/sources.html">Source register</a></li>
+          <li><a href="/WinB/verification/links.html">Link audit</a></li>
+          <li><a href="/WinB/verification/products.html">Product data table</a></li>
+          <li><a href="/WinB/flagged/index.html">Flagged for Review</a></li>
+          <li><a href="/WinB/compliance/index.html">Compliance gate</a></li>
+          <li><a href="/WinB/about/editorial-policy.html">Editorial policy</a></li>
+          <li><a href="/WinB/about/how-we-make-money.html">How we make money</a></li>
+          <li><a href="/WinB/about/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>System</h3>
+        <ul>
+          <li><a href="/WinB/platform/index.html">Platform overview</a></li>
+          <li><a href="/WinB/platform/automation.html">Automation and the human gate</a></li>
+          <li><a href="/WinB/platform/metrics.html">Metrics that are actually measurable</a></li>
+          <li><a href="/WinB/platform/ledger.html">Campaign ledger (empty by design)</a></li>
+          <li><a href="/WinB/verification/research-log.html">Research log</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclosure">
+  <p><strong>Affiliate disclosure (repeated).</strong> As an Amazon Associate I earn from qualifying purchases. If you buy through a link on this page, this site may earn a commission. It does not change the price you pay.</p>
+  <p class="footer-disclosure__note">Product links on this site are marked <code>rel="sponsored"</code>. Prices, if a page ever shows one, must come from Amazon itself or from the Product Advertising API with the required timestamp — which is why no price appears in the HTML of this site.</p>
+</div>
+    <div class="colophon">
+      <p><strong>The Crisp Kitchen</strong> — An independent kitchen-appliance review desk. Product links are affiliate links; the reasoning behind every recommendation is published next to it.</p>
+      <p>Published by The Crisp Kitchen Editorial Desk. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. This site is not endorsed by or affiliated with Amazon.</p>
+      <p class="colophon__meta">Compiled 2026-11-20 · <a href="/WinB/verification/sources.html">Source register</a> · <a href="/WinB/flagged/index.html">Flagged for Review</a></p>
+    </div>
+  </div>
+</footer>
+<script src="/WinB/assets/js/site.js" defer></script>
+</body>
+</html>

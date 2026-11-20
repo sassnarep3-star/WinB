@@ -1,0 +1,184 @@
+{
+  "as_of": "2026-11-20",
+  "rows": [
+    {
+      "id": "Q-01",
+      "question": "Which listing is each supplied short link supposed to reach?",
+      "known": "Each link resolves to an Amazon product page with a 10-character ASIN; each token is 9 characters (P-01..P-05).",
+      "missing": "The intended ASIN or listing URL for each product.",
+      "discover": "Owner confirms the intended product for each link, or opens each link in Associates Central's link builder.",
+      "sources": [
+        "FLG-001",
+        "FLG-002"
+      ],
+      "source_urls": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ]
+    },
+    {
+      "id": "Q-02",
+      "question": "Are the supplied short links valid Special Links from the enrolled Associates account?",
+      "known": "Policy requires Special Links to carry the Associates ID as a parameter (V-02). The links were not tested in an account.",
+      "missing": "Whether the links are credited to shopnow047c-20 and appear in tracking reports.",
+      "discover": "Run one test per product: click, confirm destination, check the tracking report. Then scale.",
+      "sources": [
+        "FLG-003"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "Q-03",
+      "question": "Is shopnow047c-20 an active, enrolled Associates ID?",
+      "known": "Tracking ID given by owner. Policy example format is XXXXX-## (V-03).",
+      "missing": "Enrollment status and format acceptance.",
+      "discover": "Associates Central account settings.",
+      "sources": [
+        "FLG-004"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "Q-04",
+      "question": "Can the site show prices or ratings?",
+      "known": "Policy limits price display (V-04). Listing pages show prices, but those are not confirmed as stable official values.",
+      "missing": "PA-API / Creators API eligibility and credentials.",
+      "discover": "Associates Central: check API access; decide whether to use it.",
+      "sources": [
+        "FLG-005"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "Q-05",
+      "question": "What commission rate applies to these products?",
+      "known": "Rate schedule page exists but requires sign-in (V-11).",
+      "missing": "Category rates for Home & Kitchen (air fryers, thermometers).",
+      "discover": "Export the rate card after sign-in.",
+      "sources": [
+        "FLG-012"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/schedule"
+      ]
+    },
+    {
+      "id": "Q-06",
+      "question": "Who is the author and what are their credentials?",
+      "known": "No author supplied.",
+      "missing": "Name, bio, relevant experience.",
+      "discover": "Owner decision.",
+      "sources": [
+        "FLG-006"
+      ],
+      "source_urls": []
+    },
+    {
+      "id": "Q-07",
+      "question": "Which five events should be measured?",
+      "known": "The brief refers to five defined events but does not list them. Five are proposed on the Measurement page.",
+      "missing": "Confirmed event list.",
+      "discover": "Owner confirms or edits the proposed list.",
+      "sources": [
+        "FLG-007"
+      ],
+      "source_urls": []
+    },
+    {
+      "id": "Q-08",
+      "question": "Is there any search or traffic demand for these topics?",
+      "known": "No search, traffic, or keyword data was available to this session. The four guide titles are working hypotheses from the brief, not measured demand.",
+      "missing": "Query volumes, impressions, clicks, and rankings.",
+      "discover": "Verify the site in Search Console after launch; review queries after 28 days; optionally use a keyword tool with an official data source.",
+      "sources": [
+        "FLG-008",
+        "FLG-011"
+      ],
+      "source_urls": [
+        "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+      ]
+    },
+    {
+      "id": "Q-09",
+      "question": "Does the product-quality or 'best' claim hold for any product?",
+      "known": "No product was tested. Only listing text is quoted.",
+      "missing": "Hands-on testing data, independent review data, or manufacturer test reports.",
+      "discover": "Commission testing or cite independent test reports with links.",
+      "sources": [
+        "FLG-011"
+      ],
+      "source_urls": [
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+      ]
+    },
+    {
+      "id": "Q-10",
+      "question": "Is the disclosure wording and placement legally sufficient?",
+      "known": "Amazon's required statement is used verbatim (V-01). FTC placement guidance is followed (V-09).",
+      "missing": "Legal review of the overall disclosure set and any future endorsement context.",
+      "discover": "Legal review before scaling.",
+      "sources": [
+        "FLG-015"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/agreement",
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+      ]
+    },
+    {
+      "id": "Q-11",
+      "question": "What is the publishing cadence?",
+      "known": "No cadence was set by the owner.",
+      "missing": "Owner choice of cadence and capacity.",
+      "discover": "Choose from the options on the Suggestions page.",
+      "sources": [],
+      "source_urls": []
+    },
+    {
+      "id": "Q-12",
+      "question": "What is the campaign's measured performance?",
+      "known": "No authorized first-party report has been provided. The ledger is empty.",
+      "missing": "Clicks, eligible sessions, orders, and dates.",
+      "discover": "Export Associates reports and add dated rows to the ledger with provenance.",
+      "sources": [
+        "FLG-013"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "Q-13",
+      "question": "Is the 'Crisp & Done' brand available and safe to use?",
+      "known": "Checked only against the cited Amazon trademark rule (V-08).",
+      "missing": "Trademark registry search and domain availability.",
+      "discover": "Owner or counsel runs a registry search.",
+      "sources": [
+        "FLG-009"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    },
+    {
+      "id": "Q-14",
+      "question": "Should the site host imagery, and of what type?",
+      "known": "No product images were used. Program Content rules restrict image use (Participation Requirements §6(a)).",
+      "missing": "Licensed or owned imagery decision.",
+      "discover": "Owner decision (see Suggestions S-06).",
+      "sources": [],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ]
+    }
+  ]
+}

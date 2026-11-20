@@ -1,0 +1,13 @@
+# Copy to wrangler.toml and fill in the database id from `wrangler d1 create`.
+name = "counterwise-events"
+main = "collector-worker.js"
+compatibility_date = "2026-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "counterwise"
+database_id = "REPLACE_WITH_YOUR_DATABASE_ID"
+
+# Nightly retention prune.
+[triggers]
+crons = ["0 4 * * *"]

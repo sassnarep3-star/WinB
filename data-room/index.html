@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Room — product intent, sources, events and ledger | Counterwise</title>
+<meta name="description" content="The raw register behind the shop: intended vs observed ASINs stored separately, 11 official sources with read dates, the five measured events, and an empty campaign ledger with its schema.">
+<link rel="canonical" href="https://sassnarep3-star.github.io/WinB/data-room/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Counterwise">
+<meta property="og:title" content="Data Room — product intent, sources, events and ledger | Counterwise">
+<meta property="og:description" content="The raw register behind the shop: intended vs observed ASINs stored separately, 11 official sources with read dates, the five measured events, and an empty campaign ledger with its schema.">
+<meta property="og:url" content="https://sassnarep3-star.github.io/WinB/data-room/">
+<meta property="og:image" content="https://sassnarep3-star.github.io/WinB/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Data Room — product intent, sources, events and ledger | Counterwise">
+<meta name="twitter:description" content="The raw register behind the shop: intended vs observed ASINs stored separately, 11 official sources with read dates, the five measured events, and an empty campaign ledger with its schema.">
+<meta name="twitter:image" content="https://sassnarep3-star.github.io/WinB/assets/img/og-default.png">
+<meta name="theme-color" content="#1e4034">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Counterwise — new guides" href="https://sassnarep3-star.github.io/WinB/feed.xml">
+<link rel="stylesheet" href="../assets/css/site.css">
+
+</head>
+<body  >
+<a class="skip" href="#main">Skip to content</a>
+<div class="disclosure-strip" role="note" aria-label="Affiliate disclosure">
+  <div class="wrap">
+    <strong>As an Amazon Associate I earn from qualifying purchases.</strong>
+    <span class="dot" aria-hidden="true">·</span>
+    <span>Links to Amazon on this page are affiliate links and are marked <code style="background:none;border:0;color:#cfe0d6;padding:0">rel="sponsored"</code>.</span>
+    <span class="dot" aria-hidden="true">·</span>
+    <span>Nothing here is a hands-on test.</span>
+    <a href="../methods/">How we choose →</a>
+  </div>
+</div>
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href=".././">counterwise<span>.</span><small>kitchen, chosen by question</small></a>
+    <nav class="nav" aria-label="Main">
+      <a href="../air-fryers/">Air fryers</a><a href="../thermometers/">Thermometers</a><a href="../guides/">Guides</a>
+      <details>
+        <summary aria-haspopup="true">More</summary>
+        <div class="menu"><span class="menu-label">The shop</span><a href="../reviews/">All five picks</a><a href="../compare/">Comparison table</a><span class="menu-label">How this works</span><a href="../decisions/">Decision Room</a><a href="../data-room/">Data Room</a><a href="../flagged/">Flagged for Review</a><a href="../methods/">How we choose</a><span class="menu-label">The project</span><a href="../executive-summary/">Executive summary</a><a href="../about/">About &amp; contact</a><a href="../privacy/">Privacy &amp; measurement</a></div>
+      </details>
+      <a class="cta" href="../reviews/">The five picks</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+
+<div class="page-head">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href=".././">Home</a><span class="sp">/</span><span aria-current="page">Data Room</span></nav>
+    <p class="eyebrow">Oversight</p>
+    <h1>Data Room</h1>
+    <p class="lede">The raw record behind the shop: what each product link was intended to be, what it actually resolves to, which official sources back each claim, what is measured, and what the campaign ledger currently contains — which is nothing.</p>
+    <div class="btn-row">
+    <span class="badge plain">5 products</span><span class="badge plain">11 sources</span><span class="badge amber">0 ledger rows</span><span class="badge amber">0 traffic measured</span>
+  </div>
+  </div>
+</div>
+
+<section class="section" id="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register one</p>
+        <h2>Product intent record</h2>
+        <p>The intended ASIN and the observed redirect are two different facts and live in two different columns. They are never merged. The blank column is the owner’s to fill.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Product-intent confirmation record.</b> Required per product: intended ASIN, official listing URL, confirmation date, source. Observed redirect target is stored separately in its own column.</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Product</th><th scope="col">Supplied link</th>
+          <th scope="col">Intended ASIN</th><th scope="col">Observed ASIN</th>
+          <th scope="col">Observed redirect target (exact)</th><th scope="col">Confirmed</th><th scope="col">Sources</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="mono tiny">P01</td>
+      <td><b>CHEFMAN</b><br><span class="tiny muted">Chefman 6 qt dual basket</span></td>
+      <td class="mono tiny">https://link.amazon/B04G1MEwY</td>
+      <td><span class="unverified" title="No official source confirms this value">— Owner has not confirmed</span></td>
+      <td class="mono tiny">B0CDY277D3</td>
+      <td class="mono tiny" style="max-width:300px;word-break:break-all">https://www.amazon.com/dp/B0CDY277D3?lv=shuf&amp;btn_type=ss&amp;gaOptInStatus=true&amp;btn_ref=srctok-0710b7a4f0d14338&amp;channelId=704&amp;plpRedirect=mhFallback</td>
+      <td class="nowrap">2026-11-20</td>
+      <td class="src"><a href="https://www.amazon.com/dp/B0CDY277D3/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Amazon listing</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">A2</a></td>
+    </tr>
+<tr>
+      <td class="mono tiny">P02</td>
+      <td><b>Emeril Lagasse</b><br><span class="tiny muted">Emeril Lagasse 26 qt French door</span></td>
+      <td class="mono tiny">https://link.amazon/B02NbDxp3</td>
+      <td><span class="unverified" title="No official source confirms this value">— Owner has not confirmed</span></td>
+      <td class="mono tiny">B09B7SB46R</td>
+      <td class="mono tiny" style="max-width:300px;word-break:break-all">https://www.amazon.com/dp/B09B7SB46R?lv=shuf&amp;btn_type=ss&amp;gaOptInStatus=true&amp;btn_ref=srctok-77f54b7c4a256532&amp;channelId=704&amp;plpRedirect=mhFallback</td>
+      <td class="nowrap">2026-11-20</td>
+      <td class="src"><a href="https://www.amazon.com/dp/B09B7SB46R/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Amazon listing</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">A2</a></td>
+    </tr>
+<tr>
+      <td class="mono tiny">P03</td>
+      <td><b>CHEFMAN</b><br><span class="tiny muted">Chefman 8 qt TurboFry</span></td>
+      <td class="mono tiny">https://link.amazon/B00hJ57DV</td>
+      <td><span class="unverified" title="No official source confirms this value">— Owner has not confirmed</span></td>
+      <td class="mono tiny">B08DKYBTPH</td>
+      <td class="mono tiny" style="max-width:300px;word-break:break-all">https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&amp;btn_type=ss&amp;gaOptInStatus=true&amp;btn_ref=srctok-2189f4dab9032c5f&amp;channelId=704&amp;plpRedirect=mhFallback&amp;th=1</td>
+      <td class="nowrap">2026-11-20</td>
+      <td class="src"><a href="https://www.amazon.com/dp/B08DKYBTPH/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Amazon listing</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">A2</a></td>
+    </tr>
+<tr>
+      <td class="mono tiny">P04</td>
+      <td><b>ThermoMaven</b><br><span class="tiny muted">ThermoMaven 1-second thermometer</span></td>
+      <td class="mono tiny">https://link.amazon/B0c8moW59</td>
+      <td><span class="unverified" title="No official source confirms this value">— Owner has not confirmed</span></td>
+      <td class="mono tiny">B0DHZTCNR5</td>
+      <td class="mono tiny" style="max-width:300px;word-break:break-all">https://www.amazon.com/dp/B0DHZTCNR5?lv=shuf&amp;btn_type=ss&amp;gaOptInStatus=true&amp;_encoding=UTF8&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9waG9uZV9ob21lcGFnZV9ibGVuZGVk&amp;language=en_US&amp;content-id=amzn1.sym.4582c56b-139d-4168-9db2-822c68889360&amp;ie=UTF8&amp;btn_ref=srctok-3fc2944d621f80c1&amp;channelId=500&amp;plpRedirect=mhFallback</td>
+      <td class="nowrap">2026-11-20</td>
+      <td class="src"><a href="https://www.amazon.com/dp/B0DHZTCNR5/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Amazon listing</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">A2</a></td>
+    </tr>
+<tr>
+      <td class="mono tiny">P05</td>
+      <td><b>CHEF iQ</b><br><span class="tiny muted">CHEF iQ Sense Gen3</span></td>
+      <td class="mono tiny">https://link.amazon/B0f3GKalj</td>
+      <td><span class="unverified" title="No official source confirms this value">— Owner has not confirmed</span></td>
+      <td class="mono tiny">B0DZFD6R9Z</td>
+      <td class="mono tiny" style="max-width:300px;word-break:break-all">https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&amp;sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&amp;btn_type=ss&amp;gaOptInStatus=true&amp;language=en_US&amp;btn_ref=srctok-15c87a8b6e264a7a&amp;channelId=500&amp;plpRedirect=mhFallback&amp;th=1</td>
+      <td class="nowrap">2026-11-20</td>
+      <td class="src"><a href="https://www.amazon.com/dp/B0DZFD6R9Z/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Amazon listing</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">A2</a></td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="cards c2 mt-2">
+      <div class="callout">
+        <h4>Why the two ASIN fields are separate</h4>
+        <p>A short link is an opaque code. What it resolves to today is an observation; what you meant it to point at is an intention. If they are stored in one field, a change at the shortener silently rewrites your own record. Amazon’s ASIN is a stable, checkable identifier — so it belongs in its own column, confirmed and dated.</p>
+      </div>
+      <div class="callout">
+        <h4>What the tag column shows</h4>
+        <p>None of the five observed redirects contains a <code>tag=</code> parameter. That is recorded as observed, not interpreted. The site publishes tagged links so that clicks are attributable regardless of how the short-link question resolves. <a href="../flagged/#FLG-001">FLG-001</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="sources">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register two</p>
+        <h2>Source register</h2>
+        <p>Every official page used to build this site, with the date Amazon or the agency last updated it and the date this desk read it. Re-check before republishing; policies change.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>10 official sources.</b> All fetched and read during the build session on 2026-11-20.</caption>
+        <thead><tr><th scope="col">Ref</th><th scope="col">Source</th><th scope="col">Page updated</th><th scope="col">Read on</th><th scope="col">Used for</th></tr></thead>
+        <tbody><tr>
+      <td class="mono tiny">A1</td>
+      <td><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank"><b>Amazon Associates Program Operating Agreement</b></a><br><span class="tiny muted">Amazon.com Associates Central</span></td>
+      <td class="nowrap tiny">October 15, 2025</td>
+      <td class="nowrap tiny">2026-11-20</td>
+      <td class="tiny">• Section 5 requires the statement “As an Amazon Associate I earn from qualifying purchases.” to be stated clearly and prominently on the site.<br>• Section 1 defines Special Links as links that properly use the tagged link formats Amazon provides.<br>• Section 6 sets out termination, including for material breach.</td>
+    </tr>
+<tr>
+      <td class="mono tiny">A2</td>
+      <td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank"><b>Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</b></a><br><span class="tiny muted">Amazon.com Associates Central</span></td>
+      <td class="nowrap tiny">April 14, 2026</td>
+      <td class="nowrap tiny">2026-11-20</td>
+      <td class="tiny">• Participation Requirements §1: the site must contain original content and be publicly available; unsuitable sites are ineligible.<br>• Participation Requirements §2(b): every link to an Amazon site must carry the Associate ID or “tag” as a URL parameter.<br>• Participation Requirements §2(b): prices and availability may be shown only if Amazon serves the link, or the data comes from Creators API / PA API under the licence.<br>• Participation Requirements §2(b): you must not make inaccurate, overbroad, deceptive or misleading claims about any product, price or policy.<br>• Participation Requirements §3(e): the site must disclose the use of cookies, pixels and other technologies and how visitor data is collected and used.<br>• IP License §1 and §2(c): Program Content must link only to the relevant Amazon page, and may not be used to train machine-learning models.</td>
+    </tr>
+<tr>
+      <td class="mono tiny">A3</td>
+      <td><a href="https://affiliate-program.amazon.com/" rel="noopener" target="_blank"><b>Amazon Associates — program home page</b></a><br><span class="tiny muted">Amazon.com Associates Central</span></td>
+      <td class="nowrap tiny">—</td>
+      <td class="nowrap tiny">2026-11-20</td>
+      <td class="tiny">• The program pays “up to 10%” in associate commissions from qualifying purchases, and payment is made approximately 60 days after the month in which commission was earned.<br>• Eligibility: bloggers, publishers and content creators with a qualifying website or mobile app.</td>
+    </tr>
+<tr>
+      <td class="mono tiny">F1</td>
+      <td><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener" target="_blank"><b>Disclosures 101 for Social Media Influencers</b></a><br><span class="tiny muted">U.S. Federal Trade Commission</span></td>
+      <td class="nowrap tiny">November 2019</td>
+      <td class="nowrap tiny">2026-11-20</td>
+      <td class="tiny">• Disclose any financial, employment, personal or family relationship with a brand.<br>• Place the disclosure where it is hard to miss, with the endorsement itself — not only on an about page or at the end of a post.<br>• Use simple, clear language; “advertisement”, “ad” and “sponsored” are acceptable.<br>• You cannot talk about your experience with a product you have not tried.</td>
+    </tr>
+<tr>
+      <td class="mono tiny">F2</td>
+      <td><a href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5" rel="noopener" target="_blank"><b>16 CFR 255.5 — Disclosure of material connections</b></a><br><span class="tiny muted">U.S. Federal Trade Commission (eCFR)</span></td>
+      <td class="nowrap tiny">Current as of 2026-11-18</td>
+      <td class="nowrap tiny">2026-11-20</td>
+      <td class="tiny">• A material connection that is not reasonably expected by the audience must be disclosed clearly and conspicuously.<br>• The disclosure need not give complete details, but must communicate the nature of the connection well enough for a consumer to judge its significance.</td>
+    </tr>
+<tr>
+      <td class="mono tiny">G1</td>
+      <td><a href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank"><b>Qualify your outbound links to Google</b></a><br><span class="tiny muted">Google Search Central</span></td>
+      <td class="nowrap tiny">2025-12-10</td>
+      <td class="nowrap tiny">2026-11-20</td>
+      <td class="tiny">• Mark links that are advertisements or paid placements with rel=&quot;sponsored&quot;.<br>• Multiple rel values may be combined, space- or comma-separated.</td>
+    </tr>
+<tr>
+      <td class="mono tiny">G2</td>
+      <td><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank"><b>Spam policies for Google web search</b></a><br><span class="tiny muted">Google Search Central</span></td>
+      <td class="nowrap tiny">—</td>
+      <td class="nowrap tiny">2026-11-20</td>
+      <td class="tiny">• “Scaled content abuse” covers generating many pages primarily to manipulate rankings without helping users.<br>• Affiliate links used throughout a page are acceptable when the links are qualified appropriately.<br>• Under the site reputation policy, an unauthored affiliate article that is not integrated into the publication and carries no commercial-character disclaimer is an example of content likely to attract action.<br>• The review considers stated or implied authorship and whether identical content appears on many other sites.</td>
+    </tr>
+<tr>
+      <td class="mono tiny">G3</td>
+      <td><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank"><b>Build and submit a sitemap</b></a><br><span class="tiny muted">Google Search Central</span></td>
+      <td class="nowrap tiny">—</td>
+      <td class="nowrap tiny">2026-11-20</td>
+      <td class="tiny">• Google supports the sitemap formats defined by the sitemaps.org protocol, including XML and RSS.</td>
+    </tr>
+<tr>
+      <td class="mono tiny">G4</td>
+      <td><a href="https://www.sitemaps.org/protocol.html" rel="noopener" target="_blank"><b>Sitemaps XML format</b></a><br><span class="tiny muted">sitemaps.org</span></td>
+      <td class="nowrap tiny">—</td>
+      <td class="nowrap tiny">2026-11-20</td>
+      <td class="tiny">• A sitemap must begin with &lt;urlset&gt;, declare the sitemap namespace, and include a &lt;url&gt; with a &lt;loc&gt; for each page.<br>• All URLs in a sitemap must be from a single host.<br>• The file must be UTF-8 encoded and entity-escaped.</td>
+    </tr>
+<tr>
+      <td class="mono tiny">U1</td>
+      <td><a href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank"><b>Safe Minimum Internal Temperature Chart</b></a><br><span class="tiny muted">USDA Food Safety and Inspection Service</span></td>
+      <td class="nowrap tiny">April 14, 2025</td>
+      <td class="nowrap tiny">2026-11-20</td>
+      <td class="tiny">• Beef, pork, veal and lamb steaks, chops and roasts: 145°F (62.8°C) with a 3-minute rest.<br>• Ground meats: 160°F (71.1°C).<br>• All poultry, including ground poultry, stuffing and giblets: 165°F (73.9°C).<br>• Fish and shellfish: 145°F (62.8°C). Leftovers and casseroles: 165°F (73.9°C).</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="events">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register three</p>
+        <h2>The five measured events</h2>
+        <p>Names are frozen. The collector shipped with the site accepts exactly these and nothing else.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Event schema.</b> No event carries an identifier, a cookie, an IP address or a device fingerprint.</caption>
+        <thead><tr><th scope="col">Event</th><th scope="col">Fires when</th><th scope="col">Why it exists</th><th scope="col">Fields</th></tr></thead>
+        <tbody><tr><td class="mono">page_view</td><td>Every page load</td><td>Tells the desk which pages are found at all — the denominator for every other event.</td><td class="tiny mono">path, referrer host (if present), viewport class</td></tr>
+<tr><td class="mono">product_view</td><td>A product page is opened</td><td>Separates “read an article” from “considered this specific product”.</td><td class="tiny mono">product id, ASIN, referring page</td></tr>
+<tr><td class="mono">outbound_click</td><td>The Amazon button is clicked</td><td>The only click the desk can count. It is not a sale and not a commission.</td><td class="tiny mono">product id, ASIN, page, position on page</td></tr>
+<tr><td class="mono">guide_complete</td><td>A guide is scrolled past 75%</td><td>A rough read-through signal, so topics can be compared on depth as well as volume.</td><td class="tiny mono">guide id, path</td></tr>
+<tr><td class="mono">capture_intent</td><td>The reader focuses the email field</td><td>Counts interest in a list before a mailing provider exists. No address is transmitted.</td><td class="tiny mono">page, form id</td></tr></tbody>
+      </table>
+    </div>
+    <div class="callout red mt-2">
+      <h4>No endpoint is deployed, so no event is being collected</h4>
+      <p>The recorder runs in your browser and can be inspected in the console. There is no server receiving it: GitHub Pages serves static files only. The collector source is published at <a href="../analytics/collector-worker.js">/analytics/collector-worker.js</a> and is not running. Any traffic figure you see quoted anywhere else about this site is not from here. <a href="../flagged/#FLG-007">FLG-007</a>.</p>
+    </div>
+    <div class="mt-2" style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
+      <button class="btn ghost small" type="button" id="cw-show-tally">Show what this page has recorded in your browser</button>
+      <span class="tiny muted" id="cw-tally-out">Stored only in this browser’s localStorage.</span>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="ledger">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register four</p>
+        <h2>Campaign ledger</h2>
+        <p>Deliberately empty. A row may only be added from an authorised first-party report, with its provenance recorded.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Ledger as of 2026-11-20: 0 rows.</b> The table is shown with its schema so the shape of a valid row is unambiguous before any data exists.</caption>
+        <thead><tr><th scope="col">Date (UTC)</th><th scope="col">Source</th><th scope="col">Channel</th><th scope="col">Eligible sessions</th><th scope="col">Clicks</th><th scope="col">Reported orders</th><th scope="col">Provenance</th></tr></thead>
+        <tbody>
+          <tr><td colspan="7" style="text-align:center;padding:2rem 1rem;color:var(--muted)">
+            <span style="font-family:var(--display);font-size:1.1rem">No rows.</span><br>
+            <span class="small">No eligible-session, click or order figure has been obtained from an authorised report.</span>
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+<div class="table-wrap">
+  <table>
+    <caption><b>Column rules.</b> These are enforced at review, not by code.</caption>
+    <thead><tr><th scope="col">Column</th><th scope="col">Rule</th></tr></thead>
+    <tbody><tr><td><b>Date (UTC)</b></td><td>ISO 8601 date of the report row.</td></tr><tr><td><b>Source</b></td><td>Named first-party report, e.g. “Associates Central – Link Type report”. No estimates.</td></tr><tr><td><b>Channel</b></td><td>Where the traffic came from, as the report labels it.</td></tr><tr><td><b>Eligible sessions</b></td><td>Integer from the report. Blank if the report does not provide it.</td></tr><tr><td><b>Clicks</b></td><td>Integer from the report. This site’s own counter is NOT a substitute — label it separately.</td></tr><tr><td><b>Reported orders</b></td><td>Integer from the report only. Never inferred from clicks.</td></tr><tr><td><b>Provenance</b></td><td>Link to the report or screenshot held by the owner, dated.</td></tr></tbody>
+  </table>
+</div>
+
+    <div class="callout mt-2">
+      <h4>The rule that matters</h4>
+      <p>No row may be added from this site’s own click counter, from an estimate, or from a third-party dashboard that is not an authorised first-party report. A conversion rate or revenue forecast is deliberately not computed anywhere on this site.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="automation">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register five</p>
+        <h2>Automation pipeline — what is automated, what is gated</h2>
+        <p>The platform automates everything that can be checked by a machine, and puts a human gate in front of everything that cannot. The gate runs on every build and fails the publish on any breach.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Automation vs human gate.</b> Every row states who owns it and what happens on failure.</caption>
+        <thead><tr><th scope="col">Step</th><th scope="col">Automated or gated</th><th scope="col">What it does</th><th scope="col">Source / gate</th></tr></thead>
+        <tbody>
+          <tr><td>Page generation</td><td>Automated</td><td>Writes every page, sitemap and feed from the same data file, so a page cannot ship without being listed.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank" title="Build and submit a sitemap">Google Search Central</a> · <a href="https://www.sitemaps.org/protocol.html" rel="noopener" target="_blank" title="Sitemaps XML format">sitemaps.org</a></td></tr>
+          <tr><td>Compliance gate R1–R10</td><td>Automated, fails build</td><td>Checks disclosure, sponsored marking, no prices or ratings, no hands-on claims, canonicals, internal links, sitemap and feed validity.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank" title="Amazon Associates Program Operating Agreement">Amazon.com Associates Central</a> · <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a> · <a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener" target="_blank" title="Disclosures 101 for Social Media Influencers">U.S. Federal Trade Commission</a> · <a href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank" title="Qualify your outbound links to Google">Google Search Central</a></td></tr>
+          <tr><td>Link check + XML validation</td><td>Automated, fails build</td><td>Crawls every page, validates sitemap and feed XML, fails on any broken internal link.</td><td class="src"><a href="https://www.sitemaps.org/protocol.html" rel="noopener" target="_blank" title="Sitemaps XML format">sitemaps.org</a></td></tr>
+          <tr><td>HTTP smoke at /WinB/</td><td>Automated, fails build</td><td>Serves the site at its real project path and fetches every sitemap URL.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank" title="Build and submit a sitemap">Google Search Central</a></td></tr>
+          <tr><td>Product facts</td><td>Human-gated</td><td>Every spec comes from the listing record with a read date. No AI step writes a product fact.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr>
+          <tr><td>Guide prose</td><td>Human-gated</td><td>AI drafting, if ever used, is a suggestion until a human checks it against a source (Q-12).</td><td class="src"><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" rel="noopener" target="_blank" title="Disclosures 101 for Social Media Influencers">U.S. Federal Trade Commission</a> · <a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central</a></td></tr>
+          <tr><td>Topic choice</td><td>Human-gated, data-led</td><td>Next guide is chosen from measured queries after 30 days, not from instinct (SUG-03, SUG-13).</td><td class="src"><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central</a></td></tr>
+          <tr><td>Ledger rows</td><td>Human-gated</td><td>A row may only be added from an authorised first-party report with provenance. No estimates, no forecasts.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="organic">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register six</p>
+        <h2>Organic traffic playbook — one site, one reason to rank</h2>
+        <p>Search engines are given one site to index and a reason to rank it: original, question-shaped answers in two coherent clusters, with every claim sourced. No keyword stuffing, no bulk publishing, no doorway pages.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Findability levers.</b> Each row states what the build does and the official source behind it.</caption>
+        <thead><tr><th scope="col">Lever</th><th scope="col">What the build does</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr><td>One indexable site</td><td>Superseded generations are marked noindex and excluded in robots.txt, so exactly one site competes on this host.</td><td class="src"><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central</a></td></tr>
+          <tr><td>Sitemap</td><td>Generated from the same data as the pages; every indexable page is listed, single-host, UTF-8.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank" title="Build and submit a sitemap">Google Search Central</a> · <a href="https://www.sitemaps.org/protocol.html" rel="noopener" target="_blank" title="Sitemaps XML format">sitemaps.org</a></td></tr>
+          <tr><td>RSS feed</td><td>Generated with the sitemap; every new guide appears in both automatically.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank" title="Build and submit a sitemap">Google Search Central</a></td></tr>
+          <tr><td>Canonical + Open Graph</td><td>Every page carries a canonical URL, title, description and social tags.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap" rel="noopener" target="_blank" title="Build and submit a sitemap">Google Search Central</a></td></tr>
+          <tr><td>Cluster interlinking</td><td>Air-fryer and thermometer clusters link to each other, to the hubs and to the comparison table.</td><td class="src"><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central</a></td></tr>
+          <tr><td>Cadence</td><td>One substantial guide per fortnight. Bursts are treated as scaled content abuse.</td><td class="src"><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central</a></td></tr>
+          <tr><td>Outbound marking</td><td>Every Amazon link carries rel="sponsored" so paid placements are qualified.</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank" title="Qualify your outbound links to Google">Google Search Central</a></td></tr>
+          <tr><td>Measurement</td><td>Five events, no cookies, no third-party scripts. Topic choice waits for measured queries.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="eyebrow">Register seven</p><h2>Content inventory</h2></div></div>
+    
+<div class="table-wrap">
+  <table>
+    <caption><b>Everything published.</b> Five product pages, five guides, two category hubs, one comparison table.</caption>
+    <thead><tr><th scope="col">Type</th><th scope="col">Title</th><th scope="col">Path</th><th scope="col">Published</th><th scope="col">Sources</th></tr></thead>
+    <tbody><tr><td>Product</td><td>Chefman 6 qt dual basket</td><td class="mono tiny">/reviews/chefman-6qt-dual-basket.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.amazon.com/dp/B0CDY277D3/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr><tr><td>Product</td><td>Emeril Lagasse 26 qt French door</td><td class="mono tiny">/reviews/emeril-26qt-french-door.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.amazon.com/dp/B09B7SB46R/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr><tr><td>Product</td><td>Chefman 8 qt TurboFry</td><td class="mono tiny">/reviews/chefman-8qt-turbofry.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.amazon.com/dp/B08DKYBTPH/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr><tr><td>Product</td><td>ThermoMaven 1-second thermometer</td><td class="mono tiny">/reviews/thermomaven-1s-thermometer.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.amazon.com/dp/B0DHZTCNR5/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr><tr><td>Product</td><td>CHEF iQ Sense Gen3</td><td class="mono tiny">/reviews/chef-iq-sense-gen3.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.amazon.com/dp/B0DZFD6R9Z/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr><tr><td>Guide</td><td>Basket or oven-style air fryer: what should you compare?</td><td class="mono tiny">/guides/basket-or-oven.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Guide</td><td>A no-hype checklist for comparing air fryer capacity</td><td class="mono tiny">/guides/capacity-checklist.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Guide</td><td>Cleanup and counter space: the trade-offs to assess</td><td class="mono tiny">/guides/cleanup-counter.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Guide</td><td>Questions to ask before buying a multi-function appliance</td><td class="mono tiny">/guides/multifunction.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Guide</td><td>What temperature is actually “done”? A thermometer guide</td><td class="mono tiny">/guides/temperature-safety.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank" title="Safe Minimum Internal Temperature Chart">USDA Food Safety and Inspection Service</a>, <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Category</td><td>Air fryers</td><td class="mono tiny">/air-fryers/</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Category</td><td>Thermometers</td><td class="mono tiny">/thermometers/</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a>, <a href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank" title="Safe Minimum Internal Temperature Chart">USDA Food Safety and Inspection Service</a></td></tr><tr><td>Comparison</td><td>The comparison table</td><td class="mono tiny">/compare/</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr></tbody>
+  </table>
+</div>
+
+  </div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href=".././">counterwise<span>.</span></a>
+        <p>Kitchen gear, chosen by question rather than by hype. Five products, two categories, no invented test results.</p>
+        <div class="foot-disclosure">
+          <strong>As an Amazon Associate I earn from qualifying purchases.</strong><br>
+          Every Amazon link on this site is an affiliate link and is marked <code style="background:none;border:0;color:#bdb5a9;padding:0">rel="sponsored"</code>. Prices and availability are set by Amazon and are not shown here — check the listing. <a href="../methods/">How this site works</a>.
+        </div>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="../air-fryers/">Air fryers</a></li>
+          <li><a href="../thermometers/">Thermometers</a></li>
+          <li><a href="../reviews/">All five picks</a></li>
+          <li><a href="../compare/">Comparison table</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="../guides/">All guides</a></li>
+          <li><a href="../guides/basket-or-oven.html">Basket or oven</a></li>
+          <li><a href="../guides/capacity-checklist.html">Capacity checklist</a></li>
+          <li><a href="../guides/temperature-safety.html">Safe temperatures</a></li>
+          <li><a href="../feed.xml">RSS feed</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Oversight</h4>
+        <ul>
+          <li><a href="../decisions/">Decision Room</a></li>
+          <li><a href="../data-room/">Data Room</a></li>
+          <li><a href="../flagged/">Flagged for Review</a></li>
+          <li><a href="../register/">Source register &amp; link audit</a></li>
+          <li><a href="../methods/">How we choose</a></li>
+          <li><a href="../executive-summary/">Executive summary</a></li>
+          <li><a href="../about/">About &amp; contact</a></li>
+          <li><a href="../privacy/">Privacy &amp; measurement</a></li>
+          <li><a href="#" id="cw-optout">Turn off measurement</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Counterwise. Build 2026-11-20. No prices, ratings or sales figures are reproduced on this site.</span>
+      <span>Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. This site is not endorsed by Amazon.</span>
+    </div>
+  </div>
+</footer>
+<div class="cw-toast" id="cw-toast" role="status" aria-live="polite"></div>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
