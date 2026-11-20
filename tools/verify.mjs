@@ -24,7 +24,7 @@ const SUPERSEDED = new Set([
   '/guides/air-fryer-capacity-checklist.html', '/guides/basket-or-oven-air-fryer.html',
   '/guides/cleanup-and-counter-space.html', '/guides/multifunction-appliance-questions.html',
   '/decisions/growth-plan.html', '/decisions/questions.html',
-  // The Crisp Kitchen register surface, built by tools/build.cjs and published as a parallel,
+  // Counterwise register surface, built by tools/build.cjs and published as a parallel,
   // independently gated audit trail. Its own gate (tools/check.cjs) enforces the disclosure,
   // source and sponsored-link rules for these pages. Listing them here keeps exactly one
   // generation accountable for the canonical-page rules.
@@ -232,7 +232,7 @@ const NOT_IN_SITEMAP = new Set([
   '/guides/air-fryer-capacity-checklist.html', '/guides/basket-or-oven-air-fryer.html',
   '/guides/cleanup-and-counter-space.html', '/guides/multifunction-appliance-questions.html',
   '/decisions/growth-plan.html', '/decisions/questions.html',
-  // The Crisp Kitchen register surface, built by tools/build.cjs and published as a parallel,
+  // Counterwise register surface, built by tools/build.cjs and published as a parallel,
   // independently gated audit trail. Its own gate (tools/check.cjs) enforces the disclosure,
   // source and sponsored-link rules for these pages. Listing them here keeps exactly one
   // generation accountable for the canonical-page rules.

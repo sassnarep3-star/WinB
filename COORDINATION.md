@@ -79,7 +79,7 @@ exposed are recorded in §8 below.
 | 2026-11-20 | `arena-afa610ec` | **Re-merge after main advanced 55 commits.** `origin/main` now carried six separate site generations (root ×2 under two brands, `/docs/`, `/legacy-docs-site/`, `/alt-site/build/`, plus `products/`, `verification/`, `compliance/`, `platform/`) and three build systems. Resolved 17 add/add conflicts in favour of the canonical root build; preserved every file from the other sessions. Added `tools/consolidate.mjs` to mark 56 superseded pages `noindex,nofollow` with a visible archive banner, and promoted the five `/go/` exit pages to `index,follow` after finding them hidden while forwarding to affiliate links (FLG-010). Re-ran the full gate: 30 canonical pages, 14 preserved, 35 Amazon links, 273 internal links, 49 files crawled, 0 broken links, 24 pages + 42 assets HTTP 200 at `/WinB/`. |
 | 2026-11-20 | `arena-afa610ec` | Integration: branch pushed, PR opened, merged to `main`, Pages deploy confirmed (§5). |
 | 2026-11-20 | `arena-e8af4464` | Read board and repo. Confirmed `main` tip `0fa749d` (PR #20), Pages `built` at `https://sassnarep3-star.github.io/WinB/`, and four open PRs from other sessions (#9, #16, #18, #23) left untouched. Claimed S10 (publication polish + verification + integration) with file scope `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `assets/css/site.css`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated HTML. Re-fetched official sources live (FTC Disclosures 101, USDA FSIS chart, Google qualify-outbound-links + spam policies, sitemaps.org protocol, Amazon Operating Agreement + Program Policies) and confirmed the recorded quotes. No new product specs invented; Amazon listing data remains the 2026-11-20 observed record (sandbox cannot reach amazon.com). |
-
+| 2026-11-20 | `arena-01091cc4` | Session on `arena/01091cc4-winb` (base `0fa749d`). Reviewed the board, the committed site and CI. Found three defects, fixed each (below). Re-verified the Operating Agreement §5 wording and one short link against official pages (§8). No other session claims were active. |
 | 2026-11-20 | `arena-9d7f2546` | Read the board and the merged site. Baseline `origin/main` @ `9798831`; full build gate green (R1–R11, R11–R14, 51 files crawled, 0 broken links). Audited the brief's line-by-line VERIFICATION requirement and found **121 table rows across 14 canonical pages with no official source link** — the largest unmet item in the brief. Read the release-constraint audit in PR #26 and confirmed its four findings on the live HTML: the disclosure strip sits *above* the masthead (the brief asks for it under), the masthead CTA duplicates the `/air-fryers/` nav destination, and `capture_intent` can never fire because the capture forms were removed in PR #33 while the client, worker, schema, README, `/privacy/` and `/data-room/` still advertise it. Claimed S15–S18 (§2, ACTIVE CLAIM). |
 | 2026-11-20 | `arena-2139de5f` | Re-verification session on branch `arena/2139de5f-winb` (base `0fa749d`, = `main`). Ran the CI build sequence: clean. Found that the FLG-010 fix existed only in `tools/consolidate.mjs` (not run by CI), so the deployed `/go/` pages were still `noindex,nofollow`. Fixed the generator (`tools/build.cjs`), corrected FLG-010, logged FLG-012 (fix-in-wrong-script; two brands). Re-checked all five short links against amazon.com (§8). |
 | 2026-11-20 | `arena-2139de5f` | Re-verification session on branch `arena/2139de5f-winb` (base `0fa749d`, = `main`). Ran the CI build sequence: clean. Found that the FLG-010 fix existed only in `tools/consolidate.mjs` (not run by CI), so the deployed `/go/` pages were still `noindex,nofollow`. Fixed the generator (`tools/build.cjs`), corrected FLG-010, logged FLG-015 (fix-in-wrong-script; two brands). Re-checked all five short links against amazon.com (§8). |
@@ -764,3 +764,37 @@ No product was handled. No traffic, click, order, conversion or revenue figure e
 star rating is published, although all five listings displayed both. Whether the supplied short links
 credit this account is **unresolved in both directions**. Intended ASINs remain blank until the owner
 supplies them.
+---
+
+## 8. Session `arena-01091cc4` — verification and consistency pass
+
+Claim: task **S10**, owner `arena-01091cc4`, files `.github/workflows/pages.yml`, `tools/consolidate.mjs`, `tools/build.cjs`, `_build/*.mjs`, generated HTML, `COORDINATION.md`. Status: **done** for build and verification. **Merge deferred** (see I-5): PR #25 is open and rebased on `main` at `0d34699`.
+
+| Defect found | Fix | Evidence |
+| --- | --- | --- |
+| CI (`pages.yml`) did not run `tools/consolidate.mjs`, so the published site never received the noindex/archive banners or the `/go/` `index,follow` change that §7 and FLG-010 say are live. `npm run build` *does* run it, so local output and CI output disagreed. | Added `node tools/consolidate.mjs` to the CI Generate step after `noindex.cjs`. Committed the consolidated output. | Full CI generate sequence (build → images → build.cjs → noindex → consolidate) run on the committed tree: no drift (`git status --porcelain --untracked-files=no` empty). |
+| Two brands on the canonical site: masthead and root index said “counterwise”, while 28 canonical pages and five `/go/` pages said “The Crisp Kitchen”. | Unified generator sources to “Counterwise”. Superseded trees under `docs/`, `archive/`, `legacy-docs-site/`, `alt-site/` were not edited. | `grep` for “Crisp Kitchen” in canonical pages after rebuild. |
+| Archive banner and consolidate comments referred to the wrong brand. | Corrected. | — |
+
+### Official sources checked this session (fetched 2026-11-20 UTC)
+
+| Claim | Source | Result |
+| --- | --- | --- |
+| Disclosure wording “As an Amazon Associate I earn from qualifying purchases.” | Associates Program Operating Agreement, §5 (updated Oct 15, 2025) — https://affiliate-program.amazon.com/help/operating/agreement | **Matches** the site's disclosure exactly. |
+| §5 also says the disclosure must be clear and prominent, and that a §5 breach is a material breach | same | Site places the strip above the masthead and in the footer (rule R1). |
+| Special Links must use the tagged link formats Amazon provides | same, §1 | Site uses `?tag=shopnow047c-20` on canonical `/dp/` URLs (rule R2). |
+| Commission income requires a click through a Special Link | Associates Program Policies (updated Apr 14, 2026) — https://affiliate-program.amazon.com/help/operating/policies | Consistent with the site's no-price, no-earnings-claims stance. |
+| `rel="sponsored"` marks paid links | Google Search Central, Qualify outbound links — https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links (updated 2025-12-10) | Site uses `rel="sponsored nofollow noopener"`. Adding `nofollow` is allowed by the same page (multiple values). |
+| Short link `https://link.amazon/B04G1MEwY` resolves to ASIN `B0CDY277D3` | Live fetch of the link, final page https://www.amazon.com/dp/B0CDY277D3 | **Matches** §3 row 1. The short-link code itself (`B04G1MEwY`, 9 characters) is **not** an ASIN (ASINs are 10 characters), so it is not used as an ASIN. |
+
+Not re-checked today: the other four short links. The §3 record stands as a prior-session observation, not as a fresh check.
+
+### Irregularities for review (not blocking)
+
+| # | Irregularity | Where |
+| --- | --- | --- |
+| I-1 | Before this session, §7 described go-page and consolidate changes that CI did not publish. Corrected by item 1 above. | §7 vs `pages.yml` |
+| I-2 | `FLG-009` in `data/flags.json` says GitHub Actions is disabled, but the Actions runs on `main` (Build, verify and deploy; pages build) completed successfully. This is a separate register from `data/shop/flags.json`. Left unchanged; needs owner review. | `data/flags.json` |
+| I-3 | The brief's source IDs (S01, S02, S07, S24) and SG-27..SG-30 rows are not in the register; SG-27..30 are present in `data/shop/suggestions.json` under group G7. The brief's source IDs are not in the repo. | `data/flags.json` line ~103 |
+| I-4 | `link.amazon` short-link codes are 9 characters and are not ASINs. Intended ASIN fields stay blank (FLG-002). | §3 |
+| I-5 | **Merge deferred.** At the time of this session, other sessions had open PRs that touch the same files: PR #24 (`arena/2139de5f-winb`: `tools/build.cjs`, `_build/data.mjs`, the five `/go/` pages, COORDINATION.md), PR #26 (COORDINATION.md), and PR #27 (EXECUTIVE-SUMMARY.md). PR #25 also changes the `/go/` robots behaviour via consolidate. Merging PR #25 first would conflict with #24. Also, the shared `pages` concurrency group has `cancel-in-progress: true`, so the Actions run for PR #23's merge to `main` was cancelled by a later run. The Pages legacy build for that commit succeeded. Merge PR #25 after the integration session has resolved #24, #26 and #27. | `.github/workflows/pages.yml`, PRs #24–#27 |
