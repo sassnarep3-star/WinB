@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggestions and decision paths | The Crisp Kitchen</title>
+<meta name="description" content="A review surface: each suggestion carries its cost, the evidence it would produce, and which of three coherent paths it belongs to.">
+<link rel="canonical" href="https://sassnarep3-star.github.io/WinB/decisions/index.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:site_name" content="The Crisp Kitchen">
+<meta property="og:title" content="Suggestions and decision paths | The Crisp Kitchen">
+<meta property="og:description" content="A review surface: each suggestion carries its cost, the evidence it would produce, and which of three coherent paths it belongs to.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sassnarep3-star.github.io/WinB/decisions/index.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f1b17">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="alternate" type="application/rss+xml" title="The Crisp Kitchen — new guides" href="/feed.xml">
+
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="/index.html">
+      <span class="brand__mark" aria-hidden="true">CK</span>
+      <span class="brand__text"><strong>The Crisp Kitchen</strong><em>Air fryers and the tools that make them work</em></span>
+    </a>
+    <nav class="mainnav" aria-label="Primary">
+      <ul>
+        <li><a href="/index.html">Shop</a></li>
+        <li><a href="/guides/index.html">Guides</a></li>
+        <li><a href="/decisions/index.html">Suggestions</a></li>
+        <li><a href="/verification/index.html">Verification</a></li>
+        <li><a href="/flagged/index.html">Flagged for Review</a></li>
+        <li><a href="/about/index.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="disclosure" role="note">
+  <p><strong>Affiliate disclosure.</strong> As an Amazon Associate I earn from qualifying purchases. If you buy through a link on this page, this site may earn a commission. It does not change the price you pay. <a href="/about/how-we-make-money.html">How this site makes money</a>.</p>
+</div><main id="main" class="wrap"><div class="pagehead">
+    <p class="kicker">Decision room</p>
+    <h1>Suggestions, with a cost and a decision attached</h1>
+    <p class="lede">This is the review surface. Every suggestion is a proposal, not a change that has been made. Each one carries what it would take, what it would prove, and what it would cost — so a decision can be made by reading one row instead of commissioning another analysis.</p>
+  </div>
+
+  <div class="callout">
+    <h3>How to use this page</h3>
+    <p>Pick a path, not a feature. The three paths below are coherent complete positions; individual suggestions can be adopted piecemeal, but the site only makes sense as one of the three. Nothing here is implemented beyond the baseline already live — the current build is Path A.</p>
+  </div>
+
+  <div class="grid grid--3 paths">
+    <div class="path">
+      <h3>Path A — The honest shop</h3>
+      <p class="path__tag">Live now</p>
+      <p>Publish only what is verifiable. Label every claim. Show no prices until an authorised data route exists. Small, defensible, slow to grow.</p>
+      <p class="path__why"><strong>Why it wins:</strong> it cannot be penalised for false claims, and it is the only path that can be built entirely from documents.</p>
+      <p class="path__why"><strong>Why it loses:</strong> it will not out-convert a site that shows prices and ratings, because buyers want numbers.</p>
+    </div>
+    <div class="path path--rec">
+      <h3>Path B — Open the data taps</h3>
+      <p class="path__tag">Recommended</p>
+      <p>Apply for Product Advertising API access and use SiteStripe. Show price and availability with the required timestamp and disclaimer. Keep every label. Add measurement.</p>
+      <p class="path__why"><strong>Why it wins:</strong> it converts the site's main disadvantage into its main feature — live data with an auditable trail.</p>
+      <p class="path__why"><strong>Why it loses:</strong> depends on an approval the owner does not control yet.</p>
+    </div>
+    <div class="path">
+      <h3>Path C — Become a test desk</h3>
+      <p class="path__tag">Highest ceiling</p>
+      <p>Buy units, test them, publish protocols and results. Hire nothing; publish the method. This is the only path that justifies the word "reviewed".</p>
+      <p class="path__why"><strong>Why it wins:</strong> original data is the one thing a competing site cannot copy.</p>
+      <p class="path__why"><strong>Why it loses:</strong> it needs spend and time before the first publishable result.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section__head">
+      <h2>Make the front page sell, not explain</h2>
+      <p>The current front page is already product-led, because that is a prerequisite for anyone buying anything. These suggestions go further: they remove the last traces of the audit voice from the buying surface.</p>
+    </div>
+    <div class="tablewrap"><table class="data suggestions">
+  <thead><tr><th scope="col">#</th><th scope="col">Suggestion</th><th scope="col">What it fixes</th><th scope="col">Effort</th><th scope="col">Evidence it works</th><th scope="col">Path</th></tr></thead>
+  <tbody>
+  <tr><td><code>SG-01</code></td><td><strong>Lead every product card with the decision, not the model number</strong><br><span class="muted">Cards currently say &quot;Best for: cooking two components at once&quot;. That is a decision. Keep it, and move the ASIN to the button subtitle where it belongs — a buyer never chooses by ASIN.</span></td><td>The last remaining engineering voice on the buying surface.</td><td>Done in this build</td><td>Product-intent event rate on cards; outbound-click rate.</td><td>Live</td></tr>
+  <tr><td><code>SG-02</code></td><td><strong>Replace the three-product short list with a five-product 'choose one of these five' filter</strong><br><span class="muted">Three cards cover fryers only. A buyer looking for a thermometer has to leave the front page. A single five-item decision strip with a question — 'what are you cooking at once?' — would serve both categories above the fold.</span></td><td>The front page currently under-represents 40% of the catalogue.</td><td>3 hours, no dependency</td><td>Click distribution across the five products; drop in bounce from the landing page.</td><td>A or B</td></tr>
+  <tr><td><code>SG-03</code></td><td><strong>Add a 'what we would buy' line to each product, with the reasoning visible</strong><br><span class="muted">A single sentence naming the trade-off the buyer is accepting. Not a recommendation of a person, which this desk cannot honestly give — a recommendation of a trade-off, which it can.</span></td><td>Cards describe features; they do not yet take a position.</td><td>2 hours</td><td>Guide-read → product-intent conversion.</td><td>A or B</td></tr>
+  </tbody>
+</table></div>
+  </section>
+<section class="section">
+    <div class="section__head">
+      <h2>Make it findable</h2>
+      <p>Indexing is mechanical and mostly done. Ranking is editorial and cannot be claimed from here. These suggestions separate the two.</p>
+    </div>
+    <div class="tablewrap"><table class="data suggestions">
+  <thead><tr><th scope="col">#</th><th scope="col">Suggestion</th><th scope="col">What it fixes</th><th scope="col">Effort</th><th scope="col">Evidence it works</th><th scope="col">Path</th></tr></thead>
+  <tbody>
+  <tr><td><code>SG-04</code></td><td><strong>Publish one canonical host and 301 everything else to it</strong><br><span class="muted">The site currently exists at a project path, so its canonical host is sassnarep3-star.github.io/WinB. A project path is indexable but it is not a brand. Every canonical tag, the sitemap, the feed and robots.txt already point at one host.</span></td><td>Duplicate-host dilution.</td><td>Done in this build</td><td>Search Console coverage report showing one indexed property.</td><td>Live</td></tr>
+  <tr><td><code>SG-05</code></td><td><strong>Register the property in Search Console before publishing week two</strong><br><span class="muted">Without Search Console there is no way to see which queries produced impressions, which is the single most useful input for choosing topics five to eight.</span></td><td>Flying blind on search demand.</td><td>30 minutes, requires the owner's Google account</td><td>Query report with impressions after 30 days.</td><td>B</td></tr>
+  <tr><td><code>SG-06</code></td><td><strong>Give every guide a distinct question in the title and an answer in the first 60 words</strong><br><span class="muted">Question-shaped titles only help if the page answers the question before it starts explaining. Each guide here already opens with a direct paragraph, but the answer should be one sentence that could be lifted into a featured snippet.</span></td><td>Guides that read well but are not quotable.</td><td>1 hour per guide</td><td>Guide-read rate at 25% scroll; impressions per query.</td><td>A, B or C</td></tr>
+  <tr><td><code>SG-07</code></td><td><strong>Do not create five thin product pages</strong><br><span class="muted">Counter-suggestion, included because the obvious move is the wrong one. Five pages that repeat the same template with a different product name will look like doorway pages. Add a product page only when it has something the grid does not.</span></td><td>A predictable thin-content mistake.</td><td>0 — it is a decision not to build</td><td>Absence of the problem.</td><td>All</td></tr>
+  </tbody>
+</table></div>
+  </section>
+<section class="section">
+    <div class="section__head">
+      <h2>Make the machinery trustworthy</h2>
+      <p>The build enforces what can be enforced. These suggestions extend the gate without pretending it can judge quality.</p>
+    </div>
+    <div class="tablewrap"><table class="data suggestions">
+  <thead><tr><th scope="col">#</th><th scope="col">Suggestion</th><th scope="col">What it fixes</th><th scope="col">Effort</th><th scope="col">Evidence it works</th><th scope="col">Path</th></tr></thead>
+  <tbody>
+  <tr><td><code>SG-08</code></td><td><strong>Fail the build on any page missing either disclosure</strong><br><span class="muted">Already enforced: the layout injects both, and the checker verifies their presence on every generated page. A page cannot ship without them because the template cannot produce one.</span></td><td>Disclosure drift as pages are added.</td><td>Done in this build</td><td>Checker output: 0 pages missing disclosure.</td><td>Live</td></tr>
+  <tr><td><code>SG-09</code></td><td><strong>Add a monthly re-verification checklist with a hard expiry</strong><br><span class="muted">Every product row carries an observed date. Add a visible 'this record expires' date 30 days out, and let the page say so honestly when it has expired, rather than silently ageing.</span></td><td>Stale data that still looks current.</td><td>4 hours</td><td>Zero expired records at any crawl date.</td><td>A or B</td></tr>
+  <tr><td><code>SG-10</code></td><td><strong>Replace the manual product read with an API feed when access is granted</strong><br><span class="muted">Creators API or PA API would make price and availability servable with the required timestamp, which retires the largest limitation on the site.</span></td><td>FLG-004 — the missing price.</td><td>2 days, requires API approval</td><td>A price displayed with a timestamp and the required disclaimer, passing the checker.</td><td>B</td></tr>
+  <tr><td><code>SG-11</code></td><td><strong>Keep a kill switch for termination</strong><br><span class="muted">Amazon-derived content lives in one JSON file and one link helper. If the account ends, removing the tag and the product file removes every Amazon reference in a single commit.</span></td><td>Being unable to comply quickly with a termination notice.</td><td>Done in this build</td><td>One-file diff removes all Amazon-derived content.</td><td>Live</td></tr>
+  </tbody>
+</table></div>
+  </section>
+<section class="section">
+    <div class="section__head">
+      <h2>Make it read like a publication</h2>
+      <p>Authorship, navigation, brand, imagery, seasons and clusters. This is the layer that separates a page that works from a site that feels published.</p>
+    </div>
+    <div class="tablewrap"><table class="data suggestions">
+  <thead><tr><th scope="col">#</th><th scope="col">Suggestion</th><th scope="col">What it fixes</th><th scope="col">Effort</th><th scope="col">Evidence it works</th><th scope="col">Path</th></tr></thead>
+  <tbody>
+  <tr><td><code>SG-12</code></td><td><strong>Ship a desk byline now, and a named author only when a person consents</strong><br><span class="muted">The site publishes under an editorial-desk byline with an explicit note that it is not a person. This is deliberate: an invented author with an invented bio is the most common tell of a generated site.</span></td><td>The uncanny absence of an author without inventing one.</td><td>Done in this build</td><td>Author surfaced in byline and JSON-LD.</td><td>Live</td></tr>
+  <tr><td><code>SG-13</code></td><td><strong>One navigation group, and every dashboard surface reachable from the footer</strong><br><span class="muted">The brief asked for exactly this split: a single primary nav for readers, and the verification and platform surfaces in the footer. It is implemented as asked, with footer groups matching content areas.</span></td><td>Dashboards colonising the reader's navigation.</td><td>Done in this build</td><td>Primary nav has 6 reader-facing items; 5 footer groups carry the rest.</td><td>Live</td></tr>
+  <tr><td><code>SG-14</code></td><td><strong>Use generated editorial illustration instead of Amazon product photography</strong><br><span class="muted">Not a stylistic choice: caching product images is prohibited. The illustration is generic by design, and each card states the ASIN so the buyer can find the real product picture on Amazon.</span></td><td>A card with no image at all, without breaching the licence.</td><td>Done in this build</td><td>Zero external image requests; browser network panel shows only this host.</td><td>Live</td></tr>
+  <tr><td><code>SG-15</code></td><td><strong>Add a seasonal cluster: the November-to-January cooking season</strong><br><span class="muted">Air fryers and probe thermometers both peak in the gift-and-holiday window. A dated cluster — holiday cooking, turkey temperatures, small-kitchen gifts — would give the site a reason to be re-read at a specific time of year.</span></td><td>No reason for a reader to return on a schedule.</td><td>3 guides, 2 days</td><td>Return-visit event rising in November and December.</td><td>A, B or C</td></tr>
+  <tr><td><code>SG-16</code></td><td><strong>Cluster the guides around one hub page per decision</strong><br><span class="muted">Four guides currently sit in a flat list. Two hubs — 'choosing an air fryer' and 'knowing when food is done' — would let each guide link sideways to its siblings and give the category pages a place to send readers who are not ready to buy.</span></td><td>A flat guide list with no internal linking logic.</td><td>1 day</td><td>Guide-to-guide navigation events; pages per session.</td><td>A, B or C</td></tr>
+  <tr><td><code>SG-17</code></td><td><strong>Never publish a countdown or a 'deal ends' banner</strong><br><span class="muted">Counter-suggestion. Urgency devices age badly, are frequently false, and a static site cannot know when a promotion ended — which the participation requirements require you to remove once it does.</span></td><td>A temptation that would breach the promotion-removal rule.</td><td>0 — a decision not to build</td><td>Absence of the problem.</td><td>All</td></tr>
+  </tbody>
+</table></div>
+  </section>
+<section class="section">
+    <div class="section__head">
+      <h2>Measure before optimising</h2>
+      <p>The order matters more than the tools. Measurement first, content second, optimisation last.</p>
+    </div>
+    <div class="tablewrap"><table class="data suggestions">
+  <thead><tr><th scope="col">#</th><th scope="col">Suggestion</th><th scope="col">What it fixes</th><th scope="col">Effort</th><th scope="col">Evidence it works</th><th scope="col">Path</th></tr></thead>
+  <tbody>
+  <tr><td><code>SG-18</code></td><td><strong>Define the five events before writing a single article</strong><br><span class="muted">Done, and shipped: page view, guide read, product intent, outbound click, return visit. Each is defined as an observable action rather than a vague engagement score.</span></td><td>Writing content with no way to know if it worked.</td><td>Done in this build</td><td>Five named events in assets/js/site.js.</td><td>Live</td></tr>
+  <tr><td><code>SG-19</code></td><td><strong>Pre-register the success thresholds before the first week publishes</strong><br><span class="muted">The growth plan states, in advance, what would count as working and what would count as stop-and-rethink. Written before any data exists, so it cannot be renegotiated afterwards.</span></td><td>Numbers reinterpreted after the fact.</td><td>Done in this build</td><td>Threshold table on the growth plan page.</td><td>Live</td></tr>
+  <tr><td><code>SG-20</code></td><td><strong>Point the outbound-click event at a real endpoint</strong><br><span class="muted">The counter works, but a browser-local count is a note in a notebook. One serverless function is enough.</span></td><td>The gap between instrumented and measured.</td><td>1 hour, requires a host decision</td><td>A row appearing in the campaign ledger with a dated provenance trail.</td><td>B</td></tr>
+  <tr><td><code>SG-21</code></td><td><strong>Reconcile clicks against Associates reports monthly, and record the discrepancy</strong><br><span class="muted">Client-side departures and server-side attributions will never match exactly. The gap is itself the interesting number: a large gap means clicks are not being attributed, which is FLG-003 in a measurable form.</span></td><td>No feedback loop between the site and the commission report.</td><td>1 hour per month</td><td>A ledger row per month with both figures and the delta.</td><td>B</td></tr>
+  </tbody>
+</table></div>
+  </section>
+<section class="section">
+    <div class="section__head">
+      <h2>Compliance as a product feature</h2>
+      <p>The constraint that shaped this build is also the thing that differentiates it. These suggestions make that visible rather than apologetic.</p>
+    </div>
+    <div class="tablewrap"><table class="data suggestions">
+  <thead><tr><th scope="col">#</th><th scope="col">Suggestion</th><th scope="col">What it fixes</th><th scope="col">Effort</th><th scope="col">Evidence it works</th><th scope="col">Path</th></tr></thead>
+  <tbody>
+  <tr><td><code>SG-22</code></td><td><strong>Publish the compliance gate as a reader-facing page</strong><br><span class="muted">A page listing the eleven clauses that changed the design, each linked to the source. Most affiliate sites hide this. Publishing it is a trust signal that costs nothing and cannot be copied without doing the work.</span></td><td>Compliance documentation that only exists internally.</td><td>Done in this build</td><td>Page exists and is linked from the footer on every page.</td><td>Live</td></tr>
+  <tr><td><code>SG-23</code></td><td><strong>Put the unresolved link status in front of the buyer, not just in a dashboard</strong><br><span class="muted">The interstitial page between the site and Amazon states that the tracking status is unresolved. This is unusual, and it is correct: the buyer is entitled to know the link may not support the site they are reading.</span></td><td>A hidden defect that quietly affects the site's economics.</td><td>Done in this build</td><td>Visible badge on every /go/ page.</td><td>Live</td></tr>
+  <tr><td><code>SG-24</code></td><td><strong>Review disclosure placement against the endorsements guidance once a quarter</strong><br><span class="muted">Placement rules are interpreted, not mechanical. A quarterly read of the FTC guidance and the participation requirements, with the result recorded on the compliance page, keeps the interpretation current.</span></td><td>A compliance page that drifts out of date.</td><td>2 hours per quarter</td><td>A dated review note on the compliance page.</td><td>All</td></tr>
+  </tbody>
+</table></div>
+  </section>
+<section class="section">
+    <div class="section__head">
+      <h2>The parallel passes</h2>
+      <p>Four smaller passes that run alongside the main work rather than as their own projects.</p>
+    </div>
+    <div class="tablewrap"><table class="data suggestions">
+  <thead><tr><th scope="col">#</th><th scope="col">Suggestion</th><th scope="col">What it fixes</th><th scope="col">Effort</th><th scope="col">Evidence it works</th><th scope="col">Path</th></tr></thead>
+  <tbody>
+  <tr><td><code>SG-27</code></td><td><strong>Navigation labels written in the reader's words</strong><br><span class="muted">Primary nav reads Shop, Guides, Suggestions, Verification, Flagged for Review, About. Each label names what the reader will find, not an internal process. 'Suggestions' and 'Verification' stay in the primary nav because the brief asked for those surfaces to be reachable, and they are reader-meaningful as labels.</span></td><td>Navigation written by an engineer for an engineer.</td><td>Done in this build</td><td>Six labels, each a noun a reader would use.</td><td>Live</td></tr>
+  <tr><td><code>SG-28</code></td><td><strong>Ship a working RSS feed, not a link to one</strong><br><span class="muted">The feed is generated at build time from the guide list, with absolute links, stable GUIDs and publication dates. Adding a guide to the data file adds it to the feed and to the sitemap on the next build.</span></td><td>A feed that 404s or is hand-maintained.</td><td>Done in this build</td><td>feed.xml parses and lists four items; sitemap lists the same guides.</td><td>Live</td></tr>
+  <tr><td><code>SG-29</code></td><td><strong>Search Console verification — owner action, prepared here</strong><br><span class="muted">The site ships a sitemap at the canonical root and a robots.txt that points at it, which is everything the site can do. Verification itself needs the owner's Google account and cannot be done by a build.</span></td><td>No query-level visibility.</td><td>15 minutes, owner only</td><td>Sitemap status 'Success' in Search Console.</td><td>B</td></tr>
+  <tr><td><code>SG-30</code></td><td><strong>Reader capture — deliberately not built</strong><br><span class="muted">An email list would be the obvious next step. It is not built, because there is no privacy notice, no unsubscribe mechanism, no mailbox, and no reason yet to believe the traffic would justify it. A capture form on a site with no readers is a placeholder that collects nothing but distrust.</span></td><td>Premature list-building.</td><td>0 now; 1 day when traffic justifies it</td><td>Revisit when return-visit events are non-trivial.</td><td>Later</td></tr>
+  </tbody>
+</table></div>
+  </section>
+
+  <section class="section">
+    <div class="section__head">
+      <h2>What to choose, if you only choose once</h2>
+    </div>
+    <div class="callout callout--rec">
+      <p><strong>Path B, in this order.</strong> (1) Confirm the Associates account and the tag — that is Q-01 and nothing else matters until it is done. (2) Run the one-link test and confirm a click appears in the report — Q-02. (3) Turn on the event endpoint — Q-05. (4) Apply for API access — Q-13. Everything else on this page is optimisation in front of those four; doing them in a different order is how sites end up with beautiful pages and no data.</p>
+    </div>
+    <p class="fineprint">Every suggestion on this page is a proposal. None of it has been implemented silently. The open questions behind them are on the <a href="/decisions/questions.html">open questions</a> page.</p>
+  </section></main><footer class="sitefooter">
+  <div class="sitefooter__inner">
+    <div class="footergrid">
+      <div class="footergroup">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="/index.html">All products</a></li>
+          <li><a href="/products/air-fryers.html">Air fryers</a> <span class="footernote">3 products</span></li>
+          <li><a href="/products/thermometers.html">Wireless thermometers</a> <span class="footernote">2 products</span></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Guides</h3>
+        <ul>
+          <li><a href="/guides/index.html">All guides</a></li>
+          <li><a href="/guides/basket-or-oven-air-fryer.html">Basket or oven-style air fryer?</a></li>
+          <li><a href="/guides/air-fryer-capacity-checklist.html">Capacity without the hype</a></li>
+          <li><a href="/guides/cleanup-and-counter-space.html">Cleanup and counter space</a></li>
+          <li><a href="/guides/multifunction-appliance-questions.html">Multi-function appliance questions</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Decide</h3>
+        <ul>
+          <li><a href="/decisions/index.html">Suggestions register</a></li>
+          <li><a href="/decisions/questions.html">Open questions</a></li>
+          <li><a href="/decisions/growth-plan.html">Growth plan (SEO + measurement)</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>Trust</h3>
+        <ul>
+          <li><a href="/verification/index.html">Verification dashboard</a></li>
+          <li><a href="/verification/sources.html">Source register</a></li>
+          <li><a href="/verification/links.html">Link audit</a></li>
+          <li><a href="/verification/products.html">Product data table</a></li>
+          <li><a href="/flagged/index.html">Flagged for Review</a></li>
+          <li><a href="/compliance/index.html">Compliance gate</a></li>
+          <li><a href="/about/editorial-policy.html">Editorial policy</a></li>
+          <li><a href="/about/how-we-make-money.html">How we make money</a></li>
+          <li><a href="/about/privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footergroup">
+        <h3>System</h3>
+        <ul>
+          <li><a href="/platform/index.html">Platform overview</a></li>
+          <li><a href="/platform/automation.html">Automation and the human gate</a></li>
+          <li><a href="/platform/metrics.html">Metrics that are actually measurable</a></li>
+          <li><a href="/platform/ledger.html">Campaign ledger (empty by design)</a></li>
+          <li><a href="/verification/research-log.html">Research log</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclosure">
+  <p><strong>Affiliate disclosure (repeated).</strong> As an Amazon Associate I earn from qualifying purchases. If you buy through a link on this page, this site may earn a commission. It does not change the price you pay.</p>
+  <p class="footer-disclosure__note">Product links on this site are marked <code>rel="sponsored"</code>. Prices, if a page ever shows one, must come from Amazon itself or from the Product Advertising API with the required timestamp — which is why no price appears in the HTML of this site.</p>
+</div>
+    <div class="colophon">
+      <p><strong>The Crisp Kitchen</strong> — An independent kitchen-appliance review desk. Product links are affiliate links; the reasoning behind every recommendation is published next to it.</p>
+      <p>Published by The Crisp Kitchen Editorial Desk. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. This site is not endorsed by or affiliated with Amazon.</p>
+      <p class="colophon__meta">Compiled 2026-11-20 · <a href="/verification/sources.html">Source register</a> · <a href="/flagged/index.html">Flagged for Review</a></p>
+    </div>
+  </div>
+</footer>
+<script src="/assets/js/site.js" defer></script>
+</body>
+</html>

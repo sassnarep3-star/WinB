@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /$
+Allow: /index.html
+Allow: /products/
+Allow: /guides/
+Allow: /decisions/
+Allow: /verification/
+Allow: /flagged/
+Allow: /compliance/
+Allow: /about/
+Allow: /platform/
+Disallow: /go/
+
+Sitemap: https://sassnarep3-star.github.io/WinB/sitemap.xml

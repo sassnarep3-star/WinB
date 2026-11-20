@@ -1,0 +1,13 @@
+{
+  "name": "the-crisp-kitchen",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Crisp Kitchen — a verified-product affiliate shop front. Static HTML generated from a source register.",
+  "scripts": {
+    "build": "node tools/build.js",
+    "check": "node tools/check.js",
+    "verify": "node tools/build.js && node tools/check.js",
+    "serve": "python3 -m http.server 8080 --bind 0.0.0.0"
+  },
+  "engines": { "node": ">=18" }
+}
