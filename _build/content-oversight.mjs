@@ -922,7 +922,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Suggestions' }],
   kicker: 'Review queue',
   title: 'Suggestions, and what has to be true before each one',
-  lede: 'Ten proposals, the nine questions blocking them, and the five things only the account owner can do. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it.',
+  lede: `${DECISION_QUEUE.length} proposals, ${BLOCKING_QUESTIONS.length} blocking questions, and the five actions only the account owner can take. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it.`,
   meta: `<div class="btn-row">
     ${badge(openItems.length + ' awaiting a decision', 'amber')}
     ${badge(doneItems.length + ' built in this cycle', 'green')}
@@ -940,7 +940,7 @@ ${pageHead({
       </div>
     </div>
     ${table({
-      caption: '<b>Ten proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.',
+      caption: `<b>${DECISION_QUEUE.length} proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.`,
       head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Risk', 'Blocked by', 'Status', ''],
       rows: [...openItems, ...doneItems].map(boardRow),
     })}
@@ -952,7 +952,7 @@ ${pageHead({
     <div class="sec-head">
       <div>
         <p class="eyebrow">Part two</p>
-        <h2>Nine questions that must be answered first</h2>
+        <h2>${BLOCKING_QUESTIONS.length} questions that must be answered first</h2>
         <p>Each is split into what is known — with where it is known from — what is missing, and the cheapest way to find the missing part. If a question cannot be answered from an official source, it says so instead of guessing.</p>
       </div>
     </div>
