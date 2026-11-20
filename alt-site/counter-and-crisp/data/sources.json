@@ -1,0 +1,102 @@
+{
+  "schema": "counter-and-crisp/sources-v1",
+  "verified_on": "2026-11-20",
+  "sources": [
+    {
+      "id": "SRC-01",
+      "org": "U.S. Federal Trade Commission",
+      "title": "FTC's Endorsement Guides: What People Are Asking",
+      "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+      "supports": "Disclosure duties for affiliate recommendations; endorsements must be honest and not misleading",
+      "how": "Direct fetch 2026-11-20"
+    },
+    {
+      "id": "SRC-02",
+      "org": "eCFR (GovInfo)",
+      "title": "16 CFR Part 255 \u2014 Guides Concerning the Use of Endorsements and Testimonials",
+      "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
+      "supports": "Regulatory text of the Endorsement Guides (rev. 2023), incl. 'clearly and conspicuously'",
+      "how": "Official link carried inside SRC-01 page content"
+    },
+    {
+      "id": "SRC-03",
+      "org": "USDA Food Safety and Inspection Service",
+      "title": "Safe Minimum Internal Temperature Chart",
+      "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart",
+      "supports": "Safe cooking temperatures quoted in the thermometer guides (e.g. poultry 165 \u00b0F, ground meats 160 \u00b0F, steaks 145 \u00b0F + 3 min rest)",
+      "how": "Direct fetch 2026-11-20 (page last updated Apr 14, 2025)"
+    },
+    {
+      "id": "SRC-04",
+      "org": "Amazon Associates",
+      "title": "Associates Program Policies",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "supports": "Qualifying-purchase session rules, Special Links definition, program requirements",
+      "how": "Direct fetch 2026-11-20 (page states 'Updated: April 14, 2026')"
+    },
+    {
+      "id": "SRC-05",
+      "org": "Amazon Associates",
+      "title": "Associates Program Operating Agreement",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "supports": "Required Associate-identification statement; agreement terms behind the Program Policies",
+      "how": "Official link carried inside SRC-04 policy text and nav"
+    },
+    {
+      "id": "SRC-06",
+      "org": "Amazon Associates Help",
+      "title": "Why do I have to identify myself as an Associate?",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GPXFHVYZMTGPUMPE",
+      "supports": "Exact required statement: \"As an Amazon Associate I earn from qualifying purchases.\" + link-level disclosure guidance",
+      "how": "Official help-page content confirmed 2026-11-20 (search-indexed copy of affiliate-program.amazon.com; direct fetch bot-limited)"
+    },
+    {
+      "id": "SRC-07",
+      "org": "Amazon Developer Documentation",
+      "title": "Glossary (VSK Fire TV) \u2014 ASIN",
+      "url": "https://developer.amazon.com/docs/video-skills-fire-tv-apps/glossary",
+      "supports": "ASIN definition: \"unique blocks of 10 letters and/or numbers that identify items\"",
+      "how": "Direct fetch 2026-11-20"
+    },
+    {
+      "id": "SRC-08",
+      "org": "sitemaps.org",
+      "title": "Sitemaps XML format",
+      "url": "https://www.sitemaps.org/protocol.html",
+      "supports": "Sitemap protocol used by sitemap.xml",
+      "how": "Direct fetch 2026-11-20"
+    },
+    {
+      "id": "SRC-09",
+      "org": "RSS Advisory Board",
+      "title": "RSS 2.0 Specification",
+      "url": "https://www.rssboard.org/rss-specification",
+      "supports": "Feed format used by feed.xml",
+      "how": "Direct fetch 2026-11-20"
+    },
+    {
+      "id": "SRC-10",
+      "org": "GitHub Docs",
+      "title": "GitHub Pages documentation",
+      "url": "https://docs.github.com/en/pages",
+      "supports": "Hosting/publishing behaviour of the live site",
+      "how": "Direct fetch 2026-11-20"
+    },
+    {
+      "id": "SRC-11",
+      "org": "U.S. Consumer Product Safety Commission",
+      "title": "Recalls & Product Safety Warnings",
+      "url": "https://www.cpsc.gov/Recalls",
+      "supports": "Recall-check step in the buyer checklists (searchable, includes an Air Fryer category)",
+      "how": "Direct fetch 2026-11-20"
+    },
+    {
+      "id": "SRC-12",
+      "org": "U.S. Federal Trade Commission",
+      "title": "Disclosures 101 for Social Media Influencers",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "supports": "Plain-language 'clear and conspicuous' disclosure guidance",
+      "how": "Official link carried inside SRC-01 page content"
+    }
+  ]
+}

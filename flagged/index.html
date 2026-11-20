@@ -56,7 +56,7 @@
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
     <span class="badge red">6 high</span>
-    <span class="badge amber">11 medium</span>
+    <span class="badge amber">12 medium</span>
     <span class="badge plain">3 low</span>
   </div>
   </div>
@@ -397,7 +397,7 @@
   </summary>
   <div class="body">
     <div><p class="mt-0" style="margin:0">On 2026-11-20 (UTC) the five supplied link.amazon short links were fetched again through a second retrieval path. Two of them (B04G1MEwY and B0c8moW59) reached the amazon.com home page instead of the product page recorded in the link resolution record. One (B02NbDxp3) returned HTTP 500 from the retrieval tool. Two (B00hJ57DV and B0f3GKalj) reached the ASINs recorded in the register. The cause is not known. It could be the retrieval client, a session or region effect, or a change in Amazon’s routing. This is an observation about how the links behaved on one check. It is not a finding that any link is invalid. The sandbox cannot reach amazon.com directly, so this check depended on a single tool.</p></div>
-    <div><dt>Evidence</dt><dd><ul><li>link.amazon/B04G1MEwY → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0CDY277D3)</li><li>link.amazon/B0c8moW59 → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0DHZTCNR5)</li><li>link.amazon/B02NbDxp3 → HTTP 500 from the retrieval tool (the earlier record says https://www.amazon.com/dp/B09B7SB46R)</li><li>link.amazon/B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&amp;btn_type=ss&amp;gaOptInStatus=true&amp;btn_ref=srctok-5756d38428f77669&amp;channelId=704&amp;plpRedirect=mhFallback&amp;th=1 (ASIN matches)</li><li>link.amazon/B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&amp;sbo=…&amp;btn_ref=srctok-5ed90c5aacfa7a7e&amp;channelId=500&amp;plpRedirect=mhFallback&amp;th=1 (ASIN matches)</li><li>No redirect observed on this check contains a tag= parameter.</li></ul></dd></div>
+    <div><dt>Evidence</dt><dd><ul><li>link.amazon/B04G1MEwY → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0CDY277D3)</li><li>link.amazon/B0c8moW59 → https://www.amazon.com/ (the earlier record says https://www.amazon.com/dp/B0DHZTCNR5)</li><li>link.amazon/B02NbDxp3 → HTTP 500 from the retrieval tool (the earlier record says https://www.amazon.com/dp/B09B7SB46R)</li><li>link.amazon/B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&amp;btn_type=ss&amp;gaOptInStatus=true&amp;btn_ref=srctok-5756d38428f77669&amp;channelId=704&amp;plpRedirect=mhFallback&amp;th=1 (ASIN matches)</li><li>link.amazon/B0f3GKalj → https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&amp;sbo=…&amp;btn_ref=srctok-5ed90c5aacfa7a7e&amp;channelId=500&amp;plpRedirect=mhFallback&amp;th=1 (ASIN matches)</li><li>No redirect observed on this check contains a tag= parameter.</li><li>Third retrieval, session arena-066803dd (2026-11-20, UTC): B04G1MEwY and B0c8moW59 again resolved to https://www.amazon.com/ (homepage); B02NbDxp3 resolved to https://www.amazon.com/dp/B09B7SB46R on this retrieval (no error). B00hJ57DV and B0f3GKalj resolved to their recorded ASINs. The two homepage results repeat across independent retrievals; the B02NbDxp3 result differs between retrievals. Cause unknown.</li></ul></dd></div>
     <div><dt>Official sources</dt><dd><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
     <div><dt>What the owner needs to do</dt><dd>Owner: open each of the five short links in a normal, signed-out browser and in the Associates link builder. Record where each lands, and whether each link is an enrolled Special Link (see FLG-001 and FLG-003). Until then the site publishes only the tagged /dp/ links built from the ASINs, and the short links are not used as money links.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing on the site. Attribution for the short links stays unknown.</dd></div>
@@ -485,6 +485,27 @@
     
     <div><dt>What the owner needs to do</dt><dd>Resolved by PR #37 (merged). No further action.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-021" >
+  <summary>
+    <span class="id">FLG-021</span>
+    <span class="ft">
+      <h3>Three specification values were shown that the listing text re-read on 2026-11-20 does not state</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">Re-reading the listings line by line found three values that had been presented as stated but cannot be matched to listing text in this session. (1) P02 Emeril: “Viewing window — Stated”. The About-this-item bullets say the interior light lets you “monitor food”; they do not state a viewing window. (2) P04 ThermoMaven: “Probes — 1”. Neither the title, the bullets nor the product-details table states a probe count; the figure came from the word “instant-read”. (3) P04 ThermoMaven: “Needs an app — No”. No app requirement is stated either way. The value has been blanked to “not stated” and the site no longer infers it. Also noted: the product-details table lists “1*AAA Battery” for P04, while the review-theme summary cited under FLG-014 says “AA battery”. The two are not reconciled and both are recorded.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>P02 / B09B7SB46R About this item: “Elegant French doors open with a single pull – interior light allows you to monitor food.” No viewing-window wording found in the bullets read.</li><li>P04 / B0DHZTCNR5 product-details table: “Included Components: 1*Meat Thermometer, 1*AAA Battery, 1*User Manual, 1*Calibration Certificate”. About this item: “instant-read thermometer … accurate temperature readings in just 1 second”.</li><li>Not checked this session: the full Product Description block for P02 and P04 (the chunks read did not reach it). If the owner or a later session finds a stated figure there, the blank can be filled with its quote and page reference.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)">Amazon.com — Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)</a><br><a href="https://www.amazon.com/dp/B0DHZTCNR5?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)">Amazon.com — Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.</dd></div>
+    <div><dt>Blocks</dt><dd></dd></div>
   </div>
 </details>
     <div class="callout mt-3">
