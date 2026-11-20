@@ -1670,6 +1670,17 @@ hypotheses that feed a design prompt, without touching any in-flight session's f
 | New page disclosure (R1/R13) | generated `design-brief/index.html` | Associates statement present twice; before first `<h1>` |
 | New page canonical / sitemap / feed | generated | canonical `/design-brief/`; present in `sitemap.xml` (1 route) and `feed.xml` (2 mentions) |
 
+**Build-tool updates (register gate and smoke seeds, owned by earlier sessions — same pattern those
+sessions used; logged per protocol).** The new canonical surface is a Counterwise editorial page, so it
+must be recognized as a sibling by the register gate rather than judged against the register build's
+class names:
+- `tools/check.cjs`: added `/design-brief/` to `SIBLING_GENERATION`, so the register gate treats it as
+  a sibling audited by `tools/verify.mjs` (R1–R11) and `tools/gate.mjs` (R11–R15) instead of applying
+  the register build's `class="disclosure"`/`class="footer-disclosure"` expectations and its blanket
+  `hands-on` ban. No other session's logic changed.
+- `tools/smoke.mjs`: added `/design-brief/` to the seed list so the deployed-path smoke test covers it.
+- `_build/core.mjs`: one footer link added (overlap with open PR #39; see the hand-off request above).
+
 **Irregularities:** none new. No price, rating, popularity/demand, search-volume, hands-on or
 traffic/conversion figure was added. Every topic is labelled an editorial hypothesis. The three paths
 and nine questions are suggestions only; nothing is implemented from them without an owner choice.

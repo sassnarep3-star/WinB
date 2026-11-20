@@ -34,6 +34,8 @@ const seeds = [
   `${BASE}/guides/air-fryer-leftovers.html`,
   `${BASE}/tools/`, `${BASE}/tools/capacity-worksheet.html`,
   `${BASE}/tools/cleanup-worksheet.html`, `${BASE}/tools/thermometer-calibration.html`,
+  /* S17 (session arena-91306b24): the Design Brief & Topic Lab surface */
+  `${BASE}/design-brief/`,
 ];
 
 for (const s of seeds) {

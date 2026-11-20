@@ -448,6 +448,15 @@ a.card:hover { box-shadow: var(--shadow); transform: translateY(-2px); border-co
 a.card:hover .read { color: var(--amber); }
 .card .read .arw { transition: transform .16s; display: inline-block; }
 a.card:hover .read .arw { transform: translateX(3px); }
+/* design-brief suggestion cards: prompt blocks and reveal controls */
+.card details summary { cursor: pointer; font-weight: 650; font-size: .8rem; color: var(--ink); }
+.card details[open] summary { margin-bottom: .6rem; }
+.card pre {
+  background: var(--paper-2); border: 1px solid var(--line); border-radius: 8px;
+  padding: .75rem .85rem; overflow: auto; font-family: var(--mono);
+  font-size: .78rem; line-height: 1.5; color: var(--ink); margin: 0 0 .55rem;
+}
+.card .spec-grid { margin-top: .85rem; }
 
 /* 4.5 the product card, with real imagery */
 .product-card { padding: 0; overflow: hidden; }
