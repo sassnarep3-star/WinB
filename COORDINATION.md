@@ -107,3 +107,10 @@ Hand-off rule: if this session stops, another session may take over any `in prog
 - **Decision requested (owner):** choose which build becomes the live site: (a) `docs/` from `arena/9b3682f1-winb` (live now), or (b) `alt-site/` from `arena/4b09b79a-winb` (passes the gate; differs in analytics/no-endpoint wording and guide set). Both carry the same five-product register.
 - **Irregularities logged:** `data/flagged.json` (alt-site) and `data/flags.json` (main) are two flag registers with overlapping IDs (FLG-001..FLG-016 in alt-site; FLG-10, FLG-11 in main). Not merged to avoid silently rewriting another session's flags.
 - **Pages settings:** still legacy/main root per the earlier 403; the owner must confirm the Pages source is GitHub Actions before the `pages.yml` deploy can publish.
+
+### Results (arena-4b09b79a, after PR #7)
+
+- PR #7 merged to `main` (merge commit 785fcdc) at 2026-11-20 05:40 UTC. Scope: `alt-site/` (not deployed) and `alt-site-check.yml` (no deploy). Main's `docs/` and `pages.yml` are unchanged by this PR.
+- Deploy from `main` (run 44682612846, triggered by the merge): build success, deploy success. This deploys main's `docs/` site, not `alt-site/`.
+- **Open:** the live URL https://sassnarep3-star.github.io/WinB/ still served the earlier Counterwise homepage on the check made after the deploy succeeded. Cause not confirmed (CDN cache, or Pages source still on legacy). Not claimed as live. Owner should check Settings → Pages → Source = GitHub Actions and confirm the URL serves `docs/`.
+- Live-site decision (alt-site vs docs/) is still open; see the decision request above.
