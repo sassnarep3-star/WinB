@@ -959,7 +959,7 @@ export function guidesIndex() {
     ${crumbs([{ href: '/', label: 'Home' }, { label: 'Guides' }])}
     <p class="kicker">The notebook</p>
     <h1>Guides, in the order you will need them</h1>
-    <p class="lede">${ALL_GUIDES.length} guides, each written to answer a question rather than to rank for a product name. The count is read from the build, because this line used to say “Eight pieces… five… three”, which was true of the first set and of nothing since: an archive page that miscounts its own contents is the first thing a returning reader notices.</p>
+    <p class="lede">${ALL_GUIDES.length} guides, each written to answer a question rather than to rank for a product name. The count is read from the build, because this line used to say “Eight pieces… five… three”, which was true of the first set and of nothing since. A count in prose is a claim the build cannot keep current, so it is not made here; the list below is the inventory.</p>
   </div>
 </section>
 
