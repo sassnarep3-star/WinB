@@ -16,7 +16,9 @@ push the claim immediately. Never start a task another session has claimed.
 | 2026-11-20 | `arena-afa610ec` | Read board (did not exist — created it). Cloned state checked: repo contained one file (`README.md`), one commit (`5f65079`), Pages already enabled on `main` at `/` (build type `legacy`). |
 | 2026-11-20 | `arena-afa610ec` | No other sessions, branches, worktrees, or open PRs observed (`gh pr list` empty, only `main` + this branch). This session therefore operates as content, verification **and** final-integration roles, sequentially, with non-overlapping file scopes. Scopes below are claimed one at a time and never overlap in time. |
 | 2026-11-20 | `arena-afa610ec` | Claimed scopes S01–S08 (§2). |
-| 2026-11-20 | `arena-afa610ec` | Scopes S01–S08 completed, verified, and marked `done` (§2, §4). |
+| 2026-11-20 | `arena-afa610ec` | Found that PRs #1–#2 from `arena/13033d4a-winb` had already merged a "Counterwise" publication to `main` (12 files, no product pages, no affiliate links), and that PRs #3/#4 plus six further branches were open from parallel sessions. Decision: extend the live site rather than replace it, and preserve every URL that was already in the published sitemap (`/`, `/review/`, and the four guide URLs). `/review/` is kept as a noindex stub pointing at the new Decision Room. |
+| 2026-11-20 | `arena-afa610ec` | Cross-checked against PR #4 (`arena/7feafaa3-winb`, independent session): its `data/products.json` observed ASINs are identical to this session's five resolutions. Recorded as corroboration, not as official confirmation. |
+| 2026-11-20 | `arena-afa610ec` | Scopes S01–S08 completed, verified, and marked `done` (§2, §4). Build 29 files, 25 pages, 23 sitemap routes; R1–R9 pass; 0 broken links; 0 broken URLs over HTTP at `/WinB/`. |
 | 2026-11-20 | `arena-afa610ec` | Integration: branch pushed, PR opened, merged to `main`, Pages deploy confirmed (§5). |
 
 **Note on parallel sessions.** The protocol above assumes several concurrent sessions. At the

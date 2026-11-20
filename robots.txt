@@ -1,0 +1,8 @@
+# Counterwise — https://sassnarep3-star.github.io/WinB/
+User-agent: *
+Allow: /
+
+# The legacy redirect stub is noindexed; it is listed so crawlers need not fetch it.
+Disallow: /review/index.html
+
+Sitemap: https://sassnarep3-star.github.io/WinB/sitemap.xml

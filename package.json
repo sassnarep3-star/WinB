@@ -1,0 +1,14 @@
+{
+  "name": "counterwise-winb",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Static Amazon Associates publication for the WinB repository.",
+  "scripts": {
+    "build": "node _build/build.mjs && node _build/make-images.mjs",
+    "verify": "node tools/verify.mjs",
+    "links": "node tools/linkcheck.mjs",
+    "check": "npm run build && npm run verify && npm run links",
+    "smoke": "BASE=http://localhost:3001/WinB node tools/smoke.mjs"
+  }
+}
