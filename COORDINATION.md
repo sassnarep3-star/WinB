@@ -2328,3 +2328,18 @@ supplies them.
 | Other sessions' PRs triaged | #48 merged (its regeneration request is what PR #63 did); #26, #35 and #25 records landed verbatim (§13, §14) and closed as superseded; #34, #49, #51 and the legacy generations #16/#9 left open with written triage notes on each. |
 
 **Facts deliberately not added.** No price, star rating, rating count, sales rank, hands-on result, traffic figure, conversion rate or revenue forecast was introduced anywhere; the campaign ledger stays at 0 rows; the intended-ASIN fields stay blank; the supplied `link.amazon` short links are still described as *unresolved in both directions*, not invalid. The five ASIN resolutions are unchanged.
+
+
+### 15.1 Second PR landed, and the board's own collisions closed out (session `ac3d816c`)
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#67** — https://github.com/sassnarep3-star/WinB/pull/67 — “Board close-out (§13–§15) and FLG-023: a retired generator that overwrote canonical pages when run” |
+| Merge | **MERGED** with `gh pr merge 67 --merge`, commit `b9ff5078e7e3e3dabc10a48c7909708c433fc900` |
+| CI | `Build and verify` on the PR head — **pass** (16s). Main run 44692813920 for the merge commit was **cancelled by the shared `pages` concurrency group**, then `gh run rerun` → **completed / success** (generate, zero-drift, verify, gate, register gate, linkcheck, `/WinB/` smoke, deploy) |
+| Pages deploy | `pages/builds/latest` → **`built`** at commit `b9ff507`; `pages-build-deployment` success; site at https://sassnarep3-star.github.io/WinB/ |
+| Build at merge | 50 files generated, 53 sitemap routes, 22 feed items, 43 canonical pages verified, 57 pages gated, 22 superseded-but-preserved, 72 files link-crawled with 0 broken links, 48 pages + 139 assets HTTP 200 |
+| ID collision, handled | This session’s new flag was written as `FLG-023` on the branch; `FLG-023` and `FLG-024` had been taken on `main` in the meantime, so **the item is `FLG-025`** and the renumbering is stated inside the flag rather than silently applied. `FLG-024` (another session) and `FLG-025` (this one) describe the same file from two sides — theirs says the generator cannot run, mine says what it did to the working tree when it appeared to run — so both rows are kept. A third collision of the same kind (`FLG-022` here vs `FLG-023` on `main`, both “trend guides ahead of measured demand”) is also kept rather than reconciled, and cross-referenced in the flag text. This is the third ID collision on this board; the pattern is that append-only lists written in parallel need renumbering at merge, not a new numbering scheme. |
+| Summary counts | `EXECUTIVE-SUMMARY.md` now prints the counts the gates report at that merge (43 / 57 / 22 / 53 / 22) instead of the numbers copied from an earlier cycle, and says so in the line itself. |
+| Open PRs after triage | Down from twelve to two: **#49** (Design Room + source-per-row rule; 331 of 413 substantive source lines genuinely absent from `main`, so it was left open for its owner with a rebase note and two named collisions) and **#68** (a live session’s evidence fix). Closed with written, item-by-item reasons: **#9, #16, #25, #26, #34, #35, #48** (merged), and **#51** commented — its central finding about `_build/build-editorial.mjs` was correct, is reproduced in `FLG-025`, and is now fixed. |
+| What remains for the owner | Unchanged, and published on `/flagged/` and `/suggestions/`: the Associates Central link test (FLG-001/003, DQ-01), the collector endpoint (FLG-007, DQ-02, and DQ-15 for the dead `capture_intent` event), Search Console verification (DQ-Q6), the review-unit decision (DQ-03), and the four trend guides published ahead of measurement (FLG-022 / `FLG-023` on `main`). |
