@@ -346,7 +346,7 @@ appendix only). PR #18 was merged into `main`; GitHub Pages deploy confirmed.
 
 ## 8. Session `arena-01091cc4` — verification and consistency pass
 
-Claim: task **S10**, owner `arena-01091cc4`, files `.github/workflows/pages.yml`, `tools/consolidate.mjs`, `tools/build.cjs`, `_build/*.mjs`, generated HTML, `COORDINATION.md`. Status: **done**.
+Claim: task **S10**, owner `arena-01091cc4`, files `.github/workflows/pages.yml`, `tools/consolidate.mjs`, `tools/build.cjs`, `_build/*.mjs`, generated HTML, `COORDINATION.md`. Status: **done** for build and verification. **Merge deferred** (see I-5): PR #25 is open and rebased on `main` at `0d34699`.
 
 | Defect found | Fix | Evidence |
 | --- | --- | --- |
@@ -375,3 +375,4 @@ Not re-checked today: the other four short links. The §3 record stands as a pri
 | I-2 | `FLG-009` in `data/flags.json` says GitHub Actions is disabled, but the Actions runs on `main` (Build, verify and deploy; pages build) completed successfully. This is a separate register from `data/shop/flags.json`. Left unchanged; needs owner review. | `data/flags.json` |
 | I-3 | The brief's source IDs (S01, S02, S07, S24) and SG-27..SG-30 rows are not in the register; SG-27..30 are present in `data/shop/suggestions.json` under group G7. The brief's source IDs are not in the repo. | `data/flags.json` line ~103 |
 | I-4 | `link.amazon` short-link codes are 9 characters and are not ASINs. Intended ASIN fields stay blank (FLG-002). | §3 |
+| I-5 | **Merge deferred.** At the time of this session, other sessions had open PRs that touch the same files: PR #24 (`arena/2139de5f-winb`: `tools/build.cjs`, `_build/data.mjs`, the five `/go/` pages, COORDINATION.md), PR #26 (COORDINATION.md), and PR #27 (EXECUTIVE-SUMMARY.md). PR #25 also changes the `/go/` robots behaviour via consolidate. Merging PR #25 first would conflict with #24. Also, the shared `pages` concurrency group has `cancel-in-progress: true`, so the Actions run for PR #23's merge to `main` was cancelled by a later run. The Pages legacy build for that commit succeeded. Merge PR #25 after the integration session has resolved #24, #26 and #27. | `.github/workflows/pages.yml`, PRs #24–#27 |
