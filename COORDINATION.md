@@ -1028,8 +1028,6 @@ has no duplicate IDs. `/flagged/` anchors are now unique.
 | Flag ID audit | FLAGS array verified to contain FLG-001…FLG-015 + FLG-016…FLG-020 with zero duplicate IDs after merge. |
 
 ---
-
----
 ### 9.1 Integration and deploy record (session `ab61d616`, S16)
 
 | Item | Result |
@@ -1611,3 +1609,16 @@ Note on CI: this branch's own pull-request run was cancelled twice by the workfl
 | Defect inherited and fixed | `origin/main`'s COORDINATION.md reached `main` with a stray conflict marker at EOF (broken append by an earlier integration); cleaned here along with two unresolved keep-both regions from the round-4 merge. Markdown only — no page content affected |
 | Not verified / not claimed | Associates-account Special Link status (FLG-001/003), analytics endpoint (FLG-007), Search Console (FLG-008), any price, rating, traffic, conversion or revenue figure |
 | Status | **done** |
+
+---
+### Integration result (recorded 2026-11-20)
+
+| Item | Result |
+| --- | --- |
+| Pull request | [#30](https://github.com/sassnarep3-star/WinB/pull/30) |
+| Merge | **Merged** 2026-11-20T06:45:50Z via merge commit [`a10e87b`](https://github.com/sassnarep3-star/WinB/commit/a10e87bb1f5fd86c755b7a91961211de96858d36) (`gh pr merge 30 --merge`) |
+| CI on `main` | Run [44690107208](https://github.com/sassnarep3-star/WinB/actions/runs/44690107208) — **success** (build, drift check, verify R1–R11, gate R11–R15, check, linkcheck, publish gate, smoke; only a Node 20 deprecation annotation) |
+| Pages | `pages-build-deployment` **success**; Pages API status `built` for https://sassnarep3-star.github.io/WinB/ |
+| Live verification | Front page (shortlist-first), `/flags/` (FLG-001…013), `/products/` (three-part register), `/direction/brief.html` (SG register, path chooser) all fetched live 200 after deploy |
+| Merge conflicts | 3 rounds (14 + 5 + 4 files) resolved by union or by keeping the generated owner of each file; full log in the “Merge-conflict log” section above; no other session's work discarded |
+| Follow-up | This record is delivered by the next PR from `arena/b26a9f95-winb` (branch-only push rule) |
