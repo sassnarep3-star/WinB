@@ -201,6 +201,8 @@ export const DECISION_QUEUE = [
     recommendation: 'Partially present already — pages carry "read 2026-11-20". The changelog is the missing half.',
     chooseIf: 'You will actually re-check quarterly.',
     notIf: 'You will not. An undated page is less embarrassing than a stale date.',
+    implemented: true,
+    note: `Shipped 2026-11-20. Every product page now carries an explicit “listing read” date and a change log of what moved between reads. The first entry matters: the ThermoMaven title gained a seasonal keyword phrase and lost a space in “NIST&NSF” between the register’s first read and this one, which is exactly the drift a dated page is supposed to expose.`
   },
   {
     id: 'DQ-11',
@@ -217,9 +219,11 @@ export const DECISION_QUEUE = [
     risk:
       'Specific counter examples age. The method must stay the product, not any model\'s dimensions, or the page goes stale.',
     dependsOn: ['DQ-Q2', 'DQ-Q10'],
-    recommendation: 'First trend topic to consider, after the 30-day baseline shows where readers arrive.',
+    recommendation: 'Ship it. This is the question a buyer is actually holding a tape measure for.',
     chooseIf: 'You can answer it with a tape measure and a kitchen, not a lab.',
     notIf: 'You want to declare which machine sells best — that claim is unsupported and this site does not make popularity claims.',
+    implemented: true,
+    note: `Published 2026-11-20 as /guides/counter-fit-test.html — “Air fryer or toaster oven: can a tape measure settle it before you buy?”. The method (depth, clear height, sink width, then the vent clearance in the manual) is the product of the page; no external dimensions are asserted, because none is stated on the three listings, and the guide says so.`,
   },
   {
     id: 'DQ-12',
@@ -236,9 +240,11 @@ export const DECISION_QUEUE = [
     risk:
       'Seasonal copy goes stale when the season passes. Date it and retire it, per SUG-09.',
     dependsOn: ['DQ-Q2', 'DQ-Q10'],
-    recommendation: 'Second trend topic; only if the temperature guide already shows guide_complete above its gate.',
+    recommendation: 'Ship it, but do not duplicate the existing roast guide — find the angle that is not already answered.',
     chooseIf: 'You can keep it to official numbers and two clear jobs.',
     notIf: 'You want to name a "best thermometer for Thanksgiving" — neither unit has been handled, so no such claim is permitted.',
+    implemented: true,
+    note: `Published 2026-11-20, reframed: the original wording duplicated the already-live holiday-roast guide, so the guide became /guides/wifi-probe-timing.html — “Do you need a connected probe for a holiday turkey, or just a thermometer?”. It answers the attention question rather than re-asking the tool-type question, and keeps to USDA FSIS figures plus the two listings’ own statements.`,
   },
   {
     id: 'DQ-13',
@@ -255,9 +261,11 @@ export const DECISION_QUEUE = [
     risk:
       'Readers may treat part counts as universal; the guide must say "check your own machine".',
     dependsOn: ['DQ-Q2', 'DQ-Q10'],
-    recommendation: 'Third trend topic, after DQ-11 or DQ-12 proves the cadence.',
+    recommendation: 'Ship it. Cleanup is the cost nobody prices, and it needs no lab.',
     chooseIf: 'You can count parts without claiming fit for any specific model.',
     notIf: 'You want to say which machine is "easiest to clean" — that is a hands-on claim this desk cannot make.',
+    implemented: true,
+    note: `Published 2026-11-20 as /guides/dishwasher-fit.html — “Dishwasher-safe does not mean dishwasher-sized: how do you check before you buy?”. It separates the coating claim from the fit question, names the two measurements that decide fit, and states plainly which accessory claims are blank in the data read here.`,
   },
   {
     id: 'DQ-14',
@@ -274,10 +282,31 @@ export const DECISION_QUEUE = [
     risk:
       'Slips into "best for families" popularity claims if unedited. The framing stays "if your meals look like this".',
     dependsOn: ['DQ-Q2', 'DQ-Q10'],
-    recommendation: 'Fourth trend topic; publish only one per fortnight per SUG-06.',
+    recommendation: 'Ship it after the others. Same shape, and the least original of the four.',
     chooseIf: 'You can keep the claim to meal shape, not to machine performance.',
     notIf: 'You want to promise sync finish or cooking times — those are listing features, not verified results.',
+    implemented: true,
+    note: `Published 2026-11-20 as /guides/two-basket-weeknight.html — “Two baskets or one: does your weeknight actually have two foods in it?”. Built on the listings’ own numbers (3 + 3 = 6 against one 8 qt), with “Sync Finish” labelled an undocumented feature rather than a result.`,
   },
+  {
+    id: 'DQ-15',
+    title: 'Fix the event contract: one of the five events can never fire, and the worksheets are invisible',
+    lane: 'Measurement',
+    ownerOnly: false,
+    whatChanges:
+      'assets/js/site.js listens for [data-capture] with an input[type=email]; no page in the built site carries that hook, because the email form was removed when no provider was wired. So the frozen five-event contract (page_view, product_view, outbound_click, guide_complete, capture_intent) contains one event that cannot fire, while the three printable worksheets — the one surface where a reader does real work — emit nothing. Replace capture_intent with a worksheet event (start on focus of the first field, complete on print), and update the worker allow-list, /analytics/README, /privacy/ and the Data Room events table in the same pass.',
+    why:
+      'An event contract that lists a dead name and misses a live tool teaches the wrong lesson twice: the ledger looks like it covers reader intent, and it does not cover the one action that shows a reader used a decision tool. Found while checking an audit note in a parallel session’s PR (#26), verified against the built files: grep for data-capture returns nothing in any HTML page; site.js:179 is the only emitter.',
+    cost: 'One hour, no infrastructure; the collector is still undeployed, so nothing breaks',
+    reversible: 'Yes — the name is only in the event allow-list until an endpoint exists',
+    riskLow: true,
+    risk:
+      'Renaming a frozen contract after publication makes any already-downloaded schema stale. Nothing is deployed, so nothing is stale yet — do this before DQ-02, not after.',
+    dependsOn: [],
+    recommendation: 'Do it before the collector is deployed. After deployment the name is load-bearing.',
+    chooseIf: 'You accept that an event nobody can trigger is worse than a renamed contract with zero history.',
+    notIf: 'You have already downloaded the schema somewhere and intend to reconcile against it — then keep the dead name and add a sixth event instead.',
+  }
 ];
 
 // ---------------------------------------------------------------------------
@@ -410,7 +439,7 @@ export const BLOCKING_QUESTIONS = [
     question: 'Which topic gets published next, and on what evidence?',
     unblocks: 'DQ-11, DQ-12, DQ-13, DQ-14',
     known:
-      'Four trendy topic suggestions are drafted as editorial hypotheses. None carries search-volume, popularity or sales evidence.',
+      'All four were published on 2026-11-20 as question-shaped guides, before any measured demand existed, and each is framed as method rather than popularity. The gap this question describes is unchanged: there is still no search-volume, popularity or sales evidence, and none was claimed by the guides.',
     missing:
       'Measured queries from Search Console or 30 days of page_view data (FLG-007), plus the owner\'s channel answer (Q-02).',
     howToFind:

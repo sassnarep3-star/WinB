@@ -83,7 +83,7 @@ export function masthead(active = '') {
     <a class="brand" href="/">counterwise<span>.</span><small>kitchen, chosen by question</small></a>
     <nav class="nav" aria-label="Main">
       ${links}
-      <a class="cta" href="/air-fryers/">Start with air fryers</a>
+      <a class="cta" href="/#chooser">Which one fits you? →</a>
     </nav>
   </div>
 </header>`;

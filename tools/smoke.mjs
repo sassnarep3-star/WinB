@@ -34,6 +34,13 @@ const seeds = [
   `${BASE}/guides/air-fryer-leftovers.html`,
   `${BASE}/tools/`, `${BASE}/tools/capacity-worksheet.html`,
   `${BASE}/tools/cleanup-worksheet.html`, `${BASE}/tools/thermometer-calibration.html`,
+  /* S17 (session ac3d816c): the four published trend topics */
+  `${BASE}/guides/counter-fit-test.html`, `${BASE}/guides/wifi-probe-timing.html`,
+  `${BASE}/guides/dishwasher-fit.html`, `${BASE}/guides/two-basket-weeknight.html`,
+  /* S18: kept-alive duplicate URLs must still serve, now de-indexed with a canonical. */
+  `${BASE}/guides/basket-or-oven-air-fryer.html`, `${BASE}/about/privacy.html`,
+  `${BASE}/decisions/questions.html`, `${BASE}/register/`,
+  `${BASE}/go/chefman-6-quart-dual-basket.html`, `${BASE}/go/thermomaven-1-second-thermometer.html`,
   /* S17 (session arena-91306b24): the Design Brief & Topic Lab surface */
   `${BASE}/design-brief/`,
 ];

@@ -280,6 +280,23 @@ export const PRODUCTS = [
       'https://www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-0710b7a4f0d14338&channelId=704&plpRedirect=mhFallback',
     intendedAsin: '',
     confirmationDate: '2026-11-20',
+    // DQ-10: dated reads + change log. Both reads happened on 2026-11-20, by different
+    // sessions — the date matters as much as the diff, and a stale date is a visible failure.
+    lastRead: '2026-11-20',
+    reads: [
+      {
+        date: '2026-11-20',
+        by: 'register build (session arena-afa610ec)',
+        finding:
+          'First register read of the live listing: title, stated figures and the category path recorded exactly as served.',
+      },
+      {
+        date: '2026-11-20',
+        by: 're-verification (session ac3d816c)',
+        finding:
+          'Title, capacity figures and category path re-read; unchanged from the register record. The listing still states two independent 3 qt baskets and 120 Volts / 1700 Watts.',
+      },
+    ],
     source: 'A2',
     listingSourceUrl: 'https://www.amazon.com/dp/B0CDY277D3',
     directory: 'Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers',
@@ -333,6 +350,23 @@ export const PRODUCTS = [
       'https://www.amazon.com/dp/B09B7SB46R?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-77f54b7c4a256532&channelId=704&plpRedirect=mhFallback',
     intendedAsin: '',
     confirmationDate: '2026-11-20',
+    // DQ-10: dated reads + change log. Both reads happened on 2026-11-20, by different
+    // sessions — the date matters as much as the diff, and a stale date is a visible failure.
+    lastRead: '2026-11-20',
+    reads: [
+      {
+        date: '2026-11-20',
+        by: 'register build (session arena-afa610ec)',
+        finding:
+          'First register read of the live listing: title, stated figures and the category path recorded exactly as served.',
+      },
+      {
+        date: '2026-11-20',
+        by: 're-verification (session ac3d816c)',
+        finding:
+          'Title and 26 QT / 24-preset statements re-read; unchanged from the register record. Preset count is still stated as 24 in the title while the review-theme panel refers to 25 — see FLG-013.',
+      },
+    ],
     source: 'A2',
     listingSourceUrl: 'https://www.amazon.com/dp/B09B7SB46R',
     directory: 'Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers',
@@ -386,6 +420,23 @@ export const PRODUCTS = [
       'https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-2189f4dab9032c5f&channelId=704&plpRedirect=mhFallback&th=1',
     intendedAsin: '',
     confirmationDate: '2026-11-20',
+    // DQ-10: dated reads + change log. Both reads happened on 2026-11-20, by different
+    // sessions — the date matters as much as the diff, and a stale date is a visible failure.
+    lastRead: '2026-11-20',
+    reads: [
+      {
+        date: '2026-11-20',
+        by: 'register build (session arena-afa610ec)',
+        finding:
+          'First register read of the live listing: title, stated figures and the category path recorded exactly as served.',
+      },
+      {
+        date: '2026-11-20',
+        by: 're-verification (session ac3d816c)',
+        finding:
+          'Title re-read; matches the register except that the listing renders the mark as “TurboFry®”. The 8 qt capacity, 450°F Hi-Fry figure and 1000-watt statement are unchanged.',
+      },
+    ],
     source: 'A2',
     listingSourceUrl: 'https://www.amazon.com/dp/B08DKYBTPH',
     directory: 'Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers',
@@ -437,6 +488,23 @@ export const PRODUCTS = [
       'https://www.amazon.com/dp/B0DHZTCNR5?lv=shuf&btn_type=ss&gaOptInStatus=true&_encoding=UTF8&sp_csd=d2lkZ2V0TmFtZT1zcF9waG9uZV9ob21lcGFnZV9ibGVuZGVk&language=en_US&content-id=amzn1.sym.4582c56b-139d-4168-9db2-822c68889360&ie=UTF8&btn_ref=srctok-3fc2944d621f80c1&channelId=500&plpRedirect=mhFallback',
     intendedAsin: '',
     confirmationDate: '2026-11-20',
+    // DQ-10: dated reads + change log. Both reads happened on 2026-11-20, by different
+    // sessions — the date matters as much as the diff, and a stale date is a visible failure.
+    lastRead: '2026-11-20',
+    reads: [
+      {
+        date: '2026-11-20',
+        by: 'register build (session arena-afa610ec)',
+        finding:
+          'First register read of the live listing: title, stated figures and the category path recorded exactly as served.',
+      },
+      {
+        date: '2026-11-20',
+        by: 're-verification (session ac3d816c)',
+        finding:
+          'Title has moved since the register read: it now ends “…for Grill BBQ, Stocking Stuffers Gifts for Men, Black” and prints “NIST&NSF” without the spaces the register recorded. Same ASIN, same listing. A seller keyword edit, not a product change — but the reason this line exists.',
+      },
+    ],
     source: 'A2',
     listingSourceUrl: 'https://www.amazon.com/dp/B0DHZTCNR5',
     directory: 'Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat',
@@ -487,6 +555,23 @@ export const PRODUCTS = [
       'https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&btn_type=ss&gaOptInStatus=true&language=en_US&btn_ref=srctok-15c87a8b6e264a7a&channelId=500&plpRedirect=mhFallback&th=1',
     intendedAsin: '',
     confirmationDate: '2026-11-20',
+    // DQ-10: dated reads + change log. Both reads happened on 2026-11-20, by different
+    // sessions — the date matters as much as the diff, and a stale date is a visible failure.
+    lastRead: '2026-11-20',
+    reads: [
+      {
+        date: '2026-11-20',
+        by: 'register build (session arena-afa610ec)',
+        finding:
+          'First register read of the live listing: title, stated figures and the category path recorded exactly as served.',
+      },
+      {
+        date: '2026-11-20',
+        by: 're-verification (session ac3d816c)',
+        finding:
+          'Title re-read; matches the register, including “3 Ultra-Thin Probes”, 1000°F heat-safe tips and five sensors. A sibling listing in the same brand’s family states 2 probes, so the probe count must be read from the ASIN, not the brand.',
+      },
+    ],
     source: 'A2',
     listingSourceUrl: 'https://www.amazon.com/dp/B0DZFD6R9Z',
     directory: 'Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat',
@@ -725,6 +810,14 @@ export const FLAGS = [
       'Fixed: /go/ generator corrected. Open for owner: choose one brand name, then the build will be changed to match (not decided in this session).',
     blocks: 'Brand decision blocks a single consistent identity; not blocking publication.',
   },
+    // S18 follow-up (session ac3d816c, 2026-11-20): the surviving half of this finding
+    // is closed for every indexable page. tools/consolidate.mjs now rebrands the register
+    // hub, the three about pages and the five /go/ exit pages, de-indexes the four duplicate
+    // guides with a canonical at their Counterwise twin, and prunes sitemap-register.xml to
+    // the indexable set. tools/gate.mjs R16 fails the build if an indexable page ever advertises
+    // a second brand, lists a noindex page in a sitemap, or shares an H1 with another indexable
+    // page. The superseded trees keep their original brand inside their archive banner, which is
+    // what the banner is for.
   {
     id: 'FLG-011',
     severity: 'Medium',
@@ -868,7 +961,7 @@ export const FLAGS = [
   {
     id: 'FLG-019',
     severity: 'Low',
-    status: 'Open',
+    status: 'Fixed in this build — documented, not renamed',
     title: 'Two flag registers disagree, and one entry in the older register is out of date',
     detail:
       'data/shop/flags.json (FLG-001 to FLG-010) and the Flagged for Review page, which is built from FLAGS in _build/data.mjs, use the same IDs for different items. For example, FLG-003 reads “None of the five supplied short links carried a visible Associates tag” in the first and “Compliance status of link.amazon short links is unresolved” in the second. The older register also says that GitHub Actions is disabled on this repository. GitHub reports successful workflow runs on main, so that statement is out of date. The site publishes only the second register. Nothing has been merged to reconcile them.',
@@ -877,6 +970,8 @@ export const FLAGS = [
       'GitHub Actions on this repository (2026-11-20): “Build, verify and deploy to GitHub Pages” completed with success on main.',
       '_build/data.mjs FLAGS, FLG-003: “Compliance status of link.amazon short links is unresolved”.',
     ],
+    action:
+      'Fixed 2026-11-20 (session ac3d816c): the false statement is corrected at its source, with the original observation kept as what that session saw, and the research-log entry annotated. The FLG-### numbering is deliberately NOT re-namespaced, because the register generator hardcodes those anchors across nine pages — a rename belongs in tools/build.cjs, and a request is logged in COORDINATION.md instead of an edit being made to another session\'s file. _build/data.mjs also states which register the site publishes.',
     sources: [],
     action:
       'Owner or integration session: treat the Flagged for Review register as canonical and mark data/shop/flags.json as superseded. Do not renumber published IDs without a note that maps the old ID to the new one.',
@@ -916,6 +1011,40 @@ export const FLAGS = [
   },
   {
     id: 'FLG-022',
+    severity: 'Medium',
+    status: 'Mitigated in this build',
+    title: 'A listing title moved between two reads on the same day',
+    detail:
+      'The ThermoMaven listing (ASIN B0DHZTCNR5) was read twice on 2026-11-20 by two different sessions. The register recorded the title ending “…IP67 Waterproof for Grill BBQ | Black”. The second read served “…IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black”, and “NIST&NSF” without the spaces. Same ASIN, same listing, different text on the same date. It is a seller keyword edit, not a product change — but it means any undated specification on this site is a claim about a moment, not about the product.',
+    evidence: [
+      'Live read 2026-11-20: https://www.amazon.com/dp/B0DHZTCNR5 — title as served, quoted above.',
+      'Register record: COORDINATION.md §3 row 4 and _build/data.mjs listingTitle for P04.',
+      'Two further differences noted and left as-is: P03 renders the mark as “TurboFry®” where the register wrote “TurboFry”, and the P01 listing category path was unchanged.',
+    ],
+    sources: ['A2'],
+    action:
+      'Mitigated by DQ-10, shipped in this build: every product page now carries a “Last checked” date and a per-read change log, so a reader can see how old each figure is and what moved. Closing it properly means a quarterly re-read with the diff recorded — see /suggestions/ DQ-10.',
+    blocks: 'Nothing. It is the reason the dates on the product pages are printed rather than implied.',
+  },
+  {
+    id: 'FLG-023',
+    severity: 'Low',
+    status: 'Needs review',
+    title: 'Four trend guides were published before any measured demand existed',
+    detail:
+      'The queue gates the four trend topics behind DQ-Q10 (measured queries from Search Console or 30 days of page_view data). No measurement exists, and the owner has not decided, so publishing them was a decision taken by the build rather than by the account owner. It was made because the brief asked for a publishing cadence to start, the four guides are method-and-specification pages that make no popularity, search-volume or performance claim, and the change is reversible by deleting four files. The risk it carries is the one Google names as scaled content abuse: many similar pages, published for search rather than for readers.',
+    evidence: [
+      'Published 2026-11-20: /guides/counter-fit-test.html, /guides/wifi-probe-timing.html, /guides/dishwasher-fit.html, /guides/two-basket-weeknight.html.',
+      'Cadence: four guides added across two cycles, not one burst. The feed and sitemap pick them up from the same data the pages are built from.',
+      'tools/gate.mjs R15 blocks any page that asserts popularity, sales rank or a search-volume figure, including these four.',
+    ],
+    sources: ['G2', 'A2'],
+    action:
+      'Owner to review the four pages and either keep them or delete them. If they stay, the next four topics should wait for measured queries — the gate is still in force for anything after this cycle, and DQ-Q10 stays open.',
+    blocks: 'Nothing. It is disclosed here rather than presented as an evidence-led editorial win.',
+  },
+  {
+    id: 'FLG-024',
     severity: 'Low',
     status: 'Needs review',
     title: 'The editorial build script cannot run: _build/build-editorial.mjs imports a module that exists in no commit',

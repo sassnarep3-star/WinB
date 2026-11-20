@@ -669,6 +669,22 @@ export function productPage(p) {
         <p class="tiny faint mt-1">Source: <a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon listing, ASIN ${esc(p.asin)}</a>, read ${esc(p.confirmationDate)}. Category path observed: ${esc(p.directory)}.</p>
 
         ${
+          // DQ-10: dated reads and a change log. A specification snapshot that never
+          // admits its own date is indistinguishable from a claim of current fact.
+          (p.reads || []).length
+            ? `<div class="callout mt-2">
+            <h4>Last checked ${esc(p.lastRead)}</h4>
+            <p class="tiny faint" style="margin:.25rem 0 .5rem">Specifications here are a snapshot of one reading of one listing, not a subscription. What each read found:</p>
+            <ul class="tiny" style="margin:0;padding-left:1.1rem">${p.reads
+                .map(
+                  (r) => `<li style="margin-bottom:.35rem"><span class="mono">${esc(r.date)}</span> — ${esc(r.by)}. ${esc(r.finding)}</li>`
+                )
+                .join('\n')}</ul>
+          </div>`
+            : ''
+        }
+
+        ${
           p.arithmetic.length
             ? `<div class="prose mt-4">
           <h2>Where a number needed checking</h2>

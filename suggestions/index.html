@@ -41,7 +41,7 @@
     <a class="brand" href=".././">counterwise<span>.</span><small>kitchen, chosen by question</small></a>
     <nav class="nav" aria-label="Main">
       <a href="../reviews/">The five picks</a><a href="../air-fryers/">Air fryers</a><a href="../thermometers/">Thermometers</a><a href="../compare/">Compare</a><a href="../guides/">Guides</a>
-      <a class="cta" href="../air-fryers/">Start with air fryers</a>
+      <a class="cta" href="../#chooser">Which one fits you? →</a>
     </nav>
   </div>
 </header>
@@ -53,10 +53,10 @@
     <nav class="crumbs" aria-label="Breadcrumb"><a href=".././">Home</a><span class="sp">/</span><span aria-current="page">Suggestions</span></nav>
     <p class="kicker">Review queue</p>
     <h1>Suggestions, and what has to be true before each one</h1>
-    <p class="lede">14 proposals, 10 blocking questions, and the five actions only the account owner can take. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it. <b>This page is the decision board:</b> one row per proposal with its cost, reversibility and failure mode. The <a href="../decisions/">Decision Room</a> holds the underlying <code>SUG</code> case files, the named options A/B/C behind each one, and the questions split into known, missing and how-to-find.</p>
+    <p class="lede">15 proposals, 10 blocking questions, and the five actions only the account owner can take. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it. <b>This page is the decision board:</b> one row per proposal with its cost, reversibility and failure mode. The <a href="../decisions/">Decision Room</a> holds the underlying <code>SUG</code> case files, the named options A/B/C behind each one, and the questions split into known, missing and how-to-find.</p>
     <div class="btn-row">
-    <span class="badge amber">12 awaiting a decision</span>
-    <span class="badge green">2 built in this cycle</span>
+    <span class="badge amber">8 awaiting a decision</span>
+    <span class="badge green">7 built in this cycle</span>
     <span class="badge plain">10 blocking questions</span>
   </div>
   </div>
@@ -74,8 +74,8 @@
     
 <div class="table-wrap">
   <table>
-    <caption><b>14 proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.</caption>
-    <thead><tr><th scope="col">ID</th><th scope="col">Proposal</th><th scope="col">Cost</th><th scope="col">Reversible?</th><th scope="col">Risk</th><th scope="col">Blocked by</th><th scope="col">Status</th><th scope="col"></th></tr></thead>
+    <caption><b>15 proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.</caption>
+    <thead><tr><th scope="col">ID</th><th scope="col">Proposal</th><th scope="col">Cost</th><th scope="col">Reversible?</th><th scope="col">Cost of being wrong</th><th scope="col">Blocked by</th><th scope="col">Status</th><th scope="col"></th></tr></thead>
     <tbody><tr>
     <td class="mono tiny">DQ-01</td>
     <td><b>Confirm the five supplied short links credit the account</b><br><span class="tiny muted">Revenue integrity</span></td>
@@ -140,50 +140,14 @@
     <td><span class="badge plain">Awaiting decision</span></td>
     <td class="tiny"><a href="#DQ-08">Read the case →</a></td>
   </tr><tr>
-    <td class="mono tiny">DQ-10</td>
-    <td><b>Add a visible &quot;last checked&quot; date per product and a change log</b><br><span class="tiny muted">Trust</span></td>
-    <td class="tiny">Small build change; ongoing re-checks</td>
-    <td class="tiny">Yes</td>
+    <td class="mono tiny">DQ-15</td>
+    <td><b>Fix the event contract: one of the five events can never fire, and the worksheets are invisible</b><br><span class="tiny muted">Measurement</span></td>
+    <td class="tiny">One hour, no infrastructure; the collector is still undeployed, so nothing breaks</td>
+    <td class="tiny">Yes — the name is only in the event allow-list until an endpoint exists</td>
     <td><span class="badge green">Yes</span></td>
     <td class="tiny">—</td>
     <td><span class="badge plain">Awaiting decision</span></td>
-    <td class="tiny"><a href="#DQ-10">Read the case →</a></td>
-  </tr><tr>
-    <td class="mono tiny">DQ-11</td>
-    <td><b>Air fryer or oven? The five-minute counter test that picks before you buy</b><br><span class="tiny muted">Content — trend topic</span></td>
-    <td class="tiny">1–2 days of writing</td>
-    <td class="tiny">Yes — unpublish the guide</td>
-    <td><span class="badge green">Yes</span></td>
-    <td class="tiny"><a href="#DQ-Q2">DQ-Q2</a> <a href="#DQ-Q10">DQ-Q10</a></td>
-    <td><span class="badge plain">Awaiting decision</span></td>
-    <td class="tiny"><a href="#DQ-11">Read the case →</a></td>
-  </tr><tr>
-    <td class="mono tiny">DQ-12</td>
-    <td><b>Instant-read or leave-in? Which thermometer Thanksgiving actually needs</b><br><span class="tiny muted">Content — trend topic</span></td>
-    <td class="tiny">1 day of writing</td>
-    <td class="tiny">Yes — unpublish the guide</td>
-    <td><span class="badge green">Yes</span></td>
-    <td class="tiny"><a href="#DQ-Q2">DQ-Q2</a> <a href="#DQ-Q10">DQ-Q10</a></td>
-    <td><span class="badge plain">Awaiting decision</span></td>
-    <td class="tiny"><a href="#DQ-12">Read the case →</a></td>
-  </tr><tr>
-    <td class="mono tiny">DQ-13</td>
-    <td><b>Dishwasher-safe does not mean dishwasher-sized: the air-fryer cleanup test</b><br><span class="tiny muted">Content — trend topic</span></td>
-    <td class="tiny">1 day of writing</td>
-    <td class="tiny">Yes — unpublish the guide</td>
-    <td><span class="badge green">Yes</span></td>
-    <td class="tiny"><a href="#DQ-Q2">DQ-Q2</a> <a href="#DQ-Q10">DQ-Q10</a></td>
-    <td><span class="badge plain">Awaiting decision</span></td>
-    <td class="tiny"><a href="#DQ-13">Read the case →</a></td>
-  </tr><tr>
-    <td class="mono tiny">DQ-14</td>
-    <td><b>Two baskets or one: the weeknight meal that makes a dual-basket worth it</b><br><span class="tiny muted">Content — trend topic</span></td>
-    <td class="tiny">1 day of writing</td>
-    <td class="tiny">Yes — unpublish the guide</td>
-    <td><span class="badge green">Yes</span></td>
-    <td class="tiny"><a href="#DQ-Q2">DQ-Q2</a> <a href="#DQ-Q10">DQ-Q10</a></td>
-    <td><span class="badge plain">Awaiting decision</span></td>
-    <td class="tiny"><a href="#DQ-14">Read the case →</a></td>
+    <td class="tiny"><a href="#DQ-15">Read the case →</a></td>
   </tr><tr>
     <td class="mono tiny">DQ-04</td>
     <td><b>Ship the comparison table as the primary landing surface</b><br><span class="tiny muted">Conversion</span></td>
@@ -202,6 +166,51 @@
     <td class="tiny"><a href="#Q-07">Q-07</a></td>
     <td><span class="badge green">Built</span></td>
     <td class="tiny"><a href="#DQ-09">Read the case →</a></td>
+  </tr><tr>
+    <td class="mono tiny">DQ-10</td>
+    <td><b>Add a visible &quot;last checked&quot; date per product and a change log</b><br><span class="tiny muted">Trust</span></td>
+    <td class="tiny">Small build change; ongoing re-checks</td>
+    <td class="tiny">Yes</td>
+    <td><span class="badge green">Yes</span></td>
+    <td class="tiny">—</td>
+    <td><span class="badge green">Built</span></td>
+    <td class="tiny"><a href="#DQ-10">Read the case →</a></td>
+  </tr><tr>
+    <td class="mono tiny">DQ-11</td>
+    <td><b>Air fryer or oven? The five-minute counter test that picks before you buy</b><br><span class="tiny muted">Content — trend topic</span></td>
+    <td class="tiny">1–2 days of writing</td>
+    <td class="tiny">Yes — unpublish the guide</td>
+    <td><span class="badge green">Yes</span></td>
+    <td class="tiny"><a href="#DQ-Q2">DQ-Q2</a> <a href="#DQ-Q10">DQ-Q10</a></td>
+    <td><span class="badge green">Built</span></td>
+    <td class="tiny"><a href="#DQ-11">Read the case →</a></td>
+  </tr><tr>
+    <td class="mono tiny">DQ-12</td>
+    <td><b>Instant-read or leave-in? Which thermometer Thanksgiving actually needs</b><br><span class="tiny muted">Content — trend topic</span></td>
+    <td class="tiny">1 day of writing</td>
+    <td class="tiny">Yes — unpublish the guide</td>
+    <td><span class="badge green">Yes</span></td>
+    <td class="tiny"><a href="#DQ-Q2">DQ-Q2</a> <a href="#DQ-Q10">DQ-Q10</a></td>
+    <td><span class="badge green">Built</span></td>
+    <td class="tiny"><a href="#DQ-12">Read the case →</a></td>
+  </tr><tr>
+    <td class="mono tiny">DQ-13</td>
+    <td><b>Dishwasher-safe does not mean dishwasher-sized: the air-fryer cleanup test</b><br><span class="tiny muted">Content — trend topic</span></td>
+    <td class="tiny">1 day of writing</td>
+    <td class="tiny">Yes — unpublish the guide</td>
+    <td><span class="badge green">Yes</span></td>
+    <td class="tiny"><a href="#DQ-Q2">DQ-Q2</a> <a href="#DQ-Q10">DQ-Q10</a></td>
+    <td><span class="badge green">Built</span></td>
+    <td class="tiny"><a href="#DQ-13">Read the case →</a></td>
+  </tr><tr>
+    <td class="mono tiny">DQ-14</td>
+    <td><b>Two baskets or one: the weeknight meal that makes a dual-basket worth it</b><br><span class="tiny muted">Content — trend topic</span></td>
+    <td class="tiny">1 day of writing</td>
+    <td class="tiny">Yes — unpublish the guide</td>
+    <td><span class="badge green">Yes</span></td>
+    <td class="tiny"><a href="#DQ-Q2">DQ-Q2</a> <a href="#DQ-Q10">DQ-Q10</a></td>
+    <td><span class="badge green">Built</span></td>
+    <td class="tiny"><a href="#DQ-14">Read the case →</a></td>
   </tr></tbody>
   </table>
 </div>
@@ -370,7 +379,7 @@
   </div>
   <dl>
     <dt>Unblocks</dt><dd>DQ-11, DQ-12, DQ-13, DQ-14</dd>
-    <dt>What is known</dt><dd>Four trendy topic suggestions are drafted as editorial hypotheses. None carries search-volume, popularity or sales evidence.</dd>
+    <dt>What is known</dt><dd>All four were published on 2026-11-20 as question-shaped guides, before any measured demand existed, and each is framed as method rather than popularity. The gap this question describes is unchanged: there is still no search-volume, popularity or sales evidence, and none was claimed by the guides.</dd>
     <dt>What is missing</dt><dd class="q-missing">Measured queries from Search Console or 30 days of page_view data (FLG-007), plus the owner's channel answer (Q-02).</dd>
     <dt>How to find out</dt><dd>Deploy the collector (DQ-02), verify Search Console (DQ-Q6), wait one cycle, then let measured queries pick. Until then every trendy topic stays a hypothesis.</dd>
     <dt>Who can answer</dt><dd>The account owner, after measurement exists</dd>
@@ -430,6 +439,7 @@
     <dt>Choose it if</dt><dd>Always. There is no version of this that should wait.</dd>
     <dt>Do not choose it if</dt><dd>You no longer intend to run the Associates account.</dd>
     <dt>Blocked by</dt><dd><a href="#Q-01">Q-01</a></dd>
+    
     <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
   </dl>
 </article>
@@ -452,6 +462,7 @@
     <dt>Choose it if</dt><dd>You want the next content decision to be based on anything at all.</dd>
     <dt>Do not choose it if</dt><dd>You would rather not run any infrastructure; in that case delete the promise from the Data Room rather than leaving it aspirational.</dd>
     <dt>Blocked by</dt><dd><a href="#Q-04">Q-04</a></dd>
+    
     <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
   </dl>
 </article>
@@ -474,6 +485,7 @@
     <dt>Choose it if</dt><dd>You can absorb the cost of one returned-or-kept appliance.</dd>
     <dt>Do not choose it if</dt><dd>You cannot publish a photograph of the actual unit — then it is not a first-hand review and must not be labelled one.</dd>
     <dt>Blocked by</dt><dd><a href="#Q-03">Q-03</a> · <a href="#Q-05">Q-05</a></dd>
+    
     <dt>How much it costs to be wrong</dt><dd><span class="badge amber">Not free — money spent, a claim published, or an obligation accepted</span></dd>
   </dl>
 </article>
@@ -496,6 +508,7 @@
     <dt>Choose it if</dt><dd>You can write one honest guide in a fortnight.</dd>
     <dt>Do not choose it if</dt><dd>You would rather publish only when a product changes. Then remove the feed promise instead of missing it.</dd>
     <dt>Blocked by</dt><dd><a href="#Q-06">Q-06</a> · <a href="#Q-08">Q-08</a></dd>
+    
     <dt>How much it costs to be wrong</dt><dd><span class="badge amber">Not free — money spent, a claim published, or an obligation accepted</span></dd>
   </dl>
 </article>
@@ -518,6 +531,7 @@
     <dt>Choose it if</dt><dd>The five products have measurable click-through and you have the links in hand.</dd>
     <dt>Do not choose it if</dt><dd>You are adding products to feel busier.</dd>
     <dt>Blocked by</dt><dd><a href="#Q-09">Q-09</a></dd>
+    
     <dt>How much it costs to be wrong</dt><dd><span class="badge amber">Not free — money spent, a claim published, or an obligation accepted</span></dd>
   </dl>
 </article>
@@ -540,6 +554,7 @@
     <dt>Choose it if</dt><dd>You agree the site currently reads as an audit rather than a shop.</dd>
     <dt>Do not choose it if</dt><dd>You are editing near the disclosure strip. That is the one line that does not move.</dd>
     <dt>Blocked by</dt><dd>Nothing</dd>
+    
     <dt>How much it costs to be wrong</dt><dd><span class="badge amber">Not free — money spent, a claim published, or an obligation accepted</span></dd>
   </dl>
 </article>
@@ -562,6 +577,88 @@
     <dt>Choose it if</dt><dd>You have Associates Central access.</dd>
     <dt>Do not choose it if</dt><dd>n/a</dd>
     <dt>Blocked by</dt><dd>Nothing</dd>
+    
+    <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
+  </dl>
+</article>
+
+<article class="dec" id="DQ-15">
+  <div class="dh">
+    <span class="pri">DQ-15</span>
+    <h3>Fix the event contract: one of the five events can never fire, and the worksheets are invisible</h3>
+    <span class="badge plain">Measurement</span>
+    <span class="badge green">Any editor</span>
+    
+  </div>
+  <div class="rec"><b>Recommendation</b>Do it before the collector is deployed. After deployment the name is load-bearing.</div>
+  <dl>
+    <dt>What changes</dt><dd>assets/js/site.js listens for [data-capture] with an input[type=email]; no page in the built site carries that hook, because the email form was removed when no provider was wired. So the frozen five-event contract (page_view, product_view, outbound_click, guide_complete, capture_intent) contains one event that cannot fire, while the three printable worksheets — the one surface where a reader does real work — emit nothing. Replace capture_intent with a worksheet event (start on focus of the first field, complete on print), and update the worker allow-list, /analytics/README, /privacy/ and the Data Room events table in the same pass.</dd>
+    <dt>Why it matters</dt><dd>An event contract that lists a dead name and misses a live tool teaches the wrong lesson twice: the ledger looks like it covers reader intent, and it does not cover the one action that shows a reader used a decision tool. Found while checking an audit note in a parallel session’s PR (#26), verified against the built files: grep for data-capture returns nothing in any HTML page; site.js:179 is the only emitter.</dd>
+    <dt>Cost</dt><dd>One hour, no infrastructure; the collector is still undeployed, so nothing breaks</dd>
+    <dt>Reversible</dt><dd>Yes — the name is only in the event allow-list until an endpoint exists</dd>
+    <dt>If it goes wrong</dt><dd>Renaming a frozen contract after publication makes any already-downloaded schema stale. Nothing is deployed, so nothing is stale yet — do this before DQ-02, not after.</dd>
+    <dt>Choose it if</dt><dd>You accept that an event nobody can trigger is worse than a renamed contract with zero history.</dd>
+    <dt>Do not choose it if</dt><dd>You have already downloaded the schema somewhere and intend to reconcile against it — then keep the dead name and add a sixth event instead.</dd>
+    <dt>Blocked by</dt><dd>Nothing</dd>
+    
+    <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
+  </dl>
+</article>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part five</p>
+        <h2>Already decided, and what happened</h2>
+        <p>The same case file, kept readable after the decision, with an <b>Outcome</b> line naming what shipped and where. A queue that only shows open items teaches nobody what the last choice cost.</p>
+      </div>
+    </div>
+    
+<article class="dec" id="DQ-04">
+  <div class="dh">
+    <span class="pri">DQ-04</span>
+    <h3>Ship the comparison table as the primary landing surface</h3>
+    <span class="badge plain">Conversion</span>
+    <span class="badge green">Any editor</span>
+    <span class="badge green">Built in this cycle</span>
+  </div>
+  <div class="rec"><b>Recommendation</b>Shipped. Review it before adding more products to it.</div>
+  <dl>
+    <dt>What changes</dt><dd>Already partly done in this build: the front page now opens with five situations, and /compare/ carries wattage, heat range and the weakest review theme per product.</dd>
+    <dt>Why it matters</dt><dd>Most buying traffic in a five-product category arrives with a shortlist already in mind. A decision table answers that faster than five separate essays.</dd>
+    <dt>Cost</dt><dd>Done</dd>
+    <dt>Reversible</dt><dd>Yes</dd>
+    <dt>If it goes wrong</dt><dd>Tables do not rank on their own; they need the question-shaped guides behind them.</dd>
+    <dt>Choose it if</dt><dd>n/a — already in the build.</dd>
+    <dt>Do not choose it if</dt><dd>n/a</dd>
+    <dt>Blocked by</dt><dd>Nothing</dd>
+    
+    <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
+  </dl>
+</article>
+
+<article class="dec" id="DQ-09">
+  <div class="dh">
+    <span class="pri">DQ-09</span>
+    <h3>Wire the email list, or remove the promise entirely</h3>
+    <span class="badge plain">Reader capture</span>
+    <span class="badge amber">Owner only</span>
+    <span class="badge green">Built in this cycle</span>
+  </div>
+  <div class="rec"><b>Recommendation</b>Resolved in this build by removing the form. Revisit only when a provider and a privacy notice both exist.</div>
+  <dl>
+    <dt>What changes</dt><dd>Either a provider is named and the address is actually stored, or the capture box disappears and the RSS feed is the only follow path — which is what this build now does.</dd>
+    <dt>Why it matters</dt><dd>A form that collects an address and discards it is worse than no form. This build took the second path: no form, a real feed, no promise.</dd>
+    <dt>Cost</dt><dd>Decision only; the build already reflects the &quot;no list&quot; branch</dd>
+    <dt>Reversible</dt><dd>Yes</dd>
+    <dt>If it goes wrong</dt><dd>If a provider is added later, a privacy notice update is mandatory before the first address is stored.</dd>
+    <dt>Choose it if</dt><dd>You want a list badly enough to run a provider.</dd>
+    <dt>Do not choose it if</dt><dd>You would rather ship a feed and no obligation. Current state.</dd>
+    <dt>Blocked by</dt><dd><a href="#Q-07">Q-07</a></dd>
+    
     <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
   </dl>
 </article>
@@ -572,7 +669,7 @@
     <h3>Add a visible &quot;last checked&quot; date per product and a change log</h3>
     <span class="badge plain">Trust</span>
     <span class="badge green">Any editor</span>
-    
+    <span class="badge green">Built in this cycle</span>
   </div>
   <div class="rec"><b>Recommendation</b>Partially present already — pages carry &quot;read 2026-11-20&quot;. The changelog is the missing half.</div>
   <dl>
@@ -584,6 +681,7 @@
     <dt>Choose it if</dt><dd>You will actually re-check quarterly.</dd>
     <dt>Do not choose it if</dt><dd>You will not. An undated page is less embarrassing than a stale date.</dd>
     <dt>Blocked by</dt><dd>Nothing</dd>
+    <dt>Outcome</dt><dd>Shipped 2026-11-20. Every product page now carries an explicit “listing read” date and a change log of what moved between reads. The first entry matters: the ThermoMaven title gained a seasonal keyword phrase and lost a space in “NIST&amp;NSF” between the register’s first read and this one, which is exactly the drift a dated page is supposed to expose.</dd>
     <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
   </dl>
 </article>
@@ -594,9 +692,9 @@
     <h3>Air fryer or oven? The five-minute counter test that picks before you buy</h3>
     <span class="badge plain">Content — trend topic</span>
     <span class="badge green">Any editor</span>
-    
+    <span class="badge green">Built in this cycle</span>
   </div>
-  <div class="rec"><b>Recommendation</b>First trend topic to consider, after the 30-day baseline shows where readers arrive.</div>
+  <div class="rec"><b>Recommendation</b>Ship it. This is the question a buyer is actually holding a tape measure for.</div>
   <dl>
     <dt>What changes</dt><dd>Publish one question-shaped guide that walks a reader through measuring their counter, cabinet height and sink width, then maps the result to basket vs oven. Added to the sitemap and the RSS feed by the existing build; no build changes.</dd>
     <dt>Why it matters</dt><dd>The query people type when they are about to buy is &quot;will it fit?&quot;, not &quot;which air fryer is best?&quot;. A useful answer to a real question earns organic traffic; a &quot;best air fryers 2026&quot; listicle does not, and a new site cannot win that query anyway.</dd>
@@ -606,6 +704,7 @@
     <dt>Choose it if</dt><dd>You can answer it with a tape measure and a kitchen, not a lab.</dd>
     <dt>Do not choose it if</dt><dd>You want to declare which machine sells best — that claim is unsupported and this site does not make popularity claims.</dd>
     <dt>Blocked by</dt><dd><a href="#DQ-Q2">DQ-Q2</a> · <a href="#DQ-Q10">DQ-Q10</a></dd>
+    <dt>Outcome</dt><dd>Published 2026-11-20 as /guides/counter-fit-test.html — “Air fryer or toaster oven: can a tape measure settle it before you buy?”. The method (depth, clear height, sink width, then the vent clearance in the manual) is the product of the page; no external dimensions are asserted, because none is stated on the three listings, and the guide says so.</dd>
     <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
   </dl>
 </article>
@@ -616,9 +715,9 @@
     <h3>Instant-read or leave-in? Which thermometer Thanksgiving actually needs</h3>
     <span class="badge plain">Content — trend topic</span>
     <span class="badge green">Any editor</span>
-    
+    <span class="badge green">Built in this cycle</span>
   </div>
-  <div class="rec"><b>Recommendation</b>Second trend topic; only if the temperature guide already shows guide_complete above its gate.</div>
+  <div class="rec"><b>Recommendation</b>Ship it, but do not duplicate the existing roast guide — find the angle that is not already answered.</div>
   <dl>
     <dt>What changes</dt><dd>Publish one seasonal guide matching the two supplied thermometers to the two USDA temperature jobs (fast check vs long-cook watch), built only from the official USDA FSIS minimums and rest times.</dd>
     <dt>Why it matters</dt><dd>Holiday-season framing matches when readers actually need a thermometer. The USDA numbers are official and stable, so the guide does not go stale the way a &quot;best of&quot; list does.</dd>
@@ -628,6 +727,7 @@
     <dt>Choose it if</dt><dd>You can keep it to official numbers and two clear jobs.</dd>
     <dt>Do not choose it if</dt><dd>You want to name a &quot;best thermometer for Thanksgiving&quot; — neither unit has been handled, so no such claim is permitted.</dd>
     <dt>Blocked by</dt><dd><a href="#DQ-Q2">DQ-Q2</a> · <a href="#DQ-Q10">DQ-Q10</a></dd>
+    <dt>Outcome</dt><dd>Published 2026-11-20, reframed: the original wording duplicated the already-live holiday-roast guide, so the guide became /guides/wifi-probe-timing.html — “Do you need a connected probe for a holiday turkey, or just a thermometer?”. It answers the attention question rather than re-asking the tool-type question, and keeps to USDA FSIS figures plus the two listings’ own statements.</dd>
     <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
   </dl>
 </article>
@@ -638,9 +738,9 @@
     <h3>Dishwasher-safe does not mean dishwasher-sized: the air-fryer cleanup test</h3>
     <span class="badge plain">Content — trend topic</span>
     <span class="badge green">Any editor</span>
-    
+    <span class="badge green">Built in this cycle</span>
   </div>
-  <div class="rec"><b>Recommendation</b>Third trend topic, after DQ-11 or DQ-12 proves the cadence.</div>
+  <div class="rec"><b>Recommendation</b>Ship it. Cleanup is the cost nobody prices, and it needs no lab.</div>
   <dl>
     <dt>What changes</dt><dd>Publish one short guide counting dishwasher parts per machine (basket, crisper plate, racks, drip tray, rotisserie spit) and matching them to a standard sink and dishwasher. Framed as a test the reader can run at home.</dd>
     <dt>Why it matters</dt><dd>Cleanup is the cost nobody compares at purchase time, and it is the reason most air fryers end up in a cupboard. Practical, evergreen, and no manufacturer claim is required.</dd>
@@ -650,6 +750,7 @@
     <dt>Choose it if</dt><dd>You can count parts without claiming fit for any specific model.</dd>
     <dt>Do not choose it if</dt><dd>You want to say which machine is &quot;easiest to clean&quot; — that is a hands-on claim this desk cannot make.</dd>
     <dt>Blocked by</dt><dd><a href="#DQ-Q2">DQ-Q2</a> · <a href="#DQ-Q10">DQ-Q10</a></dd>
+    <dt>Outcome</dt><dd>Published 2026-11-20 as /guides/dishwasher-fit.html — “Dishwasher-safe does not mean dishwasher-sized: how do you check before you buy?”. It separates the coating claim from the fit question, names the two measurements that decide fit, and states plainly which accessory claims are blank in the data read here.</dd>
     <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
   </dl>
 </article>
@@ -660,9 +761,9 @@
     <h3>Two baskets or one: the weeknight meal that makes a dual-basket worth it</h3>
     <span class="badge plain">Content — trend topic</span>
     <span class="badge green">Any editor</span>
-    
+    <span class="badge green">Built in this cycle</span>
   </div>
-  <div class="rec"><b>Recommendation</b>Fourth trend topic; publish only one per fortnight per SUG-06.</div>
+  <div class="rec"><b>Recommendation</b>Ship it after the others. Same shape, and the least original of the four.</div>
   <dl>
     <dt>What changes</dt><dd>Publish one guide framing the dual-basket choice around the actual weeknight shape (protein in one basket, vegetables in the other, finish together), referencing the two supplied baskets only by what their listings state.</dd>
     <dt>Why it matters</dt><dd>Weeknight two-food cooking is the most common air-fryer shape, and it is a decision a reader can make from their own meals — no lab required.</dd>
@@ -672,6 +773,7 @@
     <dt>Choose it if</dt><dd>You can keep the claim to meal shape, not to machine performance.</dd>
     <dt>Do not choose it if</dt><dd>You want to promise sync finish or cooking times — those are listing features, not verified results.</dd>
     <dt>Blocked by</dt><dd><a href="#DQ-Q2">DQ-Q2</a> · <a href="#DQ-Q10">DQ-Q10</a></dd>
+    <dt>Outcome</dt><dd>Published 2026-11-20 as /guides/two-basket-weeknight.html — “Two baskets or one: does your weeknight actually have two foods in it?”. Built on the listings’ own numbers (3 + 3 = 6 against one 8 qt), with “Sync Finish” labelled an undocumented feature rather than a result.</dd>
     <dt>How much it costs to be wrong</dt><dd><span class="badge green">Low — the change is a revert</span></dd>
   </dl>
 </article>
