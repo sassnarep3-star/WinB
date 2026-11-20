@@ -111,6 +111,19 @@ Amazon. As an Amazon Associate the site owner earns from qualifying purchases.
 
 ---
 
+## Register-surface pages (session b26a9f95)
+
+Alongside the canonical site above, this repository carries a hand-written register surface with the under-masthead disclosure convention enforced by `tools/check.cjs`:
+
+| Path | Purpose |
+|---|---|
+| `/products/` | Source register: intent fields (blank, FLG-001), observed resolutions dated 2026-11-20, verified catalog facts (price/rating blank) |
+| `/products/air-fryers/`, `/products/thermometers/` | Category pages with Special Links (`?tag=shopnow047c-20`, `rel="sponsored nofollow noopener"`) |
+| `/direction/` | Executive summary, suggestions register, path chooser, open questions, publishing cadence |
+| `/flags/` | Flagged for Review (FLG-001…012) with sources and closing steps |
+| `/analytics/` | Five defined events, per-device ledger, endpoint/Search Console/reader-capture status |
+
+These pages are listed in `sitemap-register.xml`, excluded from the canonical R1–R10 walk by `tools/verify.mjs` (same treatment as `/flagged/`, `/decisions/`), and gated by `scripts/publish_gate.py` plus the shared checks in `tools/check.cjs`.
 ## Preserved alternative build — Counter & Crisp (`alt-site/counter-and-crisp/`)
 
 Session `arena/6fc7de34` (PR #31) contributed an independent, self-contained site build for the

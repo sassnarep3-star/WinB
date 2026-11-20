@@ -224,3 +224,66 @@ Every source below was read live during this session; nothing was inferred.
 - DQ-14 "Two baskets or one: the weeknight meal that makes a dual-basket worth it"
 
 Each is an editorial hypothesis, not a popularity claim; each is gated on the measurement baseline (DQ-02 / DQ-Q10) and none is published until someone chooses it from the queue.
+
+## 12. Independent re-verification of the PR #44 state (session `69bfe2b0`, 2026-11-20)
+
+This session started from `745c087` (PR #40), merged `origin/main` through PR #41 and PRs
+#43/#44 (`1772ab8`), and re-ran every gate on the merged state. Nothing was inferred; every
+source below was fetched live by this session's own retrieval.
+
+**Official sources re-read live, 2026-11-20 (this session's own fetches):**
+
+| Ref | Source | Confirmed this pass |
+|---|---|---|
+| A1 | [Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) | Page shows "Updated: October 15, 2025". §1 Special Links definition ("tagged link formats"); §5 disclosure sentence **verbatim**: "As an Amazon Associate I earn from qualifying purchases."; §6 "any violation of Section 5 … deemed a material breach". |
+| A2 | [Program Policies](https://affiliate-program.amazon.com/help/operating/policies) | Page shows "Updated: April 14, 2026". §1 original-content requirement; §2(a) "Special Links must use the Associates ID we have assigned to you"; §2(b) tag "appearing as XXXXX-##, or such other format as we may designate"; price/availability only via Amazon-served link or Creators API / PA API; "must not make inaccurate, overbroad, deceptive or otherwise misleading claims about any Product". |
+| F1 | [FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) | "Place it so it's hard to miss"; simple language; "You can't talk about your experience with a product you haven't tried." (November 2019). |
+| U1 | [USDA FSIS Safe Temperature Chart](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) | All rows re-read: 145°F + 3 min rest (steaks/chops/roasts; ham uncooked), 160°F ground meats, 165°F ground poultry, 140°F reheated USDA-inspected ham, 165°F all poultry, 160°F eggs, 145°F fish & shellfish, 165°F leftovers/casseroles. "Last Updated: Apr 14, 2025". |
+| G1 | [Google — Qualify your outbound links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links) | `rel="sponsored"` = "advertisements or paid placements". "Last updated 2025-12-10 UTC". |
+
+**The five listings, re-fetched live 2026-11-20 (canonical `/dp/` pages):**
+
+| Register ID | ASIN | Title match |
+|---|---|---|
+| P01 | [B0CDY277D3](https://www.amazon.com/dp/B0CDY277D3) | Yes — "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows…" |
+| P02 | [B09B7SB46R](https://www.amazon.com/dp/B09B7SB46R) | Yes — "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven… 24 One-Touch Preset Options… Six Cooking Accessories" |
+| P03 | [B08DKYBTPH](https://www.amazon.com/dp/B08DKYBTPH) | Yes — "Chefman Air Fryer 8 Qt \| TurboFry® 4-in-1 with 450°F Hi-Fry Option…" |
+| P04 | [B0DHZTCNR5](https://www.amazon.com/dp/B0DHZTCNR5) | Yes — "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy \| NIST&NSF Certified…" |
+| P05 | [B0DZFD6R9Z](https://www.amazon.com/dp/B0DZFD6R9Z) | Yes — "CHEF iQ Sense \| Smart Wireless Meat Thermometer \| 3 Ultra-Thin Probes… Gen3" |
+
+5 of 5 ASINs and titles match the product register exactly. Prices and ratings were visible
+on the listings and were deliberately **not** recorded (Participation Requirements §2(b); rule R3).
+
+**New data point for FLG-016 (short-link consistency).** In this retrieval,
+`https://link.amazon/B04G1MEwY` landed on **amazon.com's home page** (final URL
+`https://www.amazon.com/`, title "Amazon.com. Spend less. Smile more."), not the CHEFMAN
+listing. This matches the S16 observation for the same link. As before: this is recorded as
+an observed redirect, is **not** a claim that any supplied link is invalid, and the resolution
+path remains the one-link Special Link test in Associates Central (FLG-001 / FLG-003). The
+site's own outbound links are unaffected: they are tagged canonical `/dp/` URLs, and rule R2
+verified all 40 of them this pass.
+
+**Build and gate results on the merged state (line by line):**
+
+| Check | Command | Result |
+|---|---|---|
+| Full CI generation sequence | `node _build/build.mjs && node _build/make-images.mjs && node tools/build.cjs && node tools/noindex.cjs && node tools/consolidate.mjs` | 36 files / 28 register pages / 5 go pages; **zero drift** against the committed tree |
+| Content rules | `node tools/verify.mjs` | **PASS** R1–R11 — 31 canonical pages, 18 superseded-but-preserved, 40 Amazon links, 334 internal links |
+| Editorial rules | `node tools/gate.mjs` | **PASS** R11–R15 — 43 canonical pages, 56 social images, 3,739 class usages |
+| Register publication gate | `node tools/check.cjs` | **All gates passed** (2 pre-existing warnings in the archived tree, unchanged) |
+| Link + XML check | `node tools/linkcheck.mjs` | **PASS** — 58 files crawled, 0 broken links, sitemap and feed valid |
+| HTTP smoke at `/WinB/` | `BASE=… node tools/smoke.mjs` | **PASS** — 32 pages, 60 linked assets, all 200 |
+
+**Rendered-defect sweep.** All canonical pages were grepped for `[object Object]`,
+`undefined`, `NaN`, empty `<tbody>`, and the known historical spacing defects (`1 probes`,
+`aFrench`): none present. All five product pages print the correct ASIN. `/compare/` renders
+rows. Sitemap lists 37 routes; the feed carries 10 items; robots.txt allows the canonical site
+and disallows the superseded trees.
+
+**Still open after this pass (unchanged, all published on `/flagged/`):** FLG-001/FLG-003
+(tag enrolled and short links as Special Links — owner check in Associates Central),
+FLG-002 (intended ASINs blank by design), FLG-006 (manufacturer certification claims
+uncorroborated), FLG-007/FLG-008 (analytics endpoint and Search Console need owner
+accounts), FLG-012/FLG-015 (two brands on one site — generator-owned; unifying is
+PR #25's proposal), FLG-016 (short-link inconsistency, new data point above),
+FLG-017 (CDN edge-cache staleness after deploy), FLG-019 (duplicate flag registers).
