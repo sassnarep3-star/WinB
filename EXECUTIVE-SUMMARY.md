@@ -100,7 +100,7 @@ Ordered by downside if left open. Full reasoning in the Decision Room.
 
 Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed record in the Data Room — and was **independently re-verified the same day by session `arena-b36a7b54`** (first re-check since the original resolution): all five listings fetched live, titles matching word for word, category paths matching. Prices and ratings visible during those fetches were deliberately not copied (R3). The dated log sits in the Data Room (`/data-room/#verification-log`).
 
-## 7. Flags (11 — none blocks publication)
+## 7. Flags (15 — none blocks publication)
 
 | ID | Item | Status |
 |---|---|---|
@@ -113,10 +113,14 @@ Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed r
 | FLG-007 | No analytics endpoint deployed; no traffic figures exist | Open |
 | FLG-008 | No mailing provider, Search Console token, or custom domain | Open |
 | FLG-009 | Earlier sessions published competing versions | Needs review |
-| FLG-010 | Affiliate exit pages were noindex/nofollow while forwarding | **Fixed in this build** (now index,follow; enforced by R10) |
+| FLG-010 | Affiliate exit pages were noindex/nofollow while forwarding | **Fixed in this build** (generator now emits index,follow; enforced by R10) |
 | FLG-011 | Six competing site generations on one host | Needs review (retired via noindex + banner) |
+| FLG-012 | Every page advertised a social image (og:image) that did not exist | **Fixed in this build** (real image; gate R11 now guards it) |
+| FLG-013 | Three listings contradict themselves on their own stated figures | Needs review (both values printed; owner decides) |
+| FLG-014 | Product pages reported stated specifications as "not stated" | **Fixed in this build** (wattage, temperature range, model numbers now stated) |
+| FLG-015 | A compliance fix lived in a script CI never ran; two brands on the live site | **Fixed in this build** (CI generator corrected). *ID note: recorded as FLG-012 by session 2139de5f; renumbered to FLG-015 on merge because the og:image finding already occupied FLG-012 and a second renumber record pointed at FLG-014, which another finding had taken.* |
 
-All 11 are published with evidence and source links at `/flagged/`.
+All 15 are published with evidence and source links at `/flagged/`.
 
 ## 8. Recommendation
 

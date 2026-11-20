@@ -630,14 +630,14 @@ export const FLAGS = [
     ],
     sources: ['G2', 'A2'],
     action:
-      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-012); session arena-b36a7b54 independently found the same discrepancy while replicating the CI sequence on 2026-11-20 and corroborates this record. Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
+      'Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (now FLG-015); session arena-b36a7b54 independently found the same discrepancy while replicating the CI sequence on 2026-11-20 and corroborates this record. Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.',
     blocks: 'Nothing now. Was a real search-policy risk.',
   },
   {
-    id: 'FLG-012',
+    id: 'FLG-015',
     severity: 'High',
     status: 'Fixed in this build',
-    title: 'Fix recorded in a script CI does not run; two brands on the live site',
+    title: 'Fix recorded in a script CI does not run; two brands on the live site (renumbered from a duplicated FLG-012)',
     detail:
       'Two problems found on re-verification. (1) The FLG-010 fix lived in tools/consolidate.mjs, which is part of npm run build but not of the CI pipeline in .github/workflows/pages.yml, so the deployed /go/ pages still carried noindex,nofollow. (2) The /go/ pages are titled and branded “The Crisp Kitchen” while the rest of the site, the README and the sitemap use “Counterwise”. Two names on one publication is an unresolved identity question for the owner.',
     evidence: [

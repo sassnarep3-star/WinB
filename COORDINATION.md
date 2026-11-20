@@ -812,3 +812,12 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
    Closes FLG-007 and makes topic selection an evidence question.
 3. Decide who owns the site and where corrections go (Q-05 / Q-07), which unblocks the contact
    route and the email list.
+
+### S18 merge addendum — duplicate flag ID found and fixed (2026-11-20)
+
+While re-verifying the merged data line by line, this session found two different findings sharing the ID
+`FLG-012` (the og:image finding from PR #36, and the CI-script/brand finding recorded by `2139de5f`, whose
+own renumber record pointed at FLG-014 — a number another finding had already taken). Renumbered the
+CI-script/brand finding to **FLG-015** (next free ID) in `_build/data.mjs`, updated the cross-reference in
+FLG-010's action text, updated `EXECUTIVE-SUMMARY.md` §7 (stale at 11 flags), and confirmed the FLAGS array
+has no duplicate IDs. `/flagged/` anchors are now unique.
