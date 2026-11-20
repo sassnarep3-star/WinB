@@ -145,7 +145,7 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S16 | **Independent re-check of the five listings and the five supplied short links on 2026-11-20 through a second retrieval path** (`fetch_page`, not the earlier session's client). Record observed ASIN, title and redirect target per row in a separate field; log every mismatch as a flag (no value inferred, no link called invalid); log the live-root build inconsistency; append the findings to `_build/data.mjs` `FLAGS` (FLG-016+) and to the executive summary. Gate, PR, merge, Pages confirm. | `arena/ab61d616-winb` session `ab61d616` | `data/shop/recheck-2026-11-20.json` (new), `_build/data.mjs` (FLAGS array, append-only), `EXECUTIVE-SUMMARY.md` (append-only section), `COORDINATION.md` | done |
 | S19 | **Publish the register's suggestion ledger.** The review-and-choose section exists at `/suggestions/` (decision board) and `/direction/` (design + topics), but the register generation's own proposal table — `data/shop/suggestions.json`, SG-01..SG-30 including the parallel-pass rows SG-27..SG-30, the Path A/B/C chooser and the choice log — was rendered by `tools/build.cjs` into the guarded `/decisions/index.html` and therefore appeared on no canonical page. Publish it at `/suggestions/ledger.html` from the same JSON (read-only), linked from the decision board; do not duplicate the surfaces main already carries. | `arena-c73ad642` | `_build/content-suggestions.mjs` (new), `_build/build.mjs` (one import + one write/routes pair), `_build/content-oversight.mjs` (one sentence-link), `COORDINATION.md` | done |
 | S20 | **Verification pass + irregularity flags.** Re-fetch every source the ledger page cites (Amazon Operating Agreement + Program Policies, FTC Disclosures 101, 16 CFR 255.5 via eCFR, Google qualify-outbound-links + spam policies + build-a-sitemap, sitemaps.org protocol); append the findings as FLG-024..FLG-028; fix the pre-existing duplicate flag ID (second `FLG-021` → `FLG-023`, one EXECUTIVE-SUMMARY reference updated); nothing unverified filled, nothing inferred. | `arena-c73ad642` | `_build/data.mjs` (FLAGS append-only + the one ID fix), `EXECUTIVE-SUMMARY.md` (one reference), `COORDINATION.md` | done |
-| S21 | **Integration:** CI sequence (build → images → register build → noindex → consolidate), drift-clean; verify R1–R11, gate R11–R16, `check.cjs`, linkcheck, smoke at `/WinB/` including `/suggestions/ledger.html`; PR to `main`, merge `--merge` without waiting, confirm Pages deploy, record result here. | `arena-c73ad642` | `COORDINATION.md`, repo root | in progress |
+| S21 | **Integration:** CI sequence (build → images → register build → noindex → consolidate), drift-clean; verify R1–R11, gate R11–R16, `check.cjs`, linkcheck, smoke at `/WinB/` including `/suggestions/ledger.html`; PR to `main`, merge `--merge` without waiting, confirm Pages deploy, record result here. | `arena-c73ad642` | `COORDINATION.md`, repo root | done |
 
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
@@ -2377,3 +2377,20 @@ supplies them.
 | Flagged irregularities | S15-A (data.mjs dimensions text), S15-C (P05 warranty flag ID), S15-D (1°F/70h not re-located), S15-E (P04 unchecked), `/methods/` footprint prose — all recorded in §10.3/§10.6, none blocking |
 | Status | **done** |
 
+
+---
+
+## Final integration record — session `arena-c73ad642` (S19–S21, 2026-11-20)
+
+| Field | Result |
+| --- | --- |
+| Branch | `arena/c73ad642-winb` (rebased twice onto the moving `main`; original pre-rebase commits superseded, content preserved — see the rebase log in §0) |
+| PR | [#73](https://github.com/sassnarep3-star/WinB/pull/73) — “Publish the register suggestion ledger (SG-01..SG-30, three paths, choice log) at /suggestions/ledger.html” |
+| Merge | `gh pr merge 73 --merge` → merge commit `87d352b` on `main` (no approval wait, per the brief) |
+| PR CI | run `44694675808` + `44694673656` on `87d352b`: **completed / success** (Build and verify pass,20 s; Deploy job ran) |
+| Pages | `https://sassnarep3-star.github.io/WinB/` — status **built**, latest build commit `87d352b` (updated 2026-11-20T07:24:17Z) |
+| Live check | `/suggestions/ledger.html` fetched post-deploy: disclosure strip above the masthead, 28-row ledger, three path cards, SG-27..SG-30 callout, empty choice log, FLG-026/027 cross-references all render |
+| Local gates before merge | CI sequence drift-clean · verify PASS R1–R11 · gate PASS R11–R16 · check.cjs all gates passed · linkcheck PASS 73 files / 0 broken · smoke PASS 48 pages + 140 assets all 200 under `/WinB/` |
+| Flags shipped | FLG-026 (orphaned SG ledger — fixed here), FLG-027 (SG-25/26 absent), FLG-028 (colliding question IDs + unpublished register flag queue), FLG-029 (three definitions of the five events), FLG-030 (cadence conflict) — none blocking |
+| Also fixed on the way | main’s duplicate second `FLG-021` (renumbered during the first conflict resolution; main’s own later numbering supersedes it) and two stale EXECUTIVE-SUMMARY references (trend guides → FLG-023, title-moved → FLG-022) |
+| Cross-scope requests | register template retirement / ledger pointer (with FLG-026); namespace decision for the two question registers (FLG-028) |
