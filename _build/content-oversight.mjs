@@ -550,7 +550,7 @@ ${pageHead({
   kicker: 'For the owner',
   title: 'Executive summary',
   lede: 'What was built, what it can and cannot claim, what it needs from you, and the four decisions that carry the most weight.',
-  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 5 guides · 11 official sources</p>`,
+  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · ${PRODUCTS.length} products · ${GUIDES.length} guides · ${Object.keys(SOURCES).length} official sources</p>`,
 })}
 <section class="section">
   <div class="wrap-narrow prose">
@@ -559,7 +559,7 @@ ${pageHead({
 
     <h2>What the five supplied links turned out to be</h2>
     ${table({
-      caption: '<b>Resolution record.</b> Observed on 2026-11-20. Intended ASIN stays blank until you confirm it.',
+      caption: '<b>Resolution record.</b> Observed on 2026-11-20 and re-verified the same day — same targets, same listing titles. Intended ASIN stays blank until you confirm it.',
       head: ['#', 'Supplied link', 'Resolved ASIN', 'Product'],
       rows: PRODUCTS.map(
         (p, i) => `<tr><td class="num">${i + 1}</td><td class="mono tiny">${esc(p.suppliedLink)}</td><td class="mono">${esc(p.asin)}</td><td>${esc(p.shortName)}</td></tr>`
@@ -588,7 +588,7 @@ ${pageHead({
 
     <h2>The four decisions that matter most</h2>
     ${table({
-      caption: '<b>Ordered by downside if left open.</b> Full reasoning in the Decision Room.',
+      caption: '<b>Ordered by downside if left open.</b> The full set of eight pending decisions, each with its missing information and a discovery suggestion, is on the Decision Inputs page.',
       head: ['#', 'Decision', 'Why it is first', 'Owner action'],
       rows: [
         ['1', 'Do the supplied short links credit your account?', 'If not, everything published until it is fixed earns nothing.', 'Mint one link in Associates Central and compare the parameters. Under an hour.'],
