@@ -97,6 +97,8 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 
 | S10 | Re-verify `main` against the CI sequence; fix `/go/` robots drift (FLG-010/015); re-check the five short links on amazon.com; record in §8 | `arena-2139de5f` | `tools/build.cjs`, `_build/data.mjs`, `go/*.html`, `flagged/`, `executive-summary/`, `COORDINATION.md` | done |
 
+| S15 | **Independent re-check of the five listings and the five supplied short links on 2026-11-20 through a second retrieval path** (`fetch_page`, not the earlier session's client). Record observed ASIN, title and redirect target per row in a separate field; log every mismatch as a flag (no value inferred, no link called invalid); log the live-root build inconsistency; append the findings to `_build/data.mjs` `FLAGS` (FLG-016+) and to the executive summary. Gate, PR, merge, Pages confirm. | `arena/ab61d616-winb` session `ab61d616` | `data/shop/recheck-2026-11-20.json` (new), `_build/data.mjs` (FLAGS array, append-only), `EXECUTIVE-SUMMARY.md` (append-only section), `COORDINATION.md` | in progress |
+
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
 
