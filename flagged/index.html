@@ -57,7 +57,7 @@
     <div class="btn-row">
     <span class="badge red">6 high</span>
     <span class="badge amber">13 medium</span>
-    <span class="badge plain">4 low</span>
+    <span class="badge plain">5 low</span>
   </div>
   </div>
 </div>
@@ -509,9 +509,9 @@
   </div>
 </details>
 
-<details class="flag" id="FLG-021" >
+<details class="flag" id="FLG-022" >
   <summary>
-    <span class="id">FLG-021</span>
+    <span class="id">FLG-022</span>
     <span class="ft">
       <h3>A listing title moved between two reads on the same day</h3>
       <span class="meta">
@@ -530,9 +530,9 @@
   </div>
 </details>
 
-<details class="flag" id="FLG-022" >
+<details class="flag" id="FLG-023" >
   <summary>
-    <span class="id">FLG-022</span>
+    <span class="id">FLG-023</span>
     <span class="ft">
       <h3>Four trend guides were published before any measured demand existed</h3>
       <span class="meta">
@@ -548,6 +548,27 @@
     <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
     <div><dt>What the owner needs to do</dt><dd>Owner to review the four pages and either keep them or delete them. If they stay, the next four topics should wait for measured queries — the gate is still in force for anything after this cycle, and DQ-Q10 stays open.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing. It is disclosed here rather than presented as an evidence-led editorial win.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-024" >
+  <summary>
+    <span class="id">FLG-024</span>
+    <span class="ft">
+      <h3>The editorial build script cannot run: _build/build-editorial.mjs imports a module that exists in no commit</h3>
+      <span class="meta">
+        <span class="badge plain">Low severity</span>
+        <span class="badge plain">Needs review</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">While integrating session arena-c17764af on 2026-11-20, `node _build/build-editorial.mjs` failed with ERR_MODULE_NOT_FOUND: it imports `_build/suggestions.mjs`, and that file is present in no commit on any branch (checked `git ls-tree origin/main` and `git log --all`). The generated editorial pages themselves are committed and pass the editorial gate (R11–R15), and CI never runs this script, so the live site is unaffected — but the generator is currently unrunnable, meaning the editorial surfaces cannot be regenerated as-is.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>node _build/build-editorial.mjs → Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/home/user/WinB/_build/suggestions.mjs' imported from /home/user/WinB/_build/build-editorial.mjs</li><li>git ls-tree origin/main _build/ shows 12 modules; suggestions.mjs is not among them.</li><li>git log --oneline --all -- _build/suggestions.mjs returns nothing — the module was never committed.</li></ul></dd></div>
+    
+    <div><dt>What the owner needs to do</dt><dd>The session that owns _build/build-editorial.mjs should either commit the missing module or repoint the import at the module that replaced it (the decision-queue/editorial data now lives in _build/data.mjs SUGGESTIONS and _build/decision-queue.mjs). Until then, do not edit the editorial surfaces by hand. Nothing on the live site depends on re-running this script.</dd></div>
+    <div><dt>Blocks</dt><dd>Regeneration of the editorial surfaces only. Not publication.</dd></div>
   </div>
 </details>
     <div class="callout mt-3">
