@@ -95,6 +95,15 @@ const SIBLING_GUIDES = [
   '/guides/holiday-roast-thermometer.html',
   '/guides/game-day-wings.html',
   '/guides/air-fryer-leftovers.html',
+  /* Added 2026-11-20 by session 15e30bda (S13): three winter seasonal guides.
+     Same reasoning as the rows above: published by the editorial build from
+     _build/data.mjs GUIDES, audited by tools/verify.mjs (R1-R11) and
+     tools/gate.mjs (R11-R15), which enforce the disclosure, sponsored-link and
+     no-first-hand-claim rules. They use the shared template's negated phrasing
+     ("Nothing on this site is a hands-on test") and are not first-hand claims. */
+  '/guides/holiday-format-check.html',
+  '/guides/smart-probe-questions.html',
+  '/guides/crowd-capacity-math.html',
 ];
 /* The front page is written by the sibling build (see tools/build.cjs TAKE_FRONT_PAGE). */
 /* Index pages the sibling build owns (this generator stays off them - see SHARED_INDEXES). */
