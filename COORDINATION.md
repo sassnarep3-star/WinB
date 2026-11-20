@@ -663,8 +663,6 @@ No other session's work was discarded; the only files re-aligned were generated 
 generator's committed state.
 
 ---
-
----
 ## Session b26a9f95 — shop-first rebuild, register surface, and PR #30 integration
 
 | Item | Result |
@@ -900,8 +898,6 @@ has no duplicate IDs. `/flagged/` anchors are now unique.
 
 ---
 
----
-
 ## 9. Session `ab61d616` — S16 independent re-check (completion record)
 
 **Branch:** `arena/ab61d616-winb` · **Base:** `979883165f5430b6f81684584f5678e4189456cd` (`main`) · **Status:** done.
@@ -1015,7 +1011,6 @@ has no duplicate IDs. `/flagged/` anchors are now unique.
 
 **Rebase note (2026-11-20, session `30073780`):** `origin/main` advanced to `33eaf81` (coord record for PR #36) while S15 was in progress. Rebased `arena/30073780-winb` onto `origin/main`. One conflict, in `COORDINATION.md` only (both sides appended at end of file). Resolved by keeping both: the `main` S11–S14 final result, followed by the S15 appendix. No other session's work discarded. All other S15 files applied cleanly. Gates re-run after rebase: build/verify/gate/check/links/smoke all green (see S15 completion record above).
 
-<<<<<<< HEAD
 
 ---
 
@@ -1035,7 +1030,6 @@ has no duplicate IDs. `/flagged/` anchors are now unique.
 ---
 
 ---
-=======
 ### 9.1 Integration and deploy record (session `ab61d616`, S16)
 
 | Item | Result |
@@ -1051,7 +1045,6 @@ has no duplicate IDs. `/flagged/` anchors are now unique.
 | Follow-up | This section and FLG-017's post-deploy note are committed on the same branch and merged through a small follow-up PR, because the session may not push to `main` directly. The follow-up changes no page content beyond the FLG-017 text. |
 
 **Board state:** S16 done. No other row changed. The PR #38 "S15" label is now a merged change, not an open claim.
->>>>>>> origin/main
 ### Session `arena-15e30bda` — second merge (S14), 2026-11-20
 
 While this session was finishing S11–S13, `main` advanced again: `f5bce0b` → `6744d0a`
@@ -1507,7 +1500,6 @@ another session was edited; these are build artifacts, and the generators that o
 untouched.** If session 6fc7de34 prefers its own output, re-run the build on a branch that owns
 those scripts and supersede this commit.
 
-<<<<<<< HEAD
 
 ---
 
@@ -1524,7 +1516,8 @@ those scripts and supersede this commit.
 
 ### Third gate run
 build (5-step) drift-free · verify R1–R11 PASS · gate R11–R15 PASS · check.cjs PASS (293 passes, 10 pre-existing warnings) · linkcheck 59 files 0 broken · smoke 33 pages + 61 assets all 200.
-=======
+
+---
 ---
 
 ## 12. Session `arena-15e30bda` — final result (S11–S14), 2026-11-20
@@ -1600,4 +1593,21 @@ Note on CI: this branch's own pull-request run was cancelled twice by the workfl
 | Post-merge CI | First run on the merge commit failed the byte-drift check: the integration rounds had run the generate sequence without `tools/consolidate.mjs`, the step the workflow comment calls out as performing the FLG-010 `/go/` robots fix and the archive banner/noindex pass. Fixed in this follow-up by running the exact CI sequence (`_build/build.mjs`, `_build/make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`, `tools/consolidate.mjs`) and committing the result. No content change intended; the same commit also clears pre-existing drift in `compliance/`, `platform/` and `go/` from earlier rounds. |
 | Gates after fix | `tools/verify.mjs` R1–R11 pass · `tools/gate.mjs` R11–R15 pass · `tools/check.cjs` all gates pass · `tools/linkcheck.mjs` 58 files, 0 broken links, XML valid · CI smoke sequence (serve at `/WinB/`) 32 pages + 60 assets all HTTP 200 · variant checker 20 pages, 737 links clean |
 | Pages | Legacy branch deploy serving `https://sassnarep3-star.github.io/WinB/` (canonical) and `https://sassnarep3-star.github.io/WinB/alt-site/counter-and-crisp/` (preserved variant, archived-banner treatment per `tools/consolidate.mjs`) |
->>>>>>> origin/main
+
+
+---
+
+## 8b. Outcome — session `arena-b36a7b54` (S15–S18), 2026-11-20
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#45** — https://github.com/sassnarep3-star/WinB/pull/45 (`arena/b36a7b54-winb` → `main`) |
+| Merge | **Merged** 2026-11-20T06:47:07Z, merge commit `a854f00`, method `--merge`, no approval wait |
+| Merge rounds | Four while the PR was open: PRs #37/#38/#40 (11 UU), #41–#44 (2 UU), #31/#39 rounds (5 UU), #47–#52 (1 UU) — every round kept both sides; shared outputs regenerated from `_build` |
+| Gates on the merged tree | five-step CI sequence drift-free · verify R1–R11 PASS (32 canonical pages, 41 Amazon links) · gate R11–R15 PASS · check.cjs PASS · linkcheck 0 broken · smoke 37 pages + 93 assets all 200 |
+| Pages | `built` at `a854f00` (confirmed via `pages/builds/latest`; sandbox cannot fetch github.io) |
+| Delivered | S17 live re-verification (5/5 titles match; U2 factsheet) · S15 defect pass (typo, pluralisation, teaser truncation, ice-test guide) · S16 decision support (#gaps, #decision-record) · S18 audits (flag-ID collision FLG-015, second collision S15–S18, tables regenerated from data) |
+| Flag registry | 21 flags in `_build/data.mjs`, zero duplicate IDs; none blocks publication |
+| Defect inherited and fixed | `origin/main`'s COORDINATION.md reached `main` with a stray conflict marker at EOF (broken append by an earlier integration); cleaned here along with two unresolved keep-both regions from the round-4 merge. Markdown only — no page content affected |
+| Not verified / not claimed | Associates-account Special Link status (FLG-001/003), analytics endpoint (FLG-007), Search Console (FLG-008), any price, rating, traffic, conversion or revenue figure |
+| Status | **done** |
