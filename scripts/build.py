@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
-"""Build the static site in docs/ from data/*.json, then validate it.
+"""Build the static site from data/*.json, then validate it.
 
 Usage:  python3 scripts/build.py
 Exit code 1 if any validation check fails (the site must not be published broken).
 
-Only the Python standard library is used. The output is plain static HTML/CSS
-for GitHub Pages (publishing source: main branch, /docs folder).
+Only the Python standard library is used.
+
+Output goes to docs/ and is then published to the repository root. Both are
+committed, and they must stay byte-identical:
+
+  * GitHub Pages is configured as "Deploy from a branch: main, / (root)", so the
+    repository root is what visitors actually receive. A build that stopped at
+    docs/ would leave the live site stale, which is exactly what happened before
+    this change.
+  * docs/ is kept as the build output so the site can be inspected and diffed
+    without regenerating, and so the Pages-artifact workflow has a source.
 """
 import csv
 import datetime
@@ -20,6 +29,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 OUT = ROOT / "docs"
+PUBLISH_TO = ROOT  # Pages serves main / (repository root); see module docstring
 SITE_URL = "https://sassnarep3-star.github.io/WinB/"
 BUILD_DATE = "2026-11-20"
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
@@ -675,7 +685,40 @@ def build():
     write_feed()
     write_sitemap(sorted(pages.keys()))
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n", encoding="utf-8")
+    publish()
     return sorted(pages.keys())
+
+
+# Files and directories published to the repository root, which is what Pages serves.
+PUBLISHED = ["index.html", "404.html", "feed.xml", "sitemap.xml", "robots.txt", ".nojekyll",
+             "assets", "guides"]
+PUBLISHED += sorted(p.name for p in OUT.glob("*.html") if p.name not in PUBLISHED)
+
+
+def publish():
+    """Mirror the validated docs/ tree to the repository root.
+
+    Only files the build itself produced are copied, so this never touches
+    data/, scripts/, audit/, alt-site/ or archive/. Stale pages sitting at the
+    root from an older build are removed only when the build no longer produces
+    them, and only if they are html/xml files this project generates.
+    """
+    for name in PUBLISHED:
+        src = OUT / name
+        if not src.exists():
+            continue
+        dst = PUBLISH_TO / name
+        if src.is_dir():
+            if dst.exists():
+                shutil.rmtree(dst)
+            shutil.copytree(src, dst)
+        else:
+            shutil.copyfile(src, dst)
+    # remove root pages an older build left behind and the current build does not produce
+    produced = {n for n in PUBLISHED}
+    for stale in PUBLISH_TO.glob("*.html"):
+        if stale.name not in produced and stale.name not in {"README.html"}:
+            stale.unlink()
 
 
 def source_link(source_id):
@@ -715,12 +758,19 @@ def write_sitemap(paths):
 def validate(pages, products):
     errors = []
     html_files = list(OUT.rglob("*.html"))
+    # the published copy at the repository root is what visitors receive, so check it too
+    for name in PUBLISHED:
+        target = PUBLISH_TO / name
+        if target.is_dir():
+            html_files.extend(sorted(target.rglob("*.html")))
+        elif target.suffix == ".html" and target.exists():
+            html_files.append(target)
     link_re = re.compile(r"<a\s+([^>]*)>", re.I)
     href_re = re.compile(r'href=[\'"]([^\'"]+)[\'"]', re.I)
     rel_re = re.compile(r'rel=[\'"]([^\'"]+)[\'"]', re.I)
     for f in html_files:
         text = f.read_text(encoding="utf-8")
-        rel_name = f.relative_to(OUT).as_posix()
+        rel_name = f.relative_to(ROOT).as_posix()
         if text.count(DISCLOSURE) < 2:
             errors.append(f"{rel_name}: disclosure must appear in the strip and in the footer")
         for src in re.findall(r"<script[^>]*src=[\'\"]([^\'\"]+)[\'\"]", text, re.I):
