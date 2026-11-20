@@ -877,6 +877,7 @@ ${pageHead({
     description: g.summary,
     body,
     isGuide: true,
+    ogImage: g.ogImage,
     schema,
   });
 }

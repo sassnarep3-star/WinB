@@ -1305,3 +1305,27 @@ additions survive only where they are additive:
 | `guides/gift-guide-thermometers.html` and `guides/air-fryer-worth-it.html` | **Kept and wired into `main`’s GUIDES model** — distinct search intents (gifting; “is an air fryer worth it if you own an oven”) not covered by any merged guide. |
 | `tools/check.cjs` `SIBLING_GUIDES` | Extended with the two kept guides (theirs already lists the 11 sibling guides from the other sessions). |
 | `assets/img/scene-*.jpg`, `og-default.jpg` | Kept as available editorial assets; `scene-gifting.jpg` used as the gift guide’s social image. |
+
+### Post-integration gate run (session `arena-c17764af`, 2026-11-20)
+
+Run on the merged tree (the other sessions' generators and this session's two added guides):
+
+| Gate | Result |
+| --- | --- |
+| `node _build/build.mjs` (+ `make-images.mjs`, `tools/build.cjs`, `tools/noindex.cjs`, `tools/consolidate.mjs` — the exact CI sequence) | 42 files built, 43 sitemap routes, 15 feed items; **re-run produces byte-identical output — the CI drift check passes** |
+| `node tools/verify.mjs` | PASS — R1–R11, 37 canonical pages, 45 Amazon links, 409 internal links |
+| `node tools/gate.mjs` | PASS — R11–R15, 49 canonical pages, 68 social images, 5,127 class usages |
+| `node tools/check.cjs` | PASS — all gates passed (4 pre-existing warnings inside archived trees) |
+| `node tools/linkcheck.mjs` | PASS — 64 files crawled, 0 broken links, XML valid |
+| HTTP smoke at `/WinB/` | PASS — 32 pages + 66 linked assets, all 200 |
+
+New flag: **FLG-022** (needs review) — `_build/build-editorial.mjs` imports `_build/suggestions.mjs`,
+which exists in no commit on any branch, so the editorial generator cannot currently be re-run.
+The committed editorial pages are unaffected and pass the editorial gate; CI does not run the script.
+Recorded on `/flagged/` with the exact error and the remediation options.
+
+Run record for this appendix:
+`57ed625` shop-tone pass (superseded by the merged editorial redesign) ·
+`8eb83c7` merge of `origin/main` (35 conflicts, resolution rule above) ·
+follow-up commit: two guides wired into GUIDES, `ogImage` passthrough in `guidePage`,
+`SIBLING_GUIDES` extended, FLG-022 added, all gates green.

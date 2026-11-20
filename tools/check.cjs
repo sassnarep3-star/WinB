@@ -104,6 +104,12 @@ const SIBLING_GUIDES = [
   '/guides/holiday-format-check.html',
   '/guides/smart-probe-questions.html',
   '/guides/crowd-capacity-math.html',
+  /* Added 2026-11-20 by session arena-c17764af: two question-shaped guides with
+     distinct search intents (gifting; "worth it if you own an oven") kept from
+     that session's polish pass during integration. Same reasoning as above:
+     generated from _build/data.mjs GUIDES and audited by the same gates. */
+  '/guides/gift-guide-thermometers.html',
+  '/guides/air-fryer-worth-it.html',
 ];
 /* The front page is written by the sibling build (see tools/build.cjs TAKE_FRONT_PAGE). */
 /* Index pages the sibling build owns (this generator stays off them - see SHARED_INDEXES). */

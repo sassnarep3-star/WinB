@@ -57,7 +57,7 @@
     <div class="btn-row">
     <span class="badge red">6 high</span>
     <span class="badge amber">12 medium</span>
-    <span class="badge plain">3 low</span>
+    <span class="badge plain">4 low</span>
   </div>
   </div>
 </div>
@@ -506,6 +506,27 @@
     <div><dt>Official sources</dt><dd><a href="https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)">Amazon.com — Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)</a><br><a href="https://www.amazon.com/dp/B0DHZTCNR5?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)">Amazon.com — Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)</a></dd></div>
     <div><dt>What the owner needs to do</dt><dd>Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.</dd></div>
     <div><dt>Blocks</dt><dd></dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-022" >
+  <summary>
+    <span class="id">FLG-022</span>
+    <span class="ft">
+      <h3>The editorial build script cannot run: _build/build-editorial.mjs imports a module that exists in no commit</h3>
+      <span class="meta">
+        <span class="badge plain">Low severity</span>
+        <span class="badge plain">Needs review</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">While integrating session arena-c17764af on 2026-11-20, `node _build/build-editorial.mjs` failed with ERR_MODULE_NOT_FOUND: it imports `_build/suggestions.mjs`, and that file is present in no commit on any branch (checked `git ls-tree origin/main` and `git log --all`). The generated editorial pages themselves are committed and pass the editorial gate (R11–R15), and CI never runs this script, so the live site is unaffected — but the generator is currently unrunnable, meaning the editorial surfaces cannot be regenerated as-is.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>node _build/build-editorial.mjs → Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/home/user/WinB/_build/suggestions.mjs' imported from /home/user/WinB/_build/build-editorial.mjs</li><li>git ls-tree origin/main _build/ shows 12 modules; suggestions.mjs is not among them.</li><li>git log --oneline --all -- _build/suggestions.mjs returns nothing — the module was never committed.</li></ul></dd></div>
+    
+    <div><dt>What the owner needs to do</dt><dd>The session that owns _build/build-editorial.mjs should either commit the missing module or repoint the import at the module that replaced it (the decision-queue/editorial data now lives in _build/data.mjs SUGGESTIONS and _build/decision-queue.mjs). Until then, do not edit the editorial surfaces by hand. Nothing on the live site depends on re-running this script.</dd></div>
+    <div><dt>Blocks</dt><dd>Regeneration of the editorial surfaces only. Not publication.</dd></div>
   </div>
 </details>
     <div class="callout mt-3">

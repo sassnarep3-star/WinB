@@ -872,6 +872,23 @@ export const FLAGS = [
     action:
       'Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.',
   },
+  {
+    id: 'FLG-022',
+    severity: 'Low',
+    status: 'Needs review',
+    title: 'The editorial build script cannot run: _build/build-editorial.mjs imports a module that exists in no commit',
+    detail:
+      'While integrating session arena-c17764af on 2026-11-20, `node _build/build-editorial.mjs` failed with ERR_MODULE_NOT_FOUND: it imports `_build/suggestions.mjs`, and that file is present in no commit on any branch (checked `git ls-tree origin/main` and `git log --all`). The generated editorial pages themselves are committed and pass the editorial gate (R11–R15), and CI never runs this script, so the live site is unaffected — but the generator is currently unrunnable, meaning the editorial surfaces cannot be regenerated as-is.',
+    evidence: [
+      'node _build/build-editorial.mjs → Error [ERR_MODULE_NOT_FOUND]: Cannot find module \'/home/user/WinB/_build/suggestions.mjs\' imported from /home/user/WinB/_build/build-editorial.mjs',
+      'git ls-tree origin/main _build/ shows 12 modules; suggestions.mjs is not among them.',
+      'git log --oneline --all -- _build/suggestions.mjs returns nothing — the module was never committed.',
+    ],
+    sources: [],
+    action:
+      'The session that owns _build/build-editorial.mjs should either commit the missing module or repoint the import at the module that replaced it (the decision-queue/editorial data now lives in _build/data.mjs SUGGESTIONS and _build/decision-queue.mjs). Until then, do not edit the editorial surfaces by hand. Nothing on the live site depends on re-running this script.',
+    blocks: 'Regeneration of the editorial surfaces only. Not publication.',
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -1870,6 +1887,98 @@ export const GUIDES = [
       },
     ],
     related: ['P01', 'P02', 'P03'],
+    sources: ['A2'],
+  },
+  {
+    slug: 'gift-guide-thermometers',
+    path: 'guides/gift-guide-thermometers.html',
+    kicker: 'Gifting',
+    title: 'A thermometer gift guide for every kind of cook',
+    summary:
+      'The most-used tool in a kitchen is often the smallest one. Match the cook to the thermometer: an instant-read for the weeknight cook, a leave-in probe for the one who roasts — and one calibration ritual that makes either gift land well.',
+    readingTime: '5 min',
+    published: '2026-11-20',
+    ogImage: 'assets/img/scene-gifting.jpg',
+    sections: [
+      {
+        h: 'Why a thermometer is the safest gift in the kitchen',
+        p: [
+          '“Done” is not a feeling; it is a number. The USDA publishes safe minimum internal temperatures for every kind of meat, from 145°F (62.8°C) for steaks and roasts — with a three-minute rest — to 165°F (73.9°C) for all poultry. Every one of those numbers is measured with a thermometer.',
+          'A thermometer is also the rare kitchen gift that does not impose: it fits any cooking style, any kitchen size, and any skill level. It is used, not displayed.',
+        ],
+      },
+      {
+        h: 'For the weeknight cook: an instant-read',
+        p: [
+          'The ThermoMaven 1-second thermometer is the drawer tool: a stated one-second read, a stated ±0.5°F accuracy, an auto-rotating LED screen, and a stated IP67 water resistance so it can be rinsed under the tap. It is for the cook who wants a number and wants to move on.',
+          'Everything in that paragraph is the listing’s claim, printed as such. What the listing does not state — probe length, battery type, warranty term — is worth checking before you wrap it.',
+        ],
+      },
+      {
+        h: 'For the roaster and the smoker: a leave-in probe',
+        p: [
+          'The CHEF iQ Sense Gen3 is the long-cook tool: three ultra-thin probes, WiFi monitoring, a stated 1000°F heat limit, and five sensors. It stays in the food and reports the climb, which is the feature a holiday roast or a long smoke actually uses.',
+          'It is also a system, not a tool: there is an app in the loop. For a cook who would rather not manage a phone at the grill, the instant-read is the better gift.',
+        ],
+      },
+      {
+        h: 'One ritual makes either gift land well',
+        p: [
+          'Fill a glass with crushed ice and water, stir it, and put the probe in for thirty seconds. It should read 32°F (0°C). This ice-point check takes a minute, works on any thermometer, and turns “I think it’s right” into a known quantity — on day one, while a return is still easy.',
+          'Write the check on the gift card. It is the part of the present that keeps working.',
+        ],
+      },
+    ],
+    related: ['P04', 'P05'],
+    sources: ['U1', 'A2'],
+  },
+  {
+    slug: 'air-fryer-worth-it',
+    path: 'guides/air-fryer-worth-it.html',
+    kicker: 'Worth it?',
+    title: 'Is an air fryer worth it if you already own an oven?',
+    summary:
+      'An air fryer is a compact convection cooker: a heating element, a fan, and a small cavity that moves air hard. Whether it earns counter space depends on four questions about your kitchen — not on anyone’s sales figures.',
+    readingTime: '5 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'What an air fryer actually is',
+        p: [
+          'Strip away the name and an air fryer is a small convection oven with the fan close to the food. The small cavity heats fast, the fan moves air hard, and food with dry surfaces crisps quickly. That is the entire mechanism — and it is the same mechanism inside the convection setting of a full-size oven, delivered from a much smaller box.',
+          'The difference is not magic; it is scale. A small, hot, fast-moving cavity does certain jobs noticeably better than a large oven: loose crispy foods, small batches, reheating without a soggy microwave middle.',
+        ],
+      },
+      {
+        h: 'Four questions that decide it',
+        p: [
+          'One: how often do you cook food you want crispy — fries, wings, breaded cutlets, roasted vegetables? Weekly is a yes; twice a year is a no. Two: is there a square foot of counter it can live on permanently? These machines are heavy, corded, and used most when they are out.',
+          'Three: who washes what? A basket and a crisper plate are two parts; a countertop oven brings racks and a drip tray. Four: how many people are you cooking for at once? Food crisps in a single layer, so the honest capacity of any unit is well below its stated volume.',
+        ],
+      },
+      {
+        h: 'When the oven you own is already enough',
+        p: [
+          'If your convection setting gets a workout and your counter is full, the answer is no — and that is a good outcome of this question. An appliance that stays in the cupboard does not crisp anything.',
+          'The other honest no: if what you actually want is a second oven for big meals, do not buy a basket air fryer pretending to be one. That is the 26 qt French-door format’s job, not a drawer unit’s.',
+        ],
+      },
+      {
+        h: 'If you buy one, buy the shape that matches your food',
+        p: [
+          'Two-part meals — protein plus a side, at different times or temperatures — are the dual-basket format’s whole reason to exist (the Chefman 6 qt). Big single batches of one thing belong to the large single basket (the Chefman 8 qt TurboFry). Flat things on racks, and anything you would toast or roast, belong to the oven format (the Emeril Lagasse 26 qt).',
+          'The shape decision is the one that decides whether you are still using it in March. The full write-ups are on the pick pages, and the comparison table lays the three formats side by side.',
+        ],
+      },
+      {
+        h: 'One measurement to take before ordering',
+        p: [
+          'Measure the space before the machine: the height under your upper cabinets, the depth from the wall to the counter’s front edge, and the width of your sink. The first two decide what you can own; the third decides what you can wash.',
+          'It is the least glamorous paragraph in this guide and the one that prevents the most returns.',
+        ],
+      },
+    ],
+    related: ['P01', 'P03', 'P02'],
     sources: ['A2'],
   },
 ];
