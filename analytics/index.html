@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The five defined events, what is recorded today, what is not provisioned yet, and the exact steps to turn on site-wide measurement."><title>Measurement &amp; events | Counterwise</title><link rel="canonical" href="https://sassnarep3-star.github.io/WinB/analytics/"><link rel="stylesheet" href="../styles.css"><meta property="og:title" content="Measurement &amp; events — Counterwise"><meta property="og:description" content="Five defined events, honest status, no invented numbers."><meta property="og:type" content="website"><meta property="og:url" content="https://sassnarep3-star.github.io/WinB/analytics/"></head><body>
+<header class="masthead"><a class="brand" href="../">counterwise<span>.</span></a><nav><a href="../products/">Shop</a><a href="../guides/">Guides</a><a href="../review/">How we work</a><a href="../direction/">Suggestions</a></nav></header>
+<div class="disclosure">As an Amazon Associate I earn from qualifying purchases. <a href="../review/index.html#disclosure">How recommendations work</a></div>
+<main class="article wide">
+<a class="back" href="../">← Front page</a>
+<div class="eyebrow">MEASUREMENT · EVENT LEDGER</div>
+<h1>Measurement &amp; events</h1>
+<p class="dek">Click and conversion measurement exists before any further content is written — with an honest status. Client-side events are live; site-wide collection is a one-line switch that stays off until an owner decision. No number on this page is invented.</p>
+
+<h2>The five defined events</h2>
+<div class="table-wrap"><table><thead><tr><th>Event</th><th>Fires when</th><th>Recorded where today</th><th>Status</th></tr></thead><tbody>
+<tr><td><code>page_view</code></td><td>Any page loads with the event layer</td><td>Per-device ledger (<code>localStorage</code>, capped at 500, no cookies)</td><td><span class="pill ok">Live</span></td></tr>
+<tr><td><code>outbound_click</code></td><td>A reader clicks a <code>data-outbound</code> shopping link (Special Link)</td><td>Per-device ledger; would also POST to the endpoint when provisioned</td><td><span class="pill ok">Live</span></td></tr>
+<tr><td><code>guide_engaged</code></td><td>A guide link is clicked, or a guide is open ≥15 seconds</td><td>Per-device ledger</td><td><span class="pill ok">Live</span></td></tr>
+<tr><td><code>disclosure_view</code></td><td>The disclosure strip is ≥60% visible</td><td>Per-device ledger</td><td><span class="pill ok">Live</span></td></tr>
+<tr><td><code>affiliate_conversion_reported</code></td><td><b>Never fired by client code.</b> Entered only from a dated, authorized Associates report</td><td><a href="../review/index.html#ledger">Campaign ledger</a> (empty)</td><td><span class="pill">Awaiting FLG-002</span></td></tr>
+</tbody></table></div>
+
+<h2>Your local ledger (this browser only)</h2>
+<p>What this device has recorded so far. Site-wide totals require the endpoint below — a per-device ledger is evidence of events, not a traffic report.</p>
+<div class="stat-row" id="stats"><span class="stat"><b id="s-page_view">–</b>page_view</span><span class="stat"><b id="s-outbound_click">–</b>outbound_click</span><span class="stat"><b id="s-guide_engaged">–</b>guide_engaged</span><span class="stat"><b id="s-disclosure_view">–</b>disclosure_view</span><span class="stat"><b id="s-affiliate_conversion_reported">0</b>affiliate_conversion_reported</span></div>
+<p class="muted small" id="ledger-note">Reading…</p>
+
+<h2>Endpoint status</h2>
+<div class="table-wrap"><table><thead><tr><th>Component</th><th>Status</th><th>Detail</th></tr></thead><tbody>
+<tr><td>Event layer (<code>assets/analytics.js</code>)</td><td><span class="pill ok">Shipped</span></td><td>No cookies, no PII, no third-party pixels; endpoint POST is opt-in</td></tr>
+<tr><td>First-party endpoint (<code>assets/config.js → analyticsEndpoint</code>)</td><td><span class="pill">null · not provisioned</span></td><td>FLG-006. Owner decision: hosting, retention window, privacy notice</td></tr>
+<tr><td>Reference receiver (Cloudflare Worker)</td><td><span class="pill">Example only</span></td><td>Below — deploy it only after the retention/privacy decision</td></tr>
+<tr><td>Amazon conversion data</td><td><span class="pill">Not accessed</span></td><td>Comes only from authorized Associates reports (FLG-002), never inferred from clicks</td></tr>
+</tbody></table></div>
+<div class="note"><b>Reference endpoint (example, not deployed).</b><pre>export default {
+  async fetch(req) {
+    const ev = await req.json().catch(() => null);
+    if (!ev || !ev.e) return new Response("ok");
+    // TODO: append {e,t,l,p} to your store, apply your retention window,
+    // and publish only aggregate counts. Never store IPs or user agents.
+    return new Response("ok", { headers: { "access-control-allow-origin": "*" } });
+  }
+};</pre>After deploying, set <code>window.CW_CONFIG.analyticsEndpoint</code> in <code>assets/config.js</code> and remove <code>null</code>. The gate does not require an endpoint; the privacy decision does.</div>
+
+<h2 id="search-console">Search Console (SG-29)</h2>
+<div class="table-wrap"><table><thead><tr><th>Step</th><th>Action</th><th>Status</th></tr></thead><tbody>
+<tr><td>1</td><td>Create a property for <code>https://sassnarep3-star.github.io/WinB/</code> at <a href="https://search.google.com/search-console/about" rel="noopener" target="_blank">search.google.com/search-console</a> (owner Google account)</td><td><span class="flag-pill">Needs owner · FLG-007</span></td></tr>
+<tr><td>2</td><td>Verify via HTML-tag method; paste the token into <code>assets/config.js → searchConsoleToken</code> and the meta tag into <code>index.html</code></td><td><span class="flag-pill">Slot ready</span></td></tr>
+<tr><td>3</td><td>Submit <code>https://sassnarep3-star.github.io/WinB/sitemap.xml</code></td><td><span class="flag-pill">Sitemap live, unsubmitted</span></td></tr>
+<tr><td>4</td><td>After 2–4 weeks, read Queries and use them to pick guide #5 (Q7 / SG-10)</td><td><span class="pill">Waiting on 1–3</span></td></tr>
+</tbody></table></div>
+
+<h2 id="reader">Reader capture (SG-30)</h2>
+<p><b>Live now:</b> the <a href="../feed.xml">RSS feed</a> (<code>feed.xml</code>, all four guides) and the <a href="../sitemap.xml">sitemap</a>. <b>Not configured:</b> email capture — needs a provider, a privacy notice, and double-opt-in wording (FLG-008). Until then the footer offers RSS only; no fake signup form is shipped.</p>
+<p class="back-links"><a href="../">← Front page</a> · <a href="../direction/">Suggestions &amp; direction</a> · <a href="../flags/">Flagged for review</a></p>
+</main>
+<footer><div class="foot-brand">counterwise<span>.</span><p>Considered kitchen buying, minus the noise.</p></div><div><b>Explore</b><a href="../products/">Shop the shortlist</a><a href="../guides/">Buying guides</a><a href="../review/">How we work</a><a href="../direction/">Suggestions &amp; direction</a></div><div><b>Dashboard</b><a href="../review/index.html#products">Evidence register</a><a href="../flags/">Flagged for review</a><a href="./">Measurement &amp; events</a><a href="../review/index.html#ledger">Campaign ledger</a><a href="../feed.xml">RSS feed</a><a href="../sitemap.xml">Sitemap</a></div><div><b>Disclosure</b><p class="footer-disclosure">As an Amazon Associate I earn from qualifying purchases.</p><a href="../review/index.html#disclosure">How affiliate links work</a></div><small>© 2026 Counterwise · No measurement number on this site is estimated.</small></footer>
+<script src="../assets/config.js"></script><script src="../assets/analytics.js"></script>
+<script>
+(function(){
+  var EVENTS=["page_view","outbound_click","guide_engaged","disclosure_view","affiliate_conversion_reported"];
+  var a=[]; try{a=JSON.parse(localStorage.getItem("cw_events_v1")||"[]");}catch(e){}
+  var counts={}; EVENTS.forEach(function(k){counts[k]=0;});
+  a.forEach(function(ev){ if(counts[ev.e]!==undefined) counts[ev.e]++; });
+  EVENTS.forEach(function(k){ var el=document.getElementById("s-"+k); if(el) el.textContent=counts[k]; });
+  var note=document.getElementById("ledger-note");
+  if(note){ note.textContent = a.length
+    ? a.length+" event(s) on this device, newest "+a[a.length-1].t+" · site-wide total: endpoint not provisioned (FLG-006)"
+    : "No events on this device yet — browse a page and come back. Site-wide total: endpoint not provisioned (FLG-006)"; }
+})();
+</script></body></html>

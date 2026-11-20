@@ -56,8 +56,8 @@
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
     <span class="badge red">6 high</span>
-    <span class="badge amber">13 medium</span>
-    <span class="badge plain">4 low</span>
+    <span class="badge amber">12 medium</span>
+    <span class="badge plain">3 low</span>
   </div>
   </div>
 </div>
@@ -252,7 +252,7 @@
     <div><p class="mt-0" style="margin:0">An earlier session published five /go/ pages that forward to Amazon. Each carried &lt;meta name=&quot;robots&quot; content=&quot;noindex,nofollow&quot;&gt;. A page that search engines cannot index, which immediately forwards a visitor to an affiliate destination, is the pattern Google names as a sneaky redirect. The pages were otherwise well built — disclosure, tagged link, visible destination — so the defect was one meta tag, not the concept.</p></div>
     <div><dt>Evidence</dt><dd><ul><li>Before: go/chefman-6-quart-dual-basket.html contained content=&quot;noindex,nofollow&quot;.</li><li>After: the same page carries content=&quot;index,follow&quot;, the Associates statement, a tagged rel=&quot;sponsored&quot; destination link, and is listed in sitemap.xml.</li><li>Enforced from now on by rule R10 in tools/verify.mjs.</li></ul></dd></div>
     <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
-    <div><dt>What the owner needs to do</dt><dd>Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-015). Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.</dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed in tools/build.cjs, the generator that CI runs, so the committed /go/ pages now carry index,follow. Earlier integration recorded this fix only in tools/consolidate.mjs, which CI never runs (see FLG-015); session arena-b36a7b54 independently found the same discrepancy while replicating the CI sequence on 2026-11-20 and corroborates this record. Enforced by R10. Owner may instead choose to delete the /go/ pages entirely — they are optional. Do not restore the noindex.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing now. Was a real search-policy risk.</dd></div>
   </div>
 </details>
@@ -261,7 +261,7 @@
   <summary>
     <span class="id">FLG-015</span>
     <span class="ft">
-      <h3>Two brands on the live site; one of them fixed, the other documented</h3>
+      <h3>Fix recorded in a script CI does not run; two brands on the live site (renumbered from a duplicated FLG-012)</h3>
       <span class="meta">
         <span class="badge red">High severity</span>
         <span class="badge plain">Fixed in this build</span>
@@ -417,7 +417,7 @@
     <span class="chev" aria-hidden="true">›</span>
   </summary>
   <div class="body">
-    <div><p class="mt-0" style="margin:0">On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises.</p></div>
+    <div><p class="mt-0" style="margin:0">On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises. Re-check after the deploy of commit 745c087 (PR #40, merged 2026-11-20 06:26 UTC): the same root URL, without a query string, returned the current build with the chooser and November picks from PR #38, and neither defect appeared. One clean retrieval does not prove the stale copy is gone everywhere, so this flag stays open until a second check after a later deploy.</p></div>
     <div><dt>Evidence</dt><dd><ul><li>Repository check (2026-11-20): “1 probes” and “aFrench” do not appear in the generated HTML of this branch.</li><li>GitHub Pages API (2026-11-20): latest build status “built”, source main, path /.</li><li>Two retrievals of the same page, different content. Recorded in COORDINATION.md under S16.</li></ul></dd></div>
     <div><dt>Official sources</dt><dd><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages" rel="noopener" target="_blank" title="What is GitHub Pages? (GitHub Docs)">GitHub Docs — What is GitHub Pages? (GitHub Docs)</a></dd></div>
     <div><dt>What the owner needs to do</dt><dd>After the next deployment, fetch the site root with and without a query string and compare the title line. If an older build persists, re-run the Pages build or raise it with GitHub Support. Record the result in COORDINATION.md.</dd></div>
@@ -453,7 +453,7 @@
       <h3>Two flag registers disagree, and one entry in the older register is out of date</h3>
       <span class="meta">
         <span class="badge plain">Low severity</span>
-        <span class="badge plain">Fixed in this build — documented, not renamed</span>
+        <span class="badge amber">Open</span>
       </span>
     </span>
     <span class="chev" aria-hidden="true">›</span>
@@ -506,48 +506,6 @@
     <div><dt>Official sources</dt><dd><a href="https://www.amazon.com/dp/B09B7SB46R?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)">Amazon.com — Amazon listing B09B7SB46R (Emeril Lagasse 26QT French Door)</a><br><a href="https://www.amazon.com/dp/B0DHZTCNR5?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank" title="Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)">Amazon.com — Amazon listing B0DHZTCNR5 (ThermoMaven 1 Sec Professional Digital Meat Thermometer)</a></dd></div>
     <div><dt>What the owner needs to do</dt><dd>Fixed: the three fields are null in _build/data.mjs and render as “not stated”. A later session that reads the full Product Description block may restore a value only with its exact quote.</dd></div>
     <div><dt>Blocks</dt><dd></dd></div>
-  </div>
-</details>
-
-<details class="flag" id="FLG-021" >
-  <summary>
-    <span class="id">FLG-021</span>
-    <span class="ft">
-      <h3>A listing title moved between two reads on the same day</h3>
-      <span class="meta">
-        <span class="badge amber">Medium severity</span>
-        <span class="badge plain">Mitigated in this build</span>
-      </span>
-    </span>
-    <span class="chev" aria-hidden="true">›</span>
-  </summary>
-  <div class="body">
-    <div><p class="mt-0" style="margin:0">The ThermoMaven listing (ASIN B0DHZTCNR5) was read twice on 2026-11-20 by two different sessions. The register recorded the title ending “…IP67 Waterproof for Grill BBQ | Black”. The second read served “…IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black”, and “NIST&amp;NSF” without the spaces. Same ASIN, same listing, different text on the same date. It is a seller keyword edit, not a product change — but it means any undated specification on this site is a claim about a moment, not about the product.</p></div>
-    <div><dt>Evidence</dt><dd><ul><li>Live read 2026-11-20: https://www.amazon.com/dp/B0DHZTCNR5 — title as served, quoted above.</li><li>Register record: COORDINATION.md §3 row 4 and _build/data.mjs listingTitle for P04.</li><li>Two further differences noted and left as-is: P03 renders the mark as “TurboFry®” where the register wrote “TurboFry”, and the P01 listing category path was unchanged.</li></ul></dd></div>
-    <div><dt>Official sources</dt><dd><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
-    <div><dt>What the owner needs to do</dt><dd>Mitigated by DQ-10, shipped in this build: every product page now carries a “Last checked” date and a per-read change log, so a reader can see how old each figure is and what moved. Closing it properly means a quarterly re-read with the diff recorded — see /suggestions/ DQ-10.</dd></div>
-    <div><dt>Blocks</dt><dd>Nothing. It is the reason the dates on the product pages are printed rather than implied.</dd></div>
-  </div>
-</details>
-
-<details class="flag" id="FLG-022" >
-  <summary>
-    <span class="id">FLG-022</span>
-    <span class="ft">
-      <h3>Four trend guides were published before any measured demand existed</h3>
-      <span class="meta">
-        <span class="badge plain">Low severity</span>
-        <span class="badge plain">Needs review</span>
-      </span>
-    </span>
-    <span class="chev" aria-hidden="true">›</span>
-  </summary>
-  <div class="body">
-    <div><p class="mt-0" style="margin:0">The queue gates the four trend topics behind DQ-Q10 (measured queries from Search Console or 30 days of page_view data). No measurement exists, and the owner has not decided, so publishing them was a decision taken by the build rather than by the account owner. It was made because the brief asked for a publishing cadence to start, the four guides are method-and-specification pages that make no popularity, search-volume or performance claim, and the change is reversible by deleting four files. The risk it carries is the one Google names as scaled content abuse: many similar pages, published for search rather than for readers.</p></div>
-    <div><dt>Evidence</dt><dd><ul><li>Published 2026-11-20: /guides/counter-fit-test.html, /guides/wifi-probe-timing.html, /guides/dishwasher-fit.html, /guides/two-basket-weeknight.html.</li><li>Cadence: four guides added across two cycles, not one burst. The feed and sitemap pick them up from the same data the pages are built from.</li><li>tools/gate.mjs R15 blocks any page that asserts popularity, sales rank or a search-volume figure, including these four.</li></ul></dd></div>
-    <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a><br><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)</a></dd></div>
-    <div><dt>What the owner needs to do</dt><dd>Owner to review the four pages and either keep them or delete them. If they stay, the next four topics should wait for measured queries — the gate is still in force for anything after this cycle, and DQ-Q10 stays open.</dd></div>
-    <div><dt>Blocks</dt><dd>Nothing. It is disclosed here rather than presented as an evidence-led editorial win.</dd></div>
   </div>
 </details>
     <div class="callout mt-3">
@@ -608,6 +566,7 @@
         <h4>Review &amp; oversight</h4>
         <ul>
           <li><a href="../suggestions/"><b>Suggestions — what next</b></a></li>
+          <li><a href="../direction/">Design &amp; trend topics</a></li>
           <li><a href="../flagged/">Flagged for review</a></li>
           <li><a href="../decisions/">Decision Room</a></li>
           <li><a href="../data-room/">Data Room</a></li>

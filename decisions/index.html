@@ -53,12 +53,12 @@
     <nav class="crumbs" aria-label="Breadcrumb"><a href=".././">Home</a><span class="sp">/</span><span aria-current="page">Decision Room</span></nav>
     <p class="kicker">Oversight</p>
     <h1>Decision Room</h1>
-    <p class="lede">Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so.</p>
+    <p class="lede">Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so. <b>This page is the case file:</b> every proposal carries named options A/B/C, a recommended option and a decision gate. The <a href="../suggestions/">decision board</a> is the same queue reduced to one sortable row per proposal, with cost, reversibility and failure mode.</p>
     <div class="btn-row">
     <a class="btn small" href="../suggestions/">Open the suggestions room <span class="arw">→</span></a>
     <span class="badge amber">12 open suggestions</span>
     <span class="badge green">2 already built</span>
-    <span class="badge plain">11 open questions</span>
+    <span class="badge plain">12 open questions</span>
   </div>
   </div>
 </div>
@@ -72,11 +72,16 @@
         <p>Each path is a coherent bet. Mixing them is how a site ends up with seasonal guides, no measurement and no byline. The desk recommends <b>Path B first, Path C in parallel</b>: the publication polish is already built, and the measurement endpoint is the only thing standing between instinct and data.</p>
       </div>
     </div>
+    <div class="gate callout">
+      <h4>Choose before anything is implemented</h4>
+      <p>Every proposal below carries named options, a recommended one, and a decision gate. Nothing is acted on because it appears on this page — it is acted on when an option is chosen and recorded. That is the whole protocol: <b>read the options, pick a letter, write it down.</b></p>
+      <p>Record a choice in one line — “SUG-01: A” — in the repository's COORDINATION.md under this session's row, or as a reply to the session. The next build reads the recorded decision, changes the <code>decisionState</code> line for that proposal, and the page reflects it. Two are already recorded: <b>SUG-05: A</b> and <b>SUG-08: A</b>. A decision of “no” is as valid as “yes” and is recorded the same way.</p>
+    </div>
     <div class="table-wrap">
       <table>
         <caption><b>Three coherent paths.</b> Choose one; the suggestions below are ordered to serve it.</caption>
         <thead><tr><th scope="col">Path</th><th scope="col">Promise</th><th scope="col">First steps</th><th scope="col">Cost</th><th scope="col">Best if</th></tr></thead>
-        <tbody><tr><td><b>Path A — Compliance-first shop</b></td><td>The safest shop. Products first, guides second, measurement last.</td><td>Close FLG-001 (tagging), keep the no-price rule, publish on the fortnightly cadence, defer seasonal guides until measured.</td><td>Slowest growth. The site stays a specification shop until a review unit is bought (SUG-01).</td><td>The owner wants zero policy risk and is happy to grow slowly.</td></tr>
+        <tbody><tr><td><b>Path A — Compliance-first shop</b></td><td>The safest shop. Products first, guides second, measurement last.</td><td>Close FLG-001 (tagging), keep the no-price rule, publish on the fortnightly cadence, and defer any further seasonal guides until measured (the 2026-11-20 winter batch is the recorded exception).</td><td>Slowest growth. The site stays a specification shop until a review unit is bought (SUG-01).</td><td>The owner wants zero policy risk and is happy to grow slowly.</td></tr>
 <tr><td><b>Path B — Publication-first authority</b></td><td>The most readable site. Byline, clusters, seasonal notebook and worksheets first.</td><td>Name the byline (Q-05), publish the capacity worksheet (SUG-04), run the seasonal notebook one guide at a time (SUG-09), keep the gate on every build.</td><td>More writing before more revenue. Still needs SUG-01 for hands-on content.</td><td>The owner wants a site that reads as a publication and earns links.</td></tr>
 <tr><td><b>Path C — Measurement-first growth</b></td><td>The most data-driven site. Endpoint, Search Console and ledger first.</td><td>Deploy the collector (SUG-03), submit the sitemap (SUG-13), choose every next topic from measured queries, keep the ledger empty until a first-party report exists.</td><td>Nothing to read until the endpoint is deployed. The shop stays as it is for 30 days.</td><td>The owner wants every future decision to be a data question.</td></tr></tbody>
       </table>
@@ -86,6 +91,19 @@
       <h4>How to choose</h4>
       <p>Answer three questions in order: (1) Is the tagging question closed (SUG-02)? If not, stop and close it — no path earns anything until then. (2) Does the owner want a named byline (Q-05)? If yes, Path B. (3) Is the analytics endpoint deployed (SUG-03)? If not, Path C is the next task regardless of the path chosen. Record the choice here with a date; the next session reads it before writing anything.</p>
     </div>
+    <div class="table-wrap mt-3" id="decision-record">
+      <table>
+        <caption><b>Decision record — the owner writes the choice here, before any change is implemented.</b> Kept deliberately blank: an empty box that waits is more honest than a filled one that presumes.</caption>
+        <thead><tr><th scope="col">Decision</th><th scope="col">Chosen option</th><th scope="col">Date decided</th><th scope="col">Recorded by</th></tr></thead>
+        <tbody>
+          <tr><td>Path (A, B or C above)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+          <tr><td>Byline: named person or the desk? (Q-05)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+          <tr><td>Seasonal queue: which title, if any, runs next? (queue above)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+          <tr><td>Review unit: buy, request, or neither? (SUG-01, Q-03)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tiny faint mt-1">When a decision is made, edit this table in <code>_build/data.mjs</code>-driven output, record it in <code>COORDINATION.md</code> §2, and only then start the work. Suggestions and paths remain proposals until this record says otherwise.</p>
   </div>
 </section>
 
@@ -100,14 +118,17 @@
     </div>
     <div class="table-wrap">
       <table>
-        <caption><b>6 queued topics.</b> Each row states the measurement gate that must pass first.</caption>
+        <caption><b>9 queued topics.</b> Each row states the measurement gate that must pass first.</caption>
         <thead><tr><th scope="col">Working title</th><th scope="col">Cluster</th><th scope="col">Gate</th><th scope="col">Status</th></tr></thead>
-        <tbody><tr><td><b>Game-day wings: one big basket or two small ones?</b></td><td>Air fryers</td><td class="tiny">Publish only after 30 days of page_view data ranks capacity-checklist above the other guides.</td><td><span class="badge amber">Hypothesis — do not publish yet</span></td></tr>
-<tr><td><b>Holiday roast thermometer: instant-read or leave-in?</b></td><td>Thermometers</td><td class="tiny">Publish only after temperature-safety shows guide_complete above 25% of its readers.</td><td><span class="badge amber">Hypothesis — do not publish yet</span></td></tr>
-<tr><td><b>Air-fryer leftovers: what reheats safely?</b></td><td>Air fryers + safety</td><td class="tiny">Publish only after the USDA table is the most-read section of temperature-safety.</td><td><span class="badge amber">Hypothesis — do not publish yet</span></td></tr>
+        <tbody><tr><td><b>Game-day wings: one big basket or two small ones?</b></td><td>Air fryers</td><td class="tiny">Published 2026-11-20 as game-day-wings by the parallel S15 pass, ahead of this queue’s measurement gate. The override is recorded rather than reversed; the open question is now whether measured queries justify keeping it.</td><td><span class="badge green">Published — gate recorded as overridden</span></td></tr>
+<tr><td><b>Holiday roast thermometer: instant-read or leave-in?</b></td><td>Thermometers</td><td class="tiny">Published 2026-11-20 as holiday-roast-thermometer by the parallel S15 pass, ahead of this queue’s measurement gate. Override recorded; review against measured traffic before writing the next thermometer piece.</td><td><span class="badge green">Published — gate recorded as overridden</span></td></tr>
+<tr><td><b>Air-fryer leftovers: what reheats safely?</b></td><td>Air fryers + safety</td><td class="tiny">Published 2026-11-20 as air-fryer-leftovers by the parallel S15 pass, ahead of this queue’s measurement gate. Override recorded; the USDA table still needs the reader data the gate asked for.</td><td><span class="badge green">Published — gate recorded as overridden</span></td></tr>
 <tr><td><b>How to assess cleanup and counter-space trade-offs</b></td><td>Air fryers</td><td class="tiny">Already published as cleanup-counter. Next step is a measurement worksheet, not a second article.</td><td><span class="badge green">Published — worksheet pending (SUG-04)</span></td></tr>
 <tr><td><b>Questions to ask before buying a multi-function kitchen appliance</b></td><td>Air fryers</td><td class="tiny">Already published as multifunction. Next step is measured queries, not a rewrite.</td><td><span class="badge green">Published — measured queries pending</span></td></tr>
-<tr><td><b>A no-hype checklist for comparing air fryer capacity</b></td><td>Air fryers</td><td class="tiny">Already published as capacity-checklist. Next step is a printable worksheet with the five-minute check.</td><td><span class="badge green">Published — worksheet pending (SUG-04)</span></td></tr></tbody>
+<tr><td><b>A no-hype checklist for comparing air fryer capacity</b></td><td>Air fryers</td><td class="tiny">Already published as capacity-checklist. Next step is a printable worksheet with the five-minute check.</td><td><span class="badge green">Published — worksheet pending (SUG-04)</span></td></tr>
+<tr><td><b>Holiday hosting: does the pan fit before you plan the menu?</b></td><td>Air fryers</td><td class="tiny">Published 2026-11-20 as holiday-format-check on an owner instruction that overrode this queue’s “do not publish yet” gate. Recorded in SUG-09; the override covers the three winter guides only.</td><td><span class="badge green">Published — winter batch (override recorded)</span></td></tr>
+<tr><td><b>What to ask before buying a probe thermometer</b></td><td>Thermometers</td><td class="tiny">Published 2026-11-20 as smart-probe-questions in the same owner-instructed winter batch (SUG-09).</td><td><span class="badge green">Published — winter batch (override recorded)</span></td></tr>
+<tr><td><b>How much air fryer capacity a crowd actually needs</b></td><td>Air fryers</td><td class="tiny">Published 2026-11-20 as crowd-capacity-math in the same owner-instructed winter batch (SUG-09).</td><td><span class="badge green">Published — winter batch (override recorded)</span></td></tr></tbody>
       </table>
     </div>
     <div class="table-wrap mt-3">
@@ -115,9 +136,9 @@
         <caption><b>Four cooking moments.</b> Editorial hypotheses that reframe existing guides. See the front page for the reader-facing version.</caption>
         <thead><tr><th scope="col">Moment</th><th scope="col">Season</th><th scope="col">Question</th><th scope="col">Guides</th><th scope="col">Products</th></tr></thead>
         <tbody><tr><td><b>Weeknight, two foods at once</b><br><span class="tiny muted">Hypothesis: the most common weeknight shape. Not a popularity claim.</span></td><td>All year</td><td class="tiny">Protein in one basket, vegetables in the other — what should you compare?</td><td class="tiny"><a href="../guides/basket-or-oven.html">basket-or-oven</a>, <a href="../guides/capacity-checklist.html">capacity-checklist</a></td><td class="tiny">P01</td></tr>
-<tr><td><b>Big batch for sharing</b><br><span class="tiny muted">Hypothesis: game-day and family-batch shape. Not a popularity claim.</span></td><td>All year</td><td class="tiny">One tray of fries or wings, not two small ones — one basket or two?</td><td class="tiny"><a href="../guides/capacity-checklist.html">capacity-checklist</a>, <a href="../guides/cleanup-counter.html">cleanup-counter</a></td><td class="tiny">P03</td></tr>
-<tr><td><b>Holiday roasts and leftovers</b><br><span class="tiny muted">Hypothesis: winter roast shape. Not a popularity claim.</span></td><td>Winter</td><td class="tiny">A whole bird, a rest, and a safe leftover — which thermometer job is this?</td><td class="tiny"><a href="../guides/temperature-safety.html">temperature-safety</a>, <a href="../guides/multifunction.html">multifunction</a></td><td class="tiny">P02, P05</td></tr>
-<tr><td><b>Summer grilling and smoking</b><br><span class="tiny muted">Hypothesis: summer outdoor shape. Not a popularity claim.</span></td><td>Summer</td><td class="tiny">Steaks, chicken and a long smoke — checking or watching?</td><td class="tiny"><a href="../guides/temperature-safety.html">temperature-safety</a></td><td class="tiny">P04, P05</td></tr></tbody>
+<tr><td><b>Big batch for sharing</b><br><span class="tiny muted">Hypothesis: game-day and family-batch shape. Not a popularity claim.</span></td><td>All year</td><td class="tiny">One tray of fries or wings, not two small ones — one basket or two?</td><td class="tiny"><a href="../guides/capacity-checklist.html">capacity-checklist</a>, <a href="../guides/cleanup-counter.html">cleanup-counter</a>, <a href="../guides/crowd-capacity-math.html">crowd-capacity-math</a></td><td class="tiny">P03</td></tr>
+<tr><td><b>Holiday roasts and leftovers</b><br><span class="tiny muted">Hypothesis: winter roast shape. Not a popularity claim.</span></td><td>Winter</td><td class="tiny">A whole bird, a rest, and a safe leftover — which thermometer job is this?</td><td class="tiny"><a href="../guides/temperature-safety.html">temperature-safety</a>, <a href="../guides/multifunction.html">multifunction</a>, <a href="../guides/smart-probe-questions.html">smart-probe-questions</a>, <a href="../guides/holiday-format-check.html">holiday-format-check</a></td><td class="tiny">P02, P05</td></tr>
+<tr><td><b>Summer grilling and smoking</b><br><span class="tiny muted">Hypothesis: summer outdoor shape. Not a popularity claim.</span></td><td>Summer</td><td class="tiny">Steaks, chicken and a long smoke — checking or watching?</td><td class="tiny"><a href="../guides/temperature-safety.html">temperature-safety</a>, <a href="../guides/smart-probe-questions.html">smart-probe-questions</a></td><td class="tiny">P04, P05</td></tr></tbody>
       </table>
     </div>
     <p class="tiny faint mt-2">Moments and queue rows are hypotheses. The guides they reframe cite <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2</a> and <a href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank" title="Safe Minimum Internal Temperature Chart">U1</a>; the cadence gate cites <a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">G2 scaled content</a>. No row is a popularity, search-volume or sales claim.</p>
@@ -147,6 +168,42 @@
     <dt>Payoff</dt><dd>Highest of anything on this page</dd>
     <dt>Risk</dt><dd>A single unit does not generalise. Do not let it become “we tested everything”.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Buy the cheapest unit outright and document it</td>
+        <td class="tiny">Purchase one unit with the site’s own money, photograph the unboxing, publish the receipt, and write the first hands-on page under the existing attribution rules.</td>
+        <td class="tiny">One unit’s cost, 2–3 days</td>
+        <td class="tiny">Converts one product page from specification summary to a disclosed bought-and-tested review</td>
+        <td class="tiny">Cost; the scope must stay one unit</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Request review units from the two brands first</td>
+        <td class="tiny">Ask Chefman and ThermoMaven/CHEF iQ for a review unit before spending anything.</td>
+        <td class="tiny">Emails, then weeks of waiting</td>
+        <td class="tiny">No purchase cost if granted</td>
+        <td class="tiny">A project with no traffic history will probably be refused; a supplied unit must be disclosed and can read as obligation</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Stay specification-only</td>
+        <td class="tiny">Keep the current framing permanently and say so on every page.</td>
+        <td class="tiny">None</td>
+        <td class="tiny">None added</td>
+        <td class="tiny">The site stays legally barred from experience claims (FLG-004) and loses its only strong differentiator</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Awaiting owner decision</p>
+    <p><b>Why this option:</b> It is the only option entirely inside this project’s control, and a disclosed bought-and-tested unit is a test regardless of who paid.</p>
+    <p><b>How to record it:</b> Choose A, B or C and record it (chat reply or repository issue, e.g. “SUG-01: A”). Until a choice is recorded, nothing here is implemented.</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-02">
@@ -162,6 +219,42 @@
     <dt>Payoff</dt><dd>Protects all future revenue</dd>
     <dt>Risk</dt><dd>None.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Mint and compare, inside Associates Central</td>
+        <td class="tiny">Generate one short link while signed in to shopnow047c-20, resolve it, and compare its parameters with the five supplied links.</td>
+        <td class="tiny">Under an hour</td>
+        <td class="tiny">Closes FLG-001 and Q-01 with a direct check</td>
+        <td class="tiny">None</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Ask Amazon support whether link.amazon applies the account tag</td>
+        <td class="tiny">Open a support ticket and ask for a written answer on short-link attribution.</td>
+        <td class="tiny">A ticket, then days</td>
+        <td class="tiny">A written answer on record</td>
+        <td class="tiny">Slow; first-line support often replies with scripts</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Leave the question open and rely on tagged canonical links</td>
+        <td class="tiny">Keep publishing only with tag=shopnow047c-20 links and stop investigating the short links.</td>
+        <td class="tiny">None</td>
+        <td class="tiny">None</td>
+        <td class="tiny">Attribution uncertainty remains; FLG-001 stays open</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Awaiting owner decision (needs account access)</p>
+    <p><b>Why this option:</b> The cheapest possible check with the largest possible downside; B is the fallback if the dashboard comparison is ambiguous.</p>
+    <p><b>How to record it:</b> Choose A, B or C and record it (e.g. “SUG-02: A”). Option A needs five minutes of Associates Central access.</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-03">
@@ -177,6 +270,42 @@
     <dt>Payoff</dt><dd>Turns topic choice into a data question</dd>
     <dt>Risk</dt><dd>Small samples mislead. Do not compute a conversion rate from 12 clicks.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Deploy the supplied Cloudflare Worker collector</td>
+        <td class="tiny">Deploy /analytics/collector-worker.js, set ENDPOINT in assets/js/site.js, and confirm one event of each of the five types arrives.</td>
+        <td class="tiny">Half a day, then nothing</td>
+        <td class="tiny">First-party events under this project’s control; the campaign ledger can be filled from authorised reports alongside it</td>
+        <td class="tiny">Small samples mislead; the first 30 days are a baseline, not a scoreboard</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Use a hosted privacy-first analytics service</td>
+        <td class="tiny">Add a compliant third-party snippet instead of self-hosting.</td>
+        <td class="tiny">An account and one snippet</td>
+        <td class="tiny">Instant dashboards</td>
+        <td class="tiny">Adds a third-party processor; the disclosure and cookie policy must change (A2 §3(e))</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Stay unmeasured</td>
+        <td class="tiny">Ship nothing until traffic exists.</td>
+        <td class="tiny">None</td>
+        <td class="tiny">None</td>
+        <td class="tiny">Every future topic is chosen by instinct — the exact failure mode this project set out to avoid</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Awaiting owner decision (needs hosting account access)</p>
+    <p><b>Why this option:</b> It records the five defined events without identifying anyone and without a third-party processor.</p>
+    <p><b>How to record it:</b> Choose A, B or C and record it (e.g. “SUG-03: A”). Option A needs a Cloudflare account; the worker source is already in the repository.</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-04">
@@ -192,6 +321,42 @@
     <dt>Payoff</dt><dd>Earns links; a real answer to a real query</dd>
     <dt>Risk</dt><dd>The tone must stay practical. A framework with no numbers of its own is still thin.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Add a printable measurement worksheet to the published guide</td>
+        <td class="tiny">Extend the capacity guide with a one-page worksheet: basket, shelf and counter measurements the reader takes at home.</td>
+        <td class="tiny">1–2 days</td>
+        <td class="tiny">Turns the guide into a tool readers can act on</td>
+        <td class="tiny">The tone must stay practical</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Publish the worksheet as a separate download</td>
+        <td class="tiny">Same worksheet, offered as a PDF behind the (currently non-transmitting) capture form.</td>
+        <td class="tiny">Same, plus asset work</td>
+        <td class="tiny">A concrete reason to hand over an address once capture works</td>
+        <td class="tiny">A PDF orphan that search engines read poorly; blocked on Q-04</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Leave the guide as it is</td>
+        <td class="tiny">No change.</td>
+        <td class="tiny">None</td>
+        <td class="tiny">None</td>
+        <td class="tiny">The guide stays a framework with no numbers of its own</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Awaiting owner decision</p>
+    <p><b>Why this option:</b> Inline on the page it helps every reader and every crawler; a download helps only the ones who convert first.</p>
+    <p><b>How to record it:</b> Choose A, B or C and record it (e.g. “SUG-04: A”).</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-06">
@@ -207,6 +372,42 @@
     <dt>Payoff</dt><dd>Compounding</dd>
     <dt>Risk</dt><dd>Miss two cycles and the site looks abandoned. Two weeks is achievable; daily is not.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · One substantial guide every two weeks</td>
+        <td class="tiny">A fixed fortnightly cadence, announced in the feed and added to the sitemap by the build.</td>
+        <td class="tiny">Ongoing, predictable</td>
+        <td class="tiny">Compounding; reads as a publication</td>
+        <td class="tiny">Miss two cycles and the site looks abandoned</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Weekly short post plus a fortnightly guide</td>
+        <td class="tiny">Short items between the big pieces.</td>
+        <td class="tiny">Higher</td>
+        <td class="tiny">More freshness signals</td>
+        <td class="tiny">Short posts read thin and invite the scaled-content pattern</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Publish in bursts whenever material is ready</td>
+        <td class="tiny">No fixed rhythm.</td>
+        <td class="tiny">Irregular</td>
+        <td class="tiny">None</td>
+        <td class="tiny">A burst of near-identical pages is the pattern Google names as scaled content abuse</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Awaiting owner decision</p>
+    <p><b>Why this option:</b> Two weeks is achievable and sustainable; the build already handles the sitemap and feed, so cadence costs only writing.</p>
+    <p><b>How to record it:</b> Choose A, B or C and record it (e.g. “SUG-06: A”). Topic choice should follow measured queries once SUG-03 is live (Q-11).</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-07">
@@ -222,6 +423,42 @@
     <dt>Payoff</dt><dd>Medium, compounding</dd>
     <dt>Risk</dt><dd>Requires a real contact route (Q-07) and a reply discipline.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · One reader question answered in public each week</td>
+        <td class="tiny">Turn the best question each week into a short post, credited to the asker with their consent.</td>
+        <td class="tiny">Low, plus reply discipline</td>
+        <td class="tiny">Free, uncompetable keyword research and visible proof a human is here</td>
+        <td class="tiny">Blocked until Q-07 gives the site a contact route</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · A monthly question roundup</td>
+        <td class="tiny">Answer several questions in one monthly post.</td>
+        <td class="tiny">Lower</td>
+        <td class="tiny">Slower</td>
+        <td class="tiny">Less timely; individual queries get no dedicated page</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Keep reader questions private</td>
+        <td class="tiny">No public answers.</td>
+        <td class="tiny">None</td>
+        <td class="tiny">None</td>
+        <td class="tiny">The cheapest content source available goes unused</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Awaiting owner decision (blocked on Q-07)</p>
+    <p><b>Why this option:</b> Reader questions are keyword research nobody else can copy — but only a real contact route (Q-07) can supply them.</p>
+    <p><b>How to record it:</b> Choose A, B or C and record it (e.g. “SUG-07: A”), and settle Q-07 first.</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-08">
@@ -237,13 +474,49 @@
     <dt>Payoff</dt><dd>Protects the whole site</dd>
     <dt>Risk</dt><dd>Feels slow. It is slow.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Stay in two categories until one converts</td>
+        <td class="tiny">No new categories; deepen air fryers and thermometers until the ledger shows real orders. — ADOPTED</td>
+        <td class="tiny">Restraint</td>
+        <td class="tiny">Protects the topical coherence the site has</td>
+        <td class="tiny">Feels slow</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Add one adjacent category now</td>
+        <td class="tiny">Expand into a neighbouring niche while keeping the register format.</td>
+        <td class="tiny">New register work and new guides</td>
+        <td class="tiny">A wider net</td>
+        <td class="tiny">Halves the depth available to the existing categories</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Expand broadly</td>
+        <td class="tiny">Add several categories at once.</td>
+        <td class="tiny">High</td>
+        <td class="tiny">Uncertain</td>
+        <td class="tiny">A scattered directory is the pattern Google’s site-reputation policy weighs against</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Decided · stands as policy</p>
+    <p><b>Why this option:</b> Topical coherence is the cheapest authority a new site can accumulate. Revisit when the campaign ledger records orders, not before.</p>
+    <p><b>How to record it:</b> Adopted 2026-11-20 as a standing constraint. Reopen only with ledger evidence (see the Data Room).</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-09">
   <div class="dh">
     <span class="pri">P2</span>
     <h3>Run the seasonal notebook as hypotheses, not as a content burst</h3>
-    <span class="badge plain">Framing implemented; guides not yet published</span>
+    <span class="badge plain">Framing implemented; first seasonal guides published 2026-11-20 (owner-instructed)</span>
   </div>
   <div class="rec"><b>Recommendation</b>Frame the four cooking moments on the front page as editorial hypotheses. Publish at most one seasonal guide per fortnight, only after 30 days of measurement (SUG-03).</div>
   <dl>
@@ -252,6 +525,42 @@
     <dt>Payoff</dt><dd>Timely without being thin</dd>
     <dt>Risk</dt><dd>Seasonal copy goes stale. Date every seasonal guide and retire it when the season passes.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · One moment at a time, in measured order</td>
+        <td class="tiny">Publish a seasonal guide only as its moment comes up, and let measured queries (SUG-13) choose the order afterwards.</td>
+        <td class="tiny">One guide per fortnight</td>
+        <td class="tiny">Seasonal relevance without a content burst</td>
+        <td class="tiny">Seasonal copy goes stale; date and retire each guide</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Publish the whole notebook at once</td>
+        <td class="tiny">Fill every seasonal slot in one build.</td>
+        <td class="tiny">One burst</td>
+        <td class="tiny">Full coverage immediately</td>
+        <td class="tiny">Near-identical seasonal pages published together are the scaled-content pattern this proposal exists to avoid</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Defer all seasonal content until 30 days of measurement</td>
+        <td class="tiny">Keep the notebook as framing only.</td>
+        <td class="tiny">None</td>
+        <td class="tiny">None</td>
+        <td class="tiny">Seasonal queries peak before the data arrives</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Partly decided · override recorded 2026-11-20</p>
+    <p><b>Why this option:</b> Recorded override (2026-11-20): the owner’s brief for this cycle explicitly instructed seasonal marketing content, so the winter hosting, smart-probe and crowd-math guides were published ahead of the measurement gate, one cluster at a time rather than as a burst. The gate still governs every topic after them.</p>
+    <p><b>How to record it:</b> Choose A, B or C for everything after the 2026-11-20 batch (e.g. “SUG-09: A”). The override covers only the three guides named above.</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-11">
@@ -267,6 +576,42 @@
     <dt>Payoff</dt><dd>Trust and policy posture</dd>
     <dt>Risk</dt><dd>A byline without accountability is decoration. The biography must state the non-testing position plainly.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Named byline with a two-line biography</td>
+        <td class="tiny">The owner supplies a name; every page carries it with the non-testing position stated plainly. — RECOMMENDED</td>
+        <td class="tiny">One owner decision</td>
+        <td class="tiny">Trust and policy posture</td>
+        <td class="tiny">The name must be accountable — a pseudonym with no person behind it is decoration</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Keep the desk byline</td>
+        <td class="tiny">Publish as “The Counterwise desk” with the stated non-testing policy.</td>
+        <td class="tiny">None</td>
+        <td class="tiny">None added</td>
+        <td class="tiny">Google’s site-reputation policy weighs stated authorship; an unauthored affiliate page is its own example of content likely to attract action</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · No byline at all</td>
+        <td class="tiny">Remove authorship from the pages.</td>
+        <td class="tiny">Template change</td>
+        <td class="tiny">None</td>
+        <td class="tiny">Worse than B on every axis</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Awaiting owner decision (blocked on Q-05)</p>
+    <p><b>Why this option:</b> A named author with a two-line biography is cheap and materially improves both trust and policy posture.</p>
+    <p><b>How to record it:</b> Choose A, B or C (e.g. “SUG-11: A”) and, for A, supply the name.</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-12">
@@ -282,6 +627,42 @@
     <dt>Payoff</dt><dd>Better imagery without a licence breach</dd>
     <dt>Risk</dt><dd>Generated art can look generic. Caption it honestly rather than passing it off as a photograph.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Generated editorial illustrations, labelled, plus brand image requests</td>
+        <td class="tiny">Keep the current art, label it as editorial illustration, and ask the two brands for licensed photography (Q-14). — ADOPTED</td>
+        <td class="tiny">One email per brand</td>
+        <td class="tiny">Compliant imagery with an upgrade path</td>
+        <td class="tiny">Generated art can look generic; caption it honestly</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Use Amazon listing photography</td>
+        <td class="tiny">Scrape or cache listing images.</td>
+        <td class="tiny">Low</td>
+        <td class="tiny">Familiar product shots</td>
+        <td class="tiny">The IP License forbids storing or caching Product Advertising Content; a static site is a cache. Not an option under the agreement</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · No imagery</td>
+        <td class="tiny">Text and diagrams only.</td>
+        <td class="tiny">None</td>
+        <td class="tiny">None</td>
+        <td class="tiny">A shop without pictures does not read as a shop</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Decided · stands as policy</p>
+    <p><b>Why this option:</b> The only compliant option that still gives a reader something to look at, with a clear upgrade path.</p>
+    <p><b>How to record it:</b> Adopted 2026-11-20. Reopen only when a brand licence arrives (Q-14).</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-13">
@@ -297,6 +678,42 @@
     <dt>Payoff</dt><dd>The next topic is a data question</dd>
     <dt>Risk</dt><dd>Search Console needs a verification token only the owner can supply (FLG-008).</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Submit the sitemap, then read queries for 30 days</td>
+        <td class="tiny">Verify the site in Search Console, submit sitemap.xml and feed.xml, and choose every next topic from measured queries after a 30-day baseline. — RECOMMENDED</td>
+        <td class="tiny">Under an hour, then waiting</td>
+        <td class="tiny">The next topic becomes a data question</td>
+        <td class="tiny">Needs the owner’s verification token</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Submit and publish without reading the data</td>
+        <td class="tiny">Get indexed, keep writing on instinct.</td>
+        <td class="tiny">Under an hour</td>
+        <td class="tiny">Indexing only</td>
+        <td class="tiny">Keeps topic choice a guess; the brief explicitly wants measured topics</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Skip Search Console</td>
+        <td class="tiny">Wait for organic discovery.</td>
+        <td class="tiny">None</td>
+        <td class="tiny">None</td>
+        <td class="tiny">No query data at all, ever; indexing happens without visibility</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Awaiting owner decision (needs Search Console token)</p>
+    <p><b>Why this option:</b> It is the step that turns shipped files into indexing — and indexing into evidence.</p>
+    <p><b>How to record it:</b> Choose A, B or C (e.g. “SUG-13: A”). Option A needs the owner’s verification token (FLG-008, Q-06/Q-13).</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-14">
@@ -312,6 +729,42 @@
     <dt>Payoff</dt><dd>Scalable without being reckless</dd>
     <dt>Risk</dt><dd>A gate that is skipped once is a gate that no longer exists. CI enforces it.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Automate research and drafting; human-gate compliance</td>
+        <td class="tiny">Machine handles research, drafting and scheduling; the R1–R10 compliance gate and source checks stay in the publish path and fail the build on any breach. — ADOPTED</td>
+        <td class="tiny">Standing rule, enforced by CI</td>
+        <td class="tiny">Scalable without being reckless</td>
+        <td class="tiny">A gate skipped once is a gate that no longer exists</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Fully automate, including compliance</td>
+        <td class="tiny">Let the pipeline self-approve.</td>
+        <td class="tiny">Lower</td>
+        <td class="tiny">Speed</td>
+        <td class="tiny">This is how a site publishes an unverified price or a hands-on claim it cannot support (Q-12)</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Manual everything</td>
+        <td class="tiny">No automation at all.</td>
+        <td class="tiny">High, ongoing</td>
+        <td class="tiny">Control</td>
+        <td class="tiny">Does not scale; the brief asks for an automated platform</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Decided · stands as policy</p>
+    <p><b>Why this option:</b> Automation is what makes this site scalable; the gate is what makes it trustworthy. Q-12 records the same split.</p>
+    <p><b>How to record it:</b> Adopted 2026-11-20. Any AI-drafted copy is a suggestion until a human checks it against a source (Q-12).</p>
+  </div>
 </article>
 
     <h3 class="mt-4" style="font-size:1.15rem">Already built in this version</h3>
@@ -329,6 +782,42 @@
     <dt>Payoff</dt><dd>Immediate</dd>
     <dt>Risk</dt><dd>None, as long as the no-price rule is not quietly broken later.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Compare without price and explain the blanks</td>
+        <td class="tiny">A table of stable, knowable fields, with the reason the price column is empty printed underneath. — CHOSEN</td>
+        <td class="tiny">Done in this build</td>
+        <td class="tiny">Immediate; the explanation builds more trust than a stale number</td>
+        <td class="tiny">None while the no-price rule holds</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Show live prices through Creators API / PA API</td>
+        <td class="tiny">Apply for API access and render prices server-side under the licence.</td>
+        <td class="tiny">API application plus server rendering</td>
+        <td class="tiny">True price comparison</td>
+        <td class="tiny">Licence conditions, staleness rules, and a static site would need a rendering pipeline</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · Price-free table with no explanation</td>
+        <td class="tiny">Same table, without naming why price is missing.</td>
+        <td class="tiny">Lower</td>
+        <td class="tiny">Weak</td>
+        <td class="tiny">Readers assume an error, not a rule</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Decided · implemented in this build</p>
+    <p><b>Why this option:</b> Permitted today with no licence dependency; the deliberate blank is itself the trust signal.</p>
+    <p><b>How to record it:</b> Decision recorded 2026-11-20. Option B remains open as a future upgrade if API access is obtained (FLG-005).</p>
+  </div>
 </article>
 
 <article class="dec" id="SUG-10">
@@ -344,6 +833,42 @@
     <dt>Payoff</dt><dd>Compounding internal authority</dd>
     <dt>Risk</dt><dd>Over-linking reads as SEO. Link where a reader would actually click.</dd>
   </dl>
+  <div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody><tr class="opt-rec">
+        <td><b>A</b> · Cross-links on every guide and product page</td>
+        <td class="tiny">Each page names its cluster and its neighbours, and both hubs link to the comparison table. — CHOSEN</td>
+        <td class="tiny">Done in this build</td>
+        <td class="tiny">Compounding internal authority</td>
+        <td class="tiny">Over-linking if it stops being reader-first</td>
+        <td><span class="badge green tiny">Recommended</span></td>
+      </tr>
+<tr>
+        <td><b>B</b> · Hub-only structure</td>
+        <td class="tiny">Categories link down, pages do not link across.</td>
+        <td class="tiny">Lower</td>
+        <td class="tiny">Weaker</td>
+        <td class="tiny">Readers dead-end; crawlers see thin relationships</td>
+        <td>—</td>
+      </tr>
+<tr>
+        <td><b>C</b> · No explicit structure</td>
+        <td class="tiny">Leave links to chance.</td>
+        <td class="tiny">None</td>
+        <td class="tiny">None</td>
+        <td class="tiny">The site reads as scattered pages, not as two topics</td>
+        <td>—</td>
+      </tr></tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> Decided · implemented in this build</p>
+    <p><b>Why this option:</b> Already implemented in this build; the option is recorded so the structure is a decision, not an accident.</p>
+    <p><b>How to record it:</b> Decision recorded 2026-11-20. Keep it true as new guides are added.</p>
+  </div>
 </article>
   </div>
 </section>
@@ -359,7 +884,7 @@
     </div>
     <div class="table-wrap">
       <table>
-        <caption><b>14 questions.</b> 3 answered, 11 still need information.</caption>
+        <caption><b>15 questions.</b> 3 answered, 12 still need information.</caption>
         <thead><tr>
           <th scope="col">ID</th><th scope="col">Status</th><th scope="col">Question</th>
           <th scope="col">What is known</th><th scope="col">What is missing</th><th scope="col">How to find out</th>
@@ -475,6 +1000,14 @@
     <td class="tiny">The site uses generated editorial illustrations and states so. No Amazon product photography is stored.</td>
     <td class="tiny">Whether any brand will license its own photography for this site.</td>
     <td class="tiny">Ask the two brands for licensed images. Until then, keep generated illustrations and label them. Do not scrape listing images.</td>
+  </tr>
+<tr>
+    <td class="mono tiny">Q-15</td>
+    <td><span class="badge red">Blocked</span></td>
+    <td><b>Are the five defined events actually reaching an endpoint?</b><br><span class="tiny muted">The click counter and event recorder run in the reader’s browser and store nothing server-side. An unmeasured event is indistinguishable from a broken one.</span></td>
+    <td class="tiny">The five events (page_view, outbound_click, comparison_open, guide_read, capture_intent) are defined and fire locally. The campaign ledger is empty by design and has a schema (Data Room).</td>
+    <td class="tiny">Whether any event has ever arrived anywhere. No endpoint is deployed (FLG-007).</td>
+    <td class="tiny">Deploy the collector (SUG-03), send one deliberate test event of each type, and confirm five rows arrive before trusting any number. Then let the first 30 days run as a baseline.</td>
   </tr></tbody>
       </table>
     </div>
@@ -495,6 +1028,111 @@
           <tr><td>Ask brands for review units + licensed images (SUG-01, Q-14)</td><td>Two brand contact emails; publish the reply either way</td><td>One week of waiting</td><td>Hands-on content, photography</td></tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="gaps">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part two and a half</p>
+        <h2>Information gaps — what we have, what we don’t, what to do about it</h2>
+        <p>The plain inventory behind the questions above. A row marked <b>No</b> is information this project does not possess; no decision that depends on a missing row gets made until the row’s discovery step has run. This is the rule the reader-facing pages follow too: blanks stay blanks.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>10 information gaps.</b> 9 missing outright, 1 held partly. Each row names the cheapest discovery step.</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Information item</th><th scope="col">Have it?</th>
+          <th scope="col">What we know</th><th scope="col">How to discover it</th><th scope="col">Blocks</th>
+        </tr></thead>
+        <tbody><tr>
+          <td class="mono tiny">GAP-01</td>
+          <td><b>Whether the supplied short links credit the shopnow047c-20 account</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">All five resolved listings carry tracking parameters but no tag= (FLG-001). Compliance status of link.amazon itself is unresolved either way (FLG-003).</td>
+          <td class="tiny">One check in Associates Central: mint one link while signed in, resolve it, compare parameters. Under an hour (Q-01).</td>
+          <td class="tiny">Revenue attribution; the tagging question in SUG-02.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-02</td>
+          <td><b>The intended ASIN for each product</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">The owner never stated which listing each short link was meant to point at. The observed ASINs are recorded in a separate field and never merged (FLG-002).</td>
+          <td class="tiny">Owner confirms each row in the Data Room product-intent record, or confirms the observed ASIN is the intended one.</td>
+          <td class="tiny">Closing FLG-001/FLG-002 cleanly.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-03</td>
+          <td><b>Any traffic, click or conversion figure</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">No analytics endpoint is deployed; the collector ships with the site but nothing receives it (FLG-007). The ledger is empty by design.</td>
+          <td class="tiny">Deploy the collector (SUG-03), confirm one event arrives, then run 30 days before ranking anything.</td>
+          <td class="tiny">Topic selection, cadence gates, every measurement claim.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-04</td>
+          <td><b>Current commission rates for these two categories</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">Amazon publishes commission rates in Associates Central; they vary by category and change over time. No rate is printed on this site because none has been read from an authorised report.</td>
+          <td class="tiny">Owner reads the commission income statement in Associates Central and records the rate and read date in the ledger provenance column.</td>
+          <td class="tiny">Revenue modelling. Deliberately absent until a dated first-party source exists.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-05</td>
+          <td><b>Hands-on experience with any of the five products</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">No unit has been handled, so FTC guidance bars experience claims (FLG-004). Every page states the specification-judgement position.</td>
+          <td class="tiny">Buy the cheapest unit and document the purchase, or ask the brands for a review unit (Q-03, SUG-01).</td>
+          <td class="tiny">Review-style content; the single biggest differentiation available.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-06</td>
+          <td><b>Footprints, wattages and other unstated specifications</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">The five listing titles do not state external dimensions or wattage in the data this desk could read. Those cells are blank, not estimated.</td>
+          <td class="tiny">Read the manufacturer manuals or spec sheets; record values with a per-model source before any table cell is filled.</td>
+          <td class="tiny">The blank comparison cells. They stay blank until then.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-07</td>
+          <td><b>Whether the NIST/NSF certification claim (P04) is documented</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">The claim appears in the listing title only. No certificate has been located (FLG-006).</td>
+          <td class="tiny">Request the certificate from the brand, or keep the claim attributed. Attribution is the safe default and is what the site does.</td>
+          <td class="tiny">Upgrading the claim from attributed to verified.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-08</td>
+          <td><b>Search Console data (queries, impressions)</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">Verification needs a token only the owner can place (FLG-008). Until then, topic gates run on site-side events alone.</td>
+          <td class="tiny">Owner verifies the github.io property, submits sitemap.xml, and grants the desk read access or screenshots.</td>
+          <td class="tiny">Measured query choice for the topic queue.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-09</td>
+          <td><b>The owner’s existing audience (list, social, community)</b></td>
+          <td><span class="badge red">No</span></td>
+          <td class="tiny">Nothing in the supplied material describes any channel the owner can already reach (Q-02).</td>
+          <td class="tiny">Owner inventory of reachable channels; if none, plan for long-tail search plus one distribution channel.</td>
+          <td class="tiny">The first-traction plan.</td>
+        </tr>
+<tr>
+          <td class="mono tiny">GAP-10</td>
+          <td><b>A named author and a contact route</b></td>
+          <td><span class="badge amber">Partly</span></td>
+          <td class="tiny">Pages sign as “The Counterwise desk” with a stated non-testing policy, but no human byline or public email exists (Q-05, Q-07).</td>
+          <td class="tiny">Owner decision: publish a named byline and one public contact address, or formalise the issue tracker as the route.</td>
+          <td class="tiny">Authorship trust signals; the reader-question suggestion (SUG-07).</td>
+        </tr></tbody>
+      </table>
+    </div>
+    <div class="callout mt-3">
+      <h4>Why this register exists at all</h4>
+      <p>Most wrong turns on a project like this are information errors wearing a decision’s clothes: a topic chosen with no query data, a price table pasted from a stale page, a revenue forecast built on commission rates nobody has read from an authorised report. Naming the gap in one table — with the discovery step attached — keeps the decision and the information separate, so the owner can choose the best path with the record open in front of them.</p>
     </div>
   </div>
 </section>
@@ -562,6 +1200,7 @@
         <h4>Review &amp; oversight</h4>
         <ul>
           <li><a href="../suggestions/"><b>Suggestions — what next</b></a></li>
+          <li><a href="../direction/">Design &amp; trend topics</a></li>
           <li><a href="../flagged/">Flagged for review</a></li>
           <li><a href="../decisions/">Decision Room</a></li>
           <li><a href="../data-room/">Data Room</a></li>

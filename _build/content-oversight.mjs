@@ -2,9 +2,11 @@
 // footer and from a single "More" group in the nav, never from the hero.
 // The front page sells; these pages account for themselves.
 
-import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, MOMENTS, TOPIC_QUEUE, PATHS } from './data.mjs';
+import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, MOMENTS, TOPIC_QUEUE, PATHS, GAPS, VERIFICATION_LOG } from './data.mjs';
 import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink, sourceRel } from './core.mjs';
 import { DECISION_QUEUE, BLOCKING_QUESTIONS, OWNER_ACTIONS } from './decision-queue.mjs';
+import { ALL_GUIDES } from './editorial.mjs';
+import { WORKSHEETS } from './tools-content.mjs';
 
 // ------------------------------------------------------------- decision room
 export function decisionsPage() {
@@ -25,6 +27,26 @@ export function decisionsPage() {
     <dt>Payoff</dt><dd>${esc(s.payoff)}</dd>
     <dt>Risk</dt><dd>${esc(s.risk)}</dd>
   </dl>
+  ${s.options ? `<div class="table-wrap mt-2">
+    <table>
+      <caption><b>Options on the table.</b> The recommended row is shaded. Nothing changes until an option is chosen and recorded.</caption>
+      <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Effort</th><th scope="col">Payoff</th><th scope="col">If it goes wrong</th><th scope="col">Recommended</th></tr></thead>
+      <tbody>${s.options.map((o) => `<tr${o.letter === s.recommendedOption ? ' class="opt-rec"' : ''}>
+        <td><b>${esc(o.letter)}</b> · ${esc(o.title)}</td>
+        <td class="tiny">${esc(o.what)}</td>
+        <td class="tiny">${esc(o.effort)}</td>
+        <td class="tiny">${esc(o.payoff)}</td>
+        <td class="tiny">${esc(o.risk)}</td>
+        <td>${o.letter === s.recommendedOption ? '<span class="badge green tiny">Recommended</span>' : '—'}</td>
+      </tr>`).join('\n')}</tbody>
+    </table>
+  </div>
+  <div class="gate callout">
+    <h4>Decision gate</h4>
+    <p><b>State:</b> ${esc(s.decisionState || 'Awaiting owner decision')}</p>
+    <p><b>Why this option:</b> ${esc(s.recommendedWhy || s.recommendation)}</p>
+    <p><b>How to record it:</b> ${esc(s.decisionHow || 'Reply with the proposal ID and the option letter, e.g. “SUG-01: A”.')}</p>
+  </div>` : ''}
 </article>`;
 
   const qRow = (q) => `<tr>
@@ -41,7 +63,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Decision Room' }],
   kicker: 'Oversight',
   title: 'Decision Room',
-  lede: 'Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so.',
+  lede: 'Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so. <b>This page is the case file:</b> every proposal carries named options A/B/C, a recommended option and a decision gate. The <a href="/suggestions/">decision board</a> is the same queue reduced to one sortable row per proposal, with cost, reversibility and failure mode.',
   meta: `<div class="btn-row">
     <a class="btn small" href="/suggestions/">Open the suggestions room <span class="arw">→</span></a>
     ${badge(open.length + ' open suggestions', 'amber')}
@@ -59,6 +81,11 @@ ${pageHead({
         <p>Each path is a coherent bet. Mixing them is how a site ends up with seasonal guides, no measurement and no byline. The desk recommends <b>Path B first, Path C in parallel</b>: the publication polish is already built, and the measurement endpoint is the only thing standing between instinct and data.</p>
       </div>
     </div>
+    <div class="gate callout">
+      <h4>Choose before anything is implemented</h4>
+      <p>Every proposal below carries named options, a recommended one, and a decision gate. Nothing is acted on because it appears on this page — it is acted on when an option is chosen and recorded. That is the whole protocol: <b>read the options, pick a letter, write it down.</b></p>
+      <p>Record a choice in one line — “SUG-01: A” — in the repository's COORDINATION.md under this session's row, or as a reply to the session. The next build reads the recorded decision, changes the <code>decisionState</code> line for that proposal, and the page reflects it. Two are already recorded: <b>SUG-05: A</b> and <b>SUG-08: A</b>. A decision of “no” is as valid as “yes” and is recorded the same way.</p>
+    </div>
     <div class="table-wrap">
       <table>
         <caption><b>Three coherent paths.</b> Choose one; the suggestions below are ordered to serve it.</caption>
@@ -71,6 +98,19 @@ ${pageHead({
       <h4>How to choose</h4>
       <p>Answer three questions in order: (1) Is the tagging question closed (SUG-02)? If not, stop and close it — no path earns anything until then. (2) Does the owner want a named byline (Q-05)? If yes, Path B. (3) Is the analytics endpoint deployed (SUG-03)? If not, Path C is the next task regardless of the path chosen. Record the choice here with a date; the next session reads it before writing anything.</p>
     </div>
+    <div class="table-wrap mt-3" id="decision-record">
+      <table>
+        <caption><b>Decision record — the owner writes the choice here, before any change is implemented.</b> Kept deliberately blank: an empty box that waits is more honest than a filled one that presumes.</caption>
+        <thead><tr><th scope="col">Decision</th><th scope="col">Chosen option</th><th scope="col">Date decided</th><th scope="col">Recorded by</th></tr></thead>
+        <tbody>
+          <tr><td>Path (A, B or C above)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+          <tr><td>Byline: named person or the desk? (Q-05)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+          <tr><td>Seasonal queue: which title, if any, runs next? (queue above)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+          <tr><td>Review unit: buy, request, or neither? (SUG-01, Q-03)</td><td>— awaiting decision —</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tiny faint mt-1">When a decision is made, edit this table in <code>_build/data.mjs</code>-driven output, record it in <code>COORDINATION.md</code> §2, and only then start the work. Suggestions and paths remain proposals until this record says otherwise.</p>
   </div>
 </section>
 
@@ -157,6 +197,39 @@ ${pageHead({
   </div>
 </section>
 
+<section class="section tint" id="gaps">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Part two and a half</p>
+        <h2>Information gaps — what we have, what we don’t, what to do about it</h2>
+        <p>The plain inventory behind the questions above. A row marked <b>No</b> is information this project does not possess; no decision that depends on a missing row gets made until the row’s discovery step has run. This is the rule the reader-facing pages follow too: blanks stay blanks.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>${GAPS.length} information gaps.</b> ${GAPS.filter((g) => g.have === 'No').length} missing outright, ${GAPS.filter((g) => g.have !== 'No').length} held partly. Each row names the cheapest discovery step.</caption>
+        <thead><tr>
+          <th scope="col">ID</th><th scope="col">Information item</th><th scope="col">Have it?</th>
+          <th scope="col">What we know</th><th scope="col">How to discover it</th><th scope="col">Blocks</th>
+        </tr></thead>
+        <tbody>${GAPS.map((g) => `<tr>
+          <td class="mono tiny">${esc(g.id)}</td>
+          <td><b>${esc(g.item)}</b></td>
+          <td>${badge(g.have, g.have === 'No' ? 'red' : g.have === 'Partly' ? 'amber' : 'green')}</td>
+          <td class="tiny">${esc(g.detail)}</td>
+          <td class="tiny">${esc(g.discover)}</td>
+          <td class="tiny">${esc(g.blocks)}</td>
+        </tr>`).join('\n')}</tbody>
+      </table>
+    </div>
+    <div class="callout mt-3">
+      <h4>Why this register exists at all</h4>
+      <p>Most wrong turns on a project like this are information errors wearing a decision’s clothes: a topic chosen with no query data, a price table pasted from a stale page, a revenue forecast built on commission rates nobody has read from an authorised report. Naming the gap in one table — with the discovery step attached — keeps the decision and the information separate, so the owner can choose the best path with the record open in front of them.</p>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     <div class="sec-head">
@@ -204,6 +277,7 @@ export function dataRoom() {
       <td class="mono tiny">${esc(p.asin)}</td>
       <td class="mono tiny" style="max-width:300px;word-break:break-all">${esc(p.observedRedirect)}</td>
       <td class="nowrap">${esc(p.confirmationDate)}</td>
+      <td class="tiny">Re-checked ${esc(p.recheck.date)}: ${esc(p.recheck.result.split('.')[0])}.</td>
       <td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon listing</a><br><a href="${SOURCES[p.source].url}" rel="noopener" target="_blank">${esc(p.source)}</a></td>
     </tr>`
   ).join('\n');
@@ -252,7 +326,7 @@ ${pageHead({
         <thead><tr>
           <th scope="col">ID</th><th scope="col">Product</th><th scope="col">Supplied link</th>
           <th scope="col">Intended ASIN</th><th scope="col">Observed ASIN</th>
-          <th scope="col">Observed redirect target (exact)</th><th scope="col">Confirmed</th><th scope="col">Sources</th>
+          <th scope="col">Observed redirect target (exact)</th><th scope="col">Confirmed</th><th scope="col">Re-check (this session)</th><th scope="col">Sources</th>
         </tr></thead>
         <tbody>${productRows}</tbody>
       </table>
@@ -281,11 +355,38 @@ ${pageHead({
     </div>
     <div class="table-wrap">
       <table>
-        <caption><b>${Object.keys(SOURCES).length} official sources.</b> All fetched and read during the build session on ${esc(SITE.buildDate)}.</caption>
+        <caption><b>${Object.keys(SOURCES).length} official sources.</b> All fetched and read during the build session on ${esc(SITE.buildDate)}; source U2 was fetched and read by session <code>arena-b36a7b54</code> the same day.</caption>
         <thead><tr><th scope="col">Ref</th><th scope="col">Source</th><th scope="col">Page updated</th><th scope="col">Read on</th><th scope="col">Used for</th></tr></thead>
         <tbody>${sourceRows}</tbody>
       </table>
     </div>
+  </div>
+</section>
+
+<section class="section" id="verification-log">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Register two, continued</p>
+        <h2>Verification log — re-checks, with dates and methods</h2>
+        <p>Append-only: each row records a later session re-checking an earlier session’s record. The method is stated so a reviewer can reproduce it, and whatever was deliberately <i>not</i> copied is named alongside whatever was.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption><b>${VERIFICATION_LOG.length} logged re-checks.</b> The five product re-checks (row 1) were performed per listing; per-product detail sits in the product-intent record above.</caption>
+        <thead><tr><th scope="col">Date</th><th scope="col">Session</th><th scope="col">Item</th><th scope="col">Method</th><th scope="col">Result</th><th scope="col">Link</th></tr></thead>
+        <tbody>${VERIFICATION_LOG.map((v) => `<tr>
+          <td class="nowrap tiny">${esc(v.date)}</td>
+          <td class="mono tiny">${esc(v.who)}</td>
+          <td><b>${esc(v.item)}</b></td>
+          <td class="tiny">${esc(v.method)}</td>
+          <td class="tiny">${esc(v.result)}</td>
+          <td class="src"><a href="${v.link.startsWith('https://www.amazon.com/dp/') ? v.link + '/?tag=' + SITE.associateTag : v.link}" rel="${v.link.startsWith('https://www.amazon.com/dp/') ? 'sponsored nofollow noopener' : 'noopener'}" target="_blank">Open</a></td>
+        </tr>`).join('\n')}</tbody>
+      </table>
+    </div>
+    <p class="tiny faint mt-1">Prices and ratings visible on the fetched Amazon pages were deliberately not transferred to this site — the price rule (A2 §2(b)) applies to what a page displays, and rule R3 enforces it on every build.</p>
   </div>
 </section>
 
@@ -430,7 +531,7 @@ ${pageHead({
     path: '/data-room/',
     title: 'Data Room — product intent, sources, events and ledger | Counterwise',
     description:
-      'The raw register behind the shop: intended vs observed ASINs stored separately, 11 official sources with read dates, the five measured events, and an empty campaign ledger with its schema.',
+      `The raw register behind the shop: intended vs observed ASINs stored separately, ${Object.keys(SOURCES).length} official sources with read dates, a dated verification log, the five measured events, and an empty campaign ledger with its schema.`,
     body,
   });
 }
@@ -691,7 +792,7 @@ ${pageHead({
   kicker: 'For the owner',
   title: 'Executive summary',
   lede: 'What was built, what it can and cannot claim, what it needs from you, and the decisions that carry the most weight.',
-  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 8 guides · 3 worksheets · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
+  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · ${PRODUCTS.length} products · ${ALL_GUIDES.length} guides · ${WORKSHEETS.length} worksheets · ${Object.keys(SOURCES).length} official sources · ${FLAGS.length} flagged items · ${DECISION_QUEUE.length} proposals in the queue</p>`,
 })}
 <section class="section">
   <div class="wrap-narrow prose">
@@ -756,6 +857,7 @@ ${pageHead({
 
     <h2>What you can review, in order</h2>
     <ol>
+      <li><a href="/direction/">Design &amp; trend topics</a> — the design brief for the next build, fifteen design suggestions with a decision board, and ten catchy working titles each carrying the gate it must pass before it is published.</li>
       <li><a href="/suggestions/">Suggestions and the decision queue</a> — ${DECISION_QUEUE.length} proposals with cost, reversibility and failure mode, the ${BLOCKING_QUESTIONS.length} questions that block them, and the five actions only you can take (about fifty minutes total). Start here.</li>
       <li><a href="/decisions/">Decision Room</a> — three paths to choose between, a seasonal topic queue with measurement gates, ${SUGGESTIONS.length} suggestions ordered by priority, ${QUESTIONS.length} questions split into known and unknown, a missing-information discovery plan, and the options rejected with sources.</li>
       <li><a href="/flagged/">Flagged for Review</a> — ${FLAGS.length} items that could not be confirmed, each with evidence and the shortest route to closing it.</li>
@@ -847,7 +949,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Suggestions' }],
   kicker: 'Review queue',
   title: 'Suggestions, and what has to be true before each one',
-  lede: `${DECISION_QUEUE.length} proposals, ${BLOCKING_QUESTIONS.length} blocking questions, and the five actions only the account owner can take. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it.`,
+  lede: `${DECISION_QUEUE.length} proposals, ${BLOCKING_QUESTIONS.length} blocking questions, and the five actions only the account owner can take. Nothing on this page is implemented unless it says "Built". Review in this order; the queue is sorted by what breaks if you skip it. <b>This page is the decision board:</b> one row per proposal with its cost, reversibility and failure mode. The <a href="/decisions/">Decision Room</a> holds the underlying <code>SUG</code> case files, the named options A/B/C behind each one, and the questions split into known, missing and how-to-find.`,
   meta: `<div class="btn-row">
     ${badge(openItems.length + ' awaiting a decision', 'amber')}
     ${badge(doneItems.length + ' built in this cycle', 'green')}

@@ -87,7 +87,7 @@ const guideCards = (list, cls = 'cards c2') => `
 ${list.map((g) => `<a class="card" href="/${g.path.replace(/\.html$/, '')}.html">
   <span class="num">${esc(g.kicker)}</span>
   <h3>${esc(g.title)}</h3>
-  <p>${esc(g.summary.split('. ')[0].replace(/\.$/, ''))}.</p>
+  <p>${esc(g.card || g.summary)}</p>
   <div class="foot"><span>${esc(g.readingTime)} read</span><span class="read">Open <span class="arw">→</span></span></div>
 </a>`).join('\n')}
 </div>`;
@@ -319,7 +319,7 @@ export function frontPage() {
       </div>
       <a class="more" href="/guides/">All guides →</a>
     </div>
-    ${guideCards(GUIDES.slice(0, 4))}
+    ${guideCards(['basket-or-oven', 'capacity-checklist', 'ice-test-thermometer', 'cleanup-counter'].map((slug) => GUIDES.find((g) => g.slug === slug)))}
   </div>
 </section>
 
@@ -337,7 +337,7 @@ export function frontPage() {
     <div class="cards c2 mt-3">
       <div class="callout">
         <h4>Two clusters, not five scattered pages</h4>
-        <p>The <a href="/air-fryers/">air-fryer cluster</a> (format, capacity, cleanup) and the <a href="/thermometers/">thermometer cluster</a> (safe temperatures, checking vs watching) link to each other and to the <a href="/compare/">comparison table</a>. That is the site’s topical structure — depth in two adjacent jobs rather than breadth across a directory.</p>
+        <p>The <a href="/air-fryers/">air-fryer cluster</a> (format, capacity, cleanup) and the <a href="/thermometers/">thermometer cluster</a> (safe temperatures, checking vs watching, calibration) link to each other and to the <a href="/compare/">comparison table</a>. That is the site’s topical structure — depth in two adjacent jobs rather than breadth across a directory.</p>
       </div>
       <div class="callout">
         <h4>What comes next is a hypothesis, not a promise</h4>
@@ -424,14 +424,14 @@ ${pageHead({
     </div>
     ${guideCards(
       slug === 'air-fryers'
-        ? GUIDES.filter((g) => ['basket-or-oven', 'capacity-checklist', 'cleanup-counter'].includes(g.slug))
-        : GUIDES.filter((g) => ['temperature-safety', 'multifunction'].includes(g.slug))
+        ? GUIDES.filter((g) => ['basket-or-oven', 'capacity-checklist', 'cleanup-counter', 'multifunction'].includes(g.slug))
+        : GUIDES.filter((g) => ['temperature-safety', 'ice-test-thermometer'].includes(g.slug))
     )}
     <div class="callout mt-3">
       <h4>In this cluster</h4>
       <p>${slug === 'air-fryers'
         ? 'The air-fryer cluster: <a href="/guides/basket-or-oven.html">format</a>, <a href="/guides/capacity-checklist.html">capacity</a>, <a href="/guides/cleanup-counter.html">cleanup</a> and <a href="/guides/multifunction.html">multi-function questions</a>. The neighbouring cluster is <a href="/thermometers/">thermometers</a> — the tool that tells you when the food is done. Both clusters meet in the <a href="/compare/">comparison table</a>.'
-        : 'The thermometer cluster: <a href="/guides/temperature-safety.html">safe temperatures</a> and the checking-vs-watching choice. The neighbouring cluster is <a href="/air-fryers/">air fryers</a> — the machines that cook the food. Both clusters meet in the <a href="/compare/">comparison table</a>.'}</p>
+        : 'The thermometer cluster: <a href="/guides/temperature-safety.html">safe temperatures</a>, the checking-vs-watching choice and the <a href="/guides/ice-test-thermometer.html">two-minute ice test</a>. The neighbouring cluster is <a href="/air-fryers/">air fryers</a> — the machines that cook the food. Both clusters meet in the <a href="/compare/">comparison table</a>.'}</p>
     </div>
   </div>
 </section>`;
@@ -887,7 +887,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Guides' }],
   kicker: 'The notebook',
   title: 'Guides',
-  lede: 'Five pieces written to answer a question, not to rank for a product name. Two are about choosing a machine; three are about using one safely and sanely.',
+  lede: `${GUIDES.length} pieces written to answer a question, not to rank for a product name. Some are about choosing a machine; the rest are about using one safely, sanely and in season.`,
 })}
 <section class="section">
   <div class="wrap">
