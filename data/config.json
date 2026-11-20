@@ -1,0 +1,34 @@
+{
+  "site_name": "Crisp & Done",
+  "tagline": "Air fryers and kitchen thermometers, explained with questions first.",
+  "base_path": "/WinB/",
+  "site_url": "https://sassnarep3-star.github.io/WinB",
+  "tracking_id": "shopnow047c-20",
+  "associates_disclosure": "As an Amazon Associate I earn from qualifying purchases.",
+  "analytics_endpoint": "",
+  "analytics_events": [
+    {
+      "name": "page_view",
+      "meaning": "A page loaded (path only; no query string, no IDs)."
+    },
+    {
+      "name": "outbound_click",
+      "meaning": "A reader clicked a sponsored product link (product id only)."
+    },
+    {
+      "name": "guide_scroll_75",
+      "meaning": "A reader scrolled 75% of a guide (guide slug only)."
+    },
+    {
+      "name": "disclosure_open",
+      "meaning": "A reader followed the disclosure link from the strip."
+    },
+    {
+      "name": "source_link_click",
+      "meaning": "A reader followed a verification source link (source id only)."
+    }
+  ],
+  "analytics_status": "PROPOSED — not in the brief; endpoint not configured (FLG-007)",
+  "publish_date": "2026-11-20",
+  "publishing_cadence": "Proposed: one guide every two weeks (not yet confirmed; see S-04)"
+}

@@ -1,0 +1,166 @@
+{
+  "as_of": "2026-11-20",
+  "rows": [
+    {
+      "id": "FLG-001",
+      "severity": "High",
+      "item": "Intended ASIN cannot be confirmed for any of the 5 products",
+      "detail": "Each supplied link path token is 9 characters (B04G1MEwY, B02NbDxp3, B00hJ57DV, B0c8moW59, B0f3GKalj). The observed ASIN on each Amazon page is 10 characters. Because the intended ASIN is not confirmable, the field is left blank. The Amazon ASIN definition page was not located; the 10-character format is confirmed only from observed /dp/ URLs.",
+      "sources": [
+        "https://link.amazon/B04G1MEwY",
+        "https://link.amazon/B02NbDxp3",
+        "https://link.amazon/B00hJ57DV",
+        "https://link.amazon/B0c8moW59",
+        "https://link.amazon/B0f3GKalj"
+      ],
+      "action": "Owner: confirm the intended ASIN or listing URL for each product."
+    },
+    {
+      "id": "FLG-002",
+      "severity": "High",
+      "item": "Redirect targets differ from link tokens in all 5 cases",
+      "detail": "P-01 token B04G1MEwY → observed B0CDY277D3; P-02 B02NbDxp3 → B09B7SB46R; P-03 B00hJ57DV → B08DKYBTPH; P-04 B0c8moW59 → B0DHZTCNR5; P-05 B0f3GKalj → B0DZFD6R9Z. Redirect targets are recorded in a separate field and not merged with the intended ASIN.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ],
+      "action": "Owner: confirm which listing each short link should reach."
+    },
+    {
+      "id": "FLG-003",
+      "severity": "High",
+      "item": "Compliance status of the supplied short links is unresolved",
+      "detail": "The brief states the status is unresolved in FLG-003. The links are NOT claimed invalid. Special Link tests and tracking reports require an enrolled Associates account, which this session cannot access. Policy §2(g) and §2(b) make correct formatting and the Associates ID parameter important. The `link.amazon` domain's official status was not confirmed from an Amazon source. Validation plan: test one link per product in the enrolled Associates workflow, confirm destination and that the tracking report credits the account, then scale.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://affiliate-program.amazon.com/help/operating/agreement"
+      ],
+      "action": "Owner: run the one-link-per-product test in Associates Central."
+    },
+    {
+      "id": "FLG-004",
+      "severity": "Medium",
+      "item": "Tracking ID format and enrollment not confirmed",
+      "detail": "Tracking ID shopnow047c-20 is recorded as selected. The policy example format is XXXXX-##, or another format Amazon designates. The prefix here has 11 characters. Enrollment and active status could not be confirmed.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "action": "Owner: confirm the tracking ID in Associates Central."
+    },
+    {
+      "id": "FLG-005",
+      "severity": "Medium",
+      "item": "Prices and ratings not shown",
+      "detail": "Policy §2(b) limits price display to Amazon-served links or PA-API / Creators API data. The product pages were read, but no price or rating field was confirmed as a stable official value for these listings, so both are blank.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "action": "Owner: decide on PA-API / Creators API eligibility (see suggestions)."
+    },
+    {
+      "id": "FLG-006",
+      "severity": "Medium",
+      "item": "Author identity and credentials not supplied",
+      "detail": "The site is bylined to the editorial team. No author name, bio or credentials were invented. Named authorship requires owner input.",
+      "sources": [],
+      "action": "Owner: supply the author name and bio, or keep the team byline."
+    },
+    {
+      "id": "FLG-007",
+      "severity": "High",
+      "item": "No analytics endpoint is live; the five events were not defined in the brief",
+      "detail": "GitHub Pages is static and cannot run a self-hosted analytics endpoint. The client script sends events only when an endpoint URL is configured (currently blank). The brief refers to five defined events but does not list them. The five used here are proposals (see Measurement page).",
+      "sources": [
+        "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+      ],
+      "action": "Owner: name the five events and choose an endpoint (see suggestions S-03)."
+    },
+    {
+      "id": "FLG-008",
+      "severity": "Medium",
+      "item": "Search Console property not verified or submitted",
+      "detail": "Search Console verification needs an account owner. The site publishes sitemap.xml and robots.txt, ready for submission. No verification was attempted.",
+      "sources": [
+        "https://github.com/sassnarep3-star/WinB"
+      ],
+      "action": "Owner: verify the GitHub Pages URL in Search Console and submit sitemap.xml."
+    },
+    {
+      "id": "FLG-009",
+      "severity": "Low",
+      "item": "Brand name not cleared",
+      "detail": "“Crisp & Done” is a working name. It was checked only against the Amazon trademark rule in the cited policy, not against trademark registries.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "action": "Owner: confirm the brand name and clear it before launch."
+    },
+    {
+      "id": "FLG-010",
+      "severity": "Low",
+      "item": "Repository irregularities",
+      "detail": "(a) The repo had only a README (“# WinB”) and no LICENSE, CI, or site. (b) The brief's parallel-session rules name session-<id>/<task> branches, but the session instructions fix a single working branch; this session followed the single branch. (c) The brief's text had escaped HTML entities (e.g., &amp;lt;) in the branch-name rule. (d) COORDINATION.md did not exist and was created. (e) No LICENSE file exists, so reuse terms are not stated.",
+      "sources": [
+        "https://github.com/sassnarep3-star/WinB"
+      ],
+      "action": "Owner: confirm the branch rule and add a LICENSE if one is wanted."
+    },
+    {
+      "id": "FLG-011",
+      "severity": "Medium",
+      "item": "Guides are editorial, not tested",
+      "detail": "The four guides discuss questions a buyer should ask. They are based on listing titles and general criteria. No product was used or tested by the site. No performance claims were made.",
+      "sources": [
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+      ],
+      "action": "Owner: decide whether to commission hands-on testing (see suggestions)."
+    },
+    {
+      "id": "FLG-012",
+      "severity": "Medium",
+      "item": "Commission rates not verified",
+      "detail": "The Associates rate schedule redirected to sign-in when fetched. Commission potential is therefore not estimated. No revenue forecast is presented.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/schedule"
+      ],
+      "action": "Owner: sign in and export the rate card for the relevant categories."
+    },
+    {
+      "id": "FLG-013",
+      "severity": "Medium",
+      "item": "Campaign ledger is intentionally empty",
+      "detail": "No authorized first-party reports (clicks, eligible sessions, orders) were available. The ledger has headers only; no conversion score, click count or revenue figure is shown.",
+      "sources": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "action": "Owner: export Associates reports when available and add dated rows with provenance."
+    },
+    {
+      "id": "FLG-014",
+      "severity": "Medium",
+      "item": "Listing content may change",
+      "detail": "Titles, breadcrumbs and redirect targets were read on 2026-11-20. Observed final URLs contain non-standard parameters (lv=shuf, plpRedirect=mhFallback). Re-check before publication.",
+      "sources": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://www.amazon.com/dp/B0DHZTCNR5",
+        "https://www.amazon.com/dp/B0DZFD6R9Z"
+      ],
+      "action": "Owner / next session: re-verify before each publish."
+    },
+    {
+      "id": "FLG-015",
+      "severity": "Low",
+      "item": "FTC guidance date and legal review",
+      "detail": "The FTC Disclosures 101 brochure is dated November 2019 and links to the Endorsement Guides. The site's disclosure placement follows the brochure. This is not legal advice.",
+      "sources": [
+        "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+      ],
+      "action": "Owner: legal review of disclosure wording before scaling."
+    }
+  ]
+}
