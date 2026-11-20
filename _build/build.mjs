@@ -17,6 +17,7 @@ import {
 } from './content-oversight.mjs';
 import { directionPage } from './content-direction.mjs';
 import { designBriefPage } from './design-brief.mjs';
+import { suggestionLedgerPage } from './content-suggestions.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const written = [];
@@ -74,6 +75,11 @@ routes.push({ loc: '/decisions/inputs.html', pri: '0.6', freq: 'weekly' });
 
 write('suggestions/index.html', suggestionsPage());
 routes.push({ loc: '/suggestions/', pri: '0.6', freq: 'weekly' });
+
+// The register generation's suggestion ledger (SG-01..SG-30 + the three paths +
+// the choice log), published here because its own generator's route is guarded.
+write('suggestions/ledger.html', suggestionLedgerPage());
+routes.push({ loc: '/suggestions/ledger.html', pri: '0.5', freq: 'weekly' });
 
 write('direction/index.html', directionPage());
 routes.push({ loc: '/direction/', pri: '0.6', freq: 'weekly' });
