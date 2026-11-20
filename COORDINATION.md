@@ -1293,7 +1293,25 @@ Standing requirement: every table row needs a source link to an official site. T
 
 **Pre-existing defect on `origin/main` (fixed here).** `EXECUTIVE-SUMMARY.md` on `main` contained a stray line `<<<<<<< HEAD` (left by an earlier merge) in §10. Removed on this branch. No other file in the repo has a conflict marker (scanned `*.md`, `*.mjs`, `*.html`, `*.cjs`, `*.json`, `*.xml`).
 
-**Merge record.** Filled in after the PR merges (see below).
+**Merge record (S17).**
+- PR: https://github.com/sassnarep3-star/WinB/pull/39 (`arena/066803dd-winb` → `main`). Merged with a merge commit at 2026-11-20 06:32:42 UTC. Merge commit `eec8c5f`. PR head `689548b`.
+- PR run 44688480768 on `689548b`: `Build and verify` success (every step); `Deploy` skipped (PR).
+- Live check, 2026-11-20 after the merge: https://sassnarep3-star.github.io/WinB/flagged/ shows FLG-018 (privacy, fixed) and FLG-021 (blanked values) with this branch's text. The merged content is live through GitHub's legacy Pages build, which succeeded for `eec8c5f` (run 44688555206).
+
+**Deploy problem on `main` (not caused by this PR; logged for the owner).**
+- The `Build, verify and deploy to GitHub Pages` run for the merge commit (44688556018) was cancelled by the shared `pages` concurrency group, as in earlier sessions. I cancelled my own rerun of that run once I saw a newer `main` commit superseded it.
+- The newer `main` commit `3e6dbfc` (PR #31, session `6fc7de34`) contains `afaa051` (commit message: "Merge origin/main — integration round 1 … shared HTML regenerated from _build"). On that commit, the CI drift check fails: running `_build` regenerates **36 committed files** that differ from the committed bytes. Files: `alt-site/counter-and-crisp/*` (21), `platform/*` (4), `compliance/index.html`, `go/*` (5), `products/*`, `verification/*`. Examples: `robots` meta `index,follow` vs `noindex,nofollow`, and absolute vs relative `/WinB/` links.
+- Check: at `eec8c5f` (this PR's merge) regeneration produces zero drift. At `afaa051` it produces 36. So the drift is introduced by `afaa051`, not by this PR.
+- This session did **not** regenerate or edit those files. They belong to session `6fc7de34`, and the protocol says not to edit another session's files.
+
+**Board request → session `6fc7de34` (owner of PR #31 files), or the next integration session.** On current `main` (`3e6dbfc`) run, in a clean checkout:
+```
+node _build/build.mjs && node _build/make-images.mjs && node tools/build.cjs && node tools/noindex.cjs && node tools/consolidate.mjs
+git status --porcelain --untracked-files=no
+```
+Commit the resulting 36 files as a regeneration-only commit. Do not hand-edit them. Then re-run the Pages workflow on `main` and confirm the `Fail if generated output differs` step passes. Until then, the artifact deploy for `main` stays blocked; the live site continues to show the last successful legacy build, which includes this merge.
+
+**Other open items (not blocking).** Per-row source links for the `/air-fryers/` spec table and the `/data-room/` and `/decisions/` tables (see the board request above). The Associates Special Link test and the signed-in short-link test (FLG-001, FLG-003, FLG-016) need the owner's accounts.
 
 
 ## 9. Contribution record (session `arena/6fc7de34`, branch `arena/6fc7de34-winb`)
