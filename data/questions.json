@@ -1,0 +1,177 @@
+{
+  "schema": "counterwise.questions.v1",
+  "generated": "2026-11-20",
+  "principle": "A decision cannot be made reasonably until the information column has been answered with evidence. Blank cells mean not yet known, not zero and not no. Each row names the specific artefact that would close it.",
+  "rows": [
+    {
+      "id": "Q-01",
+      "area": "Product identity",
+      "question": "Which exact product did each submitted link intend to promote?",
+      "known": "Five link.amazon short links were supplied. Each resolves to an Amazon listing; the resolved ASINs are recorded separately from intent.",
+      "missing": "The submitter's intended product record. The supplied tokens are 9 characters and are not ASINs, so intent cannot be read from them.",
+      "howToDiscover": "Open the product record inside the enrolled Associates account, match it to the observed ASIN, and record the intended ASIN, the official listing URL, the confirmation date and the source. Keep the observed redirect in its own field.",
+      "decisionEnabled": "Whether each product can be published as a named, purchasable recommendation at all.",
+      "status": "Open",
+      "blocks": [
+        "FLG-001"
+      ],
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "id": "Q-02",
+      "area": "Link mechanics",
+      "question": "Do the supplied short links carry the Associate ID through to the listing page?",
+      "known": "The resolved URLs observed on 2026-11-20 ended at the Amazon product page and carried session-scoped query parameters (lv, btn_type, btn_ref, channelId, plpRedirect). No tag parameter was visible in the resolved URL.",
+      "missing": "Confirmation of referral attribution inside the Associates reporting console for a click on each short link.",
+      "howToDiscover": "Click one submitted short link per product, then open the Associates click report and confirm the click is attributed to the tracking ID with the expected destination.",
+      "decisionEnabled": "Whether to publish the submitted short links at all, or replace every one with a canonical Special Link.",
+      "status": "Open",
+      "blocks": [
+        "FLG-003"
+      ],
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "id": "Q-03",
+      "area": "Program standing",
+      "question": "Is the tracking ID shopnow047c-20 enrolled and eligible for these listings?",
+      "known": "The tracking ID was supplied in the brief and matches the XXXXX-## Associate ID format described in the Program Policies. The five destination listings are live Amazon.com product pages.",
+      "missing": "Account-level confirmation of approval, the marketplace coverage in force for this account, and whether these five listings are eligible for commission.",
+      "howToDiscover": "Read the account's Commission Income Statement and approval notice in Associates Central, and check the Product Advertising eligibility state for each ASIN through the Creators API.",
+      "decisionEnabled": "Whether monetised links may be switched on at all.",
+      "status": "Open",
+      "blocks": [
+        "FLG-003",
+        "FLG-004"
+      ],
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "id": "Q-04",
+      "area": "Specification depth",
+      "question": "What are the full specifications, dimensions and care instructions for each product?",
+      "known": "Listing titles state headline capacity, mode count, temperature and probe configuration for all five products.",
+      "missing": "Full external dimensions, weight, wattage, temperature range, clearance requirements, care and dishwasher guidance, and warranty terms.",
+      "howToDiscover": "Read the manufacturer product page and the manufacturer user guide for each exact model, then record the document URL and its revision date. Do not carry a spec across a product family.",
+      "decisionEnabled": "Whether any guide can make a fit, capacity or cleanup claim instead of asking the reader to check.",
+      "status": "Open",
+      "blocks": [
+        "FLG-006"
+      ],
+      "source": "https://www.amazon.com/dp/B0CDY277D3"
+    },
+    {
+      "id": "Q-05",
+      "area": "Price and availability",
+      "question": "What will these cost, and are they actually purchasable?",
+      "known": "Point-in-time listing prices and stock states were read on 2026-11-20 and are recorded with that date.",
+      "missing": "Any statement about price stability, price history, discount cycles or future availability.",
+      "howToDiscover": "Pull dated price observations over time from an authorised first-party source. Until then, every price shown on the site carries the date it was read.",
+      "decisionEnabled": "Whether price can be mentioned in editorial copy, and how the copy must hedge it.",
+      "status": "Open",
+      "blocks": [
+        "FLG-007"
+      ],
+      "source": "https://www.amazon.com/dp/B09B7SB46R"
+    },
+    {
+      "id": "Q-06",
+      "area": "Commission potential",
+      "question": "What commission does each product actually earn?",
+      "known": "Nothing. No commission rate, category rate, or earning report has been supplied or observed.",
+      "missing": "The applicable rate per product category, the fixed income rates, any bonus or bounty that applies, and the account's actual earnings.",
+      "howToDiscover": "Read the account's Commission Income Statement in Associates Central for the category rates that apply to each ASIN.",
+      "decisionEnabled": "Which products are worth writing about at all. Until this is known, no revenue ranking is published.",
+      "status": "Open",
+      "blocks": [
+        "FLG-008"
+      ],
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "id": "Q-07",
+      "area": "Demand and audience",
+      "question": "What are readers actually searching for, and which of these products do they want?",
+      "known": "An editorial hypothesis only: air fryer and meat thermometer buying questions.",
+      "missing": "Any first-party search or on-site query data. Nothing has been measured yet.",
+      "howToDiscover": "Configure Search Console and a consent-reviewed, self-hosted first-party analytics endpoint, then read real queries and landing pages after a meaningful observation window.",
+      "decisionEnabled": "Which topics get written next, and which product gets a dedicated guide.",
+      "status": "Open",
+      "blocks": [
+        "FLG-009",
+        "FLG-010"
+      ],
+      "source": "https://sassnarep3-star.github.io/WinB/"
+    },
+    {
+      "id": "Q-08",
+      "area": "Measurement",
+      "question": "How many people arrive, and what do they click?",
+      "known": "A five-event measurement plan is defined: page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported.",
+      "missing": "A live collection endpoint, a privacy notice, a retention period, and a data-processing decision. GitHub Pages serves static files only.",
+      "howToDiscover": "Provision a self-hosted endpoint, publish the privacy notice and retention rule, then implement the five events with a consent gate. The Amazon-side conversion event may only be entered from a dated authorised report.",
+      "decisionEnabled": "Whether optimisation is possible or whether the site is running on instinct.",
+      "status": "Open",
+      "blocks": [
+        "FLG-009"
+      ],
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "id": "Q-09",
+      "area": "Editorial method",
+      "question": "What is the standard of proof for a named recommendation?",
+      "known": "The site currently publishes question-led guides that make no product-specific performance claims.",
+      "missing": "A written evaluation rubric, a hands-on testing log, and a labelling convention for editorial judgement versus measured fact.",
+      "howToDiscover": "Write the rubric first, then collect either documented hands-on results or manufacturer-published specifications for each named product, and cite the source for each claim.",
+      "decisionEnabled": "Whether the site may name a winner, or must keep recommending by decision criteria only.",
+      "status": "Open",
+      "blocks": [
+        "FLG-006"
+      ],
+      "source": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+    },
+    {
+      "id": "Q-10",
+      "area": "Compliance",
+      "question": "Does the disclosure placement meet the Operating Agreement and the FTC's 'clearly and conspicuously' standard?",
+      "known": "A disclosure strip sits directly under the masthead on every page and is repeated in the footer. Every outbound product link carries rel sponsored. The Amazon operating agreement and FTC guidance are linked on the sources page.",
+      "missing": "A qualified compliance review of the final live pages, including endorsement context and the wording Amazon asks associates to use.",
+      "howToDiscover": "Have the live pages reviewed against the current Operating Agreement, the Program Policies and the FTC Endorsement Guides, and record the reviewer and date.",
+      "decisionEnabled": "Whether the site can be published and scaled without a policy finding.",
+      "status": "Open",
+      "blocks": [
+        "FLG-002"
+      ],
+      "source": "https://affiliate-program.amazon.com/help/operating/agreement"
+    },
+    {
+      "id": "Q-11",
+      "area": "Catalogue access",
+      "question": "How will the platform read product data at build time instead of by hand?",
+      "known": "Amazon's Product Advertising API 5.0 has been deprecated and now returns HTTP 403 with an AccessDeniedException; the Creators API is the supported successor.",
+      "missing": "API credentials, an approved integration, and a decision on whether to publish a catalogue-driven comparison set at build time.",
+      "howToDiscover": "Apply for the Creators API, read the introduction and migration guides, and prototype a single ASIN lookup.",
+      "decisionEnabled": "Whether the product tables stay hand-curated or become an automated feed.",
+      "status": "Open",
+      "blocks": [
+        "FLG-011"
+      ],
+      "source": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+    },
+    {
+      "id": "Q-12",
+      "area": "Imagery",
+      "question": "May the site display product photography, and from where must it come?",
+      "known": "No product photography is published on the site at present. The site uses typographic product cards instead.",
+      "missing": "A decision on using the Creators API image service, plus the written rule on how images may be stored, cached and resized.",
+      "howToDiscover": "Read the image and content rules in the Program Policies IP License section before any photography is added.",
+      "decisionEnabled": "Whether the front page and product pages gain imagery, and at what maintenance cost.",
+      "status": "Open",
+      "blocks": [
+        "FLG-012"
+      ],
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+  ]
+}

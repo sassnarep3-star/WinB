@@ -1,0 +1,27 @@
+{
+  "schema": "counterwise.campaigns.v1",
+  "generated": "2026-11-20",
+  "ledgerState": "empty by design",
+  "rules": [
+    "A row may only be added when the figure came from an authorised first-party report. A number estimated, modelled or remembered does not belong here.",
+    "Every row carries a dated provenance trail: who produced the report, when, and where it came from.",
+    "Reported orders are entered only from the account's own commission report. A click is never promoted to an order.",
+    "No conversion score, click-through rate, revenue forecast or earnings projection is derived from this ledger and published on this site.",
+    "Rows may be corrected, never silently overwritten. A correction adds a dated note to the row."
+  ],
+  "columns": [
+    { "key": "timestamp", "label": "Timestamp", "description": "When the observation was taken, in UTC." },
+    { "key": "source", "label": "Source / provenance", "description": "The named first-party report or dashboard the figure came from, with a link or document reference." },
+    { "key": "channel", "label": "Channel", "description": "How the session arrived, for example organic search, direct, referral." },
+    { "key": "eligibleSessions", "label": "Eligible sessions", "description": "Sessions counted under the site's published measurement definition. Blank until an endpoint exists." },
+    { "key": "clicks", "label": "Clicks", "description": "Outbound product-link clicks recorded by the site's own first-party counter." },
+    { "key": "reportedOrders", "label": "Reported orders", "description": "Orders reported by the Associates commission report. Never inferred from a click." }
+  ],
+  "rows": [],
+  "emptyStateNote": "No campaign observations have been obtained. The table below is intentionally empty. It will receive its first row when a first-party analytics endpoint is live and an authorised Associates report has been read.",
+  "plannedSources": [
+    { "name": "Site analytics (to be provisioned)", "what": "page_view, outbound_click, guide_engaged, disclosure_view", "owner": "unassigned", "status": "not implemented" },
+    { "name": "Amazon Associates commission report (account access required)", "what": "clicks, orders, earnings by tracking ID and by date", "owner": "unassigned", "status": "not implemented" },
+    { "name": "Search Console (to be verified)", "what": "queries, impressions, clicks, landing pages", "owner": "unassigned", "status": "not implemented" }
+  ]
+}

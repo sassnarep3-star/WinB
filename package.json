@@ -1,0 +1,17 @@
+{
+  "name": "counterwise",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Counterwise - a publication-style Amazon affiliate buying guide with a verified data layer, a build pipeline and an automated compliance gate.",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "verify": "node tools/verify.mjs",
+    "check": "npm run build && npm run verify",
+    "serve": "python3 -m http.server 8000"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}

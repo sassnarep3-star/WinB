@@ -1,0 +1,271 @@
+{
+  "schema": "counterwise.suggestions.v1",
+  "generated": "2026-11-20",
+  "instructions": "This board is for review, not autopilot. Each row is a proposal with its reasoning, what evidence it needs, and an effort estimate. Nothing on this board has been implemented unless it is marked Done, and no row should be marked Done without the stated evidence.",
+  "rows": [
+    {
+      "id": "S-01",
+      "area": "Site and design",
+      "priority": "High",
+      "status": "Implemented",
+      "suggestion": "Rebuild the landing page as a publication front page with a real masthead, a standfirst, numbered article cards and a single navigation group, so the first screen sells the idea rather than explaining the process.",
+      "rationale": "The previous front page led with process. A visitor deciding whether to trust a recommendation needs to see useful editorial work first and can reach the evidence register from the footer.",
+      "evidenceNeeded": "None for the design itself. Ongoing: the disclosure strip must stay above the fold on every page.",
+      "effort": "Small",
+      "related": ["Q-10"]
+    },
+    {
+      "id": "S-02",
+      "area": "Site and design",
+      "priority": "High",
+      "status": "Proposed",
+      "suggestion": "Add a standing 'The short version' answer box at the top of every guide, with the three decision criteria that matter most and a link to the evidence.",
+      "rationale": "Readers arrive with one question and leave after thirty seconds. A scannable answer box serves that intent and gives search engines a clean extract.",
+      "evidenceNeeded": "Sign-off on the answer-box template. The content inside must trace to a verified source or be framed as a question.",
+      "effort": "Small",
+      "related": ["Q-09"]
+    },
+    {
+      "id": "S-03",
+      "area": "Site and design",
+      "priority": "Medium",
+      "status": "Proposed",
+      "suggestion": "Introduce an editorial byline and a visible publication date on every guide, with an about-the-editor page.",
+      "rationale": "Affiliate pages fail review when they read as faceless. A named editor and a date are the cheapest credibility signals available.",
+      "evidenceNeeded": "A real name or a publisher identity, and an honest answer to who is actually accountable for the content.",
+      "effort": "Small",
+      "related": ["Q-10"]
+    },
+    {
+      "id": "S-04",
+      "area": "Site and design",
+      "priority": "Medium",
+      "status": "Proposed",
+      "suggestion": "Use a single consistent product card component everywhere a product appears: brand, model, the two or three verified specs, a dated price, a rating line, and one sponsored call to action.",
+      "rationale": "Consistency makes the site feel published rather than assembled, and it keeps the sponsored marker in one place that a reviewer can audit.",
+      "evidenceNeeded": "The component is already built and used on the category, product and dashboard pages.",
+      "effort": "Done",
+      "related": []
+    },
+    {
+      "id": "S-05",
+      "area": "Editorial",
+      "priority": "High",
+      "status": "Proposed",
+      "suggestion": "Publish question-shaped guides rather than 'best of' lists, and keep every working title framed as a hypothesis until measured data supports it.",
+      "rationale": "A question is a real search intent. A 'best' claim is a factual assertion the site cannot yet support, and it is the thing that trips both program policy and the FTC.",
+      "evidenceNeeded": "None to publish. The titles in the content dashboard are labelled as hypotheses.",
+      "effort": "Small",
+      "related": ["Q-09", "Q-10"]
+    },
+    {
+      "id": "S-06",
+      "area": "Editorial",
+      "priority": "Medium",
+      "status": "Proposed",
+      "suggestion": "Run a seasonal cluster cadence and record it: one new guide every two weeks, each added to the sitemap and the RSS feed on the day it publishes.",
+      "rationale": "A stated cadence makes the publishing calendar a fact rather than an intention, and it gives the measurement plan a fixed observation window.",
+      "evidenceNeeded": "A start date and an owner for the cadence.",
+      "effort": "Small",
+      "related": ["Q-07"]
+    },
+    {
+      "id": "S-07",
+      "area": "Editorial",
+      "priority": "Medium",
+      "status": "Proposed",
+      "suggestion": "Give each product its own decision page once specifications are verified, built from the same rubric for every product so the comparison is fair.",
+      "rationale": "Product pages are where affiliate intent converts. They cannot be written before the specification dossier exists.",
+      "evidenceNeeded": "Q-04 and Q-09 must close first. A page per product with an empty specification table would be worse than no page.",
+      "effort": "Medium",
+      "related": ["Q-04", "Q-09"]
+    },
+    {
+      "id": "S-08",
+      "area": "Editorial",
+      "priority": "Low",
+      "status": "Proposed",
+      "suggestion": "Publish a short monthly note on what changed on the site: what was added, what was corrected, what was removed and why.",
+      "rationale": "Corrections are trust. Publishing them is cheaper than being found out making them.",
+      "evidenceNeeded": "A changelog discipline and a monthly owner.",
+      "effort": "Small",
+      "related": ["Q-10"]
+    },
+    {
+      "id": "S-09",
+      "area": "Measurement",
+      "priority": "High",
+      "status": "Proposed",
+      "suggestion": "Implement a self-hosted, first-party event endpoint with a consent gate, and record the five defined events: page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported.",
+      "rationale": "Without this the site cannot answer which question it is actually answering. A third-party tracker would add a privacy problem and still not prove which articles earn attention.",
+      "evidenceNeeded": "A provisioned endpoint, a published privacy notice, a retention rule, and a named owner. affiliate_conversion_reported may only be written from a dated authorised Associates report, never inferred from a click.",
+      "effort": "Medium",
+      "related": ["Q-08", "FLG-009"]
+    },
+    {
+      "id": "S-10",
+      "area": "Measurement",
+      "priority": "High",
+      "status": "Proposed",
+      "suggestion": "Keep the outbound click counter strictly privacy-preserving: no cross-site identifiers, no fingerprinting, no per-user sub-tags, and no linking of a click to a person.",
+      "rationale": "The Program Policies explicitly prohibit associating a sub-tag or other reporting with a specific end user, and a reader should not be turned into a tracking subject in order to count a button press.",
+      "evidenceNeeded": "A written privacy specification reviewed before implementation.",
+      "effort": "Small",
+      "related": ["Q-08"]
+    },
+    {
+      "id": "S-11",
+      "area": "Measurement",
+      "priority": "High",
+      "status": "Proposed",
+      "suggestion": "Keep the campaign ledger empty but well-defined, and record a row only when a figure comes from an authorised first-party report, with a dated provenance trail.",
+      "rationale": "An empty ledger is a feature. It makes it obvious that no number on the site was invented.",
+      "evidenceNeeded": "The ledger schema and its provenance rule, both already defined on the campaigns dashboard.",
+      "effort": "Small",
+      "related": ["Q-06", "Q-08"]
+    },
+    {
+      "id": "S-12",
+      "area": "SEO",
+      "priority": "High",
+      "status": "Proposed",
+      "suggestion": "Claim one canonical host, keep a single indexable sitemap, and make every internal link resolve.",
+      "rationale": "One host, one sitemap and no broken links is the baseline for a site that deserves to rank. It also stops the site competing with itself in search results.",
+      "evidenceNeeded": "A final confirmation of the Pages host and custom domain, and a link check run in CI before every deploy.",
+      "effort": "Small",
+      "related": ["FLG-013"]
+    },
+    {
+      "id": "S-13",
+      "area": "SEO",
+      "priority": "Medium",
+      "status": "Proposed",
+      "suggestion": "Set up Search Console on the canonical host and use the query report to choose the next guide, rather than choosing by intuition.",
+      "rationale": "The brief is explicit: the next topic should be chosen from measured queries. Search Console is the first free, official source of those queries.",
+      "evidenceNeeded": "Property verification for the canonical host.",
+      "effort": "Small",
+      "related": ["Q-07"]
+    },
+    {
+      "id": "S-14",
+      "area": "SEO",
+      "priority": "Medium",
+      "status": "Proposed",
+      "suggestion": "Ship a working RSS feed with every new guide, and publish the feed URL in the footer so readers and aggregators can subscribe.",
+      "rationale": "A feed is a distribution channel that costs nothing and is already half-built.",
+      "evidenceNeeded": "None. The feed is generated by the build and lists every published guide.",
+      "effort": "Small",
+      "related": ["Q-07"]
+    },
+    {
+      "id": "S-15",
+      "area": "SEO",
+      "priority": "Low",
+      "status": "Proposed",
+      "suggestion": "Add a structured-data block for each guide using Article markup, and keep the publisher, author and date fields consistent with the visible page.",
+      "rationale": "Consistent structured data is cheap and makes the site legible to consumers of the feed and search results.",
+      "evidenceNeeded": "A decision on the publisher identity, and on who is listed as author.",
+      "effort": "Small",
+      "related": ["S-03"]
+    },
+    {
+      "id": "S-16",
+      "area": "Product research",
+      "priority": "High",
+      "status": "Proposed",
+      "suggestion": "Replace every submitted short link on the site with a canonical Special Link carrying the Associate ID, and keep the short links in the evidence register only.",
+      "rationale": "The Program Policies require Special Links to use the assigned Associate ID and to be accessed directly from the site. Canonical product URLs with the tag parameter satisfy that requirement in a form a reviewer can check by eye.",
+      "evidenceNeeded": "Q-02 and Q-03. The site is already built with canonical Special Links so the change is a decision, not a rewrite.",
+      "effort": "Small",
+      "related": ["Q-02", "Q-03", "FLG-003"]
+    },
+    {
+      "id": "S-17",
+      "area": "Product research",
+      "priority": "High",
+      "status": "Proposed",
+      "suggestion": "Test one link per product inside the enrolled Associates workflow and confirm both the destination and the click report before scaling any link placement.",
+      "rationale": "A link that looks right and reports nothing is worse than no link. One test per product is cheap and turns an assumption into a fact.",
+      "evidenceNeeded": "Account access. This is the only step that cannot be automated from a static site.",
+      "effort": "Small",
+      "related": ["Q-02", "Q-03", "FLG-003"]
+    },
+    {
+      "id": "S-18",
+      "area": "Product research",
+      "priority": "Medium",
+      "status": "Proposed",
+      "suggestion": "Build the product and competition tables from the Creators API at build time, with a dated cache, so the tables cannot silently go stale.",
+      "rationale": "A hand-typed price table decays within days. A generated one with a visible last-refreshed date does not, and it removes transcription risk.",
+      "evidenceNeeded": "Creators API credentials and a build-time credential path. The current tables are hand-curated and dated, which is the manual fallback.",
+      "effort": "Medium",
+      "related": ["Q-11", "FLG-011"]
+    },
+    {
+      "id": "S-19",
+      "area": "Product research",
+      "priority": "Medium",
+      "status": "Proposed",
+      "suggestion": "Add a 'what changed' column to the product tables that records the difference between the previous capture and the current one.",
+      "rationale": "Price and stock move constantly. A changelog turns a static table into a dated record and makes a price claim defensible.",
+      "evidenceNeeded": "A second capture to diff against.",
+      "effort": "Small",
+      "related": ["Q-05"]
+    },
+    {
+      "id": "S-20",
+      "area": "Compliance",
+      "priority": "High",
+      "status": "Proposed",
+      "suggestion": "Make disclosure, sponsored link attributes and source attribution automated release gates in the deploy workflow, not a manual checklist.",
+      "rationale": "A checklist is a promise. A failing build is a control. The verification script already checks the disclosure and link attributes on every generated page.",
+      "evidenceNeeded": "The verify step wired into the Pages workflow, which is part of this build.",
+      "effort": "Small",
+      "related": ["Q-10", "FLG-002"]
+    },
+    {
+      "id": "S-21",
+      "area": "Compliance",
+      "priority": "Medium",
+      "status": "Proposed",
+      "suggestion": "Add a per-page disclosure placement map so a reviewer can see at a glance which pages carry the strip and the footer notice.",
+      "rationale": "Disclosure placement is the most common thing to get wrong after a redesign, and it is invisible unless it is mapped.",
+      "evidenceNeeded": "None. The compliance dashboard lists every generated page and its disclosure status.",
+      "effort": "Small",
+      "related": ["Q-10"]
+    },
+    {
+      "id": "S-22",
+      "area": "Conversion",
+      "priority": "Medium",
+      "status": "Proposed",
+      "suggestion": "Place one sponsored call to action per guide, matched to the guide's decision question, and keep the surrounding copy about the decision rather than the product.",
+      "rationale": "A guide that reads like a product page loses both the reader and the reviewer. One clear action keeps the page honest and the layout simple.",
+      "evidenceNeeded": "None to implement. The result should be measured against the outbound_click event once S-09 is live.",
+      "effort": "Small",
+      "related": ["Q-08", "S-09"]
+    },
+    {
+      "id": "S-23",
+      "area": "Conversion",
+      "priority": "Low",
+      "status": "Proposed",
+      "suggestion": "Add a comparison table to each cluster landing page comparing only the verified attributes of the products in that cluster, with every cell sourced.",
+      "rationale": "A sourced comparison is the single most useful asset on an affiliate site and the single hardest thing to publish without fabrication.",
+      "evidenceNeeded": "Q-04 for any attribute beyond what the listing titles already state.",
+      "effort": "Medium",
+      "related": ["Q-04", "S-07"]
+    },
+    {
+      "id": "S-24",
+      "area": "Conversion",
+      "priority": "Low",
+      "status": "Proposed",
+      "suggestion": "Run a quarterly pricing snapshot across the tracked set and publish the dated results, including the products whose price did not move.",
+      "rationale": "A dated, unglamorous price record is genuinely useful to readers and is far easier to defend than a claim about which product is a good deal.",
+      "evidenceNeeded": "Q-05 and a repeatable capture procedure.",
+      "effort": "Medium",
+      "related": ["Q-05"]
+    }
+  ]
+}

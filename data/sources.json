@@ -1,0 +1,178 @@
+{
+  "schema": "counterwise.sources.v1",
+  "generated": "2026-11-20",
+  "instructions": "Every external fact on this site traces to one of these entries. The verification column records how the source was reached, not that the site agrees with it.",
+  "rows": [
+    {
+      "id": "SRC-01",
+      "name": "Amazon Associates Program Operating Agreement",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "The requirement that outbound links use the Special Link tagged formats; the definition of Program Content; the compliance requirements; the site identification requirement.",
+      "verified": "Opened directly on 2026-11-20. The page states Updated: October 15, 2025.",
+      "type": "Official program terms"
+    },
+    {
+      "id": "SRC-02",
+      "name": "Amazon Associates Program Policies",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "The Special Link and Associate ID rules; the prohibition on associating a sub-tag or reporting with a specific end user; the requirement that Special Links link to Products and that list pages carry original content; the Commission Income Statement; the IP License and trademark rules.",
+      "verified": "Opened directly on 2026-11-20. The page states Updated: April 14, 2026.",
+      "type": "Official program policy"
+    },
+    {
+      "id": "SRC-03",
+      "name": "Associates Program Participation Requirements",
+      "url": "https://affiliate-program.amazon.com/help/operating/participation/",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "Rules on Special Links, incentives, pop-ups, and placing Special Links on an Amazon Site.",
+      "verified": "Linked from the Program Policies page and returned the Participation Requirements text on 2026-11-20.",
+      "type": "Official program policy"
+    },
+    {
+      "id": "SRC-04",
+      "name": "Associates Program help topic: application FAQs",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "The description of special tagged links and the Associate ID format; the requirement to identify the site as an Amazon Associate using the provided language; the expectation of original content of value to the reader.",
+      "verified": "Returned the FAQ text on 2026-11-20.",
+      "type": "Official program help"
+    },
+    {
+      "id": "SRC-05",
+      "name": "PA-API 5 Deprecation Notice",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "The statement that Product Advertising API 5.0 is deprecated, that continuing calls receive HTTP 403 with an AccessDeniedException, and that the Creators API is the supported successor.",
+      "verified": "Reached on 2026-11-20 from the Product Advertising API 5 documentation URL, which now resolves here.",
+      "type": "Official developer notice"
+    },
+    {
+      "id": "SRC-06",
+      "name": "Creators API introduction",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "The programmatic catalogue access path that replaces PA-API 5 for publishers and affiliate partners.",
+      "verified": "Linked from the deprecation notice on 2026-11-20.",
+      "type": "Official developer documentation"
+    },
+    {
+      "id": "SRC-07",
+      "name": "Migrating to Creators API from PA-API",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/migrating-to-creatorsapi-from-paapi",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "The step-by-step migration path for an existing catalogue integration.",
+      "verified": "Linked from the deprecation notice on 2026-11-20.",
+      "type": "Official developer documentation"
+    },
+    {
+      "id": "SRC-08",
+      "name": "FTC's Endorsement Guides: What People Are Asking",
+      "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+      "publisher": "U.S. Federal Trade Commission",
+      "supports": "The clear-and-conspicuous disclosure principle; the rule that an endorsement must be honest and must not be used to make a claim the marketer could not legally make; the affiliate and network marketing section.",
+      "verified": "Opened directly on 2026-11-20.",
+      "type": "Official regulator guidance"
+    },
+    {
+      "id": "SRC-09",
+      "name": "16 CFR Part 255, Guides Concerning Use of Endorsements and Testimonials in Advertising",
+      "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
+      "publisher": "U.S. Government Publishing Office, eCFR",
+      "supports": "The Endorsement Guides themselves, revised in 2023, including the definition of clearly and conspicuously.",
+      "verified": "Linked from the FTC Endorsement Guides page on 2026-11-20.",
+      "type": "Official regulation"
+    },
+    {
+      "id": "SRC-10",
+      "name": "Disclosures 101 for Social Media Influencers",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "publisher": "U.S. Federal Trade Commission",
+      "supports": "Practical disclosure placement guidance, including the plain-language and proximity principles.",
+      "verified": "Linked from the FTC Endorsement Guides page on 2026-11-20.",
+      "type": "Official regulator guidance"
+    },
+    {
+      "id": "SRC-11",
+      "name": "Soliciting and Paying for Online Reviews: A Guide for Marketers",
+      "url": "https://www.ftc.gov/business-guidance/resources/soliciting-paying-online-reviews-guide-marketers",
+      "publisher": "U.S. Federal Trade Commission",
+      "supports": "The boundary between incentivised reviews and genuine editorial content, which shapes how the site handles any review-derived material.",
+      "verified": "Linked from the FTC Endorsement Guides page on 2026-11-20.",
+      "type": "Official regulator guidance"
+    },
+    {
+      "id": "SRC-12",
+      "name": "Amazon listing: CHEFMAN 6 Quart Dual Basket Air Fryer Oven",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "Title, price, rating, review count, availability, seller and stated specifications for the destination of the first submitted short link.",
+      "verified": "Read on 2026-11-20.",
+      "type": "Official product listing"
+    },
+    {
+      "id": "SRC-13",
+      "name": "Amazon listing: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "Title, price, rating, review count, availability, seller and stated specifications for the destination of the second submitted short link.",
+      "verified": "Read on 2026-11-20.",
+      "type": "Official product listing"
+    },
+    {
+      "id": "SRC-14",
+      "name": "Amazon listing: Chefman Air Fryer 8 Qt TurboFry 4-in-1",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "Title, price, rating, review count, availability, seller and stated specifications for the destination of the third submitted short link.",
+      "verified": "Read on 2026-11-20.",
+      "type": "Official product listing"
+    },
+    {
+      "id": "SRC-15",
+      "name": "Amazon listing: ThermoMaven 1 Sec Professional Digital Meat Thermometer",
+      "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "Title, price, rating, review count, availability, seller, badges and stated specifications for the destination of the fourth submitted short link.",
+      "verified": "Read on 2026-11-20.",
+      "type": "Official product listing"
+    },
+    {
+      "id": "SRC-16",
+      "name": "Amazon listing: CHEF iQ Sense Smart Wireless Meat Thermometer Gen3",
+      "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "Title, price, rating, review count, availability, seller and stated specifications for the destination of the fifth submitted short link.",
+      "verified": "Read on 2026-11-20.",
+      "type": "Official product listing"
+    },
+    {
+      "id": "SRC-17",
+      "name": "Amazon 'Customers who viewed this item also viewed' module",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "The fifteen alternative listings recorded in the competition table, each captured on the subject listing page on 2026-11-20.",
+      "verified": "Read on 2026-11-20 across all five subject listings.",
+      "type": "Official product listing"
+    },
+    {
+      "id": "SRC-18",
+      "name": "GitHub Pages site configuration for this repository",
+      "url": "https://api.github.com/repos/sassnarep3-star/WinB/pages",
+      "publisher": "GitHub",
+      "supports": "The published host, the public visibility state and the branch and path the site is built from.",
+      "verified": "Queried on 2026-11-20. Status built, public true, source branch main, path /.",
+      "type": "Official infrastructure record"
+    },
+    {
+      "id": "SRC-19",
+      "name": "Amazon Associates Program home",
+      "url": "https://affiliate-program.amazon.com/",
+      "publisher": "Amazon.com, Inc.",
+      "supports": "Entry point for the program help section and the account tools referenced throughout this register.",
+      "verified": "Linked from every page in the Associates help section on 2026-11-20.",
+      "type": "Official program page"
+    }
+  ]
+}
