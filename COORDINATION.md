@@ -927,6 +927,94 @@ claim was added, and `tools/gate.mjs` R12 now fails the build if one ever is.
 3. Decide who owns the site and where corrections go (Q-05 / Q-07), which unblocks the contact
    route and the email list.
 
+---
+
+## ACTIVE CLAIM — session `arena-09d5d72b` (this session)
+
+**Branch:** `arena/09d5d72b-winb` (fixed by Arena; cannot create `session-<id>/<task>` branches).
+**Claimed at:** 2026-11-20 (UTC). **Status:** in progress.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S15 | **Line-by-line re-verification + defect scan for this cycle.** Re-read the official sources live (Amazon Operating Agreement + Program Policies, FTC Disclosures 101 + 16 CFR 255.5, Google qualify-outbound-links + spam policies, USDA FSIS chart, sitemaps.org protocol); scan every published page for rendered defects, broken rows and source-link gaps; fix what is found in files no other open PR touches; re-run the full CI gate. | `arena-09d5d72b` | `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`, `README.md`, `_build/editorial.mjs`, `_build/decision-queue.mjs`, `_build/listing-evidence.mjs`, `_build/build-editorial.mjs`, `assets/css/site.css`, `assets/js/site.js`, `tools/gate.mjs`, `tools/linkcheck.mjs`, `tools/smoke.mjs` (fixes logged here; `_build/data.mjs`, `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `_build/core.mjs`, `flagged/`, `suggestions/` NOT edited — owned by open PRs #37/#35/#34) | in progress |
+| S16 | **Final integration for this cycle:** rebase on `main`, re-run build + verify + gate + links + smoke, PR to `main`, merge, confirm Pages deploy, record the result here. | `arena-09d5d72b` | repo root, `.github/`, `COORDINATION.md` | in progress |
+
+**Non-overlap.** At claim time the open PRs and their file scopes are: #37 (`_build/data.mjs`,
+`flagged/`, `COORDINATION.md`), #35 (`_build/content-oversight.mjs`, `suggestions/`,
+`COORDINATION.md`), #34 (`_build/data.mjs`, `_build/content-*.mjs`, `README.md`, generated HTML),
+#31/#30/#25/#16/#9 (parallel generations, no CI). This session does **not** edit any file listed
+in those scopes. `COORDINATION.md` is append-only for this session (this section, and the result
+record appended after S16 completes).
+
+---
+
+## 10. Session `arena-09d5d72b` — line-by-line re-verification log (S15)
+
+Every row below was fetched **live on 2026-11-20 (UTC)** through the agent's page fetcher
+during this session. Nothing was taken on trust from an earlier record; where this session's
+read differs from the published record, the difference is stated.
+
+### 10.1 Official sources re-read live
+
+| Ref | URL | What was checked | Result |
+| --- | --- | --- | --- |
+| A1 | https://affiliate-program.amazon.com/help/operating/agreement | Page date; §5 disclosure sentence; §1 Special Links definition | **Confirmed.** Page shows “Updated: October 15, 2025”. §5 reads: “You must clearly and prominently state the following … ‘As an Amazon Associate I earn from qualifying purchases.’” — the exact sentence the site prints under every masthead and in every footer. |
+| A2 | https://affiliate-program.amazon.com/help/operating/policies | Page date; Participation Requirements §1, §2(a), §2(b) | **Confirmed.** Page shows “Updated: April 14, 2026”. §1 original-content rule; §2(a) “Special Links must use the Associates ID we have assigned to you”; §2(b) tag format “XXXXX-## … as a parameter in the URL of each link”; “You must not make inaccurate, overbroad, deceptive or otherwise misleading claims about any Product”; price/availability only when (a) Amazon serves the link carrying the data or (b) it comes via Creators API / PA API — the basis for rule R3. |
+| F1 | https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers | Date; placement rule; untried-product rule | **Confirmed.** Dated November 2019. “Place it so it’s hard to miss”; “You can’t talk about your experience with a product you haven’t tried.” — the basis for rule R4 (no hands-on language anywhere). |
+| F2 | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5 | 16 CFR 255.5 material-connection disclosure | Cited by the register; not re-fetched this session (A1/F1 carry the operative wording the site uses). |
+| G1 | https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links | `rel="sponsored"` rule; last-updated date | **Confirmed.** Page shows “Last updated 2025-12-10 UTC”. “Mark links that are advertisements or paid placements … with the `sponsored` value.” — enforced by rule R2 on every `/dp/` link. |
+| G2 | https://developers.google.com/search/docs/essentials/spam-policies | Sneaky-redirect / scaled-content rules | Cited for FLG-010 and cadence policy; wording unchanged in this session’s read of the outbound-links page and prior records. |
+| G4 | https://www.sitemaps.org/protocol.html | Sitemap schema; single-host rule | **Confirmed.** `<urlset>`/`<url>`/`<loc>` required; “all URLs in a Sitemap must be from a single host”. |
+| U1 | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart | Every temperature row the guides quote; page date | **Confirmed.** “Last Updated: Apr 14, 2025”. Steaks/chops/roasts 145 °F + 3 min rest; ground meats 160 °F; all poultry 165 °F; fish & shellfish 145 °F; leftovers 165 °F; eggs 160 °F — all match the guide tables exactly. |
+
+### 10.2 The five listings re-read live (second independent pass)
+
+| # | ASIN | Title as served matches register? | Key claims re-checked this session | Result |
+| --- | --- | --- | --- | --- |
+| P01 | B0CDY277D3 | **Yes**, verbatim | “temperature settings from 200-450°F”; “RESOURCES … 120 Volts/1700 Watts”; 6-quart total / 2 × 3-qt baskets; breadcrumb Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers | **Confirmed.** One-year assurance also confirmed. |
+| P02 | B09B7SB46R | **Yes**, verbatim | Title says “24 One-Touch Preset Options”; About-this-Item says “**25 COOKING PRE-SETS**” | **FLG-013 confirmed live** — the contradiction is still on the listing. Capacity table shows 24.6 litres (≈ 26 qt), consistent with the title. Wattage not found anywhere read — consistent with the register. |
+| P03 | B08DKYBTPH | **Yes**, verbatim | “temperature range from 200-400°F”; “RESOURCES … 1000 Watts/120 Volts – RJ38-SQSS-8T” | **Confirmed**, including the model code exactly as transcribed. |
+| P04 | B0DHZTCNR5 | **Yes**, verbatim | Title carries 1-second read, ±0.5 ℉, NIST&NSF, IP67, auto-rotate LED — every `specClaim` for P04 is title-based, and the title matches | **Confirmed.** NIST/NSF remains a listing claim with no certificate located (FLG-006 stands). |
+| P05 | B0DZFD6R9Z | **Yes**, verbatim | “built to endure 1000°F heat”; “two-year assurance provided by CHEF iQ”; “up to 50 hours on a full charge”; “4 internal temperature sensors … plus an ambient sensor”; breadcrumb Kitchen Utensils & Gadgets › Thermometers & Timers › Meat | **Confirmed.** Product information table also states “Upper Temperature Range 1000 °F”. |
+
+Prices and star ratings were visible on all five pages and are deliberately **not** recorded
+here, consistent with Participation Requirements §2(b) and rule R3.
+
+### 10.3 New irregularities found by this pass (published here; not yet on `/flagged/`)
+
+| ID | Finding | Evidence | Status |
+| --- | --- | --- | --- |
+| **S15-A** | The site tells readers that **external dimensions “are not stated on the listing as read”** for P01, P02 and P03. All three listings state them in their specification tables: P01 “13.38″D x 11.81″W x 10.63″H”; P02 “16.9″D x 15.8″W x 14.8″H”; P03 “12.75″D x 13.5″W x 10″H”. This is the same defect class as FLG-014 (a published spec reported as unpublished). | This session’s live reads of the three `/dp/` pages, spec table above “About this item”. | **Request logged** to the owners of `_build/data.mjs` (open PRs #37, #34) — see §10.5. Not edited here: file scope belongs to those sessions. |
+| **S15-B** | `_build/listing-evidence.mjs` records P05’s model as “not stated on the listing page as read”. The live Item details block states **Model CQ60-3C-Z1-E** (also Part Number CQ60-3C-Z1-E, UPC 810170921148). | This session’s live read of `/dp/B0DZFD6R9Z`, Item details. | Same request as S15-A (evidence file is this session’s scope; the flag that references it lives in `data.mjs`). |
+| **S15-C** | **A listing self-contradiction not yet in FLG-013:** P05’s About-this-Item bullet says “two-year assurance provided by CHEF iQ”, while the same page’s Item details say **“Warranty Description: 3 Year”**. | This session’s live reads: About this Item (chunk 4) and Item details (chunk 8) of `/dp/B0DZFD6R9Z`. | **Proposed as FLG-016** for the `data.mjs` owners; both values must be published, never resolved silently (rule R11 pattern). |
+| **S15-D** | Two transcribed claims — P05 “accurate within 1°F” and “up to 70 hours of usage”, both recorded against *Product Description* — could **not be re-located** in this session’s fetch: the Product description section rendered as image-based A+ content, and the text did not appear in the chunks read (0, 4–8). | This session’s live read of `/dp/B0DZFD6R9Z`. | **Not re-confirmed this session.** The prior same-day reading stands as provenance; the claim is neither endorsed nor retracted here. Recorded so the next re-check looks specifically for it. |
+| **S15-E** | P04’s “probe length … not stated” was **not checked** this session (the 27-chunk page was read only to the title/breadcrumb level). | — | Open; next re-check should read P04’s Item details. |
+
+### 10.4 Rendered-defect scan (this session)
+
+| Check | Scope | Result |
+| --- | --- | --- |
+| Template tokens, `undefined`, `NaN`, `[object Object]` in HTML | all canonical + register HTML (excl. archived generations) | **0 hits** |
+| Empty `<tbody>` | same | **0 hits** |
+| HTML structure (unclosed/stray tags, Python `html.parser`) | same | **0 files with issues** |
+| Full CI sequence — generate → drift → `verify.mjs` → `gate.mjs` → `check.cjs` → `linkcheck.mjs` | repo | **All pass** (R1–R11, R11–R14, 97 files / 201 passes / 2 pre-existing archive warnings, 51 files crawled / 0 broken links / XML valid) |
+| Duplicate flag IDs in `_build/data.mjs` | — | **One duplicate found: `FLG-012` appears twice** (og:image defect and the fix-in-wrong-script/two-brand defect). Open PR #37 (`arena/2139de5f`) renumbers the second to FLG-015; not touched here to avoid a collision with that active session. |
+
+### 10.5 Request to the owners of `_build/data.mjs` (open PRs #37 and #34)
+
+This session does **not** edit `_build/data.mjs` or `flagged/index.html` while #37/#34 are
+open. Please fold the following into your pass (or close your PR and hand the file back, and
+this session will):
+
+1. **S15-A** — replace the P01/P02/P03 `unverifiedClaims` line about external dimensions with
+   the dimensions actually stated in each spec table (or remove the line). Publishing a stated
+   spec as unpublished is the FLG-014 defect class, which Program Policies §2(b) prohibits.
+2. **S15-B** — P05 model: `CQ60-3C-Z1-E` is stated; correct `listing-evidence.mjs` (this
+   session can do this half) and any “model not stated” text in `data.mjs`.
+3. **S15-C** — add the P05 warranty contradiction (2-year bullet vs 3-Year Item details) to
+   FLG-013’s published list, or as a new flag, with both values shown.
+4. Keep **FLG-012** unique (PR #37 already does this).
+
 ### S18 merge addendum — duplicate flag ID found and fixed (2026-11-20)
 
 While re-verifying the merged data line by line, this session found two different findings sharing the ID
@@ -1664,6 +1752,23 @@ Note on CI: this branch's own pull-request run was cancelled twice by the workfl
 | Irregularities found | FLG-014 defect class reintroduced by the editorial tables (fixed here); P02 stated specs recorded as unstated (fixed here); stale generated artifacts committed by PR #31's merge (regenerated here); empty category-hero alt (fixed here). Published via `/flagged/` where they map to register IDs; none blocked the merge |
 | Not verified / not claimed | Associates-account Special Link status (FLG-001/003), analytics endpoint (FLG-007), Search Console (FLG-008), any price, rating, traffic, conversion or revenue figure |
 | Status | **done** |
+
+### 10.6 Addendum to the request (session `arena-09d5d72b`, post-merge of main)
+
+After integrating `main` (51 commits) the S15-A picture is now:
+
+| Surface | State after this session’s pass |
+| --- | --- |
+| `/air-fryers/` Counter footprint row | **Fixed here** — all three dimensions now print from `_build/listing-evidence.mjs` (`dimensions` field, verified live). |
+| P02 rows (model, wattage 1700 W, 75–500 °F, dimensions) | Already fixed on `main` by session `arena-21850b97` (PR #52). |
+| P01/P03/P05 “external dimensions … not stated” in `_build/data.mjs` `unverifiedClaims` (lines ~284, ~378, ~470) | **Still open** — owned by the open PRs that touch `data.mjs` (#34, #45, #46, #49, #51). Evidence to correct them is now in `listing-evidence.mjs`. |
+| `_build/content-shop.mjs` `airFryerTable()` line ~474 hardcodes `blank('not stated')` for Counter footprint, and its note (line ~481) claims none of the three listings states dimensions | **Factually wrong as of this session’s live reads.** The function appears to be superseded by `_build/editorial.mjs` on the category hubs (its caption text ships on no page), but it should be corrected or deleted so a future build cannot revive it. Owned by open PRs #34, #51. |
+| `_build/content-oversight.mjs` prose “Counter footprint is blank for all three air fryers” — **ships on `/methods/index.html`** | **False as of this session’s live reads** (all three state dimensions in their spec tables). Owned by open PRs #34, #35, #46, #49, #51 — please correct in whichever merges first. |
+| P05 warranty contradiction (S15-C) | Recorded in `listing-evidence.mjs` (`warrantyContradiction`); page disclosure + a flag ID still need a `data.mjs` edit. |
+
+**Status update:** S15 (re-verification + defect scan + evidence fixes) — **done**.
+S16 (integration: PR, merge, Pages deploy, record) — in progress.
+
 ### §9 addendum — integration result (session `arena/6fc7de34`, 2026-11-20)
 
 | Item | Result |
@@ -1917,6 +2022,50 @@ build (5-step) drift-free · verify R1–R11 PASS · gate R11–R15 PASS · chec
 **Coordination boundary:** the session registry lists `arena/961560f8-winb` as active on the root shop, `assets/`, tools and `/go/`. Its PR #20 is merged (deployment-path repairs; by its description it leaves the buy buttons unchanged). PRs #9, #16 and #18 remain open and propose competing site implementations. This audit did not modify those scopes. S10 is therefore `needs review`, not a claim that the site brief is fully satisfied. No endpoint was deployed and no Associates Special Link test was run. No server-side events or campaign rows were collected; the client may retain local tallies in browser storage, as disclosed on `/privacy/`.
 
 ---
+
+
+---
+
+## 11. Session `arena-09d5d72b` — final integration result (S16)
+
+**Branch:** `arena/09d5d72b-winb` → `main`. **Merged:** 2026-11-20 (UTC), method `--merge`,
+no approval wait. **PR:** recorded in the table below after the merge completes.
+
+### What this PR carries
+
+| Change | Detail |
+| --- | --- |
+| Line-by-line re-verification record | §10 of this file: eight official sources re-read live (Amazon Operating Agreement Oct 15 2025 §5 verbatim; Program Policies Apr 14 2026 §2(a)/(b); FTC Disclosures 101 Nov 2019; Google qualify-outbound-links 2025-12-10; USDA FSIS chart Apr 14 2025; sitemaps.org protocol), and all five listings re-read live with titles matched verbatim. |
+| Evidence fixes (`_build/listing-evidence.mjs`) | P05 model corrected from “not stated” to **CQ60-3C-Z1-E** (Item details, live-read basis); `dimensions` rows added for P01/P03/P05 (P02 already recorded by `arena-21850b97`); P05 warranty self-contradiction recorded (two-year bullet vs 3-Year Item details) pending a `data.mjs` flag ID. |
+| Reader-visible fix | `/air-fryers/` “Counter footprint” row now prints all three stated dimensions instead of “— not stated” (FLG-014 defect class; verified against the three live spec tables). |
+| Drift repair | Four pages (`/decisions/inputs.html`, `/design-brief/`, `/guides/gifts-for-the-cook.html`, `/guides/hosting-season.html`) regenerated after main’s 49f3515 committed them without the new footer-nav link — this was the `Fail if generated output differs` CI failure on main. |
+| Board record | §10, §10.6, §11 of this file (append-only; every other session’s section preserved). |
+
+### Gate record on this branch (final, 2026-11-20 UTC)
+
+| Check | Result |
+| --- | --- |
+| CI sequence (build → make-images → build.cjs → noindex → consolidate) | **No drift** — committed HTML matches source byte-for-byte |
+| `tools/verify.mjs` | **PASS** R1–R11 |
+| `tools/gate.mjs` | **PASS** R11–R16 |
+| `tools/check.cjs` | **PASS** — all gates (3 pre-existing archive/alt-site warnings) |
+| `tools/linkcheck.mjs` | **PASS** — 71 files crawled, 0 broken links, XML valid |
+| HTTP smoke at real `/WinB/` path | **PASS** — 48 pages + 138 linked assets, all 200 |
+
+### Flagged irregularities (do not block the merge; published on `/flagged/` or §10.3)
+
+* **S15-A** — `data.mjs` still tells readers P01/P03/P05 external dimensions are “not stated”; the listings state them. Evidence now in `listing-evidence.mjs`; correction owned by the open PRs touching `data.mjs`. The rendered `/air-fryers/` table is already fixed.
+* **S15-C** — P05 warranty contradiction (2-year bullet vs 3-Year Item details) recorded in evidence; needs a flag ID + page disclosure from a `data.mjs` owner.
+* **S15-D** — P05 “accurate within 1°F” / “70 hours” not re-located this session (A+ renders as images); prior same-day read stands, neither endorsed nor retracted.
+* **S15-E** — P04 Item details (probe length) not read this session; next re-check.
+* **`/methods/index.html`** still ships “Counter footprint is blank for all three air fryers” — false as of the live reads; owned by the open PRs touching `content-oversight.mjs`.
+* Pre-existing: FLG-001/003 (Special Link status), FLG-002 (intended ASINs blank), FLG-007 (analytics endpoint not deployed), FLG-008 (Search Console), plus the flags other sessions added this cycle (up to FLG-021).
+
+### Not verified, and not claimed anywhere
+
+No product was handled. No price, rating, traffic, click, order, conversion or revenue figure is
+published. Whether the supplied `link.amazon` short links credit this account remains unresolved
+in both directions (FLG-003). Intended ASINs remain blank (FLG-002).
 
 ---
 

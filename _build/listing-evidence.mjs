@@ -30,6 +30,24 @@
 // the P01 About-bullet lines (RESOURCES wattage, 200–450 °F) were NOT re-located
 // in the sampled chunks of the 27-chunk fallback render, so P01's rows stand on
 // the same-day full read recorded below. Nothing else was changed.
+//
+// S15 SECOND PASS, 2026-11-20 (session arena-09d5d72b). A third independent fetch
+// of all five /dp/ pages re-confirmed every title verbatim and these rows:
+//   P01 About this Item — “200-450°F”, “120 Volts/1700 Watts”, spec table
+//     “Product Dimensions 13.38″D x 11.81″W x 10.63″H”.
+//   P02 About this Item — “25 COOKING PRE-SETS” against the title’s “24
+//     One-Touch Preset Options” (FLG-013 confirmed live); spec table “16.9″D x
+//     15.8″W x 14.8″H”, Capacity 24.6 liters.
+//   P03 About this Item — “200-400°F”, “1000 Watts/120 Volts – RJ38-SQSS-8T”;
+//     spec table “Product Dimensions 12.75″D x 13.5″W x 10″H”.
+//   P05 About this Item — “1000°F heat”, “two-year assurance”, “up to 50 hours”,
+//     4 internal + 1 ambient sensor; Item details “Model CQ60-3C-Z1-E”,
+//     “Warranty Description: 3 Year”, Measurements “Item Length 4.75 inches”.
+// Two defects fixed here: P05’s model was recorded as not stated (it is stated),
+// and the P05 warranty self-contradiction (2-year bullet vs 3-Year Item details)
+// is now recorded so it can be published with both values (S15-B / S15-C).
+// Dimensions observed in each spec table are recorded in `dimensions` so no
+// future pass reports them as unpublished (S15-A evidence half).
 
 export const EVIDENCE_CHECKED = '2026-11-20';
 
@@ -42,6 +60,7 @@ export const LISTING_EVIDENCE = {
     wattage: { value: 1700, unit: 'W', basis: 'About this Item → “RESOURCES … 120 Volts/1700 Watts”' },
     volt: { value: 120, unit: 'V', basis: 'same line' },
     tempRangeF: { min: 200, max: 450, basis: 'About this Item → “temperature settings from 200-450°F”' },
+    dimensions: { value: '13.38″D × 11.81″W × 10.63″H', basis: 'specification table above “About this item” → Product Dimensions (re-read 2026-11-20, second pass)' },
     safetyListed: 'cETL approved (listing claim)',
     warrantyClaim: '1-year assurance provided by Chefman (listing claim)',
     sellsWith: ['Bake, dehydrate, frozen, reheat-style modes are not itemised on this listing; the four stated modes are air fry, bake, dehydrate and frozen.'],
@@ -108,6 +127,7 @@ export const LISTING_EVIDENCE = {
     wattage: { value: 1700, unit: 'W', basis: 'Product information → Features & Specs → “Output Wattage | 1700 watts” and “Wattage | 1700 watts”' },
     volt: { value: 120, unit: 'V', basis: 'Product information → Features & Specs → “Voltage | 120 volts”' },
     tempRangeF: { min: 75, max: 500, basis: 'Product information → Features & Specs → “Min Temperature Setting | 75 °F”, “Max Temperature Setting | 500 °F”. These are control settings, not a stated cooking-performance range; the 75 °F floor is a keep-warm-style low setting.' },
+    dimensions: { value: '16.9″D × 15.8″W × 14.8″H', basis: 'specification table above “About this item” → Product Dimensions (re-read 2026-11-20, second pass); Capacity row reads 24.6 liters' },
     safetyListed: '',
     warrantyClaim: 'not stated on the listing page as read',
     presetCountContradiction: {
@@ -169,6 +189,7 @@ export const LISTING_EVIDENCE = {
     },
     tempRangeF: { min: 200, max: 400, basis: 'About this Item → “a temperature range from 200-400°F”' },
     hiFryF: { value: 450, basis: 'Product Description → “HI-FRY button to crank the heat up to 450°F for the last two minutes”' },
+    dimensions: { value: '12.75″D × 13.5″W × 10″H', basis: 'specification table above “About this item” → Product Dimensions (re-read 2026-11-20, second pass)' },
     safetyListed: 'cETL approved (listing claim)',
     warrantyClaim: '1-year warranty provided by Chefman (listing claim)',
     statedUses: [
@@ -241,11 +262,17 @@ export const LISTING_EVIDENCE = {
   B0DZFD6R9Z: {
     checked: '2026-11-20',
     readUrl: 'https://www.amazon.com/dp/B0DZFD6R9Z',
-    model: { code: '', basis: 'not stated on the listing page as read' },
+    model: { code: 'CQ60-3C-Z1-E', basis: 'Product information → Item details → “Model CQ60-3C-Z1-E” and “Part Number CQ60-3C-Z1-E”; “Model Name” reads “iQ Sense”; UPC 810170921148 (re-read 2026-11-20, second pass — the earlier record of “not stated” was wrong)' },
     wattage: { value: null, unit: 'W', basis: 'not applicable — rechargeable hub, wattage not stated' },
     volt: { value: null, unit: 'V', basis: 'not applicable' },
     tempRangeF: { min: null, max: null, basis: 'not stated; a 1000°F heat tolerance is stated instead' },
     heatLimitF: { value: 1000, basis: 'About this Item → “built to endure 1000°F heat”' },
+    dimensions: { value: 'Item Length 4.75 inches', basis: 'Product information → Measurements → “Item Length | 4.75 inches”; Features & Specs → “Immersion Depth | 4.75 inches” (re-read 2026-11-20, second pass)' },
+    warrantyContradiction: {
+      first: { value: 'two-year', where: 'About this Item → “RESOURCES: Built for long-lasting durability with a two-year assurance provided by CHEF iQ.”' },
+      second: { value: '3 Year', where: 'Product information → Item details → “Warranty Description | 3 Year”' },
+      flag: 'proposed FLG-016 by session arena-09d5d72b (S15-C); page disclosure pending — data.mjs owned by open PRs at the time of this edit',
+    },
     accuracyClaim: 'accurate within 1°F (Product Description)',
     sensorClaim: '4 internal sensors plus 1 ambient sensor (About this Item)',
     safetyListed: '',
