@@ -2,7 +2,7 @@
 // footer and from a single "More" group in the nav, never from the hero.
 // The front page sells; these pages account for themselves.
 
-import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, MOMENTS, TOPIC_QUEUE, PATHS } from './data.mjs';
+import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, MOMENTS, TOPIC_QUEUE, TOPICS, PATHS } from './data.mjs';
 import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink, listingMark, deskMark } from './core.mjs';
 import { DECISION_QUEUE, BLOCKING_QUESTIONS, OWNER_ACTIONS } from './decision-queue.mjs';
 
@@ -122,6 +122,15 @@ ${pageHead({
       </table>
     </div>
     <p class="tiny faint mt-2">Moments and queue rows are hypotheses. The guides they reframe cite ${srcLink('A2', 'A2')} and ${srcLink('U1', 'U1')}; the cadence gate cites ${srcLink('G2', 'G2 scaled content')}. No row is a popularity, search-volume or sales claim.</p>
+
+    <div class="table-wrap mt-3">
+      <table data-kind="editorial">
+        <caption><b>${TOPICS.length} candidate topics, written as the question a buyer would type.</b> Hypotheses for review, not a plan. No keyword tool was consulted, so none of them is claimed to be popular, high-volume or likely to rank. Contributed by session <span class="mono tiny">arena-c6a17bb2</span>.</caption>
+        <thead><tr><th scope="col">ID</th><th scope="col">The question</th><th scope="col">Ties to</th><th scope="col">What it would answer</th><th scope="col">Status</th><th scope="col">Source</th></tr></thead>
+        <tbody>${TOPICS.map((t) => `<tr><td class="mono tiny">${esc(t.id)}</td><td><b>${esc(t.question)}</b></td><td class="tiny">${esc(t.tie)}</td><td class="tiny">${esc(t.why)}</td><td>${badge(t.status, 'amber')}</td><td class="src">${srcLink('G2', 'G2 site reputation')}</td></tr>`).join('\n')}</tbody>
+      </table>
+    </div>
+    <p class="tiny faint mt-2">Every title here is a question, not a product name and not a superlative. Question-shaped pages answer an intent a search engine can recognise, and they do not promise a result this desk has not measured — ${srcLink('G2', 'G2 site reputation')}.</p>
   </div>
 </section>
 

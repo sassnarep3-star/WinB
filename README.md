@@ -22,11 +22,13 @@ result, a borrowed star rating, or a price.
 
 ## The rules the build enforces
 
-`node tools/verify.mjs` fails the build unless all eleven hold:
+The build runs three gates. `node tools/verify.mjs` fails unless R1–R11 hold,
+`node tools/gate.mjs` fails unless R11–R14 hold, and `node tools/table-sources.mjs`
+fails unless R15 holds.
 
 | | Rule |
 |---|---|
-| R1 | The Associates statement appears above the masthead **and** in the footer of every page |
+| R1 | The Associates statement appears **under the masthead** and in the footer of every page |
 | R2 | Every Amazon product link carries `?tag=shopnow047c-20` and `rel="sponsored nofollow noopener"` |
 | R3 | No price, star rating, rating count or popularity position appears anywhere |
 | R4 | No hands-on testing claim appears anywhere (disclaimers of that claim are allowed) |
@@ -37,15 +39,21 @@ result, a borrowed star rating, or a price.
 | R9 | No page claims a traffic, click, conversion or revenue figure |
 | R10 | Every affiliate exit page is indexable, disclosed, tagged and `rel="sponsored"` |
 | R11 | A specification a listing states twice, differently, is published with **both** values |
+| R12 | No metric is presented as if it were measured |
+| R13 | The Associates statement precedes the first heading on the page (above the fold) |
+| R14 | Every CSS class used is defined, and every image referenced exists |
+| R15 | **Every table row carries a source link** — an official source where the row states a fact, and the register entry that holds the evidence where the row records this site’s own reasoning |
 
 ## Commands
 
 ```bash
 npm run build    # generate HTML, sitemap, feed, 404, artwork
-npm run verify   # content rules R1-R10
+npm run verify   # content rules R1-R11
+npm run gate     # editorial rules R11-R14
+npm run sources  # rule R15: every table row carries a source link
 npm run links    # crawl the built site, validate XML
 npm run smoke    # fetch every URL at /WinB/ over HTTP (needs a local server on :3001)
-npm run check    # build + verify + links
+npm run check    # build + verify + gate + sources + links
 ```
 
 ## Layout
@@ -58,9 +66,10 @@ _build/            generators (data.mjs is the single source of truth)
                    and Amazon's own review-theme counts
   decision-queue.mjs   the 10-proposal queue and the 9 questions blocking it
   core.mjs         page shell, disclosure strip, masthead, footer
-  content-shop.mjs front page, categories, product pages, comparison, guides
+  editorial.mjs    front page, categories, product pages, comparison, guides
   content-oversight.mjs  decision room, data room, flagged, methods, about, privacy
-tools/             verify.mjs · linkcheck.mjs · smoke.mjs
+  design.mjs       the Design Room: directions, the copy-ready prompt, the traffic playbook
+tools/             verify.mjs · gate.mjs · table-sources.mjs · linkcheck.mjs · smoke.mjs
 assets/            css/site.css · js/site.js · generated SVG artwork
 analytics/         deployable collected-worker.js + schema (NOT running)
 reviews/           five product pages (generated)
@@ -68,6 +77,7 @@ guides/            five guides (generated)
 air-fryers/ thermometers/ compare/    category and comparison hubs
 decisions/ data-room/ flagged/        oversight surfaces
 suggestions/       the decision queue: proposals, blocking questions, owner actions
+design/           the Design Room: directions, the prompt, the traffic playbook
 methods/ about/ privacy/ executive-summary/
 ```
 
@@ -76,9 +86,10 @@ fails if the committed HTML drifts from `_build/`.
 
 ## Read these before changing anything
 
-- `COORDINATION.md` — the shared task board and the verification log (§8 is the
-  latest live-source verification pass, including the ten defects it fixed)
-- `/flagged/` — the nine items that could not be confirmed, with what would close each
+- `COORDINATION.md` — the shared task board and the verification log
+- `/flagged/` — the fifteen items that could not be confirmed or that were found and fixed,
+  with what would close each
+- `/design/` — the design directions, the copy-ready prompt and the open design questions
 - `/suggestions/` — the decision queue: ten proposals with cost, reversibility
   and failure mode, nine blocking questions, five owner-only actions
 - `/decisions/` — earlier suggestions ranked by priority, rejected options

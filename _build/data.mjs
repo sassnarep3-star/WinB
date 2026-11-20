@@ -1052,6 +1052,59 @@ export const SUGGESTIONS = [
 // Each moment reframes existing guides and products by the meal being cooked.
 // No search-volume, popularity or sales claim is made anywhere.
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Candidate topics, written as the question a buyer would type.
+//
+// Contributed by session `arena-c6a17bb2` (PR #34) and carried into this
+// build with attribution; see COORDINATION.md §10. They are hypotheses for
+// review, not a plan and not a promise: no keyword tool was consulted, so
+// none of them is claimed to be popular, high-volume or likely to rank.
+// ---------------------------------------------------------------------------
+export const TOPICS = [
+  {
+    id: 'TOPIC-01',
+    question: 'Do you actually need a meat thermometer if you own an air fryer?',
+    tie: 'Thermometers × air fryers',
+    why: 'It connects the two categories this shop sells. A reader who buys an air fryer is one step from needing a thermometer, and the honest answer is that it depends on what they cook — which is a decision, not a product pitch.',
+    status: 'Unwritten hypothesis',
+  },
+  {
+    id: 'TOPIC-02',
+    question: 'How long does an air fryer really take to preheat — and does it matter?',
+    tie: 'Air fryers',
+    why: 'Preheat time is not among the specifications the three listings state. A buyer discovers it only after the first cook, so a guide that explains what to look for — without inventing a figure — is useful whether the answer turns out fast or slow.',
+    status: 'Unwritten hypothesis',
+  },
+  {
+    id: 'TOPIC-03',
+    question: 'What “dishwasher-safe” actually means for an air fryer basket',
+    tie: 'Air fryers · cleanup',
+    why: 'The phrase appears in the air-fryer listing titles. Readers assume it means “throw it in and forget it”; the reality is narrower, and getting care wrong is how a nonstick basket loses its coating.',
+    status: 'Unwritten hypothesis',
+  },
+  {
+    id: 'TOPIC-04',
+    question: 'Can a French-door air fryer oven replace your toaster oven?',
+    tie: 'Emeril Lagasse 26 qt',
+    why: 'It is the largest item in the set and the one that promises to consolidate appliances. A replacement question is answered by footprint and by what the owner already owns, not by a quart count.',
+    status: 'Unwritten hypothesis',
+  },
+  {
+    id: 'TOPIC-05',
+    question: 'Air-fryer oil: how much do you need, and can you skip it?',
+    tie: 'Air fryers',
+    why: 'How much oil to use — and whether any is needed — is the practical worry behind most air-fryer questions. The useful answer is method and judgement; this desk will not state a result it has not measured.',
+    status: 'Unwritten hypothesis',
+  },
+  {
+    id: 'TOPIC-06',
+    question: 'Wireless probe or instant-read: which thermometer for a weeknight?',
+    tie: 'Thermometers',
+    why: 'The two thermometers solve different problems. A guide that maps a reader’s cooking habit to the right tool is the shape of content that earns a click rather than a quart comparison.',
+    status: 'Unwritten hypothesis',
+  },
+];
+
 export const MOMENTS = [
   {
     id: 'weeknight-two-food',
