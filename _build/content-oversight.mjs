@@ -242,19 +242,24 @@ export function dataRoom() {
       <td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon listing</a><br><a href="${SOURCES[p.source].url}" rel="noopener" target="_blank">${esc(p.source)}</a></td>
     </tr>`
   ).join('\n');
-
   const sourceRows = Object.values(SOURCES)
     .map(
-      (s) => `<tr>
-      <td class="mono tiny">${esc(s.id)}</td>
-      <td><a href="${s.url}" rel="noopener" target="_blank"><b>${esc(s.title)}</b></a><br><span class="tiny muted">${esc(s.publisher)}</span></td>
-      <td class="nowrap tiny">${esc(s.updated || '—')}</td>
-      <td class="nowrap tiny">${esc(s.checked)}</td>
-      <td class="tiny">${s.supports.map((x) => `• ${esc(x)}`).join('<br>')}</td>
-    </tr>`
+      (s) => {
+        // Amazon listing sources are outbound affiliate links: they must carry
+        // the sponsored marking (R2). Every other source is a policy/agency doc.
+        const rel = /^https:\/\/www\.amazon\.com\//.test(s.url)
+          ? 'sponsored nofollow noopener'
+          : 'noopener';
+        return `<tr>
+        <td class="mono tiny">${esc(s.id)}</td>
+        <td><a href="${s.url}" rel="${rel}" target="_blank"><b>${esc(s.title)}</b></a><br><span class="tiny muted">${esc(s.publisher)}</span></td>
+        <td class="nowrap tiny">${esc(s.updated || '—')}</td>
+        <td class="nowrap tiny">${esc(s.checked)}</td>
+        <td class="tiny">${s.supports.map((x) => `• ${esc(x)}`).join('<br>')}</td>
+      </tr>`;
+      }
     )
     .join('\n');
-
   const eventRows = EVENTS.map(
     (e) => `<tr><td class="mono">${esc(e.id)}</td><td>${esc(e.when)}</td><td>${esc(e.why)}</td><td class="tiny mono">${esc(e.fields)}</td><td class="src">${srcLink('A2', 'A2 §3(e)')}<br><a href="/analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr>`
   ).join('\n');

@@ -33,10 +33,14 @@ export const url = (path = '/') => {
   return `${SITE.origin}/${clean}`;
 };
 
+// An Amazon product-listing source is an Associates link like any other, so it is
+// tagged and marked sponsored (rule R2). Every other source is plain noopener.
+export const sourceRel = (url) => (/^https:\/\/www\.amazon\.com\/dp\//.test(url) ? 'sponsored nofollow noopener' : 'noopener');
+
 export const srcLink = (id, label) => {
   const s = SOURCES[id];
   if (!s) throw new Error(`Unknown source id: ${id}`);
-  return `<a href="${s.url}" rel="noopener" target="_blank" title="${esc(s.title)}">${esc(label || s.publisher)}</a>`;
+  return `<a href="${s.url}" rel="${sourceRel(s.url)}" target="_blank" title="${esc(s.title)}">${esc(label || s.publisher)}</a>`;
 };
 
 // Every Amazon outbound link goes through here. Three guarantees:
