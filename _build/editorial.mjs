@@ -18,7 +18,9 @@
 // Last verified: 2026-11-20 (UTC)
 
 import { SITE, PRODUCTS, GUIDES, SOURCES } from './data.mjs';
-import { esc, url, page, table, badge, amazonLink, srcLink, blank, crumbs } from './core.mjs';
+import { esc, url, page, table, badge, amazonLink, srcLink, blank, crumbs,
+         listingMark, deskMark } from './core.mjs';
+import { LISTING_EVIDENCE } from './listing-evidence.mjs';
 
 // ------------------------------------------------------------------- imagery
 // Every photograph is generated for this site and is deliberately
@@ -38,6 +40,32 @@ export const ART = {
 };
 
 const P = (id) => PRODUCTS.find((p) => p.id === id);
+
+// The listing evidence file is the single record of what each Amazon listing
+// stated on 2026-11-20. Tables read their numbers from here, so a comparison
+// table can never drift away from the product page it summarises.
+const ev = (p) => LISTING_EVIDENCE[p.asin] || {};
+
+// Wattage, as the listing states it. Where the listing contradicts itself
+// (FLG-013) both figures are printed; where it is silent the cell is blank.
+const wattageCell = (p) => {
+  const e = ev(p);
+  const c = e.wattageContradiction;
+  if (c) {
+    return `${c.first.value} W <span class="faint tiny">(listing also says ${c.second.value} W — FLG-013)</span>`;
+  }
+  if (e.wattage && e.wattage.value) return `${e.wattage.value} W`;
+  if (e.wattage && /not applicable/i.test(e.wattage.basis || '')) return blank('not applicable');
+  return blank('not stated');
+};
+
+// Stated temperature range, in Fahrenheit, as the listing states it.
+const tempCell = (p) => {
+  const t = ev(p).tempRangeF;
+  if (t && t.min && t.max) return `${t.min}–${t.max}°F`;
+  if (ev(p).heatLimitF) return blank('not stated');
+  return blank('not stated');
+};
 
 export const CATS = {
   'air-fryers': {
@@ -377,13 +405,28 @@ export function categoryPage(slug) {
 
 function airFryerTable() {
   const ids = ['P01', 'P03', 'P02'];
-  const row = (label, fn) =>
-    `<tr><th scope="row" style="font-weight:600;font-size:.8rem;color:var(--muted);white-space:nowrap">${esc(label)}</th>${ids
-      .map((id) => `<td>${fn(P(id))}</td>`)
+  const head = (label) =>
+    `<th scope="row" style="font-weight:600;font-size:.8rem;color:var(--muted);white-space:nowrap">${esc(label)}</th>`;
+  // Every row carries a source in every cell: a listing-sourced row links to
+  // that product's Amazon listing, a desk-judgement row links to the page that
+  // argues it. Nothing in this table is unsourced.
+  const row = (label, fn, mark = 'listing') =>
+    `<tr>${head(label)}${ids
+      .map((id) => {
+        const p = P(id);
+        // A desk judgement rests on two things: the listing (the facts) and the
+        // product page (the reasoning). Both are linked, so the row is checkable.
+        const src =
+          mark === 'listing'
+            ? listingMark(p.asin)
+            : `${listingMark(p.asin)}${deskMark(`/reviews/${p.slug}.html`, `The reasoning is on the ${p.shortName} page`)}`;
+        return `<td>${fn(p)}${src}</td>`;
+      })
       .join('')}</tr>`;
+
   return table({
     caption:
-      '<b>Air fryers, on the listings’ own claims.</b> No price column: Amazon permits price display only when Amazon serves it itself (Program Policies §2(b)), and this static page does not. Follow the listing for today’s price.',
+      '<b>Air fryers, on the listings’ own claims.</b> Every cell carries a <span class="mono tiny">src</span> link to the listing that supports it. No price column: Amazon permits price display only when Amazon serves it itself (Program Policies §2(b)), and this static page does not. Follow the listing for today’s price.',
     head: ['', ...ids.map((id) => `<b>${esc(P(id).shortName)}</b><br><span class="faint" style="font-weight:400">ASIN ${esc(P(id).asin)}</span>`)],
     rows: [
       row('Format', (p) => esc(formatOf(p))),
@@ -391,24 +434,36 @@ function airFryerTable() {
       row('Baskets', (p) => (p.compare.baskets === 2 ? '2 independent, 3 qt each' : p.compare.baskets === 1 ? '1 XL basket' : 'One oven cavity')),
       row('Viewing window', (p) => (p.compare.window ? 'Stated' : blank('not stated'))),
       row('Presets stated', (p) => (p.id === 'P02' ? '24 one-touch' : blank('not stated'))),
+      row('Stated temperature range', (p) => tempCell(p)),
       row('Stated top temperature', (p) => (p.id === 'P03' ? '450°F (listing claim)' : blank('not stated'))),
       row('Counter footprint', () => blank('not stated')),
-      row('Wattage', () => blank('not stated')),
-      row('Best for', (p) => esc(p.bestFor)),
-      row('Skip it if', (p) => esc(p.thinkTwiceIf)),
-      row('Full page', (p) => `<a href="/reviews/${p.slug}.html">Read the pick →</a>`),
-      row('Listing', (p) => `<a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon · ${esc(p.asin)}</a>`),
+      row('Wattage', (p) => wattageCell(p)),
+      row('Best for', (p) => esc(p.bestFor), 'desk'),
+      row('Skip it if', (p) => esc(p.thinkTwiceIf), 'desk'),
+      row('Full page', (p) => `<a href="/reviews/${p.slug}.html">Read the pick →</a>`, 'desk'),
+      row('Listing', (p) => `<a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon · ${esc(p.asin)}</a>`, 'listing'),
     ],
     note:
-      'Footprint and wattage are the two figures most likely to change a decision, and the two the listings do not state in the data this desk could read. They are blank on purpose rather than estimated — check the product manual before ordering.',
+      'Counter footprint is the one figure none of the three listings states, so it is blank rather than estimated — measure your own counter before ordering. Wattage is stated for two of the three, and the third listing contradicts itself (FLG-013); both figures are printed.',
   });
 }
 
 function thermometerTable() {
   const ids = ['P04', 'P05'];
-  const row = (label, fn) =>
-    `<tr><th scope="row" style="font-weight:600;font-size:.8rem;color:var(--muted);white-space:nowrap">${esc(label)}</th>${ids
-      .map((id) => `<td>${fn(P(id))}</td>`)
+  const head = (label) =>
+    `<th scope="row" style="font-weight:600;font-size:.8rem;color:var(--muted);white-space:nowrap">${esc(label)}</th>`;
+  const row = (label, fn, mark = 'listing') =>
+    `<tr>${head(label)}${ids
+      .map((id) => {
+        const p = P(id);
+        // A desk judgement rests on two things: the listing (the facts) and the
+        // product page (the reasoning). Both are linked, so the row is checkable.
+        const src =
+          mark === 'listing'
+            ? listingMark(p.asin)
+            : `${listingMark(p.asin)}${deskMark(`/reviews/${p.slug}.html`, `The reasoning is on the ${p.shortName} page`)}`;
+        return `<td>${fn(p)}${src}</td>`;
+      })
       .join('')}</tr>`;
   return table({
     caption: '<b>Thermometers.</b> Manufacturer claims are attributed, never adopted as this site’s own measurement.',
@@ -421,10 +476,11 @@ function thermometerTable() {
       row('Stated heat limit', (p) => (p.compare.heatRatingF ? `${p.compare.heatRatingF}°F (listing claim)` : blank('not stated'))),
       row('Stated accuracy', (p) => (p.id === 'P04' ? '±0.5°F (listing claim)' : blank('not stated'))),
       row('Water resistance', (p) => (p.id === 'P04' ? 'IP67 (listing claim)' : blank('not stated'))),
-      row('Best for', (p) => esc(p.bestFor)),
-      row('Skip it if', (p) => esc(p.thinkTwiceIf)),
-      row('Full page', (p) => `<a href="/reviews/${p.slug}.html">Read the pick →</a>`),
-      row('Listing', (p) => `<a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon · ${esc(p.asin)}</a>`),
+      row('Stated temperature range', (p) => tempCell(p)),
+      row('Best for', (p) => esc(p.bestFor), 'desk'),
+      row('Skip it if', (p) => esc(p.thinkTwiceIf), 'desk'),
+      row('Full page', (p) => `<a href="/reviews/${p.slug}.html">Read the pick →</a>`, 'desk'),
+      row('Listing', (p) => `<a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon · ${esc(p.asin)}</a>`, 'listing'),
     ],
     note:
       '“Listing claim” means the manufacturer states it in the product title and this desk has not checked it against a certificate or a test report. See FLG-006.',
@@ -582,9 +638,9 @@ export function comparePage() {
       <td><a href="/reviews/${p.slug}.html"><b>${esc(p.shortName)}</b></a><br><span class="faint tiny">${esc(p.brand)}</span></td>
       <td>${esc(catOf(p))}</td>
       <td>${esc(formatOf(p))}</td>
-      <td class="num">${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt') : esc(p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes'))}</td>
+      <td class="num">${p.compare.capacityQt ? esc(p.compare.capacityQt + ' qt') : esc(p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes'))}${listingMark(p.asin)}</td>
       <td>${esc(ROLE[p.id] || p.editorialName)}</td>
-      <td>${blank('not stated')}</td>
+      <td>${wattageCell(p)}</td>
       <td>${blank('by policy')}</td>
       <td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Listing</a></td>
     </tr>`
@@ -604,7 +660,7 @@ export function comparePage() {
   <div class="wrap">
     <div class="compare-scroll">
       ${table({
-        caption: '<b>Five products.</b> Every value is either the manufacturer’s stated claim or a blank. Nothing is estimated and nothing is averaged.',
+        caption: '<b>Five products.</b> Every value is either the manufacturer’s stated claim or a blank, and every row links to the listing it came from. Nothing is estimated and nothing is averaged.',
         head: ['Product', 'Category', 'Format', 'Capacity / probes', 'What it is for', 'Wattage', 'Price', 'Source'],
         rows: [rows],
       })}
@@ -615,8 +671,8 @@ export function comparePage() {
         <p>Amazon’s Program Policies permit a site to show prices only when Amazon serves the link carrying that data, or when the data comes from the Creators API under the licence. This is a static page with no API credentials, so a price printed here would be both stale and out of policy. Use the listing. <a href="/methods/#price">Full explanation</a>.</p>
       </div>
       <div class="callout">
-        <h4>Why wattage is blank</h4>
-        <p>It is the number that decides whether the machine trips a circuit alongside a kettle, and none of the five listings states it in the data this desk could read. Rather than guess a range, the cell is empty. Check the manual before ordering. <a href="/flagged/">Flagged for review</a>.</p>
+        <h4>Why three wattage cells are still empty</h4>
+        <p>Wattage is the number that decides whether a machine trips a circuit alongside a kettle. Two of the five listings state it — 1,700 W for the Chefman 6 qt, and 1,000 W for the Chefman 8 qt, whose own listing contradicts that figure elsewhere (FLG-013, both values printed). The other three do not state it: one is battery-powered and one runs off a rechargeable hub, so wattage does not apply, and the French-door oven is silent. Those cells stay empty rather than guessed. <a href="/flagged/">Flagged for review</a>.</p>
       </div>
     </div>
   </div>
@@ -669,11 +725,11 @@ export function guidePage(g) {
       if (s.p) html += s.p.map((t) => `<p>${esc(t)}</p>`).join('\n');
       if (s.table) {
         html += `<div class="compare-scroll">${table({
-          head: s.table.head,
+          head: [...s.table.head, 'Source'],
           rows: s.table.rows.map(
-            (r) => `<tr>${r.map((c, i) => (i === 0 ? `<th scope="row" style="font-weight:600;color:var(--ink-2)">${esc(c)}</th>` : `<td>${esc(c)}</td>`)).join('')}</tr>`
+            (r) => `<tr>${r.map((c, i) => (i === 0 ? `<th scope="row" style="font-weight:600;color:var(--ink-2)">${esc(c)}</th>` : `<td>${esc(c)}</td>`)).join('')}<td class="src">${srcLink(s.table.source, 'the source')}</td></tr>`
           ),
-          note: `Source: ${srcLink(s.table.source)} — read ${esc(SOURCES[s.table.source].checked)}.`,
+          note: `Source: ${srcLink(s.table.source)} — read ${esc(SOURCES[s.table.source].checked)}. Every row above links to the same source.`,
         })}</div>`;
       }
       return html;
@@ -827,9 +883,9 @@ export function reviewsIndex() {
     <div class="sec-head"><div><p class="kicker">At a glance</p><h2>One line each</h2></div><a class="more" href="/compare/">Full comparison →</a></div>
     <div class="compare-scroll">
     ${table({
-      head: ['Product', 'Category', 'The one-line reason', 'ASIN', 'Page'],
+      head: ['Product', 'Category', 'The one-line reason', 'ASIN', 'Page', 'Source'],
       rows: PRODUCTS.map(
-        (p) => `<tr><td><b>${esc(p.shortName)}</b></td><td>${esc(catOf(p))}</td><td>${esc(ROLE[p.id] || p.editorialName)}</td><td class="num">${esc(p.asin)}</td><td><a href="/reviews/${p.slug}.html">Open →</a></td></tr>`
+        (p) => `<tr><td><b>${esc(p.shortName)}</b></td><td>${esc(catOf(p))}</td><td>${esc(ROLE[p.id] || p.editorialName)}</td><td class="num">${esc(p.asin)}</td><td><a href="/reviews/${p.slug}.html">Open →</a></td><td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">Amazon · ${esc(p.asin)}</a></td></tr>`
       ),
     })}
     </div>

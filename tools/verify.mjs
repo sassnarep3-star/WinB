@@ -2,7 +2,8 @@
 // project has promised to keep. Run it before every merge.
 //
 // Rules enforced (each maps to a claim made on /methods/):
-//   R1  Every page has the Associates statement above the masthead AND in the footer.
+//   R1  Every page has the Associates statement under the masthead, above the first
+//       heading, and repeated in the footer.
 //   R2  Every Amazon outbound link is tagged and rel="sponsored".
 //   R3  No price, star rating or "N ratings" appears anywhere.
 //   R4  No hands-on testing language appears anywhere.
@@ -81,8 +82,12 @@ for (const file of htmlFiles) {
 
   if (!is404 && !isGo) {
     if (stripAt === -1) fail('R1', rel, 'no disclosure strip');
-    else if (mastAt === -1) fail('R1', rel, 'no masthead (cannot verify strip is above it)');
-    else if (stripAt > mastAt) fail('R1', rel, 'disclosure strip appears AFTER the masthead');
+    else if (mastAt === -1) fail('R1', rel, 'no masthead (cannot verify strip is under it)');
+    // The brief asks for the disclosure strip UNDER the masthead, above the fold,
+    // repeated in the footer. "Above the fold" is enforced as "before the first
+    // heading" by R13 in tools/gate.mjs; here we check the structural order.
+    else if (stripAt < mastAt) fail('R1', rel, 'disclosure strip appears BEFORE the masthead (it must sit under it)');
+    else if (!/<main[ >]/.test(html.slice(stripAt))) fail('R1', rel, 'disclosure strip is not immediately above the main content');
     if (!html.includes(STATEMENT)) fail('R1', rel, 'Associates statement missing');
     if (footAt === -1) fail('R1', rel, 'no footer');
     else if (!html.slice(footAt).includes(STATEMENT)) fail('R1', rel, 'statement missing from footer');

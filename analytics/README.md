@@ -14,8 +14,13 @@ collector answers it without any of that.
 
 ## What it records
 
-Five events, frozen names: `page_view`, `product_view`, `outbound_click`,
-`guide_complete`, `capture_intent`.
+Five events, frozen names: `page_view`, `product_view`, `compare_view`,
+`outbound_click`, `guide_complete`.
+
+They describe one funnel, in order: a page is opened, a product is considered, a
+comparison is reached, an outbound link is clicked, a guide is read to the end.
+There is no "capture" event: the email form was removed (FLG-008), and an event
+that can never fire is a contract that only lies.
 
 | Stored | Not stored |
 | --- | --- |

@@ -720,6 +720,21 @@ td.num { font-variant-numeric: tabular-nums; font-family: var(--mono); font-size
 td.src, th.src { white-space: nowrap; }
 td a { text-decoration-thickness: 1px; }
 
+/* The compact source marker. Every value in a comparison table carries one,
+   so a reader can check any number without leaving the page. It is deliberately
+   quiet: a superscript "src" that becomes visible on hover or focus. */
+.srcmark {
+  font-size: .58rem; line-height: 1; vertical-align: super;
+  margin-left: .18rem; font-family: var(--mono); letter-spacing: .02em;
+}
+.srcmark a {
+  color: var(--faint); text-decoration: none;
+  border-bottom: 1px dotted var(--faint); padding: 0 .05em;
+}
+.srcmark a:hover, .srcmark a:focus {
+  color: var(--amber); border-bottom-color: var(--amber);
+}
+
 .unverified {
   display: inline-block; font-size: .78rem; color: var(--faint);
   font-style: italic;

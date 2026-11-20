@@ -3,10 +3,32 @@
 // The front page sells; these pages account for themselves.
 
 import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, MOMENTS, TOPIC_QUEUE, PATHS } from './data.mjs';
-import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink } from './core.mjs';
+import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink, listingMark, deskMark } from './core.mjs';
 import { DECISION_QUEUE, BLOCKING_QUESTIONS, OWNER_ACTIONS } from './decision-queue.mjs';
 
 // ------------------------------------------------------------- decision room
+
+// A queued topic is either already published (in which case the guide is the
+// source) or a hypothesis waiting on a measurement gate (in which case the
+// rule that forbids manufacturing demand is the source).
+const topicSource = (t) => {
+  const m = /Already published as ([a-z-]+)/.exec(t.gate || '');
+  if (m) return `<a href="/guides/${esc(m[1])}.html" rel="noopener">the published guide</a>`;
+  return srcLink('G2', 'the cadence and scaled-content rule');
+};
+
+// A cooking moment is a framing, not a claim. The factual content it leans on
+// is the listing of the product it points at.
+const momentSource = (m) =>
+  m.products
+    .map((id) => {
+      const p = PRODUCTS.find((x) => x.id === id);
+      if (!p) return '';
+      return `<a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">${esc(p.asin)}</a>`;
+    })
+    .filter(Boolean)
+    .join(', ') || srcLink('G2', 'the cadence and scaled-content rule');
+
 export function decisionsPage() {
   const open = SUGGESTIONS.filter((s) => s.status !== 'Implemented');
   const done = SUGGESTIONS.filter((s) => s.status === 'Implemented');
@@ -34,6 +56,7 @@ export function decisionsPage() {
     <td class="tiny">${esc(q.known)}</td>
     <td class="tiny">${esc(q.unknown)}</td>
     <td class="tiny">${esc(q.howToFind)}</td>
+    <td class="src">${srcLink(q.source, 'the rule behind this question')}</td>
   </tr>`;
 
   const body = `
@@ -60,10 +83,10 @@ ${pageHead({
       </div>
     </div>
     <div class="table-wrap">
-      <table>
+      <table data-kind="editorial">
         <caption><b>Three coherent paths.</b> Choose one; the suggestions below are ordered to serve it.</caption>
-        <thead><tr><th scope="col">Path</th><th scope="col">Promise</th><th scope="col">First steps</th><th scope="col">Cost</th><th scope="col">Best if</th></tr></thead>
-        <tbody>${PATHS.map((p) => `<tr><td><b>${esc(p.name)}</b></td><td>${esc(p.promise)}</td><td>${esc(p.steps)}</td><td>${esc(p.cost)}</td><td>${esc(p.bestIf)}</td></tr>`).join('\n')}</tbody>
+        <thead><tr><th scope="col">Path</th><th scope="col">Promise</th><th scope="col">First steps</th><th scope="col">Cost</th><th scope="col">Best if</th><th scope="col">Source</th></tr></thead>
+        <tbody>${PATHS.map((p) => `<tr><td><b>${esc(p.name)}</b></td><td>${esc(p.promise)}</td><td>${esc(p.steps)}</td><td>${esc(p.cost)}</td><td>${esc(p.bestIf)}</td><td class="src">${srcLink(p.source, 'the rule behind this path')}</td></tr>`).join('\n')}</tbody>
       </table>
     </div>
     <p class="tiny faint mt-2">Paths are editorial recommendations, not factual claims. The policy constraints they respect are cited in the suggestions below: disclosure ${srcLink('A1', 'A1 §5')}, tag and price rules ${srcLink('A2', 'A2 §2(b)')}, no untried-experience claims ${srcLink('F1', 'F1')}, sponsored marking ${srcLink('G1', 'G1')}, cadence and authorship ${srcLink('G2', 'G2')}.</p>
@@ -84,17 +107,17 @@ ${pageHead({
       </div>
     </div>
     <div class="table-wrap">
-      <table>
+      <table data-kind="editorial">
         <caption><b>${TOPIC_QUEUE.length} queued topics.</b> Each row states the measurement gate that must pass first.</caption>
-        <thead><tr><th scope="col">Working title</th><th scope="col">Cluster</th><th scope="col">Gate</th><th scope="col">Status</th></tr></thead>
-        <tbody>${TOPIC_QUEUE.map((t) => `<tr><td><b>${esc(t.title)}</b></td><td>${esc(t.cluster)}</td><td class="tiny">${esc(t.gate)}</td><td>${badge(t.status, t.status.startsWith('Published') ? 'green' : 'amber')}</td></tr>`).join('\n')}</tbody>
+        <thead><tr><th scope="col">Working title</th><th scope="col">Cluster</th><th scope="col">Gate</th><th scope="col">Status</th><th scope="col">Source</th></tr></thead>
+        <tbody>${TOPIC_QUEUE.map((t) => `<tr><td><b>${esc(t.title)}</b></td><td>${esc(t.cluster)}</td><td class="tiny">${esc(t.gate)}</td><td>${badge(t.status, t.status.startsWith('Published') ? 'green' : 'amber')}</td><td class="src">${topicSource(t)}</td></tr>`).join('\n')}</tbody>
       </table>
     </div>
     <div class="table-wrap mt-3">
       <table>
         <caption><b>Four cooking moments.</b> Editorial hypotheses that reframe existing guides. See the front page for the reader-facing version.</caption>
-        <thead><tr><th scope="col">Moment</th><th scope="col">Season</th><th scope="col">Question</th><th scope="col">Guides</th><th scope="col">Products</th></tr></thead>
-        <tbody>${MOMENTS.map((m) => `<tr><td><b>${esc(m.title)}</b><br><span class="tiny muted">${esc(m.note)}</span></td><td>${esc(m.season)}</td><td class="tiny">${esc(m.question)}</td><td class="tiny">${m.guides.map((g) => `<a href="/guides/${esc(g)}.html">${esc(g)}</a>`).join(', ')}</td><td class="tiny">${esc(m.products.join(', '))}</td></tr>`).join('\n')}</tbody>
+        <thead><tr><th scope="col">Moment</th><th scope="col">Season</th><th scope="col">Question</th><th scope="col">Guides</th><th scope="col">Products</th><th scope="col">Source</th></tr></thead>
+        <tbody>${MOMENTS.map((m) => `<tr><td><b>${esc(m.title)}</b><br><span class="tiny muted">${esc(m.note)}</span></td><td>${esc(m.season)}</td><td class="tiny">${esc(m.question)}</td><td class="tiny">${m.guides.map((g) => `<a href="/guides/${esc(g)}.html">${esc(g)}</a>`).join(', ')}</td><td class="tiny">${esc(m.products.join(', '))}</td><td class="src">${momentSource(m)}</td></tr>`).join('\n')}</tbody>
       </table>
     </div>
     <p class="tiny faint mt-2">Moments and queue rows are hypotheses. The guides they reframe cite ${srcLink('A2', 'A2')} and ${srcLink('U1', 'U1')}; the cadence gate cites ${srcLink('G2', 'G2 scaled content')}. No row is a popularity, search-volume or sales claim.</p>
@@ -127,11 +150,12 @@ ${pageHead({
       </div>
     </div>
     <div class="table-wrap">
-      <table>
+      <table data-kind="editorial">
         <caption><b>${QUESTIONS.length} questions.</b> ${QUESTIONS.filter((q) => q.status === 'Answered').length} answered, ${QUESTIONS.filter((q) => q.status !== 'Answered').length} still need information.</caption>
         <thead><tr>
           <th scope="col">ID</th><th scope="col">Status</th><th scope="col">Question</th>
           <th scope="col">What is known</th><th scope="col">What is missing</th><th scope="col">How to find out</th>
+          <th scope="col">Source</th>
         </tr></thead>
         <tbody>${QUESTIONS.map(qRow).join('\n')}</tbody>
       </table>
@@ -143,14 +167,14 @@ ${pageHead({
     <div class="table-wrap mt-3">
       <table>
         <caption><b>Missing-information discovery plan.</b> What to ask, where to find it, how long it takes, and what it unblocks. Every row is an owner action; nothing here can be answered from the sandbox.</caption>
-        <thead><tr><th scope="col">Ask</th><th scope="col">Where to find it</th><th scope="col">Time</th><th scope="col">Unblocks</th></tr></thead>
+        <thead><tr><th scope="col">Ask</th><th scope="col">Where to find it</th><th scope="col">Time</th><th scope="col">Unblocks</th><th scope="col">Source</th></tr></thead>
         <tbody>
-          <tr><td>Confirm the five intended ASINs (FLG-002)</td><td>Owner’s Associates dashboard or the order in which the links were minted</td><td>10 minutes</td><td>Closing FLG-001 cleanly</td></tr>
-          <tr><td>Mint one tagged link and compare (SUG-02)</td><td>Associates Central → SiteStripe / Get Links</td><td>Under an hour</td><td>Revenue attribution</td></tr>
-          <tr><td>Deploy the collector (SUG-03)</td><td>analytics/collector-worker.js → any worker host; set ENDPOINT in assets/js/site.js</td><td>Half a day</td><td>All measurement, the ledger, topic choice</td></tr>
-          <tr><td>Submit sitemap + Search Console (SUG-13)</td><td>Search Console → Sitemaps → sitemap.xml</td><td>Under an hour</td><td>Indexing, measured queries</td></tr>
-          <tr><td>Choose byline, contact route, domain (Q-05, Q-07, Q-13)</td><td>Owner decision; then one template change</td><td>One conversation</td><td>Trust, corrections, brand</td></tr>
-          <tr><td>Ask brands for review units + licensed images (SUG-01, Q-14)</td><td>Two brand contact emails; publish the reply either way</td><td>One week of waiting</td><td>Hands-on content, photography</td></tr>
+          <tr><td>Confirm the five intended ASINs (FLG-002)</td><td>Owner’s Associates dashboard or the order in which the links were minted</td><td>10 minutes</td><td>Closing FLG-001 cleanly</td><td class="src">${srcLink('A2', 'A2 §2(b)')}</td></tr>
+          <tr><td>Mint one tagged link and compare (SUG-02)</td><td>Associates Central → SiteStripe / Get Links</td><td>Under an hour</td><td>Revenue attribution</td><td class="src">${srcLink('A2', 'A2 §2(b)')}</td></tr>
+          <tr><td>Deploy the collector (SUG-03)</td><td>analytics/collector-worker.js → any worker host; set ENDPOINT in assets/js/site.js</td><td>Half a day</td><td>All measurement, the ledger, topic choice</td><td class="src">${srcLink('A2', 'A2 §3(e)')}<br><a href="/analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr>
+          <tr><td>Submit sitemap + Search Console (SUG-13)</td><td>Search Console → Sitemaps → sitemap.xml</td><td>Under an hour</td><td>Indexing, measured queries</td><td class="src">${srcLink('G3', 'G3 sitemap')}</td></tr>
+          <tr><td>Choose byline, contact route, domain (Q-05, Q-07, Q-13)</td><td>Owner decision; then one template change</td><td>One conversation</td><td>Trust, corrections, brand</td><td class="src">${srcLink('G2', 'G2 site reputation')}</td></tr>
+          <tr><td>Ask brands for review units + licensed images (SUG-01, Q-14)</td><td>Two brand contact emails; publish the reply either way</td><td>One week of waiting</td><td>Hands-on content, photography</td><td class="src">${srcLink('F1', 'F1')}</td></tr>
         </tbody>
       </table>
     </div>
@@ -221,7 +245,7 @@ export function dataRoom() {
     .join('\n');
 
   const eventRows = EVENTS.map(
-    (e) => `<tr><td class="mono">${esc(e.id)}</td><td>${esc(e.when)}</td><td>${esc(e.why)}</td><td class="tiny mono">${esc(e.fields)}</td></tr>`
+    (e) => `<tr><td class="mono">${esc(e.id)}</td><td>${esc(e.when)}</td><td>${esc(e.why)}</td><td class="tiny mono">${esc(e.fields)}</td><td class="src">${srcLink('A2', 'A2 §3(e)')}<br><a href="/analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr>`
   ).join('\n');
 
   const ledgerHead = LEDGER.columns.map((c) => `<th scope="col">${esc(c.label)}</th>`).join('');
@@ -301,7 +325,7 @@ ${pageHead({
     <div class="table-wrap">
       <table>
         <caption><b>Event schema.</b> No event carries an identifier, a cookie, an IP address or a device fingerprint.</caption>
-        <thead><tr><th scope="col">Event</th><th scope="col">Fires when</th><th scope="col">Why it exists</th><th scope="col">Fields</th></tr></thead>
+        <thead><tr><th scope="col">Event</th><th scope="col">Fires when</th><th scope="col">Why it exists</th><th scope="col">Fields</th><th scope="col">Source</th></tr></thead>
         <tbody>${eventRows}</tbody>
       </table>
     </div>
@@ -332,15 +356,15 @@ ${pageHead({
         <tbody>
           <tr><td colspan="${LEDGER.columns.length}" style="text-align:center;padding:2rem 1rem;color:var(--muted)">
             <span style="font-family:var(--display);font-size:1.1rem">No rows.</span><br>
-            <span class="small">No eligible-session, click or order figure has been obtained from an authorised report.</span>
+            <span class="small">No eligible-session, click or order figure has been obtained from an authorised report. The source that would fill this table is the Associates Central reporting dashboard (${srcLink('A3', 'A3')}) — see <a href="/flagged/#FLG-007">FLG-007</a>.</span>
           </td></tr>
         </tbody>
       </table>
     </div>
     ${table({
       caption: '<b>Column rules.</b> These are enforced at review, not by code.',
-      head: ['Column', 'Rule'],
-      rows: LEDGER.columns.map((c) => `<tr><td><b>${esc(c.label)}</b></td><td>${esc(c.rule)}</td></tr>`),
+      head: ['Column', 'Rule', 'Source'],
+      rows: LEDGER.columns.map((c) => `<tr><td><b>${esc(c.label)}</b></td><td>${esc(c.rule)}</td><td class="src">${srcLink(LEDGER.columnSources[c.label] || 'A2', 'the reporting rule')}</td></tr>`),
     })}
     <div class="callout mt-2">
       <h4>The rule that matters</h4>
@@ -490,16 +514,16 @@ ${pageHead({
     <div class="sec-head"><div><p class="kicker">Spot-check</p><h2>What verification actually meant here</h2></div></div>
     ${table({
       caption: '<b>Method.</b> What was checked, how, and with what result.',
-      head: ['Check', 'Method', 'Result'],
+      head: ['Check', 'Method', 'Result', 'Source'],
       rows: [
-        ['Short link resolution', 'Each of the five link.amazon URLs fetched once on 2026-11-20 and the redirect target recorded verbatim.', 'All five resolved to live amazon.com listings. None carried a tag parameter.'],
-        ['Product identity', 'Listing title, brand, category path and ASIN read from each resolved listing.', 'Five distinct products identified. ASINs recorded in a separate column from the intended ASIN.'],
-        ['Disclosure wording', 'Compared against the exact sentence named in Operating Agreement §5.', 'Exact sentence used, above the masthead on every page and repeated in the footer.'],
-        ['Price and rating policy', 'Compared against Participation Requirements §2(b).', 'No price or rating printed anywhere. Enforced by the build, not by memory.'],
-        ['Outbound link marking', 'Compared against Google’s outbound-link documentation.', 'All Amazon links carry rel="sponsored nofollow noopener".'],
-        ['Temperature figures', 'Compared against the USDA FSIS safe minimum internal temperature chart.', 'Seven rows quoted, each with the chart’s own figures and rest times.'],
-        ['Sitemap and feed', 'Built and validated against the sitemaps.org protocol and RFC-822 dates for RSS.', 'XML parses; every loc element sits on one host; every URL returns 200 in the local link check.'],
-      ].map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join('')}</tr>`),
+        ['Short link resolution', 'Each of the five link.amazon URLs fetched once on 2026-11-20 and the redirect target recorded verbatim.', 'All five resolved to live amazon.com listings. None carried a tag parameter.', 'A2'],
+        ['Product identity', 'Listing title, brand, category path and ASIN read from each resolved listing.', 'Five distinct products identified. ASINs recorded in a separate column from the intended ASIN.', 'A1'],
+        ['Disclosure wording', 'Compared against the exact sentence named in Operating Agreement §5.', 'Exact sentence used, under the masthead on every page and repeated in the footer.', 'A1'],
+        ['Price and rating policy', 'Compared against Participation Requirements §2(b).', 'No price or rating printed anywhere. Enforced by the build, not by memory.', 'A2'],
+        ['Outbound link marking', 'Compared against Google’s outbound-link documentation.', 'All Amazon links carry rel="sponsored nofollow noopener".', 'G1'],
+        ['Temperature figures', 'Compared against the USDA FSIS safe minimum internal temperature chart.', 'Seven rows quoted, each with the chart’s own figures and rest times.', 'U1'],
+        ['Sitemap and feed', 'Built and validated against the sitemaps.org protocol and RFC-822 dates for RSS.', 'XML parses; every loc element sits on one host; every URL returns 200 in the local link check.', 'G4'],
+      ].map((r) => `<tr>${r.slice(0, 3).map((c) => `<td>${c}</td>`).join('')}<td class="src">${srcLink(r[3], 'the official source checked against')}</td></tr>`),
     })}
   </div>
 </section>`;
@@ -653,13 +677,13 @@ ${pageHead({
     <div class="table-wrap">
       <table>
         <caption><b>Exactly five event names.</b> None carries an identifier, an IP address or a fingerprint.</caption>
-        <thead><tr><th scope="col">Event</th><th scope="col">Fields</th></tr></thead>
-        <tbody>${EVENTS.map((e) => `<tr><td class="mono">${esc(e.id)}</td><td class="tiny">${esc(e.fields)}</td></tr>`).join('')}</tbody>
+        <thead><tr><th scope="col">Event</th><th scope="col">Fields</th><th scope="col">Source</th></tr></thead>
+        <tbody>${EVENTS.map((e) => `<tr><td class="mono">${esc(e.id)}</td><td class="tiny">${esc(e.fields)}</td><td class="src">${srcLink('A2', 'A2 §3(e)')}<br><a href="/analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr>`).join('')}</tbody>
       </table>
     </div>
 
     <h2>What an event does not contain</h2>
-    <p>No IP address is stored by the recorder. No cookie is created. No device fingerprint is computed. No cross-site identifier is attached. No email address is transmitted — the capture form explicitly does not send one, because no list provider exists yet. Each event carries a random value generated in memory for the current page load, which exists only so a server can discard a duplicate; it is not written to storage and it dies with the tab.</p>
+    <p>No IP address is stored by the recorder. No cookie is created. No device fingerprint is computed. No cross-site identifier is attached. No email address is transmitted — there is no email field on this site at all, because no mailing provider exists yet and a form that discards an address is worse than no form (FLG-008). Each event carries a random value generated in memory for the current page load, which exists only so a server can discard a duplicate; it is not written to storage and it dies with the tab.</p>
 
     <h2>Your two controls</h2>
     <p><b>Turn measurement off.</b> <a href="#" id="cw-optout-inline">Click here</a> or use “Turn off measurement” in the footer. The recorder checks the flag before it does anything and stops. Your browser keeps only the flag.</p>
@@ -701,9 +725,9 @@ ${pageHead({
     <h2>What the five supplied links turned out to be</h2>
     ${table({
       caption: '<b>Resolution record.</b> Observed on 2026-11-20. Intended ASIN stays blank until you confirm it.',
-      head: ['#', 'Supplied link', 'Resolved ASIN', 'Product'],
+      head: ['#', 'Supplied link', 'Resolved ASIN', 'Product', 'Source'],
       rows: PRODUCTS.map(
-        (p, i) => `<tr><td class="num">${i + 1}</td><td class="mono tiny">${esc(p.suppliedLink)}</td><td class="mono">${esc(p.asin)}</td><td>${esc(p.shortName)}</td></tr>`
+        (p, i) => `<tr><td class="num">${i + 1}</td><td class="mono tiny">${esc(p.suppliedLink)}</td><td class="mono">${esc(p.asin)}</td><td>${esc(p.shortName)}</td><td class="src"><a href="${p.listingSourceUrl}/?tag=${SITE.associateTag}" rel="sponsored nofollow noopener" target="_blank">the listing</a></td></tr>`
       ),
       note:
         'All five resolved to live listings. None of the resolved URLs carried a tag parameter, which is the first of the two things this project needs from you.',
@@ -733,13 +757,15 @@ ${pageHead({
     <h2>The four decisions that matter most</h2>
     ${table({
       caption: '<b>Ordered by downside if left open.</b> Full reasoning in the Decision Room.',
-      head: ['#', 'Decision', 'Why it is first', 'Owner action'],
+      head: ['#', 'Decision', 'Why it is first', 'Owner action', 'Source'],
       rows: [
-        ['1', 'Do the supplied short links credit your account?', 'If not, everything published until it is fixed earns nothing.', 'Mint one link in Associates Central and compare the parameters. Under an hour.'],
-        ['2', 'Buy and document one review unit', 'The only durable answer to thin-affiliation risk and reader distrust.', 'Pick the cheapest of the five, buy it, publish the receipt.'],
-        ['3', 'Deploy the analytics endpoint', 'Until it exists, the next topic is chosen by instinct.', 'Deploy the supplied worker, set one line in the JS, run 30 days.'],
-        ['4', 'Decide who the site belongs to', 'Google’s site-reputation policy weighs stated authorship; an unauthored affiliate page is its own example of a problem.', 'A named byline and a two-line biography.'],
-      ],
+        ['1', 'Do the supplied short links credit your account?', 'If not, everything published until it is fixed earns nothing.', 'Mint one link in Associates Central and compare the parameters. Under an hour.', 'A2'],
+        ['2', 'Buy and document one review unit', 'The only durable answer to thin-affiliation risk and reader distrust.', 'Pick the cheapest of the five, buy it, publish the receipt.', 'F1'],
+        ['3', 'Deploy the analytics endpoint', 'Until it exists, the next topic is chosen by instinct.', 'Deploy the supplied worker, set one line in the JS, run 30 days.', 'A2'],
+        ['4', 'Decide who the site belongs to', 'Google’s site-reputation policy weighs stated authorship; an unauthored affiliate page is its own example of a problem.', 'A named byline and a two-line biography.', 'G2'],
+      ].map(
+        (r) => `<tr><td class="num">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="src">${srcLink(r[4], 'the rule behind this decision')}</td></tr>`
+      ),
     })}
 
     <h2>How it reads as a shop</h2>
@@ -817,6 +843,7 @@ export function suggestionsPage() {
     <td>${d.reversible === 'Yes' || d.reversible.startsWith('Yes') ? '<span class="badge green">Yes</span>' : d.reversible.startsWith('n/a') ? '<span class="badge plain">Information only</span>' : '<span class="badge amber">Hard to undo</span>'}</td>
     <td class="tiny">${d.dependsOn.length ? d.dependsOn.map((q) => `<a href="#${esc(q)}">${esc(q)}</a>`).join(' ') : '—'}</td>
     <td>${d.implemented ? '<span class="badge green">Built</span>' : '<span class="badge plain">Awaiting decision</span>'}</td>
+    <td class="src">${srcLink(d.source, 'the rule behind this proposal')}</td>
     <td class="tiny"><a href="#${esc(d.id)}">Read the case →</a></td>
   </tr>`;
 
@@ -861,7 +888,8 @@ ${pageHead({
     </div>
     ${table({
       caption: '<b>Ten proposals.</b> Sorted so that revenue integrity comes before growth, because growth on an uncredited link is arithmetic that never pays.',
-      head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Cost of being wrong', 'Blocked by', 'Status', ''],
+      kind: 'editorial',
+      head: ['ID', 'Proposal', 'Cost', 'Reversible?', 'Cost of being wrong', 'Blocked by', 'Status', 'Source', ''],
       rows: [...openItems, ...doneItems].map(boardRow),
     })}
   </div>
@@ -891,9 +919,9 @@ ${pageHead({
     </div>
     ${table({
       caption: '<b>The owner checklist.</b> Each item names the decision it unblocks and how long it takes.',
-      head: ['Unblocks', 'Action', 'Time'],
+      head: ['Unblocks', 'Action', 'Time', 'Source'],
       rows: OWNER_ACTIONS.map(
-        (a) => `<tr><td class="mono tiny"><a href="#${esc(a.id)}">${esc(a.id)}</a></td><td>${esc(a.action)}</td><td class="tiny">${esc(a.time)}</td></tr>`
+        (a) => `<tr><td class="mono tiny"><a href="#${esc(a.id)}">${esc(a.id)}</a></td><td>${esc(a.action)}</td><td class="tiny">${esc(a.time)}</td><td class="src">${srcLink(a.source, 'the rule that makes this necessary')}</td></tr>`
       ),
     })}
   </div>

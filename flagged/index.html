@@ -26,6 +26,15 @@
 </head>
 <body  >
 <a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href=".././">counterwise<span>.</span><small>kitchen, chosen by question</small></a>
+    <nav class="nav" aria-label="Main">
+      <a href="../reviews/">The five picks</a><a href="../air-fryers/">Air fryers</a><a href="../thermometers/">Thermometers</a><a href="../guides/">Guides</a>
+      <a class="cta" href="../compare/">Compare all five</a>
+    </nav>
+  </div>
+</header>
 <div class="disclosure-strip" role="note" aria-label="Affiliate disclosure">
   <div class="wrap">
     <strong>As an Amazon Associate I earn from qualifying purchases.</strong>
@@ -36,15 +45,6 @@
     <a href="../methods/">How we choose →</a>
   </div>
 </div>
-<header class="masthead">
-  <div class="wrap">
-    <a class="brand" href=".././">counterwise<span>.</span><small>kitchen, chosen by question</small></a>
-    <nav class="nav" aria-label="Main">
-      <a href="../reviews/">The five picks</a><a href="../air-fryers/">Air fryers</a><a href="../thermometers/">Thermometers</a><a href="../compare/">Compare</a><a href="../guides/">Guides</a>
-      <a class="cta" href="../air-fryers/">Start with air fryers</a>
-    </nav>
-  </div>
-</header>
 <main id="main">
 
 
@@ -394,10 +394,10 @@
     <div class="sec-head"><div><p class="kicker">Spot-check</p><h2>What verification actually meant here</h2></div></div>
     
 <div class="table-wrap">
-  <table>
+  <table data-kind="factual">
     <caption><b>Method.</b> What was checked, how, and with what result.</caption>
-    <thead><tr><th scope="col">Check</th><th scope="col">Method</th><th scope="col">Result</th></tr></thead>
-    <tbody><tr><td>Short link resolution</td><td>Each of the five link.amazon URLs fetched once on 2026-11-20 and the redirect target recorded verbatim.</td><td>All five resolved to live amazon.com listings. None carried a tag parameter.</td></tr><tr><td>Product identity</td><td>Listing title, brand, category path and ASIN read from each resolved listing.</td><td>Five distinct products identified. ASINs recorded in a separate column from the intended ASIN.</td></tr><tr><td>Disclosure wording</td><td>Compared against the exact sentence named in Operating Agreement §5.</td><td>Exact sentence used, above the masthead on every page and repeated in the footer.</td></tr><tr><td>Price and rating policy</td><td>Compared against Participation Requirements §2(b).</td><td>No price or rating printed anywhere. Enforced by the build, not by memory.</td></tr><tr><td>Outbound link marking</td><td>Compared against Google’s outbound-link documentation.</td><td>All Amazon links carry rel="sponsored nofollow noopener".</td></tr><tr><td>Temperature figures</td><td>Compared against the USDA FSIS safe minimum internal temperature chart.</td><td>Seven rows quoted, each with the chart’s own figures and rest times.</td></tr><tr><td>Sitemap and feed</td><td>Built and validated against the sitemaps.org protocol and RFC-822 dates for RSS.</td><td>XML parses; every loc element sits on one host; every URL returns 200 in the local link check.</td></tr></tbody>
+    <thead><tr><th scope="col">Check</th><th scope="col">Method</th><th scope="col">Result</th><th scope="col">Source</th></tr></thead>
+    <tbody><tr><td>Short link resolution</td><td>Each of the five link.amazon URLs fetched once on 2026-11-20 and the redirect target recorded verbatim.</td><td>All five resolved to live amazon.com listings. None carried a tag parameter.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">the official source checked against</a></td></tr><tr><td>Product identity</td><td>Listing title, brand, category path and ASIN read from each resolved listing.</td><td>Five distinct products identified. ASINs recorded in a separate column from the intended ASIN.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank" title="Amazon Associates Program Operating Agreement">the official source checked against</a></td></tr><tr><td>Disclosure wording</td><td>Compared against the exact sentence named in Operating Agreement §5.</td><td>Exact sentence used, under the masthead on every page and repeated in the footer.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank" title="Amazon Associates Program Operating Agreement">the official source checked against</a></td></tr><tr><td>Price and rating policy</td><td>Compared against Participation Requirements §2(b).</td><td>No price or rating printed anywhere. Enforced by the build, not by memory.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">the official source checked against</a></td></tr><tr><td>Outbound link marking</td><td>Compared against Google’s outbound-link documentation.</td><td>All Amazon links carry rel="sponsored nofollow noopener".</td><td class="src"><a href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" rel="noopener" target="_blank" title="Qualify your outbound links to Google">the official source checked against</a></td></tr><tr><td>Temperature figures</td><td>Compared against the USDA FSIS safe minimum internal temperature chart.</td><td>Seven rows quoted, each with the chart’s own figures and rest times.</td><td class="src"><a href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank" title="Safe Minimum Internal Temperature Chart">the official source checked against</a></td></tr><tr><td>Sitemap and feed</td><td>Built and validated against the sitemaps.org protocol and RFC-822 dates for RSS.</td><td>XML parses; every loc element sits on one host; every URL returns 200 in the local link check.</td><td class="src"><a href="https://www.sitemaps.org/protocol.html" rel="noopener" target="_blank" title="Sitemaps XML format">the official source checked against</a></td></tr></tbody>
   </table>
 </div>
 

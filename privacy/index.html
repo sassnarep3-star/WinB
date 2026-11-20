@@ -26,6 +26,15 @@
 </head>
 <body  >
 <a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href=".././">counterwise<span>.</span><small>kitchen, chosen by question</small></a>
+    <nav class="nav" aria-label="Main">
+      <a href="../reviews/">The five picks</a><a href="../air-fryers/">Air fryers</a><a href="../thermometers/">Thermometers</a><a href="../guides/">Guides</a>
+      <a class="cta" href="../compare/">Compare all five</a>
+    </nav>
+  </div>
+</header>
 <div class="disclosure-strip" role="note" aria-label="Affiliate disclosure">
   <div class="wrap">
     <strong>As an Amazon Associate I earn from qualifying purchases.</strong>
@@ -36,15 +45,6 @@
     <a href="../methods/">How we choose →</a>
   </div>
 </div>
-<header class="masthead">
-  <div class="wrap">
-    <a class="brand" href=".././">counterwise<span>.</span><small>kitchen, chosen by question</small></a>
-    <nav class="nav" aria-label="Main">
-      <a href="../reviews/">The five picks</a><a href="../air-fryers/">Air fryers</a><a href="../thermometers/">Thermometers</a><a href="../compare/">Compare</a><a href="../guides/">Guides</a>
-      <a class="cta" href="../air-fryers/">Start with air fryers</a>
-    </nav>
-  </div>
-</header>
 <main id="main">
 
 
@@ -77,13 +77,13 @@
     <div class="table-wrap">
       <table>
         <caption><b>Exactly five event names.</b> None carries an identifier, an IP address or a fingerprint.</caption>
-        <thead><tr><th scope="col">Event</th><th scope="col">Fields</th></tr></thead>
-        <tbody><tr><td class="mono">page_view</td><td class="tiny">path, referrer host (if present), viewport class</td></tr><tr><td class="mono">product_view</td><td class="tiny">product id, ASIN, referring page</td></tr><tr><td class="mono">outbound_click</td><td class="tiny">product id, ASIN, page, position on page</td></tr><tr><td class="mono">guide_complete</td><td class="tiny">guide id, path</td></tr><tr><td class="mono">capture_intent</td><td class="tiny">page, form id</td></tr></tbody>
+        <thead><tr><th scope="col">Event</th><th scope="col">Fields</th><th scope="col">Source</th></tr></thead>
+        <tbody><tr><td class="mono">page_view</td><td class="tiny">path, referrer host (if present), viewport class</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2 §3(e)</a><br><a href="../analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr><tr><td class="mono">product_view</td><td class="tiny">product id, ASIN, referring page</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2 §3(e)</a><br><a href="../analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr><tr><td class="mono">outbound_click</td><td class="tiny">product id, ASIN, page, position on page</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2 §3(e)</a><br><a href="../analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr><tr><td class="mono">guide_complete</td><td class="tiny">guide id, path</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2 §3(e)</a><br><a href="../analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr><tr><td class="mono">compare_view</td><td class="tiny">path, number of products in the table</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2 §3(e)</a><br><a href="../analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr></tbody>
       </table>
     </div>
 
     <h2>What an event does not contain</h2>
-    <p>No IP address is stored by the recorder. No cookie is created. No device fingerprint is computed. No cross-site identifier is attached. No email address is transmitted — the capture form explicitly does not send one, because no list provider exists yet. Each event carries a random value generated in memory for the current page load, which exists only so a server can discard a duplicate; it is not written to storage and it dies with the tab.</p>
+    <p>No IP address is stored by the recorder. No cookie is created. No device fingerprint is computed. No cross-site identifier is attached. No email address is transmitted — there is no email field on this site at all, because no mailing provider exists yet and a form that discards an address is worse than no form (FLG-008). Each event carries a random value generated in memory for the current page load, which exists only so a server can discard a duplicate; it is not written to storage and it dies with the tab.</p>
 
     <h2>Your two controls</h2>
     <p><b>Turn measurement off.</b> <a href="#" id="cw-optout-inline">Click here</a> or use “Turn off measurement” in the footer. The recorder checks the flag before it does anything and stops. Your browser keeps only the flag.</p>

@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS events (
   viewport  TEXT    NOT NULL DEFAULT '',
   category  TEXT    NOT NULL DEFAULT '',
   pos       TEXT    NOT NULL DEFAULT '',-- where on the page the click happened
-  form      TEXT    NOT NULL DEFAULT '' -- which capture form
+  form      TEXT    NOT NULL DEFAULT '' -- reserved: which form on the page
+  compared  INTEGER NOT NULL DEFAULT 0 -- number of products in the table reached
 );
 
 -- Deliberately absent: ip, user_agent, referrer, cookie_id, session_id,

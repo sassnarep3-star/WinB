@@ -38,7 +38,7 @@ const ALLOWED = new Set([
   'product_view',
   'outbound_click',
   'guide_complete',
-  'capture_intent',
+  'compare_view',
 ]);
 
 const CORS = {

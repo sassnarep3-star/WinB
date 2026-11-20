@@ -29,6 +29,7 @@ export const DECISION_QUEUE = [
     risk:
       'None. It is a read-and-compare exercise. The only failure is not doing it.',
     dependsOn: ['Q-01'],
+    source: 'A2',
     recommendation: 'Do this first. It gates the entire revenue case.',
     chooseIf: 'Always. There is no version of this that should wait.',
     notIf: 'You no longer intend to run the Associates account.',
@@ -48,6 +49,7 @@ export const DECISION_QUEUE = [
     risk:
       'Small samples mislead. Thirty days will not support a conversion rate, and the Data Room must keep saying so.',
     dependsOn: ['Q-04'],
+    source: 'A2',
     recommendation: 'Do it in the same week as DQ-01. Measurement is cheap now and impossible to backfill later.',
     chooseIf: 'You want the next content decision to be based on anything at all.',
     notIf: 'You would rather not run any infrastructure; in that case delete the promise from the Data Room rather than leaving it aspirational.',
@@ -67,6 +69,7 @@ export const DECISION_QUEUE = [
     risk:
       'One unit does not generalise. The template must not drift from "we tested this one" to "we tested this category".',
     dependsOn: ['Q-03', 'Q-05'],
+    source: 'F1',
     recommendation: 'Pick the cheapest of the five first. A documented cheap purchase beats an undelivered expensive one.',
     chooseIf: 'You can absorb the cost of one returned-or-kept appliance.',
     notIf: 'You cannot publish a photograph of the actual unit — then it is not a first-hand review and must not be labelled one.',
@@ -85,6 +88,7 @@ export const DECISION_QUEUE = [
     riskLow: true,
     risk: 'Tables do not rank on their own; they need the question-shaped guides behind them.',
     dependsOn: [],
+    source: 'A2',
     recommendation: 'Shipped. Review it before adding more products to it.',
     chooseIf: 'n/a — already in the build.',
     notIf: 'n/a',
@@ -105,6 +109,7 @@ export const DECISION_QUEUE = [
     risk:
       'Two missed cycles and the site looks abandoned. Fortnightly is achievable; daily is not, and pretending otherwise produces thin pages.',
     dependsOn: ['Q-06', 'Q-08'],
+    source: 'G2',
     recommendation: 'Commit to four guides, then decide whether to continue. Do not commit to a cadence you have not tested.',
     chooseIf: 'You can write one honest guide in a fortnight.',
     notIf: 'You would rather publish only when a product changes. Then remove the feed promise instead of missing it.',
@@ -124,6 +129,7 @@ export const DECISION_QUEUE = [
     risk:
       'Twelve scattered categories is a directory, not a publication. Topical depth in two adjacent categories is the cheaper authority.',
     dependsOn: ['Q-09'],
+    source: 'G2',
     recommendation: 'Do not do this until DQ-05 has produced four guides. Depth first.',
     chooseIf: 'The five products have measurable click-through and you have the links in hand.',
     notIf: 'You are adding products to feel busier.',
@@ -143,6 +149,7 @@ export const DECISION_QUEUE = [
     risk:
       'The disclosure must not get quieter in the process. Removal of the affiliate statement is a compliance failure; removal of repeated self-deprecation is not. These must not be edited in the same pass.',
     dependsOn: [],
+    source: 'F1',
     recommendation: 'Worth doing, carefully, and only after DQ-03. If a first-hand review lands, the disclaimer stops being the most interesting thing on the page.',
     chooseIf: 'You agree the site currently reads as an audit rather than a shop.',
     notIf: 'You are editing near the disclosure strip. That is the one line that does not move.',
@@ -161,6 +168,7 @@ export const DECISION_QUEUE = [
     riskLow: true,
     risk: 'None, provided the answer is recorded with its date and the responder is identified.',
     dependsOn: [],
+    source: 'A1',
     recommendation: 'Low effort, removes a caveat from five pages. Do it alongside DQ-01.',
     chooseIf: 'You have Associates Central access.',
     notIf: 'n/a',
@@ -179,6 +187,7 @@ export const DECISION_QUEUE = [
     riskLow: true,
     risk: 'If a provider is added later, a privacy notice update is mandatory before the first address is stored.',
     dependsOn: ['Q-07'],
+    source: 'A2',
     recommendation: 'Resolved in this build by removing the form. Revisit only when a provider and a privacy notice both exist.',
     chooseIf: 'You want a list badly enough to run a provider.',
     notIf: 'You would rather ship a feed and no obligation. Current state.',
@@ -198,6 +207,7 @@ export const DECISION_QUEUE = [
     riskLow: true,
     risk: 'It creates a promise to re-check. An old date on a page is honest but does show neglect.',
     dependsOn: [],
+    source: 'G2',
     recommendation: 'Partially present already — pages carry "read 2026-11-20". The changelog is the missing half.',
     chooseIf: 'You will actually re-check quarterly.',
     notIf: 'You will not. An undated page is less embarrassing than a stale date.',
@@ -336,9 +346,9 @@ export const BLOCKING_QUESTIONS = [
 // it is the difference between a queue that moves and one that stalls.
 // ---------------------------------------------------------------------------
 export const OWNER_ACTIONS = [
-  { id: 'DQ-01', action: 'Sign in to Associates Central and compare one minted link against a supplied one.', time: '10 minutes' },
-  { id: 'DQ-08', action: 'Open a support ticket asking whether link.amazon short links are an approved format.', time: '5 minutes' },
-  { id: 'DQ-02', action: 'Create a Cloudflare account (or equivalent) for the collector endpoint.', time: '20 minutes' },
-  { id: 'DQ-05', action: 'Verify the site in Search Console and submit sitemap.xml.', time: '15 minutes' },
-  { id: 'DQ-03', action: 'Approve the spend for one review unit, or decline it.', time: 'A decision' },
+  { id: 'DQ-01', action: 'Sign in to Associates Central and compare one minted link against a supplied one.', time: '10 minutes', source: 'A2' },
+  { id: 'DQ-08', action: 'Open a support ticket asking whether link.amazon short links are an approved format.', time: '5 minutes', source: 'A1' },
+  { id: 'DQ-02', action: 'Create a Cloudflare account (or equivalent) for the collector endpoint.', time: '20 minutes', source: 'A2' },
+  { id: 'DQ-05', action: 'Verify the site in Search Console and submit sitemap.xml.', time: '15 minutes', source: 'G3' },
+  { id: 'DQ-03', action: 'Approve the spend for one review unit, or decline it.', time: 'A decision', source: 'F1' },
 ];

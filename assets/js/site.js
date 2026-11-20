@@ -26,9 +26,9 @@
   var EVENTS = {
     PAGE_VIEW: 'page_view',
     PRODUCT_VIEW: 'product_view',
+    COMPARE_VIEW: 'compare_view',
     OUTBOUND_CLICK: 'outbound_click',
-    GUIDE_COMPLETE: 'guide_complete',
-    CAPTURE_INTENT: 'capture_intent'
+    GUIDE_COMPLETE: 'guide_complete'
   };
 
   // --------------------------------------------------------------- helpers
@@ -169,30 +169,33 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  // ------------------------------------------------------- capture intent
-  var form = document.querySelector('[data-capture]');
-  if (form) {
-    var input = form.querySelector('input[type=email]');
-    if (input) {
-      input.addEventListener('focus', function () {
-        if (optedOut()) return;
-        record(EVENTS.CAPTURE_INTENT, {
-          form: form.getAttribute('data-capture'),
-          page: location.pathname
+  // ------------------------------------------------------- compare view
+  // The comparison table is where a shortlist becomes a decision, and it is
+  // the one high-intent surface the desk was not measuring. It is tagged
+  // data-compare="<number of products>" by the build, so the event carries
+  // how many products were in play.
+  var compareEl = document.querySelector('[data-compare]');
+  if (compareEl && !optedOut()) {
+    var compareFired = false;
+    var compareSeen = function () {
+      if (compareFired) return;
+      var rect = compareEl.getBoundingClientRect();
+      // "Reached" means the top of the table has come within one screen.
+      if (rect.top < (window.innerHeight || 0)) {
+        compareFired = true;
+        record(EVENTS.COMPARE_VIEW, {
+          compared: compareEl.getAttribute('data-compare') || '',
+          path: location.pathname
         });
-      }, { once: true });
-    }
-
-    // No provider is wired. Say so plainly rather than pretending to subscribe.
-    form.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var s = form.querySelector('.status');
-      if (s) {
-        s.textContent = 'There is no list yet — no address was sent or stored. '
-          + 'This form is here so the intent can be counted. See the Data Room.';
-        s.classList.add('show');
+        window.removeEventListener('scroll', compareSeen, { passive: true });
+        window.removeEventListener('resize', compareSeen);
       }
-    });
+    };
+    compareSeen();
+    if (!compareFired) {
+      window.addEventListener('scroll', compareSeen, { passive: true });
+      window.addEventListener('resize', compareSeen);
+    }
   }
 
   // --------------------------------------------------------- data room tally

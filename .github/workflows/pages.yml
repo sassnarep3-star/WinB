@@ -63,6 +63,12 @@ jobs:
       - name: Verify editorial rules (R11-R14)
         run: node tools/gate.mjs
 
+      # Every table row on the canonical site must carry a source link: the
+      # brief asks for line-by-line verification in which no value is
+      # published without the source that supports it.
+      - name: Verify every table row carries a source link (R15)
+        run: node tools/table-sources.mjs
+
       - name: Publication gate for the register build
         run: node tools/check.cjs
 

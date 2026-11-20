@@ -437,10 +437,10 @@ export const EVENTS = [
     fields: 'guide id, path',
   },
   {
-    id: 'capture_intent',
-    when: 'The reader focuses the email field',
-    why: 'Counts interest in a list before a mailing provider exists. No address is transmitted.',
-    fields: 'page, form id',
+    id: 'compare_view',
+    when: 'The reader reaches the comparison table',
+    why: 'The table is where a reader turns a shortlist into a decision. Comparing pages against product pages shows which step of the funnel is actually being used.',
+    fields: 'path, number of products in the table',
   },
 ];
 
@@ -461,6 +461,17 @@ export const LEDGER = {
   ],
   warning:
     'No row may be added from this site’s own click counter, from an estimate, or from a third-party dashboard that is not an authorised first-party report. A conversion rate or revenue forecast is deliberately not computed anywhere on this site.',
+  // Where each column's rule comes from. Every column of the ledger must be
+  // traceable to an official source or to the reporting dashboard itself.
+  columnSources: {
+    'Date (UTC)': 'A3',
+    Source: 'A3',
+    Channel: 'A3',
+    'Eligible sessions': 'A2',
+    Clicks: 'A2',
+    'Reported orders': 'A2',
+    Provenance: 'A3',
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -711,6 +722,7 @@ export const QUESTIONS = [
     howToFind: 'Generate one short link inside Associates Central while signed in, resolve it, and compare its parameters with the supplied set. Five minutes in the dashboard settles it.',
     owner: 'Site owner',
     blocks: 'FLG-001',
+    source: 'A2',
   },
   {
     id: 'Q-02',
@@ -722,6 +734,7 @@ export const QUESTIONS = [
     howToFind: 'Owner inventories channels they can reach today. If the answer is “none”, the plan should be paid-or-pinned distribution and long-tail queries, not a head-term bet.',
     owner: 'Site owner',
     blocks: 'Publishing cadence',
+    source: 'G3',
   },
   {
     id: 'Q-03',
@@ -733,17 +746,19 @@ export const QUESTIONS = [
     howToFind: 'Ask the two brands directly. If the answer is no, buy the cheapest unit and document the purchase — a disclosed bought-and-tested unit is still a test.',
     owner: 'Site owner',
     blocks: 'Differentiation',
+    source: 'F1',
   },
   {
     id: 'Q-04',
     status: 'Open',
     question: 'Which mailing provider will receive captured addresses?',
     why: 'The capture form currently collects nothing usable (FLG-008). A form that silently discards input is worse than no form.',
-    known: 'The form fires a capture_intent event and does not transmit an address.',
+    known: 'The capture form was removed (see FLG-008): a submit button that discards an address is worse than no form, so the site measures intent through the RSS feed and the compare_view event instead.',
     unknown: 'Provider, consent language, and the lawful basis for storage.',
     howToFind: 'Pick a provider with a documented EU/US data story, then wire ENDPOINT and consent copy in one change.',
     owner: 'Site owner',
     blocks: 'Audience building',
+    source: 'A2',
   },
   {
     id: 'Q-05',
@@ -755,6 +770,7 @@ export const QUESTIONS = [
     howToFind: 'Owner decision. A named author with a two-line biography is cheap and materially improves both trust and policy posture.',
     owner: 'Site owner',
     blocks: 'Editorial identity',
+    source: 'G2',
   },
   {
     id: 'Q-06',
@@ -766,6 +782,7 @@ export const QUESTIONS = [
     howToFind: 'Owner decision, then a CNAME file and a Search Console domain property.',
     owner: 'Site owner',
     blocks: 'Search Console, brand',
+    source: 'G3',
   },
   {
     id: 'Q-07',
@@ -777,6 +794,7 @@ export const QUESTIONS = [
     howToFind: 'Create one and publish it, or formalise the issue tracker as the route.',
     owner: 'Site owner',
     blocks: 'Trust',
+    source: 'F2',
   },
   {
     id: 'Q-08',
@@ -788,6 +806,7 @@ export const QUESTIONS = [
     howToFind: 'Answered from Participation Requirements §2(b).',
     owner: '—',
     blocks: 'Nothing. Decided and implemented.',
+    source: 'A2',
   },
   {
     id: 'Q-09',
@@ -800,6 +819,7 @@ export const QUESTIONS = [
     howToFind: 'Answered from the Operating Agreement.',
     owner: '—',
     blocks: 'Nothing. Implemented.',
+    source: 'A1',
   },
   {
     id: 'Q-10',
@@ -811,6 +831,7 @@ export const QUESTIONS = [
     howToFind: 'Answered from Google Search Central.',
     owner: '—',
     blocks: 'Nothing. Implemented.',
+    source: 'G1',
   },
   {
     id: 'Q-11',
@@ -822,6 +843,7 @@ export const QUESTIONS = [
     howToFind: 'Owner picks one moment for the next guide, or waits for 30 days of page_view data (SUG-03) and lets measured queries choose. Do not publish all four at once.',
     owner: 'Site owner',
     blocks: 'Seasonal publishing order',
+    source: 'G2',
   },
   {
     id: 'Q-12',
@@ -833,6 +855,7 @@ export const QUESTIONS = [
     howToFind: 'Owner approves the automation table in the Data Room: automated steps stay automated, editorial and compliance steps stay human-gated. Any AI draft is treated as a suggestion until a human checks it against a source.',
     owner: 'Site owner',
     blocks: 'AI scope',
+    source: 'A2',
   },
   {
     id: 'Q-13',
@@ -844,6 +867,7 @@ export const QUESTIONS = [
     howToFind: 'Owner decision. If yes, add a CNAME file, set up a domain property in Search Console, and keep the github.io URLs as redirects.',
     owner: 'Site owner',
     blocks: 'Brand, Search Console',
+    source: 'G3',
   },
   {
     id: 'Q-14',
@@ -855,6 +879,7 @@ export const QUESTIONS = [
     howToFind: 'Ask the two brands for licensed images. Until then, keep generated illustrations and label them. Do not scrape listing images.',
     owner: 'Site owner',
     blocks: 'Imagery',
+    source: 'A2',
   },
 ];
 
@@ -1122,6 +1147,7 @@ export const PATHS = [
     steps: 'Close FLG-001 (tagging), keep the no-price rule, publish on the fortnightly cadence, defer seasonal guides until measured.',
     cost: 'Slowest growth. The site stays a specification shop until a review unit is bought (SUG-01).',
     bestIf: 'The owner wants zero policy risk and is happy to grow slowly.',
+    source: 'A2',
   },
   {
     id: 'B',
@@ -1130,6 +1156,7 @@ export const PATHS = [
     steps: 'Name the byline (Q-05), publish the capacity worksheet (SUG-04), run the seasonal notebook one guide at a time (SUG-09), keep the gate on every build.',
     cost: 'More writing before more revenue. Still needs SUG-01 for hands-on content.',
     bestIf: 'The owner wants a site that reads as a publication and earns links.',
+    source: 'G2',
   },
   {
     id: 'C',
@@ -1138,6 +1165,7 @@ export const PATHS = [
     steps: 'Deploy the collector (SUG-03), submit the sitemap (SUG-13), choose every next topic from measured queries, keep the ledger empty until a first-party report exists.',
     cost: 'Nothing to read until the endpoint is deployed. The shop stays as it is for 30 days.',
     bestIf: 'The owner wants every future decision to be a data question.',
+    source: 'G3',
   },
 ];
 

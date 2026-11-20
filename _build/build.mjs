@@ -259,8 +259,8 @@ writeFileSync(
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="/assets/css/site.css">
 </head><body>
-<div class="disclosure-strip"><div class="wrap"><strong>${esc(SITE.associateStatement)}</strong></div></div>
 <header class="masthead"><div class="wrap"><a class="brand" href="/">counterwise<span>.</span></a></div></header>
+<div class="disclosure-strip"><div class="wrap"><strong>${esc(SITE.associateStatement)}</strong></div></div>
 <main class="wrap" style="padding:5rem 0;max-width:640px">
   <p class="kicker plain">404</p>
   <h1 style="font-size:clamp(2rem,5vw,3rem)">That page is not here.</h1>

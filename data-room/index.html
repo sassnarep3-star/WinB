@@ -26,6 +26,15 @@
 </head>
 <body  >
 <a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href=".././">counterwise<span>.</span><small>kitchen, chosen by question</small></a>
+    <nav class="nav" aria-label="Main">
+      <a href="../reviews/">The five picks</a><a href="../air-fryers/">Air fryers</a><a href="../thermometers/">Thermometers</a><a href="../guides/">Guides</a>
+      <a class="cta" href="../compare/">Compare all five</a>
+    </nav>
+  </div>
+</header>
 <div class="disclosure-strip" role="note" aria-label="Affiliate disclosure">
   <div class="wrap">
     <strong>As an Amazon Associate I earn from qualifying purchases.</strong>
@@ -36,15 +45,6 @@
     <a href="../methods/">How we choose →</a>
   </div>
 </div>
-<header class="masthead">
-  <div class="wrap">
-    <a class="brand" href=".././">counterwise<span>.</span><small>kitchen, chosen by question</small></a>
-    <nav class="nav" aria-label="Main">
-      <a href="../reviews/">The five picks</a><a href="../air-fryers/">Air fryers</a><a href="../thermometers/">Thermometers</a><a href="../compare/">Compare</a><a href="../guides/">Guides</a>
-      <a class="cta" href="../air-fryers/">Start with air fryers</a>
-    </nav>
-  </div>
-</header>
 <main id="main">
 
 
@@ -242,12 +242,12 @@
     <div class="table-wrap">
       <table>
         <caption><b>Event schema.</b> No event carries an identifier, a cookie, an IP address or a device fingerprint.</caption>
-        <thead><tr><th scope="col">Event</th><th scope="col">Fires when</th><th scope="col">Why it exists</th><th scope="col">Fields</th></tr></thead>
-        <tbody><tr><td class="mono">page_view</td><td>Every page load</td><td>Tells the desk which pages are found at all — the denominator for every other event.</td><td class="tiny mono">path, referrer host (if present), viewport class</td></tr>
-<tr><td class="mono">product_view</td><td>A product page is opened</td><td>Separates “read an article” from “considered this specific product”.</td><td class="tiny mono">product id, ASIN, referring page</td></tr>
-<tr><td class="mono">outbound_click</td><td>The Amazon button is clicked</td><td>The only click the desk can count. It is not a sale and not a commission.</td><td class="tiny mono">product id, ASIN, page, position on page</td></tr>
-<tr><td class="mono">guide_complete</td><td>A guide is scrolled past 75%</td><td>A rough read-through signal, so topics can be compared on depth as well as volume.</td><td class="tiny mono">guide id, path</td></tr>
-<tr><td class="mono">capture_intent</td><td>The reader focuses the email field</td><td>Counts interest in a list before a mailing provider exists. No address is transmitted.</td><td class="tiny mono">page, form id</td></tr></tbody>
+        <thead><tr><th scope="col">Event</th><th scope="col">Fires when</th><th scope="col">Why it exists</th><th scope="col">Fields</th><th scope="col">Source</th></tr></thead>
+        <tbody><tr><td class="mono">page_view</td><td>Every page load</td><td>Tells the desk which pages are found at all — the denominator for every other event.</td><td class="tiny mono">path, referrer host (if present), viewport class</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2 §3(e)</a><br><a href="../analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr>
+<tr><td class="mono">product_view</td><td>A product page is opened</td><td>Separates “read an article” from “considered this specific product”.</td><td class="tiny mono">product id, ASIN, referring page</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2 §3(e)</a><br><a href="../analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr>
+<tr><td class="mono">outbound_click</td><td>The Amazon button is clicked</td><td>The only click the desk can count. It is not a sale and not a commission.</td><td class="tiny mono">product id, ASIN, page, position on page</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2 §3(e)</a><br><a href="../analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr>
+<tr><td class="mono">guide_complete</td><td>A guide is scrolled past 75%</td><td>A rough read-through signal, so topics can be compared on depth as well as volume.</td><td class="tiny mono">guide id, path</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2 §3(e)</a><br><a href="../analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr>
+<tr><td class="mono">compare_view</td><td>The reader reaches the comparison table</td><td>The table is where a reader turns a shortlist into a decision. Comparing pages against product pages shows which step of the funnel is actually being used.</td><td class="tiny mono">path, number of products in the table</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">A2 §3(e)</a><br><a href="../analytics/collector-worker.js" rel="noopener">the collector source</a></td></tr></tbody>
       </table>
     </div>
     <div class="callout red mt-2">
@@ -277,17 +277,17 @@
         <tbody>
           <tr><td colspan="7" style="text-align:center;padding:2rem 1rem;color:var(--muted)">
             <span style="font-family:var(--display);font-size:1.1rem">No rows.</span><br>
-            <span class="small">No eligible-session, click or order figure has been obtained from an authorised report.</span>
+            <span class="small">No eligible-session, click or order figure has been obtained from an authorised report. The source that would fill this table is the Associates Central reporting dashboard (<a href="https://affiliate-program.amazon.com/" rel="noopener" target="_blank" title="Amazon Associates — program home page">A3</a>) — see <a href="../flagged/#FLG-007">FLG-007</a>.</span>
           </td></tr>
         </tbody>
       </table>
     </div>
     
 <div class="table-wrap">
-  <table>
+  <table data-kind="factual">
     <caption><b>Column rules.</b> These are enforced at review, not by code.</caption>
-    <thead><tr><th scope="col">Column</th><th scope="col">Rule</th></tr></thead>
-    <tbody><tr><td><b>Date (UTC)</b></td><td>ISO 8601 date of the report row.</td></tr><tr><td><b>Source</b></td><td>Named first-party report, e.g. “Associates Central – Link Type report”. No estimates.</td></tr><tr><td><b>Channel</b></td><td>Where the traffic came from, as the report labels it.</td></tr><tr><td><b>Eligible sessions</b></td><td>Integer from the report. Blank if the report does not provide it.</td></tr><tr><td><b>Clicks</b></td><td>Integer from the report. This site’s own counter is NOT a substitute — label it separately.</td></tr><tr><td><b>Reported orders</b></td><td>Integer from the report only. Never inferred from clicks.</td></tr><tr><td><b>Provenance</b></td><td>Link to the report or screenshot held by the owner, dated.</td></tr></tbody>
+    <thead><tr><th scope="col">Column</th><th scope="col">Rule</th><th scope="col">Source</th></tr></thead>
+    <tbody><tr><td><b>Date (UTC)</b></td><td>ISO 8601 date of the report row.</td><td class="src"><a href="https://affiliate-program.amazon.com/" rel="noopener" target="_blank" title="Amazon Associates — program home page">the reporting rule</a></td></tr><tr><td><b>Source</b></td><td>Named first-party report, e.g. “Associates Central – Link Type report”. No estimates.</td><td class="src"><a href="https://affiliate-program.amazon.com/" rel="noopener" target="_blank" title="Amazon Associates — program home page">the reporting rule</a></td></tr><tr><td><b>Channel</b></td><td>Where the traffic came from, as the report labels it.</td><td class="src"><a href="https://affiliate-program.amazon.com/" rel="noopener" target="_blank" title="Amazon Associates — program home page">the reporting rule</a></td></tr><tr><td><b>Eligible sessions</b></td><td>Integer from the report. Blank if the report does not provide it.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">the reporting rule</a></td></tr><tr><td><b>Clicks</b></td><td>Integer from the report. This site’s own counter is NOT a substitute — label it separately.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">the reporting rule</a></td></tr><tr><td><b>Reported orders</b></td><td>Integer from the report only. Never inferred from clicks.</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">the reporting rule</a></td></tr><tr><td><b>Provenance</b></td><td>Link to the report or screenshot held by the owner, dated.</td><td class="src"><a href="https://affiliate-program.amazon.com/" rel="noopener" target="_blank" title="Amazon Associates — program home page">the reporting rule</a></td></tr></tbody>
   </table>
 </div>
 
@@ -359,7 +359,7 @@
     <div class="sec-head"><div><p class="eyebrow">Register seven</p><h2>Content inventory</h2></div></div>
     
 <div class="table-wrap">
-  <table>
+  <table data-kind="factual">
     <caption><b>Everything published.</b> Five product pages, five guides, two category hubs, one comparison table.</caption>
     <thead><tr><th scope="col">Type</th><th scope="col">Title</th><th scope="col">Path</th><th scope="col">Published</th><th scope="col">Sources</th></tr></thead>
     <tbody><tr><td>Product</td><td>Chefman 6 qt dual basket</td><td class="mono tiny">/reviews/chefman-6qt-dual-basket.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.amazon.com/dp/B0CDY277D3/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr><tr><td>Product</td><td>Emeril Lagasse 26 qt French door</td><td class="mono tiny">/reviews/emeril-26qt-french-door.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.amazon.com/dp/B09B7SB46R/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr><tr><td>Product</td><td>Chefman 8 qt TurboFry</td><td class="mono tiny">/reviews/chefman-8qt-turbofry.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.amazon.com/dp/B08DKYBTPH/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr><tr><td>Product</td><td>ThermoMaven 1-second thermometer</td><td class="mono tiny">/reviews/thermomaven-1s-thermometer.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.amazon.com/dp/B0DHZTCNR5/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr><tr><td>Product</td><td>CHEF iQ Sense Gen3</td><td class="mono tiny">/reviews/chef-iq-sense-gen3.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.amazon.com/dp/B0DZFD6R9Z/?tag=shopnow047c-20" rel="sponsored nofollow noopener" target="_blank">Listing</a></td></tr><tr><td>Guide</td><td>Basket or oven-style air fryer: what should you compare?</td><td class="mono tiny">/guides/basket-or-oven.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Guide</td><td>A no-hype checklist for comparing air fryer capacity</td><td class="mono tiny">/guides/capacity-checklist.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Guide</td><td>Cleanup and counter space: the trade-offs to assess</td><td class="mono tiny">/guides/cleanup-counter.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Guide</td><td>Questions to ask before buying a multi-function appliance</td><td class="mono tiny">/guides/multifunction.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Guide</td><td>What temperature is actually “done”? A thermometer guide</td><td class="mono tiny">/guides/temperature-safety.html</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank" title="Safe Minimum Internal Temperature Chart">USDA Food Safety and Inspection Service</a>, <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Category</td><td>Air fryers</td><td class="mono tiny">/air-fryers/</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr><tr><td>Category</td><td>Thermometers</td><td class="mono tiny">/thermometers/</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a>, <a href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank" title="Safe Minimum Internal Temperature Chart">USDA Food Safety and Inspection Service</a></td></tr><tr><td>Comparison</td><td>The comparison table</td><td class="mono tiny">/compare/</td><td class="nowrap">2026-11-20</td><td class="src"><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank" title="Associates Program Policies (Commission Income Statement, Participation Requirements, Trademark Guidelines, IP License)">Amazon.com Associates Central</a></td></tr></tbody>
