@@ -16,6 +16,7 @@ import {
   aboutPage, privacyPage, execPage, suggestionsPage, decisionInputsPage,
 } from './content-oversight.mjs';
 import { directionPage } from './content-direction.mjs';
+import { designBriefPage } from './design-brief.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const written = [];
@@ -76,6 +77,9 @@ routes.push({ loc: '/suggestions/', pri: '0.6', freq: 'weekly' });
 
 write('direction/index.html', directionPage());
 routes.push({ loc: '/direction/', pri: '0.6', freq: 'weekly' });
+
+write('design-brief/index.html', designBriefPage());
+routes.push({ loc: '/design-brief/', pri: '0.6', freq: 'weekly' });
 
 write('data-room/index.html', dataRoom());
 routes.push({ loc: '/data-room/', pri: '0.6', freq: 'weekly' });
@@ -211,6 +215,13 @@ const feedItems = [
     desc: 'Five products compared on the fields stable enough to print. Two columns are empty and the reason is written underneath.',
     date: SITE.buildDate,
     cat: 'Shop',
+  },
+  {
+    title: 'Design brief and topic lab',
+    link: url('/design-brief/'),
+    desc: 'Reviewable design directions with prompt fragments, question-shaped topic hypotheses, and the open questions that gate each decision.',
+    date: SITE.buildDate,
+    cat: 'Planning',
   },
 ].sort((a, b) => (a.date < b.date ? 1 : -1));
 
