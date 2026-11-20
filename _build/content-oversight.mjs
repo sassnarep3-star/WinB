@@ -43,6 +43,7 @@ ${pageHead({
   title: 'Decision Room',
   lede: 'Everything this project could do next, what is known, what is missing, and the smallest action that would resolve each open question. Nothing on this page is implemented unless it says so.',
   meta: `<div class="btn-row">
+    <a class="btn small" href="/suggestions/">Open the suggestions room <span class="arw">→</span></a>
     ${badge(open.length + ' open suggestions', 'amber')}
     ${badge(done.length + ' already built', 'green')}
     ${badge(QUESTIONS.filter((q) => q.status !== 'Answered').length + ' open questions', 'plain')}
@@ -120,7 +121,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Part two</p>
+        <p class="kicker">Part two</p>
         <h2>The questions that must be answered before a decision</h2>
         <p>Each row separates what is <b>known</b> from what is <b>unknown</b>, and names the cheapest way to find out. Rows marked Answered are decisions already made and implemented.</p>
       </div>
@@ -160,7 +161,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Part three</p>
+        <p class="kicker">Part three</p>
         <h2>What was considered and rejected</h2>
         <p>Recorded so the next session does not re-litigate it.</p>
       </div>
@@ -240,7 +241,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Register one</p>
+        <p class="kicker">Register one</p>
         <h2>Product intent record</h2>
         <p>The intended ASIN and the observed redirect are two different facts and live in two different columns. They are never merged. The blank column is the owner’s to fill.</p>
       </div>
@@ -273,7 +274,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Register two</p>
+        <p class="kicker">Register two</p>
         <h2>Source register</h2>
         <p>Every official page used to build this site, with the date Amazon or the agency last updated it and the date this desk read it. Re-check before republishing; policies change.</p>
       </div>
@@ -292,7 +293,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Register three</p>
+        <p class="kicker">Register three</p>
         <h2>The five measured events</h2>
         <p>Names are frozen. The collector shipped with the site accepts exactly these and nothing else.</p>
       </div>
@@ -319,7 +320,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Register four</p>
+        <p class="kicker">Register four</p>
         <h2>Campaign ledger</h2>
         <p>Deliberately empty. A row may only be added from an authorised first-party report, with its provenance recorded.</p>
       </div>
@@ -486,7 +487,7 @@ ${pageHead({
 
 <section class="section tint">
   <div class="wrap">
-    <div class="sec-head"><div><p class="eyebrow">Spot-check</p><h2>What verification actually meant here</h2></div></div>
+    <div class="sec-head"><div><p class="kicker">Spot-check</p><h2>What verification actually meant here</h2></div></div>
     ${table({
       caption: '<b>Method.</b> What was checked, how, and with what result.',
       head: ['Check', 'Method', 'Result'],
@@ -497,8 +498,8 @@ ${pageHead({
         ['Price and rating policy', 'Compared against Participation Requirements §2(b).', 'No price or rating printed anywhere. Enforced by the build, not by memory.'],
         ['Outbound link marking', 'Compared against Google’s outbound-link documentation.', 'All Amazon links carry rel="sponsored nofollow noopener".'],
         ['Temperature figures', 'Compared against the USDA FSIS safe minimum internal temperature chart.', 'Seven rows quoted, each with the chart’s own figures and rest times.'],
-        ['Sitemap and feed', 'Built and validated against the sitemaps.org protocol and RFC-822 dates for RSS.', 'XML parses; every <loc> is on one host; every URL returns 200 in the local link check.'],
-      ],
+        ['Sitemap and feed', 'Built and validated against the sitemaps.org protocol and RFC-822 dates for RSS.', 'XML parses; every loc element sits on one host; every URL returns 200 in the local link check.'],
+      ].map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join('')}</tr>`),
     })}
   </div>
 </section>`;
