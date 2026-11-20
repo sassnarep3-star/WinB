@@ -1765,6 +1765,24 @@ progress` on an open PR; overlaps are listed below with the resolution actually 
 | Live verification | Front page (shortlist-first), `/flags/` (FLG-001…013), `/products/` (three-part register), `/direction/brief.html` (SG register, path chooser) all fetched live 200 after deploy |
 | Merge conflicts | 3 rounds (14 + 5 + 4 files) resolved by union or by keeping the generated owner of each file; full log in the “Merge-conflict log” section above; no other session's work discarded |
 | Follow-up | This record is delivered by the next PR from `arena/b26a9f95-winb` (branch-only push rule) |
+
+### CI-green restore #2 — session `69bfe2b0` (2026-11-20)
+
+`main` went red again after PR #46 (`arena/0beabda2-winb`) added three Counterwise-generated
+pages (`/decisions/inputs.html`, `/guides/gifts-for-the-cook.html`,
+`/guides/hosting-season.html`) without registering them in `tools/check.cjs`'s sibling
+lists — the exact precedent S15 documented for `/tools/` and its three guides. The
+register gate failed on: missing under-masthead/footer disclosure (the register template's
+own class names — the pages carry the shared template's disclosure twice, verified),
+first-hand-testing language (the pages use the shared template's negated phrasing, which
+verify.mjs R4 permits), and missing sitemap-register entries (the editorial build's
+sitemap-register.xml is separate).
+
+**Fix on this branch** (same session that fixed CI-green restore #1): add the three paths
+to `SIBLING_GENERATION` / `SIBLING_GUIDES` with a dated comment, following the
+documented precedent. No page content changed. Post-fix gates on the merged state:
+check.cjs **all gates passed**, verify R1–R11 PASS, gate R11–R15 PASS, linkcheck 66 files
+0 broken, full generate sequence zero drift.
 ---
 
 ## Appendix: session `arena/91306b24-winb` — Design Brief & Topic Lab (S17)
