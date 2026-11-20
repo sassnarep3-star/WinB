@@ -1,0 +1,93 @@
+{
+  "schema": "counter-and-crisp/products-v1",
+  "policy": "price/rating are null by design (unverified); 'claims' are seller statements from listing titles",
+  "products": [
+    {
+      "id": "P-01",
+      "short_name": "Chefman 6 qt Dual Basket Air Fryer Oven",
+      "brand": "Chefman",
+      "format": "Dual-basket air fryer",
+      "group": "air-fryers",
+      "one_liner": "Two independent 3 qt baskets with a sync-finish option \u2014 cook two foods at once without sharing space.",
+      "claims": [
+        "6 qt total capacity (2 \u00d7 3 qt baskets) \u2014 per listing title",
+        "Hi-Fry option and auto shutoff \u2014 per listing title",
+        "Nonstick, dishwasher-safe baskets \u2014 per listing title"
+      ],
+      "price": "",
+      "rating": "",
+      "good_for": "Weeknight meals where a protein and a side need to finish together.",
+      "check_first": "Counter width (two-basket footprint) and whether 3 qt per side fits your largest batch."
+    },
+    {
+      "id": "P-02",
+      "short_name": "Emeril Lagasse 26 qt French Door Air Fryer Toaster Oven",
+      "brand": "Emeril Lagasse",
+      "format": "Oven-style air fryer",
+      "group": "air-fryers",
+      "one_liner": "A french-door countertop oven with 24 preset modes and room for bigger formats \u2014 the toaster-oven-killer shape.",
+      "claims": [
+        "26 qt interior \u2014 per listing title",
+        "24 one-touch preset options \u2014 per listing title",
+        "Six cooking accessories included \u2014 per listing title"
+      ],
+      "price": "",
+      "rating": "",
+      "good_for": "Households that want one appliance to absorb toast, bake, roast, and air-fry duty.",
+      "check_first": "Height clearance under cabinets (french doors swing up) and the true interior rack dimensions."
+    },
+    {
+      "id": "P-03",
+      "short_name": "Chefman TurboFry 8 qt Air Fryer",
+      "brand": "Chefman",
+      "format": "Basket air fryer",
+      "group": "air-fryers",
+      "one_liner": "A big single-basket drawer with a 450 \u00b0F Hi-Fry finish step \u2014 the simplest shape for one big batch.",
+      "claims": [
+        "8 qt basket \u2014 per listing title",
+        "4-in-1: air fry, bake, dehydrate, frozen \u2014 per listing title",
+        "450 \u00b0F Hi-Fry option \u2014 per listing title"
+      ],
+      "price": "",
+      "rating": "",
+      "good_for": "Crispy single-batch cooking with the least fuss \u2014 fries, wings, roasted vegetables.",
+      "check_first": "Basket footprint against your counter, and whether the drawer is comfortable to load when hot."
+    },
+    {
+      "id": "P-04",
+      "short_name": "ThermoMaven 1-Second Digital Meat Thermometer",
+      "brand": "ThermoMaven",
+      "format": "Instant-read probe thermometer",
+      "group": "thermometers",
+      "one_liner": "A fast-reading folding probe for spot-checking doneness \u2014 the tool that replaces the guesswork.",
+      "claims": [
+        "1-second readout \u2014 per listing title",
+        "\u00b10.5 \u00b0F claimed accuracy \u2014 per listing title",
+        "NIST &amp; NSF certification claimed in title \u2014 documentation not independently checked (FLG-002)",
+        "IP67 waterproof \u2014 per listing title"
+      ],
+      "price": "",
+      "rating": "",
+      "good_for": "Spot-checking steaks, chops, and roasts quickly at the pan or grill.",
+      "check_first": "Ask the seller what certification documents back the accuracy claim; compare probe length to your usual cuts."
+    },
+    {
+      "id": "P-05",
+      "short_name": "CHEF iQ Sense Smart Wireless Meat Thermometer (Gen 3)",
+      "brand": "CHEF iQ",
+      "format": "Wireless smart thermometer",
+      "group": "thermometers",
+      "one_liner": "Leave-in wireless probes with app monitoring \u2014 cook a whole bird without opening the oven door.",
+      "claims": [
+        "3 ultra-thin probes \u2014 per listing title",
+        "WiFi monitoring \u2014 per listing title",
+        "1000 \u00b0F heat-safe probes \u2014 per listing title",
+        "5 sensors \u2014 per listing title"
+      ],
+      "price": "",
+      "rating": "",
+      "good_for": "Long cooks and holiday birds where you want temperature history without lifting a lid.",
+      "check_first": "Whether the app works on your phone's OS version, and what the warranty covers on the probes."
+    }
+  ]
+}
