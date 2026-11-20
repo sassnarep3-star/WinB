@@ -250,16 +250,16 @@ def page_html(title, description, path, body, depth=0, active=""):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{esc(title)} | Kitchen Shortlist</title>
+<title>{esc(title)} | Counterwise</title>
 <meta name="description" content="{esc(description)}">
 <link rel="canonical" href="{SITE_URL}{esc(path)}">
-<link rel="alternate" type="application/rss+xml" title="Kitchen Shortlist guides" href="{prefix}feed.xml">
+<link rel="alternate" type="application/rss+xml" title="Counterwise guides" href="{prefix}feed.xml">
 <link rel="stylesheet" href="{prefix}assets/style.css">
 </head>
 <body>
 <header class="masthead">
   <div class="wrap">
-    <a class="brand" href="{prefix}index.html">Kitchen Shortlist<small>Working title · air fryers &amp; thermometers</small></a>
+    <a class="brand" href="{prefix}index.html">Counterwise<small>Working name · air fryers &amp; thermometers</small></a>
     <nav class="nav" aria-label="Main">{nav}</nav>
   </div>
 </header>
@@ -275,9 +275,10 @@ def page_html(title, description, path, body, depth=0, active=""):
     <strong>Every page on this site:</strong>
     <ul>{footer_links}</ul>
     <p>Listing data observed on {esc(BUILD_DATE)}. Every value is linked to its source in the <a href="{prefix}sources.html">Sources</a> list. Blank fields are unverified, not zero. This site is not operated by or affiliated with Amazon.com, Inc. Product names and trademarks belong to their owners.</p>
-    <p>Editorial team (unnamed) · Working title · Static site, no cookies or analytics scripts.</p>
+    <p>Editorial team (unnamed) · Working name · Static site. No cookies. One first-party script (<code>assets/counterwise.js</code>), with no endpoint configured, so it sends nothing.</p>
   </div>
 </footer>
+<script src="{prefix}assets/counterwise.js" defer></script>
 </body>
 </html>
 """
@@ -364,6 +365,7 @@ def build():
     (OUT / "assets").mkdir(parents=True)
     (OUT / "guides").mkdir()
     (OUT / "assets" / "style.css").write_text(CSS.strip() + "\n", encoding="utf-8")
+    shutil.copyfile(ROOT / "scripts" / "assets" / "counterwise.js", OUT / "assets" / "counterwise.js")
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
 
     pages = {}  # path -> (title, description, body, depth, active)
@@ -565,7 +567,8 @@ def build():
         "<p class='kicker'>Disclosure</p><h1>Disclosure &amp; privacy</h1>"
         f"<div class='callout'><strong>Associates statement.</strong> {esc(DISCLOSURE)} (Operating Agreement, Section 5; <a href='sources.html#S-01'>S-01</a>.)</div>"
         "<h2>Paid links</h2><p>Links to Amazon are paid links. Each is marked as sponsored for search engines (rel=\"sponsored\"; Google's documentation, <a href='sources.html#S-06'>S-06</a>) and labeled as paid next to the link for readers (FTC standard, <a href='sources.html#S-05'>S-05</a>).</p>"
-        "<h2>Privacy</h2><p>This is a static site. It sets no cookies and loads no analytics or tracking scripts. The build checks that no script tags are present. Analytics and the click counter are not built yet (FLG-05, FLG-06).</p>"
+        "<h2>Privacy</h2><p>This is a static site. It sets no cookies and writes nothing to browser storage. It loads one first-party script, <code>assets/counterwise.js</code>. No endpoint is configured, so the script sends nothing and logs events to the browser console only. The build fails if any other script is added.</p>"
+        "<h2>Measurement events in the client</h2><p>As named in the client's header and the earlier review page (not yet confirmed by the requester; FLG-05): <code>page_view</code>, <code>outbound_click</code>, <code>guide_engaged</code>, <code>disclosure_view</code>, <code>affiliate_conversion_reported</code> (entered only from a dated, authorized Associates report, never inferred from a click). A hosted endpoint is not provisioned (FLG-06).</p>"
         "<h2>Affiliation</h2><p>This site is not operated by or affiliated with Amazon.com, Inc. Product names and trademarks belong to their owners.</p>",
         0, "disclosure.html")
 
@@ -618,7 +621,7 @@ def write_feed():
             f"<pubDate>{pub}</pubDate><description>{esc(g['deck'])}</description></item>")
     feed = ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             "<rss version=\"2.0\"><channel>"
-            "<title>Kitchen Shortlist guides (working title)</title>"
+            "<title>Counterwise guides (working name)</title>"
             f"<link>{SITE_URL}</link>"
             "<description>Question-shaped buying guides for air fryers and kitchen appliances.</description>"
             "<language>en-us</language>"
@@ -649,8 +652,11 @@ def validate(pages, products):
         rel_name = f.relative_to(OUT).as_posix()
         if text.count(DISCLOSURE) < 2:
             errors.append(f"{rel_name}: disclosure must appear in the strip and in the footer")
-        if "<script" in text.lower():
-            errors.append(f"{rel_name}: script tag found (static site must carry no scripts)")
+        for src in re.findall(r"<script[^>]*src=[\'\"]([^\'\"]+)[\'\"]", text, re.I):
+            if not src.endswith("assets/counterwise.js"):
+                errors.append(f"{rel_name}: unexpected script {src}")
+        if len(re.findall(r"<script", text, re.I)) != len(re.findall(r"<script[^>]*src=[\'\"][^\'\"]*counterwise\.js", text, re.I)):
+            errors.append(f"{rel_name}: inline script found (only counterwise.js is allowed)")
         for tag_attrs in link_re.findall(text):
             href_m = href_re.search(tag_attrs)
             if not href_m:
@@ -690,6 +696,11 @@ def validate(pages, products):
         for flag_id in p["flags"]:
             if flag_id not in known_flags:
                 errors.append(f"{p['id']}: references unknown flag {flag_id}")
+    client = (OUT / "assets" / "counterwise.js").read_text(encoding="utf-8")
+    if re.search(r"document\.cookie|localStorage|sessionStorage", client):
+        errors.append("counterwise.js writes cookies or browser storage")
+    if re.search(r"COUNTERWISE\s*=\s*\{[^}]*endpoint:\s*'https?", "".join(p.read_text(encoding='utf-8') for p in OUT.rglob('*.html'))):
+        errors.append("an analytics endpoint is configured in a page; this must be a reviewed change")
     if len(GUIDES) != 4:
         errors.append("expected four guides")
     return errors

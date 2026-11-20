@@ -6,8 +6,13 @@
       "question": "Is each supplied short link the product you intend?",
       "status": "Partly answered",
       "answer": "Each supplied short link resolves to an amazon.com listing (observed 2026-11-20). Whether that listing is the intended product is not known, because no intended ASIN was given.",
-      "sources": ["S-08", "S-09"],
-      "flags": ["FLG-01"],
+      "sources": [
+        "S-08",
+        "S-09"
+      ],
+      "flags": [
+        "FLG-01"
+      ],
       "how_to_discover": "Requester confirms the intended ASIN or listing for each of the five products."
     },
     {
@@ -16,8 +21,13 @@
       "question": "Do the supplied short links track correctly and comply with the Associates rules?",
       "status": "Unanswered",
       "answer": "Unresolved. Commission Income Statement s.2(e) and s.2(g) describe the risks (S-02). The request asks that this not be asserted either way.",
-      "sources": ["S-02"],
-      "flags": ["FLG-02", "FLG-04"],
+      "sources": [
+        "S-02"
+      ],
+      "flags": [
+        "FLG-02",
+        "FLG-04"
+      ],
       "how_to_discover": "Run one Special Link per product in Associates Central and compare the tracking report with the supplied link."
     },
     {
@@ -26,8 +36,12 @@
       "question": "Is the supplied tracking ID valid for this account?",
       "status": "Unanswered",
       "answer": "Not checked. The format differs from the documented 'XXXXX-##' pattern (S-02, s.2(b)).",
-      "sources": ["S-02"],
-      "flags": ["FLG-03"],
+      "sources": [
+        "S-02"
+      ],
+      "flags": [
+        "FLG-03"
+      ],
       "how_to_discover": "Open Associates Central and look up the tracking ID in the tracking-ID list."
     },
     {
@@ -36,8 +50,12 @@
       "question": "What commission rate applies to each category?",
       "status": "Unanswered",
       "answer": "Not available. The schedule page requires sign-in (S-03).",
-      "sources": ["S-03"],
-      "flags": ["FLG-07"],
+      "sources": [
+        "S-03"
+      ],
+      "flags": [
+        "FLG-07"
+      ],
       "how_to_discover": "Read the commission schedule while signed in to Associates Central; record the date and page."
     },
     {
@@ -46,19 +64,25 @@
       "question": "What are current prices and availability?",
       "status": "Unanswered",
       "answer": "Not captured. Amazon-served or PA API data is the only permitted price source (S-02, s.2(b)).",
-      "sources": ["S-02"],
-      "flags": ["FLG-08"],
+      "sources": [
+        "S-02"
+      ],
+      "flags": [
+        "FLG-08"
+      ],
       "how_to_discover": "Decide on a price method (Suggestions S-01) and capture only from that source."
     },
     {
       "id": "Q-06",
       "area": "Measurement",
-      "question": "Which five events must be recorded?",
+      "question": "Are the five analytics events (page_view, outbound_click, guide_engaged, disclosure_view, affiliate_conversion_reported) the right ones?",
       "status": "Unanswered",
-      "answer": "The five events are not defined in any available material.",
+      "answer": "Defined in the client's header by an earlier session (assets/counterwise.js). The request did not list them, so the requester has not confirmed them.",
       "sources": [],
-      "flags": ["FLG-05"],
-      "how_to_discover": "Requester lists the five events with their triggers and properties."
+      "flags": [
+        "FLG-05"
+      ],
+      "how_to_discover": "Requester confirms or replaces the five events, with trigger and properties."
     },
     {
       "id": "Q-07",
@@ -66,8 +90,12 @@
       "question": "Where should the click counter and analytics endpoint run?",
       "status": "Unanswered",
       "answer": "This static site cannot run them. GitHub Pages serves files only (S-07).",
-      "sources": ["S-07"],
-      "flags": ["FLG-06"],
+      "sources": [
+        "S-07"
+      ],
+      "flags": [
+        "FLG-06"
+      ],
       "how_to_discover": "Choose a hosting option (Suggestions S-02)."
     },
     {
@@ -77,7 +105,9 @@
       "status": "Unanswered",
       "answer": "No measured query or click data exists yet. The four working titles carry no demand evidence.",
       "sources": [],
-      "flags": ["FLG-14"],
+      "flags": [
+        "FLG-14"
+      ],
       "how_to_discover": "Collect first-party analytics and Search Console query data for at least one publishing cycle."
     },
     {
@@ -86,8 +116,13 @@
       "question": "Is the Associates disclosure placed clearly and prominently enough?",
       "status": "Partly answered",
       "answer": "The Section 5 sentence matches S-01 verbatim and is shown above the fold on every page and in the footer. Reviewer judgment is still needed.",
-      "sources": ["S-01", "S-05"],
-      "flags": ["FLG-15"],
+      "sources": [
+        "S-01",
+        "S-05"
+      ],
+      "flags": [
+        "FLG-15"
+      ],
       "how_to_discover": "Reviewer checks the live pages against S-01 and S-05."
     },
     {
@@ -97,7 +132,9 @@
       "status": "Unanswered",
       "answer": "Not supplied. Pages say 'Editorial team (unnamed)'.",
       "sources": [],
-      "flags": ["FLG-12"],
+      "flags": [
+        "FLG-12"
+      ],
       "how_to_discover": "Requester provides the byline and brand decision."
     },
     {
@@ -106,8 +143,12 @@
       "question": "Are the seller certification claims in the listings accurate?",
       "status": "Unanswered",
       "answer": "Not checked. P-04 lists 'NIST&NSF Certified' as a title claim only.",
-      "sources": ["S-08"],
-      "flags": ["FLG-09"],
+      "sources": [
+        "S-08"
+      ],
+      "flags": [
+        "FLG-09"
+      ],
       "how_to_discover": "Check the certifying body's own registry for each named certificate."
     },
     {
@@ -116,8 +157,12 @@
       "question": "Is the site indexed, and does it rank for any query?",
       "status": "Unanswered",
       "answer": "Not checked. The site has not been submitted to Search Console.",
-      "sources": ["S-06"],
-      "flags": ["FLG-13"],
+      "sources": [
+        "S-06"
+      ],
+      "flags": [
+        "FLG-13"
+      ],
       "how_to_discover": "Verify the property in Search Console and check coverage after the first deploy."
     }
   ]

@@ -1,26 +1,38 @@
-# WinB — Kitchen Shortlist (working title)
+# Counterwise (working name)
 
-A static, GitHub Pages site and data register for five Amazon listings: three air fryers and ovens, two meat thermometers.
+A publication-style kitchen buying guide site for five Amazon listings (three air fryers and ovens, two meat thermometers), with an evidence register, an Associates disclosure above the fold on every page, open decision questions, and a Flagged for Review page.
 
-- **Live site (after deploy):** https://sassnarep3-star.github.io/WinB/
-- **Data (source of truth):** `data/` — `products.json` (register), `sources.json`, `flags.json`, `questions.json`, `suggestions.json`, `campaign_ledger.csv` (empty by design).
-- **Build:** `python3 scripts/build.py` writes `docs/` and validates it. Exit code 1 means the build failed a check; do not publish.
-- **Coordination:** see `COORDINATION.md` (task board, verification log, irregularities, integration log).
+- **Live site (expected URL, confirm after deploy):** https://sassnarep3-star.github.io/WinB/ (published from `docs/` by `.github/workflows/pages.yml`)
+- **Data (source of truth):** `data/` — `products.json` (register), `sources.json` (S-01…S-10), `flags.json` (FLG-01…FLG-19), `questions.json`, `suggestions.json`, `campaign_ledger.csv` (empty by design).
+- **Build:** `python3 scripts/build.py` regenerates `docs/` and validates it. Exit code 1 means a rule failed; do not publish. CI runs the same check and fails if committed `docs/` differs from the build.
+- **Analytics client:** `scripts/assets/counterwise.js` (copied to `docs/assets/`). Review mode: no endpoint is configured, so it logs to the console and sends nothing.
+- **Archive:** `archive/counterwise-root-site/` holds the superseded root-level site from earlier sessions (kept, not served). See FLG-18.
+- **Coordination:** `COORDINATION.md` — the shared task board, claims, verification log, irregularities, and integration log.
 
-## Rules the build enforces
+## What the build enforces
 
-1. Every page shows the Associates statement above the fold and in the footer.
-2. Every Amazon-hosted link carries `rel="sponsored"`.
-3. Every blank value is marked unverified and linked to a flag. No value is inferred.
-4. Internal links resolve. No script tags (no cookies or analytics are set).
+1. The Associates statement, verbatim from Operating Agreement s.5, sits above the fold and in the footer on every page.
+2. Every Amazon-hosted link carries `rel="sponsored noopener"`.
+3. Every blank value is marked unverified and linked to a flag. Nothing is inferred.
+4. Internal links resolve. The only script allowed is `assets/counterwise.js`. The client must not write cookies or browser storage, and no analytics endpoint may be configured in a page.
 
-## Not built yet (see Flagged for Review)
+## Not built or not verified (see Flagged for Review)
 
-- Outbound-click counter and self-hosted analytics endpoint (needs a server; FLG-05, FLG-06).
-- Special Link tests in an Associates account (FLG-04).
+- Analytics endpoint and hosting (FLG-06). Five events to be confirmed (FLG-05).
+- Special Link test in an Associates account (FLG-04). Scaling is blocked until it passes.
 - Commission rates and prices (FLG-07, FLG-08).
+- Intended ASINs and tracking-ID validity (FLG-01, FLG-03). Redirect compliance (FLG-02).
 - Search Console verification (FLG-13).
+
+## Official sources (accessed 2026-11-20)
+
+- Amazon Associates Program Operating Agreement: https://affiliate-program.amazon.com/help/operating/agreement (updated Oct 15, 2025)
+- Amazon Associates Program Policies: https://affiliate-program.amazon.com/help/operating/policies (updated Apr 14, 2026)
+- FTC Disclosures 101 for Social Media Influencers: https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers (Nov 2019)
+- 16 CFR 255.0 (Endorsement Guides): https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.0
+- Google, qualify outbound links (rel="sponsored"): https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
+- GitHub Docs, publishing sources for GitHub Pages: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 
 ## Publishing
 
-GitHub Pages publishes from the `main` branch, `/docs` folder. Rebuild with `python3 scripts/build.py` before committing changes to `docs/`.
+Pushes to `main` run `.github/workflows/pages.yml`. It rebuilds and validates `docs/`, then deploys it. To change content, edit `data/` or `scripts/`, run `python3 scripts/build.py`, and commit `docs/` with the change.
