@@ -8,8 +8,9 @@ import { SITE, PRODUCTS, GUIDES } from './data.mjs';
 import { esc, url, page } from './core.mjs';
 import {
   frontPage, categoryPage, productPage, comparePage,
-  guidePage, guidesIndex, reviewsIndex,
+  guidePage, guidesIndex, reviewsIndex, toolsIndex, worksheetPage, ALL_GUIDES,
 } from './editorial.mjs';
+import { WORKSHEETS } from './tools-content.mjs';
 import {
   decisionsPage, dataRoom, flaggedPage, methodsPage,
   aboutPage, privacyPage, execPage, suggestionsPage,
@@ -50,9 +51,17 @@ routes.push({ loc: '/compare/', pri: '0.8', freq: 'monthly' });
 write('guides/index.html', guidesIndex());
 routes.push({ loc: '/guides/', pri: '0.8', freq: 'weekly' });
 
-for (const g of GUIDES) {
+for (const g of ALL_GUIDES) {
   write(g.path, guidePage(g));
   routes.push({ loc: `/${g.path}`, pri: '0.7', freq: 'monthly', lastmod: g.published });
+}
+
+write('tools/index.html', toolsIndex());
+routes.push({ loc: '/tools/', pri: '0.7', freq: 'monthly' });
+
+for (const w of WORKSHEETS) {
+  write(w.path, worksheetPage(w));
+  routes.push({ loc: `/${w.path}`, pri: '0.6', freq: 'monthly' });
 }
 
 write('decisions/index.html', decisionsPage());
@@ -173,7 +182,7 @@ const rfc822 = (iso) =>
   new Date(`${iso}T09:00:00Z`).toUTCString().replace('GMT', '+0000');
 
 const feedItems = [
-  ...GUIDES.map((g) => ({
+  ...ALL_GUIDES.map((g) => ({
     title: g.title,
     link: url(`/${g.path}`),
     desc: g.summary,

@@ -471,19 +471,19 @@
   <summary>
     <span class="id">FLG-020</span>
     <span class="ft">
-      <h3>Flag ID FLG-012 is used twice in the FLAGS list</h3>
+      <h3>Flag ID FLG-012 was used twice in the FLAGS list</h3>
       <span class="meta">
         <span class="badge plain">Low severity</span>
-        <span class="badge amber">Open</span>
+        <span class="badge plain">Fixed in this build</span>
       </span>
     </span>
     <span class="chev" aria-hidden="true">›</span>
   </summary>
   <div class="body">
-    <div><p class="mt-0" style="margin:0">Two entries in _build/data.mjs both carry the ID FLG-012 (one is the og:image defect, the other is the fix recorded in a script CI does not run). Open pull request #37 proposes renumbering the duplicate to FLG-015. This entry records the collision and leaves the renumbering to that pull request, so that the two sessions do not edit the same lines.</p></div>
-    <div><dt>Evidence</dt><dd><ul><li>_build/data.mjs: two objects with id 'FLG-012' (title: “Every page advertised a social image that did not exist” and title: “Fix recorded in a script CI does not run; two brands on the live site”).</li><li>gh pr view 37: “Renumber FLG-012 duplicate to FLG-015; record PR #32”, state open.</li></ul></dd></div>
+    <div><p class="mt-0" style="margin:0">Two entries in _build/data.mjs carried the ID FLG-012. Pull request #37 renumbered the second to FLG-015 and merged to main. FLG-012 now appears once. Anchors such as /flagged/#FLG-012 resolve to the single remaining entry.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>_build/data.mjs: two objects with id 'FLG-012' (title: “Every page advertised a social image that did not exist” and title: “Fix recorded in a script CI does not run; two brands on the live site”).</li><li>PR #37 (merged into main at a83236f): “Renumber FLG-012 duplicate to FLG-015; record PR #32”.</li></ul></dd></div>
     
-    <div><dt>What the owner needs to do</dt><dd>Merge or close PR #37 (or renumber in the integration step). Anchors such as /flagged/#FLG-012 currently resolve to the first match only.</dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Resolved by PR #37 (merged). No further action.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing.</dd></div>
   </div>
 </details>
@@ -527,6 +527,8 @@
           <li><a href="../air-fryers/">Air fryers</a></li>
           <li><a href="../thermometers/">Thermometers</a></li>
           <li><a href="../compare/">Comparison table</a></li>
+          <li><a href="../#chooser">30-second chooser</a></li>
+          <li><a href="../tools/">Printable worksheets</a></li>
         </ul>
       </div>
       <div>

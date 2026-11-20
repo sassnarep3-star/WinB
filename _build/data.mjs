@@ -780,17 +780,17 @@ export const FLAGS = [
   {
     id: 'FLG-020',
     severity: 'Low',
-    status: 'Open',
-    title: 'Flag ID FLG-012 is used twice in the FLAGS list',
+    status: 'Fixed in this build',
+    title: 'Flag ID FLG-012 was used twice in the FLAGS list',
     detail:
-      'Two entries in _build/data.mjs both carry the ID FLG-012 (one is the og:image defect, the other is the fix recorded in a script CI does not run). Open pull request #37 proposes renumbering the duplicate to FLG-015. This entry records the collision and leaves the renumbering to that pull request, so that the two sessions do not edit the same lines.',
+      'Two entries in _build/data.mjs carried the ID FLG-012. Pull request #37 renumbered the second to FLG-015 and merged to main. FLG-012 now appears once. Anchors such as /flagged/#FLG-012 resolve to the single remaining entry.',
     evidence: [
       '_build/data.mjs: two objects with id \'FLG-012\' (title: “Every page advertised a social image that did not exist” and title: “Fix recorded in a script CI does not run; two brands on the live site”).',
-      'gh pr view 37: “Renumber FLG-012 duplicate to FLG-015; record PR #32”, state open.',
+      'PR #37 (merged into main at a83236f): “Renumber FLG-012 duplicate to FLG-015; record PR #32”.',
     ],
     sources: [],
     action:
-      'Merge or close PR #37 (or renumber in the integration step). Anchors such as /flagged/#FLG-012 currently resolve to the first match only.',
+      'Resolved by PR #37 (merged). No further action.',
     blocks: 'Nothing.',
   },
 ];

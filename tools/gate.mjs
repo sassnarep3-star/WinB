@@ -26,6 +26,13 @@
 //        to a reader (unstyled blocks, broken images) and invisible to a link
 //        checker that only follows href.
 //
+//   R15  S15 decision tools: every guide title is question-shaped (ends with
+//        "?"), no page claims popularity/search volume/sales ("most popular",
+//        "best-selling", "trending search", "Google Trends", "search volume"),
+//        the front page carries the chooser, and every worksheet page has a
+//        print control. This is the "trendy but honest" rule: timely framing
+//        is allowed, invented demand is not.
+//
 // Run: node tools/gate.mjs
 
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
@@ -142,6 +149,42 @@ for (const file of htmlFiles) {
     const disk = /^https?:/.test(src) ? toDisk(src) : join(ROOT, rel.includes('/') ? rel.slice(0, rel.lastIndexOf('/') + 1) : '', src);
     if (!existsSync(disk)) fail('R14', rel, `image src points at a missing file: ${src}`);
   }
+
+  // ---------------------------------------------------------------- R15
+  // Question-shaped guides + no invented demand + chooser + worksheets.
+  const BANNED_DEMAND = /\b(most popular|best[- ]selling|bestseller|trending search|google trends|search volume|#1 rated|top rated)\b/i;
+  if (BANNED_DEMAND.test(html)) {
+    const m = html.match(BANNED_DEMAND);
+    // Allow the phrase only inside an explicit negation ("not a popularity claim").
+    const around = html.slice(Math.max(0, m.index - 160), m.index + 160);
+    if (!/\b(not|no|never|without|deliberately no)\b/i.test(around)) {
+      fail('R15', rel, `invented-demand phrase: "${m[0]}"`);
+    }
+  }
+  // Question-shape is enforced for S15 guides only; earlier guides predate
+  // the rule and keep their published titles (changing them would break URLs).
+  const S15_GUIDES = new Set([
+    'guides/holiday-roast-thermometer.html',
+    'guides/game-day-wings.html',
+    'guides/air-fryer-leftovers.html',
+  ]);
+  if (S15_GUIDES.has(rel)) {
+    const h1 = html.match(/<h1[^>]*>([^<]+)<\/h1>/);
+    if (h1 && !h1[1].trim().endsWith('?')) {
+      fail('R15', rel, `guide title is not question-shaped: "${h1[1].trim()}"`);
+    }
+    if (!/href="[^"]*reviews\//.test(html) && !/href="[^"]*compare\//.test(html)) {
+      fail('R15', rel, 'guide does not link to a product or comparison page');
+    }
+  }
+  if (rel === 'index.html') {
+    if (!html.includes('id="cw-chooser"')) fail('R15', rel, 'front page is missing the chooser (id="cw-chooser")');
+    if (!html.includes('id="chooser"')) fail('R15', rel, 'front page is missing the chooser section');
+  }
+  if (rel.startsWith('tools/') && rel.endsWith('.html') && rel !== 'tools/index.html') {
+    if (!html.includes('id="cw-print"')) fail('R15', rel, 'worksheet page is missing its print control');
+    if (!html.includes('id="cw-worksheet"')) fail('R15', rel, 'worksheet page is missing its form');
+  }
 }
 
 // ------------------------------------------------------------------ report
@@ -156,5 +199,5 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log('PASS — every rule R11–R14 holds.');
+console.log('PASS — every rule R11–R15 holds.');
 process.exit(0);
