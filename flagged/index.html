@@ -56,7 +56,7 @@
     <p class="lede">Everything on this site that could not be confirmed from an official source, plus the irregularities found while checking. These do not block publication — they block the claims that depend on them, and they are listed here so you can review them after the site is live and ask for changes.</p>
     <div class="btn-row">
     <span class="badge red">6 high</span>
-    <span class="badge amber">13 medium</span>
+    <span class="badge amber">14 medium</span>
     <span class="badge plain">5 low</span>
   </div>
   </div>
@@ -411,7 +411,7 @@
       <h3>The live site root served two different builds to two requests on the same day</h3>
       <span class="meta">
         <span class="badge amber">Medium severity</span>
-        <span class="badge amber">Open</span>
+        <span class="badge plain">Closed in this build</span>
       </span>
     </span>
     <span class="chev" aria-hidden="true">›</span>
@@ -420,7 +420,7 @@
     <div><p class="mt-0" style="margin:0">On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises. Re-check after the deploy of commit 745c087 (PR #40, merged 2026-11-20 06:26 UTC): the same root URL, without a query string, returned the current build with the chooser and November picks from PR #38, and neither defect appeared. One clean retrieval does not prove the stale copy is gone everywhere, so this flag stays open until a second check after a later deploy.</p></div>
     <div><dt>Evidence</dt><dd><ul><li>Repository check (2026-11-20): “1 probes” and “aFrench” do not appear in the generated HTML of this branch.</li><li>GitHub Pages API (2026-11-20): latest build status “built”, source main, path /.</li><li>Two retrievals of the same page, different content. Recorded in COORDINATION.md under S16.</li></ul></dd></div>
     <div><dt>Official sources</dt><dd><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages" rel="noopener" target="_blank" title="What is GitHub Pages? (GitHub Docs)">GitHub Docs — What is GitHub Pages? (GitHub Docs)</a></dd></div>
-    <div><dt>What the owner needs to do</dt><dd>After the next deployment, fetch the site root with and without a query string and compare the title line. If an older build persists, re-run the Pages build or raise it with GitHub Support. Record the result in COORDINATION.md.</dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Asked for: after the next deployment, fetch the site root with and without a query string, compare the title line, and record the result. DONE 2026-11-20 (session ac3d816c), after the deploy of PR #63 (merge commit 02f3c3c, Pages build status “built”): the root URL was fetched without a query string and served the current build — the title line reads “Counterwise — five kitchen machines worth the counter space”, the 30-second chooser and the November picks are present, and neither “1 probes” nor “aFrench-door” appears anywhere in the served document (the ThermoMaven card reads “probe count not stated”, the CHEF iQ card reads “3 probes”). Caveat kept on purpose: one retrieval through one path shows the defect is not reproducing, not that no edge anywhere holds a stale copy. If it reappears, reopen this flag rather than editing this sentence.</dd></div>
     <div><dt>Blocks</dt><dd>Nothing on the content. It affects what a first-time visitor sees.</dd></div>
   </div>
 </details>
@@ -569,6 +569,27 @@
     
     <div><dt>What the owner needs to do</dt><dd>The session that owns _build/build-editorial.mjs should either commit the missing module or repoint the import at the module that replaced it (the decision-queue/editorial data now lives in _build/data.mjs SUGGESTIONS and _build/decision-queue.mjs). Until then, do not edit the editorial surfaces by hand. Nothing on the live site depends on re-running this script.</dd></div>
     <div><dt>Blocks</dt><dd>Regeneration of the editorial surfaces only. Not publication.</dd></div>
+  </div>
+</details>
+
+<details class="flag" id="FLG-025" >
+  <summary>
+    <span class="id">FLG-025</span>
+    <span class="ft">
+      <h3>A retired generator script rewrote sixteen canonical pages when executed (renumbered from a duplicated FLG-023)</h3>
+      <span class="meta">
+        <span class="badge amber">Medium severity</span>
+        <span class="badge plain">Fixed in this build</span>
+      </span>
+    </span>
+    <span class="chev" aria-hidden="true">›</span>
+  </summary>
+  <div class="body">
+    <div><p class="mt-0" style="margin:0">_build/build-editorial.mjs is an editorial generator from an earlier cycle. It is not referenced by `npm run build`, by `npm run check` or by any CI step, and it imports _build/suggestions.mjs — a module deleted on 2026-11-20 when two sessions were generating /suggestions/ from two modules and the merged generator was kept. Because module linking happens before the script body runs, the missing import had masked what the top of the script already does: it writes pages. Anyone “fixing the import” would silently replace the published front page, both category hubs, all product pages and seven guides with a superseded generation, and the site would still pass nothing, because the drift check compares committed bytes with the generators the build actually uses.</p></div>
+    <div><dt>Evidence</dt><dd><ul><li>Reproduced 2026-11-20: executing the module modified guides/gifts-for-the-cook.html, guides/hosting-season.html, guides/ice-test-thermometer.html, guides/index.html, guides/multifunction.html, guides/smart-probe-questions.html, guides/temperature-safety.html, index.html, reviews/*.html (5), thermometers/index.html, air-fryers/index.html, compare/index.html and three more, then exited on ERR_MODULE_NOT_FOUND.</li><li>The overwritten files were restored by regenerating from _build/build.mjs, and `node _build/build.mjs` afterwards reproduces the committed tree exactly (zero drift).</li><li>Nothing in package.json or .github/workflows/pages.yml calls build-editorial.mjs.</li></ul></dd></div>
+    <div><dt>Official sources</dt><dd><a href="https://developers.google.com/search/docs/essentials/spam-policies" rel="noopener" target="_blank" title="Spam policies for Google web search">Google Search Central — Spam policies for Google web search</a></dd></div>
+    <div><dt>What the owner needs to do</dt><dd>Fixed in this build: the missing import is replaced by a stub that refuses to run, and the script now exits with a stated reason before it touches any file unless COUNTERWISE_REVIVE_EDITORIAL_BUILD=1 is set deliberately. The file is kept, not deleted, because another session’s work is not this desk’s to remove. If a session wants this generation back, the honest route is a rebuild plus the full gate, not a restored import.</dd></div>
+    <div><dt>Blocks</dt><dd>Nothing. It is a warning to whoever next finds an “obviously broken” script in _build/ and reaches for the fix.</dd></div>
   </div>
 </details>
     <div class="callout mt-3">

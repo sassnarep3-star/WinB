@@ -928,7 +928,7 @@ export const FLAGS = [
   {
     id: 'FLG-017',
     severity: 'Medium',
-    status: 'Open',
+    status: 'Closed in this build',
     title: 'The live site root served two different builds to two requests on the same day',
     detail:
       'On 2026-11-20 the page at https://sassnarep3-star.github.io/WinB/index.html returned, without a query string, a page headed “The kitchen gear worth arguing about” that contains the text “1 probes” and “aFrench-door”. The same file requested with a query string (?v=ab61d616) returned the page that matches index.html in this repository at commit 9798831, headed “Counterwise — five kitchen machines worth the counter space”. Neither defect appears in the repository source or in the generated HTML on this branch. The cause is not known. It could be a cache on the retrieval path or a stale copy served for one URL form. The defects are reader-facing and appear on the front URL the site advertises. Re-check after the deploy of commit 745c087 (PR #40, merged 2026-11-20 06:26 UTC): the same root URL, without a query string, returned the current build with the chooser and November picks from PR #38, and neither defect appeared. One clean retrieval does not prove the stale copy is gone everywhere, so this flag stays open until a second check after a later deploy.',
@@ -939,7 +939,9 @@ export const FLAGS = [
     ],
     sources: ['D1'],
     action:
-      'After the next deployment, fetch the site root with and without a query string and compare the title line. If an older build persists, re-run the Pages build or raise it with GitHub Support. Record the result in COORDINATION.md.',
+      'Asked for: after the next deployment, fetch the site root with and without a query string, compare the title line, and record the result. ' +
+      'DONE 2026-11-20 (session ac3d816c), after the deploy of PR #63 (merge commit 02f3c3c, Pages build status “built”): the root URL was fetched without a query string and served the current build — the title line reads “Counterwise — five kitchen machines worth the counter space”, the 30-second chooser and the November picks are present, and neither “1 probes” nor “aFrench-door” appears anywhere in the served document (the ThermoMaven card reads “probe count not stated”, the CHEF iQ card reads “3 probes”). ' +
+      'Caveat kept on purpose: one retrieval through one path shows the defect is not reproducing, not that no edge anywhere holds a stale copy. If it reappears, reopen this flag rather than editing this sentence.',
     blocks: 'Nothing on the content. It affects what a first-time visitor sees.',
   },
   {
@@ -1059,6 +1061,32 @@ export const FLAGS = [
     action:
       'The session that owns _build/build-editorial.mjs should either commit the missing module or repoint the import at the module that replaced it (the decision-queue/editorial data now lives in _build/data.mjs SUGGESTIONS and _build/decision-queue.mjs). Until then, do not edit the editorial surfaces by hand. Nothing on the live site depends on re-running this script.',
     blocks: 'Regeneration of the editorial surfaces only. Not publication.',
+  },
+  {
+    id: 'FLG-025',
+    severity: 'Medium',
+    status: 'Fixed in this build',
+    title: 'A retired generator script rewrote sixteen canonical pages when executed (renumbered from a duplicated FLG-023)',
+    detail:
+      '_build/build-editorial.mjs is an editorial generator from an earlier cycle. It is not referenced by `npm run build`, by `npm run check` or by any CI step, and it imports _build/suggestions.mjs — a module deleted on 2026-11-20 when two sessions were generating /suggestions/ from two modules and the merged generator was kept. Because module linking happens before the script body runs, the missing import had masked what the top of the script already does: it writes pages. Anyone “fixing the import” would silently replace the published front page, both category hubs, all product pages and seven guides with a superseded generation, and the site would still pass nothing, because the drift check compares committed bytes with the generators the build actually uses.',
+    evidence: [
+      'Reproduced 2026-11-20: executing the module modified guides/gifts-for-the-cook.html, guides/hosting-season.html, guides/ice-test-thermometer.html, guides/index.html, guides/multifunction.html, guides/smart-probe-questions.html, guides/temperature-safety.html, index.html, reviews/*.html (5), thermometers/index.html, air-fryers/index.html, compare/index.html and three more, then exited on ERR_MODULE_NOT_FOUND.',
+      'The overwritten files were restored by regenerating from _build/build.mjs, and `node _build/build.mjs` afterwards reproduces the committed tree exactly (zero drift).',
+      'Nothing in package.json or .github/workflows/pages.yml calls build-editorial.mjs.',
+    ],
+    sources: ['G2'],
+    action:
+      'Fixed in this build: the missing import is replaced by a stub that refuses to run, and the script now exits with a stated reason before it touches any file unless COUNTERWISE_REVIVE_EDITORIAL_BUILD=1 is set deliberately. The file is kept, not deleted, because another session’s work is not this desk’s to remove. If a session wants this generation back, the honest route is a rebuild plus the full gate, not a restored import.',
+    blocks: 'Nothing. It is a warning to whoever next finds an “obviously broken” script in _build/ and reaches for the fix.',
+    // Numbering note, recorded because this board has now collided on IDs three times (FLG-012,
+    // FLG-020, this one): this item was written as FLG-023 on a branch, and FLG-023 and FLG-024
+    // were taken on main by another session while it was open — FLG-024 describing the same script
+    // from the outside (its import of a module that exists in no commit). It is FLG-025 here, kept
+    // as a separate row rather than merged into theirs: their record says the generator cannot run,
+    // which was true and is now fixed; this one says what it did to the tree when it appeared to run,
+    // which is the part that should not be lost.
+    // Related content duplicate, kept on purpose: FLG-022 here and FLG-023 on main describe the same
+    // finding (trend guides published ahead of measured demand). Both stay; the site publishes both.
   },
 ];
 

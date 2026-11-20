@@ -1717,10 +1717,10 @@ progress` on an open PR; overlaps are listed below with the resolution actually 
 
 | ID | Task | Owner | File scope | Status |
 | --- | --- | --- | --- | --- |
-| S17 | **Publish the four queued trend topics.** Implement DQ-11…DQ-14 as question-shaped guides in `_build/tools-content.mjs` (`NEW_GUIDES`), so the front-page cadence, sitemap and RSS feed pick them up automatically, and mark those four rows `Built` in `_build/decision-queue.mjs` with the reasoning left readable. No popularity, search-volume or performance claim; no price, no rating, no hands-on language. | `ac3d816c` | `_build/tools-content.mjs`, `_build/decision-queue.mjs`, generated `guides/*.html`, `sitemap.xml`, `feed.xml` | in progress |
-| S18 | **Make one site indexable.** Eleven indexable pages still carry a second brand (“The Crisp Kitchen”), and four of them are near-duplicates of published Counterwise guides — the doorway/duplicate pattern the site flags on itself (FLG-012/015/017/019). Extend `tools/consolidate.mjs` to unify the brand on every indexable page, point the four alias guides at their canonical twin with `noindex,follow`, keep the register hub indexable and its sub-pages reachable-but-unindexed, prune `sitemap-register.xml` to the indexable set, and assert the invariant in `tools/check.cjs` + a new gate rule. | `ac3d816c` | `tools/consolidate.mjs`, `tools/check.cjs`, `tools/gate.mjs`, generated register/alias HTML, `sitemap-register.xml`, `data/shop/flags.json` (two factual corrections only) | in progress |
-| S19 | **Line-by-line re-verification, dated.** Re-fetch the five listings and the policy sources through `fetch_page`, record the result per row, implement DQ-10 (a visible “last read” date plus a change log per product) so a reader can see how current each specification is. Values that cannot be confirmed stay blank. | `ac3d816c` | `_build/data.mjs` (append-only: `FLAGS`, `lastRead`, `changeLog`), `_build/editorial.mjs` (render only), `EXECUTIVE-SUMMARY.md`, `README.md` | in progress |
-| S20 | **Integration.** Triage the nine PRs left open by earlier sessions (merge what is verified and additive, close what main already supersedes, with reasons), run the full gate, open one PR, merge, confirm Pages, record the result. | `ac3d816c` | repo root, `.github/`, `COORDINATION.md` | in progress |
+| S17 | **Publish the four queued trend topics.** Implement DQ-11…DQ-14 as question-shaped guides in `_build/tools-content.mjs` (`NEW_GUIDES`), so the front-page cadence, sitemap and RSS feed pick them up automatically, and mark those four rows `Built` in `_build/decision-queue.mjs` with the reasoning left readable. No popularity, search-volume or performance claim; no price, no rating, no hands-on language. | `ac3d816c` | `_build/tools-content.mjs`, `_build/decision-queue.mjs`, generated `guides/*.html`, `sitemap.xml`, `feed.xml` | **done** — four guides live via PR #63 |
+| S18 | **Make one site indexable.** Eleven indexable pages still carry a second brand (“The Crisp Kitchen”), and four of them are near-duplicates of published Counterwise guides — the doorway/duplicate pattern the site flags on itself (FLG-012/015/017/019). Extend `tools/consolidate.mjs` to unify the brand on every indexable page, point the four alias guides at their canonical twin with `noindex,follow`, keep the register hub indexable and its sub-pages reachable-but-unindexed, prune `sitemap-register.xml` to the indexable set, and assert the invariant in `tools/check.cjs` + a new gate rule. | `ac3d816c` | `tools/consolidate.mjs`, `tools/check.cjs`, `tools/gate.mjs`, generated register/alias HTML, `sitemap-register.xml`, `data/shop/flags.json` (two factual corrections only) | **done** — one identity + R16 gate, PR #63 |
+| S19 | **Line-by-line re-verification, dated.** Re-fetch the five listings and the policy sources through `fetch_page`, record the result per row, implement DQ-10 (a visible “last read” date plus a change log per product) so a reader can see how current each specification is. Values that cannot be confirmed stay blank. | `ac3d816c` | `_build/data.mjs` (append-only: `FLAGS`, `lastRead`, `changeLog`), `_build/editorial.mjs` (render only), `EXECUTIVE-SUMMARY.md`, `README.md` | **done** — dated reads, FLG-021/022, PR #63 |
+| S20 | **Integration.** Triage the nine PRs left open by earlier sessions (merge what is verified and additive, close what main already supersedes, with reasons), run the full gate, open one PR, merge, confirm Pages, record the result. | `ac3d816c` | repo root, `.github/`, `COORDINATION.md` | **done** — see §15; PR #63 merged as `02f3c3c`, Pages `built`, PRs #26/#35/#25 records landed here |
 
 **Deliberate overlaps, and how each is handled.**
 
@@ -2078,3 +2078,104 @@ CI sequence byte-reproducible).
 | GitHub Pages | `pages build and deployment` run 44692292952 — **success**; `GET /pages` reports `built` |
 | Live site | https://sassnarep3-star.github.io/WinB/ — serving the merged state (verified live: front page leads with the five picks and the chooser; disclosure above the fold; seasonal notebook live; `air-fryer-worth-it` guide live) |
 | Follow-up record | This table, merged by PR #69 (branch `arena/c17764af-winb`) |
+
+
+
+---
+
+## 14. Two sessions' deferred records, landed verbatim because their PRs could not merge (provenance, session `ac3d816c`)
+
+Both sections below are copied **unedited** from open pull requests whose branches are stale against `main`, so GitHub could not merge them and their records would otherwise have been lost. Their site/build changes are already on `main` by other routes (noted per item); only the board text was missing. Section numbers repeat numbers already used on this board — that is their text, kept as written, per the append-only rule.
+
+- **PR #25** (`arena/01091cc4-winb`, session `01091cc4`) — record below. Already on `main` independently: `node tools/consolidate.mjs` in the CI Generate step, and the brand unification, which PR #63 finished for every *indexable* page (register hub, three `about/` pages, five `/go/` pages) and enforced as gate rule R16. Finding **I-2 is now closed**: `data/shop/flags.json` FLG-009 ("GitHub Actions is disabled") was corrected at source on 2026-11-20 with the original observation retained. One change was deliberately **not** taken: rewriting FLG-010's evidence line from "Root index.html branded The Crisp Kitchen" to "Counterwise". That sentence records what was observed before integration; softening a historical observation to match the present is how an audit trail becomes marketing copy.
+- **PR #35** (`arena/5dd84ce5-winb`, session `5dd84ce5`) — record below. Its content change (the suggestions board column header, "Cost of being wrong") was adopted in PR #63; its caption fix ("Ten proposals." to a computed count) had already been made upstream, so only the header was new.
+
+| 2026-11-20 | `arena-01091cc4` | Session on `arena/01091cc4-winb` (base `0fa749d`). Reviewed the board, the committed site and CI. Found three defects, fixed each (below). Re-verified the Operating Agreement §5 wording and one short link against official pages (§8). No other session claims were active. |
+
+
+---
+
+## 8. Session `arena-01091cc4` — verification and consistency pass
+
+Claim: task **S10**, owner `arena-01091cc4`, files `.github/workflows/pages.yml`, `tools/consolidate.mjs`, `tools/build.cjs`, `_build/*.mjs`, generated HTML, `COORDINATION.md`. Status: **done** for build and verification. **Merge deferred** (see I-5): PR #25 is open and rebased on `main` at `0d34699`.
+
+| Defect found | Fix | Evidence |
+| --- | --- | --- |
+| CI (`pages.yml`) did not run `tools/consolidate.mjs`, so the published site never received the noindex/archive banners or the `/go/` `index,follow` change that §7 and FLG-010 say are live. `npm run build` *does* run it, so local output and CI output disagreed. | Added `node tools/consolidate.mjs` to the CI Generate step after `noindex.cjs`. Committed the consolidated output. | Full CI generate sequence (build → images → build.cjs → noindex → consolidate) run on the committed tree: no drift (`git status --porcelain --untracked-files=no` empty). |
+| Two brands on the canonical site: masthead and root index said “counterwise”, while 28 canonical pages and five `/go/` pages said “The Crisp Kitchen”. | Unified generator sources to “Counterwise”. Superseded trees under `docs/`, `archive/`, `legacy-docs-site/`, `alt-site/` were not edited. | `grep` for “Crisp Kitchen” in canonical pages after rebuild. |
+| Archive banner and consolidate comments referred to the wrong brand. | Corrected. | — |
+
+### Official sources checked this session (fetched 2026-11-20 UTC)
+
+| Claim | Source | Result |
+| --- | --- | --- |
+| Disclosure wording “As an Amazon Associate I earn from qualifying purchases.” | Associates Program Operating Agreement, §5 (updated Oct 15, 2025) — https://affiliate-program.amazon.com/help/operating/agreement | **Matches** the site's disclosure exactly. |
+| §5 also says the disclosure must be clear and prominent, and that a §5 breach is a material breach | same | Site places the strip above the masthead and in the footer (rule R1). |
+| Special Links must use the tagged link formats Amazon provides | same, §1 | Site uses `?tag=shopnow047c-20` on canonical `/dp/` URLs (rule R2). |
+| Commission income requires a click through a Special Link | Associates Program Policies (updated Apr 14, 2026) — https://affiliate-program.amazon.com/help/operating/policies | Consistent with the site's no-price, no-earnings-claims stance. |
+| `rel="sponsored"` marks paid links | Google Search Central, Qualify outbound links — https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links (updated 2025-12-10) | Site uses `rel="sponsored nofollow noopener"`. Adding `nofollow` is allowed by the same page (multiple values). |
+| Short link `https://link.amazon/B04G1MEwY` resolves to ASIN `B0CDY277D3` | Live fetch of the link, final page https://www.amazon.com/dp/B0CDY277D3 | **Matches** §3 row 1. The short-link code itself (`B04G1MEwY`, 9 characters) is **not** an ASIN (ASINs are 10 characters), so it is not used as an ASIN. |
+
+Not re-checked today: the other four short links. The §3 record stands as a prior-session observation, not as a fresh check.
+
+### Irregularities for review (not blocking)
+
+| # | Irregularity | Where |
+| --- | --- | --- |
+| I-1 | Before this session, §7 described go-page and consolidate changes that CI did not publish. Corrected by item 1 above. | §7 vs `pages.yml` |
+| I-2 | `FLG-009` in `data/flags.json` says GitHub Actions is disabled, but the Actions runs on `main` (Build, verify and deploy; pages build) completed successfully. This is a separate register from `data/shop/flags.json`. Left unchanged; needs owner review. | `data/flags.json` |
+| I-3 | The brief's source IDs (S01, S02, S07, S24) and SG-27..SG-30 rows are not in the register; SG-27..30 are present in `data/shop/suggestions.json` under group G7. The brief's source IDs are not in the repo. | `data/flags.json` line ~103 |
+| I-4 | `link.amazon` short-link codes are 9 characters and are not ASINs. Intended ASIN fields stay blank (FLG-002). | §3 |
+| I-5 | **Merge deferred.** At the time of this session, other sessions had open PRs that touch the same files: PR #24 (`arena/2139de5f-winb`: `tools/build.cjs`, `_build/data.mjs`, the five `/go/` pages, COORDINATION.md), PR #26 (COORDINATION.md), and PR #27 (EXECUTIVE-SUMMARY.md). PR #25 also changes the `/go/` robots behaviour via consolidate. Merging PR #25 first would conflict with #24. Also, the shared `pages` concurrency group has `cancel-in-progress: true`, so the Actions run for PR #23's merge to `main` was cancelled by a later run. The Pages legacy build for that commit succeeded. Merge PR #25 after the integration session has resolved #24, #26 and #27. | `.github/workflows/pages.yml`, PRs #24–#27 |
+
+---
+
+## 9. Final integration result (S11) — session `arena-5dd84ce5`
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#33** — https://github.com/sassnarep3-star/WinB/pull/33 |
+| Merge | **Merged** to `main` at 2026-11-20T06:12:44Z, merge commit `ab2d166`, method `--merge` |
+| Conflicts on merge | Three rounds: `_build/content-shop.mjs`, `_build/content-oversight.mjs`, `COORDINATION.md`, plus regenerated `index.html` / `executive-summary/` / `flagged/`. All resolved keeping **both** sessions' content (§8.3a, §8.3b). Nothing deleted. |
+| Flag ID collision | Fixed — this session's finding renumbered **FLG-012 → FLG-014** (§8.3b) |
+| CI on the PR | `Build and verify` — **success** in 19s, including the drift check |
+| CI on `main` | `pages build and deployment` — **success**; Pages API reports `built` |
+| Live verification | `https://sassnarep3-star.github.io/WinB/suggestions/` renders the decision board. `/` renders the byline and the RSS follow box on a cache-busted fetch. `og:image` now resolves to `og-default.svg` (was a 404 `og-default.png`). |
+| Stale-cache note | The first fetch of `/` after the merge still served the previous build; re-running `pages.yml` on `main` corrected it. Recorded because a deferred CDN is not a deploy failure, but it looks like one. |
+| Flagged irregularities | Published on `/flagged/`, none blocking. **FLG-014** and **FLG-013** added this cycle; FLG-014 marked *Fixed in this build*. |
+
+### 9.1 Remaining owner actions (about 50 minutes total)
+
+These are the five items in `/suggestions/` Part three. Nothing else on the site is waiting on anyone.
+
+1. Compare one link minted inside Associates Central against a supplied short link (DQ-01).
+2. Open a support ticket asking whether `link.amazon` short links are an approved format (DQ-08).
+3. Create the collector endpoint host (DQ-02).
+4. Verify the site in Search Console and submit `sitemap.xml` (DQ-05).
+5. Approve or decline the spend on one review unit (DQ-03).
+
+### 9.2 What is still not true, and is not claimed anywhere
+
+No product was handled. No traffic, click, order, conversion or revenue figure exists. No price or
+star rating is published, although all five listings displayed both. Whether the supplied short links
+credit this account is **unresolved in both directions**. Intended ASINs remain blank until the owner
+supplies them.
+
+
+---
+
+## 15. S17–S20 integration result (session `ac3d816c`) — merged and deployed
+
+| Item | Result |
+| --- | --- |
+| Pull request | **#63** — https://github.com/sassnarep3-star/WinB/pull/63 — "Published trend guides, dated provenance, one identity across the indexable site (S17–S19)" |
+| Merge | **MERGED** with `gh pr merge 63 --merge`, 2026-11-20T06:59:50Z, merge commit `02f3c3c55fa5958e1c8650aaf18940958fa71aca` |
+| CI on the PR head | `Build and verify` **success** (generate, zero-drift check, verify R1–R11, gate R11–R16, register gate, linkcheck, `/WinB/` smoke). First attempt was **cancelled by the shared `pages` concurrency group**, which surfaces as `fail` in `gh pr checks`; `gh run rerun --failed` then passed. Same hazard PR #24 and #36 recorded. |
+| CI on `main` | run 44691709883 for the merge commit — **completed / success** |
+| Pages deploy | `gh api repos/sassnarep3-star/WinB/pages/builds/latest` → **status `built`**, commit `02f3c3c`; Pages settings: source `main` @ `/`, legacy build, HTTPS enforced |
+| Live verification | `/guides/dishwasher-fit.html` and `/reviews/thermomaven-1s-thermometer.html` fetched from the deployed URL: new guide renders with the disclosure strip above the masthead, the byline block and no demand claim; the product page shows the "Last checked 2026-11-20" change log including the title-drift finding. |
+| Build at merge | 49 files generated, 52 sitemap routes, 21 feed items, 41 canonical pages verified, 71 files link-crawled, 48 pages + 138 assets HTTP 200 |
+| Rebase history | `main` moved ~195 commits during this session (PRs #41–#64 from parallel sessions). Three merge passes; every conflict was in `COORDINATION.md`, `EXECUTIVE-SUMMARY.md` or generated HTML — resolved by keeping both sides and regenerating HTML from `_build/`, never by hand-editing output. |
+| Other sessions' PRs triaged | #48 merged (its regeneration request is what PR #63 did); #26, #35 and #25 records landed verbatim (§13, §14) and closed as superseded; #34, #49, #51 and the legacy generations #16/#9 left open with written triage notes on each. |
+
+**Facts deliberately not added.** No price, star rating, rating count, sales rank, hands-on result, traffic figure, conversion rate or revenue forecast was introduced anywhere; the campaign ledger stays at 0 rows; the intended-ASIN fields stay blank; the supplied `link.amazon` short links are still described as *unresolved in both directions*, not invalid. The five ASIN resolutions are unchanged.
