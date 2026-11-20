@@ -288,6 +288,25 @@ export const DECISION_QUEUE = [
     implemented: true,
     note: `Published 2026-11-20 as /guides/two-basket-weeknight.html — “Two baskets or one: does your weeknight actually have two foods in it?”. Built on the listings’ own numbers (3 + 3 = 6 against one 8 qt), with “Sync Finish” labelled an undocumented feature rather than a result.`,
   },
+  {
+    id: 'DQ-15',
+    title: 'Fix the event contract: one of the five events can never fire, and the worksheets are invisible',
+    lane: 'Measurement',
+    ownerOnly: false,
+    whatChanges:
+      'assets/js/site.js listens for [data-capture] with an input[type=email]; no page in the built site carries that hook, because the email form was removed when no provider was wired. So the frozen five-event contract (page_view, product_view, outbound_click, guide_complete, capture_intent) contains one event that cannot fire, while the three printable worksheets — the one surface where a reader does real work — emit nothing. Replace capture_intent with a worksheet event (start on focus of the first field, complete on print), and update the worker allow-list, /analytics/README, /privacy/ and the Data Room events table in the same pass.',
+    why:
+      'An event contract that lists a dead name and misses a live tool teaches the wrong lesson twice: the ledger looks like it covers reader intent, and it does not cover the one action that shows a reader used a decision tool. Found while checking an audit note in a parallel session’s PR (#26), verified against the built files: grep for data-capture returns nothing in any HTML page; site.js:179 is the only emitter.',
+    cost: 'One hour, no infrastructure; the collector is still undeployed, so nothing breaks',
+    reversible: 'Yes — the name is only in the event allow-list until an endpoint exists',
+    riskLow: true,
+    risk:
+      'Renaming a frozen contract after publication makes any already-downloaded schema stale. Nothing is deployed, so nothing is stale yet — do this before DQ-02, not after.',
+    dependsOn: [],
+    recommendation: 'Do it before the collector is deployed. After deployment the name is load-bearing.',
+    chooseIf: 'You accept that an event nobody can trigger is worse than a renamed contract with zero history.',
+    notIf: 'You have already downloaded the schema somewhere and intend to reconcile against it — then keep the dead name and add a sixth event instead.',
+  }
 ];
 
 // ---------------------------------------------------------------------------
