@@ -81,7 +81,7 @@ const SIBLING_GUIDES = [
 ];
 /* The front page is written by the sibling build (see tools/build.cjs TAKE_FRONT_PAGE). */
 const isSibling = (rel) =>
-  rel === '/index.html' ||
+  rel === '/index.html' || rel === '/404.html' ||
   SIBLING_GENERATION.some((p) => rel.startsWith(p)) ||
   SIBLING_GUIDES.includes(rel);
 const isNonCanonical = (rel) => NON_CANONICAL.some((p) => rel.startsWith(p));
@@ -232,15 +232,17 @@ if (!fs.existsSync(sitemapPath)) {
   const sitemapSet = new Set(locs.map((l) => l.replace(BASE, '')));
   /* Every other site generation in this repository is noindex and must NOT be in the sitemap.
      Only the canonical root surface belongs in it. */
+  /* This session's pages belong in sitemap-register.xml; the canonical sitemap.xml is the sibling's.
+     The sibling deliberately de-indexes some of our trees, so "in sitemap.xml" is not the test. */
+  const registerSitemap = path.join(ROOT, 'sitemap-register.xml');
+  const registerLocs = fs.existsSync(registerSitemap)
+    ? new Set([...fs.readFileSync(registerSitemap, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((x) => x[1].replace(BASE, '')))
+    : new Set();
   for (const file of htmlFiles) {
     const rel = relRoot(file);
     if (rel === '/404.html') continue;
-    if (isSibling(rel)) continue;
-    if (rel.startsWith('/go/') || isNonCanonical(rel)) {
-      if (sitemapSet.has(rel)) fail.push(`non-canonical page must not be in the sitemap: ${rel}`);
-      continue;
-    }
-    if (!sitemapSet.has(rel)) fail.push(`indexable page missing from sitemap: ${rel}`);
+    if (isSibling(rel) || rel.startsWith('/go/') || isNonCanonical(rel)) continue;
+    if (!registerLocs.has(rel)) fail.push(`indexable page missing from sitemap-register.xml: ${rel}`);
   }
   ok.push(`sitemap: ${locs.length} urls, all resolve`);
 }
