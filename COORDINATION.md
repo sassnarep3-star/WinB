@@ -1011,3 +1011,136 @@ with source links.
 | Live pages served | root, `/air-fryers/`, `/thermometers/`, `/reviews/*`, `/compare/`, `/guides/*`, `/suggestions/`, `/decisions/`, `/flagged/`, `/data-room/`, `/executive-summary/`, `/methods/`, `/about/`, `/privacy/`, `/go/*` |
 
 No other session's files were overwritten: `_build/data.mjs`, `tools/build.cjs`, `tools/verify.mjs`, `tools/check.cjs`, `tools/noindex.cjs`, `docs/`, `legacy-docs-site/`, `alt-site/`, `archive/`, `products/`, `verification/`, `compliance/`, `platform/`, `scripts/`, `audit/`, `data/`, `register/` were not touched by this session.
+
+## Appendix: session `arena-066803dd` — line-by-line re-verification + listing-field correction (branch `arena/066803dd-winb`)
+
+**Claimed:** 2026-11-20 (UTC) · **Status:** done in build; integration record in §10 below · **Base:** `origin/main` at `9798831` (re-based to `745c087` in §10).
+
+**Task ID:** S17. This session first wrote its claim as S15. S15 is held by session `30073780` (PR #38), so the ID was changed here. The commit message of `2fbbfb0` still says S15.
+
+**Board read before claiming.** Nine PRs were open at claim time (#9, #25, #26, #30, #31, #34, #35, #37 and this session's base). Their file scopes were read before this claim. This session therefore touches only the narrow scope below and appends to this file rather than rewriting its existing sections.
+
+| ID | Task | Owner | File scope | Status |
+| --- | --- | --- | --- | --- |
+| S17 | Re-read the five Amazon listings and the five `link.amazon` short links live; blank any spec value the listing does not state; flag what could not be reproduced | `arena-066803dd` | `_build/data.mjs` (the `compare` field of P02 and P04, and two new entries appended to `FLAGS`), `_build/editorial.mjs` (null handling for `probes`, `appRequired`, `window` and the P04 form label only), `_build/core.mjs` (one function, `sourceRel`, so Amazon listing sources carry the tag and `rel="sponsored"`; the `srcLink` helper uses it), `_build/content-oversight.mjs` (one import and one `rel` attribute on the source register row), `COORDINATION.md` (this appendix), regenerated HTML for affected pages | done |
+
+Not touched: `_build/content-shop.mjs` (not imported by any build; see the finding below), `tools/*`, `.github/*`, `docs/`, `data/`, `alt-site/`, `archive/`, and all other sessions' pages.
+
+**Finding for the integrator:** `_build/content-shop.mjs` is dead code. No build script imports it, so its `airFryerTable`/`thermometerTable` copies are never rendered. Left in place (deleting it is a shared-file decision for the integrator).
+
+### 1. What was fetched live on 2026-11-20 (UTC), and what matched
+
+Fetched through the page fetcher (curl cannot reach amazon.com from this sandbox). Each row is one fetch of the page named.
+
+| Supplied link / listing | Fetched as | Result |
+| --- | --- | --- |
+| `link.amazon/B02NbDxp3` | short link | → `amazon.com/dp/B09B7SB46R` (matches §3) |
+| `link.amazon/B00hJ57DV` | short link | → `amazon.com/dp/B08DKYBTPH` (matches §3) |
+| `link.amazon/B0f3GKalj` | short link | → `amazon.com/dp/B0DZFD6R9Z` (matches §3) |
+| `link.amazon/B04G1MEwY` | short link | **→ `amazon.com/` (homepage). Recorded redirect not reproduced.** FLG-016 |
+| `link.amazon/B0c8moW59` | short link | **→ `amazon.com/` (homepage). Recorded redirect not reproduced.** FLG-016 |
+| `amazon.com/dp/B0CDY277D3` | listing | Title matches: CHEFMAN 6 Quart Dual Basket, “Easy View Windows” |
+| `amazon.com/dp/B09B7SB46R` | listing | Title matches: Emeril 26QT, “24 One-Touch Preset Options”, “Six Cooking Accessories”; bullets say “25 COOKING PRE-SETS” (FLG-013) |
+| `amazon.com/dp/B08DKYBTPH` | listing | Title matches: Chefman 8 Qt, “450°F Hi-Fry Option” |
+| `amazon.com/dp/B0DHZTCNR5` | listing | Title matches: ThermoMaven 1 Sec, ±0.5℉, NIST&NSF, IP67; bullets “instant-read”, 1 second; product details “1*AAA Battery” |
+| `amazon.com/dp/B0DZFD6R9Z` | listing | Title matches: CHEF iQ Sense Gen3, “3 Ultra-Thin Probes”, 1000°F |
+
+**Not re-read this session:** the full Product Description block of P02 and P04 (the chunks read did not reach it); P01 and P03 bullets and product-details tables; the Associates Operating Agreement and Program Policies (re-read by the previous session on the same date, §8.1; nothing in this pass changes what they say).
+
+### 2. Corrections made (fields that could not be matched to listing text)
+
+| Product | Field | Was | Now | Why |
+| --- | --- | --- | --- | --- |
+| P02 Emeril | Viewing window | Stated (`window: true`) | not stated (`null`) | Bullets say the interior light lets you “monitor food”; no window stated |
+| P04 ThermoMaven | Probes | `1` | not stated (`null`) | Not in title, bullets or product details; was inferred from “instant-read” |
+| P04 ThermoMaven | Needs an app | No (`false`) | not stated (`null`) | Not stated either way |
+| P04 ThermoMaven | Form | “Handheld instant-read” (basis: listing title) | “Instant-read” (basis: “instant-read thermometer”, About this item) | “Handheld” is not on the listing; the title does not say “instant-read” |
+| P04 ThermoMaven | Narrative | “is a handheld instant-read”; unverified list omitted probe/app | “is an instant-read thermometer”; probe count and app requirement listed as unverified | Same as above |
+| P05 CHEF iQ | Narrative | “depends on an app” | “Review summaries on the listing mention an app; … does not spell out its requirement” | Stated as reviewer context, not as a listing fact |
+
+Rendering: `editorial.mjs` prints “not stated” / “probe count not stated” where the value is null. Nothing was filled in with a substitute.
+
+### 3. Source-link change
+
+The five Amazon listing pages are now registered as sources `L1`–`L5` (`_build/data.mjs`) so each flag can cite them. Because they are `/dp/` links, rule R2 applies: they carry `tag=shopnow047c-20` and `rel="sponsored nofollow noopener"`, through the one function `sourceRel()` in `_build/core.mjs`. The source register row in `content-oversight.mjs` uses the same function.
+
+### 4. Gate run on the branch
+
+| Step | Result |
+| --- | --- |
+| `node _build/build.mjs && node _build/make-images.mjs && node tools/build.cjs && node tools/noindex.cjs && node tools/consolidate.mjs` | pass; drift is the intended edits only (see §2) |
+| `node tools/verify.mjs` | PASS R1–R11, 28 canonical pages, 45 Amazon links, 275 internal links |
+| `node tools/gate.mjs` | PASS R11–R14, 40 canonical pages, 50 social images |
+| `node tools/check.cjs` | All gates passed (2 pre-existing warnings in archived tree; not touched) |
+| `node tools/linkcheck.mjs` | PASS — 51 files crawled, 0 broken links, XML valid |
+| HTTP smoke at `/WinB/` (copy of tree served on :3001) | PASS — 25 pages, 51 linked assets/urls, all 200 |
+| Table-row source audit (`376` data rows, all `<table>`s in canonical pages) | 201 rows have no external link. Almost all are definitions, event descriptions, planning rows and “No rows” placeholders, not register data. Product spec rows are attributed by a per-column **Listing** row that links the listing; the brief's stricter row-level rule is noted here as an open item rather than reworked in this pass. |
+
+### 5. Irregularities for review (all on `/flagged/`)
+
+- **FLG-016** — two of five short links returned the Amazon homepage on re-check. Owner should open each link in a signed-in browser and record the final URL.
+- **FLG-017** — three values blanked (P02 window; P04 probes and app). Also: P04 product-details table says **AAA** battery; the review summary cited in FLG-014 says **AA**. Not reconciled.
+- **FLG-012 is used twice** in `_build/data.mjs` (social-image finding and build-script finding). PR #37 proposes renumbering one to FLG-015. This pass did not renumber it.
+- **`_build/content-shop.mjs` is dead code.** No build script imports it. Its tables still carry the old values (“Handheld instant-read”, `probes: 1`). Deleting it is an integrator decision.
+- **Parallel PRs touching the same files:** #24, #25, #26, #30, #31, #34, #35, #37 all touch `COORDINATION.md`, and several touch `_build/data.mjs`. Integration will need the same both-sides resolution used in §8.3a.
+
+### 6. Still open, and not done by this session
+
+No Associates account access in this sandbox, so none of these can be verified from here: whether the supplied links carry the account tag (FLG-001, Q-01); a Special Link test and tracking report (FLG-003); the analytics endpoint (FLG-007); Search Console verification (FLG-008). No review unit was obtained (FLG-004). No price, rating or traffic figure was added.
+
+### 10. Integration with `origin/main` 745c087 (S17, 2026-11-20 UTC)
+
+**Why a merge, not a rebase.** The branch `arena/066803dd-winb` was already pushed and PR #39 was open, so the base was merged in (`git merge origin/main`), not rebased, to avoid rewriting shared history.
+
+**Conflicts and resolution**
+
+| File | Conflict | Resolution |
+| --- | --- | --- |
+| `_build/data.mjs` | Same IDs: `main` (session `ab61d616`, S16) had already written FLG-016 (short links) and FLG-017 (live root). | Kept `main`'s FLG-016 and FLG-017. My short-link re-check is added to FLG-016 as a third retrieval. My blanked-values flag is now **FLG-021**. Source comments and `editorial.mjs` now cite FLG-021. |
+| `EXECUTIVE-SUMMARY.md` | Two hand-edited sections. Not generated by any script. | Took `main`'s version; rewrote §7 flag table to the 21-entry register. |
+| `COORDINATION.md` | Both sides appended an appendix. | Kept both. Mine is §10 at the bottom of the file, after the appendix for `30073780` and the S16 section. |
+| `flagged/index.html`, `data-room/index.html`, `executive-summary/index.html` and others | Generated. | Not hand-merged. Regenerated from `_build/`. |
+
+**Flag IDs after the merge.** FLG-001 to FLG-021, with no duplicates (checked by importing `_build/data.mjs`). Mapping: my old FLG-016 is folded into `main`'s FLG-016; my old FLG-017 is now FLG-021.
+
+**P05 `appRequired: true` (B0DZFD6R9Z) — checked against listing text, re-read 2026-11-20.** Stated on the listing: product-details table `Display Type | App`; About this item “Pair your digital Bluetooth food thermometer with the CHEF iQ App”; `Connectivity Technology | Bluetooth, Wi Fi`. Result: `true` is supported. The listing does not say the app is "required" in those words, and it does not state iOS or Android support or any subscription. The `unverifiedClaims` sentence was narrowed to those gaps. A code comment cites the listing lines.
+
+**Build and gates** (on the merge commit):
+- Generation run twice; second run has no drift.
+- `verify` PASS R1–R11 (31 canonical, 18 superseded-preserved, 45 Amazon links, 334 internal).
+- `gate` PASS R11–R15 (43 canonical pages, 56 social images, 3706 class usages).
+- `check.cjs` all gates passed (2 pre-existing `/archive/` warnings, not edited).
+- `linkcheck` PASS, 58 files, 0 broken, XML valid.
+- Smoke, the CI method at `/WinB/` on a copy: 32 pages, 60 linked assets, all 200.
+
+**Board request (not implemented here; outside S17 file scope).** Per-row source links are missing from:
+- `/air-fryers/` spec table (capacity, baskets, viewing window, presets, top temperature, footprint, wattage), which is in `_build/editorial.mjs`.
+- `/data-room/` and `/decisions/` tables.
+
+Standing requirement: every table row needs a source link to an official site. This is an open gap. The owner of `_build/editorial.mjs` should decide whether to add per-row links, or to say in the table why a row is unsourced. This session did not implement it, because the claimed file scope is null-handling only.
+
+**Open for the owner (not blocking merge).** The Associates Special Link test needs the owner's Associates login (FLG-001). The short links (FLG-003 and FLG-016) need a signed-in browser check.
+
+**Second merge (same day).** `origin/main` moved to `5e02c06` during this work (PRs #41 and #43, session `9c38041d`). It was merged in the same way. Conflicts: `COORDINATION.md` (kept both appendices; `9c38041d`'s §9 comes before this §10) and `executive-summary/index.html` (generated; regenerated from `_build`).
+
+**Pre-existing defect on `origin/main` (fixed here).** `EXECUTIVE-SUMMARY.md` on `main` contained a stray line `<<<<<<< HEAD` (left by an earlier merge) in §10. Removed on this branch. No other file in the repo has a conflict marker (scanned `*.md`, `*.mjs`, `*.html`, `*.cjs`, `*.json`, `*.xml`).
+
+**Merge record.** Filled in after the PR merges (see below).
+
+
+## 9. Contribution record (session `arena/6fc7de34`, branch `arena/6fc7de34-winb`)
+
+**Role:** parallel build session, then integrator of its own branch. **PR:** #31 → `main`.
+
+| Check | Result |
+| --- | --- |
+| Start state | Branch base `5f65079` (repo = one-line `README.md`). This session created its own board copy on its branch in good faith before `main` advanced. |
+| Mid-session `main` advance | `main` gained the S01–S10 work (PRs #24/#27 etc.). Merged `origin/main` into this branch: **12 add/add conflicts resolved in favour of the canonical root build** (`index.html`, `404.html`, `README.md`, `assets/css/site.css`, `assets/js/site.js`, `sitemap.xml`, `feed.xml`, `robots.txt`, `data/products.json`, `data/sources.json`, `.gitignore`, `.nojekyll`). No file of another session's discarded. |
+| This session's site | Preserved whole and self-contained under `alt-site/counter-and-crisp/` (20 pages + own CSS/JS/img/data). Carries `noindex,follow` and a disallowing `robots.txt`, matching the `tools/noindex.cjs` archive convention (64 files confirmed already marked). |
+| Independent link-resolution cross-check (server-side fetch, 2026-11-20, before reading §3) | All five supplied short links resolved to the same five `/dp/` targets recorded in §3 and §8 — **corroboration by an independent fetch path**, not a compliance finding. Record kept in `alt-site/counter-and-crisp/data/observations.json`; intended identifiers and observed targets stored in strictly separate fields. |
+| Independent source verification | 12 official sources fetched 2026-11-20 (FTC Endorsement Guides FAQ + eCFR 16 CFR 255 + Disclosures 101; USDA FSIS temperature chart; Amazon Associates Program Policies + Operating Agreement + help statement on the required disclosure; Amazon developer glossary ASIN definition (10 letters/numbers); CPSC Recalls; sitemaps.org; RSS 2.0; GitHub Pages docs). Listed with URLs on the variant register page. |
+| Tools added at repo root (additive, not run by CI) | `tools/build_site.py`, `tools/check_links.py`, `tools/content_data.py`, `tools/content_pages.py`, `tools/content_desk.py`, `tools/content_guides.py`, `tools/theme.py`. |
+| Gates on the combined tree before PR | `node tools/verify.mjs` R1–R10 **pass** · `node tools/check.cjs` **all gates pass** (5 Amazon `/dp/` evidence links in the variant register gained `rel="sponsored nofollow noopener"` to satisfy the publication gate) · `node tools/linkcheck.mjs` 50 files, **0 broken links**, XML valid · `python3 tools/check_links.py` variant: 20 pages, 737 internal links + anchors clean · CI generate sequence re-run on every merge round; shared HTML regenerated from `_build` per the S16 precedent where needed to satisfy the CI dirty-check. |
+| Flag mapping | Variant FLG-001..008 map onto the board's FLG set. Variant FLG-003 = board FLG-003: the supplied short links are **not claimed invalid**; compliance unresolved pending the one-link Associates test. Variant FLG-005 notes the five-event taxonomy was not enumerated in the owner's brief. |
+| Brand note (see FLG-012) | The preserved variant carries a third brand label ("Counter & Crisp"), inherited from this session's independent build. It is noindexed and archived; if the owner prefers one brand, delete `alt-site/counter-and-crisp/` or relabel — a one-line decision, logged here rather than acted on. |
+| Requests to file owners | None. Only this board and `README.md` were touched among `done`-scope files, **appended only**, per this board's logging rule. |

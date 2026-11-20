@@ -107,7 +107,7 @@ Ordered by downside if left open. Full reasoning in the Decision Room. **Nothing
 
 Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed record in the Data Room — and was **independently re-verified the same day by session `arena-b36a7b54`** (first re-check since the original resolution): all five listings fetched live, titles matching word for word, category paths matching. Prices and ratings visible during those fetches were deliberately not copied (R3). The dated log sits in the Data Room (`/data-room/#verification-log`).
 
-## 7. Flags (20 — none blocks publication)
+## 7. Flags (21 — none blocks publication)
 
 | ID | Item | Status |
 |---|---|---|
@@ -116,10 +116,9 @@ Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed r
 | FLG-003 | Compliance status of link.amazon short links unresolved | Open |
 | FLG-004 | No product has been handled by this desk | Open |
 | FLG-005 | Prices and ratings deliberately not displayed | Open |
-| FLG-006 | Certification/performance claims are manufacturer claims only | Open |
+| FLG-006 | Certification and performance claims are manufacturer claims | Open |
 | FLG-007 | No analytics endpoint deployed; no traffic figures exist | Open |
 | FLG-008 | No mailing provider, Search Console token, or custom domain | Open |
-| FLG-009 | Earlier sessions published competing versions | Needs review |
 | FLG-001 | The supplied short links redirect without an Associates tag | Open |
 | FLG-002 | Intended ASIN for each product is unconfirmed | Open |
 | FLG-003 | Compliance status of link.amazon short links is unresolved | Open |
@@ -129,7 +128,7 @@ Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed r
 | FLG-007 | No analytics endpoint is deployed, so no traffic figures exist | Open |
 | FLG-008 | No mailing provider, no Search Console token, no custom domain | Open |
 | FLG-010 | Affiliate redirect pages were marked noindex and nofollow | **Fixed in this build** (generator now emits index,follow; enforced by R10) |
-| FLG-015 | Fix recorded in a script CI does not run; two brands on the live site (renumbered from a duplicated FLG-012) | **Fixed in this build** (CI generator corrected). ID note: recorded as FLG-012 by session 2139de5f; renumbered to FLG-015 because the og:image finding already occupied FLG-012 and FLG-014 was taken by another finding. |
+| FLG-015 | Fix recorded in a script CI does not run; two brands on the live site (renumbered from a duplicated FLG-012) | **Fixed in this build** (CI generator corrected). ID note: recorded as FLG-012 by session 2139de5f; renumbered to FLG-015 (og:image occupied FLG-012; FLG-014 was taken). |
 | FLG-011 | Six competing site generations had accumulated on one host | Needs review |
 | FLG-012 | Every page advertised a social image that did not exist | **Fixed in this build** (real image; gate R11 now guards it) |
 | FLG-009 | Several earlier sessions published competing versions of this site | Needs review |
@@ -139,9 +138,10 @@ Amazon listing data (titles, ASINs, category paths) is the 2026-11-20 observed r
 | FLG-017 | The live site root served two different builds to two requests on the same day | Open |
 | FLG-018 | The privacy page did not say that the hosting provider logs visitor IP addresses | Fixed in this build |
 | FLG-019 | Two flag registers disagree, and one entry in the older register is out of date | Open |
-| FLG-020 | Flag ID FLG-012 was used twice in the FLAGS list | Fixed in this build |
+| FLG-020 | Flag ID FLG-012 was used twice in the FLAGS list | **Fixed** (duplicate renumbered to FLG-015) |
+| FLG-021 | Three specification values were shown that the listing text re-read on 2026-11-20 does not state | **Fixed in this build** (blanked, not inferred) |
 
-All 20 are published with evidence and source links at `/flagged/`.
+All 21 are published with evidence and source links at `/flagged/`.
 
 ## 8. Recommendation — choose a path before implementing anything else
 
@@ -163,7 +163,6 @@ Do not publish the topic queue until its gates pass. Do not add categories until
 - The “AI-powered platform” in the original brief is scoped honestly in §1: generation + gating are automated; research, pricing, trend and commission intelligence are not built and are not claimed.
 - Compliance conclusions describe how the build responds to quoted policy text. They are not legal advice.
 
-<<<<<<< HEAD
 ## 10. Re-check of 2026-11-20 (session `ab61d616`, task S16)
 
 Added after the sections above. Sections 1–9 describe the build as it stood before this check and are not rewritten.

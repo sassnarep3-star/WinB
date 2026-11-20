@@ -3,7 +3,7 @@
 // The front page sells; these pages account for themselves.
 
 import { SITE, SOURCES, PRODUCTS, EVENTS, LEDGER, FLAGS, QUESTIONS, SUGGESTIONS, GUIDES, MOMENTS, TOPIC_QUEUE, PATHS, GAPS, VERIFICATION_LOG } from './data.mjs';
-import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink } from './core.mjs';
+import { esc, url, page, pageHead, table, badge, srcLink, blank, amazonLink, sourceRel } from './core.mjs';
 import { DECISION_QUEUE, BLOCKING_QUESTIONS, OWNER_ACTIONS } from './decision-queue.mjs';
 import { ALL_GUIDES } from './editorial.mjs';
 import { WORKSHEETS } from './tools-content.mjs';
@@ -261,7 +261,7 @@ export function dataRoom() {
     .map(
       (s) => `<tr>
       <td class="mono tiny">${esc(s.id)}</td>
-      <td><a href="${s.url}" rel="noopener" target="_blank"><b>${esc(s.title)}</b></a><br><span class="tiny muted">${esc(s.publisher)}</span></td>
+      <td><a href="${s.url}" rel="${sourceRel(s.url)}" target="_blank"><b>${esc(s.title)}</b></a><br><span class="tiny muted">${esc(s.publisher)}</span></td>
       <td class="nowrap tiny">${esc(s.updated || '—')}</td>
       <td class="nowrap tiny">${esc(s.checked)}</td>
       <td class="tiny">${s.supports.map((x) => `• ${esc(x)}`).join('<br>')}</td>
