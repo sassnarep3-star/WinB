@@ -23,6 +23,9 @@ push the claim immediately. Never start a task another session has claimed.
 | 2026-11-20 | `arena-afa610ec` | Integration: branch pushed, PR opened, merged to `main`, Pages deploy confirmed (§5). |
 | 2026-11-20 | `arena-c17764af` | Read board. No other session is active (only `arena/c17764af-winb` and `main` exist; `gh pr list` empty). Stale claims older than 60 minutes with no commits are open to takeover per the protocol; this session therefore claims scopes S10–S13 below and operates as polish + integration session. Owner brief for this cycle: **make it read like a shop, not an audit** — lead with products, seasonal clusters, publication imagery, suggestions with decision paths, questions listing known/unknown, and a full source re-verification pass. |
 | 2026-11-20 | `arena-c17764af` | Claimed scopes S10–S13 (§2). |
+| 2026-11-20 | `arena-c17764af` | **S12 source re-verification.** Re-fetched all ten official sources (A1–A3, F1–F2, G1–G4, U1) and compared every quoted claim line by line. All claims match the pages as served; all recorded page-update dates are correct. One new observation recorded (Participation Requirements §6(w) on link shortening — does not condemn the supplied links, does not settle FLG-003). Detail in §4b. |
+| 2026-11-20 | `arena-c17764af` | **S10/S11 polish pass.** Front page rebuilt to lead with products and seasonal clusters (holiday hosting, gifting, weeknight crisping) with editorial imagery; 3 new question-shaped guides (8 total); audit-speak reframed to buyer language across the front page, product pages, compare and reviews; product card "1 probes" grammar bug and P02 "aFrench-door" typo fixed; og-image reference repaired (was pointing at a non-existent .png); Decision Room suggestions now ship with explicit decision paths ("choose one path before this moves") and questions render known/missing/how-to-find; 2 new questions (Q-11 seasons, Q-12 archive cleanup); 5 new suggestions (SUG-09..SUG-13). `tools/check.cjs` SIBLING_GUIDES extended to the three new sibling-built guides so the crisp gate keeps treating the sibling generation as a sibling. |
+| 2026-11-20 | `arena-c17764af` | Gates: `verify` R1–R10 pass (30 canonical pages, 35 Amazon links, 299 internal links); `linkcheck` pass (53 files, 0 broken, XML valid); `check.cjs` pass (99 files, 2 pre-existing archive warnings, 0 failures); CI sequence reproducible (no drift); HTTP smoke at `/WinB/` pass (24 pages + 49 assets, all 200). |
 
 **Note on parallel sessions.** The protocol above assumes several concurrent sessions. At the
 time of writing there were none: the branch note, `git branch -a`, and `gh pr list` all showed a
@@ -63,10 +66,10 @@ Status values: `unclaimed` · `in progress` · `done` · `needs review`.
 | S07 | Decision surfaces: Decision Room (suggestions + open questions), Flagged for Review page, Data Room register tables | `arena-afa610ec` | `_build/content-pages.mjs`, `_build/data.mjs` | done |
 | S08 | Final integration: build, link check, merge to `main`, confirm Pages deploy, record PR + result here | `arena-afa610ec` | repo root, `.github/` | done |
 | S09 | **Handoff to this session as integration session.** `main` had advanced 55 commits past this branch, carrying six competing site generations. Rebased, resolved 17 add/add conflicts in favour of the canonical root build, retired the superseded trees with noindex + banner, fixed five `/go/` pages that were `noindex,nofollow` while forwarding to affiliate links (FLG-010), and recorded the six-generation collision (FLG-011). | `arena-afa610ec` | `tools/consolidate.mjs`, `tools/verify.mjs`, `tools/linkcheck.mjs`, `_build/build.mjs`, `_build/data.mjs` | done |
-| S10 | Shop-tone + publication pass: front page leads with the products (not the verification process); seasonal/topic clusters; editorial imagery; copy and bug fixes (e.g. "1 probes", "aFrench-door") | `arena-c17764af` | `_build/content-shop.mjs`, `_build/core.mjs`, `_build/make-images.mjs`, `assets/css/site.css`, `assets/img/` | in progress |
-| S11 | Decision surfaces upgrade: suggestions rendered as reviewable decision paths (choose before implementing), questions rendered as known / unknown / how-to-find, new missing-information questions and suggestions from this cycle | `arena-c17764af` | `_build/content-oversight.mjs`, `_build/data.mjs` | in progress |
-| S12 | Line-by-line source re-verification against the official pages (fetch each source, compare the quoted claims, record exactly which were re-fetched and which could not be), irregularity flags | `arena-c17764af` | `_build/data.mjs`, `COORDINATION.md` | in progress |
-| S13 | Final integration: build + gates (verify, links, crisp check, HTTP smoke), PR to `main`, merge, confirm Pages deploy, record results here | `arena-c17764af` | repo root, `.github/`, `EXECUTIVE-SUMMARY.md` | unclaimed |
+| S10 | Shop-tone + publication pass: front page leads with the products (not the verification process); seasonal/topic clusters; editorial imagery; copy and bug fixes (e.g. "1 probes", "aFrench-door") | `arena-c17764af` | `_build/content-shop.mjs`, `_build/core.mjs`, `_build/make-images.mjs`, `assets/css/site.css`, `assets/img/` | done |
+| S11 | Decision surfaces upgrade: suggestions rendered as reviewable decision paths (choose before implementing), questions rendered as known / unknown / how-to-find, new missing-information questions and suggestions from this cycle | `arena-c17764af` | `_build/content-oversight.mjs`, `_build/data.mjs` | done |
+| S12 | Line-by-line source re-verification against the official pages (fetch each source, compare the quoted claims, record exactly which were re-fetched and which could not be), irregularity flags | `arena-c17764af` | `_build/data.mjs`, `COORDINATION.md` | done |
+| S13 | Final integration: build + gates (verify, links, crisp check, HTTP smoke), PR to `main`, merge, confirm Pages deploy, record results here | `arena-c17764af` | repo root, `.github/`, `EXECUTIVE-SUMMARY.md` | in progress |
 
 **Claim format** (append a row when you start):
 `| <id> | <task> | <session> | <files> | in progress |`
@@ -115,6 +118,22 @@ been updated, the update date shown on the page is recorded in `_build/data.mjs`
 **Irregularities found** (all published on `/flagged/`, none blocking): FLG-001 … FLG-011.
 FLG-010 (exit pages hidden from search) was fixed in this build and is recorded as `Fixed in this build`.
 
+### 4b. Re-verification record (session `arena-c17764af`, 2026-11-20)
+
+Every source above was **re-fetched on 2026-11-20** and each claim quoted on the site was
+compared line by line against the page as served. Result: **all claims matched**; every
+recorded page-update date (A1 October 15, 2025; A2 April 14, 2026; F1 November 2019;
+F2 current as of 2026-11-18; G1 last updated 2025-12-10; U1 Last Updated April 14, 2025)
+is displayed exactly as recorded. Links for manual review: the §4 table.
+
+New observations from the re-check (neither blocks anything):
+
+| # | Observation | Handling |
+| --- | --- | --- |
+| 1 | Participation Requirements §6(w): a link shortening service must not be used “in a manner that makes it unclear that you are linking to an Amazon Site”. The supplied `link.amazon` links make the Amazon destination clear by domain, so the clause does not condemn them — but it also does not confirm them as approved Special Links. | FLG-003 stays **unresolved in both directions**, as published. No compliance claim is made either way. |
+| 2 | The ML-training prohibition appears both at the end of IP License §1 and in Participation Requirements §5 (and §2(e) for API content). The register cites “IP License §1 and §2(c)”. | Citation confirmed accurate (IP License §1 carries the prohibition; §2(c)(iii) carries the link-to-relevant-page rule). Extra clauses noted here for completeness. |
+| 3 | Google’s site-reputation policy page carries a 2026 EEA update (linked blog post 2026/08). None of this site’s claims depend on the EEA-specific handling. | No change needed. |
+
 ---
 
 ## 5. Integration result
@@ -157,6 +176,14 @@ FLG-010 (exit pages hidden from search) was fixed in this build and is recorded 
 ## 6. Run record
 
 *(append command output summaries here; keep it short)*
+
+**2026-11-20 · session `arena-c17764af` (S10–S12):**
+`node _build/build.mjs` → 31 files, 32 sitemap routes, 10 feed items ·
+`node tools/verify.mjs` → 30 canonical pages, R1–R10 PASS ·
+`node tools/linkcheck.mjs` → 53 files crawled, 0 broken links, XML valid ·
+`node tools/check.cjs` → 99 files checked, 195 passes, 2 pre-existing archive warnings, 0 failures (SIBLING_GUIDES extended with the 3 new sibling guides) ·
+CI sequence re-run (`build.mjs` + `make-images.mjs` + `build.cjs` + `noindex.cjs`) → byte-identical output, no drift ·
+HTTP smoke at `/WinB/` → 24 pages + 49 linked assets, all 200.
 
 ---
 

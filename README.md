@@ -10,8 +10,9 @@ two thermometers. Built for the WinB repository and published with GitHub Pages.
 
 ## What this is
 
-A shop, not an audit. Five product pages, two category hubs, a comparison table, five
-question-shaped guides, and one RSS feed. The compliance machinery is real but it lives
+A shop, not an audit. Five product pages, two category hubs, a comparison table, eight
+question-shaped guides in seasonal clusters (holiday hosting, gifting, weeknight
+crisping), and one RSS feed. The compliance machinery is real but it lives
 under the floor — the front page leads with products, and every register is one click
 away in the footer.
 
@@ -59,7 +60,7 @@ tools/             verify.mjs · linkcheck.mjs · smoke.mjs
 assets/            css/site.css · js/site.js · generated SVG artwork
 analytics/         deployable collected-worker.js + schema (NOT running)
 reviews/           five product pages (generated)
-guides/            five guides (generated)
+guides/           eight guides (generated)
 air-fryers/ thermometers/ compare/    category and comparison hubs
 decisions/ data-room/ flagged/        oversight surfaces
 methods/ about/ privacy/ executive-summary/
@@ -71,7 +72,7 @@ fails if the committed HTML drifts from `_build/`.
 ## Read these before changing anything
 
 - `COORDINATION.md` — the shared task board and the verification log
-- `/flagged/` — the nine items that could not be confirmed, with what would close each
+- `/flagged/` — the eleven items that could not be confirmed, with what would close each
 - `/decisions/` — suggestions ranked by priority, open questions, rejected options
 
 ## Two things that need the owner

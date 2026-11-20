@@ -24,6 +24,16 @@ export function decisionsPage() {
     <dt>Payoff</dt><dd>${esc(s.payoff)}</dd>
     <dt>Risk</dt><dd>${esc(s.risk)}</dd>
   </dl>
+  ${s.options && s.options.length ? `
+  <div class="opt-block">
+    <p class="opt-lead"><b>Choose one path before this moves.</b> Nothing here is implemented until a path is picked — review, choose, then build.</p>
+    ${s.options.map((o) => `
+    <div class="opt">
+      <div class="opt-h"><span class="opt-id">Path ${esc(o.id)}</span><b>${esc(o.label)}</b></div>
+      <p>${esc(o.tradeoff)}</p>
+    </div>`).join('')}
+    <p class="opt-decide"><b>What you need to decide:</b> ${esc(s.decide)}</p>
+  </div>` : (s.decide ? `<p class="opt-decide"><b>What you need to decide:</b> ${esc(s.decide)}</p>` : '')}
 </article>`;
 
   const qRow = (q) => `<tr>
@@ -85,7 +95,7 @@ ${pageHead({
     </div>
     <div class="callout mt-3">
       <h4>The pattern in the open questions</h4>
-      <p>Six of the seven open items need something only the owner has: dashboard access, a decision about identity, or money. That is not a research failure — it is the boundary of what a session without account access can settle. Where the answer is a check anyone with the login could do in ten minutes, the question says so and gives the steps.</p>
+      <p>Most open items need something only the owner has: dashboard access, a decision about identity or seasons, or money. That is not a research failure — it is the boundary of what a session without account access can settle. Where the answer is a check anyone with the login could do in ten minutes, the question says so and gives the steps.</p>
     </div>
   </div>
 </section>
@@ -166,7 +176,7 @@ ${pageHead({
   title: 'Data Room',
   lede: 'The raw record behind the shop: what each product link was intended to be, what it actually resolves to, which official sources back each claim, what is measured, and what the campaign ledger currently contains — which is nothing.',
   meta: `<div class="btn-row">
-    ${badge('5 products', 'plain')}${badge('11 sources', 'plain')}${badge('0 ledger rows', 'amber')}${badge('0 traffic measured', 'amber')}
+    ${badge('5 products', 'plain')}${badge(Object.keys(SOURCES).length + ' sources', 'plain')}${badge('0 ledger rows', 'amber')}${badge('0 traffic measured', 'amber')}
   </div>`,
 })}
 
@@ -210,6 +220,7 @@ ${pageHead({
         <p class="eyebrow">Register two</p>
         <h2>Source register</h2>
         <p>Every official page used to build this site, with the date Amazon or the agency last updated it and the date this desk read it. Re-check before republishing; policies change.</p>
+        <p class="tiny muted">Re-verification pass: every source below was re-fetched on ${esc(SITE.buildDate)} and compared line by line against the claims quoted on this site. All quoted claims matched the pages as served; page-update dates are shown exactly as the publishers display them.</p>
       </div>
     </div>
     <div class="table-wrap">
@@ -286,7 +297,7 @@ ${pageHead({
   <div class="wrap">
     <div class="sec-head"><div><p class="eyebrow">Register five</p><h2>Content inventory</h2></div></div>
     ${table({
-      caption: '<b>Everything published.</b> Five product pages, five guides, two category hubs, one comparison table.',
+      caption: `<b>Everything published.</b> Five product pages, ${GUIDES.length} guides, two category hubs, one comparison table.`,
       head: ['Type', 'Title', 'Path', 'Published', 'Sources'],
       rows: [
         ...PRODUCTS.map(
@@ -307,7 +318,7 @@ ${pageHead({
     path: '/data-room/',
     title: 'Data Room — product intent, sources, events and ledger | Counterwise',
     description:
-      'The raw register behind the shop: intended vs observed ASINs stored separately, 11 official sources with read dates, the five measured events, and an empty campaign ledger with its schema.',
+      'The raw register behind the shop: intended vs observed ASINs stored separately, every official source with its read date, the five measured events, and an empty campaign ledger with its schema.',
     body,
   });
 }
@@ -550,12 +561,12 @@ ${pageHead({
   kicker: 'For the owner',
   title: 'Executive summary',
   lede: 'What was built, what it can and cannot claim, what it needs from you, and the four decisions that carry the most weight.',
-  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · 5 guides · 11 official sources</p>`,
+  meta: `<p class="tiny muted" style="margin:0">Build ${esc(SITE.buildDate)} · associate tag ${esc(SITE.associateTag)} · 5 products · ${GUIDES.length} guides · ${Object.keys(SOURCES).length} official sources</p>`,
 })}
 <section class="section">
   <div class="wrap-narrow prose">
     <h2>In one paragraph</h2>
-    <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure above the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. The site reads as a buyer’s publication rather than an audit, with the registers kept in a separate Data Room and the outstanding items on a Flagged for Review page.</p>
+    <p>A five-product kitchen shop — three air fryers, two thermometers — built as a static publication with every Amazon link tagged and marked sponsored, the required Associates disclosure above the masthead on every page, no prices or ratings shown for policy reasons, and every unverifiable value left blank and flagged. It leads with the products: a front page that works like a magazine cover, seasonal topic clusters (holiday hosting, gifting, weeknight crisping), and question-shaped guides. The registers sit behind it — a Data Room, a Flagged for Review page, and a Decision Room where every suggestion ships with explicit paths so a choice is made before anything is built.</p>
 
     <h2>What the five supplied links turned out to be</h2>
     ${table({
@@ -606,7 +617,7 @@ ${pageHead({
     </ol>
 
     <h2>The honest assessment</h2>
-    <p>The site is in good shape as a publication and in an early state as a business. It has a coherent product set, a defensible editorial position and no compliance debt that it has hidden. What it does not have is a single reader, a single confirmed click, or a product anyone here has touched. The three suggestions at priority 1 are the ones that change that; everything else is polish on top of them.</p>
+    <p>The site is in good shape as a publication and in an early state as a business. It has a coherent product set, a defensible editorial position and no compliance debt that it has hidden. What it does not have is a single confirmed reader, click, or product anyone here has touched. The two suggestions at priority 1 are the ones that change that; everything else is polish on top of them.</p>
 
     <hr>
     <p class="small muted">Built and verified on ${esc(SITE.buildDate)}. Every official source is listed with its read date in the <a href="/data-room/#sources">source register</a>. The disclosure applies to this page too: <strong>${esc(SITE.associateStatement)}</strong></p>

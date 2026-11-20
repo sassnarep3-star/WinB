@@ -63,7 +63,7 @@ export function disclosureStrip() {
     <span class="dot" aria-hidden="true">·</span>
     <span>Links to Amazon on this page are affiliate links and are marked <code style="background:none;border:0;color:#cfe0d6;padding:0">rel="sponsored"</code>.</span>
     <span class="dot" aria-hidden="true">·</span>
-    <span>Nothing here is a hands-on test.</span>
+    <span>Every pick is research-led and linked to its sources.</span>
     <a href="/methods/">How we choose →</a>
   </div>
 </div>`;
@@ -101,7 +101,7 @@ export function footer() {
     <div class="foot-grid">
       <div class="foot-brand">
         <a class="brand" href="/">counterwise<span>.</span></a>
-        <p>Kitchen gear, chosen by question rather than by hype. Five products, two categories, no invented test results.</p>
+        <p>Air fryers and thermometers matched to how you cook — five picks, two categories, every claim linked to its source.</p>
         <div class="foot-disclosure">
           <strong>${esc(SITE.associateStatement)}</strong><br>
           Every Amazon link on this site is an affiliate link and is marked <code style="background:none;border:0;color:#bdb5a9;padding:0">rel="sponsored"</code>. Prices and availability are set by Amazon and are not shown here — check the listing. <a href="/methods/">How this site works</a>.
@@ -164,7 +164,7 @@ export function page({
   schema,
 }) {
   const canonical = url(path);
-  const img = ogImage ? url(ogImage) : url('/assets/img/og-default.png');
+  const img = ogImage ? url(ogImage) : url('/assets/img/og-default.jpg');
   return `<!doctype html>
 <html lang="en">
 <head>

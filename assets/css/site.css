@@ -547,6 +547,58 @@ td code, p code, li code {
   padding-top: 1.4rem; font-size: .74rem; color: #8b8377;
 }
 
+/* ------------------------------------------------------- seasonal clusters */
+.cluster-card .art {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--r) var(--r) 0 0;
+  background: var(--paper-2);
+}
+.cluster-card .art img { width: 100%; height: 100%; object-fit: cover; }
+.cluster-card .art::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(25,23,20,0) 45%, rgba(25,23,20,.55) 100%);
+}
+.cluster-card .art .tagline {
+  position: absolute; left: .85rem; bottom: .7rem; z-index: 2;
+  color: #fff; font-size: .72rem; font-weight: 650;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.cluster-card .body { padding: 1rem 1.15rem 1.15rem; }
+.cluster-card .body h3 { font-size: 1.12rem; margin: 0 0 .3rem; }
+.cluster-card .foot span:first-child { max-width: 62%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.chip-row { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1.2rem; }
+.chip {
+  display: inline-block; padding: .32rem .85rem;
+  border: 1px solid var(--line-2); border-radius: 999px;
+  font-size: .78rem; font-weight: 600; color: var(--ink-2);
+  background: var(--card); text-decoration: none;
+}
+a.chip:hover { border-color: var(--amber); color: var(--amber); }
+
+/* ------------------------------------------------- suggestion decision paths */
+.opt-block {
+  margin-top: .95rem; padding: .95rem 1.1rem;
+  background: var(--paper-2); border: 1px solid var(--line);
+  border-radius: var(--r);
+}
+.opt-lead { margin: 0 0 .7rem; font-size: .88rem; color: var(--ink-2); }
+.opt {
+  padding: .65rem .85rem; margin: .45rem 0;
+  background: var(--card); border: 1px solid var(--line);
+  border-left: 3px solid var(--green-2); border-radius: var(--r-sm);
+}
+.opt p { margin: .25rem 0 0; font-size: .82rem; color: var(--muted); line-height: 1.55; }
+.opt-h { display: flex; gap: .6rem; align-items: baseline; flex-wrap: wrap; font-size: .88rem; }
+.opt-id {
+  font-size: .68rem; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--amber);
+}
+.opt-decide { margin: .8rem 0 0; font-size: .82rem; color: var(--ink-2); }
+
 /* --------------------------------------------------------------- utilities */
 .muted { color: var(--muted); }
 .faint { color: var(--faint); }

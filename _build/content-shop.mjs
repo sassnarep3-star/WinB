@@ -1,7 +1,7 @@
 // content-shop.mjs — the reader-facing shop: front page, category hubs,
 // product pages, comparison table, guides.
 
-import { SITE, PRODUCTS, GUIDES, SOURCES, SUGGESTIONS, EVENTS } from './data.mjs';
+import { SITE, PRODUCTS, GUIDES, CLUSTERS, SOURCES, SUGGESTIONS, EVENTS } from './data.mjs';
 import {
   esc, url, page, pageHead, table, badge, amazonLink, srcLink, blank, crumbs,
 } from './core.mjs';
@@ -43,7 +43,7 @@ ${ids.map((id) => {
       <h3>${esc(p.shortName)}</h3>
       <p>${esc(p.bestFor)}</p>
       <div class="foot">
-        <span>${esc(p.compare.capacityQt ? p.compare.capacityQt + ' qt stated' : p.compare.probes + ' probes')}</span>
+        <span>${esc(p.compare.capacityQt ? p.compare.capacityQt + ' qt stated' : p.compare.probes + (p.compare.probes === 1 ? ' probe' : ' probes'))}</span>
         <span class="read">Read the pick <span class="arw">→</span></span>
       </div>
     </div>
@@ -63,18 +63,17 @@ ${list.map((g) => `<a class="card" href="/${g.path.replace(/\.html$/, '')}.html"
 
 // -------------------------------------------------------------- front page
 export function frontPage() {
-  const top = ['P01', 'P04'];
   const body = `
 <section class="hero">
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <p class="eyebrow">Five products · two categories · no invented tests</p>
-        <h1>The kitchen gear worth arguing about.</h1>
-        <p class="lede">Three air fryers and two thermometers, compared on the things that survive contact with a real kitchen: where the machine lives, how you get food out of it, and what it costs you in washing up.</p>
+        <p class="eyebrow">Five picks · two categories · updated ${esc(SITE.buildDateHuman)}</p>
+        <h1>Buy the kitchen gear you’ll actually keep using.</h1>
+        <p class="lede">Three air fryers and two thermometers, matched to how you cook — not to the biggest number on the box. Question-shaped guides, a comparison table that refuses to guess, and every claim linked to where it came from.</p>
         <div class="btn-row">
-          <a class="btn" href="/reviews/">See the five picks <span class="arw">→</span></a>
-          <a class="btn ghost" href="/guides/">Read the guides</a>
+          <a class="btn" href="/reviews/">Shop the five picks <span class="arw">→</span></a>
+          <a class="btn ghost" href="/compare/">Compare all five</a>
         </div>
       </div>
       <aside class="pick-panel" aria-labelledby="picks-h">
@@ -92,10 +91,56 @@ export function frontPage() {
       </aside>
     </div>
     <div class="hero-meta">
-      <div><b>3</b>air fryers, structurally different</div>
-      <div><b>2</b>thermometers, different jobs</div>
-      <div><b>0</b>prices printed, ratings borrowed, or test results invented</div>
+      <div><b>5</b>picks, matched to real kitchens</div>
+      <div><b>2</b>categories that work together</div>
+      <div><b>Every</b>spec linked to the listing it came from</div>
     </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">${esc(CLUSTERS[0].season)}</p>
+        <h2>Right now at Counterwise</h2>
+        <p>Seasonal clusters: one lead guide, the picks that fit, and the questions worth asking before the weekend arrives.</p>
+      </div>
+      <a class="more" href="/guides/">All guides →</a>
+    </div>
+    <div class="cards c3">
+      ${CLUSTERS.map(
+        (c) => `<a class="card cluster-card" href="/guides/${c.guides[0]}.html">
+        <div class="art">
+          <img src="/assets/img/${c.image}" alt="" width="640" height="360" loading="lazy">
+          <span class="tagline">${esc(c.season)}</span>
+        </div>
+        <div class="body">
+          <h3>${esc(c.title)}</h3>
+          <p>${esc(c.blurb)}</p>
+          <div class="foot">
+            <span>${esc(c.products.map((id) => P(id).shortName).join(' · '))}</span>
+            <span class="read">Open <span class="arw">→</span></span>
+          </div>
+        </div>
+      </a>`
+      ).join('')}
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">The five</p>
+        <h2>Matched to how you cook</h2>
+        <p>Each pick is built for a kind of kitchen and a kind of meal. Specs come straight from the listing and are labelled as claims; the pages do the matching.</p>
+      </div>
+      <a class="more" href="/compare/">Full comparison table →</a>
+    </div>
+    ${pickCards(['P01', 'P03', 'P02'])}
+    <div class="mt-2">${pickCards(['P04', 'P05'], { cls: 'cards c2' })}</div>
   </div>
 </section>
 
@@ -125,21 +170,6 @@ export function frontPage() {
   </div>
 </section>
 
-<section class="section tint">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow">The five</p>
-        <h2>Picked by specification, described without pretending</h2>
-        <p>Each page states what the listing claims, what the arithmetic says, and what this desk cannot tell you. Nothing here is a hands-on review, because nothing here has been handled.</p>
-      </div>
-      <a class="more" href="/compare/">Full comparison table →</a>
-    </div>
-    ${pickCards(['P01', 'P03', 'P02'])}
-    <div class="mt-2">${pickCards(['P04', 'P05'], { cls: 'cards c2' })}</div>
-  </div>
-</section>
-
 <section class="section">
   <div class="wrap">
     <div class="sec-head">
@@ -150,7 +180,7 @@ export function frontPage() {
       </div>
       <a class="more" href="/guides/">All guides →</a>
     </div>
-    ${guideCards(GUIDES.slice(0, 4))}
+    ${guideCards(GUIDES.filter((g) => !g.cluster).slice(0, 4))}
   </div>
 </section>
 
@@ -158,10 +188,10 @@ export function frontPage() {
   <div class="wrap">
     <div class="split">
       <div>
-        <p class="eyebrow">The honest part</p>
-        <h2>Everything on this site is a specification judgement, and it says so.</h2>
-        <p>This desk has not used any of these five products. The manufacturer's listing is the source, the arithmetic is shown, and where a number is missing the page says it is missing rather than filling it in.</p>
-        <p>That costs us the word “tested”. It buys a page you can check.</p>
+        <p class="eyebrow">How this works</p>
+        <h2>Every pick is research-led — and every claim is checkable.</h2>
+        <p>Recommendations here are built from manufacturer specifications, official safety data, and the fit questions anyone can verify at home. Where a number is missing, the page says so instead of guessing. Where a claim belongs to the manufacturer, it is labelled.</p>
+        <p>That is the deal: you get a page you can check, and we never claim a test we did not run.</p>
         <div class="btn-row mt-3">
           <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" href="/methods/">How we choose →</a>
           <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" href="/flagged/">What is still unverified →</a>
@@ -183,9 +213,9 @@ export function frontPage() {
 `;
   return page({
     path: '/',
-    title: 'Counterwise — kitchen gear chosen by question, not by hype',
+    title: 'Counterwise — air fryers and thermometers chosen by question, not by hype',
     description:
-      'Three air fryers and two thermometers, compared on access, footprint and cleanup rather than on quart counts. Specification-led buying guides with every unverified claim labelled.',
+      'Three air fryers and two thermometers, matched to how you cook. Seasonal buying guides, a comparison table that refuses to guess, and every claim linked to its source.',
     body,
     active: '/',
   });
@@ -318,7 +348,7 @@ ${pageHead({
   meta: `<div class="btn-row" style="margin-top:.4rem">
     ${badge(p.category === 'air-fryers' ? 'Air fryer' : 'Thermometer', 'plain')}
     ${badge('ASIN ' + p.asin, 'plain')}
-    ${badge('Specification judgement — not tested', 'amber')}
+    ${badge('Specification-led pick', 'amber')}
   </div>`,
 })}
 <section class="section">
@@ -328,10 +358,10 @@ ${pageHead({
         <div class="prose">
           <h2>When to skip it</h2>
           <p>${esc(p.thinkTwiceIf)}</p>
-          <p>That is the whole recommendation, honestly stated. Everything below it is the evidence for it — and the things it cannot tell you.</p>
+          <p>That one line is the whole recommendation. Everything below it is the evidence behind it — and the open questions worth checking before you order.</p>
 
           <h2>What the listing claims</h2>
-          <p>Every figure below is the manufacturer’s, taken from the product listing on ${esc(SITE.buildDateHuman)}. None of it is a measurement made by this desk.</p>
+          <p>Every figure below is the manufacturer’s, from the product listing, read on ${esc(SITE.buildDateHuman)}. Specs are claims rather than measurements — each one is labelled with where it came from.</p>
         </div>
         <div class="spec-grid mt-2">
           ${specRows}
@@ -345,14 +375,14 @@ ${pageHead({
           .join('')}</div>` : ''}
 
         <div class="prose mt-4">
-          <h2>What this page cannot tell you</h2>
-          <p>This is the part most buying pages leave out. It is the part that decides whether you are satisfied in a month.</p>
+          <h2>Worth checking before you order</h2>
+          <p>The specs tell you what the machine is. These open questions are what decide whether you are happy with it in a month.</p>
           <ul>
             ${p.unverifiedClaims.map((c) => `<li>${esc(c)}</li>`).join('\n')}
           </ul>
-          <div class="callout red">
-            <h4>No hands-on claim is made here</h4>
-            <p>This desk has not used this product. FTC guidance is explicit that you cannot describe your experience with a product you have not tried, so this page does not. It compares published specifications and fit. See <a href="/methods/">how we choose</a> and <a href="/flagged/">FLG-004</a>.</p>
+          <div class="callout green">
+            <h4>How this pick was made</h4>
+            <p>This pick is research-led: manufacturer specifications, fit arithmetic, and official safety data. Hands-on results are never claimed here — FTC guidance is explicit that you cannot describe experience with a product you have not tried, and this page does not. See <a href="/methods/">how we choose</a> and <a href="/flagged/">FLG-004</a>.</p>
           </div>
         </div>
 
@@ -461,7 +491,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Compare' }],
   kicker: 'All five, one table',
   title: 'The comparison table',
-  lede: 'Five products, compared on the fields that are stable enough to print. Two columns are deliberately empty, and the reason is written underneath.',
+  lede: 'Five products, side by side, on the fields that are stable enough to print. Where a number would be a guess, the cell is empty — and the table says why.',
 })}
 <section class="section">
   <div class="wrap">
@@ -592,10 +622,13 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'Guides' }],
   kicker: 'The notebook',
   title: 'Guides',
-  lede: 'Five pieces written to answer a question, not to rank for a product name. Two are about choosing a machine; three are about using one safely and sanely.',
+  lede: 'Eight pieces written to answer a question, not to rank for a product name: choosing a machine, living with one, and cooking safely through the seasons.',
 })}
 <section class="section">
   <div class="wrap">
+    <div class="chip-row">
+      ${CLUSTERS.map((c) => `<a class="chip" href="/guides/${c.guides[0]}.html">${esc(c.season)}</a>`).join('')}
+    </div>
     ${guideCards(GUIDES, 'cards c2')}
     <div class="callout mt-3">
       <h4>How the cadence works</h4>
@@ -619,7 +652,7 @@ ${pageHead({
   trail: [{ href: '/', label: 'Home' }, { label: 'The five picks' }],
   kicker: 'The shortlist',
   title: 'Five products, and what each one is for',
-  lede: 'Not a ranked list. Three air fryers and two thermometers that solve different problems, each with the same page structure: who it suits, what the listing claims, and what nobody can tell you yet.',
+  lede: 'Not a ranked list. Three air fryers and two thermometers that solve different problems, each with the same page structure: who it suits, what the listing claims, and what to check before ordering.',
 })}
 <section class="section">
   <div class="wrap">

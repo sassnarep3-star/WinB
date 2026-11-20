@@ -262,7 +262,7 @@ export const PRODUCTS = [
       'The accessory list behind “six cooking accessories” is not itemised in the data available to this desk.',
     ],
     bestFor:
-      'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for aFrench-door oven rather than a tall basket unit.',
+      'Anyone who wants one machine to roast, toast and air-fry, and who has the counter depth for a French-door oven rather than a tall basket unit.',
     thinkTwiceIf:
       'Your counter is shallow, or you want something you can lift out and wash in a standard sink. An oven this size is a fixture, not a gadget.',
     compare: { format: 'oven', capacityQt: 26, baskets: 0, window: true, style: 'French-door oven' },
@@ -732,6 +732,28 @@ export const QUESTIONS = [
     owner: '—',
     blocks: 'Nothing. Implemented.',
   },
+  {
+    id: 'Q-11',
+    status: 'Open',
+    question: 'Which seasons should the publishing calendar run on?',
+    why: 'This build ships three seasonal clusters (holiday hosting, gifting, weeknight crisping) as a working demonstration of the format. Writing more of them without an approved calendar is how a publication turns into a content farm.',
+    known: 'The format works: a cluster is one lead guide, two or three picks, and a themed slot on the front page. The first three are live.',
+    unknown: 'Whether the owner wants seasons to drive the calendar at all, and which seasons match the actual audience (game-day? summer grilling? back-to-school?).',
+    howToFind: 'One decision in the Decision Room (SUG-09): pick the full calendar, holiday-and-gifting only, or drop seasons entirely. Nothing else is written until then.',
+    owner: 'Site owner',
+    blocks: 'SUG-09, SUG-13',
+  },
+  {
+    id: 'Q-12',
+    status: 'Open',
+    question: 'Should the archived competing site trees be deleted once recrawl is confirmed?',
+    why: 'Fifty-six superseded pages from earlier sessions are kept, marked noindex and banner-labelled (FLG-011). Keeping them is safe but permanent; deleting them tidies the repository at the cost of losing the in-place record.',
+    known: 'The pages are noindex, nothing in the live navigation links to them, and they remain readable in git history either way.',
+    unknown: 'Whether search engines have recrawled and dropped them, and whether the owner wants the working trees preserved as-is.',
+    howToFind: 'Check Search Console coverage after verification (Q-06/SUG-10), then delete or keep in one commit. No urgency either way.',
+    owner: 'Site owner',
+    blocks: 'FLG-011 closure. Not publication.',
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -745,11 +767,17 @@ export const SUGGESTIONS = [
     priority: 1,
     title: 'Buy and document one review unit',
     recommendation: 'Start with the cheapest of the five. Buy it, photograph the unboxing, publish the receipt.',
-    why: 'Every page currently says “we have not handled this”. One disclosed bought-and-tested unit converts the whole site from specification summary to review, which is the only durable defence against both Google’s thin-affiliation problem and reader distrust.',
+    why: 'Every page currently describes listing data and fit. One disclosed bought-and-tested unit converts the whole site from specification summary to review, which is the only durable defence against both Google’s thin-affiliation problem and reader distrust.',
     effort: 'Cost of one unit, 2–3 days',
     payoff: 'Highest of anything on this page',
     risk: 'A single unit does not generalise. Do not let it become “we tested everything”.',
-    status: 'Not started',
+    status: 'Proposed — awaiting owner choice',
+    options: [
+      { id: 'A', label: 'Buy the cheapest unit now', tradeoff: 'Spend is small and the content lift is immediate, but one unit only speaks for itself.' },
+      { id: 'B', label: 'Request a review unit from the two brands', tradeoff: 'No spend, but a disclosure obligation attaches, and a project with no traffic history may be refused.' },
+      { id: 'C', label: 'Keep the specification-and-fit framing', tradeoff: 'Zero cost and legally clean, but the site never differentiates from listing summaries.' },
+    ],
+    decide: 'A budget decision plus a disclosure preference. Path A needs only the owner’s go-ahead; Path B needs the owner to send the request from a real address (see Q-07).',
   },
   {
     id: 'SUG-02',
@@ -761,6 +789,11 @@ export const SUGGESTIONS = [
     payoff: 'Protects all future revenue',
     risk: 'None.',
     status: 'Needs owner access',
+    options: [
+      { id: 'A', label: 'Mint one tagged link in Associates Central and compare', tradeoff: 'Five minutes in the dashboard settles FLG-001 and Q-01 in one direction or the other.' },
+      { id: 'B', label: 'Test one short link per product through the site and read the tracking report', tradeoff: 'Slower — needs real clicks and a reporting period — but tests the exact links the owner supplied.' },
+    ],
+    decide: 'Dashboard access. This is the single highest-value action on the page and nothing here can perform it without the owner’s login.',
   },
   {
     id: 'SUG-03',
@@ -770,8 +803,14 @@ export const SUGGESTIONS = [
     why: 'Without measurement the next topic is chosen by instinct — the exact failure mode this project set out to avoid. Thirty days of page_view plus outbound_click is enough to rank the existing guides honestly.',
     effort: 'Half a day, then nothing',
     payoff: 'Turns topic choice into a data question',
-    risk: 'Small samples mislead. Do not compute a conversion rate from 12 clicks.',
+    risk: 'Small samples mislead. Do not compute a conversion rate from a dozen clicks.',
     status: 'Source shipped, not deployed',
+    options: [
+      { id: 'A', label: 'Deploy the supplied self-hosted worker', tradeoff: 'First-party, privacy-preserving, no third-party cookies; needs a Cloudflare account or equivalent.' },
+      { id: 'B', label: 'Point ENDPOINT at any existing first-party logger the owner runs', tradeoff: 'Fastest if such a service exists; schema must accept the five event names unchanged.' },
+      { id: 'C', label: 'Ship with the counter off', tradeoff: 'Nothing is measured and the campaign ledger stays empty; acceptable only if the owner prefers no telemetry at all.' },
+    ],
+    decide: 'Whether the owner has a Cloudflare (or similar) account to host the worker, or an existing endpoint to reuse. Everything else is already built.',
   },
   {
     id: 'SUG-04',
@@ -783,6 +822,11 @@ export const SUGGESTIONS = [
     payoff: 'Earns links; a real answer to a real query',
     risk: 'The tone must stay practical. A framework with no numbers of its own is still thin.',
     status: 'Draft published, needs a measurement worksheet',
+    options: [
+      { id: 'A', label: 'Add a printable measurement worksheet to the existing capacity guide', tradeoff: 'Turns a good draft into a genuinely linkable tool; needs one evening of work and a PDF.' },
+      { id: 'B', label: 'Leave the guide as prose', tradeoff: 'Already published and useful; the worksheet is the part that earns outside links.' },
+    ],
+    decide: 'Whether the owner wants downloadable tools on the site at all. Everything needed is already in the published guide’s method.',
   },
   {
     id: 'SUG-05',
@@ -794,6 +838,8 @@ export const SUGGESTIONS = [
     payoff: 'Immediate',
     risk: 'None, as long as the no-price rule is not quietly broken later.',
     status: 'Implemented',
+    options: [],
+    decide: 'Nothing. Already built and enforced by rule R3 in the gate.',
   },
   {
     id: 'SUG-06',
@@ -804,7 +850,13 @@ export const SUGGESTIONS = [
     effort: 'Ongoing',
     payoff: 'Compounding',
     risk: 'Miss two cycles and the site looks abandoned. Two weeks is achievable; daily is not.',
-    status: 'Proposed',
+    status: 'Proposed — awaiting owner choice',
+    options: [
+      { id: 'A', label: 'Fortnightly, seasonal clusters first', tradeoff: 'Matches the seasonal calendar this build ships; steady enough to look alive, slow enough to stay original.' },
+      { id: 'B', label: 'Monthly', tradeoff: 'Safest for quality, slowest to build a body of work.' },
+      { id: 'C', label: 'Weekly', tradeoff: 'Faster footprint, but every cycle must be genuinely original or it reads as scaled content.' },
+    ],
+    decide: 'How much writing time the owner actually has per month. The build cannot make that trade-off.',
   },
   {
     id: 'SUG-07',
@@ -816,6 +868,11 @@ export const SUGGESTIONS = [
     payoff: 'Medium, compounding',
     risk: 'Requires a real contact route (Q-07) and a reply discipline.',
     status: 'Blocked on Q-07',
+    options: [
+      { id: 'A', label: 'Publish a contact address, then start the weekly answer', tradeoff: 'Unblocks the loop; the address becomes public.' },
+      { id: 'B', label: 'Formalise the repository issue tracker as the contact route', tradeoff: 'No new address needed, but fewer readers will use it.' },
+    ],
+    decide: 'Whether the owner wants a public email address (Q-07).',
   },
   {
     id: 'SUG-08',
@@ -827,16 +884,141 @@ export const SUGGESTIONS = [
     payoff: 'Protects the whole site',
     risk: 'Feels slow. It is slow.',
     status: 'Standing recommendation',
+    options: [],
+    decide: 'Nothing until the campaign ledger has real rows to argue with.',
+  },
+  {
+    id: 'SUG-09',
+    priority: 2,
+    title: 'Approve a seasonal cluster calendar for the next four quarters',
+    recommendation: 'The first three clusters (holiday hosting, gifting, weeknight crisping) ship in this build as a working demonstration. Approve the calendar — or cut it back — before the next quarter is written.',
+    why: 'Seasonal clusters give the publication a reason to exist on a date, not just at a query. But a calendar the owner has not approved becomes work nobody wants. This suggestion exists to get the decision made before more pages are written.',
+    effort: 'One review of the calendar below',
+    payoff: 'Turns the publishing cadence (SUG-06) into a plan',
+    risk: 'Seasons that do not match the owner’s audience are wasted cycles. Game-day content in March is noise.',
+    status: 'Partial — first three clusters built per the brief; the calendar awaits owner approval',
+    options: [
+      { id: 'A', label: 'Full calendar: holiday → gifting → game-day → spring reset → summer grilling', tradeoff: 'Always something in season; five clusters a year of writing.' },
+      { id: 'B', label: 'Holiday and gifting only, evergreen otherwise', tradeoff: 'Concentrates effort where intent is highest; quieter mid-year.' },
+      { id: 'C', label: 'Drop seasons, publish evergreen question guides only', tradeoff: 'Simplest; loses the “why now” reason to revisit.' },
+    ],
+    decide: 'Which seasons match the owner’s actual audience. Q-11 collects the answer.',
+  },
+  {
+    id: 'SUG-10',
+    priority: 2,
+    title: 'Set up Search Console, and decide on a domain',
+    recommendation: 'Verify the site in Search Console now (URL-prefix property works on github.io), and treat the custom-domain question as a separate decision.',
+    why: 'Search Console is the only source of real query data, and it is the measurement that chooses the next topic. It works today on the project URL; the domain question is brand, not measurement.',
+    effort: 'Search Console: an hour. Domain: a purchase and DNS.',
+    payoff: 'Real query data within weeks of verification',
+    risk: 'A github.io URL makes a later domain migration an extra step, not a blocker.',
+    status: 'Needs owner access',
+    options: [
+      { id: 'A', label: 'Verify the github.io URL now, buy a domain later', tradeoff: 'Measurement starts immediately; a later move needs one redirect step.' },
+      { id: 'B', label: 'Buy the domain first, then verify once', tradeoff: 'Cleaner long-term, but query data is delayed until the domain resolves.' },
+      { id: 'C', label: 'Defer both', tradeoff: 'Topic choice stays instinct-based, which is the failure mode this project exists to avoid.' },
+    ],
+    decide: 'Owner’s Search Console access and appetite for a domain purchase (Q-06).',
+  },
+  {
+    id: 'SUG-11',
+    priority: 3,
+    title: 'Decide the byline: a named author or the desk',
+    recommendation: 'A named author with a two-line biography, or a formal editorial desk with a published policy. Pick one and make the pages consistent with it.',
+    why: 'Google’s site-reputation policy weighs stated or implied authorship explicitly, and readers trust a person or an institution — not an anonymous page. The current “Counterwise desk” byline works only while the editorial policy is visible and honoured.',
+    effort: 'A decision, then a small copy pass',
+    payoff: 'Trust and policy posture',
+    risk: 'A named author takes public editorial responsibility. That is the point, and it is a real commitment.',
+    status: 'Proposed — awaiting owner choice',
+    options: [
+      { id: 'A', label: 'Named author with a real bio', tradeoff: 'Strongest trust signal; the owner’s name becomes public.' },
+      { id: 'B', label: 'Keep the desk byline, strengthen the editorial policy page', tradeoff: 'Institutional and private; slightly weaker on the authorship factor.' },
+    ],
+    decide: 'Whether the owner wants to publish their identity (Q-05).',
+  },
+  {
+    id: 'SUG-12',
+    priority: 3,
+    title: 'Choose where captured addresses will go',
+    recommendation: 'The capture form already counts intent and transmits nothing. Wire it to a real provider — or remove it — before the next guide ships.',
+    why: 'A form that silently discards input is worse than no form. The moment a reader types an address and it vanishes, trust is spent.',
+    effort: 'Half a day once a provider is chosen',
+    payoff: 'An audience the site owns',
+    risk: 'A mailing list is a compliance surface: consent language and storage terms must be real.',
+    status: 'Blocked on Q-04',
+    options: [
+      { id: 'A', label: 'Privacy-first hosted provider', tradeoff: 'Fast to wire; the provider holds the addresses and its terms apply.' },
+      { id: 'B', label: 'Self-hosted list alongside the analytics worker', tradeoff: 'Full control, more maintenance, and consent handling is yours to get right.' },
+      { id: 'C', label: 'Remove the form until there is traffic worth capturing', tradeoff: 'Honest, and the capture_intent counter still measures interest without a form.' },
+    ],
+    decide: 'Provider and consent language (Q-04). Nothing transmits until the owner picks a path.',
+  },
+  {
+    id: 'SUG-13',
+    priority: 4,
+    title: 'Queue the game-day cluster for late January',
+    recommendation: 'A game-day batch-cooking guide plus a picks recap, published when the season actually starts — or not at all, if the owner cuts seasons (SUG-09 Path C).',
+    why: 'It is the next seasonal slot after the holidays, and the batch-cooking arithmetic already exists in the capacity guide. But it should not be written until the calendar decision is made.',
+    effort: '1–2 days, if approved',
+    payoff: 'Seasonal relevance in a low-competition window',
+    risk: 'Writing it before SUG-09 is decided risks building a cluster nobody wants.',
+    status: 'Proposed — not implemented (queued behind SUG-09)',
+    options: [
+      { id: 'A', label: 'Publish in late January, tied to the winter clusters', tradeoff: 'On-season and cheap to produce from existing material.' },
+      { id: 'B', label: 'Skip 2027, revisit next year', tradeoff: 'No risk; no seasonal presence in Q1.' },
+    ],
+    decide: 'The outcome of SUG-09. This item exists so the decision is made on purpose rather than by default.',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Seasons and topic clusters. The front page renders the current cluster;
+// guides attach to a cluster with `cluster: <id>`. Evergreen guides have
+// `cluster: null` and stay out of the seasonal band.
+// ---------------------------------------------------------------------------
+export const CLUSTERS = [
+  {
+    id: 'holiday-hosting',
+    season: 'In season · Holiday hosting',
+    title: 'Cooking for a crowd this holiday',
+    blurb:
+      'When the table is full, capacity stops being a number on a box and becomes a question of batches, timing and leftovers. Start here.',
+    image: 'scene-holiday.jpg',
+    guides: ['holiday-hosting', 'temperature-safety'],
+    products: ['P02', 'P03', 'P05'],
+  },
+  {
+    id: 'gifting',
+    season: 'In season · Gifting',
+    title: 'Gifts for people who actually cook',
+    blurb:
+      'The most-used tool in a kitchen is usually the smallest one. Two thermometers, two kinds of cook, and a guide to matching them.',
+    image: 'scene-gifting.jpg',
+    guides: ['gift-guide-thermometers'],
+    products: ['P04', 'P05'],
+  },
+  {
+    id: 'winter-crisping',
+    season: 'Winter · Weeknights',
+    title: 'Weeknight crisping season',
+    blurb:
+      'Cold evenings, hot baskets. Whether an air fryer earns its counter space — and which shape suits the food you actually cook.',
+    image: 'scene-everyday.jpg',
+    guides: ['air-fryer-worth-it', 'capacity-checklist'],
+    products: ['P01', 'P03'],
   },
 ];
 
 // ---------------------------------------------------------------------------
 // Guides. `path` keeps the already-published URL for the four live guides.
+// `cluster` links a guide to a CLUSTERS entry; null means evergreen.
 // ---------------------------------------------------------------------------
 export const GUIDES = [
   {
     slug: 'basket-or-oven',
     path: 'guides/basket-or-oven.html',
+    cluster: null,
     kicker: 'Format',
     title: 'Basket or oven-style air fryer: what should you compare?',
     summary:
@@ -879,6 +1061,7 @@ export const GUIDES = [
   {
     slug: 'capacity-checklist',
     path: 'guides/capacity-checklist.html',
+    cluster: 'winter-crisping',
     kicker: 'Fit',
     title: 'A no-hype checklist for comparing air fryer capacity',
     summary:
@@ -920,6 +1103,7 @@ export const GUIDES = [
   {
     slug: 'cleanup-counter',
     path: 'guides/cleanup-counter.html',
+    cluster: null,
     kicker: 'Daily use',
     title: 'Cleanup and counter space: the trade-offs to assess',
     summary:
@@ -962,6 +1146,7 @@ export const GUIDES = [
   {
     slug: 'multifunction',
     path: 'guides/multifunction.html',
+    cluster: null,
     kicker: 'Features',
     title: 'Questions to ask before buying a multi-function appliance',
     summary:
@@ -1004,6 +1189,7 @@ export const GUIDES = [
   {
     slug: 'temperature-safety',
     path: 'guides/temperature-safety.html',
+    cluster: 'holiday-hosting',
     kicker: 'Safety',
     title: 'What temperature is actually “done”? A thermometer guide',
     summary:
@@ -1062,5 +1248,148 @@ export const GUIDES = [
     ],
     related: ['P04', 'P05'],
     sources: ['U1', 'A2'],
+  },
+  {
+    slug: 'holiday-hosting',
+    path: 'guides/holiday-hosting.html',
+    cluster: 'holiday-hosting',
+    kicker: 'Holiday hosting',
+    title: 'Holiday hosting: how much can your air fryer actually cook at once?',
+    summary:
+      'A crowd changes the arithmetic. How to think about batches, timing and leftovers when the machine you own has to help feed a table of eight — and which of the three formats earns its place at the big meal.',
+    readingTime: '6 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'The batch question nobody asks until December',
+        p: [
+          'Capacity in quarts describes a cavity, not a dinner. The number that matters at a holiday meal is how many single layers of food you can push through the machine between the moment the roast comes out and the moment everyone sits down.',
+          'Run the arithmetic before the shopping, not after. Count the sides you want crispy — potatoes, vegetables, stuffing balls — and decide which of them the machine will own. Everything else belongs to the oven. An air fryer earns its place at a holiday meal as a side-dish engine, not as a second turkey.',
+        ],
+      },
+      {
+        h: 'Which of the three formats suits a crowd',
+        p: [
+          'The 26 qt French-door oven is the only one of the three air fryers here with racks and a cavity large enough to work like a second oven. If the main oven is committed to a roast, this is the format that absorbs the overflow — toast, tray sides, reheating.',
+          'The 8 qt single basket cooks the largest single batch of loose, crispy food — the format for one hero side done well. The 6 qt dual basket cooks two different sides at once and finishes them together, which is exactly the shape of a holiday side list.',
+          'None of these figures is a measurement made here; they are the stated capacities from each listing, and the shape argument is the part that transfers to your kitchen.',
+        ],
+      },
+      {
+        h: 'Timing: the one-minute habit that saves the meal',
+        p: [
+          'Air-fried sides are fastest when they go in as the main dish comes out to rest. A roast needs a rest anyway; a basket of potatoes needs the same ten minutes at high heat. Write the order of operations on a card and stick it to the fridge.',
+          'And keep the batches honest: a crowded basket steams instead of crisping. Two half batches beat one full one, every time.',
+        ],
+      },
+      {
+        h: 'Leftovers are the second meal — cook them like one',
+        p: [
+          'The USDA’s safe minimums do not stop at the table. Leftovers and casseroles should reach 165°F (73.9°C) when reheated, and all poultry — including giblets and stuffing — is done at 165°F (73.9°C) in the first place. A thermometer is the difference between “it looks fine” and “it is fine”.',
+          'This is also the moment a leave-in probe pays for itself: watching the climb on a large bird without opening the door keeps both the heat and the schedule intact.',
+        ],
+      },
+      {
+        h: 'The shortlist for a full table',
+        p: [
+          'If the main oven will be busy all day, the Emeril Lagasse 26 qt French door is the format that behaves like a second oven. If crisp sides are the whole game, the Chefman 8 qt TurboFry handles the biggest single batch of the three. If two different sides must land at the same time, the Chefman 6 qt dual basket is built for exactly that. And for the bird itself, the CHEF iQ Sense watches the temperature so you can watch the guests.',
+        ],
+      },
+    ],
+    related: ['P02', 'P03', 'P01'],
+    sources: ['U1', 'A2'],
+  },
+  {
+    slug: 'gift-guide-thermometers',
+    path: 'guides/gift-guide-thermometers.html',
+    cluster: 'gifting',
+    kicker: 'Gifting',
+    title: 'A thermometer gift guide for every kind of cook',
+    summary:
+      'The most-used tool in a kitchen is often the smallest one. Match the cook to the thermometer: an instant-read for the weeknight cook, a leave-in probe for the one who roasts — and one calibration ritual that makes either gift land well.',
+    readingTime: '5 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'Why a thermometer is the safest gift in the kitchen',
+        p: [
+          '“Done” is not a feeling; it is a number. The USDA publishes safe minimum internal temperatures for every kind of meat, from 145°F (62.8°C) for steaks and roasts — with a three-minute rest — to 165°F (73.9°C) for all poultry. Every one of those numbers is measured with a thermometer.',
+          'A thermometer is also the rare kitchen gift that does not impose: it fits any cooking style, any kitchen size, and any skill level. It is used, not displayed.',
+        ],
+      },
+      {
+        h: 'For the weeknight cook: an instant-read',
+        p: [
+          'The ThermoMaven 1-second thermometer is the drawer tool: a stated one-second read, a stated ±0.5°F accuracy, an auto-rotating LED screen, and IP67 water resistance so it can be rinsed under the tap. It is for the cook who wants a number and wants to move on.',
+          'Everything in that paragraph is the listing’s claim, printed as such. What the listing does not state — probe length, battery type, warranty term — is worth checking before you wrap it.',
+        ],
+      },
+      {
+        h: 'For the roaster and the smoker: a leave-in probe',
+        p: [
+          'The CHEF iQ Sense Gen3 is the long-cook tool: three ultra-thin probes, WiFi monitoring, a stated 1000°F heat limit, and five sensors. It stays in the food and reports the climb, which is the feature a holiday roast or a long smoke actually uses.',
+          'It is also a system, not a tool: there is an app in the loop. For a cook who would rather not manage a phone at the grill, the instant-read is the better gift.',
+        ],
+      },
+      {
+        h: 'One ritual makes either gift land well',
+        p: [
+          'Fill a glass with crushed ice and water, stir it, and put the probe in for thirty seconds. It should read 32°F (0°C). This ice-point check takes a minute, works on any thermometer, and turns “I think it’s right” into a known quantity — on day one, while a return is still easy.',
+          'Write the check on the gift card. It is the part of the present that keeps working.',
+        ],
+      },
+    ],
+    related: ['P04', 'P05'],
+    sources: ['U1', 'A2'],
+  },
+  {
+    slug: 'air-fryer-worth-it',
+    path: 'guides/air-fryer-worth-it.html',
+    cluster: 'winter-crisping',
+    kicker: 'Worth it?',
+    title: 'Is an air fryer worth it if you already own an oven?',
+    summary:
+      'An air fryer is a compact convection cooker: a heating element, a fan, and a small cavity that moves air hard. Whether it earns counter space depends on four questions about your kitchen — not on anyone’s sales figures.',
+    readingTime: '5 min',
+    published: '2026-11-20',
+    sections: [
+      {
+        h: 'What an air fryer actually is',
+        p: [
+          'Strip away the name and an air fryer is a small convection oven with the fan close to the food. The small cavity heats fast, the fan moves air hard, and food with dry surfaces crisps quickly. That is the entire mechanism — and it is the same mechanism inside the convection setting of a full-size oven, delivered from a much smaller box.',
+          'The difference is not magic; it is scale. A small, hot, fast-moving cavity does certain jobs noticeably better than a large oven: loose crispy foods, small batches, reheating without a soggy microwave middle.',
+        ],
+      },
+      {
+        h: 'Four questions that decide it',
+        p: [
+          'One: how often do you cook food you want crispy — fries, wings, breaded cutlets, roasted vegetables? Weekly is a yes; twice a year is a no. Two: is there a square foot of counter it can live on permanently? These machines are heavy, corded, and used most when they are out.',
+          'Three: who washes what? A basket and a crisper plate are two parts; a countertop oven brings racks and a drip tray. Four: how many people are you cooking for at once? Food crisps in a single layer, so the honest capacity of any unit is well below its stated volume.',
+        ],
+      },
+      {
+        h: 'When the oven you own is already enough',
+        p: [
+          'If your convection setting gets a workout and your counter is full, the answer is no — and that is a good outcome of this question. An appliance that stays in the cupboard does not crisp anything.',
+          'The other honest no: if what you actually want is a second oven for big meals, do not buy a basket air fryer pretending to be one. That is the 26 qt French-door format’s job, not a drawer unit’s.',
+        ],
+      },
+      {
+        h: 'If you buy one, buy the shape that matches your food',
+        p: [
+          'Two-part meals — protein plus a side, at different times or temperatures — are the dual-basket format’s whole reason to exist (the Chefman 6 qt). Big single batches of one thing belong to the large single basket (the Chefman 8 qt TurboFry). Flat things on racks, and anything you would toast or roast, belong to the oven format (the Emeril Lagasse 26 qt).',
+          'The shape decision is the one that decides whether you are still using it in March. The full write-ups are on the pick pages, and the comparison table lays the three formats side by side.',
+        ],
+      },
+      {
+        h: 'One measurement to take before ordering',
+        p: [
+          'Measure the space before the machine: the height under your upper cabinets, the depth from the wall to the counter’s front edge, and the width of your sink. The first two decide what you can own; the third decides what you can wash.',
+          'It is the least glamorous paragraph in this guide and the one that prevents the most returns.',
+        ],
+      },
+    ],
+    related: ['P01', 'P03', 'P02'],
+    sources: ['A2'],
   },
 ];
